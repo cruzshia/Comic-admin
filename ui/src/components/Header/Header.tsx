@@ -20,6 +20,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   link: {
+    textDecoration: 'none',
+    color: '#fff',
     '&:visited': {
       color: '#fff'
     }

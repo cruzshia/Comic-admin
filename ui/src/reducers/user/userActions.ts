@@ -1,9 +1,13 @@
+import { User } from '@src/model/userModel'
 export enum UserActionType {
   LOGIN = '@User/LOGIN',
   LOGIN_SUCCESS = '@User/LOGIN_SUCCESS',
   LOGIN_ERROR = '@User/LOGIN_ERROR',
+  LOGOUT = '@User/LOGOUT',
 
-  LOGOUT = '@User/LOGOUT'
+  GET_PROFILE = '@User/GET_PROFILE',
+  GET_PROFILE_SUCCESS = '@User/GET_PROFILE_SUCCESS',
+  GET_PROFILE_ERROR = '@User/GET_PROFILE_ERROR'
 }
 
 interface LoginPayload {
@@ -18,8 +22,6 @@ export const loginAction = (payload: LoginPayload) => ({
 
 export interface LoginResult {
   token: string
-  id: string
-  email: string
 }
 export const loginSuccessAction = (payload: LoginResult) => ({
   type: UserActionType.LOGIN_SUCCESS,
@@ -32,5 +34,19 @@ export const logoutAction = () => ({
 
 export const loginErrorAction = (error?: any) => ({
   type: UserActionType.LOGOUT,
+  error
+})
+
+export const getProfileAction = () => ({
+  type: UserActionType.GET_PROFILE
+})
+
+export const getProfileSuccessAction = (payload: User) => ({
+  type: UserActionType.GET_PROFILE_SUCCESS,
+  payload
+})
+
+export const getProfileErrorAction = (error?: any) => ({
+  type: UserActionType.GET_PROFILE_ERROR,
   error
 })

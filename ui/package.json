@@ -30,14 +30,24 @@
   "scripts": {
     "start": "PORT=9000 react-app-rewired start",
     "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-scripts eject",
     "extract-locale": "extract-messages -l=en,ja -o src/translation -d en --flat 'src/**/messages.ts'",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts?(x)"
+        ],
+        "rules": {
+          "no-else-return": "error"
+        }
+      }
+    ]
   },
   "browserslist": {
     "production": [
@@ -50,14 +60,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "trailingComma": "none",
-    "singleQuote": true,
-    "semi": false,
-    "jsxSingleQuote": true,
-    "printWidth": 120
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.3.12",

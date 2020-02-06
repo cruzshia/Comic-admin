@@ -6,7 +6,7 @@ import LoginForm from './components/LoginForm'
 
 export default function Login() {
   const dispatch = useDispatch()
-  const isLogin = useSelector((state: StoreState) => state.user.isLogin)
+  const isLogin = useSelector((state: StoreState) => !!state.user.token)
   const onLogin = useCallback(
     () =>
       dispatch(

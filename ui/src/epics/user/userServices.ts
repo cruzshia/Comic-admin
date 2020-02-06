@@ -1,16 +1,31 @@
-import authAjax from '../../utils/ajaxUtil'
-import { from } from 'rxjs'
+import { from, Observable } from 'rxjs'
+import authAjax from '@src/utils/ajaxUtil'
+import { User } from '@src/model/userModel'
 
-export const loginAjax = (email: string, password: string) => {
-  // this is fake request
+// fake response only
+export const loginAjax = (
+  email: string,
+  password: string
+): Observable<{ status: number; response: { token: string } }> => {
   authAjax.post('/login', { email, password })
   return from([
     {
       status: 200,
       response: {
-        token: 'fake-token',
-        email,
-        id: 'abcdefg'
+        token: 'fake-token'
+      }
+    }
+  ])
+}
+
+export const getProfileAjax = (): Observable<{ status: number; response: User }> => {
+  authAjax.post('/user/profile')
+  return from([
+    {
+      status: 200,
+      response: {
+        id: 'abcde',
+        email: 'test@mail.com'
       }
     }
   ])

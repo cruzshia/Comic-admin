@@ -3,14 +3,20 @@ import { AnyAction } from 'redux'
 import { of } from 'rxjs'
 import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
 import responseUtil from '@src/utils/responseUtils'
-import { loginAjax } from './userServices'
-import { UserActionType, loginSuccessAction, loginErrorAction } from '@src/reducers/user/userActions'
+import * as userServices from './userServices'
+import {
+  UserActionType,
+  loginSuccessAction,
+  loginErrorAction,
+  getProfileSuccessAction,
+  getProfileErrorAction
+} from '@src/reducers/user/userActions'
 
 export const userLoginEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(UserActionType.LOGIN),
     exhaustMap(action =>
-      loginAjax(action.payload.email, action.payload.email).pipe(
+      userServices.loginAjax(action.payload.email, action.payload.password).pipe(
         map(res => loginSuccessAction(res.response)),
         tap(() => responseUtil.success(UserActionType.LOGIN_SUCCESS)),
         catchError(err => of(loginErrorAction(err)))
@@ -18,4 +24,16 @@ export const userLoginEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export default [userLoginEpic]
+export const userGetProfileEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(UserActionType.GET_PROFILE),
+    exhaustMap(() =>
+      userServices.getProfileAjax().pipe(
+        map(res => getProfileSuccessAction(res.response)),
+        tap(() => responseUtil.success(UserActionType.GET_PROFILE_SUCCESS)),
+        catchError(err => of(getProfileErrorAction(err)))
+      )
+    )
+  )
+
+export default [userLoginEpic, userGetProfileEpic]

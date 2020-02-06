@@ -1,5 +1,6 @@
-import { Action } from 'redux'
+import { AnyAction } from 'redux'
 
-export interface ActionType<T> extends Action {
+export interface ActionType<T> extends AnyAction {
   payload: T
+  error?: any
 }

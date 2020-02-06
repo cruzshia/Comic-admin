@@ -17,9 +17,7 @@ const authAjax = {
 
 export const setHostUrl = (url: string) => (hostUrl = url)
 export const setAuthHeader = (token: string) =>
-  (commonHeaders = {
-    Authorization: token
-  })
+  (commonHeaders.Authorization = token)
 
 export const removeAuthHeader = () => {
   delete commonHeaders.Authorization

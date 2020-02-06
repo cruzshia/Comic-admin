@@ -3,7 +3,9 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { routePath } from './common/appConfig'
 import configureStore from './store/configureStore'
+import AuthRoute from './components/AuthRoute'
 import Layout from './container/Layout'
 import Home from './container/Home'
 import Login from './container/Login'
@@ -20,9 +22,9 @@ const App: React.FC = () => {
             <Layout>
               <CssBaseline />
               <Switch>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/login' component={Login} />
-                <Route exact path='/test' render={() => <div>test page</div>} />
+                <AuthRoute exact path={routePath.root} component={Home} />
+                <AuthRoute exact path={routePath.login} guestOnly component={Login} />
+                <AuthRoute exact path={routePath.test} authRequired render={() => <div>test page</div>} />
                 <Route render={() => 'page not found..'} />
               </Switch>
             </Layout>
