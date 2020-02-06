@@ -1,0 +1,10 @@
+.info-table {
+  border-collapse: collapse;
+}
+.info-table td,
+th {
+  min-width: 80px;
+  padding: 4px 10px;
+  text-align: center;
+  border: 1px solid rgba(191, 191, 191, 1);
+}
