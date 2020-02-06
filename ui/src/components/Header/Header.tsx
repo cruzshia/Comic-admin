@@ -33,6 +33,7 @@ const StyledToolBar = styled(Toolbar)({
 })
 
 interface Props {
+  /** show login title or not */
   isLogin: boolean
 }
 

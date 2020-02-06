@@ -7,7 +7,12 @@ module.exports = {
     '@storybook/addon-actions/register',
     '@storybook/addon-links/register',
     {
-      name: '@storybook/preset-create-react-app'
+      name: '@storybook/preset-create-react-app',
+      options: {
+        tsDocgenLoaderOptions: {
+          savePropValueAsString: false
+        }
+      }
     }
   ],
   webpackFinal: async config => {
