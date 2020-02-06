@@ -19,7 +19,7 @@ export const loginAjax = (
 }
 
 export const getProfileAjax = (): Observable<{ status: number; response: User }> => {
-  authAjax.post('/user/profile')
+  authAjax.get('/user/profile')
   return from([
     {
       status: 200,

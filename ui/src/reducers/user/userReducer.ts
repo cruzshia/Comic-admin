@@ -14,10 +14,12 @@ export interface UserState {
 }
 
 const initState: UserState = {}
+const cacheToken = localStorage.getItem(StorageKey.LOGIN_TOKEN) ?? undefined
+cacheToken && setAuthHeader(cacheToken)
 
 export const userPreloadState: UserState = {
   ...initState,
-  token: localStorage.getItem(StorageKey.LOGIN_TOKEN) ?? undefined
+  token: cacheToken
 }
 
 const handler: Record<string, Function> = {

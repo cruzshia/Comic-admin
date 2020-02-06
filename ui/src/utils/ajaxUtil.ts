@@ -14,10 +14,9 @@ const authAjax = {
   patch: (url: string, body?: any, headers?: Object) =>
     ajax.patch(urlWithHost(url), body, { ...commonHeaders, ...headers })
 }
-
+;(window as any).ajax = authAjax
 export const setHostUrl = (url: string) => (hostUrl = url)
-export const setAuthHeader = (token: string) =>
-  (commonHeaders.Authorization = token)
+export const setAuthHeader = (token: string) => (commonHeaders.Authorization = token)
 
 export const removeAuthHeader = () => {
   delete commonHeaders.Authorization
