@@ -22,8 +22,8 @@ export const userPreloadState: UserState = {
   token: cacheToken
 }
 
-const handler: Record<string, Function> = {
-  [UserActionType.LOGIN_SUCCESS]: (state: UserState = initState, action: ActionType<LoginResult>): UserState => {
+const handler: Record<string, (state: UserState, action: ActionType<any>) => UserState> = {
+  [UserActionType.LOGIN_SUCCESS]: (state: UserState = initState, action: ActionType<LoginResult>) => {
     localStorage.setItem(StorageKey.LOGIN_TOKEN, action.payload.token)
     setAuthHeader(action.payload.token)
     return {
@@ -31,12 +31,12 @@ const handler: Record<string, Function> = {
       token: action.payload.token
     }
   },
-  [UserActionType.LOGOUT]: (): UserState => {
+  [UserActionType.LOGOUT]: () => {
     localStorage.removeItem(StorageKey.LOGIN_TOKEN)
     removeAuthHeader()
     return initState
   },
-  [UserActionType.GET_PROFILE_SUCCESS]: (state: UserState = initState, action: ActionType<User>): UserState => {
+  [UserActionType.GET_PROFILE_SUCCESS]: (state: UserState = initState, action: ActionType<User>) => {
     return {
       ...state,
       profile: action.payload
@@ -44,7 +44,7 @@ const handler: Record<string, Function> = {
   }
 }
 
-export default function userReducer(state: UserState = initState, action: AnyAction) {
+export default function userReducer(state: UserState = initState, action: ActionType<any>) {
   if (handler.hasOwnProperty(action.type)) {
     return handler[action.type](state, action)
   }

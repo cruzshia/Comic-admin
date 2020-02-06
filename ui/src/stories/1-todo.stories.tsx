@@ -10,7 +10,13 @@ storiesOf('todo components', module)
       <ul>
         <li onClick={linkTo('common components', 'Sidebar')}>title</li>
         <li>icon: string</li>
-        <li>route path: string</li>
+        <li>route: string</li>
+        <li>
+          selected: boolean
+          <p>
+            <img alt='Header Menu Item' src='/storybook-assets/header-menu-item.png' />
+          </p>
+        </li>
       </ul>
     </>
   ))
@@ -19,7 +25,13 @@ storiesOf('todo components', module)
       <h3>expected props</h3>
       <ul>
         <li>title: string</li>
-        <li>route path: string</li>
+        <li>route: string</li>
+        <li>
+          selected: boolean
+          <p>
+            <img alt='Sidebar Item' src='/storybook-assets/side-bar-menu-item.png' />
+          </p>
+        </li>
       </ul>
     </>
   ))
@@ -27,7 +39,12 @@ storiesOf('todo components', module)
     <>
       <h3>expected props</h3>
       <ul>
-        <li>breads: Array, &#123; route: string, title: string &#125;[]</li>
+        <li>
+          breads: Array, &#123; route: string, title: string &#125;[]
+          <p>
+            <img alt='breadcrumb component' src='/storybook-assets/breadcrumb-component.png' />
+          </p>
+        </li>
       </ul>
     </>
   ))
@@ -38,7 +55,12 @@ storiesOf('todo components', module)
         <li>text: string</li>
         <li>color: grey or red</li>
         <li>onClick: function</li>
-        <li>classes: string</li>
+        <li>
+          classes: string // for customize button class
+          <p>
+            <img alt='common button' src='/storybook-assets/common-button.png' />
+          </p>
+        </li>
       </ul>
     </>
   ))
@@ -48,7 +70,12 @@ storiesOf('todo components', module)
       <ul>
         <li>label?: string</li>
         <li>type?: string</li>
-        <li>classes: string</li>
+        <li>
+          classes: string
+          <p>
+            <img alt='input component' src='/storybook-assets/input-component.png' />
+          </p>
+        </li>
       </ul>
     </>
   ))
