@@ -6,9 +6,9 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { routePath } from './common/appConfig'
 import configureStore from './store/configureStore'
 import AuthRoute from './components/AuthRoute'
-import Layout from './container/Layout'
-import Home from './container/Home'
-import Login from './container/Login'
+import Layout from './containers/Layout'
+import Home from './containers/Home'
+import Login from './containers/Login'
 
 import ja from './translation/ja.json'
 
