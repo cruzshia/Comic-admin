@@ -24,7 +24,7 @@ export default {
       .pipe(ofType(...allSubscribeType))
       .subscribe({
         next: props => {
-          if (subscribeType.errorType && subscribeType.errorType.includes(props.type)) {
+          if (subscribeType.errorType?.includes(props.type)) {
             observer.error && observer.error(props)
           } else {
             observer.next && observer.next(props)

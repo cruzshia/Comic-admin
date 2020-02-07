@@ -1,5 +1,4 @@
 import { UserActionType, LoginResult } from './userActions'
-import { AnyAction } from 'redux'
 import { ActionType } from '../types'
 import { User } from '@src/model/userModel'
 import { StorageKey } from '@src/common/storageKey'
