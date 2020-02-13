@@ -134,6 +134,7 @@ storiesOf('TODO components', module)
           </a>
         </li>
         <li>display with 2 different theme (black and orange)</li>
+        <li>show icon in button or not</li>
         <li>handle click action</li>
         <li>
           onClick: function

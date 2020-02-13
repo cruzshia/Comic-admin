@@ -35,9 +35,10 @@ const StyledToolBar = styled(Toolbar)({
 interface Props {
   /** show login title or not */
   isLogin: boolean
+  title?: string
 }
 
-export default function Header({ isLogin }: Props) {
+export default function Header({ isLogin, title }: Props) {
   const classes = useStyles()
   const { formatMessage } = useIntl()
   return (
@@ -45,7 +46,7 @@ export default function Header({ isLogin }: Props) {
       <StyledToolBar>
         <Typography variant='subtitle1'>
           <Link className={classes.link} to='/'>
-            {formatMessage(messages.title)}
+            {title || formatMessage(messages.title)}
           </Link>
         </Typography>
         <div className={classes.spacer} />
