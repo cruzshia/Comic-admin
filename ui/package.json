@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.0",
+    "@storybook/addon-knobs": "^5.3.13",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
@@ -33,8 +34,8 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "extract-locale": "extract-messages -l=en,ja -o src/translation -d en --flat 'src/**/messages.ts'",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "storybook": "start-storybook -p 9009 -s storybook-assets",
+    "build-storybook": "build-storybook -s storybook-assets"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -48,6 +49,11 @@
         }
       }
     ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "@src/(.*)": "<rootDir>/src/$1"
+    }
   },
   "browserslist": {
     "production": [
@@ -63,7 +69,7 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.3.12",
-    "@storybook/addon-info": "^5.3.12",
+    "@storybook/addon-info": "^5.3.13",
     "@storybook/addon-links": "^5.3.12",
     "@storybook/addons": "^5.3.12",
     "@storybook/preset-create-react-app": "^1.5.2",

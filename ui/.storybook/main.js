@@ -4,6 +4,7 @@ const srcDir = path.resolve(__dirname, '../src')
 module.exports = {
   stories: ['../src/**/*.stories.tsx'],
   addons: [
+    '@storybook/addon-knobs/register',
     '@storybook/addon-actions/register',
     '@storybook/addon-links/register',
     {
