@@ -49,6 +49,11 @@
       }
     ]
   },
+  "jest": {
+    "moduleNameMapper": {
+      "@src/(.*)": "<rootDir>/src/$1"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
