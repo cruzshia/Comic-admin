@@ -5,9 +5,9 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { styled } from '@material-ui/core'
 import { getProfileAction } from '@src/reducers/user/userActions'
 import { StoreState } from '@src/reducers'
-import { headerHeight, mainColor, textColor } from '@src/common/styles'
-import Header from '@src/components/Header'
-import SideBar from '@src/components/SideBar'
+import { topOffset, mainColor, textColor } from '@src/common/styles'
+import Header from './components/Header'
+import SideBar from './components/SideBar'
 
 const theme = createMuiTheme({
   palette: {
@@ -29,7 +29,7 @@ const LayoutContainer = styled('div')({
 
 const Content = styled('main')({
   flexGrow: 1,
-  padding: `${headerHeight + 15}px 20px 20px 20px`
+  padding: `${topOffset + 15}px 20px 20px 20px`
 })
 
 export default function Layout({ children }: PropsWithChildren<{}>) {
