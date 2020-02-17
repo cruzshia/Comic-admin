@@ -1,7 +1,7 @@
 import React from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import { makeStyles } from '@material-ui/core'
-import { headerHeight, sideBarGrey } from '@src/common/styles'
+import { topOffset, sideBarGrey } from '@src/common/styles'
 
 const drawerWidth = 200
 const useStyles = makeStyles(() => ({
@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: sideBarGrey
   },
   toolbar: {
-    minHeight: `${headerHeight + 15}px`
+    minHeight: `${topOffset + 15}px`
   }
 }))
 
