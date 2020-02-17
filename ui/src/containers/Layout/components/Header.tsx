@@ -18,12 +18,13 @@ const StyledHeader = styled('div')({
   alignContent: 'center',
   justifyContent: 'space-between',
   height: headerHeight,
-  padding: '8px 30px 8px 20px',
+  padding: '13px 30px 13px 20px',
   backgroundColor: '#000'
 })
 
 const LogoImg = styled('img')({
-  width: 93
+  width: 93,
+  height: 14
 })
 
 interface Props {
