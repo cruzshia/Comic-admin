@@ -70,3 +70,24 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - [material-ui](https://material-ui.com/)
 - [react-intl](https://github.com/formatjs/react-intl)
 - other [modules used by react-scripts](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/package.json)
+
+## Directory structure
+
+```
+ui/
+├ public/        index.html and other public static assets(e.g. favicon
+├ src/
+│ ├ common/      common variables, e.g. appConfig.ts for route path and env variables, storageKey.ts for storage key string..etc
+│ ├ translation/ i18n translation files
+│ ├ models/      type define of requests and responses
+│ ├ components/  global usage components without connecting with store
+│ ├ containers/  components connect to store and with child components
+│ ├ reducers/
+│ ├ epics/       redux-observable epics, mainly with ajax call uilities
+│ ├ store/
+│ ├ stories/     storybook components
+│ ├ utils/       ajax request and response subject usage utils
+│ ├ types/       global type define (e.g. variables in window object 
+│ └ index.tsx
+└ .env           common usage system variables for create-react-app
+```
