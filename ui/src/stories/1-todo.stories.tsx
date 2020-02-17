@@ -3,77 +3,260 @@ import { storiesOf } from '@storybook/react'
 import { linkTo } from '@storybook/addon-links'
 import { action } from '@storybook/addon-actions'
 
-storiesOf('todo components', module)
+storiesOf('TODO components', module)
   .add('Header Menu Item', () => (
     <>
-      <h3 onClick={action('title clicked')}>expected props</h3>
+      <h2 onClick={action('title clicked')}>Expected behavior</h2>
       <ul>
-        <li onClick={linkTo('common components', 'Sidebar')}>title</li>
-        <li>icon: string</li>
-        <li>route: string</li>
         <li>
-          selected: boolean
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=517%3A0'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li onClick={linkTo('common components', 'Sidebar')}>display menu tab with icon</li>
+        <li>if it's selected, highlight with underline</li>
+        <li>
+          click can route to specific page
           <p>
-            <img alt='Header Menu Item' src='/storybook-assets/header-menu-item.png' />
+            <img alt='Header Menu Item' src='/header-menu-item.png' />
           </p>
         </li>
       </ul>
     </>
   ))
-  .add('Sidebar Item', () => (
+  .add('Header Menu', () => (
     <>
-      <h3>expected props</h3>
+      <h2>Expected behavior</h2>
       <ul>
-        <li>title: string</li>
-        <li>route: string</li>
         <li>
-          selected: boolean
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=517%3A0'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li>
+          display menu with <b>left</b> and <b>right</b> tabs
+        </li>
+        <li>
           <p>
-            <img alt='Sidebar Item' src='/storybook-assets/side-bar-menu-item.png' />
+            <img alt='Header Menu' src='/menu-top.png' />
           </p>
         </li>
       </ul>
     </>
   ))
-  .add('breadcrumb component', () => (
+  .add('Menu left', () => (
     <>
-      <h3>expected props</h3>
+      <h2>Expected behavior</h2>
       <ul>
         <li>
-          breads: Array, &#123; route: string, title: string &#125;[]
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=517%3A0'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li>list tab items from props</li>
+        <li>
+          highlight selected tabs
           <p>
-            <img alt='breadcrumb component' src='/storybook-assets/breadcrumb-component.png' />
+            <img alt='Mene left' src='/menu-left.png' />
           </p>
         </li>
       </ul>
     </>
   ))
-  .add('common button', () => (
+  .add('Menu all', () => (
     <>
-      <h3>expected props</h3>
+      <h2>Expected behavior</h2>
       <ul>
-        <li>text: string</li>
-        <li>color: grey or red</li>
-        <li>onClick: function</li>
         <li>
-          classes: string // for customize button class
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=517%3A0'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li>control display logic of menu top and left</li>
+        <li>
           <p>
-            <img alt='common button' src='/storybook-assets/common-button.png' />
+            <img alt='Mene' src='/menu.png' />
           </p>
         </li>
       </ul>
     </>
   ))
-  .add('input component', () => (
+  .add('Breadcrumb component', () => (
     <>
-      <h3>expected props</h3>
+      <h2>Expected behavior</h2>
       <ul>
-        <li>label?: string</li>
-        <li>type?: string</li>
         <li>
-          classes: string
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=517%3A0'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li>list breadcrumbs</li>
+        <li>
+          make breadcrumbs clickable if it has route prop
           <p>
-            <img alt='input component' src='/storybook-assets/input-component.png' />
+            <img alt='breadcrumb component' src='/breadcrumb-component.png' />
+          </p>
+        </li>
+      </ul>
+    </>
+  ))
+  .add('Common button', () => (
+    <>
+      <h2>Expected behavior</h2>
+      <ul>
+        <li>
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=364%3A1031'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li>display with 2 different theme (black and orange)</li>
+        <li>show icon in button or not</li>
+        <li>handle click action</li>
+        <li>
+          onClick: function
+          <p>
+            <img alt='common button' src='/common-button.png' />
+          </p>
+        </li>
+      </ul>
+    </>
+  ))
+  .add('Common action button', () => (
+    <>
+      <h2>Expected behavior</h2>
+      <ul>
+        <li>
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=364%3A1031'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li>display with 2 different theme (black and orange)</li>
+        <li>handle click action</li>
+        <li>
+          onClick: function
+          <p>
+            <img alt='action button' src='/action-button.png' />
+          </p>
+        </li>
+      </ul>
+    </>
+  ))
+  .add('Common input (for search) component', () => (
+    <>
+      <h2>Expected behavior</h2>
+      <ul>
+        <li>
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=364%3A1031'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li>show placeholder</li>
+        <li>
+          accept onchange callback event
+          <p>
+            <img alt='input component' src='/input-search.png' />
+          </p>
+        </li>
+      </ul>
+    </>
+  ))
+  .add('Common select menu component', () => (
+    <>
+      <h2>Expected behavior</h2>
+      <ul>
+        <li>
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=364%3A1031'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li>display menu options</li>
+        <li>show placeholder</li>
+        <li>
+          accept onchange callback event
+          <p>
+            <img alt='input component' src='/input-select-menu.png' />
+          </p>
+        </li>
+      </ul>
+    </>
+  ))
+  .add('Work list item', () => (
+    <>
+      <h2>Expected behavior</h2>
+      <ul>
+        <li>
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=517%3A0'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li>display works item info</li>
+        <li>handle click action</li>
+        <li>
+          <p>
+            <img alt='Work item' src='/work-item.png' />
+          </p>
+        </li>
+      </ul>
+    </>
+  ))
+  .add('Work list', () => (
+    <>
+      <h2>Expected behavior</h2>
+      <ul>
+        <li>
+          <a
+            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=517%3A0'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UI doc
+          </a>
+        </li>
+        <li>display works list</li>
+        <li>show list table header, which can control sort action</li>
+        <li>
+          <p>
+            <img alt='Work list' src='/work-list.png' />
           </p>
         </li>
       </ul>
