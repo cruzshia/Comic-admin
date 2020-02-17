@@ -1,4 +1,4 @@
-export const appBarGrey = '#121212'
+export const appBarGrey = '#212121'
 export const sideBarGrey = '#474747'
 export const headerHeight = 40
 export const headerMenuHeight = 60
