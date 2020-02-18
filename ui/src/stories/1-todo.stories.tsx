@@ -28,53 +28,6 @@ storiesOf('TODO components', module)
       </ul>
     </>
   ))
-  .add('Header Menu', () => (
-    <>
-      <h2>Expected behavior</h2>
-      <ul>
-        <li>
-          <a
-            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=517%3A0'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            UI doc
-          </a>
-        </li>
-        <li>
-          display menu with <b>left</b> and <b>right</b> tabs
-        </li>
-        <li>
-          <p>
-            <img alt='Header Menu' src='/menu-top.png' />
-          </p>
-        </li>
-      </ul>
-    </>
-  ))
-  .add('Menu left', () => (
-    <>
-      <h2>Expected behavior</h2>
-      <ul>
-        <li>
-          <a
-            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=517%3A0'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            UI doc
-          </a>
-        </li>
-        <li>list tab items from props</li>
-        <li>
-          highlight selected tabs
-          <p>
-            <img alt='Mene left' src='/menu-left.png' />
-          </p>
-        </li>
-      </ul>
-    </>
-  ))
   .add('Menu all', () => (
     <>
       <h2>Expected behavior</h2>

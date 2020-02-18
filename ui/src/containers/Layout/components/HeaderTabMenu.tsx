@@ -19,9 +19,9 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     textDecoration: 'none',
-    color: '#fff',
+    color: '#FFFFFF',
     '&:visited': {
-      color: '#fff'
+      color: '#FFFFFF'
     }
   }
 }))

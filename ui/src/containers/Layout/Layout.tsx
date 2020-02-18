@@ -5,7 +5,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { styled } from '@material-ui/core'
 import { getProfileAction } from '@src/reducers/user/userActions'
 import { StoreState } from '@src/reducers'
-import { topOffset, mainColor, textColor } from '@src/common/styles'
+import { topOffset, mainColor, textColor, backgroundColor } from '@src/common/styles'
 import Header from './components/Header'
 import SideBar from './components/SideBar'
 
@@ -20,6 +20,7 @@ const theme = createMuiTheme({
 const LayoutContainer = styled('div')({
   display: 'flex',
   '@global': {
+    backgroundColor,
     color: textColor,
     a: {
       textDecoration: 'none'

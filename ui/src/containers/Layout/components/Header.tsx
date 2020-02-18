@@ -19,7 +19,7 @@ const StyledHeader = styled('div')({
   justifyContent: 'space-between',
   height: headerHeight,
   padding: '13px 30px 13px 20px',
-  backgroundColor: '#000'
+  backgroundColor: '#000000'
 })
 
 const LogoImg = styled('img')({
