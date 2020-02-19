@@ -5,5 +5,7 @@ export const isDev = NODE_ENV === 'development'
 export const routePath = {
   root: '/',
   login: '/login',
-  test: '/test'
+  comic: {
+    base: '/comic'
+  }
 }

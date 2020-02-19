@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { makeStyles, styled } from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { Link } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
 import { appBarGrey, headerMenuHeight } from '@src/common/styles'
+import comicIcon from '@src/assets/header/comic_icon.svg'
+import HeaderTabItem, { TabProps } from './HeaderTabItem'
 import messages from '../messages'
 
 const useStyles = makeStyles(theme => ({
@@ -27,34 +28,36 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const StyledToolBar = styled(Toolbar)({
+  padding: 0,
   height: headerMenuHeight,
   backgroundColor: appBarGrey
 })
 
 interface Props {
-  /** show login title or not */
   isLogin: boolean
 }
-
-interface TabObject {
-  icon: string
-  title: string
-  route: string
-}
-
-const HEADER_TABS: TabObject[] = []
 
 export default function HeaderTabMenu({ isLogin }: Props) {
   const classes = useStyles()
   const { formatMessage } = useIntl()
 
+  const HEADER_TABS: TabProps[] = useMemo(
+    () => [
+      {
+        icon: comicIcon,
+        title: formatMessage(messages.comicManagement),
+        route: routePath.comic.base,
+        selected: true
+      }
+    ],
+    [formatMessage]
+  )
+
   return (
     <StyledToolBar data-testid='header_tab_menu'>
-      {HEADER_TABS.map(() => (
-        <Typography variant='subtitle1'>
-          <Link className={classes.link} to={routePath.root}>
-            {formatMessage(messages.title)}
-          </Link>
+      {HEADER_TABS.map(tab => (
+        <Typography key={tab.route} variant='subtitle1'>
+          <HeaderTabItem {...tab} />
         </Typography>
       ))}
       <div className={classes.spacer} />

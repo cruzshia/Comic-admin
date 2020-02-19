@@ -24,7 +24,6 @@ const App: React.FC = () => {
               <Switch>
                 <AuthRoute exact path={routePath.root} component={Home} />
                 <AuthRoute exact path={routePath.login} guestOnly component={Login} />
-                <AuthRoute exact path={routePath.test} authRequired render={() => <div>test page</div>} />
                 <Route render={() => 'page not found..'} />
               </Switch>
             </Layout>

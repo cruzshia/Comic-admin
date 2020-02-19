@@ -1,8 +1,9 @@
 import { defineMessages } from 'react-intl'
 
+const NAME_SPACE = 'header.'
 export default defineMessages({
-  title: {
-    id: 'common.title',
-    defaultMessage: 'raise project'
+  comicManagement: {
+    id: `${NAME_SPACE}menu.comics.management`,
+    defaultMessage: 'Comic management'
   }
 })

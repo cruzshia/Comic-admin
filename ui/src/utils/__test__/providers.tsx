@@ -12,7 +12,7 @@ export const withAllProvider = (component: ReactComponentElement<any>) => {
   return (
     <Provider store={store}>
       <Router>
-        <IntlProvider locale='ja' messages={ja}>
+        <IntlProvider locale='en' messages={ja}>
           {component}
         </IntlProvider>
       </Router>

@@ -23,6 +23,7 @@ const LayoutContainer = styled('div')({
     backgroundColor,
     color: textColor,
     a: {
+      color: '#FFFFFF',
       textDecoration: 'none'
     }
   }
