@@ -1,6 +1,6 @@
 import React, { ReactComponentElement } from 'react'
 
-import { HashRouter as Router } from 'react-router-dom'
+import { HashRouter as Router, MemoryRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import configureStore from '@src/store/configureStore'
@@ -16,6 +16,18 @@ export const withAllProvider = (component: ReactComponentElement<any>) => {
           {component}
         </IntlProvider>
       </Router>
+    </Provider>
+  )
+}
+
+export const withMemoryRouterProvider = (component: ReactComponentElement<any>, initialEntries?: string[]) => {
+  return (
+    <Provider store={store}>
+      <MemoryRouter initialEntries={initialEntries || []}>
+        <IntlProvider locale='en' messages={ja}>
+          {component}
+        </IntlProvider>
+      </MemoryRouter>
     </Provider>
   )
 }

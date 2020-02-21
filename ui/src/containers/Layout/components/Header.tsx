@@ -1,8 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { styled, makeStyles } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import HeaderTabMenu from './HeaderTabMenu'
 import { headerHeight, headerMenuHeight } from '@src/common/styles'
+import { routePath } from '@src/common/appConfig'
 import Logo from '@src/assets/logo.svg'
 
 const useStyles = makeStyles(theme => ({
@@ -27,20 +29,17 @@ const LogoImg = styled('img')({
   height: 14
 })
 
-interface Props {
-  /** show login title or not */
-  isLogin: boolean
-}
-
-export default function Menu({ isLogin }: Props) {
+export default function Header() {
   const classes = useStyles()
   return (
     <AppBar className={classes.header} data-testid='header_app_bar'>
       <StyledHeader>
-        <LogoImg alt='logo' src={Logo} data-testid='logo' />
+        <Link to={routePath.root}>
+          <LogoImg alt='logo' src={Logo} data-testid='logo' />
+        </Link>
         <span />
       </StyledHeader>
-      <HeaderTabMenu isLogin={isLogin} />
+      <HeaderTabMenu />
     </AppBar>
   )
 }

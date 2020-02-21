@@ -18,7 +18,7 @@ describe('Header components test', () => {
     )
 
     expect(container).toBeInTheDocument()
-    expect(getByAltText(`${fakeTab.title} image`)).toBeInTheDocument()
+    expect(getByAltText(fakeTab.title)).toBeInTheDocument()
     expect(getByText(fakeTab.title)).toBeInTheDocument()
     expect(queryAllByTestId('highlight_bar')).toEqual([])
     expect(container.getElementsByTagName('a')[0].getAttribute('href')).toBe('#' + fakeTab.route)
@@ -37,14 +37,15 @@ describe('Header components test', () => {
   })
 
   it('check HeaderTabMenuItem renders correctly', () => {
-    const { getByTestId } = render(withAllProvider(<HeaderTabMenu isLogin={true} />))
+    const { getByTestId } = render(withAllProvider(<HeaderTabMenu />))
     const target = getByTestId('header_tab_menu')
     expect(target).toBeInTheDocument()
   })
 
   it('check Header renders correctly', () => {
-    const { getByTestId } = render(withAllProvider(<Header isLogin={true} />))
+    const { getByTestId } = render(withAllProvider(<Header />))
     const appBar = getByTestId('header_app_bar')
+
     expect(appBar).toBeInTheDocument()
 
     const logo = getByTestId('logo')

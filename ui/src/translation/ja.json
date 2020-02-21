@@ -1,4 +1,10 @@
 {
   "common.title": "Project Vearth",
-  "header.menu.comics.management": "マンガ管理"
+  "header.menu.comics.management": "マンガ管理",
+  "home.test": "go to test",
+  "comics.list": "作品一覧",
+  "comics.categories": "作品種別",
+  "comics.contents": "コンテンツ一覧",
+  "comics.authors": "著者一覧",
+  "comics.comments": "コメント一覧"
 }

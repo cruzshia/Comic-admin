@@ -1,12 +1,14 @@
 import React, { memo } from 'react'
+import { MessageDescriptor } from 'react-intl'
 import { styled } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import { Link } from 'react-router-dom'
-import { mainColor } from '@src/common/styles'
+import { mainColor, appBarGrey, headerMenuHeight } from '@src/common/styles'
 
 export interface TabProps {
   icon: string
-  title: string
+  title: MessageDescriptor | string
+  basePath?: string
   route: string
   fontSize?: 'sm' | 'lg'
   selected?: boolean
@@ -30,18 +32,22 @@ export default memo(function HeaderTabItem({ icon, title, route, fontSize, selec
         position='relative'
         display='flex'
         justifyContent='center'
+        alignItems='center'
         fontSize={isSmallFont ? 12 : 14}
         fontWeight={600}
         width={200}
+        height={headerMenuHeight}
+        color='#FFFFFF'
+        bgcolor={appBarGrey}
       >
-        <TabIcon src={icon} alt={title} marginRight={isSmallFont ? 5 : 10} />
+        <TabIcon src={icon} alt={title as string} marginRight={isSmallFont ? 5 : 10} />
         {title}
         {selected && (
           <Box
             data-testid='highlight_bar'
             position='absolute'
             left={0}
-            bottom={-20}
+            bottom={0}
             height={5}
             width='100%'
             bgcolor={mainColor}
