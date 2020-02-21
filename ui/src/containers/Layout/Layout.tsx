@@ -6,15 +6,32 @@ import { styled } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import { getProfileAction } from '@src/reducers/user/userActions'
 import { StoreState } from '@src/reducers'
-import { topOffset, mainColor } from '@src/common/styles'
+import { topOffset, mainColor, textColor, borderColor } from '@src/common/styles'
 import LayoutContext from './context'
 import Header from './components/Header'
 import SideBar from './components/SideBar'
 
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
   palette: {
     primary: {
       main: mainColor
+    },
+    secondary: { main: textColor }
+  },
+  overrides: {
+    MuiOutlinedInput: {
+      root: {
+        '&.Mui-focused fieldset': {
+          borderWidth: '1px!important'
+        },
+        '& fieldset': {
+          borderColor: borderColor
+        },
+        '& input::placeholder': {
+          color: borderColor,
+          opacity: 1
+        }
+      }
     }
   },
   typography: {

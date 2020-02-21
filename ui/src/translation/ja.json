@@ -1,4 +1,7 @@
 {
+  "form.search": "フリーワードで検索",
+  "form.select": "項目を選択",
+  "form.textInput": "テキストを入力",
   "common.title": "Project Vearth",
   "common.drag.upload.photo": "ドラッグ&ドロップで画像を登録する",
   "common.select.file": "ファイルを選択する",

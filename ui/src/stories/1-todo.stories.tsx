@@ -122,53 +122,6 @@ storiesOf('TODO components', module)
       </ul>
     </>
   ))
-  .add('Common input (for search) component', () => (
-    <>
-      <h2>Expected behavior</h2>
-      <ul>
-        <li>
-          <a
-            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=364%3A1031'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            UI doc
-          </a>
-        </li>
-        <li>show placeholder</li>
-        <li>
-          accept onchange callback event
-          <p>
-            <img alt='input component' src='/input-search.png' />
-          </p>
-        </li>
-      </ul>
-    </>
-  ))
-  .add('Common select menu component', () => (
-    <>
-      <h2>Expected behavior</h2>
-      <ul>
-        <li>
-          <a
-            href='https://www.figma.com/file/sZzBNfUtg6kd3O74AqoJy9/VEARTH?node-id=364%3A1031'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            UI doc
-          </a>
-        </li>
-        <li>display menu options</li>
-        <li>show placeholder</li>
-        <li>
-          accept onchange callback event
-          <p>
-            <img alt='input component' src='/input-select-menu.png' />
-          </p>
-        </li>
-      </ul>
-    </>
-  ))
   .add('Work list item', () => (
     <>
       <h2>Expected behavior</h2>
