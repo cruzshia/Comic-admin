@@ -1,43 +1,15 @@
 import React, { PropsWithChildren, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { ThemeProvider } from '@material-ui/core/styles'
 import { styled } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import { getProfileAction } from '@src/reducers/user/userActions'
 import { StoreState } from '@src/reducers'
-import { topOffset, mainColor, textColor, borderColor } from '@src/common/styles'
+import { topOffset, theme } from '@src/common/styles'
 import LayoutContext from './context'
 import Header from './components/Header'
 import SideBar from './components/SideBar'
-
-export const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: mainColor
-    },
-    secondary: { main: textColor }
-  },
-  overrides: {
-    MuiOutlinedInput: {
-      root: {
-        '&.Mui-focused fieldset': {
-          borderWidth: '1px!important'
-        },
-        '& fieldset': {
-          borderColor: borderColor
-        },
-        '& input::placeholder': {
-          color: borderColor,
-          opacity: 1
-        }
-      }
-    }
-  },
-  typography: {
-    fontFamily: '"Hiragino Kaku Gothic Pro", "Roboto", "Helvetica", "Arial", "sans-serif"'
-  }
-})
 
 const Content = styled('main')({
   flexGrow: 1,

@@ -35,7 +35,9 @@ export default function InputSearch({ list, isShort, open, name }: Props) {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   const [value, setValue] = React.useState<string | number>('')
-  const ArrowImg = useCallback(() => <img src={selectArrowImg} alt='select' className={classes.arrow} />, [])
+  const ArrowImg = useCallback(() => <img src={selectArrowImg} alt='select' className={classes.arrow} />, [
+    classes.arrow
+  ])
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setValue(event.target.value as string | number)
   }

@@ -8,7 +8,7 @@ import ja from '@src/translation/ja.json'
 import { GlobalStyle } from '@src/common/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import './custom.css'
-import { theme } from '@src/containers/Layout/Layout'
+import { theme } from '@src/common/styles'
 import { ThemeProvider } from '@material-ui/core'
 
 addDecorator(withInfo)
@@ -16,10 +16,11 @@ addDecorator(withKnobs)
 addDecorator(storyFn => (
   <Router>
     <IntlProvider locale='ja' messages={ja}>
-      <ThemeProvider theme={theme}>{storyFn()}</ThemeProvider>
-      <CssBaseline />
-      <GlobalStyle />
-      {storyFn()}
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <GlobalStyle />
+        {storyFn()}
+      </ThemeProvider>
     </IntlProvider>
   </Router>
 ))
