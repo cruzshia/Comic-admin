@@ -1,4 +1,13 @@
 {
-  "common.title": "Project Vearth",
-  "home.test": "go to test"
+  "comics.authors": "Comics authors",
+  "comics.categories": "Comics categories",
+  "comics.comments": "Comics comments",
+  "comics.contents": "Comics contents",
+  "comics.list": "Comics list",
+  "common.drag.upload.photo": "DragDrop to upload image",
+  "common.select.file": "Select files",
+  "form.search": "search",
+  "form.select": "select",
+  "form.textInput": "text input",
+  "header.menu.comics.management": "Comic management"
 }

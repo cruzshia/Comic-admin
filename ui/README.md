@@ -48,6 +48,10 @@ Open [http://localhost:9009](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits. story were written in `src/stories`.
 
+### `npm run extract-locale`
+
+Extract & sort (alphabetically) i18n messages into translation folder.
+
 ## customize create-react-app webpack config
 
 Edit `config-overrides.js` file

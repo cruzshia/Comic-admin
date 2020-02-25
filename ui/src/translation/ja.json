@@ -1,16 +1,13 @@
 {
+  "comics.authors": "著者一覧",
+  "comics.categories": "作品種別",
+  "comics.comments": "コメント一覧",
+  "comics.contents": "コンテンツ一覧",
+  "comics.list": "作品一覧",
+  "common.drag.upload.photo": "ドラッグ&ドロップで画像を登録する",
+  "common.select.file": "ファイルを選択する",
   "form.search": "フリーワードで検索",
   "form.select": "項目を選択",
   "form.textInput": "テキストを入力",
-  "common.title": "Project Vearth",
-  "common.drag.upload.photo": "ドラッグ&ドロップで画像を登録する",
-  "common.select.file": "ファイルを選択する",
-
-  "comics.list": "作品一覧",
-  "comics.categories": "作品種別",
-  "comics.contents": "コンテンツ一覧",
-  "comics.authors": "著者一覧",
-  "comics.comments": "コメント一覧",
-
   "header.menu.comics.management": "マンガ管理"
 }
