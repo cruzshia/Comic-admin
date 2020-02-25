@@ -37,7 +37,8 @@
     "eject": "react-scripts eject",
     "extract-locale": "extract-messages -l=en,ja -o src/translation -d en --flat 'src/**/messages.ts'",
     "storybook": "start-storybook -p 9009 -s storybook-assets",
-    "build-storybook": "build-storybook -s storybook-assets"
+    "build-storybook": "build-storybook -s storybook-assets",
+    "deploy": "mkdir -p ../priv/static && cp -r build/* ../priv/static"
   },
   "eslintConfig": {
     "extends": "react-app",

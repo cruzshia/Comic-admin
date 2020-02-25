@@ -1,0 +1,12 @@
+{
+  "name": "Vearth",
+  "version": "0.0.1",
+  "description": "Vearth",
+  "author": "ACCESS CO., LTD.",
+  "license": "",
+  "private": true,
+  "main": "./ui/src/index.tsx",
+  "scripts": {
+    "antikythera_prepare_assets": "cd ui && npm install && npm run build && npm run deploy"
+  }
+}
