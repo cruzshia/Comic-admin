@@ -3,7 +3,7 @@ import { MenuItem, Select } from '@material-ui/core'
 import { useIntl } from 'react-intl'
 import messages from './messages'
 import { createStyles, makeStyles } from '@material-ui/core'
-import selectArrowImg from '@src/assets/selectArrow.svg'
+import selectArrowImg from '@src/assets/form/select_arrow.svg'
 interface Props {
   list: any[]
   isShort?: boolean

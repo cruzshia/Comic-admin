@@ -1,4 +1,13 @@
 {
+  "application.advertisement": "ビューワ内広告管理",
+  "application.campaign": "キャンペーン一覧",
+  "application.coin_product": "コインプロダクト管理",
+  "application.customer_service": "お問い合わせ一覧",
+  "application.app_screen": "アプリ画面管理",
+  "application.list": "アプリ一覧",
+  "application.announcement": "お知らせ管理",
+  "application.push_notification": "プッシュ通知管理",
+  "application.questionnaire": "アンケート管理",
   "comics.authors": "著者一覧",
   "comics.categories": "作品種別",
   "comics.comments": "コメント一覧",
@@ -9,5 +18,6 @@
   "form.search": "フリーワードで検索",
   "form.select": "項目を選択",
   "form.textInput": "テキストを入力",
+  "header.menu.applciation.management": "アプリ管理",
   "header.menu.comics.management": "マンガ管理"
 }

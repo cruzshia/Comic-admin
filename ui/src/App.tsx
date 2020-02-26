@@ -11,6 +11,7 @@ import Layout from './containers/Layout'
 import Home from './containers/Home'
 import Login from './containers/Login'
 import Comics from './containers/Comics'
+import Application from './containers/Application'
 
 import ja from './translation/ja.json'
 
@@ -30,6 +31,10 @@ const App: React.FC = () => {
                 <AuthRoute
                   path={`${routePath.comics.base}/:subPage(list|categories|contents|authors|comments)`}
                   component={Comics}
+                />
+                <AuthRoute
+                  path={`${routePath.application.base}/:subPage(list|app_screen|advertisement|announcement|coin_product|push_notification|questionnaire|customer_service|campaign)`}
+                  component={Application}
                 />
                 <Route render={() => 'page not found..'} />
               </Switch>

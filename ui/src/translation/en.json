@@ -1,4 +1,13 @@
 {
+  "application.advertisement": "Application ad",
+  "application.campaign": "Application campaign",
+  "application.coin_product": "Application coin product",
+  "application.customer_service": "Application customer service",
+  "application.app_screen": "Application App Screen",
+  "application.list": "Application list",
+  "application.announcement": "Application announcement",
+  "application.push_notification": "Application push notification",
+  "application.questionnaire": "Application questionnaire",
   "comics.authors": "Comics authors",
   "comics.categories": "Comics categories",
   "comics.comments": "Comics comments",
@@ -9,5 +18,6 @@
   "form.search": "search",
   "form.select": "select",
   "form.textInput": "text input",
+  "header.menu.applciation.management": "Application management",
   "header.menu.comics.management": "Comic management"
 }

@@ -1,6 +1,7 @@
 import { MessageDescriptor } from 'react-intl'
 import { routePath } from '@src/common/appConfig'
 import comicIcon from '@src/assets/header/comic_icon.svg'
+import phoneIcon from '@src/assets/header/phone_icon.svg'
 import { TabProps } from './HeaderTabItem'
 import messages from '../messages'
 
@@ -10,6 +11,12 @@ export const HEADER_TABS: TabProps[] = [
     title: messages.comicManagement,
     basePath: routePath.comics.base,
     route: routePath.comics.list
+  },
+  {
+    icon: phoneIcon,
+    title: messages.applicationManagement,
+    basePath: routePath.application.base,
+    route: routePath.application.list
   }
 ]
 
@@ -39,6 +46,44 @@ export const SIDEBAR_TABS: { [key: string]: Tab[] } = {
     {
       to: routePath.comics.comments,
       title: messages.comicsComments
+    }
+  ],
+  [routePath.application.base]: [
+    {
+      to: routePath.application.list,
+      title: messages.applicationList
+    },
+    {
+      to: routePath.application.appScreen,
+      title: messages.applicationAppScreen
+    },
+    {
+      to: routePath.application.advertisement,
+      title: messages.applicationAdvertisement
+    },
+    {
+      to: routePath.application.announcement,
+      title: messages.applicationAnnouncement
+    },
+    {
+      to: routePath.application.coinProduct,
+      title: messages.applicationCoinProduct
+    },
+    {
+      to: routePath.application.pushNotification,
+      title: messages.applicationPushNotification
+    },
+    {
+      to: routePath.application.questionnaire,
+      title: messages.applicationQuestionnaire
+    },
+    {
+      to: routePath.application.customerService,
+      title: messages.applicationCustomerService
+    },
+    {
+      to: routePath.application.campaign,
+      title: messages.applicationCampaign
     }
   ]
 }

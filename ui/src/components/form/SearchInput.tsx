@@ -2,7 +2,7 @@ import React from 'react'
 import { InputAdornment, OutlinedInput, createStyles, makeStyles } from '@material-ui/core'
 import { useIntl } from 'react-intl'
 import messages from './messages'
-import searchImg from '@src/assets/search.svg'
+import searchImg from '@src/assets/form/search.svg'
 
 const useStyles = makeStyles(() =>
   createStyles({
