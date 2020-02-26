@@ -2,44 +2,39 @@ import React, { useCallback } from 'react'
 import { MenuItem, Select } from '@material-ui/core'
 import { useIntl } from 'react-intl'
 import messages from './messages'
-import { createStyles, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 import selectArrowImg from '@src/assets/form/select_arrow.svg'
 interface Props {
   list: any[]
   isShort?: boolean
   open?: boolean
   name?: string
+  onChange?: (event: React.ChangeEvent<{ name?: string; value: unknown }>) => void
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    long: {
-      width: 410
-    },
-    short: {
-      width: 205
-    },
-    input: {
+const useStyles = makeStyles(() => ({
+  root: ({ isShort }: { isShort?: boolean }) => ({
+    width: isShort ? 205 : 410,
+    '& 	.MuiSelect-select': {
       padding: '8px 0 8px 15px'
     },
-    arrow: {
+    '& img': {
       paddingRight: 15
-    },
-    placeholder: {
-      color: '#BDBDBD'
     }
-  })
-)
+  }),
+  placeholder: {
+    color: '#BDBDBD'
+  }
+}))
 
-export default function InputSearch({ list, isShort, open, name }: Props) {
+export default function SelectMenu({ list, isShort, open, name, onChange }: Props) {
   const { formatMessage } = useIntl()
-  const classes = useStyles()
+  const classes = useStyles({ isShort })
   const [value, setValue] = React.useState<string | number>('')
-  const ArrowImg = useCallback(() => <img src={selectArrowImg} alt='select' className={classes.arrow} />, [
-    classes.arrow
-  ])
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const ArrowImg = useCallback(() => <img src={selectArrowImg} alt='select' />, [])
+  const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
     setValue(event.target.value as string | number)
+    onChange && onChange(event)
   }
 
   return (
@@ -50,11 +45,10 @@ export default function InputSearch({ list, isShort, open, name }: Props) {
         data-testid='select'
         value={value}
         onChange={handleChange}
-        inputProps={{ className: classes.input }}
         variant='outlined'
         color='secondary'
         displayEmpty
-        className={isShort ? classes.short : classes.long}
+        className={classes.root}
         IconComponent={ArrowImg}
         renderValue={(value: any) => {
           if (value === '') {

@@ -8,7 +8,6 @@ const useStyles = makeStyles({
       padding: '15px 20px'
     }
   },
-
   title: {
     borderRight: `1px solid ${borderColorLight}`,
     display: 'flex',

@@ -1,21 +1,34 @@
 import React from 'react'
-import { withStyles, OutlinedInput } from '@material-ui/core'
+import { OutlinedInput, makeStyles } from '@material-ui/core'
 import { useIntl } from 'react-intl'
 import messages from './messages'
 
-const Input = withStyles({
+const useStyles = makeStyles({
   root: {
     width: 410,
     '& input': {
       padding: '8px 15px'
     }
   }
-})(OutlinedInput)
+})
 
-export default function InputSearch({ name }: { name?: string }) {
+export default function TextInput({
+  name,
+  onChange
+}: {
+  name?: string
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+}) {
   const { formatMessage } = useIntl()
-
+  const classes = useStyles()
   return (
-    <Input placeholder={formatMessage(messages.textInput)} color='secondary' data-testid='text_input' name={name} />
+    <OutlinedInput
+      placeholder={formatMessage(messages.textInput)}
+      color='secondary'
+      data-testid='text_input'
+      name={name}
+      className={classes.root}
+      onChange={onChange}
+    />
   )
 }

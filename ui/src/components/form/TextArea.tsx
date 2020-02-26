@@ -7,7 +7,6 @@ const useStyle = makeStyles({
   root: {
     width: '100%',
     maxWidth: 800,
-
     '& textarea': {
       width: '100%',
       minHeight: 108

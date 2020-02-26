@@ -6,6 +6,7 @@ import { withAllProvider } from '@src/utils/__test__/providers'
 describe('SearchInput component test', () => {
   const list = [1, 2, 3, 4, 5]
   const name = 'testSelect'
+  const mockFn = jest.fn()
 
   it('Renders correctly', () => {
     const { getByTestId } = render(withAllProvider(<Select list={list} name={name} />))
@@ -20,7 +21,7 @@ describe('SearchInput component test', () => {
   })
 
   it('Renders select options correctly', () => {
-    const { getByTestId } = render(withAllProvider(<Select list={list} open={true} />))
+    const { getByTestId } = render(withAllProvider(<Select list={list} open={true} onChange={mockFn} />))
     const target = getByTestId('select')
     document
       .querySelector('#menu-')
@@ -28,5 +29,6 @@ describe('SearchInput component test', () => {
       .click()
     expect(target.querySelector('div')).toHaveTextContent(list[0].toString())
     expect(target.querySelector('input')?.value).toBe(list[0].toString())
+    expect(mockFn).toBeCalledTimes(1)
   })
 })

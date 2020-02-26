@@ -20,7 +20,7 @@ storiesOf('Common components', module)
   .add('SearchInput', () => <SearchInput />)
   .add('Long Select', () => <Select list={[1, 2, 3, 4, 5]} />)
   .add('Short Select', () => <Select isShort list={[1, 2, 3, 4, 5]} />)
-  .add('Text Input', () => <TextInput />)
+  .add('TextInput', () => <TextInput />)
   .add('DropZone', () => <DropZone onDropAccepted={action('Drop accepted')} onDropRejected={action('Drop rejected')} />)
   .add('ActionButton', () => (
     <ActionButton
