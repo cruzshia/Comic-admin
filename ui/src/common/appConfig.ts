@@ -4,7 +4,7 @@ export const isDev = NODE_ENV === 'development'
 
 enum RouteSection {
   Comics = '/comics',
-  Application = '/Application'
+  Application = '/application'
 }
 export const routePath = {
   root: '/',

@@ -1,26 +1,20 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
-import { storiesOf, addDecorator } from '@storybook/react'
-import { text } from '@storybook/addon-knobs'
-import LayoutContext from '@src/containers/Layout/context'
-import SideBar from '@src/containers/Layout/components/SideBar'
-import Header from '@src/containers/Layout/components/Header'
-import HeaderTabMenu from '@src/containers/Layout/components/HeaderTabMenu'
+import { storiesOf } from '@storybook/react'
+import { text, select, radios, boolean } from '@storybook/addon-knobs'
 import TableRowContainer from '@src/components/table/TableRowContainer'
 import SearchInput from '@src/components/form/SearchInput'
 import Select from '@src/components/form/Select'
 import TextInput from '@src/components/form/TextInput'
 import DropZone from '@src/components/DropZone'
 import TextArea from '@src/components/form/TextArea'
-
-addDecorator(storyFn => (
-  <LayoutContext.Provider value={{ headTab: text('headTab', 'comics') }}>{storyFn()}</LayoutContext.Provider>
-))
+import ActionButton from '@src/components/Button/ActionButton'
+import Button from '@src/components/Button/Button'
+import { ButtonTheme } from '@src/components/Button/buttonTheme'
+import IconSave from '@src/assets/form/button_save.svg'
+import IconPublish from '@src/assets/form/button_publish.svg'
 
 storiesOf('Common components', module)
-  .add('Header', () => <Header />)
-  .add('HeaderTabMenu', () => <HeaderTabMenu />)
-  .add('Sidebar', () => <SideBar />)
   .add('TextArea', () => <TextArea />)
   .add('TableRow', () => <TableRowContainer content={<TextArea />} title='Textfield' />)
   .add('SearchInput', () => <SearchInput />)
@@ -28,3 +22,27 @@ storiesOf('Common components', module)
   .add('Short Select', () => <Select isShort list={[1, 2, 3, 4, 5]} />)
   .add('Text Input', () => <TextInput />)
   .add('DropZone', () => <DropZone onDropAccepted={action('Drop accepted')} onDropRejected={action('Drop rejected')} />)
+  .add('ActionButton', () => (
+    <ActionButton
+      theme={select(
+        'theme',
+        {
+          dark: ButtonTheme.DARK,
+          light: ButtonTheme.LIGHT
+        },
+        ButtonTheme.DARK
+      )}
+      buttonText={text('buttonText', '検索する')}
+      onClick={action('action-button-click')}
+      disabled={boolean('disabled', false)}
+    />
+  ))
+  .add('Button', () => (
+    <Button
+      theme={select('theme', { dark: ButtonTheme.DARK, light: ButtonTheme.LIGHT }, ButtonTheme.DARK)}
+      buttonText={'CSV登録'}
+      onClick={action('button-click')}
+      disabled={boolean('disabled', false)}
+      icon={radios('icon-img', { save: IconSave, publish: IconPublish }, IconSave)}
+    />
+  ))

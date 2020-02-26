@@ -1,6 +1,7 @@
 import { defineMessages } from 'react-intl'
 
 const NAME_SPACE = 'header.'
+
 export default defineMessages({
   comicManagement: {
     id: `${NAME_SPACE}menu.comics.management`,
@@ -26,8 +27,28 @@ export default defineMessages({
     id: 'comics.comments',
     defaultMessage: 'Comics comments'
   },
+  menuReport: {
+    id: `${NAME_SPACE}menu.report`,
+    defaultMessage: 'Report'
+  },
+  menuSystemSetting: {
+    id: `${NAME_SPACE}menu.system_setting`,
+    defaultMessage: 'System'
+  },
+  systemMenuAccount: {
+    id: `${NAME_SPACE}system_menu.account`,
+    defaultMessage: 'Account'
+  },
+  systemMenuFileManagement: {
+    id: `${NAME_SPACE}system_menu.file_management`,
+    defaultMessage: 'File Management'
+  },
+  systemMenuHelp: {
+    id: `${NAME_SPACE}system_menu.help`,
+    defaultMessage: 'Help'
+  },
   applicationManagement: {
-    id: `${NAME_SPACE}menu.applciation.management`,
+    id: `${NAME_SPACE}menu.application.management`,
     defaultMessage: 'Application management'
   },
   applicationList: {

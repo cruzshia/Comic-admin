@@ -1,11 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { FormattedMessage } from 'react-intl'
 import { styled, makeStyles } from '@material-ui/core'
+import Box from '@material-ui/core/Box'
 import AppBar from '@material-ui/core/AppBar'
-import HeaderTabMenu from './HeaderTabMenu'
+import expandIco from '@src/assets/common/expand_more.svg'
 import { headerHeight, headerMenuHeight } from '@src/common/styles'
 import { routePath } from '@src/common/appConfig'
 import Logo from '@src/assets/logo.svg'
+import HeaderTabMenu from './HeaderTabMenu'
+import { SYSTEM_MENUS } from './constants'
+import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -15,30 +20,53 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const StyledHeader = styled('div')({
-  display: 'flex',
-  alignContent: 'center',
-  justifyContent: 'space-between',
-  height: headerHeight,
-  padding: '13px 30px 13px 20px',
-  backgroundColor: '#000000'
-})
-
 const LogoImg = styled('img')({
   width: 93,
   height: 14
 })
 
+const SystemMenuItem = styled(Link)({
+  display: 'flex',
+  alignItems: 'center',
+  marginLeft: 40,
+  fontSize: 12,
+  color: '#FFFFFF',
+  '&.selected': {
+    fontWeight: 600
+  }
+})
+
 export default function Header() {
   const classes = useStyles()
+  const { pathname } = useLocation()
   return (
     <AppBar className={classes.header} data-testid='header_app_bar'>
-      <StyledHeader>
+      <Box
+        display='flex'
+        alignContent='center'
+        justifyContent='space-between'
+        height={headerHeight}
+        padding='13px 30px 13px 20px'
+        bgcolor='#000000'
+      >
         <Link to={routePath.root}>
           <LogoImg alt='logo' src={Logo} data-testid='logo' />
         </Link>
-        <span />
-      </StyledHeader>
+        <Box display='flex'>
+          {SYSTEM_MENUS.map(({ route, title, subMenu }, idx) => (
+            <SystemMenuItem
+              key={`${route}-${idx}`}
+              to={route}
+              className={clsx({
+                selected: pathname === route
+              })}
+            >
+              <FormattedMessage {...title} />
+              {subMenu && <img src={expandIco} alt='expand' />}
+            </SystemMenuItem>
+          ))}
+        </Box>
+      </Box>
       <HeaderTabMenu />
     </AppBar>
   )

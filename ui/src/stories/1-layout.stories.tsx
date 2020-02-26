@@ -14,7 +14,7 @@ storiesOf('Layout components', module)
           'headTab',
           {
             comics: 'comics',
-            home: '/'
+            application: 'application'
           },
           'comics'
         )

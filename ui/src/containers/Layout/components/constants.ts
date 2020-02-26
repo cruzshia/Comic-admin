@@ -1,9 +1,27 @@
 import { MessageDescriptor } from 'react-intl'
 import { routePath } from '@src/common/appConfig'
 import comicIcon from '@src/assets/header/comic_icon.svg'
+import reportIcon from '@src/assets/header/report.svg'
+import systemIcon from '@src/assets/header/system.svg'
 import phoneIcon from '@src/assets/header/phone_icon.svg'
 import { TabProps } from './HeaderTabItem'
 import messages from '../messages'
+
+export const SYSTEM_MENUS = [
+  {
+    title: messages.systemMenuFileManagement,
+    route: '#'
+  },
+  {
+    title: messages.systemMenuHelp,
+    route: '#'
+  },
+  {
+    title: messages.systemMenuAccount,
+    route: '#',
+    subMenu: []
+  }
+]
 
 export const HEADER_TABS: TabProps[] = [
   {
@@ -17,6 +35,19 @@ export const HEADER_TABS: TabProps[] = [
     title: messages.applicationManagement,
     basePath: routePath.application.base,
     route: routePath.application.list
+  }
+]
+
+export const HEADER_TABS_RIGHT: TabProps[] = [
+  {
+    icon: reportIcon,
+    title: messages.menuReport,
+    route: '#'
+  },
+  {
+    icon: systemIcon,
+    title: messages.menuSystemSetting,
+    route: '#/'
   }
 ]
 

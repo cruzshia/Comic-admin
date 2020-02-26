@@ -34,8 +34,9 @@ export default memo(function HeaderTabItem({ icon, title, route, fontSize, selec
         justifyContent='center'
         alignItems='center'
         fontSize={isSmallFont ? 12 : 14}
+        marginRight={isSmallFont ? '40px' : 0}
         fontWeight={600}
-        width={200}
+        width={isSmallFont ? 'auto' : 200}
         height={headerMenuHeight}
         color='#FFFFFF'
         bgcolor={appBarGrey}
