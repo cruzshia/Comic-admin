@@ -1,4 +1,4 @@
-import React, { ReactComponentElement } from 'react'
+import React from 'react'
 import { render } from '@testing-library/react'
 import { withMemoryRouterProvider } from '@src/utils/__test__/providers'
 import SideBar from '../SideBar'
