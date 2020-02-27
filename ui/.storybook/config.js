@@ -1,6 +1,5 @@
 import React from 'react'
 import { addDecorator } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
 import { withKnobs } from '@storybook/addon-knobs'
 import { HashRouter as Router } from 'react-router-dom'
 import { IntlProvider } from 'react-intl'
@@ -11,7 +10,6 @@ import './custom.css'
 import { theme } from '@src/common/styles'
 import { ThemeProvider } from '@material-ui/core'
 
-addDecorator(withInfo)
 addDecorator(withKnobs)
 addDecorator(storyFn => (
   <Router>

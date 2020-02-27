@@ -1,27 +1,28 @@
-import React from 'react'
+import React, { SVGProps } from 'react'
 import MaterialButton from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import { mainColor } from '@src/common/styles'
-import { ButtonTheme } from './buttonTheme'
+import { buttonStyleBase, ButtonTheme } from './buttonTheme'
 import clsx from 'clsx'
 
 const useStyles = makeStyles({
   button: {
+    ...buttonStyleBase,
     width: 130,
     height: 36,
-    background: '#FFFFF',
-    border: '1px solid #E0E0E0',
-    borderRadius: 4,
-    fontSize: 14,
-    alignItems: 'center',
-    color: '#333333',
     '&.dark': {
       border: `1px solid ${mainColor}`,
-      color: mainColor
+      color: mainColor,
+      '& svg, g, path': {
+        fill: mainColor
+      }
     },
-    '& img': {
-      marginRight: 6
+    '& svg, g, path': {
+      fill: '#333333'
     }
+  },
+  icon: {
+    marginRight: '5px'
   }
 })
 
@@ -30,10 +31,10 @@ interface Props {
   buttonText: string
   onClick: () => void
   disabled: boolean
-  icon: string
+  icon: React.FC<SVGProps<SVGSVGElement>>
 }
 
-export default function Button({ icon, theme, buttonText, onClick, disabled }: Props) {
+export default function Button({ icon: Icon, theme, buttonText, onClick, disabled }: Props) {
   const classes = useStyles()
 
   return (
@@ -43,7 +44,7 @@ export default function Button({ icon, theme, buttonText, onClick, disabled }: P
       onClick={onClick}
       disabled={disabled}
     >
-      <img data-testid='button_icon' src={icon} alt={`${buttonText}'s icon`} />
+      <Icon className={classes.icon} data-testid='button_icon' />
       {buttonText}
     </MaterialButton>
   )

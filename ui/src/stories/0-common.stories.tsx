@@ -1,7 +1,7 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
-import { text, select, radios, boolean } from '@storybook/addon-knobs'
+import { text, select, boolean } from '@storybook/addon-knobs'
 import TableRowContainer from '@src/components/table/TableRowContainer'
 import SearchInput from '@src/components/form/SearchInput'
 import Select from '@src/components/form/Select'
@@ -11,8 +11,7 @@ import TextArea from '@src/components/form/TextArea'
 import ActionButton from '@src/components/Button/ActionButton'
 import Button from '@src/components/Button/Button'
 import { ButtonTheme } from '@src/components/Button/buttonTheme'
-import IconSave from '@src/assets/form/button_save.svg'
-import IconPublish from '@src/assets/form/button_publish.svg'
+import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
 
 storiesOf('Common components', module)
   .add('TextArea', () => <TextArea />)
@@ -43,6 +42,6 @@ storiesOf('Common components', module)
       buttonText={'CSV登録'}
       onClick={action('button-click')}
       disabled={boolean('disabled', false)}
-      icon={radios('icon-img', { save: IconSave, publish: IconPublish }, IconSave)}
+      icon={IconSave}
     />
   ))

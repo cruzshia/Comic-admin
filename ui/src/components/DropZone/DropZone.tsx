@@ -1,31 +1,35 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDropzone } from 'react-dropzone'
-
-import { styled } from '@material-ui/core'
+import { styled, makeStyles } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
+
 import { backgroundColor } from '@src/common/styles'
-import photoIcon from '@src/assets/photo.svg'
+import { ReactComponent as PhotoIcon } from '@src/assets/form/photo.svg'
 import messages from './messages'
 
 interface Props {
-  icon?: string
   textContent?: string
   accept?: string
-  onDrop?: (event: React.DragEvent<HTMLElement>) => void
   onDropAccepted: (files: File[]) => void
   onDropRejected?: (error: any) => void
 }
 
-const THEME_COLOR = '#757575'
-const ImgIcon = styled('img')({
-  display: 'inline-block',
-  marginRight: 5
+const DROP_COLOR = '#757575'
+const useStyle = makeStyles({
+  icon: {
+    display: 'inline-block',
+    marginRight: '5px',
+    '& svg, path': {
+      fill: DROP_COLOR
+    }
+  }
 })
+
 const UploadButton = styled(Button)({
   width: 140,
-  backgroundColor: THEME_COLOR,
+  backgroundColor: DROP_COLOR,
   color: '#FFFFFF',
   fontSize: 12,
   height: 24,
@@ -36,12 +40,13 @@ const UploadButton = styled(Button)({
   }
 })
 
-export default function DropZone({ accept, icon, textContent, onDropAccepted, onDropRejected, onDrop }: Props) {
+export default function DropZone({ accept, textContent, onDropAccepted, onDropRejected }: Props) {
   const { getRootProps, getInputProps } = useDropzone({
     accept: accept ?? 'image/png',
     onDropAccepted,
     onDropRejected
   })
+  const classes = useStyle()
   const content = textContent || <FormattedMessage {...messages.dragDropUpload} />
 
   return (
@@ -55,14 +60,14 @@ export default function DropZone({ accept, icon, textContent, onDropAccepted, on
       borderRadius={4}
       fontWeight={600}
       fontSize={14}
-      color={THEME_COLOR}
+      color={DROP_COLOR}
       bgcolor={backgroundColor}
     >
-      <div {...getRootProps({ onDrop })}>
+      <div {...getRootProps()}>
         <input {...getInputProps()} />
         <Box display='flex' className='dropZone' flexDirection='column' alignItems='center'>
           <Box display='flex' alignItems='center'>
-            <ImgIcon src={icon || photoIcon} />
+            <PhotoIcon className={classes.icon} />
             {content}
           </Box>
           <UploadButton>

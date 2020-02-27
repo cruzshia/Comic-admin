@@ -18,6 +18,9 @@ import ja from './translation/ja.json'
 
 const store = configureStore()
 const App: React.FC = () => {
+  // Project version injected at jenkins build time
+  console.info('version: ', process.env.REACT_APP_MY_VERSION!)
+
   return (
     <Provider store={store}>
       <Router>
