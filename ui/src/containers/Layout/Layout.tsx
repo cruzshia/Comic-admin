@@ -6,14 +6,16 @@ import { styled } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import { getProfileAction } from '@src/reducers/user/userActions'
 import { StoreState } from '@src/reducers'
-import { topOffset, theme } from '@src/common/styles'
+import { topOffset, theme, backgroundColor } from '@src/common/styles'
 import LayoutContext from './context'
 import Header from './components/Header'
 import SideBar from './components/SideBar'
 
 const Content = styled('main')({
   flexGrow: 1,
-  padding: `${topOffset + 15}px 20px 20px 20px`
+  padding: `${topOffset + 15}px 20px 20px 20px`,
+  backgroundColor,
+  minHeight: '100vh'
 })
 
 export default function Layout({ children }: PropsWithChildren<{}>) {

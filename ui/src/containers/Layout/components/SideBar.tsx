@@ -7,7 +7,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
-import { topOffset, backgroundColor } from '@src/common/styles'
+import { topOffset, backgroundColor, borderColorLight } from '@src/common/styles'
 import { SIDEBAR_TABS } from './constants'
 import layoutContext from '../context'
 
@@ -22,21 +22,27 @@ const useStyles = makeStyles(() => ({
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: '#FFFFFF',
-    borderRight: '1px solid #E0E0E0'
+    borderRight: 0
   },
   toolbar: {
     minHeight: `${topOffset}px`
   },
   list: {
-    paddingTop: 0
+    padding: 0
+  },
+  filler: {
+    flexGrow: 1,
+    borderRight: `1px solid ${borderColorLight}`
   },
   listItem: {
-    padding: '9px 30px',
+    padding: '12.5px 30px',
     fontSize: 12,
     color: '#212121',
+    borderRight: `1px solid ${borderColorLight}`,
     '&.selected': {
       fontWeight: 'bold',
-      backgroundColor: backgroundColor
+      backgroundColor,
+      borderRight: 0
     }
   }
 }))
@@ -64,6 +70,7 @@ export default function SideBar() {
           </Link>
         ))}
       </List>
+      <div className={classes.filler} />
     </Drawer>
   )
 }
