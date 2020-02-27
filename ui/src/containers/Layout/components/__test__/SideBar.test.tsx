@@ -5,10 +5,10 @@ import SideBar from '../SideBar'
 import { SIDEBAR_TABS } from '../constants'
 import LayoutContext from '../../context'
 
-function renderWithContext(component: JSX.Element, initialEntries: string[]) {
+function renderWithContext(component: JSX.Element, initialEntries: string[], tab: string) {
   return render(
     withMemoryRouterProvider(
-      <LayoutContext.Provider value={{ headTab: 'comics' }}>{component}</LayoutContext.Provider>,
+      <LayoutContext.Provider value={{ headTab: tab }}>{component}</LayoutContext.Provider>,
       initialEntries
     )
   )
@@ -16,28 +16,31 @@ function renderWithContext(component: JSX.Element, initialEntries: string[]) {
 
 describe('SideBar components test', () => {
   it('check sidebar component renders correctly', () => {
-    const { container, getByTestId } = renderWithContext(<SideBar />, ['/'])
+    const { container, getByTestId } = renderWithContext(<SideBar />, ['/'], '')
     expect(container).toBeInTheDocument()
     expect(getByTestId('toolbar_spacer')).toBeInTheDocument()
   })
 
-  it('check sidebar render TABs correctly', () => {
-    const targetTab = 'comics'
-    const historyPath = '/comics/list'
-    const expectedTabs = SIDEBAR_TABS[`/${targetTab}`]
-    const { container, getAllByRole } = renderWithContext(<SideBar />, [historyPath])
-    // mount correctly
-    expect(container).toBeInTheDocument()
+  for (const tab of Object.keys(SIDEBAR_TABS)) {
+    const tabSlice = tab.substr(1)
+    it(`check sidebar render ${tabSlice}-TABs correctly`, () => {
+      const expectedTabs = SIDEBAR_TABS[tab]
+      const historyPath = `${tab}/list`
+      const { container, getAllByRole } = renderWithContext(<SideBar />, [historyPath], tabSlice)
 
-    const tabs = getAllByRole('link')
-    // has right number of tabs
-    expect(tabs.length).toBe(expectedTabs.length)
+      // mount correctly
+      expect(container).toBeInTheDocument()
 
-    // tabs render with right order
-    tabs.forEach((dom, idx) => {
-      const expectedPath = expectedTabs[idx].to
-      expect(dom.getElementsByClassName('selected').length).toBe(expectedPath === historyPath ? 1 : 0)
-      expect(dom.getAttribute('href')).toBe(expectedPath)
+      const tabs = getAllByRole('link')
+      // has right number of tabs
+      expect(tabs.length).toBe(expectedTabs.length)
+
+      // tabs render with right order
+      tabs.forEach((dom, idx) => {
+        const expectedPath = expectedTabs[idx].to
+        expect(dom.getElementsByClassName('selected').length).toBe(expectedPath === historyPath ? 1 : 0)
+        expect(dom.getAttribute('href')).toBe(expectedPath)
+      })
     })
-  })
+  }
 })
