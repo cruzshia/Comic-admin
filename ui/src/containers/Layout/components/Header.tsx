@@ -20,11 +20,6 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const LogoImg = styled('img')({
-  width: 93,
-  height: 14
-})
-
 const SystemMenuItem = styled(Link)({
   display: 'flex',
   alignItems: 'center',
@@ -50,7 +45,7 @@ export default function Header() {
         bgcolor='#000000'
       >
         <Link to={routePath.root}>
-          <LogoImg alt='logo' src={Logo} data-testid='logo' />
+          <img alt='logo' src={Logo} data-testid='logo' />
         </Link>
         <Box display='flex'>
           {SYSTEM_MENUS.map(({ route, title, subMenu }, idx) => (
