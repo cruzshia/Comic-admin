@@ -4,28 +4,28 @@ const NAME_SPACE = 'header.'
 
 export default defineMessages({
   comicManagement: {
-    id: `${NAME_SPACE}menu.comics.management`,
+    id: `${NAME_SPACE}menu.comics_management`,
     defaultMessage: 'Comic management'
   },
   comicsList: {
     id: 'comics.list',
     defaultMessage: 'Comics list'
   },
-  comicsCategories: {
-    id: 'comics.categories',
-    defaultMessage: 'Comics categories'
+  comicsCategory: {
+    id: 'comics.category',
+    defaultMessage: 'Comics category'
   },
-  comicsContents: {
-    id: 'comics.contents',
-    defaultMessage: 'Comics contents'
+  comicsContent: {
+    id: 'comics.content',
+    defaultMessage: 'Comics content'
   },
-  comicsAuthors: {
-    id: 'comics.authors',
-    defaultMessage: 'Comics authors'
+  comicsAuthor: {
+    id: 'comics.author',
+    defaultMessage: 'Comics author'
   },
-  comicsComments: {
-    id: 'comics.comments',
-    defaultMessage: 'Comics comments'
+  comicsComment: {
+    id: 'comics.comment',
+    defaultMessage: 'Comics comment'
   },
   menuReport: {
     id: `${NAME_SPACE}menu.report`,
@@ -48,7 +48,7 @@ export default defineMessages({
     defaultMessage: 'Help'
   },
   applicationManagement: {
-    id: `${NAME_SPACE}menu.application.management`,
+    id: `${NAME_SPACE}menu.application_management`,
     defaultMessage: 'Application management'
   },
   applicationList: {
@@ -86,5 +86,29 @@ export default defineMessages({
   applicationCampaign: {
     id: 'application.campaign',
     defaultMessage: 'Application campaign'
+  },
+  userManagement: {
+    id: `${NAME_SPACE}menu.user_management`,
+    defaultMessage: 'User management'
+  },
+  userList: {
+    id: 'user.list',
+    defaultMessage: 'User list'
+  },
+  userAccountCodeManagement: {
+    id: 'user.account_code_management',
+    defaultMessage: 'Account code management'
+  },
+  userNGWordManagement: {
+    id: 'user.ng_word_management',
+    defaultMessage: 'NG word management'
+  },
+  userContentGift: {
+    id: 'user.content_gift',
+    defaultMessage: 'Content gift'
+  },
+  userCoinGift: {
+    id: 'user.coin_gift',
+    defaultMessage: 'Coin gift'
   }
 })

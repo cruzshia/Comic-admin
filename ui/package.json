@@ -98,7 +98,8 @@
     "@storybook/preset-create-react-app": "^1.5.2",
     "@storybook/react": "^5.3.12",
     "@types/storybook__addon-info": "^5.2.1",
-    "extract-react-intl-messages": "^2.3.5"
+    "extract-react-intl-messages": "^2.3.5",
+    "prettier": "^1.19.1"
   },
   "proxy": "http://localhost:8080"
 }

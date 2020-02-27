@@ -1,9 +1,10 @@
 import { MessageDescriptor } from 'react-intl'
 import { routePath } from '@src/common/appConfig'
 import comicIcon from '@src/assets/header/comic_icon.svg'
+import phoneIcon from '@src/assets/header/phone_icon.svg'
+import userIcon from '@src/assets/header/user_icon.svg'
 import reportIcon from '@src/assets/header/report.svg'
 import systemIcon from '@src/assets/header/system.svg'
-import phoneIcon from '@src/assets/header/phone_icon.svg'
 import { TabProps } from './HeaderTabItem'
 import messages from '../messages'
 
@@ -35,6 +36,12 @@ export const HEADER_TABS: TabProps[] = [
     title: messages.applicationManagement,
     basePath: routePath.application.base,
     route: routePath.application.list
+  },
+  {
+    icon: userIcon,
+    title: messages.userManagement,
+    basePath: routePath.user.base,
+    route: routePath.user.list
   }
 ]
 
@@ -63,20 +70,20 @@ export const SIDEBAR_TABS: { [key: string]: Tab[] } = {
       title: messages.comicsList
     },
     {
-      to: routePath.comics.categories,
-      title: messages.comicsCategories
+      to: routePath.comics.category,
+      title: messages.comicsCategory
     },
     {
-      to: routePath.comics.contents,
-      title: messages.comicsContents
+      to: routePath.comics.content,
+      title: messages.comicsContent
     },
     {
-      to: routePath.comics.authors,
-      title: messages.comicsAuthors
+      to: routePath.comics.author,
+      title: messages.comicsAuthor
     },
     {
-      to: routePath.comics.comments,
-      title: messages.comicsComments
+      to: routePath.comics.comment,
+      title: messages.comicsComment
     }
   ],
   [routePath.application.base]: [
@@ -115,6 +122,28 @@ export const SIDEBAR_TABS: { [key: string]: Tab[] } = {
     {
       to: routePath.application.campaign,
       title: messages.applicationCampaign
+    }
+  ],
+  [routePath.user.base]: [
+    {
+      to: routePath.user.list,
+      title: messages.userList
+    },
+    {
+      to: routePath.user.accountCode,
+      title: messages.userAccountCodeManagement
+    },
+    {
+      to: routePath.user.ngWord,
+      title: messages.userNGWordManagement
+    },
+    {
+      to: routePath.user.contentGift,
+      title: messages.userContentGift
+    },
+    {
+      to: routePath.user.coinGift,
+      title: messages.userCoinGift
     }
   ]
 }
