@@ -2,7 +2,6 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import { text, select, boolean } from '@storybook/addon-knobs'
-import TableRowContainer from '@src/components/table/TableRowContainer'
 import SearchInput from '@src/components/form/SearchInput'
 import Select from '@src/components/form/Select'
 import TextInput from '@src/components/form/TextInput'
@@ -15,7 +14,6 @@ import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
 
 storiesOf('Common components', module)
   .add('TextArea', () => <TextArea />)
-  .add('TableRow', () => <TableRowContainer content={<TextArea />} title='Textfield' />)
   .add('SearchInput', () => <SearchInput />)
   .add('Long Select', () => <Select list={[1, 2, 3, 4, 5]} />)
   .add('Short Select', () => <Select isShort list={[1, 2, 3, 4, 5]} />)

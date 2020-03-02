@@ -1,3 +1,6 @@
+.sb-show-main {
+  padding: 20px;
+}
 .info-table {
   border-collapse: collapse;
 }
@@ -11,4 +14,9 @@ th {
 
 img {
   max-width: 1000px;
+}
+
+.inner_table {
+  margin: -20px;
+  border: none !important;
 }
