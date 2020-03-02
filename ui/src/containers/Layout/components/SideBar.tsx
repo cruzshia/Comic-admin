@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
     borderRight: `1px solid ${borderColorLight}`
   },
   listItem: {
-    padding: '12.5px 30px',
+    padding: '12.5px 20px',
     fontSize: 12,
     color: '#212121',
     borderRight: `1px solid ${borderColorLight}`,

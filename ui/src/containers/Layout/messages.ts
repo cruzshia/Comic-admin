@@ -7,13 +7,13 @@ export default defineMessages({
     id: `${NAME_SPACE}menu.comics_management`,
     defaultMessage: 'Comic management'
   },
-  comicsList: {
-    id: 'comics.list',
-    defaultMessage: 'Comics list'
+  comicsWork: {
+    id: 'comics.work',
+    defaultMessage: 'Comics work'
   },
-  comicsCategory: {
-    id: 'comics.category',
-    defaultMessage: 'Comics category'
+  comicsWorksCampaign: {
+    id: 'comics.works_campaign',
+    defaultMessage: 'Comics works campaign'
   },
   comicsContent: {
     id: 'comics.content',
@@ -23,9 +23,9 @@ export default defineMessages({
     id: 'comics.author',
     defaultMessage: 'Comics author'
   },
-  comicsComment: {
-    id: 'comics.comment',
-    defaultMessage: 'Comics comment'
+  comicsContentsCampaign: {
+    id: 'comics.contents_campaign',
+    defaultMessage: 'Comics contents campaign'
   },
   menuReport: {
     id: `${NAME_SPACE}menu.report`,

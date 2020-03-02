@@ -29,7 +29,7 @@ export const HEADER_TABS: TabProps[] = [
     icon: comicIcon,
     title: messages.comicManagement,
     basePath: routePath.comics.base,
-    route: routePath.comics.list
+    route: routePath.comics.work
   },
   {
     icon: phoneIcon,
@@ -66,24 +66,24 @@ interface Tab {
 export const SIDEBAR_TABS: { [key: string]: Tab[] } = {
   [routePath.comics.base]: [
     {
-      to: routePath.comics.list,
-      title: messages.comicsList
-    },
-    {
-      to: routePath.comics.category,
-      title: messages.comicsCategory
+      to: routePath.comics.work,
+      title: messages.comicsWork
     },
     {
       to: routePath.comics.content,
       title: messages.comicsContent
     },
     {
-      to: routePath.comics.author,
-      title: messages.comicsAuthor
+      to: routePath.comics.worksCampaign,
+      title: messages.comicsWorksCampaign
     },
     {
-      to: routePath.comics.comment,
-      title: messages.comicsComment
+      to: routePath.comics.contentsCampaign,
+      title: messages.comicsContentsCampaign
+    },
+    {
+      to: routePath.comics.author,
+      title: messages.comicsAuthor
     }
   ],
   [routePath.application.base]: [

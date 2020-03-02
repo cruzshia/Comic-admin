@@ -13,12 +13,12 @@ export const routePath = {
   login: '/login',
   comics: {
     base: RouteSection.Comics,
-    list: `${RouteSection.Comics}/list`,
-    category: `${RouteSection.Comics}/category`,
+    work: `${RouteSection.Comics}/work`,
     content: `${RouteSection.Comics}/content`,
+    worksCampaign: `${RouteSection.Comics}/works_campaign`,
+    contentsCampaign: `${RouteSection.Comics}/contents_campaign`,
     author: `${RouteSection.Comics}/author`,
-    comment: `${RouteSection.Comics}/comment`,
-    subPages: `list|category|content|author|comment`
+    subPages: `work|content|works_campaign|contents_campaign|author`
   },
   application: {
     base: RouteSection.Application,
