@@ -83,7 +83,7 @@ export const SIDEBAR_TABS: { [key: string]: Tab[] } = {
     },
     {
       to: routePath.comics.author,
-      title: messages.comicsAuthor
+      title: messages.comicsAuthorManagement
     }
   ],
   [routePath.application.base]: [

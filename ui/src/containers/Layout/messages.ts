@@ -19,8 +19,8 @@ export default defineMessages({
     id: 'comics.content',
     defaultMessage: 'Comics content'
   },
-  comicsAuthor: {
-    id: 'comics.author',
+  comicsAuthorManagement: {
+    id: 'comics.author_management',
     defaultMessage: 'Comics author'
   },
   comicsContentsCampaign: {
