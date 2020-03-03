@@ -1,12 +1,11 @@
 import React, { PropsWithChildren, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
-import { ThemeProvider } from '@material-ui/core/styles'
 import { styled } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import { getProfileAction } from '@src/reducers/user/userActions'
 import { StoreState } from '@src/reducers'
-import { topOffset, theme, backgroundColor } from '@src/common/styles'
+import { topOffset, backgroundColor } from '@src/common/styles'
 import LayoutContext from './context'
 import Header from './components/Header'
 import SideBar from './components/SideBar'
@@ -32,14 +31,12 @@ export default function Layout({ children }: PropsWithChildren<{}>) {
   }, [isLogin, dispatch])
 
   return (
-    <ThemeProvider theme={theme}>
-      <LayoutContext.Provider value={{ headTab }}>
-        <Box display='flex'>
-          <Header />
-          <SideBar />
-          <Content>{children}</Content>
-        </Box>
-      </LayoutContext.Provider>
-    </ThemeProvider>
+    <LayoutContext.Provider value={{ headTab }}>
+      <Box display='flex'>
+        <Header />
+        <SideBar />
+        <Content>{children}</Content>
+      </Box>
+    </LayoutContext.Provider>
   )
 }

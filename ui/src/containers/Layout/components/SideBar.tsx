@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { Link, useLocation } from 'react-router-dom'
 import Drawer from '@material-ui/core/Drawer'
@@ -53,6 +53,11 @@ export default function SideBar() {
   const { pathname } = useLocation()
   const { headTab } = useContext(layoutContext)
 
+  const matchTab = useMemo(() => {
+    const matchRoute = pathname.match(/\/\w+\/\w+/gi)
+    return matchRoute ? matchRoute![0] : ''
+  }, [pathname])
+
   return (
     <Drawer className={classes.drawer} classes={{ paper: classes.drawerPaper }} variant='permanent'>
       <div data-testid='toolbar_spacer' className={classes.toolbar} />
@@ -62,7 +67,7 @@ export default function SideBar() {
             <ListItem
               button
               className={clsx(classes.listItem, {
-                selected: pathname === to
+                selected: matchTab === to
               })}
             >
               <ListItemText primary={formatMessage(title)} disableTypography={true} />

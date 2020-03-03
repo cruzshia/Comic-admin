@@ -14,11 +14,13 @@ export const routePath = {
   comics: {
     base: RouteSection.Comics,
     work: `${RouteSection.Comics}/work`,
+    workCreation: `${RouteSection.Comics}/work/creation`,
+    workEdit: `${RouteSection.Comics}/work/edit/:id`,
+    workDetail: `${RouteSection.Comics}/work/detail/:id`,
     content: `${RouteSection.Comics}/content`,
     worksCampaign: `${RouteSection.Comics}/works_campaign`,
     contentsCampaign: `${RouteSection.Comics}/contents_campaign`,
-    author: `${RouteSection.Comics}/author`,
-    subPages: `work|content|works_campaign|contents_campaign|author`
+    author: `${RouteSection.Comics}/author`
   },
   application: {
     base: RouteSection.Application,

@@ -1,11 +1,11 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import Icon from '@src/assets/form/button_save.svg'
+import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
 import Button from '../Button'
 import ActionButton from '../ActionButton'
 import { ButtonTheme } from '../buttonTheme'
 
-let [theme, buttonText, mockFn, disabled, icon] = [ButtonTheme.DARK, '検索する', jest.fn(), false, Icon]
+let [theme, buttonText, mockFn, disabled, icon] = [ButtonTheme.DARK, '検索する', jest.fn(), false, IconSave]
 
 function renderWithAll(Component: JSX.Element, selectorID: string) {
   const { container, getByTestId } = render(Component)
@@ -29,7 +29,7 @@ describe('Button components test', () => {
     fireEvent.click(normalButton, { button: 0 })
     expect(container).toBeInTheDocument()
     expect(normalButton.className).toMatch(theme)
-    expect(normalButton.textContent).toBe(buttonText)
+    expect(normalButton).toHaveTextContent(buttonText)
     expect(mockFn).toBeCalledTimes(1)
   })
 

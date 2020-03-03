@@ -20,7 +20,7 @@ storiesOf('Table components', module)
         },
         {
           label: 'city',
-          content: <Select />
+          content: <Select list={[]} />
         },
         {
           label: '告知設定',
@@ -38,7 +38,7 @@ storiesOf('Table components', module)
                 },
                 {
                   label: 'city',
-                  content: <Select />
+                  content: <Select list={[]} />
                 }
               ]}
             />
