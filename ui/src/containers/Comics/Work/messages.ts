@@ -1,6 +1,6 @@
 import { defineMessages } from 'react-intl'
 
-const NAME_SPACE = 'comics.work.'
+const PREFIX = 'comics.work.'
 
 export default defineMessages({
   author: {
@@ -8,79 +8,79 @@ export default defineMessages({
     defaultMessage: 'Author'
   },
   notificationSetting: {
-    id: `${NAME_SPACE}notification_setting`,
+    id: PREFIX + 'notification_setting',
     defaultMessage: 'Notification setting'
   },
   basicInfo: {
-    id: `${NAME_SPACE}basic_info`,
+    id: PREFIX + 'basic_info',
     defaultMessage: 'Basic info'
   },
   id: {
-    id: `${NAME_SPACE}id`,
+    id: PREFIX + 'id',
     defaultMessage: 'ID'
   },
   category: {
-    id: `${NAME_SPACE}category`,
+    id: PREFIX + 'category',
     defaultMessage: 'Work category'
   },
   storyCategory: {
-    id: `${NAME_SPACE}story_category`,
+    id: PREFIX + 'story_category',
     defaultMessage: 'Work story category'
   },
   updateFrequency: {
-    id: `${NAME_SPACE}update_frequency`,
+    id: PREFIX + 'update_frequency',
     defaultMessage: 'Update frequency'
   },
   serial: {
-    id: `${NAME_SPACE}serial`,
+    id: PREFIX + 'serial',
     defaultMessage: 'Serial'
   },
   schedule: {
-    id: `${NAME_SPACE}schedule`,
+    id: PREFIX + 'schedule',
     defaultMessage: 'Schedule'
   },
   title: {
-    id: `${NAME_SPACE}title`,
+    id: PREFIX + 'title',
     defaultMessage: 'Title'
   },
   titleKana: {
-    id: `${NAME_SPACE}title_kana`,
+    id: PREFIX + 'title_kana',
     defaultMessage: 'Title (Kana)'
   },
   titleShort: {
-    id: `${NAME_SPACE}title_short`,
+    id: PREFIX + 'title_short',
     defaultMessage: 'Title (Short)'
   },
   introduction: {
-    id: `${NAME_SPACE}introduction`,
+    id: PREFIX + 'introduction',
     defaultMessage: 'Introduction'
   },
   deviceCategory: {
-    id: `${NAME_SPACE}device_category`,
+    id: PREFIX + 'device_category',
     defaultMessage: 'Device Category'
   },
   adCategory: {
-    id: `${NAME_SPACE}ad_category`,
+    id: PREFIX + 'ad_category',
     defaultMessage: 'Advertisement Category'
   },
   adType: {
-    id: `${NAME_SPACE}ad_type`,
+    id: PREFIX + 'ad_type',
     defaultMessage: 'Advertisement Type'
   },
   imgUrl: {
-    id: `${NAME_SPACE}image_url`,
+    id: PREFIX + 'image_url',
     defaultMessage: 'Image URL'
   },
   linkUrl: {
-    id: `${NAME_SPACE}link_url`,
+    id: PREFIX + 'link_url',
     defaultMessage: 'Image URL'
   },
   adBlock: {
-    id: `${NAME_SPACE}ad_block`,
+    id: PREFIX + 'ad_block',
     defaultMessage: 'Advertisement block'
   },
   addNotification: {
-    id: `${NAME_SPACE}add_notification_setting`,
+    id: PREFIX + 'add_notification_setting',
     defaultMessage: 'Add notification setting'
   },
   createDateTime: {
@@ -91,17 +91,21 @@ export default defineMessages({
     id: 'common.update_date_time',
     defaultMessage: 'Update date time'
   },
-  releaseStartDateTime: {
-    id: 'common.release_start_date_time',
-    defaultMessage: 'Release start date time'
+  deliveryDuration: {
+    id: 'common.delivery_duration',
+    defaultMessage: 'Delivery duration'
   },
-  releaseEndDateTime: {
-    id: 'common.release_end_date_time',
-    defaultMessage: 'Release end date time'
+  deliveryStartDateTime: {
+    id: 'common.delivery_start_date_time',
+    defaultMessage: 'Delivery start date time'
   },
-  releaseDateTime: {
-    id: 'common.release_date_time',
-    defaultMessage: 'Release date time'
+  deliveryEndDateTime: {
+    id: 'common.delivery_end_date_time',
+    defaultMessage: 'Delivery end date time'
+  },
+  deliveryDateTime: {
+    id: 'common.delivery_date_time',
+    defaultMessage: 'Delivery date time'
   },
   photo: {
     id: 'common.photo',

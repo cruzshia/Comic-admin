@@ -1,7 +1,11 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { mockWork } from './mockData/mockWork'
+import WorkForm from './WorkForm'
 
 export default function WorkEdit() {
-  const { id } = useParams()
-  return <>Work edit: {id}</>
+  return (
+    <>
+      <WorkForm workData={mockWork} />
+    </>
+  )
 }

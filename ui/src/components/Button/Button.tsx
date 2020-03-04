@@ -29,8 +29,8 @@ const useStyles = makeStyles({
 interface Props {
   theme?: ButtonTheme
   buttonText: string
-  onClick: () => void
-  disabled: boolean
+  onClick?: () => void
+  disabled?: boolean
   icon: React.FC<SVGProps<SVGSVGElement>>
 }
 

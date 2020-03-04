@@ -66,7 +66,7 @@ export default function DataTable({ title, dataSet, tableClass, onEdit }: Props)
           {onEdit && <PenIcon className={classes.penIcon} />}
         </Box>
       )}
-      <div className={clsx(classes.table, tableClass)}>
+      <div className={clsx(classes.table, tableClass)} data-testid='data-table'>
         {dataSet.map(data => (
           <TableRowContainer key={data.label} classnames={classes.rowItem} title={data.label} content={data.content} />
         ))}

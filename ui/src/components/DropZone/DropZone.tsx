@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useDropzone } from 'react-dropzone'
+import { useDropzone, DropEvent } from 'react-dropzone'
 import { styled, makeStyles } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
@@ -10,10 +10,11 @@ import { ReactComponent as PhotoIcon } from '@src/assets/form/photo.svg'
 import messages from './messages'
 
 interface Props {
+  name?: string
   textContent?: string
   accept?: string
-  onDropAccepted: (files: File[]) => void
-  onDropRejected?: (error: any) => void
+  onDropAccepted: (files: File[], name?: string) => void
+  onDropRejected?: (error: any, name?: string) => void
 }
 
 const DROP_COLOR = '#757575'
@@ -40,12 +41,27 @@ const UploadButton = styled(Button)({
   }
 })
 
-export default function DropZone({ accept, textContent, onDropAccepted, onDropRejected }: Props) {
+export default function DropZone({ accept, textContent, name, onDropAccepted, onDropRejected }: Props) {
+  const handleDropAccepted = useCallback(
+    (files: File[], _: DropEvent) => {
+      onDropAccepted && onDropAccepted(files, name)
+    },
+    [onDropAccepted, name]
+  )
+
+  const handleDropRejected = useCallback(
+    (files: File[], _: DropEvent) => {
+      onDropRejected && onDropRejected(files, name)
+    },
+    [onDropRejected, name]
+  )
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: accept ?? 'image/png',
-    onDropAccepted,
-    onDropRejected
+    onDropAccepted: handleDropAccepted,
+    onDropRejected: handleDropRejected
   })
+
   const classes = useStyle()
   const content = textContent || <FormattedMessage {...messages.dragDropUpload} />
 
