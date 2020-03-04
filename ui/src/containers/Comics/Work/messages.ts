@@ -3,83 +3,83 @@ import { defineMessages } from 'react-intl'
 const NAME_SPACE = 'comics.work.'
 
 export default defineMessages({
-  comicsAuthor: {
+  author: {
     id: 'comics.author',
     defaultMessage: 'Author'
   },
-  workNotificationSetting: {
+  notificationSetting: {
     id: `${NAME_SPACE}notification_setting`,
     defaultMessage: 'Notification setting'
   },
-  workBasicInfo: {
+  basicInfo: {
     id: `${NAME_SPACE}basic_info`,
     defaultMessage: 'Basic info'
   },
-  workID: {
+  id: {
     id: `${NAME_SPACE}id`,
     defaultMessage: 'ID'
   },
-  workCategory: {
+  category: {
     id: `${NAME_SPACE}category`,
     defaultMessage: 'Work category'
   },
-  workStoryCategory: {
+  storyCategory: {
     id: `${NAME_SPACE}story_category`,
     defaultMessage: 'Work story category'
   },
-  workUpdateFrequency: {
+  updateFrequency: {
     id: `${NAME_SPACE}update_frequency`,
     defaultMessage: 'Update frequency'
   },
-  workSerial: {
+  serial: {
     id: `${NAME_SPACE}serial`,
     defaultMessage: 'Serial'
   },
-  workSchedule: {
+  schedule: {
     id: `${NAME_SPACE}schedule`,
     defaultMessage: 'Schedule'
   },
-  workTitle: {
+  title: {
     id: `${NAME_SPACE}title`,
     defaultMessage: 'Title'
   },
-  workTitleKana: {
+  titleKana: {
     id: `${NAME_SPACE}title_kana`,
     defaultMessage: 'Title (Kana)'
   },
-  workTitleShort: {
+  titleShort: {
     id: `${NAME_SPACE}title_short`,
     defaultMessage: 'Title (Short)'
   },
-  workIntroduction: {
+  introduction: {
     id: `${NAME_SPACE}introduction`,
     defaultMessage: 'Introduction'
   },
-  workDeviceCategory: {
+  deviceCategory: {
     id: `${NAME_SPACE}device_category`,
     defaultMessage: 'Device Category'
   },
-  workAdCategory: {
+  adCategory: {
     id: `${NAME_SPACE}ad_category`,
     defaultMessage: 'Advertisement Category'
   },
-  workAdType: {
+  adType: {
     id: `${NAME_SPACE}ad_type`,
     defaultMessage: 'Advertisement Type'
   },
-  workImgUrl: {
+  imgUrl: {
     id: `${NAME_SPACE}image_url`,
     defaultMessage: 'Image URL'
   },
-  workLinkUrl: {
+  linkUrl: {
     id: `${NAME_SPACE}link_url`,
     defaultMessage: 'Image URL'
   },
-  workAdBlock: {
+  adBlock: {
     id: `${NAME_SPACE}ad_block`,
     defaultMessage: 'Advertisement block'
   },
-  workAddNotification: {
+  addNotification: {
     id: `${NAME_SPACE}add_notification_setting`,
     defaultMessage: 'Add notification setting'
   },

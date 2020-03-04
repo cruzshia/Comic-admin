@@ -8,13 +8,14 @@ import { borderColorLight } from '@src/common/styles'
 import { ReactComponent as PenIcon } from '@src/assets/common/pen.svg'
 import clsx from 'clsx'
 
+const MAX_WIDTH = 1180
 const useStyle = makeStyles({
   title: {
     fontWeight: 600,
     fontSize: 16
   },
   table: {
-    maxWidth: 1180,
+    maxWidth: MAX_WIDTH,
     border: `2px solid ${borderColorLight}`,
     borderRadius: '4px'
   },
@@ -40,13 +41,15 @@ const useStyle = makeStyles({
   }
 })
 
+export interface DataSet {
+  label: string
+  content: string | JSX.Element
+}
+
 interface Props {
   title?: string
   onEdit?: () => void
-  dataSet: {
-    label: string
-    content: string | JSX.Element
-  }[]
+  dataSet: DataSet[]
   tableClass?: string
 }
 
@@ -56,7 +59,7 @@ export default function DataTable({ title, dataSet, tableClass, onEdit }: Props)
   return dataSet.length ? (
     <>
       {(title || onEdit) && (
-        <Box display='flex' justifyContent='space-between' alignItems='center' marginBottom='15px'>
+        <Box display='flex' justifyContent='space-between' alignItems='center' marginBottom='15px' maxWidth={MAX_WIDTH}>
           <Typography className={classes.title} variant='subtitle1'>
             {title}
           </Typography>
