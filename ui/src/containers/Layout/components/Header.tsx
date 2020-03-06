@@ -5,7 +5,7 @@ import { styled, makeStyles } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import AppBar from '@material-ui/core/AppBar'
 import expandIco from '@src/assets/common/expand_more.svg'
-import { headerHeight, headerMenuHeight } from '@src/common/styles'
+import { headerHeight, headerMenuHeight, fontWeightBold } from '@src/common/styles'
 import { routePath } from '@src/common/appConfig'
 import Logo from '@src/assets/logo.svg'
 import HeaderTabMenu from './HeaderTabMenu'
@@ -27,7 +27,7 @@ const SystemMenuItem = styled(Link)({
   fontSize: 12,
   color: '#FFFFFF',
   '&.selected': {
-    fontWeight: 600
+    fontWeight: fontWeightBold
   }
 })
 

@@ -10,6 +10,7 @@ export const textColor = '#333333'
 export const borderColor = '#BDBDBD'
 export const backgroundColor = '#F5F5F5'
 export const borderColorLight = '#E0E0E0'
+export const fontWeightBold = 600
 
 export const GlobalStyle = withStyles({
   '@global': {
@@ -45,6 +46,18 @@ export const theme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: '"Hiragino Kaku Gothic Pro", "Roboto", "Helvetica", "Arial", "sans-serif"'
+    fontFamily: '"Hiragino Kaku Gothic Pro", "Roboto", "Helvetica", "Arial", "sans-serif"',
+    subtitle1: {
+      fontSize: 16,
+      fontWeight: fontWeightBold
+    },
+    subtitle2: {
+      fontSize: 14,
+      fontWeight: fontWeightBold
+    },
+    h6: {
+      fontSize: 20,
+      fontWeight: 'bold'
+    }
   }
 })

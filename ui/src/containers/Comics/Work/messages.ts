@@ -83,6 +83,22 @@ export default defineMessages({
     id: PREFIX + 'add_notification_setting',
     defaultMessage: 'Add notification setting'
   },
+  deviceCommon: {
+    id: PREFIX + 'device_common',
+    defaultMessage: 'Device common'
+  },
+  openingNotice: {
+    id: PREFIX + 'opening_notice',
+    defaultMessage: 'Opening notice (common)'
+  },
+  adsSdk: {
+    id: PREFIX + 'ads_sdk',
+    defaultMessage: 'Advertisement SDK(common)'
+  },
+  pageEndNotice: {
+    id: PREFIX + 'page_end_notice',
+    defaultMessage: 'Page end notice (common)'
+  },
   createDateTime: {
     id: 'common.create_date_time',
     defaultMessage: 'Create date time'

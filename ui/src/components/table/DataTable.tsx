@@ -10,14 +10,14 @@ import clsx from 'clsx'
 
 const MAX_WIDTH = 1180
 const useStyle = makeStyles({
-  title: {
-    fontWeight: 600,
-    fontSize: 16
-  },
   table: {
     maxWidth: MAX_WIDTH,
     border: `2px solid ${borderColorLight}`,
     borderRadius: '4px'
+  },
+  subTitle: {
+    padding: '20px',
+    borderBottom: `2px solid ${borderColorLight}`
   },
   rowItem: {
     borderBottom: `1px solid ${borderColorLight}`,
@@ -44,6 +44,7 @@ const useStyle = makeStyles({
 export interface DataSet {
   label: string
   content: string | JSX.Element
+  isSubTitle?: boolean
 }
 
 interface Props {
@@ -60,16 +61,25 @@ export default function DataTable({ title, dataSet, tableClass, onEdit }: Props)
     <>
       {(title || onEdit) && (
         <Box display='flex' justifyContent='space-between' alignItems='center' marginBottom='15px' maxWidth={MAX_WIDTH}>
-          <Typography className={classes.title} variant='subtitle1'>
-            {title}
-          </Typography>
+          <Typography variant='subtitle1'>{title}</Typography>
           {onEdit && <PenIcon className={classes.penIcon} />}
         </Box>
       )}
       <div className={clsx(classes.table, tableClass)} data-testid='data-table'>
-        {dataSet.map(data => (
-          <TableRowContainer key={data.label} classnames={classes.rowItem} title={data.label} content={data.content} />
-        ))}
+        {dataSet.map(data =>
+          data.isSubTitle ? (
+            <Typography variant='subtitle2' className={classes.subTitle} key={data.content.toString()}>
+              {data.content}
+            </Typography>
+          ) : (
+            <TableRowContainer
+              key={data.label}
+              classnames={classes.rowItem}
+              title={data.label}
+              content={data.content}
+            />
+          )
+        )}
       </div>
     </>
   ) : null

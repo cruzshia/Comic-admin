@@ -1,4 +1,4 @@
-import { borderColorLight } from '@src/common/styles'
+import { borderColorLight, fontWeightBold } from '@src/common/styles'
 
 export enum ButtonTheme {
   DARK = 'dark',
@@ -8,7 +8,7 @@ export enum ButtonTheme {
 export const buttonStyleBase = {
   border: `1px solid ${borderColorLight}`,
   borderRadius: 4,
-  fontWeight: 600,
+  fontWeight: fontWeightBold,
   alignItems: 'center',
   '&.Mui-disabled': {
     color: 'inherit',

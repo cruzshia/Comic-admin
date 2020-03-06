@@ -10,8 +10,8 @@ import Select from '@src/components/form/Select'
 import Button from '@src/components/Button/Button'
 import DropZone from '@src/components/DropZone'
 import { ReactComponent as AddIcon } from '@src/assets/form/add.svg'
-import { IMAGE_NUM, IMAGE_MAX_WIDTH } from './constants'
-import messages from './messages'
+import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
+import messages from '../messages'
 import clsx from 'clsx'
 
 interface Props {
