@@ -9,6 +9,7 @@ import DropZone from '@src/components/DropZone'
 import TextArea from '@src/components/form/TextArea'
 import ActionButton from '@src/components/Button/ActionButton'
 import Button from '@src/components/Button/Button'
+import ContentHeader from '@src/components/ContentHeader/ContentHeader'
 import { ButtonTheme } from '@src/components/Button/buttonTheme'
 import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
 
@@ -36,10 +37,30 @@ storiesOf('Common components', module)
   ))
   .add('Button', () => (
     <Button
-      theme={select('theme', { dark: ButtonTheme.DARK, light: ButtonTheme.LIGHT }, ButtonTheme.DARK)}
-      buttonText={'CSV登録'}
+      theme={select(
+        'theme',
+        { dark_border: ButtonTheme.DARK_BORDER, dark: ButtonTheme.DARK, light: ButtonTheme.LIGHT },
+        ButtonTheme.DARK_BORDER
+      )}
+      buttonText='CSV登録'
       onClick={action('button-click')}
       disabled={boolean('disabled', false)}
       icon={IconSave}
+    />
+  ))
+  .add('ContentHeader', () => (
+    <ContentHeader
+      breadcrumbList={[{ title: 'マンガ管理' }, { title: '作品管理', route: '/comics/work' }, { title: '作品登録' }]}
+      titleText='作品登録'
+      buttonList={[
+        <Button theme={ButtonTheme.DARK} buttonText='登録する' onClick={action('button-click')} disabled={false} />,
+        <Button
+          theme={ButtonTheme.DARK_BORDER}
+          buttonText='作品を編集'
+          onClick={action('button-click')}
+          disabled={false}
+          icon={IconSave}
+        />
+      ]}
     />
   ))

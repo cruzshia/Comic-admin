@@ -11,6 +11,7 @@ export const borderColor = '#BDBDBD'
 export const backgroundColor = '#F5F5F5'
 export const borderColorLight = '#E0E0E0'
 export const fontWeightBold = 600
+export const hyperlinkColor = '#1A0DAB'
 
 export const GlobalStyle = withStyles({
   '@global': {
