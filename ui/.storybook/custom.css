@@ -20,3 +20,31 @@ img {
   margin: -20px;
   border: none !important;
 }
+
+.widths .col0 {
+  width: 90px;
+}
+
+.widths .col1 {
+  width: 150px;
+}
+
+.widths .col2 {
+  width: 170px;
+}
+
+.widths .col3 {
+  width: 150px;
+}
+
+.widths .col4 {
+  width: 150px;
+}
+
+.widths .col5 {
+  width: 150px;
+}
+
+.widths .col6 {
+  width: 170px;
+}
