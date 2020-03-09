@@ -130,5 +130,41 @@ export default defineMessages({
   preview: {
     id: 'common.preview',
     defaultMessage: 'Preview'
+  },
+  workId: {
+    id: PREFIX + 'work_id',
+    defaultMessage: 'Work ID'
+  },
+  dateStart: {
+    id: PREFIX + 'date_start',
+    defaultMessage: 'Date Started'
+  },
+  dateEnd: {
+    id: PREFIX + 'date_end',
+    defaultMessage: 'Date Ended'
+  },
+  adUnit: {
+    id: PREFIX + 'ad_unit',
+    defaultMessage: 'Ad Unit'
+  },
+  status: {
+    id: PREFIX + 'status',
+    defaultMessage: 'Status'
+  },
+  magazine: {
+    id: PREFIX + 'magazine',
+    defaultMessage: 'Magazine'
+  },
+  frequency: {
+    id: PREFIX + 'frequency',
+    defaultMessage: 'Frequency'
+  },
+  publishDate: {
+    id: PREFIX + 'publish_date',
+    defaultMessage: 'Publish Date'
+  },
+  rankingGroup: {
+    id: PREFIX + 'ranking_group',
+    defaultMessage: 'Ranking Group'
   }
 })

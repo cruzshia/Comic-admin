@@ -1,25 +1,27 @@
 import React, { useCallback } from 'react'
-import { MenuItem, Select } from '@material-ui/core'
+import { MenuItem, Select, FormHelperText } from '@material-ui/core'
 import { useIntl } from 'react-intl'
 import messages from './messages'
 import { makeStyles } from '@material-ui/core'
-import selectArrowImg from '@src/assets/form/select_arrow.svg'
-interface Props {
+import selectArrowImg from '@src/assets/common/expand_more_black.svg'
+import { InputProps } from './inputProps'
+import clsx from 'clsx'
+
+interface Props extends InputProps {
   list: any[]
   isShort?: boolean
   open?: boolean
-  name?: string
-  onChange?: (event: React.ChangeEvent<{ name?: string; value: unknown }>) => void
+  onChange?: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void
 }
 
 const useStyles = makeStyles(() => ({
   root: ({ isShort }: { isShort?: boolean }) => ({
     width: isShort ? 205 : 410,
-    '& 	.MuiSelect-select': {
+    '& .MuiSelect-select': {
       padding: '8px 0 8px 15px'
     },
-    '& img': {
-      paddingRight: 15
+    '& .MuiSelect-icon': {
+      right: 15
     }
   }),
   placeholder: {
@@ -27,32 +29,33 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function SelectMenu({ list, isShort, open, name, onChange }: Props) {
+export default function SelectMenu({ list, isShort, open, name, onChange, onBlur, error, placeholder }: Props) {
   const { formatMessage } = useIntl()
   const classes = useStyles({ isShort })
   const [value, setValue] = React.useState<string | number>('')
-  const ArrowImg = useCallback(() => <img src={selectArrowImg} alt='select' />, [])
-  const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-    setValue(event.target.value as string | number)
-    onChange && onChange(event)
+  const ArrowImg = useCallback((props: any) => <img {...props} src={selectArrowImg} alt='select' />, [])
+  const handleChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+    setValue(e.target.value as string | number)
+    onChange && onChange(e)
   }
 
   return (
-    <>
+    <div>
       <Select
         name={name}
         open={open}
         data-testid='select'
         value={value}
         onChange={handleChange}
+        onBlur={onBlur}
         variant='outlined'
         color='secondary'
         displayEmpty
-        className={classes.root}
+        className={clsx(classes.root, { error: !!error })}
         IconComponent={ArrowImg}
         renderValue={(value: any) => {
           if (value === '') {
-            return <span className={classes.placeholder}>{formatMessage(messages.select)}</span>
+            return <span className={classes.placeholder}>{placeholder ?? formatMessage(messages.select)}</span>
           }
           return <span>{value}</span>
         }}
@@ -64,6 +67,7 @@ export default function SelectMenu({ list, isShort, open, name, onChange }: Prop
             </MenuItem>
           ))}
       </Select>
-    </>
+      {error && <FormHelperText className='error'>{error}</FormHelperText>}
+    </div>
   )
 }

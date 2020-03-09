@@ -1,13 +1,13 @@
 import React from 'react'
-import { InputAdornment, OutlinedInput, makeStyles } from '@material-ui/core'
+import { InputAdornment, OutlinedInput, makeStyles, FormHelperText } from '@material-ui/core'
 import { useIntl } from 'react-intl'
 import messages from './messages'
 import searchImg from '@src/assets/form/search.svg'
+import { InputProps } from './inputProps'
+import clsx from 'clsx'
 
-interface Props {
-  name?: string
+interface Props extends InputProps {
   icon?: boolean
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const useStyles = makeStyles(() => ({
@@ -19,25 +19,29 @@ const useStyles = makeStyles(() => ({
   })
 }))
 
-export default function SearchInput({ name, icon, onChange }: Props) {
+export default function SearchInput({ name, icon, onChange, onBlur, error, placeholder }: Props) {
   const { formatMessage } = useIntl()
   const classes = useStyles({ icon })
 
   return (
-    <OutlinedInput
-      name={name}
-      data-testid='search_input'
-      className={classes.root}
-      placeholder={formatMessage(messages.search)}
-      startAdornment={
-        icon && (
-          <InputAdornment position='start'>
-            <img src={searchImg} alt='search icon' />
-          </InputAdornment>
-        )
-      }
-      color='secondary'
-      onChange={onChange}
-    />
+    <div>
+      <OutlinedInput
+        name={name}
+        data-testid='search_input'
+        className={clsx(classes.root, { error: !!error })}
+        placeholder={placeholder ?? formatMessage(messages.search)}
+        color='secondary'
+        onChange={onChange}
+        onBlur={onBlur}
+        startAdornment={
+          icon && (
+            <InputAdornment position='start'>
+              <img src={searchImg} alt='search icon' />
+            </InputAdornment>
+          )
+        }
+      />
+      {error && <FormHelperText className='error'>{error}</FormHelperText>}
+    </div>
   )
 }

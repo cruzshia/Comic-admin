@@ -1,4 +1,5 @@
 import { withStyles, createMuiTheme } from '@material-ui/core'
+import errorAlertImg from '@src/assets/form/error_alert.svg'
 
 export const appBarGrey = '#212121'
 export const headerHeight = 40
@@ -9,9 +10,13 @@ export const mainColor = '#ED3632'
 export const textColor = '#333333'
 export const borderColor = '#BDBDBD'
 export const backgroundColor = '#F5F5F5'
+export const backgroundColorLight = '#F8F8F8'
 export const borderColorLight = '#E0E0E0'
 export const fontWeightBold = 600
 export const hyperlinkColor = '#1A0DAB'
+
+export const errorColor = '#F5A623'
+export const errorBackgroundColor = '#FCEFD9'
 
 export const GlobalStyle = withStyles({
   '@global': {
@@ -33,6 +38,8 @@ export const theme = createMuiTheme({
   overrides: {
     MuiOutlinedInput: {
       root: {
+        fontSize: 14,
+        minHeight: 36,
         '&.Mui-focused fieldset': {
           borderWidth: '1px!important'
         },
@@ -42,6 +49,24 @@ export const theme = createMuiTheme({
         '& input::placeholder': {
           color: borderColor,
           opacity: 1
+        },
+        '&.error': {
+          backgroundColor: errorBackgroundColor
+        }
+      }
+    },
+    MuiFormHelperText: {
+      root: {
+        '&.error': {
+          color: errorColor,
+          fontWeight: 600,
+          fontSize: 12,
+          display: 'flex',
+          alignItems: 'center',
+          '&::before': {
+            content: `url(${errorAlertImg})`,
+            marginRight: 7
+          }
         }
       }
     }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
-import { text, select, boolean } from '@storybook/addon-knobs'
+import { text, select, boolean, array } from '@storybook/addon-knobs'
 import SearchInput from '@src/components/form/SearchInput'
 import Select from '@src/components/form/Select'
 import TextInput from '@src/components/form/TextInput'
@@ -11,14 +11,21 @@ import ActionButton from '@src/components/Button/ActionButton'
 import Button from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader/ContentHeader'
 import { ButtonTheme } from '@src/components/Button/buttonTheme'
+import TimeSpanInput from '@src/components/form/TimeSpanInput'
+import SearchFilter from '@src/components/SearchFilter'
 import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
+import { mockSearchFilterData } from '@src/components/SearchFilter/mockData'
+
+const setError = () => select('error', ['', 'error', '項目が入力されていません'], '')
 
 storiesOf('Common components', module)
-  .add('TextArea', () => <TextArea />)
-  .add('SearchInput', () => <SearchInput />)
-  .add('Long Select', () => <Select list={[1, 2, 3, 4, 5]} />)
-  .add('Short Select', () => <Select isShort list={[1, 2, 3, 4, 5]} />)
-  .add('TextInput', () => <TextInput />)
+  .add('SearchInput', () => <SearchInput icon={boolean('icon', false)} error={setError()} />)
+  .add('Select', () => (
+    <Select isShort={boolean('isShort', false)} list={array('list', ['1', '2', '3'])} error={setError()} />
+  ))
+  .add('TextArea', () => <TextArea error={setError()} />)
+  .add('TextInput', () => <TextInput error={setError()} />)
+  .add('TimeSpanInput', () => <TimeSpanInput error={setError()} />)
   .add('DropZone', () => <DropZone onDropAccepted={action('Drop accepted')} onDropRejected={action('Drop rejected')} />)
   .add('ActionButton', () => (
     <ActionButton
@@ -48,6 +55,7 @@ storiesOf('Common components', module)
       icon={IconSave}
     />
   ))
+  .add('SearchFilter', () => <SearchFilter conditions={mockSearchFilterData} />)
   .add('ContentHeader', () => (
     <ContentHeader
       breadcrumbList={[{ title: 'マンガ管理' }, { title: '作品管理', route: '/comics/work' }, { title: '作品登録' }]}

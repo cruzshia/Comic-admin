@@ -23,10 +23,11 @@ interface Props {
   theme?: ButtonTheme
   buttonText: string
   onClick: () => void
-  disabled: boolean
+  disabled?: boolean
+  type?: 'button' | 'submit' | 'reset'
 }
 
-export default function ActionButton({ theme, buttonText, onClick, disabled }: Props) {
+export default function ActionButton({ theme, buttonText, onClick, disabled, type }: Props) {
   const classes = useStyles()
   return (
     <MaterialButton
@@ -34,6 +35,7 @@ export default function ActionButton({ theme, buttonText, onClick, disabled }: P
       disabled={disabled}
       className={clsx(classes.button, theme)}
       onClick={onClick}
+      type={type}
     >
       {buttonText}
     </MaterialButton>
