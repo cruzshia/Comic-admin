@@ -21,26 +21,21 @@ describe('SideBar components test', () => {
     expect(getByTestId('toolbar_spacer')).toBeInTheDocument()
   })
 
-  for (const tab of Object.keys(SIDEBAR_TABS)) {
-    const tabSlice = tab.substr(1)
-    it(`check sidebar render ${tabSlice}-TABs correctly`, () => {
-      const expectedTabs = SIDEBAR_TABS[tab]
-      const historyPath = `${tab}/list`
-      const { container, getAllByRole } = renderWithContext(<SideBar />, [historyPath], tabSlice)
+  test.each(Object.keys(SIDEBAR_TABS))('check sidebar render %s TABs correctly', tab => {
+    const expectedTabs = SIDEBAR_TABS[tab]
+    const historyPath = `${tab}/list`
+    const { container, getAllByRole } = renderWithContext(<SideBar />, [historyPath], tab.substr(1))
+    // mount correctly
+    expect(container).toBeInTheDocument()
 
-      // mount correctly
-      expect(container).toBeInTheDocument()
-
-      const tabs = getAllByRole('link')
-      // has right number of tabs
-      expect(tabs.length).toBe(expectedTabs.length)
-
-      // tabs render with right order
-      tabs.forEach((dom, idx) => {
-        const expectedPath = expectedTabs[idx].to
-        expect(dom.getElementsByClassName('selected').length).toBe(expectedPath === historyPath ? 1 : 0)
-        expect(dom.getAttribute('href')).toBe(expectedPath)
-      })
+    const tabs = getAllByRole('link')
+    // has right number of tabs
+    expect(tabs.length).toBe(expectedTabs.length)
+    // tabs render with right order
+    tabs.forEach((dom, idx) => {
+      const expectedPath = expectedTabs[idx].to
+      expect(dom.getElementsByClassName('selected').length).toBe(expectedPath === historyPath ? 1 : 0)
+      expect(dom.getAttribute('href')).toBe(expectedPath)
     })
-  }
+  })
 })

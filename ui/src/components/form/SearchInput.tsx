@@ -35,13 +35,17 @@ export default function SearchInput({ name, icon, onChange, onBlur, error, place
         onBlur={onBlur}
         startAdornment={
           icon && (
-            <InputAdornment position='start'>
+            <InputAdornment position='start' data-testid='search_icon'>
               <img src={searchImg} alt='search icon' />
             </InputAdornment>
           )
         }
       />
-      {error && <FormHelperText className='error'>{error}</FormHelperText>}
+      {error && (
+        <FormHelperText className='error' data-testid='error'>
+          {error}
+        </FormHelperText>
+      )}
     </div>
   )
 }
