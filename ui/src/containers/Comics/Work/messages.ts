@@ -31,9 +31,9 @@ export default defineMessages({
     id: PREFIX + 'update_frequency',
     defaultMessage: 'Update frequency'
   },
-  serial: {
-    id: PREFIX + 'serial',
-    defaultMessage: 'Serial'
+  rensai: {
+    id: PREFIX + 'rensai',
+    defaultMessage: 'rensai'
   },
   schedule: {
     id: PREFIX + 'schedule',
@@ -71,7 +71,7 @@ export default defineMessages({
     id: PREFIX + 'image_url',
     defaultMessage: 'Image URL'
   },
-  linkUrl: {
+  link: {
     id: PREFIX + 'link_url',
     defaultMessage: 'Image URL'
   },

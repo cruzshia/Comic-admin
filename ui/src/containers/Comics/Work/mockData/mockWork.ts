@@ -12,7 +12,7 @@ export const mockWork = {
   author: '原作：三条陸／漫画：稲田浩司／監修：堀井雄二 / イナダコウジ',
   category: 'コミックス',
   updateFrequency: '毎週月月金曜日に更新',
-  serial: 'ジャンプ本誌',
+  rensai: 'ジャンプ本誌',
   createDateTime: '2019-12-25 00:00:00 +0900',
   updateDateTime: '2019-12-25 00:00:00 +0900',
   images: [mockCover, mockCoverSm],
@@ -24,7 +24,7 @@ export const mockWork = {
       type: 'opening_notice',
       image: mockManga,
       link: 'https://shonenjumpplus.com/episode/10834108156758729535',
-      deliverDateTime: '2020/02/20/19:00'
+      deliveryDateTime: '2020/02/20/19:00'
     },
     {
       type: 'ads_sdk',
@@ -35,7 +35,7 @@ export const mockWork = {
       type: 'page_end_notice',
       image: mockManga,
       link: 'https://shonenjumpplus.com/episode/10834108156758729535',
-      deliverDateTime: '2020/02/20/19:00'
+      deliveryDateTime: '2020/02/20/19:00'
     }
   ]
 }

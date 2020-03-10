@@ -2,6 +2,8 @@ const { NODE_ENV } = process.env
 
 export const isDev = NODE_ENV === 'development'
 
+export const ANCHOR_QUERY = 'to'
+
 enum RouteSection {
   Comics = '/comics',
   Application = '/application',

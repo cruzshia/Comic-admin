@@ -1,10 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext, useCallback } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
 import DataTable, { DataSet } from '@src/components/table/DataTable'
+import { ScrollAnchor } from './WorkForm'
 import workContext from '../workContext'
 import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
 import messages from '../messages'
+import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 
 const useStyle = makeStyles({
   table: {
@@ -26,56 +29,40 @@ export default function WorkDetail() {
   const { currentWork: mockWork } = useContext(workContext)
   const { formatMessage } = useIntl()
   const classes = useStyle()
+  const history = useHistory()
+  const { id } = useParams()
 
-  const mockClick = () => {}
+  const handleClick = useCallback(
+    (target?: ScrollAnchor) => () =>
+      history.push(routePath.comics.workEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')),
+    [history, id]
+  )
+
+  const genTableData = (id: keyof typeof messages, dataSource?: any): DataSet => ({
+    label: formatMessage(messages[id]),
+    content: dataSource ? dataSource[id] : mockWork[id]
+  })
 
   return (
     <>
       <DataTable
         title={formatMessage(messages.basicInfo)}
         tableClass={classes.table}
-        onEdit={mockClick}
+        onEdit={handleClick()}
         dataSet={[
-          {
-            label: formatMessage(messages.id),
-            content: mockWork.id
-          },
-          {
-            label: formatMessage(messages.title),
-            content: mockWork.title
-          },
-          {
-            label: formatMessage(messages.titleKana),
-            content: mockWork.titleKana
-          },
-          {
-            label: formatMessage(messages.introduction),
-            content: mockWork.introduction
-          },
+          genTableData('id'),
+          genTableData('title'),
+          genTableData('titleKana'),
+          genTableData('introduction'),
           {
             label: formatMessage(messages.author),
             content: <span className={classes.blueText}>{mockWork.author}</span>
           },
-          {
-            label: formatMessage(messages.category),
-            content: mockWork.category
-          },
-          {
-            label: formatMessage(messages.updateFrequency),
-            content: mockWork.updateFrequency
-          },
-          {
-            label: formatMessage(messages.serial),
-            content: mockWork.serial
-          },
-          {
-            label: formatMessage(messages.createDateTime),
-            content: mockWork.createDateTime
-          },
-          {
-            label: formatMessage(messages.updateDateTime),
-            content: mockWork.updateDateTime
-          },
+          genTableData('category'),
+          genTableData('updateFrequency'),
+          genTableData('rensai'),
+          genTableData('createDateTime'),
+          genTableData('updateDateTime'),
           ...new Array(IMAGE_NUM).fill({}).map((_, i) => {
             const img = mockWork.images[i]
             return {
@@ -85,25 +72,18 @@ export default function WorkDetail() {
           })
         ]}
       />
+
       <DataTable
         title={formatMessage(messages.deliveryDuration)}
         tableClass={classes.table}
-        onEdit={mockClick}
-        dataSet={[
-          {
-            label: formatMessage(messages.deliveryStartDateTime),
-            content: mockWork.deliveryStartDateTime
-          },
-          {
-            label: formatMessage(messages.deliveryEndDateTime),
-            content: mockWork.deliveryEndDateTime
-          }
-        ]}
+        onEdit={handleClick(ScrollAnchor.Delivery)}
+        dataSet={[genTableData('deliveryStartDateTime'), genTableData('deliveryEndDateTime')]}
       />
+
       <DataTable
         title={formatMessage(messages.notificationSetting)}
         tableClass={classes.table}
-        onEdit={mockClick}
+        onEdit={handleClick(ScrollAnchor.Notification)}
         dataSet={[
           {
             label: '',
@@ -121,16 +101,7 @@ export default function WorkDetail() {
                 content: (
                   <DataTable
                     tableClass={classes.innerTable}
-                    dataSet={[
-                      {
-                        label: formatMessage(messages.adBlock),
-                        content: notify.adBlock
-                      },
-                      {
-                        label: formatMessage(messages.adType),
-                        content: notify.adType
-                      }
-                    ]}
+                    dataSet={[genTableData('adBlock', notify), genTableData('adType', notify)]}
                   />
                 )
               }
@@ -146,14 +117,8 @@ export default function WorkDetail() {
                       label: formatMessage(messages.photo),
                       content: <img src={notify.image} alt={notify.image} />
                     },
-                    {
-                      label: formatMessage(messages.linkUrl),
-                      content: notify.link
-                    },
-                    {
-                      label: formatMessage(messages.deliveryDateTime),
-                      content: notify.deliverDateTime
-                    }
+                    genTableData('link', notify),
+                    genTableData('deliveryDateTime', notify)
                   ]}
                 />
               )

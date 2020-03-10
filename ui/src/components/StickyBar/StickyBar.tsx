@@ -33,7 +33,7 @@ export default function StickyBar({ top, children }: { top: number; children: Re
         top={topOffset + top}
         bgcolor='#FFFFFF'
         borderBottom={`1px solid ${borderColorLight}`}
-        zIndex={visible ? 1202 : -1}
+        visibility={visible ? 'visible' : 'hidden'}
       >
         {children}
       </Box>

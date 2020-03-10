@@ -15,12 +15,12 @@ describe('StickyBar component test', () => {
     const { getByTestId } = render(withAllProvider(<StickyBar top={visibleTop}>123</StickyBar>))
     const element = getByTestId('sticky-bar')
     let style = getComputedStyle(element)
-    expect(Number(style.zIndex)).toBeLessThan(0)
+    expect(style.visibility).toBe('hidden')
 
     document.documentElement.scrollTop = topOffset + visibleTop + 1
     fireEvent.scroll(document)
 
     style = getComputedStyle(element)
-    expect(Number(style.zIndex)).toBeGreaterThanOrEqual(1)
+    expect(style.visibility).toBe('visible')
   })
 })

@@ -7,6 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { routePath } from './common/appConfig'
 import { GlobalStyle, theme } from './common/styles'
 import configureStore from './store/configureStore'
+import ScrollTop from './components/scroll/ScrollTop'
 import AuthRoute from './components/AuthRoute'
 import Layout from './containers/Layout'
 import Home from './containers/Home'
@@ -28,6 +29,7 @@ const App: React.FC = () => {
         <IntlProvider locale='ja' messages={ja}>
           <ThemeProvider theme={theme}>
             <div className='App'>
+              <ScrollTop />
               <Layout>
                 <CssBaseline />
                 <GlobalStyle />

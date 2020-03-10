@@ -9,8 +9,10 @@ import DropZone from '@src/components/DropZone'
 import TextArea from '@src/components/form/TextArea'
 import ActionButton from '@src/components/Button/ActionButton'
 import Button from '@src/components/Button/Button'
+import StickyBar from '@src/components/StickyBar'
 import ContentHeader from '@src/components/ContentHeader/ContentHeader'
 import { ButtonTheme } from '@src/components/Button/buttonTheme'
+import { topOffset } from '@src/common/styles'
 import TimeSpanInput from '@src/components/form/TimeSpanInput'
 import SearchFilter from '@src/components/SearchFilter'
 import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
@@ -71,4 +73,14 @@ storiesOf('Common components', module)
         />
       ]}
     />
+  ))
+  .add('StickyBar', () => (
+    <>
+      <StickyBar top={10}>yoyyo</StickyBar>
+      {/* Code below is for demo */}
+      <p style={{ height: '120vh' }}>
+        This is mock page content, once <b>scroll</b> to{' '}
+        <b>header height(currently {topOffset}px) + top prop(currently 10px)</b>, stickybar will show up
+      </p>
+    </>
   ))

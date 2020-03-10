@@ -52,17 +52,18 @@ interface Props {
   onEdit?: () => void
   dataSet: DataSet[]
   tableClass?: string
+  innerRef?: React.RefObject<HTMLDivElement>
 }
 
-export default function DataTable({ title, dataSet, tableClass, onEdit }: Props) {
+export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef }: Props) {
   const classes = useStyle()
 
   return dataSet.length ? (
-    <>
+    <div ref={innerRef}>
       {(title || onEdit) && (
         <Box display='flex' justifyContent='space-between' alignItems='center' marginBottom='15px' maxWidth={MAX_WIDTH}>
           <Typography variant='subtitle1'>{title}</Typography>
-          {onEdit && <PenIcon className={classes.penIcon} />}
+          {onEdit && <PenIcon onClick={onEdit} className={classes.penIcon} />}
         </Box>
       )}
       <div className={clsx(classes.table, tableClass)} data-testid='data-table'>
@@ -81,6 +82,6 @@ export default function DataTable({ title, dataSet, tableClass, onEdit }: Props)
           )
         )}
       </div>
-    </>
+    </div>
   ) : null
 }
