@@ -3,10 +3,6 @@ import { defineMessages } from 'react-intl'
 const PREFIX = 'comics.work.'
 
 export default defineMessages({
-  author: {
-    id: 'comics.author',
-    defaultMessage: 'Author'
-  },
   notificationSetting: {
     id: PREFIX + 'notification_setting',
     defaultMessage: 'Notification setting'
@@ -99,67 +95,38 @@ export default defineMessages({
     id: PREFIX + 'page_end_notice',
     defaultMessage: 'Page end notice (common)'
   },
-  createDateTime: {
-    id: 'common.create_date_time',
-    defaultMessage: 'Create date time'
-  },
-  updateDateTime: {
-    id: 'common.update_date_time',
-    defaultMessage: 'Update date time'
+  edit: {
+    id: PREFIX + 'edit',
+    defaultMessage: 'Edit work'
   },
   deliveryDuration: {
-    id: 'common.delivery_duration',
+    id: PREFIX + 'delivery_duration',
     defaultMessage: 'Delivery duration'
   },
   deliveryStartDateTime: {
-    id: 'common.delivery_start_date_time',
+    id: PREFIX + 'delivery_start_date_time',
     defaultMessage: 'Delivery start date time'
   },
   deliveryEndDateTime: {
-    id: 'common.delivery_end_date_time',
+    id: PREFIX + 'delivery_end_date_time',
     defaultMessage: 'Delivery end date time'
   },
   deliveryDateTime: {
-    id: 'common.delivery_date_time',
+    id: PREFIX + 'delivery_date_time',
     defaultMessage: 'Delivery date time'
-  },
-  photo: {
-    id: 'common.photo',
-    defaultMessage: 'Photo'
-  },
-  preview: {
-    id: 'common.preview',
-    defaultMessage: 'Preview'
   },
   comicsWork: {
     id: 'comics.work',
     defaultMessage: 'Comics work'
   },
-  creation: {
-    id: PREFIX + 'creation',
-    defaultMessage: 'Comic work creation'
-  },
-  creationButton: {
-    id: PREFIX + 'creation_button',
-    defaultMessage: 'Comic work creation button text '
-  },
-  listButtonCreation: {
-    id: PREFIX + 'list_button_creation',
+  startCreate: {
+    id: PREFIX + 'create_start',
     defaultMessage: 'Comic work list button text (creation)'
-  },
-  listButtonCSVCreation: {
-    id: PREFIX + 'list_button_csv',
-    defaultMessage: 'Comic work list button text (csv)'
   },
   detail: {
     id: PREFIX + 'detail',
     defaultMessage: 'Comic work detail'
   },
-  detailButton: {
-    id: PREFIX + 'detail_button_edit',
-    defaultMessage: 'Comic work detail button text'
-  },
-
   workId: {
     id: PREFIX + 'work_id',
     defaultMessage: 'Work ID'
@@ -195,5 +162,9 @@ export default defineMessages({
   rankingGroup: {
     id: PREFIX + 'ranking_group',
     defaultMessage: 'Ranking Group'
+  },
+  createWork: {
+    id: PREFIX + 'create',
+    defaultMessage: 'Create work'
   }
 })

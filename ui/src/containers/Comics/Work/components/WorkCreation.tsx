@@ -1,27 +1,29 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
-import WorkForm from './WorkForm'
+import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader/ContentHeader'
-import Button from '@src/components/Button/Button'
-import { ButtonTheme } from '@src/components/Button/buttonTheme'
+import StickyHeader from './StickyHeader'
+import WorkForm from './WorkForm'
 import { WORKS_BREADCRUMBS } from '../constants'
+import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export default function WorkCreation() {
   const { formatMessage } = useIntl()
-  const titleText = formatMessage(messages.creation)
+  const titleText = formatMessage(messages.createWork)
   const breadcrumbList: { title: string; route?: string }[] = WORKS_BREADCRUMBS.map(({ title, route }) => ({
     title: formatMessage(title),
     route
   }))
   breadcrumbList.push({ title: titleText })
+  const CreateButton = useMemo(() => <Button buttonText={formatMessage(commonMessages.create)} theme={Theme.DARK} />, [
+    formatMessage
+  ])
 
-  const creationButtonList = [
-    <Button theme={ButtonTheme.DARK} buttonText={formatMessage(messages.creationButton)} onClick={() => {}} />
-  ]
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={creationButtonList} />
+      <StickyHeader title={formatMessage(messages.createWork)} button={CreateButton} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={[CreateButton]} />
       <WorkForm />
     </>
   )

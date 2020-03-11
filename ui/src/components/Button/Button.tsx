@@ -29,6 +29,7 @@ const useStyles = makeStyles({
     },
     '&.dark': {
       background: mainColor,
+      border: 'none',
       color: '#FFFFFF',
       '& svg, g, path': {
         fill: '#FFFFFF'
@@ -48,6 +49,7 @@ interface Props {
   icon?: React.FC<SVGProps<SVGSVGElement>>
 }
 
+export const Theme = ButtonTheme
 export default function Button({ icon: Icon, theme, buttonText, onClick, disabled }: Props) {
   const classes = useStyles()
 

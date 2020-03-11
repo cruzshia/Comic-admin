@@ -7,7 +7,7 @@ export default defineMessages({
     defaultMessage: 'DragDrop to upload image'
   },
   selectFile: {
-    id: `${prefix}select.file`,
+    id: `${prefix}select_file`,
     defaultMessage: 'Select files'
   }
 })

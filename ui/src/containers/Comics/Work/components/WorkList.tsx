@@ -6,6 +6,7 @@ import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import ContentHeader from '@src/components/ContentHeader/ContentHeader'
 import { WORKS_BREADCRUMBS } from '../constants'
+import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export default function WorkList() {
@@ -17,13 +18,13 @@ export default function WorkList() {
   const buttonList = [
     <Button
       theme={ButtonTheme.DARK_BORDER}
-      buttonText={formatMessage(messages.listButtonCreation)}
+      buttonText={formatMessage(messages.startCreate)}
       onClick={() => {}}
       icon={IconSave}
     />,
     <Button
       theme={ButtonTheme.DARK_BORDER}
-      buttonText={formatMessage(messages.listButtonCSVCreation)}
+      buttonText={formatMessage(commonMessages.csvImport)}
       onClick={() => {}}
       icon={IconEdit}
     />

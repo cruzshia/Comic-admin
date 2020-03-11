@@ -48,10 +48,7 @@ describe('Header components test', () => {
 
     expect(appBar).toBeInTheDocument()
 
-    const logo = getByTestId('logo')
-    expect(logo).toBeInTheDocument()
-
-    const tabMenu = getByTestId('header_tab_menu')
-    expect(tabMenu).toBeInTheDocument()
+    expect(() => getByTestId('logo')).not.toThrowError()
+    expect(() => getByTestId('header_tab_menu')).not.toThrowError()
   })
 })

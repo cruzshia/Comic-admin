@@ -3,15 +3,14 @@ import { makeStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-import TableRowContainer from './TableRowContainer'
-import { borderColorLight } from '@src/common/styles'
+import DataTableRow from './DataTableRow'
+import { borderColorLight, contentWidth } from '@src/common/styles'
 import { ReactComponent as PenIcon } from '@src/assets/common/pen.svg'
 import clsx from 'clsx'
 
-const MAX_WIDTH = 1180
 const useStyle = makeStyles({
   table: {
-    maxWidth: MAX_WIDTH,
+    maxWidth: contentWidth,
     border: `2px solid ${borderColorLight}`,
     borderRadius: '4px'
   },
@@ -61,7 +60,13 @@ export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef
   return dataSet.length ? (
     <div ref={innerRef}>
       {(title || onEdit) && (
-        <Box display='flex' justifyContent='space-between' alignItems='center' marginBottom='15px' maxWidth={MAX_WIDTH}>
+        <Box
+          display='flex'
+          justifyContent='space-between'
+          alignItems='center'
+          marginBottom='15px'
+          maxWidth={contentWidth}
+        >
           <Typography variant='subtitle1'>{title}</Typography>
           {onEdit && <PenIcon onClick={onEdit} className={classes.penIcon} />}
         </Box>
@@ -73,12 +78,7 @@ export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef
               {data.content}
             </Typography>
           ) : (
-            <TableRowContainer
-              key={data.label}
-              classnames={classes.rowItem}
-              title={data.label}
-              content={data.content}
-            />
+            <DataTableRow key={data.label} classnames={classes.rowItem} title={data.label} content={data.content} />
           )
         )}
       </div>

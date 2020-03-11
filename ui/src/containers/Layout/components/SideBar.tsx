@@ -6,21 +6,18 @@ import { makeStyles } from '@material-ui/core'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-
-import { topOffset, backgroundColor, borderColorLight } from '@src/common/styles'
+import { topOffset, backgroundColor, borderColorLight, sidebarWidth } from '@src/common/styles'
 import { SIDEBAR_TABS } from './constants'
 import layoutContext from '../context'
-
 import clsx from 'clsx'
 
-const drawerWidth = 200
 const useStyles = makeStyles(() => ({
   drawer: {
-    width: drawerWidth,
+    width: sidebarWidth,
     flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: sidebarWidth,
     backgroundColor: '#FFFFFF',
     borderRight: 0
   },

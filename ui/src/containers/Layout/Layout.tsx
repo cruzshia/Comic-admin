@@ -12,7 +12,7 @@ import SideBar from './components/SideBar'
 
 const Content = styled('main')({
   flexGrow: 1,
-  padding: `${topOffset + 15}px 20px 20px 20px`,
+  padding: `${topOffset + 15}px 30px 20px`,
   backgroundColor,
   minHeight: '100vh'
 })

@@ -5,6 +5,8 @@ export const appBarGrey = '#212121'
 export const headerHeight = 40
 export const headerMenuHeight = 60
 export const topOffset = headerHeight + headerMenuHeight
+export const contentWidth = 1180
+export const sidebarWidth = 200
 
 export const mainColor = '#ED3632'
 export const textColor = '#333333'
@@ -73,6 +75,14 @@ export const theme = createMuiTheme({
   },
   typography: {
     fontFamily: '"Hiragino Kaku Gothic Pro", "Roboto", "Helvetica", "Arial", "sans-serif"',
+    h5: {
+      fontSize: 20,
+      fontWeight: 'bold'
+    },
+    h6: {
+      fontSize: 18,
+      fontWeight: 'bold'
+    },
     subtitle1: {
       fontSize: 16,
       fontWeight: fontWeightBold
@@ -80,10 +90,6 @@ export const theme = createMuiTheme({
     subtitle2: {
       fontSize: 14,
       fontWeight: fontWeightBold
-    },
-    h6: {
-      fontSize: 20,
-      fontWeight: 'bold'
     }
   }
 })

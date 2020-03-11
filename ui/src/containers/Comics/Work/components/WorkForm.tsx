@@ -12,6 +12,7 @@ import DropZone from '@src/components/DropZone'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { ReactComponent as AddIcon } from '@src/assets/form/add.svg'
 import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
+import commonMessages from '@src/messages'
 import messages from '../messages'
 import clsx from 'clsx'
 
@@ -56,7 +57,7 @@ export default function WorkForm({ workData }: Props) {
     for (let i = 0; i < IMAGE_NUM; i++) {
       const img = images ? images[i] : undefined
       dataSet.push({
-        label: `${formatMessage(messages.photo)}${i + 1}`,
+        label: `${formatMessage(commonMessages.photo)}${i + 1}`,
         content: img ? <img src={img} alt={img} /> : <DropZone name={`photo${i + 1}`} onDropAccepted={() => {}} />
       })
     }
@@ -87,7 +88,7 @@ export default function WorkForm({ workData }: Props) {
             content: <TextArea name='introduction' />
           },
           {
-            label: formatMessage(messages.author),
+            label: formatMessage(commonMessages.author),
             content: (
               <Grid className={classes.buttonMargin} container alignItems='center'>
                 <SearchInput name='author' icon={true} />

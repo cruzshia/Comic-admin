@@ -5,7 +5,7 @@ import { text, radios } from '@storybook/addon-knobs'
 import TextArea from '@src/components/form/TextArea'
 import TextInput from '@src/components/form/TextInput'
 import Select from '@src/components/form/Select'
-import TableRowContainer from '@src/components/table/TableRowContainer'
+import DataTableRow from '@src/components/table/DataTableRow'
 import DataTable from '@src/components/table/DataTable'
 import ListTable from '@src/components/table/ListTable'
 import { mockData, mockTitleData, mockDatum } from '@src/components/table/mockData/mockData'
@@ -14,7 +14,7 @@ import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
 import ListTableRow from '@src/components/table/ListTableRow'
 
 storiesOf('Table components', module)
-  .add('TableRow', () => <TableRowContainer content={<TextArea />} title='Email' />)
+  .add('DataTableRow', () => <DataTableRow content={<TextArea />} title='Email' />)
   .add('DataTable', () => (
     <DataTable
       title={text('title', '基本情報')}

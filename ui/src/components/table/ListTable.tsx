@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { useIntl } from 'react-intl'
 import {
   Paper,
   TableContainer,
@@ -12,12 +13,11 @@ import {
   Grid,
   TableSortLabel
 } from '@material-ui/core'
-import ListTableRow from './ListTableRow'
-import clsx from 'clsx'
 import { ReactComponent as SortImg } from '@src/assets/common/expand_more.svg'
-import { mainColor, backgroundColor, borderColor, borderColorLight } from '@src/common/styles'
-import { useIntl } from 'react-intl'
+import { mainColor, backgroundColor, borderColor, borderColorLight, contentWidth } from '@src/common/styles'
+import ListTableRow from './ListTableRow'
 import messages from './messages'
+import clsx from 'clsx'
 
 interface ListTableTitle {
   id: string
@@ -49,7 +49,7 @@ interface Props {
 const Container = styled(Paper)({
   border: `2px solid ${borderColorLight}`,
   boxShadow: 'none',
-  maxWidth: 1180,
+  maxWidth: contentWidth,
   '& .MuiTableCell-root': {
     overflowWrap: 'break-word',
     fontSize: 12

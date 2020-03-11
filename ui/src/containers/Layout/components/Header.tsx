@@ -6,7 +6,6 @@ import Box from '@material-ui/core/Box'
 import AppBar from '@material-ui/core/AppBar'
 import expandIco from '@src/assets/common/expand_more.svg'
 import { headerHeight, headerMenuHeight, fontWeightBold } from '@src/common/styles'
-import { routePath } from '@src/common/appConfig'
 import Logo from '@src/assets/logo.svg'
 import HeaderTabMenu from './HeaderTabMenu'
 import { SYSTEM_MENUS } from './constants'
@@ -44,9 +43,7 @@ export default function Header() {
         padding='13px 30px 13px 20px'
         bgcolor='#000000'
       >
-        <Link to={routePath.root}>
-          <img alt='logo' src={Logo} data-testid='logo' />
-        </Link>
+        <img alt='logo' src={Logo} data-testid='logo' />
         <Box display='flex'>
           {SYSTEM_MENUS.map(({ route, title, subMenu }, idx) => (
             <SystemMenuItem

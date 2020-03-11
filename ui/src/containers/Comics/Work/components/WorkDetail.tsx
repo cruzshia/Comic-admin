@@ -1,15 +1,16 @@
-import React, { useContext, useCallback } from 'react'
+import React, { useContext, useCallback, useMemo } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
+import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { DataSet } from '@src/components/table/DataTable'
-import ContentHeader from '@src/components/ContentHeader/ContentHeader'
-import Button from '@src/components/Button/Button'
-import { ButtonTheme } from '@src/components/Button/buttonTheme'
-import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
+import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
+import StickyHeader from './StickyHeader'
+import ContentHeader from '@src/components/ContentHeader/ContentHeader'
 import { ScrollAnchor } from './WorkForm'
 import workContext from '../workContext'
+import commonMessages from '@src/messages'
 import messages from '../messages'
 import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
 import { WORKS_BREADCRUMBS } from '../constants'
@@ -33,9 +34,9 @@ const useStyle = makeStyles({
 export default function WorkDetail() {
   const { currentWork: mockWork } = useContext(workContext)
   const { formatMessage } = useIntl()
+  const { id } = useParams()
   const classes = useStyle()
   const history = useHistory()
-  const { id } = useParams()
 
   const titleText = mockWork.title
   const breadcrumbList: { title: string; route?: string }[] = WORKS_BREADCRUMBS.map(({ title, route }) => ({
@@ -43,39 +44,42 @@ export default function WorkDetail() {
     route
   }))
   breadcrumbList.push({ title: formatMessage(messages.detail) })
-  const detailButtonList = [
-    <Button
-      theme={ButtonTheme.DARK_BORDER}
-      buttonText={formatMessage(messages.detailButton)}
-      onClick={() => {}}
-      icon={IconEdit}
-    />
-  ]
-  const handleClick = useCallback(
+  const handleRedirect = useCallback(
     (target?: ScrollAnchor) => () =>
       history.push(routePath.comics.workEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')),
     [history, id]
   )
+  const handleEdit = useMemo(() => handleRedirect(), [handleRedirect])
+  const handleEditDelivery = useMemo(() => handleRedirect(ScrollAnchor.Delivery), [handleRedirect])
+  const handleEditNotification = useMemo(() => handleRedirect(ScrollAnchor.Notification), [handleRedirect])
 
-  const genTableData = (id: keyof typeof messages, dataSource?: any): DataSet => ({
-    label: formatMessage(messages[id]),
+  const EditButton = useMemo(
+    () => (
+      <Button icon={penIcon} buttonText={formatMessage(messages.edit)} theme={Theme.DARK_BORDER} onClick={handleEdit} />
+    ),
+    [formatMessage, handleEdit]
+  )
+
+  const genTableData = (id: any, dataSource?: any): DataSet => ({
+    label: formatMessage(messages[id as keyof typeof messages] ?? commonMessages[id as keyof typeof commonMessages]),
     content: dataSource ? dataSource[id] : mockWork[id]
   })
 
   return (
     <>
-      <ContentHeader titleText={titleText} breadcrumbList={breadcrumbList} buttonList={detailButtonList} />
+      <StickyHeader title='ドラゴンクエスト ダイの大冒険' button={EditButton} />
+      <ContentHeader titleText={titleText} breadcrumbList={breadcrumbList} buttonList={[EditButton]} />
       <DataTable
         title={formatMessage(messages.basicInfo)}
         tableClass={classes.table}
-        onEdit={handleClick()}
+        onEdit={handleEdit}
         dataSet={[
           genTableData('id'),
           genTableData('title'),
           genTableData('titleKana'),
           genTableData('introduction'),
           {
-            label: formatMessage(messages.author),
+            label: formatMessage(commonMessages.author),
             content: <span className={classes.blueText}>{mockWork.author}</span>
           },
           genTableData('category'),
@@ -86,7 +90,7 @@ export default function WorkDetail() {
           ...new Array(IMAGE_NUM).fill({}).map((_, i) => {
             const img = mockWork.images[i]
             return {
-              label: `${formatMessage(messages.photo)}${i + 1}`,
+              label: `${formatMessage(commonMessages.photo)}${i + 1}`,
               content: img ? <img key={`image-${i}`} className={classes.image} src={img} alt={img} /> : ''
             } as DataSet
           })
@@ -96,14 +100,14 @@ export default function WorkDetail() {
       <DataTable
         title={formatMessage(messages.deliveryDuration)}
         tableClass={classes.table}
-        onEdit={handleClick(ScrollAnchor.Delivery)}
+        onEdit={handleEditDelivery}
         dataSet={[genTableData('deliveryStartDateTime'), genTableData('deliveryEndDateTime')]}
       />
 
       <DataTable
         title={formatMessage(messages.notificationSetting)}
         tableClass={classes.table}
-        onEdit={handleClick(ScrollAnchor.Notification)}
+        onEdit={handleEditNotification}
         dataSet={[
           {
             label: '',
@@ -134,7 +138,7 @@ export default function WorkDetail() {
                   tableClass={classes.innerTable}
                   dataSet={[
                     {
-                      label: formatMessage(messages.photo),
+                      label: formatMessage(commonMessages.photo),
                       content: <img src={notify.image} alt={notify.image} />
                     },
                     genTableData('link', notify),

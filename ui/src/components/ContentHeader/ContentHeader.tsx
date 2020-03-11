@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Breadcrumbs, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
-import { hyperlinkColor } from '@src/common/styles'
+import { hyperlinkColor, contentWidth } from '@src/common/styles'
 
 const useStyles = makeStyles(theme => ({
   breadcrumb: {
@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
   header: {
-    padding: '15px 0px ',
+    maxWidth: contentWidth,
+    padding: '15px 0px',
     '& button:nth-child(n+2)': {
       marginRight: 10
     },

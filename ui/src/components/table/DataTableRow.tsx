@@ -31,7 +31,7 @@ interface Props {
   classnames?: string
 }
 
-export default function TableRowContainer({ title, content, classnames }: Props) {
+export default function DataTableRow({ title, content, classnames }: Props) {
   const classes = useStyles()
   return (
     <Grid container spacing={3} className={clsx(classes.root, classnames)} data-testid='table_row_container'>

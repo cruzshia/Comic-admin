@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react'
-import { Paper, Grid, makeStyles } from '@material-ui/core'
-import messages from './messages'
 import { useIntl } from 'react-intl'
+import { Paper, Grid, makeStyles } from '@material-ui/core'
 import expandImg from '@src/assets/common/expand_more_black.svg'
-import { borderColorLight, backgroundColorLight } from '@src/common/styles'
+import { borderColorLight, backgroundColorLight, contentWidth } from '@src/common/styles'
 import ActionButton from '@src/components/Button/ActionButton'
 import { ButtonTheme } from '../Button/buttonTheme'
+import messages from './messages'
 import clsx from 'clsx'
 
 interface Item {
@@ -25,7 +25,7 @@ interface Props {
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: 1180,
+    width: contentWidth,
     '&>div': {
       padding: '20px 40px',
       borderColor: borderColorLight
@@ -57,7 +57,7 @@ const useStyles = makeStyles(() => ({
   },
   buttons: {
     marginTop: 20,
-    width: 1180,
+    width: contentWidth,
     '& .MuiButton-root': {
       margin: '0 7.5px'
     }
