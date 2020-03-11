@@ -6,6 +6,7 @@ import userIcon from '@src/assets/header/user.svg'
 import reportIcon from '@src/assets/header/report.svg'
 import systemIcon from '@src/assets/header/system.svg'
 import { TabProps } from './HeaderTabItem'
+import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export const SYSTEM_MENUS = [
@@ -27,7 +28,7 @@ export const SYSTEM_MENUS = [
 export const HEADER_TABS: TabProps[] = [
   {
     icon: comicIcon,
-    title: messages.comicManagement,
+    title: commonMessages.comicManagement,
     basePath: routePath.comics.base,
     route: routePath.comics.work
   },

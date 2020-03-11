@@ -3,11 +3,16 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
 import DataTable, { DataSet } from '@src/components/table/DataTable'
+import ContentHeader from '@src/components/ContentHeader/ContentHeader'
+import Button from '@src/components/Button/Button'
+import { ButtonTheme } from '@src/components/Button/buttonTheme'
+import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
+import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import { ScrollAnchor } from './WorkForm'
 import workContext from '../workContext'
-import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
 import messages from '../messages'
-import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
+import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
+import { WORKS_BREADCRUMBS } from '../constants'
 
 const useStyle = makeStyles({
   table: {
@@ -32,6 +37,20 @@ export default function WorkDetail() {
   const history = useHistory()
   const { id } = useParams()
 
+  const titleText = mockWork.title
+  const breadcrumbList: { title: string; route?: string }[] = WORKS_BREADCRUMBS.map(({ title, route }) => ({
+    title: formatMessage(title),
+    route
+  }))
+  breadcrumbList.push({ title: formatMessage(messages.detail) })
+  const detailButtonList = [
+    <Button
+      theme={ButtonTheme.DARK_BORDER}
+      buttonText={formatMessage(messages.detailButton)}
+      onClick={() => {}}
+      icon={IconEdit}
+    />
+  ]
   const handleClick = useCallback(
     (target?: ScrollAnchor) => () =>
       history.push(routePath.comics.workEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')),
@@ -45,6 +64,7 @@ export default function WorkDetail() {
 
   return (
     <>
+      <ContentHeader titleText={titleText} breadcrumbList={breadcrumbList} buttonList={detailButtonList} />
       <DataTable
         title={formatMessage(messages.basicInfo)}
         tableClass={classes.table}

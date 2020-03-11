@@ -3,10 +3,6 @@ import { defineMessages } from 'react-intl'
 const NAME_SPACE = 'header.'
 
 export default defineMessages({
-  comicManagement: {
-    id: `${NAME_SPACE}menu.comics_management`,
-    defaultMessage: 'Comic management'
-  },
   comicsWork: {
     id: 'comics.work',
     defaultMessage: 'Comics work'

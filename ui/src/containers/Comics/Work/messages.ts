@@ -131,6 +131,35 @@ export default defineMessages({
     id: 'common.preview',
     defaultMessage: 'Preview'
   },
+  comicsWork: {
+    id: 'comics.work',
+    defaultMessage: 'Comics work'
+  },
+  creation: {
+    id: PREFIX + 'creation',
+    defaultMessage: 'Comic work creation'
+  },
+  creationButton: {
+    id: PREFIX + 'creation_button',
+    defaultMessage: 'Comic work creation button text '
+  },
+  listButtonCreation: {
+    id: PREFIX + 'list_button_creation',
+    defaultMessage: 'Comic work list button text (creation)'
+  },
+  listButtonCSVCreation: {
+    id: PREFIX + 'list_button_csv',
+    defaultMessage: 'Comic work list button text (csv)'
+  },
+  detail: {
+    id: PREFIX + 'detail',
+    defaultMessage: 'Comic work detail'
+  },
+  detailButton: {
+    id: PREFIX + 'detail_button_edit',
+    defaultMessage: 'Comic work detail button text'
+  },
+
   workId: {
     id: PREFIX + 'work_id',
     defaultMessage: 'Work ID'

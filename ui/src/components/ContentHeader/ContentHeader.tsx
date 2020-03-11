@@ -18,9 +18,12 @@ const useStyles = makeStyles(theme => ({
     }
   },
   header: {
-    padding: '15px 0px 20px 0px ',
+    padding: '15px 0px ',
     '& button:nth-child(n+2)': {
       marginRight: 10
+    },
+    '&>div': {
+      width: 'auto'
     }
   }
 }))
@@ -48,10 +51,10 @@ export default function ContentHeader({ breadcrumbList, titleText, buttonList: B
           })}
       </Breadcrumbs>
       <Grid className={classes.header} container justify='space-between'>
-        <Grid item sm={3}>
+        <Grid item>
           <Typography variant='h6'>{titleText}</Typography>
         </Grid>
-        <Grid item container sm={9} direction='row-reverse'>
+        <Grid item container direction='row-reverse'>
           {ButtonList && ButtonList.map((btn, idx) => <React.Fragment key={idx}>{btn}</React.Fragment>)}
         </Grid>
       </Grid>
