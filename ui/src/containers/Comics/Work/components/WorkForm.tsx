@@ -1,5 +1,6 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useCallback, useRef } from 'react'
 import { useIntl } from 'react-intl'
+import { Form, Field, FieldMetaState } from 'react-final-form'
 import { makeStyles } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import DataTable from '@src/components/table/DataTable'
@@ -11,13 +12,16 @@ import Button from '@src/components/Button/Button'
 import DropZone from '@src/components/DropZone'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { ReactComponent as AddIcon } from '@src/assets/form/add.svg'
-import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
+import { IMAGE_NUM, IMAGE_MAX_WIDTH, DATE_TIME_PLACEHOLDER } from '../constants'
 import commonMessages from '@src/messages'
 import messages from '../messages'
+import { required } from '@src/utils/validation'
 import clsx from 'clsx'
 
 interface Props {
   workData?: any
+  onSubmit: (data: any) => void
+  formRef?: React.RefObject<HTMLFormElement>
 }
 
 const useStyle = makeStyles({
@@ -41,9 +45,9 @@ export enum ScrollAnchor {
   Notification = 'notification'
 }
 
-export default function WorkForm({ workData }: Props) {
-  const { formatMessage } = useIntl()
+export default function WorkForm({ workData, onSubmit, formRef }: Props) {
   const classes = useStyle()
+  const { formatMessage } = useIntl()
   const deliveryRef = useRef<HTMLDivElement>(null)
   const notificationRef = useRef<HTMLDivElement>(null)
   const anchorRef = {
@@ -64,71 +68,132 @@ export default function WorkForm({ workData }: Props) {
     return dataSet
   }, [images, formatMessage])
 
+  const checkError = useCallback((meta: FieldMetaState<any>) => {
+    return meta.error && meta.touched ? meta.error : undefined
+  }, [])
+
   return (
     <>
       <ScrollTo anchorRef={anchorRef} />
-      <DataTable
-        title={formatMessage(messages.basicInfo)}
-        tableClass={clsx(classes.tableClass, classes.tableMargin)}
-        dataSet={[
-          {
-            label: formatMessage(messages.id),
-            content: workData ? workData.id : <TextInput name='id' />
-          },
-          {
-            label: formatMessage(messages.title),
-            content: <TextInput name='title' />
-          },
-          {
-            label: formatMessage(messages.titleShort),
-            content: <TextInput name='titleShort' />
-          },
-          {
-            label: formatMessage(messages.introduction),
-            content: <TextArea name='introduction' />
-          },
-          {
-            label: formatMessage(commonMessages.author),
-            content: (
-              <Grid className={classes.buttonMargin} container alignItems='center'>
-                <SearchInput name='author' icon={true} />
-                <Button buttonText='新規作成' onClick={() => {}} icon={AddIcon} />
-              </Grid>
-            )
-          },
-          {
-            label: formatMessage(messages.category),
-            content: workData ? workData.category : <Select name='category' list={[1]} isShort />
-          },
-          {
-            label: formatMessage(messages.storyCategory),
-            content: <Select name='storyCategory' list={[1]} isShort />
-          },
-          {
-            label: formatMessage(messages.updateFrequency),
-            content: <Select name='updateFrequency' list={[1]} isShort />
-          },
-          {
-            label: formatMessage(messages.rensai),
-            content: <Select name='workRensai' list={[1]} isShort />
-          },
-          ...imageDataSet
-        ]}
-      />
-      <DataTable
-        title={formatMessage(messages.deliveryDuration)}
-        tableClass={classes.tableMargin}
-        innerRef={deliveryRef}
-        dataSet={[
-          {
-            label: formatMessage(messages.deliveryStartDateTime),
-            content: <TextInput name='deliveryStartDateTime' />
-          },
-          {
-            label: formatMessage(messages.deliveryEndDateTime),
-            content: <TextInput name='deliveryEndDateTime' />
-          }
-        ]}
+      <Form
+        onSubmit={onSubmit}
+        initialValues={workData}
+        render={({ handleSubmit, form }) => (
+          <form onSubmit={handleSubmit} ref={formRef}>
+            <DataTable
+              title={formatMessage(messages.basicInfo)}
+              tableClass={clsx(classes.tableClass, classes.tableMargin)}
+              dataSet={[
+                {
+                  label: formatMessage(messages.id),
+                  content: (
+                    <Field name='id' validate={required}>
+                      {({ input, meta }) =>
+                        workData ? workData.id : <TextInput {...input} error={checkError(meta)} />
+                      }
+                    </Field>
+                  )
+                },
+                {
+                  label: formatMessage(messages.title),
+                  content: (
+                    <Field name='title'>{({ input, meta }) => <TextInput {...input} error={checkError(meta)} />}</Field>
+                  )
+                },
+                {
+                  label: formatMessage(messages.titleShort),
+                  content: (
+                    <Field name='titleShort'>
+                      {({ input, meta }) => <TextInput {...input} error={checkError(meta)} />}
+                    </Field>
+                  )
+                },
+                {
+                  label: formatMessage(messages.introduction),
+                  content: (
+                    <Field name='introduction'>
+                      {({ input, meta }) => <TextArea {...input} error={checkError(meta)} />}
+                    </Field>
+                  )
+                },
+                {
+                  label: formatMessage(commonMessages.author),
+                  content: (
+                    <Field name='author'>
+                      {({ input, meta }) => (
+                        <Grid className={classes.buttonMargin} container alignItems='center'>
+                          <SearchInput {...input} error={checkError(meta)} icon={true} />
+                          <Button buttonText='新規作成' onClick={() => {}} icon={AddIcon} />
+                        </Grid>
+                      )}
+                    </Field>
+                  )
+                },
+                {
+                  label: formatMessage(messages.category),
+                  content: (
+                    <Field name='author'>
+                      {({ input, meta }) =>
+                        workData ? workData.category : <Select {...input} error={checkError(meta)} list={[1]} isShort />
+                      }
+                    </Field>
+                  )
+                },
+                {
+                  label: formatMessage(messages.storyCategory),
+                  content: (
+                    <Field name='storyCategory'>
+                      {({ input, meta }) => <Select {...input} error={checkError(meta)} list={[1]} isShort />}
+                    </Field>
+                  )
+                },
+                {
+                  label: formatMessage(messages.updateFrequency),
+                  content: (
+                    <Field name='updateFrequency'>
+                      {({ input, meta }) => <Select {...input} error={checkError(meta)} list={[1]} isShort />}
+                    </Field>
+                  )
+                },
+                {
+                  label: formatMessage(messages.rensai),
+                  content: (
+                    <Field name='workSerial'>
+                      {({ input, meta }) => <Select {...input} error={checkError(meta)} list={[1]} isShort />}
+                    </Field>
+                  )
+                },
+                ...imageDataSet
+              ]}
+            />
+            <DataTable
+              title={formatMessage(messages.deliveryDuration)}
+              tableClass={classes.tableMargin}
+              dataSet={[
+                {
+                  label: formatMessage(messages.deliveryStartDateTime),
+                  content: (
+                    <Field name='deliveryStartDateTime'>
+                      {({ input, meta }) => (
+                        <TextInput {...input} error={checkError(meta)} placeholder={DATE_TIME_PLACEHOLDER} />
+                      )}
+                    </Field>
+                  )
+                },
+                {
+                  label: formatMessage(messages.deliveryEndDateTime),
+                  content: (
+                    <Field name='deliveryEndDateTime'>
+                      {({ input, meta }) => (
+                        <TextInput {...input} error={checkError(meta)} placeholder={DATE_TIME_PLACEHOLDER} />
+                      )}
+                    </Field>
+                  )
+                }
+              ]}
+            />
+          </form>
+        )}
       />
     </>
   )

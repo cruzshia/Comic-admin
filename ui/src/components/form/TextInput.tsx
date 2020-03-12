@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   }
 })
 
-export default function TextInput({ name, onChange, onBlur, error, placeholder }: InputProps) {
+export default function TextInput({ name, onChange, onBlur, error, placeholder, value }: InputProps) {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   return (
@@ -27,6 +27,7 @@ export default function TextInput({ name, onChange, onBlur, error, placeholder }
         className={clsx(classes.root, { error: !!error })}
         onChange={onChange}
         onBlur={onBlur}
+        value={value}
       />
       {error && <FormHelperText className='error'>{error}</FormHelperText>}
     </div>

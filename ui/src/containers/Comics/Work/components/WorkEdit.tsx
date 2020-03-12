@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react'
+import React, { useRef, useMemo, useCallback } from 'react'
 import { useIntl } from 'react-intl'
-import ContentHeader from '@src/components/ContentHeader/ContentHeader'
+import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import Button from '@src/components/Button/Button'
 import { ButtonTheme } from '@src/components/Button/buttonTheme'
 import StickyHeader from './StickyHeader'
@@ -11,22 +11,37 @@ import messages from '../messages'
 import commonMessages from '@src/messages'
 
 export default function WorkEdit() {
+  const formRef = useRef<HTMLFormElement>(null)
   const { formatMessage } = useIntl()
+  const handleClickSubmit = useCallback(() => {
+    formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
+  }, [formRef])
+  const handleSubmitUpdate = useCallback(data => console.log(data), [])
+
   const titleText = mockWork.title
-  const breadcrumbList: { title: string; route?: string }[] = WORKS_BREADCRUMBS.map(({ title, route }) => ({
-    title: formatMessage(title),
-    route
-  }))
-  breadcrumbList.push({ title: formatMessage(messages.createWork) })
-  const CreateButton = useMemo(
-    () => <Button theme={ButtonTheme.DARK} buttonText={formatMessage(commonMessages.create)} onClick={() => {}} />,
-    [formatMessage]
+  const breadcrumbList: Breadcrumb[] = WORKS_BREADCRUMBS.reduce(
+    (acc, { title, route }) =>
+      [
+        {
+          title: formatMessage(title),
+          route
+        } as Breadcrumb
+      ].concat(acc),
+    [{ title: formatMessage(messages.createWork) }]
   )
+  const CreateButton = useMemo(
+    () => (
+      <Button theme={ButtonTheme.DARK} buttonText={formatMessage(commonMessages.create)} onClick={handleClickSubmit} />
+    ),
+    [formatMessage, handleClickSubmit]
+  )
+  const buttonList = useMemo(() => [CreateButton], [CreateButton])
+
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={[CreateButton]} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <StickyHeader title={formatMessage(messages.createWork)} button={CreateButton} />
-      <WorkForm workData={mockWork} />
+      <WorkForm workData={mockWork} onSubmit={handleSubmitUpdate} formRef={formRef} />
     </>
   )
 }

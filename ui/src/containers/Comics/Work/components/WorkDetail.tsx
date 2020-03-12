@@ -6,14 +6,13 @@ import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { DataSet } from '@src/components/table/DataTable'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
-import StickyHeader from './StickyHeader'
-import ContentHeader from '@src/components/ContentHeader/ContentHeader'
+import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { ScrollAnchor } from './WorkForm'
+import StickyHeader from './StickyHeader'
 import workContext from '../workContext'
 import commonMessages from '@src/messages'
 import messages from '../messages'
-import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
-import { WORKS_BREADCRUMBS } from '../constants'
+import { IMAGE_NUM, IMAGE_MAX_WIDTH, WORKS_BREADCRUMBS } from '../constants'
 
 const useStyle = makeStyles({
   table: {
@@ -39,11 +38,16 @@ export default function WorkDetail() {
   const history = useHistory()
 
   const titleText = mockWork.title
-  const breadcrumbList: { title: string; route?: string }[] = WORKS_BREADCRUMBS.map(({ title, route }) => ({
-    title: formatMessage(title),
-    route
-  }))
-  breadcrumbList.push({ title: formatMessage(messages.detail) })
+  const breadcrumbList: Breadcrumb[] = WORKS_BREADCRUMBS.reduce(
+    (acc, { title, route }) =>
+      [
+        {
+          title: formatMessage(title),
+          route
+        } as Breadcrumb
+      ].concat(acc),
+    [{ title: formatMessage(messages.detail) }]
+  )
   const handleRedirect = useCallback(
     (target?: ScrollAnchor) => () =>
       history.push(routePath.comics.workEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')),
@@ -67,7 +71,7 @@ export default function WorkDetail() {
 
   return (
     <>
-      <StickyHeader title='ドラゴンクエスト ダイの大冒険' button={EditButton} />
+      <StickyHeader title={titleText} button={EditButton} />
       <ContentHeader titleText={titleText} breadcrumbList={breadcrumbList} buttonList={[EditButton]} />
       <DataTable
         title={formatMessage(messages.basicInfo)}

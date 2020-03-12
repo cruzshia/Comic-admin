@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   })
 }))
 
-export default function SearchInput({ name, icon, onChange, onBlur, error, placeholder }: Props) {
+export default function SearchInput({ name, icon, onChange, onBlur, error, placeholder, value }: Props) {
   const { formatMessage } = useIntl()
   const classes = useStyles({ icon })
 
@@ -33,6 +33,7 @@ export default function SearchInput({ name, icon, onChange, onBlur, error, place
         color='secondary'
         onChange={onChange}
         onBlur={onBlur}
+        value={value}
         startAdornment={
           icon && (
             <InputAdornment position='start' data-testid='search_icon'>

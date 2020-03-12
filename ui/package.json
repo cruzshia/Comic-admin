@@ -16,18 +16,17 @@
     "@types/redux-logger": "^3.0.7",
     "babel-plugin-react-remove-properties": "^0.3.0",
     "clsx": "^1.1.0",
-    "husky": "^4.2.3",
-    "lint-staged": "^10.0.7",
+    "final-form": "^4.18.7",
     "react": "^16.12.0",
     "react-app-rewired": "^2.1.5",
     "react-dom": "^16.12.0",
     "react-dropzone": "^10.2.1",
+    "react-final-form": "^6.3.5",
     "react-intl": "^3.11.0",
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "redux": "^4.0.5",
-    "redux-logger": "^3.0.6",
     "redux-observable": "^1.2.0",
     "rxjs": "^6.5.4",
     "typescript": "^3.7.5"
@@ -68,7 +67,8 @@
         "rules": {
           "no-else-return": "error",
           "react-hooks/exhaustive-deps": "error",
-          "@typescript-eslint/no-unused-vars": "error"
+          "@typescript-eslint/no-unused-vars": "error",
+          "no-nested-ternary": "error"
         }
       }
     ]
@@ -91,6 +91,9 @@
     ]
   },
   "devDependencies": {
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
+    "redux-logger": "^3.0.6",
     "@storybook/addon-actions": "^5.3.12",
     "@storybook/addon-knobs": "^5.3.13",
     "@storybook/addon-links": "^5.3.12",

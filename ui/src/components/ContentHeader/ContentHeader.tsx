@@ -29,8 +29,12 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+export interface Breadcrumb {
+  title: string
+  route?: string
+}
 interface Props {
-  breadcrumbList: { title: string; route?: string }[]
+  breadcrumbList: Breadcrumb[]
   titleText?: string
   buttonList?: JSX.Element[]
 }

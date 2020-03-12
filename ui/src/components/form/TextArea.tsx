@@ -19,7 +19,7 @@ const useStyle = makeStyles({
   }
 })
 
-export default function TextArea({ name, onChange, onBlur, error, placeholder }: InputProps) {
+export default function TextArea({ name, onChange, onBlur, error, placeholder, value }: InputProps) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   return (
@@ -35,6 +35,7 @@ export default function TextArea({ name, onChange, onBlur, error, placeholder }:
         name={name}
         onChange={onChange}
         onBlur={onBlur}
+        value={value}
       />
       {error && <FormHelperText className='error'>{error}</FormHelperText>}
     </div>
