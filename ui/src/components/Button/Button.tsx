@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     fontSize: 14,
     color: textColor,
     '& .MuiButton-label': {
-      margin: '6px 20px 6px 20px'
+      margin: '0 20px'
     },
     '&.dark_border': {
       borderColor: mainColor,

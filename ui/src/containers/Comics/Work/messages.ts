@@ -131,33 +131,25 @@ export default defineMessages({
     id: PREFIX + 'work_id',
     defaultMessage: 'Work ID'
   },
-  dateStart: {
-    id: PREFIX + 'date_start',
-    defaultMessage: 'Date Started'
-  },
-  dateEnd: {
-    id: PREFIX + 'date_end',
-    defaultMessage: 'Date Ended'
-  },
   adUnit: {
     id: PREFIX + 'ad_unit',
     defaultMessage: 'Ad Unit'
   },
-  status: {
-    id: PREFIX + 'status',
-    defaultMessage: 'Status'
+  rensaiStatus: {
+    id: PREFIX + 'rensai_status',
+    defaultMessage: 'Rensai Status'
   },
-  magazine: {
-    id: PREFIX + 'magazine',
-    defaultMessage: 'Magazine'
+  rensaiMagazine: {
+    id: PREFIX + 'rensai_magazine',
+    defaultMessage: 'Rensai Magazine'
   },
-  frequency: {
-    id: PREFIX + 'frequency',
-    defaultMessage: 'Frequency'
+  rensaiFrequency: {
+    id: PREFIX + 'rensai_frequency',
+    defaultMessage: 'Rensai Frequency'
   },
-  publishDate: {
-    id: PREFIX + 'publish_date',
-    defaultMessage: 'Publish Date'
+  rensaiDay: {
+    id: PREFIX + 'rensai_day',
+    defaultMessage: 'Rensai Day'
   },
   rankingGroup: {
     id: PREFIX + 'ranking_group',
@@ -166,5 +158,13 @@ export default defineMessages({
   createWork: {
     id: PREFIX + 'create',
     defaultMessage: 'Create work'
+  },
+  csvOutput: {
+    id: PREFIX + 'csv_output',
+    defaultMessage: 'CSV Output'
+  },
+  csvOutputLog: {
+    id: PREFIX + 'csv_output_log',
+    defaultMessage: 'CSV Output Log'
   }
 })

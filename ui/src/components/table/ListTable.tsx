@@ -22,7 +22,7 @@ import clsx from 'clsx'
 interface ListTableTitle {
   id: string
   label: string
-  onSort?: (id: string, e?: React.MouseEvent<unknown>) => void
+  onSort?: (id: any, order?: 'asc' | 'desc', e?: React.MouseEvent<unknown>) => void
 }
 
 interface Pagination {
@@ -91,17 +91,24 @@ const useStyles = makeStyles({
       },
       '&-iconDirectionAsc': { transform: 'rotate(180deg)' }
     },
-    '& .sort': {
+    '& .sortable': {
       color: mainColor
     },
-    '& .sorting, .sort:hover': {
+    '& .sorting, .sortable:hover': {
       backgroundColor,
       fontWeight: 600,
       cursor: 'pointer'
     }
   },
   pagination: {
-    margin: '20px 0'
+    margin: '60px 0 20px 0',
+    maxWidth: contentWidth,
+    '& .MuiButtonBase-root': {
+      margin: '0 5px',
+      '&:last-child': {
+        marginRight: 0
+      }
+    }
   }
 })
 
@@ -119,8 +126,8 @@ export default function ListTable({
   const { formatMessage } = useIntl()
 
   const handleSort = useCallback(
-    (id, sortFunction) => (e: React.MouseEvent<unknown>) => {
-      sortFunction && sortFunction(id, e)
+    (id, sortFunction, sortOrder) => (e: React.MouseEvent<unknown>) => {
+      sortFunction && sortFunction(id, sortOrder, e)
     },
     []
   )
@@ -132,7 +139,7 @@ export default function ListTable({
   )
 
   return (
-    <div>
+    <div data-testid='list-table'>
       <Grid container justify='space-between' alignItems='center' className={classes.pagination}>
         <div>{formatMessage(messages.pagination, { total, start, end: start + dataList.length - 1 })}</div>
         <div>
@@ -145,27 +152,38 @@ export default function ListTable({
         <Table>
           <TableHead>
             <TableRow className={clsx(classes.tableHeadRow, tableClass)}>
-              {titleList.map(({ id, label, onSort }, index) => (
-                <TableCell
-                  align='left'
-                  key={id}
-                  className={clsx(`col${index}`, { sort: !!onSort, sorting: sortBy === id })}
-                  onClick={onSort && handleSort(id, onSort)}
-                >
-                  {onSort ? (
-                    <TableSortLabel
-                      children={label}
-                      IconComponent={props => (
-                        <SortImg {...props} preserveAspectRatio='xMidYMid slice' height={10} width={24} />
-                      )}
-                      active={sortBy === id}
-                      direction={sortBy === id ? sortOrder : 'desc'}
-                    />
-                  ) : (
-                    label
-                  )}
-                </TableCell>
-              ))}
+              {titleList.map(({ id, label, onSort }, index) => {
+                const sortClass = clsx({ sortable: !!onSort, sorting: sortBy === id })
+                return (
+                  <TableCell
+                    align='left'
+                    key={id}
+                    className={clsx(`col${index}`, sortClass)}
+                    onClick={onSort && handleSort(id, onSort, sortOrder)}
+                    data-testid={sortClass}
+                  >
+                    {onSort ? (
+                      <TableSortLabel
+                        children={label}
+                        IconComponent={props => (
+                          <SortImg
+                            {...props}
+                            preserveAspectRatio='xMidYMid slice'
+                            height={10}
+                            width={24}
+                            data-testid='sort-icon'
+                          />
+                        )}
+                        active={sortBy === id}
+                        direction={sortBy === id ? sortOrder : 'desc'}
+                        data-testid={id}
+                      />
+                    ) : (
+                      label
+                    )}
+                  </TableCell>
+                )
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
