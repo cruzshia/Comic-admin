@@ -41,13 +41,13 @@ export default function WorkList() {
         theme={ButtonTheme.DARK_BORDER}
         buttonText={formatMessage(messages.startCreate)}
         onClick={() => history.push(routePath.comics.workCreation)}
-        icon={IconSave}
+        icon={IconEdit}
       />,
       <Button
         theme={ButtonTheme.DARK_BORDER}
         buttonText={formatMessage(commonMessages.csvImport)}
         onClick={() => {}}
-        icon={IconEdit}
+        icon={IconSave}
       />
     ],
     [formatMessage, history]
