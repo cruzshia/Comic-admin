@@ -39,7 +39,7 @@
     "lint": "eslint --ext .ts --ext .tsx src",
     "extract-locale": "extract-messages -l=en,ja -o src/translation -d en --flat 'src/**/messages.ts'",
     "storybook": "start-storybook -p 9009 -s storybook-assets",
-    "build-storybook": "build-storybook -s storybook-assets -o build/storybook",
+    "build-storybook": "build-storybook -s storybook-assets -o build/static/storybook",
     "deploy": "mkdir -p ../priv/static && cp -r build/* ../priv/static"
   },
   "lint-staged": {
