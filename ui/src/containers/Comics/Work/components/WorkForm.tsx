@@ -31,7 +31,10 @@ const useStyle = makeStyles({
     }
   },
   tableClass: {
-    '&. image': {
+    '& .MuiGrid-container:not(.display) .MuiGrid-item': {
+      padding: '15px 20px'
+    },
+    '& img': {
       maxWidth: IMAGE_MAX_WIDTH
     }
   },
@@ -62,6 +65,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
       const img = images ? images[i] : undefined
       dataSet.push({
         label: `${formatMessage(commonMessages.photo)}${i + 1}`,
+        classes: img ? 'display' : undefined,
         content: img ? <img src={img} alt={img} /> : <DropZone name={`photo${i + 1}`} onDropAccepted={() => {}} />
       })
     }
@@ -86,6 +90,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
               dataSet={[
                 {
                   label: formatMessage(messages.id),
+                  classes: workData ? 'display' : undefined,
                   content: (
                     <Field name='id' validate={required}>
                       {({ input, meta }) =>
@@ -131,6 +136,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 },
                 {
                   label: formatMessage(messages.category),
+                  classes: workData ? 'display' : undefined,
                   content: (
                     <Field name='author'>
                       {({ input, meta }) =>
@@ -168,7 +174,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
             />
             <DataTable
               title={formatMessage(messages.deliveryDuration)}
-              tableClass={classes.tableMargin}
+              tableClass={clsx(classes.tableClass, classes.tableMargin)}
               dataSet={[
                 {
                   label: formatMessage(messages.deliveryStartDateTime),

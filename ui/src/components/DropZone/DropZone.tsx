@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button'
 
 import { backgroundColor } from '@src/common/styles'
 import { ReactComponent as PhotoIcon } from '@src/assets/form/photo.svg'
-import messages from './messages'
+import messages from '@src/messages'
 
 interface Props {
   name?: string

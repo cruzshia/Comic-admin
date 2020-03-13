@@ -3,7 +3,7 @@ import { fromEvent } from 'rxjs'
 import Box from '@material-ui/core/Box'
 import RootRef from '@material-ui/core/RootRef'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { borderColorLight, topOffset, contentWidth, sidebarWidth } from '@src/common/styles'
+import { borderColorLight, topOffset, contentWidth, sidebarWidth, zIndex } from '@src/common/styles'
 
 interface Props {
   top: number
@@ -39,7 +39,7 @@ export default function StickyBar({ top, contentOffset = 0, children }: Props) {
         position='fixed'
         top={topOffset + top}
         bgcolor='#FFFFFF'
-        zIndex={1202}
+        zIndex={zIndex.stickyBar}
         borderBottom={`1px solid ${borderColorLight}`}
         visibility={visible ? 'visible' : 'hidden'}
       >

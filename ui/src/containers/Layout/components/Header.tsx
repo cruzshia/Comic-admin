@@ -5,19 +5,19 @@ import { styled, makeStyles } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import AppBar from '@material-ui/core/AppBar'
 import expandIco from '@src/assets/common/expand_more.svg'
-import { headerHeight, headerMenuHeight, fontWeightBold } from '@src/common/styles'
+import { headerHeight, headerMenuHeight, fontWeightBold, zIndex } from '@src/common/styles'
 import Logo from '@src/assets/logo.svg'
 import HeaderTabMenu from './HeaderTabMenu'
 import { SYSTEM_MENUS } from './constants'
 import clsx from 'clsx'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   header: {
     flexGrow: 1,
     minHeight: headerMenuHeight,
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: zIndex.header
   }
-}))
+})
 
 const SystemMenuItem = styled(Link)({
   display: 'flex',

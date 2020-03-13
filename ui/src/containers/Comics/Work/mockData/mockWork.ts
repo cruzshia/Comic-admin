@@ -15,7 +15,7 @@ export const mockWork = {
   rensai: 'ジャンプ本誌',
   createDateTime: '2019-12-25 00:00:00 +0900',
   updateDateTime: '2019-12-25 00:00:00 +0900',
-  images: [mockCover, mockCoverSm],
+  images: [mockCover, mockCoverSm, mockCover, mockCover],
   deliveryStartDateTime: '2019-12-25 00:00:00 +0900',
   deliveryEndDateTime: '2019-12-25 00:00:00 +0900',
   notifyType: 'デバイス共通',

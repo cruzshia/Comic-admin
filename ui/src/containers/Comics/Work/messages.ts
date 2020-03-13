@@ -13,7 +13,7 @@ export default defineMessages({
   },
   id: {
     id: PREFIX + 'id',
-    defaultMessage: 'ID'
+    defaultMessage: 'Work ID'
   },
   category: {
     id: PREFIX + 'category',

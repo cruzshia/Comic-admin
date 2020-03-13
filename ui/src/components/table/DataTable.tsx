@@ -44,6 +44,7 @@ export interface DataSet {
   label: string
   content: string | JSX.Element
   isSubTitle?: boolean
+  classes?: string
 }
 
 interface Props {
@@ -74,11 +75,20 @@ export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef
       <div className={clsx(classes.table, tableClass)} data-testid='data-table'>
         {dataSet.map(data =>
           data.isSubTitle ? (
-            <Typography variant='subtitle2' className={classes.subTitle} key={data.content.toString()}>
+            <Typography
+              variant='subtitle2'
+              className={clsx(classes.subTitle, data.classes)}
+              key={data.content.toString()}
+            >
               {data.content}
             </Typography>
           ) : (
-            <DataTableRow key={data.label} classnames={classes.rowItem} title={data.label} content={data.content} />
+            <DataTableRow
+              key={data.label}
+              classnames={clsx(classes.rowItem, data.classes)}
+              title={data.label}
+              content={data.content}
+            />
           )
         )}
       </div>

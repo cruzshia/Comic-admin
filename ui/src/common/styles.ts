@@ -20,6 +20,12 @@ export const hyperlinkColor = '#1A0DAB'
 export const errorColor = '#F5A623'
 export const errorBackgroundColor = '#FCEFD9'
 
+// https://material-ui.com/customization/z-index/
+export const zIndex = {
+  header: 1201,
+  stickyBar: 1202
+}
+
 export const GlobalStyle = withStyles({
   '@global': {
     backgroundColor,
@@ -35,7 +41,11 @@ export const theme = createMuiTheme({
     primary: {
       main: mainColor
     },
-    secondary: { main: textColor }
+    secondary: { main: textColor },
+    text: {
+      primary: textColor,
+      secondary: textColor
+    }
   },
   overrides: {
     MuiOutlinedInput: {

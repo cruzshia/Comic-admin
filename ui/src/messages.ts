@@ -32,7 +32,23 @@ export default defineMessages({
     defaultMessage: 'Update date time'
   },
   comicManagement: {
-    id: 'header.menu.comics_management',
+    id: PREFIX + 'header.comics_management',
     defaultMessage: 'Comic management'
+  },
+  applicationManagement: {
+    id: PREFIX + 'header.application_management',
+    defaultMessage: 'Application management'
+  },
+  userManagement: {
+    id: PREFIX + 'header.user_management',
+    defaultMessage: 'User management'
+  },
+  dragDropUpload: {
+    id: PREFIX + 'drag.upload.photo',
+    defaultMessage: 'DragDrop to upload image'
+  },
+  selectFile: {
+    id: PREFIX + 'select_file',
+    defaultMessage: 'Select files'
   }
 })

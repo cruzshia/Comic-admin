@@ -16,11 +16,18 @@ import { IMAGE_NUM, IMAGE_MAX_WIDTH, WORKS_BREADCRUMBS } from '../constants'
 
 const useStyle = makeStyles({
   table: {
-    marginBottom: '36px'
+    marginBottom: '36px',
+    lineHeight: '14px'
+  },
+  subTitle: {
+    padding: '15px 20px'
   },
   innerTable: {
     margin: '-20px',
-    border: 'none'
+    border: 'none',
+    '& .MuiGrid-container .MuiGrid-item:first-child': {
+      maxWidth: 120
+    }
   },
   blueText: {
     color: '#1A0DAB'
@@ -116,7 +123,8 @@ export default function WorkDetail() {
           {
             label: '',
             content: mockWork.notifyType,
-            isSubTitle: true
+            isSubTitle: true,
+            classes: classes.subTitle
           },
           ...mockWork.notifications.map((notify: any) => {
             const messageKey = notify.type.replace(/_\w/gi, (matched: string) =>

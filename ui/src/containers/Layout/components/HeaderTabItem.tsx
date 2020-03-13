@@ -32,7 +32,7 @@ export default memo(function HeaderTabItem({ icon, title, route, fontSize, selec
         position='relative'
         display='flex'
         justifyContent='center'
-        padding='20px 0 19px'
+        padding='18px 0'
         fontSize={isSmallFont ? 12 : 14}
         marginRight={isSmallFont ? '40px' : 0}
         fontWeight={600}

@@ -34,13 +34,13 @@ export const HEADER_TABS: TabProps[] = [
   },
   {
     icon: phoneIcon,
-    title: messages.applicationManagement,
+    title: commonMessages.applicationManagement,
     basePath: routePath.application.base,
     route: routePath.application.displaySetting
   },
   {
     icon: userIcon,
-    title: messages.userManagement,
+    title: commonMessages.userManagement,
     basePath: routePath.user.base,
     route: routePath.user.list
   }
