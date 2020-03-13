@@ -7,6 +7,6 @@
   "private": true,
   "main": "./ui/src/index.tsx",
   "scripts": {
-    "antikythera_prepare_assets": "cd ui && npm install && npm run build && npm run deploy"
+    "antikythera_prepare_assets": "cd ui && npm install && npm run build && npm run build-storybook && npm run deploy"
   }
 }
