@@ -47,41 +47,25 @@ export default defineMessages({
     id: `${NAME_SPACE}menu.application_management`,
     defaultMessage: 'Application management'
   },
-  applicationList: {
-    id: 'application.list',
-    defaultMessage: 'Application list'
+  applicationDisplaySetting: {
+    id: 'application.display_setting',
+    defaultMessage: 'Application Display Setting'
   },
-  applicationAppScreen: {
-    id: 'application.app_screen',
-    defaultMessage: 'Application App Screen'
-  },
-  applicationAdvertisement: {
-    id: 'application.advertisement',
-    defaultMessage: 'Application advertisement'
-  },
-  applicationAnnouncement: {
-    id: 'application.announcement',
-    defaultMessage: 'Application announcement'
-  },
-  applicationCoinProduct: {
-    id: 'application.coin_product',
-    defaultMessage: 'Application coin product'
+  applicationCoinDeliveryEvent: {
+    id: 'application.coin_delivery_event',
+    defaultMessage: 'Application Coin Delivery Event'
   },
   applicationPushNotification: {
     id: 'application.push_notification',
-    defaultMessage: 'Application push notification'
+    defaultMessage: 'Application Push Notification'
   },
-  applicationQuestionnaire: {
-    id: 'application.questionnaire',
-    defaultMessage: 'Application questionnaire'
+  applicationCoinProduct: {
+    id: 'application.coin_product',
+    defaultMessage: 'Application Coin Product'
   },
-  applicationCustomerService: {
-    id: 'application.customer_service',
-    defaultMessage: 'Application customer service'
-  },
-  applicationCampaign: {
-    id: 'application.campaign',
-    defaultMessage: 'Application campaign'
+  applicationApplicationInfo: {
+    id: 'application.application_info',
+    defaultMessage: 'Application Application Info'
   },
   userManagement: {
     id: `${NAME_SPACE}menu.user_management`,
@@ -91,20 +75,28 @@ export default defineMessages({
     id: 'user.list',
     defaultMessage: 'User list'
   },
-  userAccountCodeManagement: {
-    id: 'user.account_code_management',
-    defaultMessage: 'Account code management'
+  userComment: {
+    id: 'user.comment',
+    defaultMessage: 'Comment'
   },
   userNGWordManagement: {
     id: 'user.ng_word_management',
-    defaultMessage: 'NG word management'
+    defaultMessage: 'NG word Management'
   },
-  userContentGift: {
-    id: 'user.content_gift',
-    defaultMessage: 'Content gift'
+  userReturnGift: {
+    id: 'user.return_gift',
+    defaultMessage: 'Return Gift Management'
   },
-  userCoinGift: {
-    id: 'user.coin_gift',
-    defaultMessage: 'Coin gift'
+  userInquiryManagement: {
+    id: 'user.inquiry_management',
+    defaultMessage: 'Inquiry Management'
+  },
+  userNotificationManagement: {
+    id: 'user.notification_management',
+    defaultMessage: 'Notification Management'
+  },
+  userQuestionnaireManagement: {
+    id: 'user.questionnaire_management',
+    defaultMessage: 'Questionnaire Management'
   }
 })

@@ -26,25 +26,22 @@ export const routePath = {
   },
   application: {
     base: RouteSection.Application,
-    list: `${RouteSection.Application}/list`,
-    appScreen: `${RouteSection.Application}/app_screen`,
-    advertisement: `${RouteSection.Application}/advertisement`,
-    announcement: `${RouteSection.Application}/announcement`,
-    coinProduct: `${RouteSection.Application}/coin_product`,
+    displaySetting: `${RouteSection.Application}/display_setting`,
+    coinDeliveryEvent: `${RouteSection.Application}/coin_delivery_event`,
     pushNotification: `${RouteSection.Application}/push_notification`,
-    questionnaire: `${RouteSection.Application}/questionnaire`,
-    customerService: `${RouteSection.Application}/customer_service`,
-    campaign: `${RouteSection.Application}/campaign`,
-    subPages:
-      'list|app_screen|advertisement|announcement|coin_product|push_notification|questionnaire|customer_service|campaign'
+    coinProduct: `${RouteSection.Application}/coin_product`,
+    applicationInfo: `${RouteSection.Application}/application_info`,
+    subPages: 'display_setting|coin_delivery_event|push_notification|coin_product|application_info'
   },
   user: {
     base: RouteSection.User,
     list: `${RouteSection.User}/list`,
-    accountCode: `${RouteSection.User}/account_code`,
+    comment: `${RouteSection.User}/comment`,
     ngWord: `${RouteSection.User}/ng_word`,
-    contentGift: `${RouteSection.User}/content_gift`,
-    coinGift: `${RouteSection.User}/coin_gift`,
-    subPages: 'list|account_code|ng_word|content_gift|coin_gift'
+    returnGift: `${RouteSection.User}/return_gift`,
+    inquiry: `${RouteSection.User}/inquiry`,
+    notification: `${RouteSection.User}/notification`,
+    questionnaire: `${RouteSection.User}/questionnaire`,
+    subPages: 'list|comment|ng_word||return_gift|inquiry|notification|questionnaire'
   }
 }

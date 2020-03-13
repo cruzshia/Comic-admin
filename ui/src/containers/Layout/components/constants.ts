@@ -36,7 +36,7 @@ export const HEADER_TABS: TabProps[] = [
     icon: phoneIcon,
     title: messages.applicationManagement,
     basePath: routePath.application.base,
-    route: routePath.application.list
+    route: routePath.application.displaySetting
   },
   {
     icon: userIcon,
@@ -89,40 +89,24 @@ export const SIDEBAR_TABS: { [key: string]: Tab[] } = {
   ],
   [routePath.application.base]: [
     {
-      to: routePath.application.list,
-      title: messages.applicationList
+      to: routePath.application.displaySetting,
+      title: messages.applicationDisplaySetting
     },
     {
-      to: routePath.application.appScreen,
-      title: messages.applicationAppScreen
-    },
-    {
-      to: routePath.application.advertisement,
-      title: messages.applicationAdvertisement
-    },
-    {
-      to: routePath.application.announcement,
-      title: messages.applicationAnnouncement
-    },
-    {
-      to: routePath.application.coinProduct,
-      title: messages.applicationCoinProduct
+      to: routePath.application.coinDeliveryEvent,
+      title: messages.applicationCoinDeliveryEvent
     },
     {
       to: routePath.application.pushNotification,
       title: messages.applicationPushNotification
     },
     {
-      to: routePath.application.questionnaire,
-      title: messages.applicationQuestionnaire
+      to: routePath.application.coinProduct,
+      title: messages.applicationCoinProduct
     },
     {
-      to: routePath.application.customerService,
-      title: messages.applicationCustomerService
-    },
-    {
-      to: routePath.application.campaign,
-      title: messages.applicationCampaign
+      to: routePath.application.applicationInfo,
+      title: messages.applicationApplicationInfo
     }
   ],
   [routePath.user.base]: [
@@ -131,20 +115,28 @@ export const SIDEBAR_TABS: { [key: string]: Tab[] } = {
       title: messages.userList
     },
     {
-      to: routePath.user.accountCode,
-      title: messages.userAccountCodeManagement
+      to: routePath.user.comment,
+      title: messages.userComment
     },
     {
       to: routePath.user.ngWord,
       title: messages.userNGWordManagement
     },
     {
-      to: routePath.user.contentGift,
-      title: messages.userContentGift
+      to: routePath.user.returnGift,
+      title: messages.userReturnGift
     },
     {
-      to: routePath.user.coinGift,
-      title: messages.userCoinGift
+      to: routePath.user.inquiry,
+      title: messages.userInquiryManagement
+    },
+    {
+      to: routePath.user.notification,
+      title: messages.userNotificationManagement
+    },
+    {
+      to: routePath.user.questionnaire,
+      title: messages.userQuestionnaireManagement
     }
   ]
 }
