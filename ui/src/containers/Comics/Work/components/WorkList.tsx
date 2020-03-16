@@ -19,7 +19,7 @@ import { WORKS_BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import workContext from '../workContext'
 
-const limit = 3
+const limit = 99
 
 export default function WorkList() {
   const { formatMessage } = useIntl()

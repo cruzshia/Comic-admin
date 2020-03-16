@@ -19,6 +19,7 @@ import ListTableRow from './ListTableRow'
 import messages from './messages'
 import clsx from 'clsx'
 
+const mockLimit = 99
 interface ListTableTitle {
   id: string
   label: string
@@ -141,7 +142,7 @@ export default function ListTable({
   return (
     <div data-testid='list-table'>
       <Grid container justify='space-between' alignItems='center' className={classes.pagination}>
-        <div>{formatMessage(messages.pagination, { total, start, end: start + dataList.length - 1 })}</div>
+        <div>{formatMessage(messages.pagination, { total, start, end: start + mockLimit })}</div>
         <div>
           {buttonList?.map((button, index) => (
             <React.Fragment key={index}>{button}</React.Fragment>
