@@ -3,6 +3,6 @@ defmodule RaiseServer.Router do
 
   # Frontend
   get "/",                     Page, :show_frontend
-  get "/static/:folder/:file", Page, :show_static
+  get "/static/*path",         Page, :show_static
   get "/:file",                Page, :show_file
 end

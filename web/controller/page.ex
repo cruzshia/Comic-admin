@@ -9,8 +9,11 @@ defmodule RaiseServer.Controller.Page do
     Conn.send_priv_file(conn, 200, "static/index.html")
   end
 
-  def show_static(%{request: %{path_matches: %{folder: folder, file: file}}} = conn) do
-    Conn.send_priv_file(conn, 200, "static/static/#{folder}/#{file}")
+  def show_static(%{request: %{path_matches: %{path: path}}} = conn) do
+    conn
+    |> Conn.put_resp_header("X-Frame-Options", "SAMEORIGIN")
+    |> Conn.send_priv_file(200, "static/static/#{path}")
+
   end
 
   def show_file(%{request: %{path_matches: %{file: file}}} = conn) do
