@@ -77,6 +77,10 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - [react-intl](https://github.com/formatjs/react-intl)
 - other [modules used by react-scripts](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/package.json)
 
+## Environment
+
+- node.js version: v12.11.1
+
 ## Directory structure
 
 ```
