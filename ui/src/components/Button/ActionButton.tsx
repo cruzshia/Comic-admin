@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 interface Props {
   theme?: ButtonTheme
   buttonText: string
-  onClick: () => void
+  onClick?: () => void
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
 }

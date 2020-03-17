@@ -35,6 +35,10 @@ export default defineMessages({
     id: PREFIX + 'schedule',
     defaultMessage: 'Schedule'
   },
+  workTitle: {
+    id: PREFIX + 'work_title',
+    defaultMessage: 'Work title'
+  },
   title: {
     id: PREFIX + 'title',
     defaultMessage: 'Title'

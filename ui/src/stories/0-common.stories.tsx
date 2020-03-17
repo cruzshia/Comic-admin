@@ -76,7 +76,15 @@ storiesOf('Common components', module)
   ))
   .add('StickyBar', () => (
     <>
-      <StickyBar top={10}>yoyyo</StickyBar>
+      <StickyBar top={10}>
+        <ContentHeader
+          breadcrumbList={[{ title: 'マンガ管理' }, { title: '作品管理', route: '/comics/work' }]}
+          titleText='作品登録'
+          buttonList={[
+            <Button theme={ButtonTheme.DARK} buttonText='登録する' onClick={action('button-click')} disabled={false} />
+          ]}
+        />
+      </StickyBar>
       {/* Code below is for demo */}
       <p style={{ height: '120vh' }}>
         This is mock page content, once <b>scroll</b> to{' '}

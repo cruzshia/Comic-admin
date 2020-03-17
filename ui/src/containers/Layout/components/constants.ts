@@ -28,7 +28,7 @@ export const SYSTEM_MENUS = [
 export const HEADER_TABS: TabProps[] = [
   {
     icon: comicIcon,
-    title: commonMessages.comicManagement,
+    title: commonMessages.comicsManagement,
     basePath: routePath.comics.base,
     route: routePath.comics.work
   },

@@ -4,10 +4,7 @@ import { Form, Field, FieldMetaState } from 'react-final-form'
 import { makeStyles } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import DataTable from '@src/components/table/DataTable'
-import TextInput from '@src/components/form/TextInput'
-import SearchInput from '@src/components/form/SearchInput'
-import TextArea from '@src/components/form/TextArea'
-import Select from '@src/components/form/Select'
+import { TextInput, SearchInput, TextArea, Select } from '@src/components/form'
 import Button from '@src/components/Button/Button'
 import DropZone from '@src/components/DropZone'
 import ScrollTo from '@src/components/scroll/ScrollTo'
@@ -175,6 +172,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
             <DataTable
               title={formatMessage(messages.deliveryDuration)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
+              innerRef={deliveryRef}
               dataSet={[
                 {
                   label: formatMessage(messages.deliveryStartDateTime),

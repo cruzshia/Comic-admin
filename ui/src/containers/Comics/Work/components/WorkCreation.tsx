@@ -17,16 +17,12 @@ export default function WorkCreation() {
   const handleSubmitCreate = useCallback(data => console.log(data), [])
 
   const titleText = formatMessage(messages.createWork)
-  const breadcrumbList: Breadcrumb[] = WORKS_BREADCRUMBS.reduce(
-    (acc, { title, route }) =>
-      [
-        {
-          title: formatMessage(title),
-          route
-        } as Breadcrumb
-      ].concat(acc),
-    [{ title: titleText }]
-  )
+
+  const breadcrumbList: Breadcrumb[] = WORKS_BREADCRUMBS.map(({ title, route }) => ({
+    title: formatMessage(title),
+    route
+  })).concat({ title: titleText, route: undefined })
+
   const CreateButton = useMemo(
     () => <Button buttonText={formatMessage(commonMessages.create)} theme={Theme.DARK} onClick={handleClickSubmit} />,
     [formatMessage, handleClickSubmit]

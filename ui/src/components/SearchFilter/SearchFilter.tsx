@@ -44,6 +44,9 @@ const useStyles = makeStyles(() => ({
       fontSize: 12,
       fontWeight: 600,
       width: 120
+    },
+    '&.hide': {
+      display: 'none'
     }
   },
   expand: {
@@ -70,13 +73,12 @@ export default function SearchFilter({ onSubmit, conditions }: Props) {
   const classes = useStyles()
   const generateItem = useCallback(
     (side: Item[]) => {
-      const items = isExpand ? side : side.slice(0, 3)
-      return items.map((item: Item) => (
+      return side.map((item: Item, idx) => (
         <Grid
           key={item.label}
           container
           alignItems='center'
-          className={classes.item}
+          className={clsx(classes.item, { hide: !isExpand && idx > 2 })}
           wrap='nowrap'
           data-testid='search_filter_item'
         >
@@ -91,9 +93,6 @@ export default function SearchFilter({ onSubmit, conditions }: Props) {
   )
   const handleExpand = useCallback(() => setIsExpand(isExpand => !isExpand), [setIsExpand])
   const handleReset = useCallback(() => {}, [])
-  const handleSubmit = useCallback(() => {
-    onSubmit && onSubmit()
-  }, [onSubmit])
 
   return (
     <div data-testid='search_filter'>
@@ -130,7 +129,7 @@ export default function SearchFilter({ onSubmit, conditions }: Props) {
         <ActionButton
           theme={ButtonTheme.DARK}
           buttonText={formatMessage(messages.search)}
-          onClick={handleSubmit}
+          onClick={onSubmit}
           type='submit'
         />
       </Grid>

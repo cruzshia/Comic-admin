@@ -26,7 +26,7 @@ describe('ListTable component test', () => {
     const { getByTestId } = render(
       withAllProvider(
         <ListTable
-          titleList={mockTitleList}
+          theadList={mockTitleList}
           dataList={[]}
           pagination={{ total: 1000, start: 3 }}
           sortBy='workID'

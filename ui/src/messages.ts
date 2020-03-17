@@ -31,9 +31,9 @@ export default defineMessages({
     id: PREFIX + 'update_date_time',
     defaultMessage: 'Update date time'
   },
-  comicManagement: {
+  comicsManagement: {
     id: PREFIX + 'header.comics_management',
-    defaultMessage: 'Comic management'
+    defaultMessage: 'Comics management'
   },
   applicationManagement: {
     id: PREFIX + 'header.application_management',

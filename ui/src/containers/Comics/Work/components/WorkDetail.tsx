@@ -45,16 +45,11 @@ export default function WorkDetail() {
   const history = useHistory()
 
   const titleText = mockWork.title
-  const breadcrumbList: Breadcrumb[] = WORKS_BREADCRUMBS.reduce(
-    (acc, { title, route }) =>
-      [
-        {
-          title: formatMessage(title),
-          route
-        } as Breadcrumb
-      ].concat(acc),
-    [{ title: formatMessage(messages.detail) }]
-  )
+  const breadcrumbList: Breadcrumb[] = WORKS_BREADCRUMBS.map(({ title, route }) => ({
+    title: formatMessage(title),
+    route
+  })).concat({ title: formatMessage(messages.detail), route: undefined })
+
   const handleRedirect = useCallback(
     (target?: ScrollAnchor) => () =>
       history.push(routePath.comics.workEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')),

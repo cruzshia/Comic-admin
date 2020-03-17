@@ -20,7 +20,7 @@ import messages from './messages'
 import clsx from 'clsx'
 
 const mockLimit = 99
-interface ListTableTitle {
+interface Thead {
   id: string
   label: string
   onSort?: (id: any, order?: 'asc' | 'desc', e?: React.MouseEvent<unknown>) => void
@@ -37,7 +37,7 @@ interface RowData {
 }
 
 interface Props {
-  titleList: ListTableTitle[]
+  theadList: Thead[]
   dataList: RowData[]
   tableClass?: string
   buttonList?: JSX.Element[]
@@ -114,7 +114,7 @@ const useStyles = makeStyles({
 })
 
 export default function ListTable({
-  titleList,
+  theadList,
   dataList,
   tableClass,
   buttonList,
@@ -127,17 +127,11 @@ export default function ListTable({
   const { formatMessage } = useIntl()
 
   const handleSort = useCallback(
-    (id, sortFunction, sortOrder) => (e: React.MouseEvent<unknown>) => {
-      sortFunction && sortFunction(id, sortOrder, e)
-    },
+    (id, sortFunction, sortOrder) => (e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>) =>
+      sortFunction(id, sortOrder, e),
     []
   )
-  const handleRowClick = useCallback(
-    (id: string) => () => {
-      onRowClick && onRowClick(id)
-    },
-    [onRowClick]
-  )
+  const handleRowClick = useCallback((id: string) => () => onRowClick!(id), [onRowClick])
 
   return (
     <div data-testid='list-table'>
@@ -153,8 +147,9 @@ export default function ListTable({
         <Table>
           <TableHead>
             <TableRow className={clsx(classes.tableHeadRow, tableClass)}>
-              {titleList.map(({ id, label, onSort }, index) => {
-                const sortClass = clsx({ sortable: !!onSort, sorting: sortBy === id })
+              {theadList.map(({ id, label, onSort }, index) => {
+                const sorting = sortBy === id
+                const sortClass = clsx({ sortable: !!onSort, sorting })
                 return (
                   <TableCell
                     align='left'
@@ -175,8 +170,8 @@ export default function ListTable({
                             data-testid='sort-icon'
                           />
                         )}
-                        active={sortBy === id}
-                        direction={sortBy === id ? sortOrder : 'desc'}
+                        active={sorting}
+                        direction={sorting ? sortOrder : 'desc'}
                         data-testid={id}
                       />
                     ) : (

@@ -62,7 +62,7 @@ storiesOf('Table components', module)
   ))
   .add('ListTable', () => (
     <ListTable
-      titleList={mockTitleData}
+      theadList={mockTitleData}
       dataList={mockData}
       tableClass='widths'
       buttonList={[<Button onClick={action('button-click')} buttonText={'CSV登録'} icon={IconSave} />]}
