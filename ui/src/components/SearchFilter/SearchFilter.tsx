@@ -72,23 +72,25 @@ export default function SearchFilter({ onSubmit, conditions }: Props) {
   const [isExpand, setIsExpand] = useState<boolean>(false)
   const classes = useStyles()
   const generateItem = useCallback(
-    (side: Item[]) => {
-      return side.map((item: Item, idx) => (
-        <Grid
-          key={item.label}
-          container
-          alignItems='center'
-          className={clsx(classes.item, { hide: !isExpand && idx > 2 })}
-          wrap='nowrap'
-          data-testid='search_filter_item'
-        >
-          <Grid item className='title'>
-            {item.label}
+    (side: Item[]) =>
+      side.map((item: Item, idx) => {
+        const hide = !isExpand && idx > 2
+        return (
+          <Grid
+            key={item.label}
+            container
+            alignItems='center'
+            className={clsx(classes.item, { hide })}
+            wrap='nowrap'
+            data-testid={hide ? '' : 'search_filter_item'}
+          >
+            <Grid item className='title'>
+              {item.label}
+            </Grid>
+            <Grid item>{item.input}</Grid>
           </Grid>
-          <Grid item>{item.input}</Grid>
-        </Grid>
-      ))
-    },
+        )
+      }),
     [isExpand, classes.item]
   )
   const handleExpand = useCallback(() => setIsExpand(isExpand => !isExpand), [setIsExpand])

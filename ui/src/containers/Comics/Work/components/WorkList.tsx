@@ -68,7 +68,7 @@ export default function WorkList() {
         onSort: (id: keyof Work) => setSortOrder(sortOrder => (sortOrder === 'asc' ? 'desc' : 'asc'))
       },
       { id: 'category', label: formatMessage(messages.category) },
-      { id: 'property', label: formatMessage(messages.storyCategory) },
+      { id: 'episodeCategory', label: formatMessage(messages.episodeCategory) },
       { id: 'updateFrequency', label: formatMessage(messages.updateFrequency) }
     ],
     [setSortOrder, formatMessage]

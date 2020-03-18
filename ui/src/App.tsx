@@ -37,11 +37,8 @@ const App: React.FC = () => {
                   <AuthRoute exact path={routePath.root} component={Home} />
                   <AuthRoute exact path={routePath.login} guestOnly component={Login} />
                   <AuthRoute path={routePath.comics.base} component={Comics} />
-                  <AuthRoute
-                    path={`${routePath.application.base}/:subPage(${routePath.application.subPages})`}
-                    component={Application}
-                  />
-                  <AuthRoute path={`${routePath.user.base}/:subPage(${routePath.user.subPages})`} component={User} />
+                  <AuthRoute path={routePath.application.base} component={Application} />
+                  <AuthRoute path={routePath.user.base} component={User} />
                   <Route render={() => 'page not found..'} />
                 </Switch>
               </Layout>

@@ -7,7 +7,7 @@ export const mockDatum = {
   title: 'クラスメイトの田中さんはすごく怖い',
   releaseDate: '2020-01-21 16:34',
   category: 'コミックス',
-  property: 'オリジナル連載',
+  episodeCategory: 'オリジナル連載',
   updateFrequency: '毎週月月金曜日に更新'
 }
 
@@ -33,7 +33,7 @@ export const mockTitleData = [
   { id: 'title', label: '作品タイトル' },
   { id: 'releaseDate', label: '作成日時', onSort: (id: keyof typeof mockDatum) => console.log(`sortBy ${id}`) },
   { id: 'category', label: '作品種別', onSort: (id: keyof typeof mockDatum) => console.log(`sortBy ${id}`) },
-  { id: 'property', label: '話作品種別' },
+  { id: 'episodeCategory', label: '話作品種別' },
   { id: 'updateFrequency', label: '更新頻度' }
 ]
 

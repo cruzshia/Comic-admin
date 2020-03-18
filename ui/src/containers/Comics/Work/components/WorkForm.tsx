@@ -103,9 +103,9 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   )
                 },
                 {
-                  label: formatMessage(messages.titleShort),
+                  label: formatMessage(messages.titleKana),
                   content: (
-                    <Field name='titleShort'>
+                    <Field name='titleKana'>
                       {({ input, meta }) => <TextInput {...input} error={checkError(meta)} />}
                     </Field>
                   )
@@ -143,9 +143,9 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   )
                 },
                 {
-                  label: formatMessage(messages.storyCategory),
+                  label: formatMessage(messages.episodeCategory),
                   content: (
-                    <Field name='storyCategory'>
+                    <Field name='episodeCategory'>
                       {({ input, meta }) => <Select {...input} error={checkError(meta)} list={[1]} isShort />}
                     </Field>
                   )

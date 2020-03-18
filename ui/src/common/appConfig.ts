@@ -30,8 +30,7 @@ export const routePath = {
     coinDeliveryEvent: `${RouteSection.Application}/coin_delivery_event`,
     pushNotification: `${RouteSection.Application}/push_notification`,
     coinProduct: `${RouteSection.Application}/coin_product`,
-    applicationInfo: `${RouteSection.Application}/application_info`,
-    subPages: 'display_setting|coin_delivery_event|push_notification|coin_product|application_info'
+    applicationInfo: `${RouteSection.Application}/application_info`
   },
   user: {
     base: RouteSection.User,
@@ -41,7 +40,6 @@ export const routePath = {
     returnGift: `${RouteSection.User}/return_gift`,
     inquiry: `${RouteSection.User}/inquiry`,
     notification: `${RouteSection.User}/notification`,
-    questionnaire: `${RouteSection.User}/questionnaire`,
-    subPages: 'list|comment|ng_word||return_gift|inquiry|notification|questionnaire'
+    questionnaire: `${RouteSection.User}/questionnaire`
   }
 }

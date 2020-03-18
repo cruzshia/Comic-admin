@@ -3,7 +3,7 @@ use Croma
 defmodule RaiseServer.Controller.Page do
   use Antikythera.Controller
 
-  @allowed_file ["manifest.json", "favicon.ico"]
+  @allowed_file ["manifest.json", "favicon.ico", "logo.png"]
 
   def show_frontend(conn) do
     Conn.send_priv_file(conn, 200, "static/index.html")

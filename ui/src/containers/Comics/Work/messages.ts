@@ -19,9 +19,9 @@ export default defineMessages({
     id: PREFIX + 'category',
     defaultMessage: 'Work category'
   },
-  storyCategory: {
-    id: PREFIX + 'story_category',
-    defaultMessage: 'Work story category'
+  episodeCategory: {
+    id: PREFIX + 'episode_category',
+    defaultMessage: 'Work episode category'
   },
   updateFrequency: {
     id: PREFIX + 'update_frequency',
