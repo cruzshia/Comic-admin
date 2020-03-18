@@ -53,10 +53,6 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         {
           label: formatMessage(messages.rensaiDay),
           input: <Field name='rensaiDay'>{({ input }) => <Select list={[]} {...input} isShort />}</Field>
-        },
-        {
-          label: formatMessage(messages.rankingGroup),
-          input: <Field name='rankingGroup'>{({ input }) => <Select list={[]} {...input} isShort />}</Field>
         }
       ]
     }),

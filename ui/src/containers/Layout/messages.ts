@@ -41,10 +41,6 @@ export default defineMessages({
     id: 'header.system_menu.help',
     defaultMessage: 'Help'
   },
-  applicationList: {
-    id: 'application.list',
-    defaultMessage: 'Application list'
-  },
   applicationDisplaySetting: {
     id: 'application.display_setting',
     defaultMessage: 'Application Display Setting'

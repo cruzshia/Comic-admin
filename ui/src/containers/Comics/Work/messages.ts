@@ -155,10 +155,6 @@ export default defineMessages({
     id: PREFIX + 'rensai_day',
     defaultMessage: 'Rensai Day'
   },
-  rankingGroup: {
-    id: PREFIX + 'ranking_group',
-    defaultMessage: 'Ranking Group'
-  },
   createWork: {
     id: PREFIX + 'create',
     defaultMessage: 'Create work'
