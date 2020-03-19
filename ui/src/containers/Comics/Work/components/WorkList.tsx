@@ -14,7 +14,7 @@ import SearchBlock from './SearchBlock'
 import { WORKS_BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
 import messages from '../messages'
-import workContext from '../workContext'
+import workContext from '../context/WorkContext'
 
 const limit = 99
 

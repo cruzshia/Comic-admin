@@ -36,6 +36,8 @@ export const routePath = {
     base: RouteSection.User,
     list: `${RouteSection.User}/list`,
     comment: `${RouteSection.User}/comment`,
+    commentDetail: `${RouteSection.User}/comment/detail/:id`,
+    commentEdit: `${RouteSection.User}/comment/edit/:id`,
     ngWord: `${RouteSection.User}/ng_word`,
     returnGift: `${RouteSection.User}/return_gift`,
     inquiry: `${RouteSection.User}/inquiry`,

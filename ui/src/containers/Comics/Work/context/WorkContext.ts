@@ -6,9 +6,7 @@ interface WorkContext {
   workTotal: number
 }
 
-const workContext = createContext<WorkContext>({
+export default createContext<WorkContext>({
   workList: [],
   workTotal: 0
 })
-
-export default workContext

@@ -5,7 +5,7 @@ import WorkList from './components/WorkList'
 import WorkCreation from './components/WorkCreation'
 import WorkEdit from './components/WorkEdit'
 import WorkDetail from './components/WorkDetail'
-import WorkContext from './workContext'
+import WorkContext from './context/WorkContext'
 import { mockWork } from './mockData/mockWork'
 import { mockListData, mockWorkTotal } from './mockData/mockListData'
 

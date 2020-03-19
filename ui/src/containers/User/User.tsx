@@ -13,7 +13,7 @@ export default function User() {
   return (
     <Switch>
       <Route exact path={routePath.user.list} component={UserList} />
-      <Route exact path={routePath.user.comment} component={Comment} />
+      <Route path={routePath.user.comment} component={Comment} />
       <Route exact path={routePath.user.ngWord} component={NGWord} />
       <Route exact path={routePath.user.returnGift} component={ReturnGift} />
       <Route exact path={routePath.user.inquiry} component={Inquiry} />
