@@ -73,6 +73,8 @@
   "search_filter.reset": "内容をリセット",
   "search_filter.search": "検索",
   "user.comment": "コメント一覧",
+  "user.comment.detail": "コメント詳細",
+  "user.comment.edit": "コメントを編集",
   "user.inquiry_management": "問い合わせ管理",
   "user.list": "ユーザー一覧",
   "user.ng_word.account_ng_word": "アカウントNGワード",
