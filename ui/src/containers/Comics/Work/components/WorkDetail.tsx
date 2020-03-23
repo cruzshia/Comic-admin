@@ -45,10 +45,14 @@ export default function WorkDetail() {
   const history = useHistory()
 
   const titleText = mockWork.title
-  const breadcrumbList: Breadcrumb[] = WORKS_BREADCRUMBS.map(({ title, route }) => ({
-    title: formatMessage(title),
-    route
-  })).concat({ title: formatMessage(messages.detail), route: undefined })
+  const breadcrumbList: Breadcrumb[] = useMemo(
+    () =>
+      WORKS_BREADCRUMBS.map(({ title, route }) => ({
+        title: formatMessage(title),
+        route
+      })).concat({ title: formatMessage(messages.detail), route: undefined }),
+    [formatMessage]
+  )
 
   const handleRedirect = useCallback(
     (target?: ScrollAnchor) => () =>

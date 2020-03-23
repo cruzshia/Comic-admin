@@ -25,7 +25,10 @@ export default function WorkList() {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
   const [page] = useState<number>(0)
 
-  const breadcrumbList: Breadcrumb[] = WORKS_BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) }))
+  const breadcrumbList: Breadcrumb[] = useMemo(
+    () => WORKS_BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
+    [formatMessage]
+  )
   const buttonList = useMemo(
     () => [
       <Button

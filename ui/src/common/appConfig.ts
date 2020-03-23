@@ -20,6 +20,9 @@ export const routePath = {
     workEdit: `${RouteSection.Comics}/work/edit/:id`,
     workDetail: `${RouteSection.Comics}/work/detail/:id`,
     content: `${RouteSection.Comics}/content`,
+    contentCreation: `${RouteSection.Comics}/content/creation`,
+    contentEdit: `${RouteSection.Comics}/content/edit/:id`,
+    contentDetail: `${RouteSection.Comics}/content/detail/:id`,
     worksCampaign: `${RouteSection.Comics}/works_campaign`,
     contentsCampaign: `${RouteSection.Comics}/contents_campaign`,
     author: `${RouteSection.Comics}/author`

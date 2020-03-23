@@ -19,10 +19,14 @@ export default function WorkEdit() {
   const handleSubmitUpdate = useCallback(data => console.log(data), [])
 
   const titleText = mockWork.title
-  const breadcrumbList: Breadcrumb[] = WORKS_BREADCRUMBS.map(({ title, route }) => ({
-    title: formatMessage(title),
-    route
-  })).concat({ title: formatMessage(messages.createWork), route: undefined })
+  const breadcrumbList: Breadcrumb[] = useMemo(
+    () =>
+      WORKS_BREADCRUMBS.map(({ title, route }) => ({
+        title: formatMessage(title),
+        route
+      })).concat({ title: formatMessage(messages.createWork), route: undefined }),
+    [formatMessage]
+  )
 
   const CreateButton = useMemo(
     () => (
