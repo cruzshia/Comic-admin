@@ -1,8 +1,7 @@
 import React, { useContext, useState, useMemo, useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
-import Button from '@src/components/Button/Button'
-import { ButtonTheme } from '@src/components/Button/buttonTheme'
+import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import { ReactComponent as IconPublish } from '@src/assets/common/publish.svg'
@@ -32,13 +31,13 @@ export default function WorkList() {
   const buttonList = useMemo(
     () => [
       <Button
-        theme={ButtonTheme.DARK_BORDER}
+        theme={Theme.DARK_BORDER}
         buttonText={formatMessage(messages.startCreate)}
         onClick={() => history.push(routePath.comics.workCreation)}
         icon={IconEdit}
       />,
       <Button
-        theme={ButtonTheme.DARK_BORDER}
+        theme={Theme.DARK_BORDER}
         buttonText={formatMessage(commonMessages.csvImport)}
         onClick={() => {}}
         icon={IconSave}
@@ -52,13 +51,8 @@ export default function WorkList() {
   const pagination = useMemo(() => ({ total: workTotal, start: page * limit + 1 }), [page, workTotal])
   const workDataList = workList.map(item => ({ id: item.workID, data: item }))
   const tableButtonList = [
-    <Button
-      theme={ButtonTheme.LIGHT}
-      buttonText={formatMessage(messages.csvOutput)}
-      onClick={() => {}}
-      icon={IconPublish}
-    />,
-    <Button theme={ButtonTheme.LIGHT} buttonText={formatMessage(messages.csvOutputLog)} onClick={() => {}} />
+    <Button theme={Theme.LIGHT} buttonText={formatMessage(messages.csvOutput)} onClick={() => {}} icon={IconPublish} />,
+    <Button theme={Theme.LIGHT} buttonText={formatMessage(messages.csvOutputLog)} onClick={() => {}} />
   ]
   const theadList = useMemo(
     () => [

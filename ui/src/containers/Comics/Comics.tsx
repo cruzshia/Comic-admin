@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
-import WorksCampaignList from './WorksCampaign/WorksCampaignList'
+import WorksCampaign from './WorksCampaign/WorksCampaign'
 import Work from './Work/Work'
 
 import Content from './Content/Content'
@@ -13,7 +13,7 @@ export default function Comics() {
     <Switch>
       <Route path={routePath.comics.work} component={Work} />
       <Route path={routePath.comics.content} component={Content} />
-      <Route exact path={routePath.comics.worksCampaign} component={WorksCampaignList} />
+      <Route path={routePath.comics.worksCampaign} component={WorksCampaign} />
       <Route exact path={routePath.comics.contentsCampaign} component={ContentsCampaignList} />
       <Route exact path={routePath.comics.author} component={AuthorList} />
     </Switch>
