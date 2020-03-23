@@ -29,7 +29,11 @@ export default function TextInput({ name, onChange, onBlur, error, placeholder, 
         onBlur={onBlur}
         value={value}
       />
-      {error && <FormHelperText className='error'>{error}</FormHelperText>}
+      {error && (
+        <FormHelperText className='error' data-testid='error'>
+          {error}
+        </FormHelperText>
+      )}
     </div>
   )
 }
