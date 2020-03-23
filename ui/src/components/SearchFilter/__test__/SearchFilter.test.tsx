@@ -7,14 +7,14 @@ import Select from '@src/components/form/Select'
 describe('SearchFilter component test', () => {
   const mockData = {
     left: [
-      { label: 'test1', input: <Select list={[]} /> },
-      { label: 'test2', input: <Select list={[]} /> },
-      { label: 'test3', input: <Select list={[]} /> },
-      { label: 'test4', input: <Select list={[]} /> }
+      { label: 'test1', input: <Select options={[]} /> },
+      { label: 'test2', input: <Select options={[]} /> },
+      { label: 'test3', input: <Select options={[]} /> },
+      { label: 'test4', input: <Select options={[]} /> }
     ],
     right: [
-      { label: 'test5', input: <Select list={[]} /> },
-      { label: 'test6', input: <Select list={[]} /> }
+      { label: 'test5', input: <Select options={[]} /> },
+      { label: 'test6', input: <Select options={[]} /> }
     ]
   }
   it('Renders correctly', () => {

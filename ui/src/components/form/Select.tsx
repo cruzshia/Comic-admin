@@ -8,7 +8,10 @@ import { InputProps } from './inputProps'
 import clsx from 'clsx'
 
 interface Props extends InputProps {
-  list: any[]
+  options: {
+    label: number | string | JSX.Element
+    value: any
+  }[]
   isShort?: boolean
   open?: boolean
   onChange?: (e: React.ChangeEvent<{ name?: string; value: unknown }>) => void
@@ -29,13 +32,23 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function SelectMenu({ list, isShort, open, name, onChange, onBlur, error, placeholder }: Props) {
+export default function SelectMenu({
+  options,
+  isShort,
+  open,
+  name,
+  onChange,
+  onBlur,
+  error,
+  placeholder,
+  value: defaulValue
+}: Props) {
   const { formatMessage } = useIntl()
   const classes = useStyles({ isShort })
-  const [value, setValue] = React.useState<string | number>('')
+  const [value, setValue] = React.useState<any>(defaulValue ?? '')
   const ArrowImg = useCallback((props: any) => <img {...props} src={selectArrowImg} alt='select' />, [])
   const handleChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-    setValue(e.target.value as string | number)
+    setValue(e.target.value)
     onChange && onChange(e)
   }
 
@@ -60,12 +73,11 @@ export default function SelectMenu({ list, isShort, open, name, onChange, onBlur
           return <span>{value}</span>
         }}
       >
-        {list &&
-          list.map(li => (
-            <MenuItem value={li} key={li}>
-              {li}
-            </MenuItem>
-          ))}
+        {options.map((option, idx) => (
+          <MenuItem value={option.value} key={`option-${idx}`}>
+            {option.label}
+          </MenuItem>
+        ))}
       </Select>
       {error && <FormHelperText className='error'>{error}</FormHelperText>}
     </div>

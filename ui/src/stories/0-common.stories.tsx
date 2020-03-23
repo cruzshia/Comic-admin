@@ -1,7 +1,7 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
-import { text, select, boolean, array } from '@storybook/addon-knobs'
+import { text, select, boolean } from '@storybook/addon-knobs'
 import SearchInput from '@src/components/form/SearchInput'
 import Select from '@src/components/form/Select'
 import TextInput from '@src/components/form/TextInput'
@@ -23,7 +23,14 @@ const setError = () => select('error', ['', 'error', '項目が入力されて�
 storiesOf('Common components', module)
   .add('SearchInput', () => <SearchInput icon={boolean('icon', false)} error={setError()} />)
   .add('Select', () => (
-    <Select isShort={boolean('isShort', false)} list={array('list', ['1', '2', '3'])} error={setError()} />
+    <Select
+      isShort={boolean('isShort', false)}
+      options={[
+        { label: 1, value: 1 },
+        { label: 2, value: 2 }
+      ]}
+      error={setError()}
+    />
   ))
   .add('TextArea', () => <TextArea error={setError()} />)
   .add('TextInput', () => <TextInput error={setError()} />)

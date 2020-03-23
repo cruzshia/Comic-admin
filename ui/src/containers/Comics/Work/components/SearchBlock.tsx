@@ -18,11 +18,11 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         },
         {
           label: formatMessage(commonMessages.author),
-          input: <Field name='author'>{({ input }) => <Select list={[]} {...input} />}</Field>
+          input: <Field name='author'>{({ input }) => <Select options={[]} {...input} />}</Field>
         },
         {
           label: formatMessage(messages.category),
-          input: <Field name='category'>{({ input }) => <Select list={[]} {...input} />}</Field>
+          input: <Field name='category'>{({ input }) => <Select options={[]} {...input} />}</Field>
         },
         {
           label: formatMessage(messages.deliveryStartDateTime),
@@ -34,25 +34,25 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         },
         {
           label: formatMessage(messages.adUnit),
-          input: <Field name='adUnit'>{({ input }) => <Select list={[]} {...input} isShort />}</Field>
+          input: <Field name='adUnit'>{({ input }) => <Select options={[]} {...input} isShort />}</Field>
         }
       ],
       right: [
         {
           label: formatMessage(messages.rensaiStatus),
-          input: <Field name='rensaiStatus'>{({ input }) => <Select list={[]} {...input} isShort />}</Field>
+          input: <Field name='rensaiStatus'>{({ input }) => <Select options={[]} {...input} isShort />}</Field>
         },
         {
           label: formatMessage(messages.rensaiMagazine),
-          input: <Field name='rensaiMagazine'>{({ input }) => <Select list={[]} {...input} />}</Field>
+          input: <Field name='rensaiMagazine'>{({ input }) => <Select options={[]} {...input} />}</Field>
         },
         {
           label: formatMessage(messages.rensaiFrequency),
-          input: <Field name='rensaiFrequency'>{({ input }) => <Select list={[]} {...input} isShort />}</Field>
+          input: <Field name='rensaiFrequency'>{({ input }) => <Select options={[]} {...input} isShort />}</Field>
         },
         {
           label: formatMessage(messages.rensaiDay),
-          input: <Field name='rensaiDay'>{({ input }) => <Select list={[]} {...input} isShort />}</Field>
+          input: <Field name='rensaiDay'>{({ input }) => <Select options={[]} {...input} isShort />}</Field>
         }
       ]
     }),

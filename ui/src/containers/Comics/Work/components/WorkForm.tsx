@@ -137,7 +137,11 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   content: (
                     <Field name='author'>
                       {({ input, meta }) =>
-                        workData ? workData.category : <Select {...input} error={checkError(meta)} list={[1]} isShort />
+                        workData ? (
+                          workData.category
+                        ) : (
+                          <Select {...input} error={checkError(meta)} options={[]} isShort />
+                        )
                       }
                     </Field>
                   )
@@ -146,7 +150,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   label: formatMessage(messages.episodeCategory),
                   content: (
                     <Field name='episodeCategory'>
-                      {({ input, meta }) => <Select {...input} error={checkError(meta)} list={[1]} isShort />}
+                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
                     </Field>
                   )
                 },
@@ -154,7 +158,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   label: formatMessage(messages.updateFrequency),
                   content: (
                     <Field name='updateFrequency'>
-                      {({ input, meta }) => <Select {...input} error={checkError(meta)} list={[1]} isShort />}
+                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
                     </Field>
                   )
                 },
@@ -162,7 +166,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   label: formatMessage(messages.rensai),
                   content: (
                     <Field name='workSerial'>
-                      {({ input, meta }) => <Select {...input} error={checkError(meta)} list={[1]} isShort />}
+                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
                     </Field>
                   )
                 },
