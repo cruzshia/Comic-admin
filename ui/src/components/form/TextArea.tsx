@@ -1,17 +1,16 @@
 import React from 'react'
-import { TextField, makeStyles, FormHelperText } from '@material-ui/core'
 import { useIntl } from 'react-intl'
+import clsx from 'clsx'
+import { TextField, makeStyles, FormHelperText } from '@material-ui/core'
 import messages from './messages'
 import { InputProps } from './inputProps'
-import clsx from 'clsx'
 
 const useStyle = makeStyles({
   root: {
     width: '100%',
     maxWidth: 800,
     '& textarea': {
-      width: '100%',
-      minHeight: 108
+      width: '100%'
     }
   },
   inputRoot: {
@@ -27,6 +26,7 @@ export default function TextArea({ name, onChange, onBlur, error, placeholder, v
       <TextField
         data-testid='text_area'
         multiline
+        rows={7}
         placeholder={placeholder ?? formatMessage(messages.textInput)}
         variant='outlined'
         className={classes.root}
@@ -37,7 +37,11 @@ export default function TextArea({ name, onChange, onBlur, error, placeholder, v
         onBlur={onBlur}
         value={value}
       />
-      {error && <FormHelperText className='error'>{error}</FormHelperText>}
+      {error && (
+        <FormHelperText className='error' data-testid='error'>
+          {error}
+        </FormHelperText>
+      )}
     </div>
   )
 }

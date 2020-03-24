@@ -1,9 +1,9 @@
 import React from 'react'
-import { OutlinedInput, makeStyles, FormHelperText } from '@material-ui/core'
 import { useIntl } from 'react-intl'
+import clsx from 'clsx'
+import { OutlinedInput, makeStyles, FormHelperText } from '@material-ui/core'
 import messages from './messages'
 import { InputProps } from './inputProps'
-import clsx from 'clsx'
 
 const useStyles = makeStyles({
   root: {
