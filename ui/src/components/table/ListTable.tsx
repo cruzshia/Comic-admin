@@ -20,10 +20,24 @@ import messages from './messages'
 import clsx from 'clsx'
 
 const mockLimit = 99
+
+export enum SortOrder {
+  Asc = 'asc',
+  Desc = 'desc'
+}
+
+export enum Padding {
+  Checkbox = 'checkbox',
+  Default = 'default',
+  None = 'none'
+}
+
 interface Thead {
   id: string
-  label: string
-  onSort?: (id: any, order?: 'asc' | 'desc', e?: React.MouseEvent<unknown>) => void
+  label: string | JSX.Element
+  onSort?: (id: any, order?: SortOrder, e?: React.MouseEvent<unknown>) => void
+  padding?: Padding
+  classes?: string
 }
 
 interface Pagination {
@@ -147,14 +161,15 @@ export default function ListTable({
         <Table>
           <TableHead>
             <TableRow className={clsx(classes.tableHeadRow, tableClass)}>
-              {theadList.map(({ id, label, onSort }, index) => {
+              {theadList.map(({ id, label, onSort, padding, classes }, index) => {
                 const sorting = sortBy === id
                 const sortClass = clsx({ sortable: !!onSort, sorting })
                 return (
                   <TableCell
                     align='left'
                     key={id}
-                    className={clsx(`col${index}`, sortClass)}
+                    padding={padding}
+                    className={clsx(`ListTable-col-${index + 1}`, classes, sortClass)}
                     onClick={onSort && handleSort(id, onSort, sortOrder)}
                     data-testid={sortClass}
                   >

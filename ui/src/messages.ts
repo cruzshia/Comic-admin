@@ -3,6 +3,10 @@ import { defineMessages } from 'react-intl'
 const PREFIX = 'common.'
 
 export default defineMessages({
+  id: {
+    id: PREFIX + 'id',
+    defaultMessage: 'ID'
+  },
   author: {
     id: PREFIX + 'author',
     defaultMessage: 'Author'
