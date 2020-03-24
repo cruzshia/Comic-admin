@@ -12,6 +12,7 @@ export const mainColor = '#ED3632'
 export const textColor = '#333333'
 export const borderColor = '#BDBDBD'
 export const backgroundColor = '#F5F5F5'
+export const backgroundColorGray = '#E0E0E0'
 export const backgroundColorLight = '#F8F8F8'
 export const borderColorLight = '#E0E0E0'
 export const fontWeightBold = 600

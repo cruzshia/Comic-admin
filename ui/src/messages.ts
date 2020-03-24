@@ -62,5 +62,21 @@ export default defineMessages({
   selectFile: {
     id: PREFIX + 'select_file',
     defaultMessage: 'Select files'
+  },
+  advertisementSetting: {
+    id: PREFIX + 'advertisement_setting',
+    defaultMessage: 'Advertisement_Setting'
+  },
+  link: {
+    id: PREFIX + 'link_url',
+    defaultMessage: 'Image URL'
+  },
+  buttonName: {
+    id: PREFIX + 'button_name',
+    defaultMessage: 'Button Name'
+  },
+  deliveryDuration: {
+    id: PREFIX + 'delivery_duration',
+    defaultMessage: 'Delivery Duration'
   }
 })

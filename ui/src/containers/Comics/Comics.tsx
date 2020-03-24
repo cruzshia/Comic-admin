@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
 import WorksCampaign from './WorksCampaign/WorksCampaign'
 import Work from './Work/Work'
-
 import Content from './Content/Content'
 import AuthorList from './Author/AuthorList'
 import ContentsCampaignList from './ContentsCampaign/ContentsCampaignList'

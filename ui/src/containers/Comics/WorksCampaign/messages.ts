@@ -18,5 +18,25 @@ export default defineMessages({
   worksCampaignDetail: {
     id: PREFIX + 'works_campaign_detail',
     defaultMessage: 'Works Campaign Detail'
+  },
+  startDateTime: {
+    id: PREFIX + 'start_date_time',
+    defaultMessage: 'Start Time'
+  },
+  endDateTime: {
+    id: PREFIX + 'end_date_time',
+    defaultMessage: 'End Time'
+  },
+  deviceCommon: {
+    id: PREFIX + 'device_common',
+    defaultMessage: 'Device Common'
+  },
+  contents: {
+    id: PREFIX + 'contents',
+    defaultMessage: 'Contents'
+  },
+  original: {
+    id: PREFIX + 'original',
+    defaultMessage: 'Original'
   }
 })

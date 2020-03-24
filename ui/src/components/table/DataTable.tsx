@@ -73,18 +73,18 @@ export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef
         </Box>
       )}
       <div className={clsx(classes.table, tableClass)} data-testid='data-table'>
-        {dataSet.map(data =>
+        {dataSet.map((data, idx) =>
           data.isSubTitle ? (
             <Typography
               variant='subtitle2'
               className={clsx(classes.subTitle, data.classes)}
-              key={data.content.toString()}
+              key={data.content.toString() + idx}
             >
               {data.content}
             </Typography>
           ) : (
             <DataTableRow
-              key={data.label}
+              key={data.label + idx}
               classnames={clsx(classes.rowItem, data.classes)}
               title={data.label}
               content={data.content}
