@@ -6,7 +6,7 @@ import { ButtonTheme } from '@src/components/Button/buttonTheme'
 import StickyHeader from './StickyHeader'
 import WorkForm from './WorkForm'
 import { mockWork } from '../mockData/mockWork'
-import { WORKS_BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import commonMessages from '@src/messages'
 
@@ -21,7 +21,7 @@ export default function WorkEdit() {
   const titleText = mockWork.title
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
-      WORKS_BREADCRUMBS.map(({ title, route }) => ({
+      BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
       })).concat({ title: formatMessage(messages.createWork), route: undefined }),

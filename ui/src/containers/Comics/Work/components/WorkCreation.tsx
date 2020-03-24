@@ -4,7 +4,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import StickyHeader from './StickyHeader'
 import WorkForm from './WorkForm'
-import { WORKS_BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
@@ -20,7 +20,7 @@ export default function WorkCreation() {
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
-      WORKS_BREADCRUMBS.map(({ title, route }) => ({
+      BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
       })).concat({ title: titleText, route: undefined }),

@@ -158,13 +158,5 @@ export default defineMessages({
   createWork: {
     id: PREFIX + 'create',
     defaultMessage: 'Create work'
-  },
-  csvOutput: {
-    id: PREFIX + 'csv_output',
-    defaultMessage: 'CSV Output'
-  },
-  csvOutputLog: {
-    id: PREFIX + 'csv_output_log',
-    defaultMessage: 'CSV Output Log'
   }
 })

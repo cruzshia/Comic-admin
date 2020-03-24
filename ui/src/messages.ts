@@ -17,7 +17,15 @@ export default defineMessages({
   },
   csvImport: {
     id: PREFIX + 'csv_import',
-    defaultMessage: 'CSV import'
+    defaultMessage: 'CSV Import'
+  },
+  csvExport: {
+    id: PREFIX + 'csv_export',
+    defaultMessage: 'CSV Export'
+  },
+  csvExportLogs: {
+    id: PREFIX + 'csv_export_logs',
+    defaultMessage: 'CSV Export Logs'
   },
   photo: {
     id: PREFIX + 'photo',

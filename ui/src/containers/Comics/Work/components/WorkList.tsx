@@ -10,7 +10,7 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import { routePath } from '@src/common/appConfig'
 import { Work } from '@src/model/comicsWorkModel'
 import SearchBlock from './SearchBlock'
-import { WORKS_BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import workContext from '../context/WorkContext'
@@ -25,7 +25,7 @@ export default function WorkList() {
   const [page] = useState<number>(0)
 
   const breadcrumbList: Breadcrumb[] = useMemo(
-    () => WORKS_BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
+    () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
     [formatMessage]
   )
   const buttonList = useMemo(
@@ -50,10 +50,17 @@ export default function WorkList() {
 
   const pagination = useMemo(() => ({ total: workTotal, start: page * limit + 1 }), [page, workTotal])
   const workDataList = workList.map(item => ({ id: item.workID, data: item }))
-  const tableButtonList = [
-    <Button theme={Theme.LIGHT} buttonText={formatMessage(messages.csvOutput)} onClick={() => {}} icon={IconPublish} />,
-    <Button theme={Theme.LIGHT} buttonText={formatMessage(messages.csvOutputLog)} onClick={() => {}} />
-  ]
+  const tableButtonList = useMemo(
+    () => [
+      <Button
+        theme={Theme.LIGHT}
+        buttonText={formatMessage(commonMessages.csvExport)}
+        icon={IconPublish}
+        onClick={() => history.push(routePath.comics.workExport)}
+      />
+    ],
+    [formatMessage, history]
+  )
   const theadList = useMemo(
     () => [
       { id: 'image', label: formatMessage(commonMessages.photo) },

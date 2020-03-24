@@ -12,7 +12,7 @@ import StickyHeader from './StickyHeader'
 import workContext from '../context/WorkContext'
 import commonMessages from '@src/messages'
 import messages from '../messages'
-import { IMAGE_NUM, IMAGE_MAX_WIDTH, WORKS_BREADCRUMBS } from '../constants'
+import { IMAGE_NUM, IMAGE_MAX_WIDTH, BREADCRUMBS } from '../constants'
 
 const useStyle = makeStyles({
   table: {
@@ -47,7 +47,7 @@ export default function WorkDetail() {
   const titleText = mockWork.title
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
-      WORKS_BREADCRUMBS.map(({ title, route }) => ({
+      BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
       })).concat({ title: formatMessage(messages.detail), route: undefined }),

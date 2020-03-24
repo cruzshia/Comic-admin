@@ -19,6 +19,7 @@ export const routePath = {
     workCreation: `${RouteSection.Comics}/work/creation`,
     workEdit: `${RouteSection.Comics}/work/edit/:id`,
     workDetail: `${RouteSection.Comics}/work/detail/:id`,
+    workExport: `${RouteSection.Comics}/work/export`,
     content: `${RouteSection.Comics}/content`,
     contentCreation: `${RouteSection.Comics}/content/creation`,
     contentEdit: `${RouteSection.Comics}/content/edit/:id`,
