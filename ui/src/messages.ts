@@ -7,6 +7,10 @@ export default defineMessages({
     id: PREFIX + 'id',
     defaultMessage: 'ID'
   },
+  appId: {
+    id: PREFIX + 'app_id',
+    defaultMessage: 'App ID'
+  },
   author: {
     id: PREFIX + 'author',
     defaultMessage: 'Author'
@@ -66,6 +70,14 @@ export default defineMessages({
   selectFile: {
     id: PREFIX + 'select_file',
     defaultMessage: 'Select files'
+  },
+  approved: {
+    id: PREFIX + 'approved',
+    defaultMessage: 'Approved'
+  },
+  not_approved: {
+    id: PREFIX + 'not_approved',
+    defaultMessage: 'Not Approved'
   },
   deviceCategory: {
     id: PREFIX + 'device_category',

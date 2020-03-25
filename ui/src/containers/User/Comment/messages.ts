@@ -27,9 +27,9 @@ export default defineMessages({
     id: PREFIX + '.likes',
     defaultMessage: 'Likes'
   },
-  reportCount: {
+  report: {
     id: PREFIX + '.report',
-    defaultMessage: 'Report'
+    defaultMessage: 'Report Count'
   },
   detail: {
     id: PREFIX + '.detail',
@@ -38,6 +38,10 @@ export default defineMessages({
   edit: {
     id: PREFIX + '.edit',
     defaultMessage: 'Comment Edit'
+  },
+  basicInfo: {
+    id: PREFIX + '.basic_info',
+    defaultMessage: 'Basic Info'
   },
   selfVisibleOnly: {
     id: PREFIX + '.self_visible_only',

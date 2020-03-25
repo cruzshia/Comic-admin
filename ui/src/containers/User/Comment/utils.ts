@@ -13,7 +13,7 @@ export enum ListTableProp {
   Content = 'content',
   Message = 'message',
   Likes = 'likes',
-  ReportCount = 'reportCount',
+  Report = 'report',
   Status = 'status'
 }
 

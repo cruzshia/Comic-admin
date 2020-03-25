@@ -67,10 +67,11 @@ export default function SelectMenu({
         className={clsx(classes.root, { error: !!error })}
         IconComponent={ArrowImg}
         renderValue={(value: any) => {
-          if (value === '') {
+          const selected = options.find(option => option.value === value)
+          if (!selected) {
             return <span className={classes.placeholder}>{placeholder ?? formatMessage(messages.select)}</span>
           }
-          return <span>{value}</span>
+          return <span>{selected.label}</span>
         }}
       >
         {options.map((option, idx) => (

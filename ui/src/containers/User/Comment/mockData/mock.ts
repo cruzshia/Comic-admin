@@ -4,11 +4,11 @@ export const mockComment = {
   contentId: 'WORK_SHUNKAN10000006',
   appId: 'WORK_SHUNKAN10000006',
   content: '純粋に面白くない。',
-  status: '未承認',
+  status: 'not_approved',
   likes: 10,
-  reportCount: 10,
-  createDateTime: '2019-12-25 00:00',
-  updateDateTime: '2019-12-25 00:00'
+  report: 10,
+  createDateTime: '2019-12-25 00:00:00',
+  updateDateTime: '2019-12-25 00:00:00'
 }
 
 const mockCommentUnit = {
@@ -19,9 +19,9 @@ const mockCommentUnit = {
   message: '純粋に面白くない。',
   status: '未承認',
   likes: 100,
-  reportCount: 500,
-  createDateTime: '2019-12-25 00:00',
-  updateDateTime: '2019-12-25 00:00'
+  report: 500,
+  createDateTime: '2019-12-25 00:00:00',
+  updateDateTime: '2019-12-25 00:00:00'
 }
 
 export const mockCommentList = [
@@ -29,7 +29,7 @@ export const mockCommentList = [
     ...mockCommentUnit,
     message:
       'めちゃくちゃ面白いです。わからない！っていう声ほど届くものです。楽しみに待っているファンはたくさんいます。大丈夫です。この作品が後世に名を残す名作になると思っています。',
-    reportCount: 1100
+    report: 1100
   }
 ].concat(
   [...new Array(3)].map((_, idx) => ({

@@ -41,7 +41,7 @@ export default function CommentList() {
   const { formatMessage } = useIntl()
   const { commentList, commentTotal } = useContext(Context)
   const [page] = useState<number>(Math.ceil(commentTotal / LIMIT))
-  const [sortKey, setSortKey] = useState<ListTableProp>(ListTableProp.ReportCount)
+  const [sortKey, setSortKey] = useState<ListTableProp>(ListTableProp.Report)
   const [order, setOrder] = useState<SortOrder>(SortOrder.Desc)
   const [checkedList, setCheckedList] = useState<{ [key: string]: boolean }>({})
 
@@ -93,7 +93,7 @@ export default function CommentList() {
       { id: ListTableProp.Content, label: formatMessage(messages.content), onSort: handleSort },
       { id: ListTableProp.Message, label: formatMessage(messages.message) },
       { id: ListTableProp.Likes, label: formatMessage(messages.likes), onSort: handleSort },
-      { id: ListTableProp.ReportCount, label: formatMessage(messages.reportCount), onSort: handleSort },
+      { id: ListTableProp.Report, label: formatMessage(messages.report), onSort: handleSort },
       { id: ListTableProp.Status, label: formatMessage(messages.status) }
     ],
     [formatMessage, handleSort]

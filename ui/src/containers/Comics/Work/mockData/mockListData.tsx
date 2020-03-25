@@ -5,7 +5,7 @@ export const mockDatum = {
   image: <img src={mockImg} alt='' />,
   workID: 'WORK_ROOKIE000014751',
   title: 'クラスメイトの田中さんはすごく怖い',
-  releaseDate: '2020-01-21 16:34',
+  releaseDate: '2020-01-21 16:34:00',
   category: 'コミックス',
   episodeCategory: 'オリジナル連載',
   updateFrequency: '毎週月月金曜日に更新'
