@@ -132,7 +132,7 @@ export default function ListTable({
   dataList,
   tableClass,
   buttonList,
-  pagination: { total, start },
+  pagination: { start },
   onRowClick,
   sortOrder = 'desc',
   sortBy
@@ -150,7 +150,7 @@ export default function ListTable({
   return (
     <div data-testid='list-table'>
       <Grid container justify='space-between' alignItems='center' className={classes.pagination}>
-        <div>{formatMessage(messages.pagination, { total, start, end: start + mockLimit })}</div>
+        <div>{formatMessage(messages.pagination, { total: 1000, start, end: start + mockLimit })}</div>
         <div>
           {buttonList?.map((button, index) => (
             <React.Fragment key={index}>{button}</React.Fragment>

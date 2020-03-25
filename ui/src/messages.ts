@@ -15,6 +15,10 @@ export default defineMessages({
     id: PREFIX + 'create',
     defaultMessage: 'Create'
   },
+  delete: {
+    id: PREFIX + 'delete',
+    defaultMessage: 'Delete'
+  },
   csvImport: {
     id: PREFIX + 'csv_import',
     defaultMessage: 'CSV Import'

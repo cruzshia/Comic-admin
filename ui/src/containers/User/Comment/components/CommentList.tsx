@@ -5,13 +5,17 @@ import { makeStyles } from '@material-ui/core'
 import Checkbox from '@material-ui/core/Checkbox'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import ListTable, { SortOrder, Padding } from '@src/components/table/ListTable'
+import Button from '@src/components/Button/Button'
 import { routePath } from '@src/common/appConfig'
+import { ReactComponent as PublishIco } from '@src/assets/common/publish.svg'
+import { ReactComponent as DeleteIco } from '@src/assets/common/delete.svg'
+import { ReactComponent as UserIco } from '@src/assets/common/user.svg'
+import { ReactComponent as CheckboxIco } from '@src/assets/common/checkbox.svg'
 import Context from '../context/CommentContext'
 import { COMMENT_BREADCRUMBS, ListTableProp, toListTableData } from '../utils'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
-import { ReactComponent as CheckboxIco } from '@src/assets/common/checkbox.svg'
 
 const LIMIT = 10
 
@@ -61,8 +65,8 @@ export default function CommentList() {
   )
   const handleChecked = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, checked) => {
-      setCheckedList(precheckedList => ({
-        ...precheckedList,
+      setCheckedList(preCheckedList => ({
+        ...preCheckedList,
         [e.currentTarget.value]: checked
       }))
     },
@@ -95,6 +99,15 @@ export default function CommentList() {
     [formatMessage, handleSort]
   )
 
+  const buttonList = useMemo(
+    () => [
+      <Button buttonText={formatMessage(commonMessages.csvExport)} icon={PublishIco} />,
+      <Button buttonText={formatMessage(commonMessages.delete)} icon={DeleteIco} />,
+      <Button buttonText={formatMessage(messages.selfVisibleOnly)} icon={UserIco} />
+    ],
+    [formatMessage]
+  )
+
   const displayData = useMemo(
     () =>
       commentList
@@ -125,7 +138,7 @@ export default function CommentList() {
         theadList={theadList}
         dataList={displayData}
         pagination={pagination}
-        buttonList={[]}
+        buttonList={buttonList}
         sortBy={sortKey}
         sortOrder={order}
         onRowClick={handleRowClick}
