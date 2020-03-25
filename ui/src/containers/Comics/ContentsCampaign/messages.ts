@@ -1,24 +1,24 @@
 import { defineMessages } from 'react-intl'
-const PREFIX = 'comics.content.'
+const PREFIX = 'comics.contents_campaign.'
 export default defineMessages({
   management: {
     id: PREFIX + 'management',
-    defaultMessage: 'Content Management'
+    defaultMessage: 'Content Campaign Management'
   },
   startCreate: {
     id: PREFIX + 'create_start',
-    defaultMessage: 'Content Start Create'
+    defaultMessage: 'Content Campaign Start Create'
   },
   create: {
     id: PREFIX + 'create',
-    defaultMessage: 'Content Create'
+    defaultMessage: 'Content Campaign Create'
   },
   detail: {
     id: PREFIX + 'detail',
-    defaultMessage: 'Content Detail'
+    defaultMessage: 'Content Campaign Detail'
   },
   edit: {
     id: PREFIX + 'edit',
-    defaultMessage: 'Content Edit'
+    defaultMessage: 'Content Campaign Edit'
   }
 })

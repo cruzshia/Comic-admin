@@ -10,9 +10,9 @@ import messages from '../messages'
 export default function ContentCreation() {
   const { formatMessage } = useIntl()
 
+  const titleText = formatMessage(messages.create)
   const formRef = useRef<HTMLFormElement>(null)
   const handleSubmitCreate = useCallback(() => {}, [])
-  const titleText = formatMessage(messages.startCreate)
   const breadcrumbList = useMemo(
     () =>
       CONTENT_BREADCRUMBS.map(({ title, route }) => ({

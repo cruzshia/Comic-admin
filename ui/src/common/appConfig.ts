@@ -29,6 +29,9 @@ export const routePath = {
     worksCampaignDetail: `${RouteSection.Comics}/works_campaign/detail/:id`,
     worksCampaignCreation: `${RouteSection.Comics}/works_campaign/creation`,
     contentsCampaign: `${RouteSection.Comics}/contents_campaign`,
+    contentsCampaignCreation: `${RouteSection.Comics}/contents_campaign/creation`,
+    contentsCampaignEdit: `${RouteSection.Comics}/contents_campaign/edit/:id`,
+    contentsCampaignDetail: `${RouteSection.Comics}/contents_campaign/detail/:id`,
     author: `${RouteSection.Comics}/author`
   },
   application: {
