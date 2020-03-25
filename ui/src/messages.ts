@@ -63,6 +63,14 @@ export default defineMessages({
     id: PREFIX + 'select_file',
     defaultMessage: 'Select files'
   },
+  deviceCategory: {
+    id: PREFIX + 'device_category',
+    defaultMessage: 'Device Category'
+  },
+  common: {
+    id: PREFIX + 'common',
+    defaultMessage: 'Common'
+  },
   advertisementSetting: {
     id: PREFIX + 'advertisement_setting',
     defaultMessage: 'Advertisement_Setting'

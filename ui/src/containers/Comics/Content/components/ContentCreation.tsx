@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useRef, useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
+import ContentForm from './ContentForm'
 import commonMessages from '@src/messages'
 import { CONTENT_BREADCRUMBS } from '../constants'
 import messages from '../messages'
@@ -9,6 +10,8 @@ import messages from '../messages'
 export default function ContentCreation() {
   const { formatMessage } = useIntl()
 
+  const formRef = useRef<HTMLFormElement>(null)
+  const handleSubmitCreate = useCallback(() => {}, [])
   const titleText = formatMessage(messages.startCreate)
   const breadcrumbList = useMemo(
     () =>
@@ -18,14 +21,23 @@ export default function ContentCreation() {
       })).concat([{ title: titleText, route: undefined }]),
     [formatMessage, titleText]
   )
-  const buttonList = useMemo(() => [<Button theme={Theme.DARK} buttonText={formatMessage(commonMessages.create)} />], [
-    formatMessage
-  ])
+  const buttonList = useMemo(
+    () => [
+      <Button
+        theme={Theme.DARK}
+        buttonText={formatMessage(commonMessages.create)}
+        onClick={() => {
+          formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
+        }}
+      />
+    ],
+    [formatMessage]
+  )
 
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
-      <div>ContentCreation</div>
+      <ContentForm onFormSubmit={handleSubmitCreate} formRef={formRef} />
     </>
   )
 }
