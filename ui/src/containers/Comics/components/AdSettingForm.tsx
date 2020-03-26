@@ -1,18 +1,15 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
-import { Field, FieldMetaState } from 'react-final-form'
+import { Field } from 'react-final-form'
 import { Box } from '@material-ui/core'
 import { Select } from '@src/components/form'
 import DataTable from '@src/components/table/DataTable'
-import { required } from '@src/utils/validation'
+import { required, checkError } from '@src/utils/validation'
 import commonMessages from '@src/messages'
 
 export default function AdSettingForm() {
   const { formatMessage } = useIntl()
 
-  const checkError = useCallback((meta: FieldMetaState<any>) => {
-    return meta.error && meta.touched ? meta.error : undefined
-  }, [])
   const tableTitle = formatMessage(commonMessages.advertisementSetting)
   const dataSet = [
     {

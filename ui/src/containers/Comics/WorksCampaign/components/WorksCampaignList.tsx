@@ -6,21 +6,21 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import messages from '../messages'
-import { WORKS_CAMPAIGN_BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../constants'
 
 export default function WorksCampaignList() {
   const { formatMessage } = useIntl()
   const history = useHistory()
 
   const breadcrumbList: Breadcrumb[] = useMemo(
-    () => WORKS_CAMPAIGN_BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
+    () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
     [formatMessage]
   )
   const buttonList = useMemo(
     () => [
       <Button
         theme={Theme.DARK_BORDER}
-        buttonText={formatMessage(messages.worksCampaignCreation)}
+        buttonText={formatMessage(messages.create)}
         onClick={() => history.push(routePath.comics.worksCampaignCreation)}
         icon={penIcon}
       />

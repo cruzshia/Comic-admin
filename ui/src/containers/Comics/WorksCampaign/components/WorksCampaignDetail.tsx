@@ -11,7 +11,7 @@ import { backgroundColorGray } from '@src/common/styles'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import worksCampaignContext from '../context/worksCampaignContext'
-import { WORKS_CAMPAIGN_BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../constants'
 
 const useStyles = makeStyles({
   table: {
@@ -40,7 +40,7 @@ export default function WorksCampaignDetail() {
   const { currentCampaign: campaign } = useContext(worksCampaignContext)
   const history = useHistory()
   const { id } = useParams()
-  const titleText = formatMessage(messages.worksCampaignDetail)
+  const titleText = formatMessage(messages.detail)
 
   const handleRedirect = useCallback(() => history.push(routePath.comics.worksCampaignEdit.replace(':id', id!)), [
     history,
@@ -49,7 +49,7 @@ export default function WorksCampaignDetail() {
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
-      WORKS_CAMPAIGN_BREADCRUMBS.map(({ title, route }) => ({
+      BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
       })).concat([{ title: titleText, route: undefined }]),
@@ -60,7 +60,7 @@ export default function WorksCampaignDetail() {
     () => [
       <Button
         theme={Theme.DARK_BORDER}
-        buttonText={formatMessage(messages.worksCampaignEdit)}
+        buttonText={formatMessage(messages.edit)}
         onClick={handleRedirect}
         icon={penIcon}
       />
@@ -117,11 +117,13 @@ export default function WorksCampaignDetail() {
         dataSet={[
           {
             label: '',
-            content: formatMessage(messages.deviceCommon),
+            content: formatMessage(
+              commonMessages[campaign.advertisement.deviceCategory === 'common' ? 'deviceCommon' : 'deviceCategory']
+            ),
             isSubTitle: true,
             classes: classes.subTitle
           },
-          genAdvertisementData(campaign.advertisement.deviceCommon),
+          genAdvertisementData(campaign.advertisement.content),
           {
             label: '',
             content: formatMessage(messages.contents),

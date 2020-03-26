@@ -4,7 +4,8 @@ export const mockCampaign = {
   startDateTime: '2019-12-25 00:00:00 +0900',
   endDateTime: '2019-12-25 00:00:00 +0900',
   advertisement: {
-    deviceCommon: {
+    deviceCategory: 'common',
+    content: {
       type: 'original',
       image: mockManga,
       link: 'https://shonenjumpplus.com/episode/10834108156758729535',

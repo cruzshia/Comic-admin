@@ -7,15 +7,19 @@ export default defineMessages({
     id: 'comics.works_campaign',
     defaultMessage: 'Comics works campaign'
   },
-  worksCampaignCreation: {
+  creation: {
     id: PREFIX + 'works_campaign_creation',
     defaultMessage: 'Works Campaign Creation'
   },
-  worksCampaignEdit: {
+  create: {
+    id: PREFIX + 'works_campaign_create',
+    defaultMessage: 'Works Campaign Create'
+  },
+  edit: {
     id: PREFIX + 'works_campaign_edit',
     defaultMessage: 'Works Campaign Edit'
   },
-  worksCampaignDetail: {
+  detail: {
     id: PREFIX + 'works_campaign_detail',
     defaultMessage: 'Works Campaign Detail'
   },
@@ -26,10 +30,6 @@ export default defineMessages({
   endDateTime: {
     id: PREFIX + 'end_date_time',
     defaultMessage: 'End Time'
-  },
-  deviceCommon: {
-    id: PREFIX + 'device_common',
-    defaultMessage: 'Device Common'
   },
   contents: {
     id: PREFIX + 'contents',

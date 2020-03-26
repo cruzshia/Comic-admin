@@ -1,6 +1,6 @@
-import React, { useMemo, useCallback, useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { useIntl } from 'react-intl'
-import { Form, Field, FieldMetaState } from 'react-final-form'
+import { Form, Field } from 'react-final-form'
 import { makeStyles } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import DataTable from '@src/components/table/DataTable'
@@ -9,7 +9,9 @@ import Button from '@src/components/Button/Button'
 import DropZone from '@src/components/DropZone'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { ReactComponent as AddIcon } from '@src/assets/form/add.svg'
-import { IMAGE_NUM, IMAGE_MAX_WIDTH, DATE_TIME_PLACEHOLDER } from '../constants'
+import { checkError } from '@src/utils/validation'
+import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
+import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import { required } from '@src/utils/validation'
@@ -68,10 +70,6 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
     }
     return dataSet
   }, [images, formatMessage])
-
-  const checkError = useCallback((meta: FieldMetaState<any>) => {
-    return meta.error && meta.touched ? meta.error : undefined
-  }, [])
 
   return (
     <>

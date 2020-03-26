@@ -110,5 +110,9 @@ export default defineMessages({
   buttonName: {
     id: PREFIX + 'button_name',
     defaultMessage: 'Button Name'
+  },
+  deviceCommon: {
+    id: PREFIX + 'device_common',
+    defaultMessage: 'Device Common'
   }
 })
