@@ -61,7 +61,7 @@ export default function WorkDetail() {
   )
   const handleEdit = useMemo(() => handleRedirect(), [handleRedirect])
   const handleEditDelivery = useMemo(() => handleRedirect(ScrollAnchor.Delivery), [handleRedirect])
-  const handleEditNotification = useMemo(() => handleRedirect(ScrollAnchor.Notification), [handleRedirect])
+  // const handleEditNotification = useMemo(() => handleRedirect(ScrollAnchor.Notification), [handleRedirect])
 
   const EditButton = useMemo(
     () => (
@@ -70,8 +70,8 @@ export default function WorkDetail() {
     [formatMessage, handleEdit]
   )
 
-  const genTableData = (id: any, dataSource?: any): DataSet => ({
-    label: formatMessage(messages[id as keyof typeof messages] ?? commonMessages[id as keyof typeof commonMessages]),
+  const genTableData = (id: any, dataSource?: any, label?: string): DataSet => ({
+    label: formatMessage(messages[id as keyof typeof messages] || commonMessages[id as keyof typeof commonMessages]),
     content: dataSource ? dataSource[id] : mockWork[id]
   })
 
@@ -106,60 +106,11 @@ export default function WorkDetail() {
           })
         ]}
       />
-
       <DataTable
-        title={formatMessage(messages.deliveryDuration)}
+        title={formatMessage(commonMessages.deliveryDuration)}
         tableClass={classes.table}
         onEdit={handleEditDelivery}
         dataSet={[genTableData('deliveryStartDateTime'), genTableData('deliveryEndDateTime')]}
-      />
-
-      <DataTable
-        title={formatMessage(messages.notificationSetting)}
-        tableClass={classes.table}
-        onEdit={handleEditNotification}
-        dataSet={[
-          {
-            label: '',
-            content: mockWork.notifyType,
-            isSubTitle: true,
-            classes: classes.subTitle
-          },
-          ...mockWork.notifications.map((notify: any) => {
-            const messageKey = notify.type.replace(/_\w/gi, (matched: string) =>
-              matched[1].toUpperCase()
-            ) as keyof typeof messages
-
-            if (messageKey === 'adsSdk') {
-              return {
-                label: formatMessage(messages.adsSdk),
-                content: (
-                  <DataTable
-                    tableClass={classes.innerTable}
-                    dataSet={[genTableData('adBlock', notify), genTableData('adType', notify)]}
-                  />
-                )
-              }
-            }
-
-            return {
-              label: formatMessage(messages[messageKey]),
-              content: (
-                <DataTable
-                  tableClass={classes.innerTable}
-                  dataSet={[
-                    {
-                      label: formatMessage(commonMessages.photo),
-                      content: <img src={notify.image} alt={notify.image} />
-                    },
-                    genTableData('link', notify),
-                    genTableData('deliveryDateTime', notify)
-                  ]}
-                />
-              )
-            }
-          })
-        ]}
       />
     </>
   )

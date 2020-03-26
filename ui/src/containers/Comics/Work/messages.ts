@@ -3,10 +3,6 @@ import { defineMessages } from 'react-intl'
 const PREFIX = 'comics.work.'
 
 export default defineMessages({
-  notificationSetting: {
-    id: PREFIX + 'notification_setting',
-    defaultMessage: 'Notification setting'
-  },
   basicInfo: {
     id: PREFIX + 'basic_info',
     defaultMessage: 'Basic info'
@@ -55,57 +51,13 @@ export default defineMessages({
     id: PREFIX + 'introduction',
     defaultMessage: 'Introduction'
   },
-  deviceCategory: {
-    id: PREFIX + 'device_category',
-    defaultMessage: 'Device Category'
-  },
-  adCategory: {
-    id: PREFIX + 'ad_category',
-    defaultMessage: 'Advertisement Category'
-  },
-  adType: {
-    id: PREFIX + 'ad_type',
-    defaultMessage: 'Advertisement Type'
-  },
-  imgUrl: {
-    id: PREFIX + 'image_url',
-    defaultMessage: 'Image URL'
-  },
-  link: {
-    id: PREFIX + 'link_url',
-    defaultMessage: 'Image URL'
-  },
-  adBlock: {
-    id: PREFIX + 'ad_block',
-    defaultMessage: 'Advertisement block'
-  },
   addNotification: {
     id: PREFIX + 'add_notification_setting',
     defaultMessage: 'Add notification setting'
   },
-  deviceCommon: {
-    id: PREFIX + 'device_common',
-    defaultMessage: 'Device common'
-  },
-  openingNotice: {
-    id: PREFIX + 'opening_notice',
-    defaultMessage: 'Opening notice (common)'
-  },
-  adsSdk: {
-    id: PREFIX + 'ads_sdk',
-    defaultMessage: 'Advertisement SDK(common)'
-  },
-  pageEndNotice: {
-    id: PREFIX + 'page_end_notice',
-    defaultMessage: 'Page end notice (common)'
-  },
   edit: {
     id: PREFIX + 'edit',
     defaultMessage: 'Edit work'
-  },
-  deliveryDuration: {
-    id: PREFIX + 'delivery_duration',
-    defaultMessage: 'Delivery duration'
   },
   deliveryStartDateTime: {
     id: PREFIX + 'delivery_start_date_time',

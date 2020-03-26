@@ -51,6 +51,10 @@ export default defineMessages({
     id: PREFIX + 'update_date_time',
     defaultMessage: 'Update date time'
   },
+  deliveryDuration: {
+    id: PREFIX + 'delivery_duration',
+    defaultMessage: 'Delivery Duration'
+  },
   comicsManagement: {
     id: PREFIX + 'header.comics_management',
     defaultMessage: 'Comics management'
@@ -70,6 +74,14 @@ export default defineMessages({
   selectFile: {
     id: PREFIX + 'select_file',
     defaultMessage: 'Select files'
+  },
+  enterUrl: {
+    id: PREFIX + 'enter_url',
+    defaultMessage: 'Enter URL'
+  },
+  enterButtonName: {
+    id: PREFIX + 'enter_button_name',
+    defaultMessage: 'Enter Button Name'
   },
   approved: {
     id: PREFIX + 'approved',
@@ -98,9 +110,5 @@ export default defineMessages({
   buttonName: {
     id: PREFIX + 'button_name',
     defaultMessage: 'Button Name'
-  },
-  deliveryDuration: {
-    id: PREFIX + 'delivery_duration',
-    defaultMessage: 'Delivery Duration'
   }
 })

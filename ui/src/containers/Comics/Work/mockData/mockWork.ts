@@ -27,11 +27,6 @@ export const mockWork = {
       deliveryDateTime: '2020/02/20/19:00'
     },
     {
-      type: 'ads_sdk',
-      adBlock: 'GOODROID',
-      adType: 'サンプルテキスト'
-    },
-    {
       type: 'page_end_notice',
       image: mockManga,
       link: 'https://shonenjumpplus.com/episode/10834108156758729535',

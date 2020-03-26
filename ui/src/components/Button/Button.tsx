@@ -47,16 +47,17 @@ interface Props {
   onClick?: () => void
   disabled?: boolean
   icon?: React.FC<SVGProps<SVGSVGElement>>
+  classnames?: string
 }
 
 export const Theme = ButtonTheme
-export default function Button({ icon: Icon, theme, buttonText, onClick, disabled }: Props) {
+export default function Button({ icon: Icon, theme, buttonText, onClick, disabled, classnames }: Props) {
   const classes = useStyles()
 
   return (
     <MaterialButton
       data-testid='normal_button'
-      className={clsx(classes.button, theme)}
+      className={clsx(classes.button, theme, classnames)}
       onClick={onClick}
       disabled={disabled}
     >

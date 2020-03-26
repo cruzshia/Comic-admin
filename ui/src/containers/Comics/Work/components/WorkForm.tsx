@@ -174,7 +174,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
               ]}
             />
             <DataTable
-              title={formatMessage(messages.deliveryDuration)}
+              title={formatMessage(commonMessages.deliveryDuration)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
               innerRef={deliveryRef}
               dataSet={[
