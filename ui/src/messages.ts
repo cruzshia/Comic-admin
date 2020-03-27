@@ -114,5 +114,13 @@ export default defineMessages({
   deviceCommon: {
     id: PREFIX + 'device_common',
     defaultMessage: 'Device Common'
+  },
+  original: {
+    id: PREFIX + 'original',
+    defaultMessage: 'Original'
+  },
+  contents: {
+    id: PREFIX + 'contents',
+    defaultMessage: 'Contents'
   }
 })

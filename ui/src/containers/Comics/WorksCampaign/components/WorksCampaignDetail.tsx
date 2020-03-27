@@ -7,30 +7,16 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { DataSet } from '@src/components/table/DataTable'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
-import { backgroundColorGray } from '@src/common/styles'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import worksCampaignContext from '../context/worksCampaignContext'
 import { BREADCRUMBS } from '../constants'
+import AdSettingTable from '../../components/AdSettingTable'
 
 const useStyles = makeStyles({
   table: {
     marginBottom: '36px',
     lineHeight: '14px'
-  },
-  subTitle: {
-    padding: '15px 20px',
-    backgroundColor: '#FFFFFF',
-    '&.gray': {
-      backgroundColor: backgroundColorGray
-    }
-  },
-  innerTable: {
-    margin: '-20px',
-    border: 'none',
-    '& .MuiGrid-container .MuiGrid-item:first-child': {
-      maxWidth: 120
-    }
   }
 })
 
@@ -68,38 +54,10 @@ export default function WorksCampaignDetail() {
     [formatMessage, handleRedirect]
   )
 
-  const genTableData = (id: any, dataSource?: any): DataSet => ({
-    label: formatMessage(messages[id as keyof typeof messages] ?? commonMessages[id as keyof typeof commonMessages]),
-    content: dataSource ? dataSource[id] : campaign[id]
+  const genTableData = (id: any): DataSet => ({
+    label: formatMessage(messages[id as keyof typeof messages]),
+    content: campaign[id]
   })
-
-  const genAdvertisementData = (data: any) => {
-    switch (data.type) {
-      case 'original':
-        return {
-          label: formatMessage(messages.original),
-          content: (
-            <DataTable
-              tableClass={classes.innerTable}
-              dataSet={[
-                {
-                  label: formatMessage(commonMessages.photo),
-                  content: <img src={data.image} alt={data.image} />
-                },
-                genTableData('link', data),
-                genTableData('buttonName', data),
-                genTableData('deliveryDuration', data)
-              ]}
-            />
-          )
-        }
-      default:
-        return {
-          label: data.type,
-          content: data.content
-        }
-    }
-  }
 
   return (
     <>
@@ -110,29 +68,7 @@ export default function WorksCampaignDetail() {
         onEdit={handleRedirect}
         dataSet={[genTableData('startDateTime'), genTableData('endDateTime')]}
       />
-      <DataTable
-        title={formatMessage(commonMessages.advertisementSetting)}
-        tableClass={classes.table}
-        onEdit={handleRedirect}
-        dataSet={[
-          {
-            label: '',
-            content: formatMessage(
-              commonMessages[campaign.advertisement.deviceCategory === 'common' ? 'deviceCommon' : 'deviceCategory']
-            ),
-            isSubTitle: true,
-            classes: classes.subTitle
-          },
-          genAdvertisementData(campaign.advertisement.content),
-          {
-            label: '',
-            content: formatMessage(messages.contents),
-            isSubTitle: true,
-            classes: `${classes.subTitle} gray`
-          },
-          ...campaign.advertisement.contents.map((ad: any) => genAdvertisementData(ad))
-        ]}
-      />
+      <AdSettingTable data={campaign.advertisement} onEdit={handleRedirect} />
     </>
   )
 }

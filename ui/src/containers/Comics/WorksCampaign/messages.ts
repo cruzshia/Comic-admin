@@ -30,13 +30,5 @@ export default defineMessages({
   endDateTime: {
     id: PREFIX + 'end_date_time',
     defaultMessage: 'End Time'
-  },
-  contents: {
-    id: PREFIX + 'contents',
-    defaultMessage: 'Contents'
-  },
-  original: {
-    id: PREFIX + 'original',
-    defaultMessage: 'Original'
   }
 })
