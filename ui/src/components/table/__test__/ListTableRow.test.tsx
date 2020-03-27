@@ -23,7 +23,7 @@ describe('ListTableRow component test', () => {
         </table>
       )
     )
-    const target = getByTestId('list_table_row')
+    const target = getByTestId('list-table-row')
 
     expect(target).toBeInTheDocument()
     expect(target.querySelectorAll('td').length).toBe(Object.keys(mockDatum).length)

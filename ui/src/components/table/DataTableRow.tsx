@@ -37,7 +37,7 @@ interface Props {
 export default function DataTableRow({ title, content, classnames }: Props) {
   const classes = useStyles()
   return (
-    <Grid container spacing={3} className={clsx(classes.root, classnames)} data-testid='table_row_container'>
+    <Grid container spacing={3} className={clsx(classes.root, classnames)} data-testid='table-row-container'>
       <Grid item xs={3} className={classes.title}>
         {title}
       </Grid>

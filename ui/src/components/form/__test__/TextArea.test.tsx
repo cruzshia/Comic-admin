@@ -6,7 +6,7 @@ import TextArea from '../TextArea'
 describe('TextArea component test', () => {
   it('Renders correctly', () => {
     const { getByTestId } = render(withAllProvider(<TextArea />))
-    const target = getByTestId('text_area')
+    const target = getByTestId('text-area')
     expect(target).toBeInTheDocument()
   })
 

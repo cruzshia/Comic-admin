@@ -68,8 +68,10 @@ export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef
           marginBottom='15px'
           maxWidth={contentWidth}
         >
-          <Typography variant='subtitle1'>{title}</Typography>
-          {onEdit && <PenIcon onClick={onEdit} className={classes.penIcon} />}
+          <Typography variant='subtitle1' data-testid='data-table-title'>
+            {title}
+          </Typography>
+          {onEdit && <PenIcon onClick={onEdit} className={classes.penIcon} data-testid='data-table-button' />}
         </Box>
       )}
       <div className={clsx(classes.table, tableClass)} data-testid='data-table'>
@@ -79,6 +81,7 @@ export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef
               variant='subtitle2'
               className={clsx(classes.subTitle, data.classes)}
               key={data.content.toString() + idx}
+              data-testid='data-table-subtitle'
             >
               {data.content}
             </Typography>

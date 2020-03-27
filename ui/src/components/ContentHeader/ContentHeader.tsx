@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Breadcrumbs, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
 import { hyperlinkColor, contentWidth } from '@src/common/styles'
+import { BREADCRUMB_SEPARATOR } from '@src/common/constant'
 
 const useStyles = makeStyles(theme => ({
   breadcrumb: {
@@ -42,22 +43,28 @@ export default function ContentHeader({ breadcrumbList, titleText, buttonList: B
   const classes = useStyles()
   return (
     <>
-      <Breadcrumbs separator='>' className={classes.breadcrumb}>
+      <Breadcrumbs separator={BREADCRUMB_SEPARATOR} className={classes.breadcrumb} data-testid='breadcrumbs'>
         {breadcrumbList &&
           breadcrumbList.map(({ title, route }) => {
             if (route) {
               return (
-                <Link key={route} to={route}>
+                <Link key={route} to={route} data-testid='breadcrumbs-link'>
                   {title}
                 </Link>
               )
             }
-            return <span key={title}>{title}</span>
+            return (
+              <span key={title} data-testid='breadcrumbs-text'>
+                {title}
+              </span>
+            )
           })}
       </Breadcrumbs>
       <Grid className={classes.header} container justify='space-between'>
         <Grid item>
-          <Typography variant='h6'>{titleText}</Typography>
+          <Typography variant='h6' data-testid='content-header-title'>
+            {titleText}
+          </Typography>
         </Grid>
         <Grid item container direction='row-reverse'>
           {ButtonList && ButtonList.map((btn, idx) => <React.Fragment key={idx}>{btn}</React.Fragment>)}

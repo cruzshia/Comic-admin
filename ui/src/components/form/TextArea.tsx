@@ -24,7 +24,7 @@ export default function TextArea({ name, onChange, onBlur, error, placeholder, v
   return (
     <div>
       <TextField
-        data-testid='text_area'
+        data-testid='text-area'
         multiline
         rows={7}
         placeholder={placeholder ?? formatMessage(messages.textInput)}

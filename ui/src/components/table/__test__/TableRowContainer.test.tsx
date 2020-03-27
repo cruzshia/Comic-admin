@@ -9,8 +9,8 @@ describe('DataTableRow component test', () => {
     const mockTitle = 'Title'
     const mockElement = <TextArea />
     const { getByTestId } = render(withAllProvider(<DataTableRow title={mockTitle} content={mockElement} />))
-    const target = getByTestId('table_row_container')
-    const content = getByTestId('text_area')
+    const target = getByTestId('table-row-container')
+    const content = getByTestId('text-area')
 
     expect(target).toBeInTheDocument()
     expect(target.querySelector('div')).toHaveTextContent(mockTitle)

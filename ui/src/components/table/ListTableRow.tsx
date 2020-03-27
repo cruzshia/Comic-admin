@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 export default function ListTableRow({ items, onClick }: { items: { [key: string]: any }; onClick?: () => void }) {
   const classes = useStyles({ pointer: !!onClick })
   return (
-    <TableRow className={classes.root} data-testid='list_table_row' onClick={onClick}>
+    <TableRow className={classes.root} data-testid='list-table-row' onClick={onClick}>
       {Object.keys(items).map(key => (
         <TableCell key={key}>{items[key]}</TableCell>
       ))}
