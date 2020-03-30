@@ -1,6 +1,7 @@
 import React, { useMemo, useRef } from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
+import arrayMutators from 'final-form-arrays'
 import { makeStyles } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import DataTable from '@src/components/table/DataTable'
@@ -11,10 +12,10 @@ import ScrollTo from '@src/components/scroll/ScrollTo'
 import { ReactComponent as AddIcon } from '@src/assets/form/add.svg'
 import { checkError } from '@src/utils/validation'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
+import { required } from '@src/utils/validation'
 import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
 import commonMessages from '@src/messages'
 import messages from '../messages'
-import { required } from '@src/utils/validation'
 import clsx from 'clsx'
 
 interface Props {
@@ -76,7 +77,8 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
       <ScrollTo anchorRef={anchorRef} />
       <Form
         onSubmit={onSubmit}
-        initialValues={workData}
+        mutators={{ ...arrayMutators }}
+        initialValues={{ ...workData }}
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
@@ -148,14 +150,6 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   label: formatMessage(messages.episodeCategory),
                   content: (
                     <Field name='episodeCategory'>
-                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
-                    </Field>
-                  )
-                },
-                {
-                  label: formatMessage(messages.updateFrequency),
-                  content: (
-                    <Field name='updateFrequency'>
                       {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
                     </Field>
                   )

@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
-import { CONTENTSCAMPAIGN_BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 
 export default function ContentCampaignDetail() {
@@ -11,7 +11,7 @@ export default function ContentCampaignDetail() {
   const titleText = formatMessage(messages.detail)
   const breadcrumbList = useMemo(
     () =>
-      CONTENTSCAMPAIGN_BREADCRUMBS.map(({ title, route }) => ({
+      BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
       })).concat([{ title: titleText, route: undefined }]),

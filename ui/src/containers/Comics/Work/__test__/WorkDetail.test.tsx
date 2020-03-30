@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { withAllProvider } from '@src/utils/__test__/providers'
-import WorkForm from '../components/WorkDetail'
+import WorkDetail from '../components/WorkDetail'
 import WorkContext from '../context/WorkContext'
 
 describe('WorkDetail test', () => {
@@ -28,7 +28,7 @@ describe('WorkDetail test', () => {
     const { container } = render(
       withAllProvider(
         <WorkContext.Provider value={{ workList: [], currentWork: mockWork, workTotal: 0 }}>
-          <WorkForm onSubmit={() => {}} />
+          <WorkDetail onSubmit={() => {}} />
         </WorkContext.Provider>
       )
     )
@@ -40,7 +40,7 @@ describe('WorkDetail test', () => {
     const { queryAllByText, queryAllByTestId } = render(
       withAllProvider(
         <WorkContext.Provider value={{ workList: [], currentWork: mockWork, workTotal: 0 }}>
-          <WorkForm onSubmit={mockSubmit} />
+          <WorkDetail onSubmit={mockSubmit} />
         </WorkContext.Provider>
       )
     )
@@ -49,6 +49,6 @@ describe('WorkDetail test', () => {
         expect(() => queryAllByText(val)).not.toThrow()
       }
     })
-    expect(queryAllByTestId('data-table')).toHaveLength(3)
+    expect(queryAllByTestId('data-table')).toHaveLength(2)
   })
 })

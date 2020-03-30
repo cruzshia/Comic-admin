@@ -1,23 +1,33 @@
 import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
+import { useHistory } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
-import { CONTENTSCAMPAIGN_BREADCRUMBS } from '../constants'
+import { routePath } from '@src/common/appConfig'
+import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 
 export default function ContentCampaignList() {
   const { formatMessage } = useIntl()
+  const history = useHistory()
   const breadcrumbList = useMemo(
     () =>
-      CONTENTSCAMPAIGN_BREADCRUMBS.map(({ title }) => ({
+      BREADCRUMBS.map(({ title }) => ({
         title: formatMessage(title)
       })),
     [formatMessage]
   )
   const buttonList = useMemo(
-    () => [<Button icon={IconEdit} theme={Theme.DARK_BORDER} buttonText={formatMessage(messages.startCreate)} />],
-    [formatMessage]
+    () => [
+      <Button
+        icon={IconEdit}
+        theme={Theme.DARK_BORDER}
+        buttonText={formatMessage(messages.startCreate)}
+        onClick={() => history.push(routePath.comics.contentsCampaignCreation)}
+      />
+    ],
+    [formatMessage, history]
   )
   return (
     <>

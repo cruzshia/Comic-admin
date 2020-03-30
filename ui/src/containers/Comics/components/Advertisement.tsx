@@ -1,170 +1,118 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useState, useMemo } from 'react'
 import { useIntl } from 'react-intl'
-import { Form, Field, FieldMetaState } from 'react-final-form'
-import { makeStyles } from '@material-ui/core'
-import { Grid } from '@material-ui/core'
-import { TextInput, Select, TimeSpanInput } from '@src/components/form'
+import { Field, useField } from 'react-final-form'
+import { Grid, Typography, Box } from '@material-ui/core'
+import { TimeSpanInput } from '@src/components/form'
+import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
 import Button from '@src/components/Button/Button'
+import Condition from '@src/components/finalForm/Condition'
 import menuIcon from '@src/assets/common/menu.svg'
 import closeIcon from '@src/assets/common/close.svg'
-import { borderColor } from '@src/common/styles'
 import commonMessages from '@src/messages'
-import AdDataRow from './AdDataRow'
 import messages from '../messages'
+import useAdStyle from './useAdStyle'
 import clsx from 'clsx'
 
 interface Props {
-  type?: AdType
-  initialValue: { [key: string]: any }
+  name: string
   onDelete?: () => void
-  onSubmit: (data: any) => void
-  formRef?: React.RefObject<HTMLFormElement>
+}
+
+interface RowProps {
+  title: string | JSX.Element
+  classnames?: string
+  children: React.ReactNode
 }
 
 export enum AdType {
   Original = 'original',
   Map = 'map',
-  Admob = 'Admob'
+  Admob = 'admob'
 }
 
-const useStyle = makeStyles(() => ({
-  root: {
-    position: 'relative',
-    width: 920,
-    padding: '20px 40px 21px 15px',
-    backgroundColor: '#FAFAFA',
-    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
-    borderRadius: '4px',
-    '& .min_height': {
-      minHeight: 230
-    }
-  },
-  menu: {
-    marginRight: '30px'
-  },
-  delete: {
-    position: 'absolute',
-    right: '-12px',
-    top: '-12px',
-    cursor: 'pointer'
-  },
-  rowContainer: {
-    maxWidth: 655
-  },
-  button: {
-    marginLeft: '10px'
-  },
-  preview: {
-    position: 'absolute',
-    top: 20,
-    right: 40,
-    width: 126,
-    height: 189,
-    border: `1px dashed ${borderColor}`,
-    '&.no_border': {
-      border: 'none'
-    }
-  }
-}))
+function AdDataRow({ title, classnames, children }: RowProps) {
+  const classes = useAdStyle()
+  return (
+    <Grid className={clsx(classes.row, classnames)} container direction='row' alignItems='center'>
+      <Typography className={classes.label} variant='body1'>
+        {title}
+      </Typography>
+      <Box fontWeight='normal' display='flex'>
+        {children}
+      </Box>
+    </Grid>
+  )
+}
 
-export default function Advertisement({ initialValue, type, formRef, onDelete, onSubmit }: Props) {
-  const classes = useStyle()
+export default function Advertisement({ name, onDelete }: Props) {
+  const classes = useAdStyle()
   const { formatMessage } = useIntl()
   const [previewImage, setPreviewImage] = useState<string | undefined>()
-  const image = useRef<string>(initialValue.imageUrl)
-  const urlPlaceholder = formatMessage(commonMessages.enterUrl)
-  const isOriginal = type === AdType.Original
-  const checkError = useCallback((meta: FieldMetaState<any>) => {
-    return meta.error && meta.touched ? meta.error : undefined
-  }, [])
+  const { preview, enterUrl, enterButtonName, deliveryDuration } = commonMessages
+  const urlPlaceholder = formatMessage(enterUrl)
+  const image = useField(`${name}.imageUrl`).input.value
+  const isOriginal = useField(`${name}.adCategory`).input.value === AdType.Original
+
+  const AD_OPTIONS = useMemo(
+    () => [
+      {
+        label: formatMessage(messages.adOriginal),
+        value: AdType.Original
+      },
+      {
+        label: formatMessage(messages.adAdmob),
+        value: AdType.Admob
+      },
+      {
+        label: formatMessage(messages.adMap),
+        value: AdType.Map
+      }
+    ],
+    [formatMessage]
+  )
 
   const handleClick = useCallback(() => {
-    setPreviewImage(image.current)
+    setPreviewImage(image)
   }, [setPreviewImage, image])
   const handleImageError = useCallback(() => {
     setPreviewImage(undefined)
   }, [setPreviewImage])
 
   return (
-    <Form
-      onSubmit={onSubmit}
-      initialValues={initialValue}
-      render={({ handleSubmit, form, values }) => {
-        image.current = values?.imageUrl
-        return (
-          <form onSubmit={handleSubmit} ref={formRef}>
-            <div className={clsx(classes.root, { min_height: isOriginal })}>
-              <Grid container>
-                <img className={classes.menu} src={menuIcon} alt='menu' />
-                <img className={classes.delete} onClick={onDelete} src={closeIcon} alt='del' data-testid='del_ico' />
-                <Grid className={classes.rowContainer} container direction='row'>
-                  <AdDataRow
-                    title={formatMessage(messages.adCategory)}
-                    children={
-                      <Field name='adCategory'>
-                        {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} />}
-                      </Field>
-                    }
-                  />
-                  {isOriginal && (
-                    <>
-                      <AdDataRow
-                        title={formatMessage(messages.imageUrl)}
-                        children={
-                          <>
-                            <Field name='imageUrl'>
-                              {({ input, meta }) => (
-                                <TextInput placeholder={urlPlaceholder} {...input} error={checkError(meta)} />
-                              )}
-                            </Field>
-                            <Button
-                              buttonText={formatMessage(commonMessages.preview)}
-                              classnames={classes.button}
-                              onClick={handleClick}
-                            />
-                          </>
-                        }
-                      />
-                      <AdDataRow
-                        title={formatMessage(messages.link)}
-                        children={
-                          <Field name='link'>
-                            {({ input, meta }) => (
-                              <TextInput placeholder={urlPlaceholder} {...input} error={checkError(meta)} />
-                            )}
-                          </Field>
-                        }
-                      />
-                      <AdDataRow
-                        title={formatMessage(messages.buttonName)}
-                        children={
-                          <Field name='buttonName'>
-                            {({ input, meta }) => (
-                              <TextInput
-                                placeholder={formatMessage(commonMessages.enterButtonName)}
-                                {...input}
-                                error={checkError(meta)}
-                              />
-                            )}
-                          </Field>
-                        }
-                      />
-                      <AdDataRow title={formatMessage(commonMessages.deliveryDuration)} children={<TimeSpanInput />} />
-                    </>
-                  )}
-                </Grid>
-                {isOriginal && (
-                  <div className={clsx(classes.preview, { no_border: !!previewImage })} data-testid='preview_block'>
-                    {previewImage && (
-                      <img src={previewImage} alt='preview' onError={handleImageError} data-testid='preview_image' />
-                    )}
-                  </div>
-                )}
-              </Grid>
-            </div>
-          </form>
-        )
-      }}
-    />
+    <div className={clsx(classes.root, { min_height: isOriginal })}>
+      <Grid container>
+        <img className={classes.menu} src={menuIcon} alt='menu' />
+        <img className={classes.delete} onClick={onDelete} src={closeIcon} alt='del' data-testid='del-ico' />
+        <Grid className={classes.rowContainer} container direction='row'>
+          <AdDataRow title={formatMessage(messages.adCategory)} classnames={!isOriginal ? classes.lastRow : ''}>
+            <Field name={`${name}.adCategory`} component={SelectAdapter} options={AD_OPTIONS} />
+          </AdDataRow>
+          <Condition when={`${name}.adCategory`} is={AdType.Original}>
+            <AdDataRow title={formatMessage(messages.imageUrl)}>
+              <Field name={`${name}.imageUrl`} component={TextInputAdapter} placeholder={urlPlaceholder} />
+              <Button buttonText={formatMessage(preview)} classnames={classes.button} onClick={handleClick} />
+            </AdDataRow>
+            <AdDataRow title={formatMessage(messages.link)}>
+              <Field name={`${name}.link`} component={TextInputAdapter} placeholder={urlPlaceholder} />
+            </AdDataRow>
+            <AdDataRow title={formatMessage(messages.buttonName)}>
+              <Field
+                name={`${name}.buttonName`}
+                component={TextInputAdapter}
+                placeholder={formatMessage(enterButtonName)}
+              />
+            </AdDataRow>
+            <AdDataRow title={formatMessage(deliveryDuration)} children={<TimeSpanInput />} />
+          </Condition>
+        </Grid>
+        {isOriginal && (
+          <div className={clsx(classes.preview, { no_border: !!previewImage })} data-testid='preview-block'>
+            {previewImage && (
+              <img src={previewImage} alt='preview' onError={handleImageError} data-testid='preview-image' />
+            )}
+          </div>
+        )}
+      </Grid>
+    </div>
   )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form } from 'react-final-form'
+import arrayMutators from 'final-form-arrays'
 import AdSettingCreation from '../../components/AdSettingForm'
 
 interface Props {
@@ -11,6 +12,7 @@ export default function ContentForm({ onFormSubmit, formRef }: Props) {
     <>
       <Form
         onSubmit={onFormSubmit}
+        mutators={{ ...arrayMutators }}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <AdSettingCreation />

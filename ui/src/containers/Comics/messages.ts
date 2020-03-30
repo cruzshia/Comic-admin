@@ -18,5 +18,17 @@ export default defineMessages({
   buttonName: {
     id: PREFIX + 'button_name',
     defaultMessage: 'Button Name'
+  },
+  adOriginal: {
+    id: PREFIX + 'ad.original',
+    defaultMessage: 'Original'
+  },
+  adAdmob: {
+    id: PREFIX + 'ad.admob',
+    defaultMessage: 'Admob (FAN)'
+  },
+  adMap: {
+    id: PREFIX + 'ad.map',
+    defaultMessage: 'Map'
   }
 })

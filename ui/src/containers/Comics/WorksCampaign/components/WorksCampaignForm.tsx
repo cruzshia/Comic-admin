@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
+import arrayMutators from 'final-form-arrays'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core'
 import DataTable from '@src/components/table/DataTable'
@@ -35,6 +36,7 @@ export default function WorksCampaignForm({ onSubmit, formRef }: Props) {
     <>
       <Form
         onSubmit={onSubmit}
+        mutators={{ ...arrayMutators }}
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable

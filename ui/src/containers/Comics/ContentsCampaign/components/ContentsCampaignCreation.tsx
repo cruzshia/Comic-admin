@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
-import { CONTENTSCAMPAIGN_BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
@@ -11,7 +11,7 @@ export default function ContentCampaignCreation() {
   const titleText = formatMessage(messages.create)
   const breadcrumbList = useMemo(
     () =>
-      CONTENTSCAMPAIGN_BREADCRUMBS.map(({ title, route }) => ({
+      BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
       })).concat([{ title: titleText, route: undefined }]),
