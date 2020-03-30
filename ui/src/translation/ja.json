@@ -52,6 +52,7 @@
   "comics.work.work_id": "作品（ID）",
   "comics.work.work_title": "作品タイトル",
   "comics.works_campaign": "作品キャンペーン管理",
+  "comics.works_campaign.contents": "",
   "comics.works_campaign.end_date_time": "終了日時",
   "comics.works_campaign.start_date_time": "開始日時",
   "comics.works_campaign.works_campaign_create": "作品キャンペーンを登録",

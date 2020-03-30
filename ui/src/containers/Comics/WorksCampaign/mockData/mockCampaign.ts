@@ -21,7 +21,6 @@ export const mockCampaign = {
         type: 'MAP',
         content: '表示位置情報のみ'
       },
-
       {
         type: 'original',
         image: mockManga,

@@ -12,9 +12,10 @@ import ScrollTo from '@src/components/scroll/ScrollTo'
 import { ReactComponent as AddIcon } from '@src/assets/form/add.svg'
 import { checkError } from '@src/utils/validation'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
-import { required } from '@src/utils/validation'
-import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
 import commonMessages from '@src/messages'
+import { required } from '@src/utils/validation'
+import AdSettingForm from '../../components/AdSettingForm'
+import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
 import messages from '../messages'
 import clsx from 'clsx'
 
@@ -45,17 +46,17 @@ const useStyle = makeStyles({
 
 export enum ScrollAnchor {
   Delivery = 'delivery',
-  Notification = 'notification'
+  AdSetting = 'adSetting'
 }
 
 export default function WorkForm({ workData, onSubmit, formRef }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const deliveryRef = useRef<HTMLDivElement>(null)
-  const notificationRef = useRef<HTMLDivElement>(null)
+  const adSettingRef = useRef<HTMLDivElement>(null)
   const anchorRef = {
     [ScrollAnchor.Delivery]: deliveryRef,
-    [ScrollAnchor.Notification]: notificationRef
+    [ScrollAnchor.AdSetting]: adSettingRef
   }
 
   const images = workData?.images
@@ -192,6 +193,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 }
               ]}
             />
+            <AdSettingForm adSettingRef={adSettingRef} />
           </form>
         )}
       />

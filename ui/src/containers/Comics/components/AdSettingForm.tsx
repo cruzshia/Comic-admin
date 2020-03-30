@@ -9,7 +9,7 @@ import { required, checkError } from '@src/utils/validation'
 import commonMessages from '@src/messages'
 import Advertisement from './Advertisement'
 
-export default function AdSettingForm() {
+export default function AdSettingForm({ adSettingRef }: { adSettingRef?: React.RefObject<HTMLDivElement> }) {
   const { formatMessage } = useIntl()
 
   const tableTitle = formatMessage(commonMessages.advertisementSetting)
@@ -41,5 +41,5 @@ export default function AdSettingForm() {
       )
     }
   ]
-  return <DataTable title={tableTitle} dataSet={dataSet} />
+  return <DataTable title={tableTitle} dataSet={dataSet} innerRef={adSettingRef} />
 }

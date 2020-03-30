@@ -13,6 +13,7 @@ import workContext from '../context/WorkContext'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import { IMAGE_NUM, IMAGE_MAX_WIDTH, BREADCRUMBS } from '../constants'
+import AdSettingTable from '../../components/AdSettingTable'
 
 const useStyle = makeStyles({
   table: {
@@ -61,7 +62,7 @@ export default function WorkDetail() {
   )
   const handleEdit = useMemo(() => handleRedirect(), [handleRedirect])
   const handleEditDelivery = useMemo(() => handleRedirect(ScrollAnchor.Delivery), [handleRedirect])
-  // const handleEditNotification = useMemo(() => handleRedirect(ScrollAnchor.Notification), [handleRedirect])
+  const handleEditAdSetting = useMemo(() => handleRedirect(ScrollAnchor.AdSetting), [handleRedirect])
 
   const EditButton = useMemo(
     () => (
@@ -112,6 +113,7 @@ export default function WorkDetail() {
         onEdit={handleEditDelivery}
         dataSet={[genTableData('deliveryStartDateTime'), genTableData('deliveryEndDateTime')]}
       />
+      <AdSettingTable onEdit={handleEditAdSetting} data={mockWork.advertisement} />
     </>
   )
 }
