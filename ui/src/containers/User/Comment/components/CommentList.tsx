@@ -40,7 +40,7 @@ export default function CommentList() {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const { commentList, commentTotal } = useContext(Context)
-  const [page] = useState<number>(Math.ceil(commentTotal / LIMIT))
+  const [page, setPage] = useState<number>(1)
   const [sortKey, setSortKey] = useState<ListTableProp>(ListTableProp.Report)
   const [order, setOrder] = useState<SortOrder>(SortOrder.Desc)
   const [checkedList, setCheckedList] = useState<{ [key: string]: boolean }>({})
@@ -126,9 +126,10 @@ export default function CommentList() {
     const start = (page - 1) * LIMIT
     return {
       start: start + 1,
-      total: start + displayData.length
+      total: commentTotal
     }
-  }, [page, displayData.length])
+  }, [page, commentTotal])
+  const handlePageChange = useCallback((_: React.ChangeEvent<unknown>, page: number) => setPage(page), [setPage])
 
   return (
     <>
@@ -138,6 +139,7 @@ export default function CommentList() {
         theadList={theadList}
         dataList={displayData}
         pagination={pagination}
+        onPageChange={handlePageChange}
         buttonList={buttonList}
         sortBy={sortKey}
         sortOrder={order}

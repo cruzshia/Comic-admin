@@ -70,6 +70,7 @@ storiesOf('Table components', module)
         total: 1000,
         start: 1
       }}
+      onPageChange={() => {}}
       sortOrder={radios('sortOrder', { asc: 'asc', desc: 'desc' }, 'desc')}
       sortBy={radios('sortBy', { 作成日時: mockTitleData[3].id, 作品種別: mockTitleData[4].id }, '作成日時')}
     />

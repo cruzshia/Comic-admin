@@ -13,13 +13,13 @@ import {
   Grid,
   TableSortLabel
 } from '@material-ui/core'
+import Pagination from '@src/components/table/Pagination'
 import { ReactComponent as SortImg } from '@src/assets/common/expand_more.svg'
 import { mainColor, backgroundColor, borderColor, borderColorLight, contentWidth } from '@src/common/styles'
+import { PAGE_LIMIT } from '@src/common/constants'
 import ListTableRow from './ListTableRow'
 import messages from './messages'
 import clsx from 'clsx'
-
-const mockLimit = 99
 
 export enum SortOrder {
   Asc = 'asc',
@@ -56,6 +56,7 @@ interface Props {
   tableClass?: string
   buttonList?: JSX.Element[]
   pagination: Pagination
+  onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void
   onRowClick?: (id: string) => void
   sortOrder?: 'asc' | 'desc'
   sortBy?: string
@@ -132,7 +133,8 @@ export default function ListTable({
   dataList,
   tableClass,
   buttonList,
-  pagination: { start },
+  pagination: { start, total },
+  onPageChange,
   onRowClick,
   sortOrder = 'desc',
   sortBy
@@ -150,7 +152,7 @@ export default function ListTable({
   return (
     <div data-testid='list-table'>
       <Grid container justify='space-between' alignItems='center' className={classes.pagination}>
-        <div>{formatMessage(messages.pagination, { total: 1000, start, end: start + mockLimit })}</div>
+        <div>{formatMessage(messages.pagination, { total: 1000, start, end: start + PAGE_LIMIT - 1 })}</div>
         <div>
           {buttonList?.map((button, index) => (
             <React.Fragment key={index}>{button}</React.Fragment>
@@ -204,6 +206,7 @@ export default function ListTable({
           </TableBody>
         </Table>
       </TableContainer>
+      <Pagination total={Math.ceil(total / PAGE_LIMIT)} onChange={onPageChange} />
     </div>
   )
 }

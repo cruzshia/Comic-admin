@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Breadcrumbs, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
 import { hyperlinkColor, contentWidth } from '@src/common/styles'
-import { BREADCRUMB_SEPARATOR } from '@src/common/constant'
+import { BREADCRUMB_SEPARATOR } from '@src/common/constants'
 
 const useStyles = makeStyles(theme => ({
   breadcrumb: {

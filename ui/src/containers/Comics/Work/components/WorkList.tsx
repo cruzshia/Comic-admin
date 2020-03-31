@@ -1,6 +1,7 @@
 import React, { useContext, useState, useMemo, useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
@@ -8,6 +9,7 @@ import { ReactComponent as IconPublish } from '@src/assets/common/publish.svg'
 import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
+import { PAGE_LIMIT } from '@src/common/constants'
 import { Work } from '@src/model/comicsWorkModel'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS } from '../constants'
@@ -15,14 +17,21 @@ import commonMessages from '@src/messages'
 import messages from '../messages'
 import workContext from '../context/WorkContext'
 
-const limit = 99
+const useStyle = makeStyles({
+  table: {
+    '& .ListTable-col-1': {
+      width: 90
+    }
+  }
+})
 
 export default function WorkList() {
   const { formatMessage } = useIntl()
+  const classes = useStyle()
   const history = useHistory()
   const { workList, workTotal } = useContext(workContext)
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
-  const [page] = useState<number>(0)
+  const [page, setPage] = useState<number>(1)
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
@@ -48,8 +57,15 @@ export default function WorkList() {
 
   const handleSearch = useCallback((data: any) => console.log(data), [])
 
-  const pagination = useMemo(() => ({ total: workTotal, start: page * limit + 1 }), [page, workTotal])
-  const workDataList = workList.map(item => ({ id: item.workID, data: item }))
+  const pagination = useMemo(() => ({ total: workTotal, start: (page - 1) * PAGE_LIMIT + 1 }), [page, workTotal])
+  const handlePageChange = useCallback((_: React.ChangeEvent<unknown>, page: number) => setPage(page), [setPage])
+  const workDataList = workList.map(item => ({
+    id: item.workID,
+    data: {
+      ...item,
+      spacer: ''
+    }
+  }))
   const tableButtonList = useMemo(
     () => [
       <Button
@@ -73,7 +89,8 @@ export default function WorkList() {
       },
       { id: 'category', label: formatMessage(messages.category) },
       { id: 'episodeCategory', label: formatMessage(messages.episodeCategory) },
-      { id: 'updateFrequency', label: formatMessage(messages.updateFrequency) }
+      { id: 'updateFrequency', label: formatMessage(messages.updateFrequency) },
+      { id: 'space', label: '' }
     ],
     [setSortOrder, formatMessage]
   )
@@ -88,9 +105,11 @@ export default function WorkList() {
       />
       <SearchBlock onSubmit={handleSearch} />
       <ListTable
+        tableClass={classes.table}
         theadList={theadList}
         dataList={workDataList}
         pagination={pagination}
+        onPageChange={handlePageChange}
         buttonList={tableButtonList}
         sortBy='releaseDate'
         sortOrder={sortOrder}

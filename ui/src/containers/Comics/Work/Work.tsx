@@ -8,11 +8,11 @@ import WorkDetail from './components/WorkDetail'
 import WorkExport from './components/WorkExport'
 import WorkContext from './context/WorkContext'
 import { mockWork } from './mockData/mockWork'
-import { mockListData, mockWorkTotal } from './mockData/mockListData'
+import { mockListData } from './mockData/mockListData'
 
 export default function Work() {
   return (
-    <WorkContext.Provider value={{ workList: mockListData, currentWork: mockWork, workTotal: mockWorkTotal }}>
+    <WorkContext.Provider value={{ workList: mockListData, currentWork: mockWork, workTotal: mockListData.length }}>
       <Switch>
         <Route exact path={routePath.comics.workCreation} component={WorkCreation} />
         <Route exact path={routePath.comics.workEdit} component={WorkEdit} />
