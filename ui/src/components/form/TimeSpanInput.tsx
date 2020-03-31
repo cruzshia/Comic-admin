@@ -1,6 +1,8 @@
 import React from 'react'
+import { Field, useField } from 'react-final-form'
 import { OutlinedInput, makeStyles, FormHelperText } from '@material-ui/core'
-import { InputProps } from './inputProps'
+import { checkError, required } from '@src/utils/validation'
+import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import clsx from 'clsx'
 
 const useStyles = makeStyles({
@@ -22,30 +24,44 @@ const useStyles = makeStyles({
   }
 })
 
-export default function TimeSpanInput({ name, onChange, onBlur, error }: InputProps) {
+export default function TimeSpanInput({ name = '', isRequired }: { name?: string; isRequired?: boolean }) {
   const classes = useStyles()
+
+  const nameStart = `${name}Start`
+  const nameEnd = `${name}End`
+  const errorStart = checkError(useField(nameStart).meta)
+  const errorEnd = checkError(useField(nameEnd).meta)
+
   return (
     <div data-testid='time_span_input' className={classes.root}>
-      <OutlinedInput
-        placeholder='YYYY-MM-DD 00:00:00'
-        color='secondary'
-        data-testid='date_time_input'
-        name={`${name}Start`}
-        onChange={onChange}
-        onBlur={onBlur}
-        className={clsx({ error: !!error })}
-      />
-      <div className={classes.separator}>~</div>
-      <OutlinedInput
-        placeholder='YYYY-MM-DD 00:00:00'
-        color='secondary'
-        data-testid='date_time_input'
-        name={`${name}End`}
-        onChange={onChange}
-        onBlur={onBlur}
-        className={clsx({ error: !!error })}
-      />
-      {error && <FormHelperText className='error'>{error}</FormHelperText>}
+      <Field name={nameStart} validate={isRequired ? required : undefined}>
+        {({ input }) => (
+          <OutlinedInput
+            {...input}
+            placeholder={DATE_TIME_PLACEHOLDER}
+            color='secondary'
+            data-testid='date_time_input'
+            className={clsx({ error: !!errorStart })}
+          />
+        )}
+      </Field>
+      <span className={classes.separator}>~</span>
+      <Field name={nameEnd} validate={isRequired ? required : undefined}>
+        {({ input }) => (
+          <OutlinedInput
+            {...input}
+            placeholder={DATE_TIME_PLACEHOLDER}
+            color='secondary'
+            data-testid='date_time_input'
+            className={clsx({ error: !!errorEnd })}
+          />
+        )}
+      </Field>
+      {(errorStart || errorEnd) && (
+        <FormHelperText data-testid='error' className='error'>
+          {errorStart ?? errorEnd}
+        </FormHelperText>
+      )}
     </div>
   )
 }

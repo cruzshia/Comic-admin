@@ -63,7 +63,7 @@ export default function AdSettingTable({ data, onEdit }: { data: { [key: string]
     }
   }
 
-  return (
+  return data ? (
     <DataTable
       title={formatMessage(commonMessages.advertisementSetting)}
       tableClass={classes.table}
@@ -85,5 +85,7 @@ export default function AdSettingTable({ data, onEdit }: { data: { [key: string]
         ...data.contents.map((ad: any) => genAdvertisementData(ad))
       ]}
     />
+  ) : (
+    <></>
   )
 }

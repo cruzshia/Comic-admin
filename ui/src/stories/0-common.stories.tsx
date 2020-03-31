@@ -1,4 +1,5 @@
 import React from 'react'
+import { Form } from 'react-final-form'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import { text, select, boolean } from '@storybook/addon-knobs'
@@ -34,7 +35,16 @@ storiesOf('Common components', module)
   ))
   .add('TextArea', () => <TextArea error={setError()} />)
   .add('TextInput', () => <TextInput error={setError()} />)
-  .add('TimeSpanInput', () => <TimeSpanInput error={setError()} />)
+  .add('TimeSpanInput', () => (
+    <Form
+      onSubmit={() => {}}
+      render={() => (
+        <form>
+          <TimeSpanInput isRequired />
+        </form>
+      )}
+    />
+  ))
   .add('DropZone', () => <DropZone onDropAccepted={action('Drop accepted')} onDropRejected={action('Drop rejected')} />)
   .add('ActionButton', () => (
     <ActionButton

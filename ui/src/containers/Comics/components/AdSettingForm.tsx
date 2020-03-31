@@ -5,7 +5,7 @@ import { FieldArray } from 'react-final-form-arrays'
 import { Box } from '@material-ui/core'
 import { Select } from '@src/components/form'
 import DataTable from '@src/components/table/DataTable'
-import { required, checkError } from '@src/utils/validation'
+import { checkError } from '@src/utils/validation'
 import commonMessages from '@src/messages'
 import Advertisement from './Advertisement'
 
@@ -17,7 +17,7 @@ export default function AdSettingForm({ adSettingRef }: { adSettingRef?: React.R
     {
       label: formatMessage(commonMessages.deviceCategory),
       content: (
-        <Field name='device' validate={required}>
+        <Field name='device'>
           {({ input, meta }) => (
             <Select
               {...input}
