@@ -48,10 +48,11 @@ interface Props {
   disabled?: boolean
   icon?: React.FC<SVGProps<SVGSVGElement>>
   classnames?: string
+  type?: 'button' | 'reset' | 'submit'
 }
 
 export const Theme = ButtonTheme
-export default function Button({ icon: Icon, theme, buttonText, onClick, disabled, classnames }: Props) {
+export default function Button({ icon: Icon, theme, buttonText, onClick, disabled, classnames, type }: Props) {
   const classes = useStyles()
 
   return (
@@ -60,6 +61,7 @@ export default function Button({ icon: Icon, theme, buttonText, onClick, disable
       className={clsx(classes.button, theme, classnames)}
       onClick={onClick}
       disabled={disabled}
+      type={type}
     >
       {Icon && <Icon className={classes.icon} data-testid='button_icon' />}
       {buttonText}

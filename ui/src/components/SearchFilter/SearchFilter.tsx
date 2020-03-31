@@ -4,6 +4,7 @@ import { Paper, Grid, makeStyles } from '@material-ui/core'
 import expandImg from '@src/assets/common/expand_more_black.svg'
 import { borderColorLight, backgroundColorLight, contentWidth } from '@src/common/styles'
 import ActionButton from '@src/components/Button/ActionButton'
+import Button from '@src/components/Button/Button'
 import { ButtonTheme } from '../Button/buttonTheme'
 import messages from './messages'
 import clsx from 'clsx'
@@ -32,7 +33,7 @@ const useStyles = makeStyles(() => ({
     }
   },
   left: {
-    marginRight: 40,
+    marginRight: '40px',
     margin: '-7.5px 0',
     '&+div': {
       margin: '-7.5px 0'
@@ -51,7 +52,7 @@ const useStyles = makeStyles(() => ({
   },
   expand: {
     height: 30,
-    marginTop: 12.5,
+    marginTop: '12.5px',
     backgroundColor: backgroundColorLight,
     cursor: 'pointer',
     '&.fold>img': {
@@ -59,11 +60,8 @@ const useStyles = makeStyles(() => ({
     }
   },
   buttons: {
-    marginTop: 20,
-    width: contentWidth,
-    '& .MuiButton-root': {
-      margin: '0 7.5px'
-    }
+    marginTop: '15px',
+    width: contentWidth
   }
 }))
 
@@ -121,18 +119,18 @@ export default function SearchFilter({ onSubmit, conditions }: Props) {
           )}
         </Paper>
       </Grid>
-      <Grid container justify='center' className={classes.buttons}>
-        <ActionButton
-          theme={ButtonTheme.LIGHT}
-          buttonText={formatMessage(messages.reset)}
-          onClick={handleReset}
-          type='reset'
-        />
+      <Grid container justify='space-between' className={classes.buttons}>
         <ActionButton
           theme={ButtonTheme.DARK}
           buttonText={formatMessage(messages.search)}
           onClick={onSubmit}
           type='submit'
+        />
+        <Button
+          theme={ButtonTheme.LIGHT}
+          buttonText={formatMessage(messages.reset)}
+          onClick={handleReset}
+          type='reset'
         />
       </Grid>
     </div>

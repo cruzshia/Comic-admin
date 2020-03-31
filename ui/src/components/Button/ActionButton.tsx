@@ -14,7 +14,8 @@ const useStyles = makeStyles({
     color: '#333333',
     '&.dark': {
       background: mainColor,
-      color: '#FFFFFF'
+      color: '#FFFFFF',
+      borderColor: mainColor
     }
   }
 })
