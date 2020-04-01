@@ -71,6 +71,7 @@
   "common.csv_export": "CSV Export",
   "common.csv_export_logs": "CSV Export Logs",
   "common.csv_import": "CSV Import",
+  "common.csv_import_logs": "CSV Import Logs",
   "common.delete": "Delete",
   "common.delivery_duration": "Delivery Duration",
   "common.device_category": "Device Category",

@@ -27,6 +27,10 @@ export default defineMessages({
     id: PREFIX + 'csv_import',
     defaultMessage: 'CSV Import'
   },
+  csvImportLogs: {
+    id: PREFIX + 'csv_import_logs',
+    defaultMessage: 'CSV Import Logs'
+  },
   csvExport: {
     id: PREFIX + 'csv_export',
     defaultMessage: 'CSV Export'

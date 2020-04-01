@@ -71,6 +71,7 @@
   "common.csv_export": "CSV出力",
   "common.csv_export_logs": "CSV出力ログ",
   "common.csv_import": "CSV登録",
+  "common.csv_import_logs": "CSV登録ログ",
   "common.delete": "削除する",
   "common.delivery_duration": "配信期間",
   "common.device_category": "デバイス種別",

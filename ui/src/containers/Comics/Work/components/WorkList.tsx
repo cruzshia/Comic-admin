@@ -50,6 +50,10 @@ export default function WorkList() {
         buttonText={formatMessage(commonMessages.csvImport)}
         onClick={() => {}}
         icon={IconSave}
+      />,
+      <Button
+        buttonText={formatMessage(commonMessages.csvImportLogs)}
+        onClick={() => history.push(routePath.comics.workImportLogs)}
       />
     ],
     [formatMessage, history]
