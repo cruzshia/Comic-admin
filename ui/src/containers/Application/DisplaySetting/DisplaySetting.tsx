@@ -1,5 +1,19 @@
 import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+import { routePath } from '@src/common/appConfig'
+import DisplaySettingList from './components/DisplaySettingList'
+import DisplaySettingEdit from './components/DisplaySettingEdit'
+import DisplaySettingCreation from './components/DisplaySettingCreation'
+import DisplaySettingContext from './context/DisplaySettingContext'
 
 export default function DisplaySetting() {
-  return <>Display Setting Page</>
+  return (
+    <Switch>
+      <DisplaySettingContext.Provider value={{ settingList: [], settingTotal: 0 }}>
+        <Route exact path={routePath.application.displaySetting} component={DisplaySettingList} />
+        <Route exact path={routePath.application.displaySettingCreation} component={DisplaySettingCreation} />
+        <Route exact path={routePath.application.displaySettingEdit} component={DisplaySettingEdit} />
+      </DisplaySettingContext.Provider>
+    </Switch>
+  )
 }

@@ -127,6 +127,10 @@ export default defineMessages({
     id: PREFIX + 'contents',
     defaultMessage: 'Contents'
   },
+  copy: {
+    id: PREFIX + 'copy',
+    defaultMessage: 'Copy'
+  },
   episodeInfo: {
     id: PREFIX + 'episode_info',
     defaultMessage: 'Episode Information'

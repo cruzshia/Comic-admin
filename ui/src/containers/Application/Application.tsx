@@ -10,7 +10,7 @@ import PushNotification from './PushNotification/PushNotification'
 export default function Application() {
   return (
     <Switch>
-      <Route exact path={routePath.application.displaySetting} component={DisplaySetting} />
+      <Route path={routePath.application.displaySetting} component={DisplaySetting} />
       <Route exact path={routePath.application.coinDeliveryEvent} component={CoinDeliveryEvent} />
       <Route exact path={routePath.application.pushNotification} component={PushNotification} />
       <Route exact path={routePath.application.coinProduct} component={CoinProduct} />
