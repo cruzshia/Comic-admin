@@ -34,10 +34,10 @@ const useStyle = makeStyles({
   tableClass: {
     '& .MuiGrid-container:not(.display) .MuiGrid-item': {
       padding: '15px 20px'
-    },
-    '& img': {
-      maxWidth: IMAGE_MAX_WIDTH
     }
+  },
+  photo: {
+    maxWidth: IMAGE_MAX_WIDTH
   },
   tableMargin: {
     marginBottom: '30px'
@@ -67,11 +67,15 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
       dataSet.push({
         label: `${formatMessage(commonMessages.photo)}${i + 1}`,
         classes: img ? 'display' : undefined,
-        content: img ? <img src={img} alt={img} /> : <DropZone name={`photo${i + 1}`} onDropAccepted={() => {}} />
+        content: img ? (
+          <img src={img} alt={img} className={classes.photo} />
+        ) : (
+          <DropZone name={`photo${i + 1}`} onDropAccepted={() => {}} />
+        )
       })
     }
     return dataSet
-  }, [images, formatMessage])
+  }, [images, formatMessage, classes])
 
   return (
     <>
@@ -193,7 +197,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 }
               ]}
             />
-            <AdSettingForm adSettingRef={adSettingRef} />
+            <AdSettingForm adSettingRef={adSettingRef} mutators={form.mutators as any} />
           </form>
         )}
       />

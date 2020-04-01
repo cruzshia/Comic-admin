@@ -53,6 +53,7 @@ export const theme = createMuiTheme({
     MuiOutlinedInput: {
       root: {
         fontSize: 14,
+        lineHeight: '24px',
         fontWeight: 'normal',
         minHeight: 36,
         '&.Mui-focused fieldset': {

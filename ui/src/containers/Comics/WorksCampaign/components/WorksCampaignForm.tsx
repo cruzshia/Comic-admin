@@ -65,7 +65,7 @@ export default function WorksCampaignForm({ onSubmit, formRef }: Props) {
                 }
               ]}
             />
-            <AdSettingForm />
+            <AdSettingForm mutators={form.mutators as any} />
           </form>
         )}
       />

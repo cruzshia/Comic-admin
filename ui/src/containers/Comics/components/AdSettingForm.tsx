@@ -2,6 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { Field } from 'react-final-form'
 import { FieldArray } from 'react-final-form-arrays'
+import { Mutators } from 'final-form-arrays'
 import { Box } from '@material-ui/core'
 import { Select } from '@src/components/form'
 import DataTable from '@src/components/table/DataTable'
@@ -9,9 +10,17 @@ import { checkError } from '@src/utils/validation'
 import commonMessages from '@src/messages'
 import Advertisement from './Advertisement'
 
-export default function AdSettingForm({ adSettingRef }: { adSettingRef?: React.RefObject<HTMLDivElement> }) {
-  const { formatMessage } = useIntl()
+const AD_COLUMN = 'contents'
 
+export default function AdSettingForm({
+  adSettingRef,
+  mutators
+}: {
+  adSettingRef?: React.RefObject<HTMLDivElement>
+  mutators: Mutators
+}) {
+  const { formatMessage } = useIntl()
+  const createDeleteHandler = (idx: number) => () => mutators && mutators.remove(AD_COLUMN, idx)
   const tableTitle = formatMessage(commonMessages.advertisementSetting)
   const dataSet = [
     {
@@ -34,8 +43,12 @@ export default function AdSettingForm({ adSettingRef }: { adSettingRef?: React.R
       label: tableTitle,
       content: (
         <Box height={1024}>
-          <FieldArray name='contents'>
-            {({ fields }) => fields.map((name, index) => <Advertisement key={name} name={name} />)}
+          <FieldArray name={AD_COLUMN}>
+            {({ fields }) =>
+              fields.map((name, index) => (
+                <Advertisement key={name} name={name} onDelete={createDeleteHandler(index)} />
+              ))
+            }
           </FieldArray>
         </Box>
       )
