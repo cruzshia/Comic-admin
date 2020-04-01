@@ -23,6 +23,7 @@ interface Props {
   workData?: any
   onSubmit: (data: any) => void
   formRef?: React.RefObject<HTMLFormElement>
+  withStickHeader?: boolean
 }
 
 const useStyle = makeStyles({
@@ -46,7 +47,8 @@ const useStyle = makeStyles({
 
 export enum ScrollAnchor {
   Delivery = 'delivery',
-  AdSetting = 'adSetting'
+  AdSetting = 'adSetting',
+  EpisodeInfo = 'episodeInfo'
 }
 
 export default function WorkForm({ workData, onSubmit, formRef }: Props) {
@@ -54,9 +56,11 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
   const { formatMessage } = useIntl()
   const deliveryRef = useRef<HTMLDivElement>(null)
   const adSettingRef = useRef<HTMLDivElement>(null)
+  const episodeInfoRef = useRef<HTMLDivElement>(null)
   const anchorRef = {
     [ScrollAnchor.Delivery]: deliveryRef,
-    [ScrollAnchor.AdSetting]: adSettingRef
+    [ScrollAnchor.AdSetting]: adSettingRef,
+    [ScrollAnchor.EpisodeInfo]: episodeInfoRef
   }
 
   const images = workData?.images
@@ -79,7 +83,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
 
   return (
     <>
-      <ScrollTo anchorRef={anchorRef} />
+      <ScrollTo anchorRef={anchorRef} withStickHeader />
       <Form
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}

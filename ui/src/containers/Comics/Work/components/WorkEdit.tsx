@@ -40,7 +40,7 @@ export default function WorkEdit() {
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <StickyHeader title={formatMessage(messages.createWork)} button={CreateButton} />
-      <WorkForm workData={mockWork} onSubmit={handleSubmitUpdate} formRef={formRef} />
+      <WorkForm workData={mockWork} onSubmit={handleSubmitUpdate} formRef={formRef} withStickHeader />
     </>
   )
 }

@@ -1,5 +1,10 @@
-import mockCover from './cover.png'
-import mockCoverSm from './cover_sm.png'
+import mockCover1 from './mockCover1.png'
+import mockCover2 from './mockCover2.png'
+import mockCover3 from './mockCover3.png'
+import mockCover4 from './mockCover4.png'
+import mockCover5 from './mockCover5.png'
+import mockCover6 from './mockCover6.png'
+import mockCover7 from './mockCover7.png'
 import mockManga from './manga.png'
 
 export const mockWork = {
@@ -9,13 +14,15 @@ export const mockWork = {
   // titleShort: 'ダイ',
   introduction:
     '【２０２０年 秋アニメ化決定！】モンスターに育てられた、勇者に憧れる少年・ダイ。師や仲間とともに、世界を救う冒険が今始まる——！',
-  author: '原作：三条陸／漫画：稲田浩司／監修：堀井雄二 / イナダコウジ',
+  author: 'イナダコウジ',
   category: 'コミックス',
   updateFrequency: '毎週月月金曜日に更新',
   rensai: 'ジャンプ本誌',
+  reduction: '還元あり',
   createDateTime: '2019-12-25 00:00:00 +0900',
   updateDateTime: '2019-12-25 00:00:00 +0900',
-  images: [mockCover, mockCoverSm, mockCover, mockCover],
+  episodeCategory: 'オリジナル連載',
+  images: [mockCover1, mockCover2, mockCover3, mockCover4, mockCover5, mockCover6, mockCover7],
   deliveryStartDateTime: '2019-12-25 00:00:00 +0900',
   deliveryEndDateTime: '2019-12-25 00:00:00 +0900',
   advertisement: {

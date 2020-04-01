@@ -5,6 +5,7 @@ export const appBarGrey = '#212121'
 export const headerHeight = 40
 export const headerMenuHeight = 60
 export const topOffset = headerHeight + headerMenuHeight
+export const stickBarOffset = 75
 export const contentWidth = 1180
 export const sidebarWidth = 200
 

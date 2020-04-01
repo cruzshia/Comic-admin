@@ -122,5 +122,9 @@ export default defineMessages({
   contents: {
     id: PREFIX + 'contents',
     defaultMessage: 'Contents'
+  },
+  episodeInfo: {
+    id: PREFIX + 'episode_info',
+    defaultMessage: 'Episode Information'
   }
 })

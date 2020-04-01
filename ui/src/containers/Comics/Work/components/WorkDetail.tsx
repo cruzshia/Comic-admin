@@ -18,7 +18,7 @@ import AdSettingTable from '../../components/AdSettingTable'
 const useStyle = makeStyles({
   table: {
     marginBottom: '36px',
-    lineHeight: '14px'
+    lineHeight: '21px'
   },
   subTitle: {
     padding: '15px 20px'
@@ -63,6 +63,7 @@ export default function WorkDetail() {
   const handleEdit = useMemo(() => handleRedirect(), [handleRedirect])
   const handleEditDelivery = useMemo(() => handleRedirect(ScrollAnchor.Delivery), [handleRedirect])
   const handleEditAdSetting = useMemo(() => handleRedirect(ScrollAnchor.AdSetting), [handleRedirect])
+  const handleEditEpisodeInfo = useMemo(() => handleRedirect(ScrollAnchor.EpisodeInfo), [handleRedirect])
 
   const EditButton = useMemo(
     () => (
@@ -94,10 +95,25 @@ export default function WorkDetail() {
             content: <span className={classes.blueText}>{mockWork.author}</span>
           },
           genTableData('category'),
+          genTableData('reduction'),
+          genTableData('createDateTime'),
+          genTableData('updateDateTime')
+        ]}
+      />
+      <DataTable
+        title={formatMessage(commonMessages.deliveryDuration)}
+        tableClass={classes.table}
+        onEdit={handleEditDelivery}
+        dataSet={[genTableData('deliveryStartDateTime'), genTableData('deliveryEndDateTime')]}
+      />
+      <DataTable
+        title={formatMessage(commonMessages.episodeInfo)}
+        tableClass={classes.table}
+        onEdit={handleEditEpisodeInfo}
+        dataSet={[
+          genTableData('episodeCategory'),
           genTableData('updateFrequency'),
           genTableData('rensai'),
-          genTableData('createDateTime'),
-          genTableData('updateDateTime'),
           ...new Array(IMAGE_NUM).fill({}).map((_, i) => {
             const img = mockWork.images[i]
             return {
@@ -107,12 +123,7 @@ export default function WorkDetail() {
           })
         ]}
       />
-      <DataTable
-        title={formatMessage(commonMessages.deliveryDuration)}
-        tableClass={classes.table}
-        onEdit={handleEditDelivery}
-        dataSet={[genTableData('deliveryStartDateTime'), genTableData('deliveryEndDateTime')]}
-      />
+
       <AdSettingTable onEdit={handleEditAdSetting} data={mockWork.advertisement} />
     </>
   )

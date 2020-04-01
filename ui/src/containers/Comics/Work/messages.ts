@@ -109,6 +109,10 @@ export default defineMessages({
   },
   createWork: {
     id: PREFIX + 'create',
-    defaultMessage: 'Create work'
+    defaultMessage: 'Create Work'
+  },
+  reduction: {
+    id: PREFIX + 'reduction',
+    defaultMessage: 'Reduction'
   }
 })

@@ -37,7 +37,7 @@ export default function WorkCreation() {
     <>
       <StickyHeader title={formatMessage(messages.createWork)} button={CreateButton} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
-      <WorkForm onSubmit={handleSubmitCreate} formRef={formRef} />
+      <WorkForm onSubmit={handleSubmitCreate} formRef={formRef} withStickHeader />
     </>
   )
 }
