@@ -74,7 +74,7 @@ storiesOf('Common components', module)
       icon={IconSave}
     />
   ))
-  .add('SearchFilter', () => <SearchFilter conditions={mockSearchFilterData} />)
+  .add('SearchFilter', () => <SearchFilter conditions={mockSearchFilterData} onSubmit={action('submit')} />)
   .add('ContentHeader', () => (
     <ContentHeader
       breadcrumbList={[{ title: 'マンガ管理' }, { title: '作品管理', route: '/comics/work' }, { title: '作品登録' }]}

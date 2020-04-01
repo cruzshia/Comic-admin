@@ -5,15 +5,15 @@ import arrayMutators from 'final-form-arrays'
 import { makeStyles } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import DataTable from '@src/components/table/DataTable'
-import { TextInput, SearchInput, TextArea, Select } from '@src/components/form'
+import { TextInput, SearchInput, TextArea, Select, StartEndForm } from '@src/components/form'
 import Button from '@src/components/Button/Button'
 import DropZone from '@src/components/DropZone'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { ReactComponent as AddIcon } from '@src/assets/form/add.svg'
 import { checkError } from '@src/utils/validation'
-import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import commonMessages from '@src/messages'
 import { required } from '@src/utils/validation'
+import comicsMessages from '../../messages'
 import AdSettingForm from '../../components/AdSettingForm'
 import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
 import messages from '../messages'
@@ -69,7 +69,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
     for (let i = 0; i < IMAGE_NUM; i++) {
       const img = images ? images[i] : undefined
       dataSet.push({
-        label: `${formatMessage(commonMessages.photo)}${i + 1}`,
+        label: `${formatMessage(comicsMessages.episodeImage)}${i + 1}`,
         classes: img ? 'display' : undefined,
         content: img ? (
           <img src={img} alt={img} className={classes.photo} />
@@ -144,7 +144,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   label: formatMessage(messages.category),
                   classes: workData ? 'display' : undefined,
                   content: (
-                    <Field name='author'>
+                    <Field name='category'>
                       {({ input, meta }) =>
                         workData ? (
                           workData.category
@@ -156,9 +156,46 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   )
                 },
                 {
+                  label: formatMessage(messages.reduction),
+                  classes: workData ? 'display' : undefined,
+                  content: (
+                    <Field name='reduction'>
+                      {({ input, meta }) =>
+                        workData ? (
+                          workData.reduction
+                        ) : (
+                          <Select {...input} error={checkError(meta)} options={[]} isShort />
+                        )
+                      }
+                    </Field>
+                  )
+                }
+              ]}
+            />
+            <StartEndForm
+              title={formatMessage(commonMessages.deliveryDuration)}
+              classnames={clsx(classes.tableClass, classes.tableMargin)}
+              startLabel={formatMessage(messages.deliveryStartDateTime)}
+              startName='deliveryStartDateTime'
+              endLabel={formatMessage(messages.deliveryEndDateTime)}
+              endName='deliveryEndDateTime'
+            />
+            <DataTable
+              title={formatMessage(comicsMessages.episodeInfo)}
+              tableClass={clsx(classes.tableClass, classes.tableMargin)}
+              dataSet={[
+                {
                   label: formatMessage(messages.episodeCategory),
                   content: (
                     <Field name='episodeCategory'>
+                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
+                    </Field>
+                  )
+                },
+                {
+                  label: formatMessage(messages.episodeFrequency),
+                  content: (
+                    <Field name='episodeFrequency'>
                       {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
                     </Field>
                   )
@@ -172,33 +209,6 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   )
                 },
                 ...imageDataSet
-              ]}
-            />
-            <DataTable
-              title={formatMessage(commonMessages.deliveryDuration)}
-              tableClass={clsx(classes.tableClass, classes.tableMargin)}
-              innerRef={deliveryRef}
-              dataSet={[
-                {
-                  label: formatMessage(messages.deliveryStartDateTime),
-                  content: (
-                    <Field name='deliveryStartDateTime'>
-                      {({ input, meta }) => (
-                        <TextInput {...input} error={checkError(meta)} placeholder={DATE_TIME_PLACEHOLDER} />
-                      )}
-                    </Field>
-                  )
-                },
-                {
-                  label: formatMessage(messages.deliveryEndDateTime),
-                  content: (
-                    <Field name='deliveryEndDateTime'>
-                      {({ input, meta }) => (
-                        <TextInput {...input} error={checkError(meta)} placeholder={DATE_TIME_PLACEHOLDER} />
-                      )}
-                    </Field>
-                  )
-                }
               ]}
             />
             <AdSettingForm adSettingRef={adSettingRef} mutators={form.mutators as any} />

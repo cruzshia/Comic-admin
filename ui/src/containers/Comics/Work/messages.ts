@@ -109,7 +109,11 @@ export default defineMessages({
   },
   createWork: {
     id: PREFIX + 'create',
-    defaultMessage: 'Create Work'
+    defaultMessage: 'Create work'
+  },
+  episodeFrequency: {
+    id: PREFIX + 'episode_frequency',
+    defaultMessage: 'Episode Frequency'
   },
   reduction: {
     id: PREFIX + 'reduction',

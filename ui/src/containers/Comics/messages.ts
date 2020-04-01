@@ -30,5 +30,13 @@ export default defineMessages({
   adMap: {
     id: PREFIX + 'ad.map',
     defaultMessage: 'Map'
+  },
+  episodeImage: {
+    id: PREFIX + 'episode_image',
+    defaultMessage: 'Episode Image'
+  },
+  episodeInfo: {
+    id: PREFIX + 'episode_info',
+    defaultMessage: 'Episode Info'
   }
 })

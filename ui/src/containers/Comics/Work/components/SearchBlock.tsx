@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
-import { Form, Field } from 'react-final-form'
+import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
 import { SearchInput, Select, TimeSpanInput } from '@src/components/form'
 import commonMessages from '@src/messages'
@@ -58,14 +58,5 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     }),
     [formatMessage]
   )
-  return (
-    <Form
-      onSubmit={onSubmit}
-      render={({ handleSubmit, form }) => (
-        <form onSubmit={handleSubmit}>
-          <SearchFilter conditions={conditions} onSubmit={handleSubmit} />
-        </form>
-      )}
-    />
-  )
+  return <SearchFilter conditions={conditions} onSubmit={onSubmit} />
 }

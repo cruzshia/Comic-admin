@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useIntl } from 'react-intl'
+import { Form } from 'react-final-form'
 import { Paper, Grid, makeStyles } from '@material-ui/core'
 import expandImg from '@src/assets/common/expand_more_black.svg'
 import { borderColorLight, backgroundColorLight, contentWidth } from '@src/common/styles'
@@ -20,8 +21,9 @@ export interface Conditions {
 }
 
 interface Props {
-  onSubmit?: () => void
+  onSubmit: (data: any) => void
   conditions: Conditions
+  formRef?: React.RefObject<HTMLFormElement>
 }
 
 const useStyles = makeStyles(() => ({
@@ -65,7 +67,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function SearchFilter({ onSubmit, conditions }: Props) {
+export default function SearchFilter({ onSubmit, conditions, formRef }: Props) {
   const { formatMessage } = useIntl()
   const [isExpand, setIsExpand] = useState<boolean>(false)
   const classes = useStyles()
@@ -92,47 +94,43 @@ export default function SearchFilter({ onSubmit, conditions }: Props) {
     [isExpand, classes.item]
   )
   const handleExpand = useCallback(() => setIsExpand(isExpand => !isExpand), [setIsExpand])
-  const handleReset = useCallback(() => {}, [])
 
   return (
     <div data-testid='search_filter'>
-      <Grid container direction='column' className={classes.root}>
-        <Paper variant='outlined'>
-          <Grid container wrap='nowrap'>
-            <Grid container direction='column' className={classes.left}>
-              {generateItem(conditions.left)}
+      <Form
+        onSubmit={onSubmit}
+        render={({ handleSubmit, form }) => (
+          <form onSubmit={handleSubmit} ref={formRef}>
+            <Grid container direction='column' className={classes.root}>
+              <Paper variant='outlined'>
+                <Grid container wrap='nowrap'>
+                  <Grid container direction='column' className={classes.left}>
+                    {generateItem(conditions.left)}
+                  </Grid>
+                  <Grid container direction='column'>
+                    {generateItem(conditions.right)}
+                  </Grid>
+                </Grid>
+                {conditions.left.length > 3 && (
+                  <Grid
+                    container
+                    justify='center'
+                    className={clsx(classes.expand, { fold: !!isExpand })}
+                    onClick={handleExpand}
+                    data-testid='search_filter_expand'
+                  >
+                    <img src={expandImg} alt='expand' />
+                  </Grid>
+                )}
+              </Paper>
             </Grid>
-            <Grid container direction='column'>
-              {generateItem(conditions.right)}
+            <Grid container justify='space-between' className={classes.buttons}>
+              <ActionButton theme={ButtonTheme.DARK} buttonText={formatMessage(messages.search)} type='submit' />
+              <Button theme={ButtonTheme.LIGHT} buttonText={formatMessage(messages.reset)} type='reset' />
             </Grid>
-          </Grid>
-          {conditions.left.length > 3 && (
-            <Grid
-              container
-              justify='center'
-              className={clsx(classes.expand, { fold: !!isExpand })}
-              onClick={handleExpand}
-              data-testid='search_filter_expand'
-            >
-              <img src={expandImg} alt='expand' />
-            </Grid>
-          )}
-        </Paper>
-      </Grid>
-      <Grid container justify='space-between' className={classes.buttons}>
-        <ActionButton
-          theme={ButtonTheme.DARK}
-          buttonText={formatMessage(messages.search)}
-          onClick={onSubmit}
-          type='submit'
-        />
-        <Button
-          theme={ButtonTheme.LIGHT}
-          buttonText={formatMessage(messages.reset)}
-          onClick={handleReset}
-          type='reset'
-        />
-      </Grid>
+          </form>
+        )}
+      />
     </div>
   )
 }

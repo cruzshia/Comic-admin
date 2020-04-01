@@ -2,6 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import clsx from 'clsx'
 import { TextField, makeStyles, FormHelperText } from '@material-ui/core'
+import { TEXT_AREA_SM_ROWS, TEXT_AREA_LG_ROWS } from '@src/common/constants'
 import messages from './messages'
 import { InputProps } from './inputProps'
 
@@ -18,7 +19,11 @@ const useStyle = makeStyles({
   }
 })
 
-export default function TextArea({ name, onChange, onBlur, error, placeholder, value }: InputProps) {
+interface Props extends InputProps {
+  size?: 'lg' | 'sm'
+}
+
+export default function TextArea({ name, onChange, onBlur, error, placeholder, value, size }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   return (
@@ -26,7 +31,7 @@ export default function TextArea({ name, onChange, onBlur, error, placeholder, v
       <TextField
         data-testid='text-area'
         multiline
-        rows={7}
+        rows={size === 'lg' ? TEXT_AREA_LG_ROWS : TEXT_AREA_SM_ROWS}
         placeholder={placeholder ?? formatMessage(messages.textInput)}
         variant='outlined'
         className={classes.root}
