@@ -16,6 +16,7 @@ import { COMMENT_BREADCRUMBS, ListTableProp, toListTableData } from '../utils'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
+import SearchBlock from './SearchBlock'
 
 const LIMIT = 10
 
@@ -107,7 +108,7 @@ export default function CommentList() {
     ],
     [formatMessage]
   )
-
+  const handleSearch = useCallback((data: any) => {}, [])
   const displayData = useMemo(
     () =>
       commentList
@@ -134,6 +135,7 @@ export default function CommentList() {
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.commentList)} />
+      <SearchBlock onSubmit={handleSearch} />
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
