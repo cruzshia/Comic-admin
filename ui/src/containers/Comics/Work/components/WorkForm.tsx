@@ -63,23 +63,33 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
     [ScrollAnchor.EpisodeInfo]: episodeInfoRef
   }
 
-  const images = workData?.images
   const imageDataSet = useMemo(() => {
     const dataSet = []
     for (let i = 0; i < IMAGE_NUM; i++) {
-      const img = images ? images[i] : undefined
       dataSet.push({
         label: `${formatMessage(comicsMessages.episodeImage)}${i + 1}`,
-        classes: img ? 'display' : undefined,
-        content: img ? (
-          <img src={img} alt={img} className={classes.photo} />
-        ) : (
-          <DropZone name={`photo${i + 1}`} onDropAccepted={() => {}} />
+        content: (
+          <Field name={`images[${i}]`}>
+            {({ input: { value, onChange } }) => (
+              <DropZone
+                classnames={classes.photo}
+                name={`images${i}`}
+                preview={
+                  value ? (
+                    <img src={typeof value === 'string' ? value : URL.createObjectURL(value)} alt='preview-img' />
+                  ) : (
+                    undefined
+                  )
+                }
+                onDropAccepted={files => onChange(files[0])}
+              />
+            )}
+          </Field>
         )
       })
     }
     return dataSet
-  }, [images, formatMessage, classes])
+  }, [formatMessage, classes])
 
   return (
     <>

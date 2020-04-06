@@ -49,6 +49,6 @@ describe('WorkDetail test', () => {
         expect(() => queryAllByText(val)).not.toThrow()
       }
     })
-    expect(queryAllByTestId('data-table')).toHaveLength(2)
+    expect(queryAllByTestId('data-table')).toHaveLength(3)
   })
 })
