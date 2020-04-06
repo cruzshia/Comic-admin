@@ -1,16 +1,18 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
+import SearchBlock from './SearchBlock'
 import messages from '../messages'
 import { BREADCRUMBS } from '../constants'
 
 export default function WorksCampaignList() {
   const { formatMessage } = useIntl()
   const history = useHistory()
+  const handleSearch = useCallback(data => console.log(data), [])
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
@@ -35,6 +37,7 @@ export default function WorksCampaignList() {
         titleText={formatMessage(messages.comicsWorksCampaign)}
         buttonList={buttonList}
       />
+      <SearchBlock onSubmit={handleSearch} />
     </>
   )
 }

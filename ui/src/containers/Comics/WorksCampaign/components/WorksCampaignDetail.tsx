@@ -54,7 +54,7 @@ export default function WorksCampaignDetail() {
     [formatMessage, handleRedirect]
   )
   const genTableData = (id: any): DataSet => ({
-    label: formatMessage(messages[id as keyof typeof messages]),
+    label: formatMessage(commonMessages[id as keyof typeof commonMessages]),
     content: campaign[id]
   })
 

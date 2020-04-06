@@ -22,13 +22,5 @@ export default defineMessages({
   detail: {
     id: PREFIX + 'works_campaign_detail',
     defaultMessage: 'Works Campaign Detail'
-  },
-  startDateTime: {
-    id: PREFIX + 'start_date_time',
-    defaultMessage: 'Start Time'
-  },
-  endDateTime: {
-    id: PREFIX + 'end_date_time',
-    defaultMessage: 'End Time'
   }
 })

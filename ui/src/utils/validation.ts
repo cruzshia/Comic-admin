@@ -8,3 +8,6 @@ export const required = (value: any) => (value && (value.length > 1 || !isNaN(va
 export const checkError = (meta: FieldMetaState<any>) => {
   return meta.error && meta.touched ? meta.error : undefined
 }
+
+export const validDateTime = (dateTime: string) =>
+  new RegExp('^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$', 'i').test(dateTime)

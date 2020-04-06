@@ -99,7 +99,7 @@ export default function SearchFilter({ onSubmit, conditions, formRef }: Props) {
     <div data-testid='search_filter'>
       <Form
         onSubmit={onSubmit}
-        render={({ handleSubmit, form }) => (
+        render={({ handleSubmit, form: { reset } }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <Grid container direction='column' className={classes.root}>
               <Paper variant='outlined'>
@@ -126,7 +126,7 @@ export default function SearchFilter({ onSubmit, conditions, formRef }: Props) {
             </Grid>
             <Grid container justify='space-between' className={classes.buttons}>
               <ActionButton theme={ButtonTheme.DARK} buttonText={formatMessage(messages.search)} type='submit' />
-              <Button theme={ButtonTheme.LIGHT} buttonText={formatMessage(messages.reset)} type='reset' />
+              <Button theme={ButtonTheme.LIGHT} buttonText={formatMessage(messages.reset)} onClick={reset} />
             </Grid>
           </form>
         )}

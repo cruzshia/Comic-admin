@@ -10,7 +10,6 @@ import commonMessages from '@src/messages'
 import { required, checkError } from '@src/utils/validation'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import AdSettingForm from '../../components/AdSettingForm'
-import messages from '../messages'
 
 interface Props {
   onSubmit: (data: any) => void
@@ -44,7 +43,7 @@ export default function WorksCampaignForm({ onSubmit, formRef }: Props) {
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
               dataSet={[
                 {
-                  label: formatMessage(messages.startDateTime),
+                  label: formatMessage(commonMessages.startDateTime),
                   content: (
                     <Field name='startDateTime' validate={required}>
                       {({ input, meta }) => (
@@ -54,7 +53,7 @@ export default function WorksCampaignForm({ onSubmit, formRef }: Props) {
                   )
                 },
                 {
-                  label: formatMessage(messages.endDateTime),
+                  label: formatMessage(commonMessages.endDateTime),
                   content: (
                     <Field name='endDateTime' validate={required}>
                       {({ input, meta }) => (
