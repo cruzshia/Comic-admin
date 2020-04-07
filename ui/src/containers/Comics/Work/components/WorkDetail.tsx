@@ -102,8 +102,8 @@ export default function WorkDetail() {
         tableClass={classes.table}
         onEdit={handleEditDelivery}
         dataSet={[
-          toDataSet(formatMessage(messages.deliveryStartDateTime), currentWork.deliveryStartDateTime),
-          toDataSet(formatMessage(messages.deliveryEndDateTime), currentWork.deliveryEndDateTime)
+          toDataSet(formatMessage(commonMessages.deliveryStartDateTime), currentWork.deliveryStartDateTime),
+          toDataSet(formatMessage(commonMessages.deliveryEndDateTime), currentWork.deliveryEndDateTime)
         ]}
       />
       <DataTable
