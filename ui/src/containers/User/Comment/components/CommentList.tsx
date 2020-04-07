@@ -2,15 +2,14 @@ import React, { useContext, useCallback, useMemo, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
-import Checkbox from '@material-ui/core/Checkbox'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import ListTable, { SortOrder, Padding } from '@src/components/table/ListTable'
 import Button from '@src/components/Button/Button'
+import { StyledCheckBox } from '@src/components/form'
 import { routePath } from '@src/common/appConfig'
 import { ReactComponent as PublishIco } from '@src/assets/common/publish.svg'
 import { ReactComponent as DeleteIco } from '@src/assets/common/delete.svg'
 import { ReactComponent as UserIco } from '@src/assets/common/user.svg'
-import { ReactComponent as CheckboxIco } from '@src/assets/common/checkbox.svg'
 import Context from '../context/CommentContext'
 import { COMMENT_BREADCRUMBS, ListTableProp, toListTableData } from '../utils'
 import commonMessages from '@src/messages'
@@ -21,9 +20,6 @@ import SearchBlock from './SearchBlock'
 const LIMIT = 10
 
 const useStyle = makeStyles({
-  checkbox: {
-    padding: 0
-  },
   table: {
     '& .ListTable-col-2': {
       width: 140
@@ -55,7 +51,6 @@ export default function CommentList() {
     [setOrder, setSortKey]
   )
 
-  const handleStopBubble = useCallback((e: React.MouseEvent) => e.stopPropagation(), [])
   const handleRowClick = useCallback((id: string) => history.push(routePath.user.commentDetail.replace(':id', id)), [
     history
   ])
@@ -74,21 +69,13 @@ export default function CommentList() {
     [setCheckedList]
   )
 
-  const StyledCheckBox = ({ value, checked, checkAll }: { value: string; checked?: boolean; checkAll?: boolean }) => (
-    <Checkbox
-      className={classes.checkbox}
-      icon={<CheckboxIco />}
-      color='primary'
-      value={value}
-      checked={checked}
-      onClick={handleStopBubble}
-      onChange={checkAll ? handleCheckAll : handleChecked}
-    />
-  )
-
   const theadList = useMemo(
     () => [
-      { id: 'checkbox', label: <StyledCheckBox checkAll value='' />, padding: Padding.Checkbox },
+      {
+        id: 'checkbox',
+        label: <StyledCheckBox value='' onCheck={handleCheckAll} />,
+        padding: Padding.Checkbox
+      },
       { id: ListTableProp.CreateDateTime, label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
       { id: ListTableProp.UserId, label: formatMessage(userMessages.userId), onSort: handleSort },
       { id: ListTableProp.Content, label: formatMessage(messages.content), onSort: handleSort },
@@ -97,7 +84,7 @@ export default function CommentList() {
       { id: ListTableProp.Report, label: formatMessage(messages.report), onSort: handleSort },
       { id: ListTableProp.Status, label: formatMessage(messages.status) }
     ],
-    [formatMessage, handleSort]
+    [formatMessage, handleSort, handleCheckAll]
   )
 
   const buttonList = useMemo(
@@ -115,12 +102,12 @@ export default function CommentList() {
         .map(comment => ({
           id: comment.id,
           data: {
-            checkbox: <StyledCheckBox value={comment.id} checked={!!checkedList[comment.id]} />,
+            checkbox: <StyledCheckBox value={comment.id} checked={!!checkedList[comment.id]} onCheck={handleChecked} />,
             ...toListTableData(comment)
           }
         }))
         .sort((a: any, b: any) => (a.data[sortKey] - b.data[sortKey]) * (order === SortOrder.Asc ? 1 : -1)),
-    [commentList, order, sortKey, checkedList]
+    [commentList, order, sortKey, checkedList, handleChecked]
   )
 
   const pagination = useMemo(() => {

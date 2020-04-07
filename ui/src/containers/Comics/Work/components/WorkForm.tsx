@@ -185,9 +185,9 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
             <StartEndForm
               title={formatMessage(commonMessages.deliveryDuration)}
               classnames={clsx(classes.tableClass, classes.tableMargin)}
-              startLabel={formatMessage(messages.deliveryStartDateTime)}
+              startLabel={formatMessage(commonMessages.deliveryStartDateTime)}
               startName='deliveryStartDateTime'
-              endLabel={formatMessage(messages.deliveryEndDateTime)}
+              endLabel={formatMessage(commonMessages.deliveryEndDateTime)}
               endName='deliveryEndDateTime'
             />
             <DataTable

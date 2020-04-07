@@ -1,5 +1,12 @@
 import React from 'react'
 import { TableCell, TableRow, makeStyles } from '@material-ui/core'
+import clsx from 'clsx'
+
+interface Props {
+  items: { [key: string]: any }
+  onClick?: () => void
+  classnames?: string
+}
 
 const useStyles = makeStyles({
   root: {
@@ -23,10 +30,10 @@ const useStyles = makeStyles({
   }
 })
 
-export default function ListTableRow({ items, onClick }: { items: { [key: string]: any }; onClick?: () => void }) {
+export default function ListTableRow({ items, onClick, classnames }: Props) {
   const classes = useStyles({ pointer: !!onClick })
   return (
-    <TableRow className={classes.root} data-testid='list-table-row' onClick={onClick}>
+    <TableRow className={clsx(classes.root, classnames)} data-testid='list-table-row' onClick={onClick}>
       {Object.keys(items).map(key => (
         <TableCell key={key}>{items[key]}</TableCell>
       ))}

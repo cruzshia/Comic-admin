@@ -26,11 +26,11 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
           input: <Field name='category'>{({ input }) => <Select options={[]} {...input} />}</Field>
         },
         {
-          label: formatMessage(messages.deliveryStartDateTime),
+          label: formatMessage(commonMessages.deliveryStartDateTime),
           input: <Field name='deliveryStartDateTime'>{({ input }) => <TimeSpanInput {...input} />}</Field>
         },
         {
-          label: formatMessage(messages.deliveryEndDateTime),
+          label: formatMessage(commonMessages.deliveryEndDateTime),
           input: <Field name='deliveryEndDateTime'>{({ input }) => <TimeSpanInput {...input} />}</Field>
         },
         {

@@ -6,3 +6,9 @@ export const BREADCRUMBS = [
   { title: commonMessages.applicationManagement },
   { title: messages.list, route: routePath.application.displaySetting }
 ]
+
+export enum Status {
+  opened = 'opened',
+  closed = 'closed',
+  reserved = 'reserved'
+}

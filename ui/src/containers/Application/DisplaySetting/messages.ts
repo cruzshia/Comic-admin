@@ -1,22 +1,30 @@
 import { defineMessages } from 'react-intl'
 
-const PREFIX = 'application.'
+const PREFIX = 'application.display_setting.'
 
 export default defineMessages({
   create: {
     id: PREFIX + 'create',
-    defaultMessages: 'Create application setting'
+    defaultMessage: 'Create application setting'
   },
   list: {
     id: PREFIX + 'list',
-    defaultMessages: 'Application Setting List'
+    defaultMessage: 'Application Setting List'
   },
   edit: {
     id: PREFIX + 'edit',
-    defaultMessages: 'Application Setting Edit'
+    defaultMessage: 'Application Setting Edit'
   },
   home: {
     id: PREFIX + 'home',
-    defaultMessages: 'Home'
+    defaultMessage: 'Home'
+  },
+  display: {
+    id: PREFIX + 'display',
+    defaultMessage: 'Display'
+  },
+  status: {
+    id: PREFIX + 'status',
+    defaultMessage: 'Status'
   }
 })

@@ -59,14 +59,6 @@ export default defineMessages({
     id: PREFIX + 'edit',
     defaultMessage: 'Edit work'
   },
-  deliveryStartDateTime: {
-    id: PREFIX + 'delivery_start_date_time',
-    defaultMessage: 'Delivery start date time'
-  },
-  deliveryEndDateTime: {
-    id: PREFIX + 'delivery_end_date_time',
-    defaultMessage: 'Delivery end date time'
-  },
   deliveryDateTime: {
     id: PREFIX + 'delivery_date_time',
     defaultMessage: 'Delivery date time'

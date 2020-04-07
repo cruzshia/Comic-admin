@@ -48,6 +48,7 @@ interface Pagination {
 interface RowData {
   id: string
   data: { [key: string]: any }
+  classnames?: string
 }
 
 interface Props {
@@ -55,6 +56,7 @@ interface Props {
   theadList: Thead[]
   dataList: RowData[]
   tableClass?: string
+  tbodyClass?: string
   buttonList?: JSX.Element[]
   pagination: Pagination
   onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void
@@ -134,6 +136,7 @@ export default function ListTable({
   dataList,
   classnames,
   tableClass,
+  tbodyClass,
   buttonList,
   pagination: { start, total },
   onPageChange,
@@ -201,9 +204,14 @@ export default function ListTable({
               })}
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className={tbodyClass}>
             {dataList.map(data => (
-              <ListTableRow items={data.data} key={data.id} onClick={onRowClick && handleRowClick(data.id)} />
+              <ListTableRow
+                classnames={data.classnames}
+                items={data.data}
+                key={data.id}
+                onClick={onRowClick && handleRowClick(data.id)}
+              />
             ))}
           </TableBody>
         </Table>
