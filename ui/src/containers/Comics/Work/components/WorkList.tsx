@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo, useCallback } from 'react'
+import React, { useContext, useState, useMemo, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -10,11 +10,11 @@ import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import { PAGE_LIMIT } from '@src/common/constants'
-import { Work } from '@src/model/comicsWorkModel'
+import useSort from '@src/hooks/useSort'
+import commonMessages from '@src/messages'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS } from '../constants'
-import commonMessages from '@src/messages'
-import comicMessages from '../..//messages'
+import comicMessages from '../../messages'
 import messages from '../messages'
 import workContext from '../context/WorkContext'
 
@@ -31,8 +31,12 @@ export default function WorkList() {
   const classes = useStyle()
   const history = useHistory()
   const { workList, workTotal } = useContext(workContext)
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
+  const { sortBy, handleSort } = useSort<string>('releaseDate')
   const [page, setPage] = useState<number>(1)
+
+  useEffect(() => {
+    // dispatch getAction(sortBy.key, sortBy.order)
+  }, [sortBy])
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
@@ -64,13 +68,15 @@ export default function WorkList() {
 
   const pagination = useMemo(() => ({ total: workTotal, start: (page - 1) * PAGE_LIMIT + 1 }), [page, workTotal])
   const handlePageChange = useCallback((_: React.ChangeEvent<unknown>, page: number) => setPage(page), [setPage])
-  const workDataList = workList.map(item => ({
-    id: item.workID,
-    data: {
-      ...item,
-      spacer: ''
-    }
-  }))
+  const workDataList = workList
+    .map(item => ({
+      id: item.workID,
+      data: {
+        ...item,
+        spacer: ''
+      }
+    }))
+    .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
   const tableButtonList = useMemo(
     () => [
       <Button
@@ -90,14 +96,14 @@ export default function WorkList() {
       {
         id: 'releaseDate',
         label: formatMessage(commonMessages.createDateTime),
-        onSort: (id: keyof Work) => setSortOrder(sortOrder => (sortOrder === 'asc' ? 'desc' : 'asc'))
+        onSort: handleSort
       },
       { id: 'category', label: formatMessage(messages.category) },
       { id: 'episodeCategory', label: formatMessage(messages.episodeCategory) },
       { id: 'updateFrequency', label: formatMessage(messages.updateFrequency) },
       { id: 'space', label: '' }
     ],
-    [setSortOrder, formatMessage]
+    [handleSort, formatMessage]
   )
   const handleRowClick = useCallback(id => history.push(routePath.comics.workDetail.replace(':id', id)), [history])
 
@@ -116,8 +122,8 @@ export default function WorkList() {
         pagination={pagination}
         onPageChange={handlePageChange}
         buttonList={tableButtonList}
-        sortBy='releaseDate'
-        sortOrder={sortOrder}
+        sortBy={sortBy.key}
+        sortOrder={sortBy.order}
         onRowClick={handleRowClick}
       />
     </>

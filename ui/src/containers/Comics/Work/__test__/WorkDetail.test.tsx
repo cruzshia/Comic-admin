@@ -20,8 +20,18 @@ describe('WorkDetail test', () => {
     images: [],
     deliveryStartDateTime: '2019-12-25 00:00:03 +0900',
     deliveryEndDateTime: '2019-12-25 00:00:04 +0900',
-    notifications: [],
-    notifyType: 'デバイス共通'
+    notifyType: 'デバイス共通',
+    advertisement: {
+      deviceCategory: 'common',
+      content: {
+        type: 'original',
+        image: '',
+        link: 'https://shonenjumpplus.com/episode/10834108156758729535',
+        buttonName: 'サンプルテキスト',
+        deliveryDuration: '2020-02-20 19:00:00　〜　2020-02-20 19:00:00'
+      },
+      contents: []
+    }
   }
 
   it('Renders correctly', () => {
@@ -49,6 +59,5 @@ describe('WorkDetail test', () => {
         expect(() => queryAllByText(val)).not.toThrow()
       }
     })
-    expect(queryAllByTestId('data-table')).toHaveLength(3)
   })
 })

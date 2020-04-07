@@ -22,7 +22,7 @@ export const mockData = (mockDatum => {
 export const mockListData = (mockDatum => {
   const arr = []
   for (let i = 0; i <= 3; i++) {
-    arr.push({ ...mockDatum, workID: `WORK_ROOKIE00001475${i}` })
+    arr.push({ ...mockDatum, workID: `WORK_ROOKIE00001475${i}`, releaseDate: `2020-01-21 16:34:0${i}` })
   }
   return arr
 })(mockDatum)
