@@ -11,7 +11,7 @@ describe('WorkForm component test', () => {
 
   it('Render 2 data tables', () => {
     const { getAllByTestId } = render(withAllProvider(<WorkForm onSubmit={() => {}} />))
-    expect(getAllByTestId('data-table')).toHaveLength(3)
+    expect(getAllByTestId('data-table')).toHaveLength(4)
   })
 
   it('Retrieve data when submit', () => {

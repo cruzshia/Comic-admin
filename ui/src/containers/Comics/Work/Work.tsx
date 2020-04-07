@@ -10,10 +10,19 @@ import WorkImportLogs from './components/WorkImportLogs'
 import WorkContext from './context/WorkContext'
 import { mockWork } from './mockData/mockWork'
 import { mockListData } from './mockData/mockListData'
+import { mockLogList } from './mockData/mockImportLogs'
 
 export default function Work() {
   return (
-    <WorkContext.Provider value={{ workList: mockListData, currentWork: mockWork, workTotal: mockListData.length }}>
+    <WorkContext.Provider
+      value={{
+        workList: mockListData,
+        currentWork: mockWork,
+        workTotal: mockListData.length,
+        importLogList: mockLogList,
+        logTotal: mockLogList.length
+      }}
+    >
       <Switch>
         <Route exact path={routePath.comics.workCreation} component={WorkCreation} />
         <Route exact path={routePath.comics.workEdit} component={WorkEdit} />

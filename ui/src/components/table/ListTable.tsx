@@ -51,6 +51,7 @@ interface RowData {
 }
 
 interface Props {
+  classnames?: string
   theadList: Thead[]
   dataList: RowData[]
   tableClass?: string
@@ -131,6 +132,7 @@ const useStyles = makeStyles({
 export default function ListTable({
   theadList,
   dataList,
+  classnames,
   tableClass,
   buttonList,
   pagination: { start, total },
@@ -150,7 +152,7 @@ export default function ListTable({
   const handleRowClick = useCallback((id: string) => () => onRowClick!(id), [onRowClick])
 
   return (
-    <div data-testid='list-table'>
+    <div className={classnames} data-testid='list-table'>
       <Grid container justify='space-between' alignItems='center' className={classes.pagination}>
         <div>{formatMessage(messages.pagination, { total: 1000, start, end: start + PAGE_LIMIT - 1 })}</div>
         <div>

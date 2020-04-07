@@ -135,6 +135,22 @@ export default defineMessages({
     id: PREFIX + 'contents',
     defaultMessage: 'Contents'
   },
+  filename: {
+    id: PREFIX + 'filename',
+    defaultMessage: 'Filename'
+  },
+  status: {
+    id: PREFIX + 'status',
+    defaultMessage: 'Status'
+  },
+  detail: {
+    id: PREFIX + 'detail',
+    defaultMessage: 'Detail'
+  },
+  errorAsyncFailed: {
+    id: PREFIX + 'error.async_failed',
+    defaultMessage: "Can't get async process information"
+  },
   copy: {
     id: PREFIX + 'copy',
     defaultMessage: 'Copy'

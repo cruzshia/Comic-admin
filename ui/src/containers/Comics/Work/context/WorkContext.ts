@@ -4,9 +4,13 @@ interface WorkContext {
   workList: any[]
   currentWork?: any
   workTotal: number
+  importLogList: any[]
+  logTotal: number
 }
 
 export default createContext<WorkContext>({
   workList: [],
-  workTotal: 0
+  workTotal: 0,
+  importLogList: [],
+  logTotal: 0
 })

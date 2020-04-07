@@ -18,7 +18,7 @@ describe('SearchFilter component test', () => {
     ]
   }
   it('Renders correctly', () => {
-    const { getByTestId } = render(withAllProvider(<SearchFilter conditions={mockData} />))
+    const { getByTestId } = render(withAllProvider(<SearchFilter conditions={mockData} onSubmit={jest.fn()} />))
     const target = getByTestId('search_filter')
 
     expect(target).toBeInTheDocument()
