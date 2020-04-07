@@ -158,5 +158,13 @@ export default defineMessages({
   episodeInfo: {
     id: PREFIX + 'episode_info',
     defaultMessage: 'Episode Information'
+  },
+  deliveryStartDateTime: {
+    id: PREFIX + 'delivery_start_date_time',
+    defaultMessage: 'Delivery start date time'
+  },
+  deliveryEndDateTime: {
+    id: PREFIX + 'delivery_end_date_time',
+    defaultMessage: 'Delivery end date time'
   }
 })

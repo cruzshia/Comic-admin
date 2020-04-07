@@ -4,6 +4,7 @@ import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
 import { SearchInput, Select, TimeSpanInput } from '@src/components/form'
 import commonMessages from '@src/messages'
+import comicMessages from '../../messages'
 import messages from '../messages'
 
 export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => void }) {
@@ -33,7 +34,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
           input: <Field name='deliveryEndDateTime'>{({ input }) => <TimeSpanInput {...input} />}</Field>
         },
         {
-          label: formatMessage(messages.adUnit),
+          label: formatMessage(comicMessages.adUnit),
           input: <Field name='adUnit'>{({ input }) => <Select options={[]} {...input} isShort />}</Field>
         }
       ],

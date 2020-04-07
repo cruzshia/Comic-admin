@@ -50,5 +50,13 @@ export default defineMessages({
   priority: {
     id: PREFIX + 'priority',
     defaultMessage: 'Priority'
+  },
+  adUnit: {
+    id: PREFIX + 'ad_unit',
+    defaultMessage: 'Ad Unit'
+  },
+  workId: {
+    id: PREFIX + 'work_id',
+    defaultMessage: 'Work ID'
   }
 })

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
@@ -9,11 +9,13 @@ import { routePath } from '@src/common/appConfig'
 import commonMessages from '@src/messages'
 import { CONTENT_BREADCRUMBS } from '../constants'
 import messages from '../messages'
+import SearchBlock from './SearchBlock'
 
 export default function ContentList() {
   const history = useHistory()
   const { formatMessage } = useIntl()
 
+  const handleSearch = useCallback(() => {}, [])
   const breadcrumbList = useMemo(() => CONTENT_BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
   ])
@@ -44,7 +46,7 @@ export default function ContentList() {
         titleText={formatMessage(messages.management)}
         buttonList={buttonList}
       />
-      <div>ContentList</div>
+      <SearchBlock onSubmit={handleSearch} />
     </>
   )
 }

@@ -87,10 +87,6 @@ export default defineMessages({
     id: PREFIX + 'work_id',
     defaultMessage: 'Work ID'
   },
-  adUnit: {
-    id: PREFIX + 'ad_unit',
-    defaultMessage: 'Ad Unit'
-  },
   rensaiStatus: {
     id: PREFIX + 'rensai_status',
     defaultMessage: 'Rensai Status'
