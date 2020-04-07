@@ -47,6 +47,11 @@ export interface DataSet {
   classes?: string
 }
 
+export const toDataSet = (label: string, content: string | JSX.Element) => ({
+  label,
+  content
+})
+
 interface Props {
   title?: string
   onEdit?: () => void

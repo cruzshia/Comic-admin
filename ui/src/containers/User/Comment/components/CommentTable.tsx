@@ -20,7 +20,7 @@ export default function CommentTable({ comment, isEdit }: { comment: any; isEdit
 
   return (
     <DataTable
-      title={formatMessage(messages.basicInfo)}
+      title={formatMessage(commonMessages.basicInfo)}
       dataSet={[
         {
           label: formatMessage(commonMessages.id),

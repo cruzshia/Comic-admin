@@ -5,12 +5,15 @@ import { makeStyles } from '@material-ui/core'
 import { routePath } from '@src/common/appConfig'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
-import DataTable, { DataSet } from '@src/components/table/DataTable'
+import DataTable, { toDataSet } from '@src/components/table/DataTable'
+import ScrollableContent from '@src/components/table/ScrollableContent'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
+import { _range } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import messages from '../messages'
+import comicMessages from '../../messages'
 import worksCampaignContext from '../context/worksCampaignContext'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS, IMAGE_NUM } from '../constants'
 import AdSettingTable from '../../components/AdSettingTable'
 
 const useStyles = makeStyles({
@@ -53,19 +56,50 @@ export default function WorksCampaignDetail() {
     ],
     [formatMessage, handleRedirect]
   )
-  const genTableData = (id: any): DataSet => ({
-    label: formatMessage(commonMessages[id as keyof typeof commonMessages]),
-    content: campaign[id]
-  })
 
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
+        title={formatMessage(commonMessages.basicInfo)}
+        tableClass={classes.table}
+        onEdit={handleRedirect}
+        dataSet={[
+          toDataSet(formatMessage(comicMessages.campaignId), campaign.id),
+          toDataSet(formatMessage(comicMessages.workId), campaign.workId),
+          toDataSet(formatMessage(commonMessages.appId), campaign.appId),
+          toDataSet(formatMessage(comicMessages.priority), campaign.priority),
+          toDataSet(formatMessage(commonMessages.introduction), campaign.description),
+          toDataSet(
+            formatMessage(messages.freeContentId),
+            <ScrollableContent>{campaign.freeContentId}</ScrollableContent>
+          ),
+          toDataSet(formatMessage(commonMessages.createDateTime), campaign.createAt),
+          toDataSet(formatMessage(commonMessages.updateDateTime), campaign.updateAt)
+        ]}
+      />
+      <DataTable
+        title={formatMessage(commonMessages.episodeInfo)}
+        tableClass={classes.table}
+        onEdit={handleRedirect}
+        dataSet={[
+          ..._range(0, IMAGE_NUM).map(i => {
+            const img = campaign.images[i]
+            return toDataSet(
+              `${formatMessage(commonMessages.photo)}${i + 1}`,
+              img ? <img key={`image-${i}`} src={img} alt={img} /> : ''
+            )
+          })
+        ]}
+      />
+      <DataTable
         title={formatMessage(commonMessages.deliveryDuration)}
         tableClass={classes.table}
         onEdit={handleRedirect}
-        dataSet={[genTableData('startDateTime'), genTableData('endDateTime')]}
+        dataSet={[
+          toDataSet(formatMessage(commonMessages.startDateTime), campaign.startDateTime),
+          toDataSet(formatMessage(commonMessages.endDateTime), campaign.endDateTime)
+        ]}
       />
       <AdSettingTable data={campaign.advertisement} onEdit={handleRedirect} />
     </>

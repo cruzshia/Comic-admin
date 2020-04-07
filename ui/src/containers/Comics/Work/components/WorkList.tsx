@@ -14,6 +14,7 @@ import { Work } from '@src/model/comicsWorkModel'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
+import comicMessages from '../..//messages'
 import messages from '../messages'
 import workContext from '../context/WorkContext'
 
@@ -84,7 +85,7 @@ export default function WorkList() {
   const theadList = useMemo(
     () => [
       { id: 'image', label: formatMessage(commonMessages.photo) },
-      { id: 'workID', label: formatMessage(messages.id) },
+      { id: 'workID', label: formatMessage(comicMessages.workId) },
       { id: 'title', label: formatMessage(messages.workTitle) },
       {
         id: 'releaseDate',

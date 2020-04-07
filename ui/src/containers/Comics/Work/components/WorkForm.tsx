@@ -101,11 +101,11 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
-              title={formatMessage(messages.basicInfo)}
+              title={formatMessage(commonMessages.basicInfo)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
               dataSet={[
                 {
-                  label: formatMessage(messages.id),
+                  label: formatMessage(comicsMessages.workId),
                   classes: workData ? 'display' : undefined,
                   content: (
                     <Field name='id' validate={required}>

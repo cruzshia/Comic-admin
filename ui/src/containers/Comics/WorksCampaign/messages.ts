@@ -22,5 +22,9 @@ export default defineMessages({
   detail: {
     id: PREFIX + 'works_campaign_detail',
     defaultMessage: 'Works Campaign Detail'
+  },
+  freeContentId: {
+    id: PREFIX + 'free_content_id',
+    defaultMessage: 'Free Content ID'
   }
 })

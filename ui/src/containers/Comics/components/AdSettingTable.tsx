@@ -5,6 +5,12 @@ import DataTable, { DataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
 import { backgroundColorGray } from '@src/common/styles'
 
+interface Prop {
+  hideSubtitle?: boolean
+  data: { [key: string]: any }
+  onEdit: () => void
+}
+
 const useStyles = makeStyles({
   table: {
     marginBottom: '36px',
@@ -26,7 +32,7 @@ const useStyles = makeStyles({
   }
 })
 
-export default function AdSettingTable({ data, onEdit }: { data: { [key: string]: any }; onEdit: () => void }) {
+export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
   const { formatMessage } = useIntl()
   const classes = useStyles()
 
@@ -63,18 +69,24 @@ export default function AdSettingTable({ data, onEdit }: { data: { [key: string]
     }
   }
 
-  return data ? (
-    <DataTable
-      title={formatMessage(commonMessages.advertisementSetting)}
-      tableClass={classes.table}
-      onEdit={onEdit}
-      dataSet={[
+  const initialDataSet = hideSubtitle
+    ? []
+    : [
         {
           label: '',
           content: formatMessage(commonMessages[data.deviceCategory === 'common' ? 'deviceCommon' : 'deviceCategory']),
           isSubTitle: true,
           classes: classes.subTitle
-        },
+        }
+      ]
+
+  return (
+    <DataTable
+      title={formatMessage(commonMessages.advertisementSetting)}
+      tableClass={classes.table}
+      onEdit={onEdit}
+      dataSet={[
+        ...initialDataSet,
         genAdvertisementData(data.content),
         {
           label: '',
@@ -85,7 +97,5 @@ export default function AdSettingTable({ data, onEdit }: { data: { [key: string]
         ...data.contents.map((ad: any) => genAdvertisementData(ad))
       ]}
     />
-  ) : (
-    <></>
   )
 }

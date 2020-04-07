@@ -6,3 +6,5 @@ export const BREADCRUMBS = [
   { title: commonMessages.comicsManagement },
   { title: messages.comicsWorksCampaign, route: routePath.comics.worksCampaign }
 ]
+
+export const IMAGE_NUM = 7

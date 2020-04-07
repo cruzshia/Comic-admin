@@ -39,6 +39,10 @@ export default defineMessages({
     id: PREFIX + 'episode_info',
     defaultMessage: 'Episode Info'
   },
+  workId: {
+    id: PREFIX + 'work_id',
+    defaultMessage: 'Work ID'
+  },
   campaignId: {
     id: PREFIX + 'campaign_id',
     defaultMessage: 'Campaign ID'
@@ -54,9 +58,5 @@ export default defineMessages({
   adUnit: {
     id: PREFIX + 'ad_unit',
     defaultMessage: 'Ad Unit'
-  },
-  workId: {
-    id: PREFIX + 'work_id',
-    defaultMessage: 'Work ID'
   }
 })

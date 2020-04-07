@@ -3,14 +3,16 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
 import Button, { Theme } from '@src/components/Button/Button'
-import DataTable, { DataSet } from '@src/components/table/DataTable'
+import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
+import { _range } from '@src/utils/functions'
 import { ScrollAnchor } from './WorkForm'
 import StickyHeader from './StickyHeader'
 import workContext from '../context/WorkContext'
 import commonMessages from '@src/messages'
+import comicMessages from '../../messages'
 import messages from '../messages'
 import { IMAGE_NUM, IMAGE_MAX_WIDTH, BREADCRUMBS } from '../constants'
 import AdSettingTable from '../../components/AdSettingTable'
@@ -39,13 +41,13 @@ const useStyle = makeStyles({
 })
 
 export default function WorkDetail() {
-  const { currentWork: mockWork } = useContext(workContext)
+  const { currentWork } = useContext(workContext)
   const { formatMessage } = useIntl()
   const { id } = useParams()
   const classes = useStyle()
   const history = useHistory()
 
-  const titleText = mockWork.title
+  const titleText = currentWork.title
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
@@ -72,59 +74,56 @@ export default function WorkDetail() {
     [formatMessage, handleEdit]
   )
 
-  const genTableData = (id: any, dataSource?: any, label?: string): DataSet => ({
-    label: formatMessage(messages[id as keyof typeof messages] || commonMessages[id as keyof typeof commonMessages]),
-    content: dataSource ? dataSource[id] : mockWork[id]
-  })
-
   return (
     <>
       <StickyHeader title={titleText} button={EditButton} />
       <ContentHeader titleText={titleText} breadcrumbList={breadcrumbList} buttonList={[EditButton]} />
       <DataTable
-        title={formatMessage(messages.basicInfo)}
+        title={formatMessage(commonMessages.basicInfo)}
         tableClass={classes.table}
         onEdit={handleEdit}
         dataSet={[
-          genTableData('id'),
-          genTableData('title'),
-          genTableData('titleKana'),
-          genTableData('introduction'),
-          {
-            label: formatMessage(commonMessages.author),
-            content: <span className={classes.blueText}>{mockWork.author}</span>
-          },
-          genTableData('category'),
-          genTableData('reduction'),
-          genTableData('createDateTime'),
-          genTableData('updateDateTime')
+          toDataSet(formatMessage(comicMessages.workId), currentWork.id),
+          toDataSet(formatMessage(messages.title), currentWork.title),
+          toDataSet(formatMessage(messages.titleKana), currentWork.titleKana),
+          toDataSet(formatMessage(messages.introduction), currentWork.introduction),
+          toDataSet(
+            formatMessage(commonMessages.author),
+            <span className={classes.blueText}>{currentWork.author}</span>
+          ),
+          toDataSet(formatMessage(messages.category), currentWork.category),
+          toDataSet(formatMessage(messages.reduction), currentWork.reduction),
+          toDataSet(formatMessage(commonMessages.createDateTime), currentWork.createDateTime),
+          toDataSet(formatMessage(commonMessages.updateDateTime), currentWork.updateDateTime)
         ]}
       />
       <DataTable
         title={formatMessage(commonMessages.deliveryDuration)}
         tableClass={classes.table}
         onEdit={handleEditDelivery}
-        dataSet={[genTableData('deliveryStartDateTime'), genTableData('deliveryEndDateTime')]}
+        dataSet={[
+          toDataSet(formatMessage(messages.deliveryStartDateTime), currentWork.deliveryStartDateTime),
+          toDataSet(formatMessage(messages.deliveryEndDateTime), currentWork.deliveryEndDateTime)
+        ]}
       />
       <DataTable
         title={formatMessage(commonMessages.episodeInfo)}
         tableClass={classes.table}
         onEdit={handleEditEpisodeInfo}
         dataSet={[
-          genTableData('episodeCategory'),
-          genTableData('updateFrequency'),
-          genTableData('rensai'),
-          ...new Array(IMAGE_NUM).fill({}).map((_, i) => {
-            const img = mockWork.images[i]
-            return {
-              label: `${formatMessage(commonMessages.photo)}${i + 1}`,
-              content: img ? <img key={`image-${i}`} className={classes.image} src={img} alt={img} /> : ''
-            } as DataSet
+          toDataSet(formatMessage(messages.episodeCategory), currentWork.episodeCategory),
+          toDataSet(formatMessage(messages.updateFrequency), currentWork.updateFrequency),
+          toDataSet(formatMessage(messages.rensai), currentWork.rensai),
+          ..._range(0, IMAGE_NUM).map(i => {
+            const img = currentWork.images[i]
+            return toDataSet(
+              `${formatMessage(commonMessages.photo)}${i + 1}`,
+              img ? <img key={`image-${i}`} className={classes.image} src={img} alt={img} /> : ''
+            )
           })
         ]}
       />
-
-      <AdSettingTable onEdit={handleEditAdSetting} data={mockWork.advertisement} />
+      <AdSettingTable onEdit={handleEditAdSetting} data={currentWork.advertisement} />
     </>
   )
 }

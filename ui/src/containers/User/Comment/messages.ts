@@ -39,10 +39,6 @@ export default defineMessages({
     id: PREFIX + '.edit',
     defaultMessage: 'Comment Edit'
   },
-  basicInfo: {
-    id: PREFIX + '.basic_info',
-    defaultMessage: 'Basic Info'
-  },
   selfVisibleOnly: {
     id: PREFIX + '.self_visible_only',
     defaultMessage: 'Self Visible Only'

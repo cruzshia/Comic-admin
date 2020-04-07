@@ -159,6 +159,14 @@ export default defineMessages({
     id: PREFIX + 'episode_info',
     defaultMessage: 'Episode Information'
   },
+  basicInfo: {
+    id: PREFIX + 'basic_info',
+    defaultMessage: 'Basic Information'
+  },
+  introduction: {
+    id: PREFIX + 'introduction',
+    defaultMessage: 'Introduction'
+  },
   deliveryStartDateTime: {
     id: PREFIX + 'delivery_start_date_time',
     defaultMessage: 'Delivery start date time'
