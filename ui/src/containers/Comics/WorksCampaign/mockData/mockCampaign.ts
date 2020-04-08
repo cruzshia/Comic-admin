@@ -6,6 +6,7 @@ import mockCover5 from './mockCover5.png'
 import mockCover6 from './mockCover6.png'
 import mockCover7 from './mockCover7.png'
 import mockManga from './manga.png'
+import mockListImg from './mockListImg.png'
 
 export const mockCampaign = {
   id: 'WORK_SHUNKAN10000006',
@@ -61,3 +62,12 @@ export const mockCampaign = {
     ]
   }
 }
+
+export const mockCampaignList = new Array(4).fill(0).map((_, idx) => ({
+  image: mockListImg,
+  workId: `WORK_ROOKIE00001475${idx}`,
+  campaignId: `WORK_ROOKIE00001475${idx}`,
+  createAt: `2020-01-21 16:3${idx}`,
+  deliverStart: `2020-01-21 16:3${idx}`,
+  priority: 100 + idx
+}))
