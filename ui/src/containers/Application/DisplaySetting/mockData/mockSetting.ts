@@ -3,7 +3,8 @@ export const mockSettingTotal = 6
 export const mockSetting = {
   id: '0',
   status: 'reserved',
-  display: 'home',
+  screen: 'home',
+  applicationId: 'SHST01_CATEGORY_TOP_IOS',
   deliveryStartTime: '2019-12-20 00:00:00',
   creationTime: '2019-12-20 00:00:00'
 }

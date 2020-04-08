@@ -12,6 +12,7 @@ import { ReactComponent as DeleteIcon } from '@src/assets/common/delete.svg'
 import { PAGE_LIMIT } from '@src/common/constants'
 import { mainColor } from '@src/common/styles'
 import commonMessages from '@src/messages'
+import useSort from '@src/hooks/useSort'
 import applicationMessages from '../../messages'
 import DisplaySettingContext from '../context/DisplaySettingContext'
 import { BREADCRUMBS } from '../constants'
@@ -64,8 +65,7 @@ export default function DisplaySettingList() {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   const { settingList, settingTotal } = useContext(DisplaySettingContext)
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Desc)
-  const [sortBy, setSortBy] = useState<any>('deliveryStartTime')
+  const { sortBy, handleSort } = useSort<string>('deliveryStartTime')
   const [page, setPage] = useState<number>(1)
   const [checkedList, setCheckedList] = useState<{ [key: string]: boolean }>({})
 
@@ -89,14 +89,6 @@ export default function DisplaySettingList() {
   const pagination = useMemo(() => ({ total: settingTotal, start: (page - 1) * PAGE_LIMIT + 1 }), [page, settingTotal])
   const handlePageChange = useCallback((_: React.ChangeEvent<unknown>, page: number) => setPage(page), [setPage])
 
-  const handleSort = useCallback(
-    (id: string, order?: SortOrder) => {
-      setSortOrder(order === SortOrder.Asc || id !== sortBy ? SortOrder.Desc : SortOrder.Asc)
-      setSortBy(id as any)
-    },
-    [setSortOrder, setSortBy, sortBy]
-  )
-
   const tableButtonList = useMemo(
     () => [
       <Button
@@ -113,7 +105,7 @@ export default function DisplaySettingList() {
     () => [
       { id: 'checkbox', label: '', padding: Padding.Checkbox },
       { id: 'status', label: formatMessage(messages.status) },
-      { id: 'display', label: formatMessage(messages.display) },
+      { id: 'screen', label: formatMessage(messages.screen) },
       {
         id: 'deliveryStartTime',
         label: formatMessage(commonMessages.deliveryStartDateTime),
@@ -145,7 +137,7 @@ export default function DisplaySettingList() {
   const settingDataList = useMemo(
     () =>
       settingList
-        .map(({ id, status, display, ...rest }) => ({
+        .map(({ id, status, screen, applicationId, ...rest }) => ({
           id: id,
           classnames: Status[status as keyof typeof Status],
           data: {
@@ -155,18 +147,18 @@ export default function DisplaySettingList() {
                 {formatMessage(applicationMessages[status as keyof typeof applicationMessages])}
               </div>
             ),
-            display: formatMessage(messages[display as keyof typeof messages]),
+            display: formatMessage(messages[screen as keyof typeof messages]),
             ...rest,
             spacer: ''
           }
         }))
         .sort((a: any, b: any) => {
           return (
-            (new Date(a.data[sortBy]).getTime() - new Date(b.data[sortBy]).getTime()) *
-            (sortOrder === SortOrder.Asc ? 1 : -1)
+            (new Date(a.data[sortBy.key]).getTime() - new Date(b.data[sortBy.key]).getTime()) *
+            (sortBy.order === SortOrder.Asc ? 1 : -1)
           )
         }),
-    [sortBy, sortOrder, handleCheck, formatMessage, checkedList, settingList, classes.status]
+    [sortBy, handleCheck, formatMessage, checkedList, settingList, classes.status]
   )
 
   const handleRowClick = useCallback(
@@ -188,8 +180,8 @@ export default function DisplaySettingList() {
         pagination={pagination}
         onPageChange={handlePageChange}
         buttonList={tableButtonList}
-        sortBy={sortBy}
-        sortOrder={sortOrder}
+        sortBy={sortBy.key}
+        sortOrder={sortBy.order}
         onRowClick={handleRowClick}
       />
     </>

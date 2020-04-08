@@ -18,7 +18,7 @@ export default function SearchBlock({ onSubmit, formRef }: Props) {
     () => ({
       left: [
         {
-          label: formatMessage(messages.display),
+          label: formatMessage(messages.screen),
           input: <Field name='display' component={SelectAdapter} options={[]} />
         },
         {
@@ -28,7 +28,7 @@ export default function SearchBlock({ onSubmit, formRef }: Props) {
       ],
       right: [
         {
-          label: formatMessage(messages.display),
+          label: formatMessage(messages.screen),
           input: <Field name='display' component={SelectAdapter} options={[]} />
         },
         {

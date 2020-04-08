@@ -19,12 +19,20 @@ export default defineMessages({
     id: PREFIX + 'home',
     defaultMessage: 'Home'
   },
-  display: {
-    id: PREFIX + 'display',
-    defaultMessage: 'Display'
+  screen: {
+    id: PREFIX + 'screen',
+    defaultMessage: 'Screen'
   },
   status: {
     id: PREFIX + 'status',
     defaultMessage: 'Status'
+  },
+  applicationId: {
+    id: PREFIX + 'application_id',
+    defaultMessage: 'Application ID'
+  },
+  supplement: {
+    id: PREFIX + 'supplement',
+    defaultMessage: 'Supplement'
   }
 })

@@ -5,12 +5,14 @@ import DisplaySettingList from './components/DisplaySettingList'
 import DisplaySettingEdit from './components/DisplaySettingEdit'
 import DisplaySettingCreation from './components/DisplaySettingCreation'
 import DisplaySettingContext from './context/DisplaySettingContext'
-import { mockSettingList, mockSettingTotal } from './mockData/mockSetting'
+import { mockSettingList, mockSettingTotal, mockSetting } from './mockData/mockSetting'
 
 export default function DisplaySetting() {
   return (
     <Switch>
-      <DisplaySettingContext.Provider value={{ settingList: mockSettingList, settingTotal: mockSettingTotal }}>
+      <DisplaySettingContext.Provider
+        value={{ settingList: mockSettingList, settingTotal: mockSettingTotal, currentSetting: mockSetting }}
+      >
         <Route exact path={routePath.application.displaySetting} component={DisplaySettingList} />
         <Route exact path={routePath.application.displaySettingCreation} component={DisplaySettingCreation} />
         <Route exact path={routePath.application.displaySettingEdit} component={DisplaySettingEdit} />

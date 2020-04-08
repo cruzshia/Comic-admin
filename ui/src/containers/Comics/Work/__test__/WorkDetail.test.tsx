@@ -37,8 +37,10 @@ describe('WorkDetail test', () => {
   it('Renders correctly', () => {
     const { container } = render(
       withAllProvider(
-        <WorkContext.Provider value={{ workList: [], currentWork: mockWork, workTotal: 0 }}>
-          <WorkDetail onSubmit={() => {}} />
+        <WorkContext.Provider
+          value={{ workList: [], currentWork: mockWork, workTotal: 0, importLogList: [], logTotal: 0 }}
+        >
+          <WorkDetail />
         </WorkContext.Provider>
       )
     )
@@ -46,11 +48,12 @@ describe('WorkDetail test', () => {
   })
 
   it('Render work correctly', () => {
-    const mockSubmit = jest.fn()
-    const { queryAllByText, queryAllByTestId } = render(
+    const { queryAllByText } = render(
       withAllProvider(
-        <WorkContext.Provider value={{ workList: [], currentWork: mockWork, workTotal: 0 }}>
-          <WorkDetail onSubmit={mockSubmit} />
+        <WorkContext.Provider
+          value={{ workList: [], currentWork: mockWork, workTotal: 0, importLogList: [], logTotal: 0 }}
+        >
+          <WorkDetail />
         </WorkContext.Provider>
       )
     )
