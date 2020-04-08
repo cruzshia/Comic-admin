@@ -61,7 +61,7 @@ interface Props {
   pagination: Pagination
   onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void
   onRowClick?: (id: string) => void
-  sortOrder?: 'asc' | 'desc'
+  sortOrder?: SortOrder
   sortBy?: string
 }
 
@@ -89,10 +89,10 @@ const useStyles = makeStyles({
       borderBottom: `2px solid ${borderColor}`,
       lineHeight: '18px',
       '&:first-child': {
-        paddingLeft: 23
+        paddingLeft: '23px'
       },
       '&:last-child': {
-        paddingRight: 23
+        paddingRight: '23px'
       },
       '&:hover .MuiTableSortLabel-icon': {
         opacity: 0.5
@@ -141,7 +141,7 @@ export default function ListTable({
   pagination: { start, total },
   onPageChange,
   onRowClick,
-  sortOrder = 'desc',
+  sortOrder = SortOrder.Desc,
   sortBy
 }: Props) {
   const classes = useStyles()
@@ -193,7 +193,7 @@ export default function ListTable({
                           />
                         )}
                         active={sorting}
-                        direction={sorting ? sortOrder : 'desc'}
+                        direction={sorting ? sortOrder : SortOrder.Desc}
                         data-testid={id}
                       />
                     ) : (

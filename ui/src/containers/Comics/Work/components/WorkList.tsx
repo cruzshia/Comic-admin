@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo, useCallback, useEffect } from 'react'
+import React, { useContext, useMemo, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -9,8 +9,8 @@ import { ReactComponent as IconPublish } from '@src/assets/common/publish.svg'
 import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
-import { PAGE_LIMIT } from '@src/common/constants'
 import useSort from '@src/hooks/useSort'
+import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS } from '../constants'
@@ -32,11 +32,11 @@ export default function WorkList() {
   const history = useHistory()
   const { workList, workTotal } = useContext(workContext)
   const { sortBy, handleSort } = useSort<string>('releaseDate')
-  const [page, setPage] = useState<number>(1)
+  const { page, pagination, handlePageChange } = usePaging({ total: workTotal })
 
   useEffect(() => {
-    // dispatch getAction(sortBy.key, sortBy.order)
-  }, [sortBy])
+    // dispatch getAction(sortBy.key, sortBy.order, page)
+  }, [sortBy, page])
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
@@ -64,10 +64,8 @@ export default function WorkList() {
     [formatMessage, history]
   )
 
-  const handleSearch = useCallback((data: any) => console.log(data), [])
+  const handleSearch = useCallback(() => {}, [])
 
-  const pagination = useMemo(() => ({ total: workTotal, start: (page - 1) * PAGE_LIMIT + 1 }), [page, workTotal])
-  const handlePageChange = useCallback((_: React.ChangeEvent<unknown>, page: number) => setPage(page), [setPage])
   const workDataList = workList
     .map(item => ({
       id: item.workID,

@@ -7,7 +7,7 @@ import TextInput from '@src/components/form/TextInput'
 import Select from '@src/components/form/Select'
 import DataTableRow from '@src/components/table/DataTableRow'
 import DataTable from '@src/components/table/DataTable'
-import ListTable from '@src/components/table/ListTable'
+import ListTable, { SortOrder } from '@src/components/table/ListTable'
 import { mockData, mockTitleData, mockDatum } from '@src/containers/Comics/Work/mockData/mockListData'
 import Button from '@src/components/Button/Button'
 import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
@@ -71,7 +71,7 @@ storiesOf('Table components', module)
         start: 1
       }}
       onPageChange={() => {}}
-      sortOrder={radios('sortOrder', { asc: 'asc', desc: 'desc' }, 'desc')}
+      sortOrder={radios('sortOrder', { asc: SortOrder.Asc, desc: SortOrder.Desc }, SortOrder.Desc)}
       sortBy={radios('sortBy', { 作成日時: mockTitleData[3].id, 作品種別: mockTitleData[4].id }, '作成日時')}
     />
   ))
