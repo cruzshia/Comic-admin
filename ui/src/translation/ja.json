@@ -147,14 +147,18 @@
   "user.comment.period": "期間",
   "user.comment.report": "通報",
   "user.comment.self_visible_only": "本人にのみ表示",
-  "user.comment.status": "ステータス",
   "user.id": "ユーザーID",
   "user.inquiry_management": "問い合わせ管理",
   "user.list": "ユーザー一覧",
+  "user.list.comment_authority": "コメント権限",
+  "user.list.email_address": "メールアドレス",
+  "user.list.last_login_time": "最終ログイン日時",
+  "user.list.nick_name": "ニックネーム",
   "user.ng_word.account_ng_word": "アカウントNGワード",
   "user.ng_word.comment_ng_word": "コメントNGワード",
   "user.ng_word_management": "NGワード管理",
   "user.notification_management": "お知らせ管理",
   "user.questionnaire_management": "アンケート管理",
-  "user.return_gift": "贈答（コイン・マンガ）"
+  "user.return_gift": "贈答（コイン・マンガ）",
+  "user.status": "ステータス"
 }

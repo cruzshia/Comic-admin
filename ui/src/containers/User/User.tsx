@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
-import UserList from './List/UserList'
+import List from './List/List'
 import Comment from './Comment/Comment'
 import NGWord from './NGWord/NGWord'
 import ReturnGift from './ReturnGift/ReturnGift'
@@ -12,7 +12,7 @@ import Questionnaire from './Questionnaire/Questionnaire'
 export default function User() {
   return (
     <Switch>
-      <Route exact path={routePath.user.list} component={UserList} />
+      <Route path={routePath.user.list} component={List} />
       <Route path={routePath.user.comment} component={Comment} />
       <Route exact path={routePath.user.ngWord} component={NGWord} />
       <Route exact path={routePath.user.returnGift} component={ReturnGift} />

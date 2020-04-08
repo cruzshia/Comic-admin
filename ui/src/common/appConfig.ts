@@ -50,6 +50,8 @@ export const routePath = {
   user: {
     base: RouteSection.User,
     list: `${RouteSection.User}/list`,
+    userDetail: `${RouteSection.User}/list/detail/:id`,
+    userEdit: `${RouteSection.User}/list/edit/:id`,
     comment: `${RouteSection.User}/comment`,
     commentDetail: `${RouteSection.User}/comment/detail/:id`,
     commentEdit: `${RouteSection.User}/comment/edit/:id`,

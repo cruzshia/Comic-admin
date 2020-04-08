@@ -44,7 +44,7 @@ export default function CommentTable({ comment, isEdit }: { comment: any; isEdit
           content: comment.content
         },
         {
-          label: formatMessage(messages.status),
+          label: formatMessage(userMessages.status),
           content: isEdit ? (
             <Select
               options={[

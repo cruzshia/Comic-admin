@@ -150,11 +150,16 @@
   "user.comment.status": "Status",
   "user.id": "User ID",
   "user.inquiry_management": "Inquiry Management",
-  "user.list": "User list",
+  "user.list": "User List",
+  "user.list.comment_authority": "Comment Authority",
+  "user.list.email_address": "Email Address",
+  "user.list.last_login_time": "Last Login Time",
+  "user.list.nick_name": "Nick Name",
   "user.ng_word.account_ng_word": "Account NG Word",
   "user.ng_word.comment_ng_word": "Comment NG Word",
   "user.ng_word_management": "NG word Management",
   "user.notification_management": "Notification Management",
   "user.questionnaire_management": "Questionnaire Management",
-  "user.return_gift": "Return Gift Management"
+  "user.return_gift": "Return Gift Management",
+  "user.status": "Status"
 }

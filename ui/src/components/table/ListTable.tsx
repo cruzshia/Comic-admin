@@ -35,7 +35,7 @@ export enum Padding {
 interface Thead {
   id: string
   label: string | JSX.Element
-  onSort?: (id: any, order?: SortOrder, e?: React.MouseEvent<unknown>) => void
+  onSort?: (id: any, order: SortOrder, e?: React.MouseEvent<unknown>) => void
   padding?: Padding
   classes?: string
 }

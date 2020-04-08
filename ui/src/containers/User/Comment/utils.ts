@@ -6,7 +6,6 @@ export const COMMENT_BREADCRUMBS = [
   { title: commonMessages.userManagement },
   { title: messages.commentList, route: routePath.user.comment }
 ]
-
 export enum ListTableProp {
   CreateDateTime = 'createDateTime',
   UserId = 'userId',
@@ -15,14 +14,4 @@ export enum ListTableProp {
   Likes = 'likes',
   Report = 'report',
   Status = 'status'
-}
-
-export const toListTableData = (comment: any) => {
-  return Object.values(ListTableProp).reduce(
-    (acc, key) => ({
-      ...acc,
-      [key]: comment[key]
-    }),
-    {} as any
-  )
 }

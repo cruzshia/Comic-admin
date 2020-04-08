@@ -11,7 +11,8 @@ import { ReactComponent as PublishIco } from '@src/assets/common/publish.svg'
 import { ReactComponent as DeleteIco } from '@src/assets/common/delete.svg'
 import { ReactComponent as UserIco } from '@src/assets/common/user.svg'
 import Context from '../context/CommentContext'
-import { COMMENT_BREADCRUMBS, ListTableProp, toListTableData } from '../utils'
+import { COMMENT_BREADCRUMBS, ListTableProp } from '../utils'
+import { toListTableData } from '../../utils'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
@@ -82,7 +83,7 @@ export default function CommentList() {
       { id: ListTableProp.Message, label: formatMessage(messages.message) },
       { id: ListTableProp.Likes, label: formatMessage(messages.likes), onSort: handleSort },
       { id: ListTableProp.Report, label: formatMessage(messages.report), onSort: handleSort },
-      { id: ListTableProp.Status, label: formatMessage(messages.status) }
+      { id: ListTableProp.Status, label: formatMessage(userMessages.status) }
     ],
     [formatMessage, handleSort, handleCheckAll]
   )
@@ -103,7 +104,7 @@ export default function CommentList() {
           id: comment.id,
           data: {
             checkbox: <StyledCheckBox value={comment.id} checked={!!checkedList[comment.id]} onCheck={handleChecked} />,
-            ...toListTableData(comment)
+            ...toListTableData(comment, ListTableProp)
           }
         }))
         .sort((a: any, b: any) => (a.data[sortKey] - b.data[sortKey]) * (order === SortOrder.Asc ? 1 : -1)),

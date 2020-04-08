@@ -6,5 +6,9 @@ export default defineMessages({
   userId: {
     id: PREFIX + 'id',
     defaultMessage: 'User ID'
+  },
+  status: {
+    id: PREFIX + 'status',
+    defaultMessage: 'Status'
   }
 })
