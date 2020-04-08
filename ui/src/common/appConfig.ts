@@ -42,6 +42,8 @@ export const routePath = {
     displaySettingCreation: `${RouteSection.Application}/display_setting/creation`,
     coinDeliveryEvent: `${RouteSection.Application}/coin_delivery_event`,
     pushNotification: `${RouteSection.Application}/push_notification`,
+    pushNotificationEdit: `${RouteSection.Application}/push_notification/edit/:id`,
+    pushNotificationCreation: `${RouteSection.Application}/push_notification/creation/:id`,
     coinProduct: `${RouteSection.Application}/coin_product`,
     applicationInfo: `${RouteSection.Application}/application_info`
   },

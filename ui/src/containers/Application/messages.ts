@@ -14,5 +14,9 @@ export default defineMessages({
   reserved: {
     id: PREFIX + 'reserved',
     defaultMessage: 'Reserved'
+  },
+  applicationId: {
+    id: PREFIX + 'application_id',
+    defaultMessage: 'Application ID'
   }
 })

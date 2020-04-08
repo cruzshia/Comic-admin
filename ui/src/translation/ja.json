@@ -1,4 +1,5 @@
 {
+  "application.application_id": "アプリID",
   "application.application_info": "アプリ情報一覧",
   "application.closed": "公開終了",
   "application.coin_delivery_event": "コイン付与イベント管理",
@@ -14,6 +15,9 @@
   "application.display_setting.supplement": "補足",
   "application.opened": "公開中",
   "application.push_notification": "プッシュ通知ログ一覧",
+  "application.push_notification.create": "プッシュ通知を登録",
+  "application.push_notification.list": "プッシュ通知ログ一覧",
+  "application.push_notification.message": "メッセージ",
   "application.reserved": "予約中",
   "comics.ad.admob": "Admob (FAN)",
   "comics.ad.map": "MAP",

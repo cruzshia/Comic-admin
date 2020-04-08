@@ -1,4 +1,5 @@
 {
+  "application.application_id": "Application ID",
   "application.application_info": "Application Application Info",
   "application.closed": "Closed",
   "application.coin_delivery_event": "Application Coin Delivery Event",
@@ -14,6 +15,9 @@
   "application.display_setting.supplement": "Supplement",
   "application.opened": "Opened",
   "application.push_notification": "Application Push Notification",
+  "application.push_notification.create": "Create Push Notification ",
+  "application.push_notification.list": "Push Notification List",
+  "application.push_notification.message": "Message",
   "application.reserved": "Reserved",
   "comics.ad.admob": "Admob (FAN)",
   "comics.ad.map": "Map",
