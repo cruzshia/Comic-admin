@@ -1,4 +1,6 @@
 import mockManga from './manga.png'
+import mockListImage from './mockListImg.png'
+import { _range } from '@src/utils/functions'
 
 export const mockContent = {
   id: 'WORK_SHUNKAN10000006',
@@ -32,3 +34,14 @@ export const mockContent = {
     ]
   }
 }
+
+export const mockContentList = _range(0, 4).map(num => ({
+  image: mockListImage,
+  contentId: `WORK_ROOKIE00001475${num}`,
+  title: 'クラスメイトの田中さんはすごく怖い',
+  category: 'コミックス',
+  price: 100 + num,
+  campaignPrice: 99,
+  sort: 100 + num,
+  createAt: '2020-01-21 16:34:00'
+}))

@@ -28,5 +28,13 @@ export default defineMessages({
   name: {
     id: PREFIX + 'name',
     defaultMessage: 'Content Name'
+  },
+  title: {
+    id: PREFIX + 'title',
+    defaultMessage: 'Content title'
+  },
+  sort: {
+    id: PREFIX + 'sort',
+    defaultMessage: 'Sort'
   }
 })

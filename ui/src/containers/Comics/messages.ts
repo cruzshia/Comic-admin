@@ -58,5 +58,13 @@ export default defineMessages({
   adUnit: {
     id: PREFIX + 'ad_unit',
     defaultMessage: 'Ad Unit'
+  },
+  contentPrice: {
+    id: PREFIX + 'content_price',
+    defaultMessage: 'Content Price'
+  },
+  campaignPrice: {
+    id: PREFIX + 'campaign_price',
+    defaultMessage: 'Campaign Price'
   }
 })
