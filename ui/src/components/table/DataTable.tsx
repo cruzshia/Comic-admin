@@ -59,9 +59,10 @@ interface Props {
   dataSet: DataSet[]
   tableClass?: string
   innerRef?: React.RefObject<HTMLDivElement>
+  buttons?: JSX.Element
 }
 
-export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef }: Props) {
+export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef, buttons }: Props) {
   const classes = useStyle()
 
   return dataSet.length ? (
@@ -78,6 +79,7 @@ export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef
             {title}
           </Typography>
           {onEdit && <PenIcon onClick={onEdit} className={classes.penIcon} data-testid='data-table-button' />}
+          {buttons && buttons}
         </Box>
       )}
       <div className={clsx(classes.table, tableClass)} data-testid='data-table'>

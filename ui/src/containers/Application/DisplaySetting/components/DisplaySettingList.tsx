@@ -9,7 +9,6 @@ import ListTable, { SortOrder, Padding } from '@src/components/table/ListTable'
 import { StyledCheckBox } from '@src/components/form'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import { ReactComponent as DeleteIcon } from '@src/assets/common/delete.svg'
-import { PAGE_LIMIT } from '@src/common/constants'
 import { mainColor } from '@src/common/styles'
 import commonMessages from '@src/messages'
 import useSort from '@src/hooks/useSort'
@@ -20,6 +19,7 @@ import messages from '../messages'
 import SearchBlock from './SearchBlock'
 import { Status } from '../constants'
 import clsx from 'clsx'
+import usePaging from '@src/hooks/usePaging'
 
 const useStyles = makeStyles({
   table: {
@@ -66,7 +66,7 @@ export default function DisplaySettingList() {
   const classes = useStyles()
   const { settingList, settingTotal } = useContext(DisplaySettingContext)
   const { sortBy, handleSort } = useSort<string>('deliveryStartTime')
-  const [page, setPage] = useState<number>(1)
+  const { pagination, handlePageChange } = usePaging({ perPage: 3, total: settingTotal })
   const [checkedList, setCheckedList] = useState<{ [key: string]: boolean }>({})
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
@@ -86,8 +86,6 @@ export default function DisplaySettingList() {
     [formatMessage, history]
   )
   const handleSearch = useCallback(data => console.log(data), [])
-  const pagination = useMemo(() => ({ total: settingTotal, start: (page - 1) * PAGE_LIMIT + 1 }), [page, settingTotal])
-  const handlePageChange = useCallback((_: React.ChangeEvent<unknown>, page: number) => setPage(page), [setPage])
 
   const tableButtonList = useMemo(
     () => [
@@ -137,7 +135,7 @@ export default function DisplaySettingList() {
   const settingDataList = useMemo(
     () =>
       settingList
-        .map(({ id, status, screen, applicationId, ...rest }) => ({
+        .map(({ id, status, screen, ...rest }) => ({
           id: id,
           classnames: Status[status as keyof typeof Status],
           data: {

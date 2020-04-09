@@ -182,5 +182,9 @@ export default defineMessages({
   deliveryEndDateTime: {
     id: PREFIX + 'delivery_end_date_time',
     defaultMessage: 'Delivery end date time'
+  },
+  setting: {
+    id: PREFIX + 'setting',
+    defaultMessage: 'Setting'
   }
 })

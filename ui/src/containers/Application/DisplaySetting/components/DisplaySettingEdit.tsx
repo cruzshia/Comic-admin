@@ -1,22 +1,51 @@
-import React, { useMemo, useContext, useCallback, useRef } from 'react'
+import React, { useMemo, useContext, useCallback, useRef, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, ButtonGroup, Button as MuiButton } from '@material-ui/core'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import commonMessages from '@src/messages'
+import { fontWeightBold, borderColorLight, textColor } from '@src/common/styles'
+import { checkError } from '@src/utils/validation'
 import { ReactComponent as PhoneIcon } from '@src/assets/header/phone.svg'
 import { ReactComponent as CopyIcon } from '@src/assets/header/copy.svg'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { TextAreaAdapter, TextInputAdapter } from '@src/components/finalForm'
-import { StartEndForm } from '@src/components/form'
+import { StartEndForm, TextArea } from '@src/components/form'
 import { BREADCRUMBS } from '../constants'
+import applicationMessages from '../../messages'
 import messages from '../messages'
 import DisplaySettingContext from '../context/DisplaySettingContext'
+
+enum Mode {
+  batch = 'batch',
+  section = 'section'
+}
 
 const useStyles = makeStyles({
   tableMargin: {
     marginBottom: '30px'
+  },
+  buttons: {
+    '& .MuiButton-root': {
+      padding: '6px 14px',
+      minWidth: 'unset',
+      fontSize: '12px',
+      backgroundColor: '#FFFFFF',
+      borderColor: borderColorLight,
+      '& span': {
+        width: 90,
+        fontWeight: fontWeightBold
+      },
+      '&.selected': {
+        backgroundColor: textColor,
+        borderColor: textColor,
+        color: '#FFFFFF'
+      }
+    }
+  },
+  setting: {
+    maxWidth: 'unset'
   }
 })
 
@@ -25,6 +54,7 @@ export default function DisplaySettingEdit() {
   const classes = useStyles()
   const { currentSetting } = useContext(DisplaySettingContext)
   const formRef = useRef<HTMLFormElement>(null)
+  const [mode, setMode] = useState<Mode>(Mode.batch)
 
   const breadcrumbList = useMemo(
     () =>
@@ -58,6 +88,8 @@ export default function DisplaySettingEdit() {
     console.log(data)
   }, [])
 
+  const handleModeChange = useCallback(mode => () => setMode(mode), [setMode])
+
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.home)} buttonList={buttonList} />
@@ -75,18 +107,45 @@ export default function DisplaySettingEdit() {
                   formatMessage(messages[currentSetting.screen as keyof typeof messages])
                 ),
                 toDataSet(
-                  formatMessage(messages.applicationId),
+                  formatMessage(applicationMessages.applicationId),
                   <Field name='applicationId' component={TextInputAdapter} />
                 ),
                 toDataSet(formatMessage(messages.supplement), <Field name='supplement' component={TextAreaAdapter} />)
               ]}
             />
             <StartEndForm
+              classnames={classes.tableMargin}
               title={formatMessage(commonMessages.deliveryDuration)}
               startLabel={formatMessage(commonMessages.deliveryStartDateTime)}
               startName='deliveryStartTime'
               endLabel={formatMessage(commonMessages.deliveryEndDateTime)}
               endName='deliveryEndTime'
+            />
+            <DataTable
+              title={formatMessage(commonMessages.setting)}
+              buttons={
+                <ButtonGroup size='small' aria-label='outlined button group' className={classes.buttons}>
+                  <MuiButton className={mode === Mode.batch ? 'selected' : ''} onClick={handleModeChange(Mode.batch)}>
+                    {formatMessage(messages.batch)}
+                  </MuiButton>
+                  <MuiButton
+                    className={mode === Mode.section ? 'selected' : ''}
+                    onClick={handleModeChange(Mode.section)}
+                  >
+                    {formatMessage(messages.section)}
+                  </MuiButton>
+                </ButtonGroup>
+              }
+              dataSet={[
+                toDataSet(
+                  formatMessage(commonMessages.setting),
+                  <Field name='setting'>
+                    {({ input, meta }) => (
+                      <TextArea rows={40} {...input} error={checkError(meta)} classnames={classes.setting} />
+                    )}
+                  </Field>
+                )
+              ]}
             />
           </form>
         )}

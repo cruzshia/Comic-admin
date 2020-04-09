@@ -27,12 +27,16 @@ export default defineMessages({
     id: PREFIX + 'status',
     defaultMessage: 'Status'
   },
-  applicationId: {
-    id: PREFIX + 'application_id',
-    defaultMessage: 'Application ID'
-  },
   supplement: {
     id: PREFIX + 'supplement',
     defaultMessage: 'Supplement'
+  },
+  batch: {
+    id: PREFIX + 'batch',
+    defaultMessage: 'Batch'
+  },
+  section: {
+    id: PREFIX + 'section',
+    defaultMessage: 'Section'
   }
 })
