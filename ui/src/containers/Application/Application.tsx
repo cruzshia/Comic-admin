@@ -13,7 +13,7 @@ export default function Application() {
       <Route path={routePath.application.displaySetting} component={DisplaySetting} />
       <Route exact path={routePath.application.coinDeliveryEvent} component={CoinDeliveryEvent} />
       <Route path={routePath.application.pushNotification} component={PushNotification} />
-      <Route exact path={routePath.application.coinProduct} component={CoinProduct} />
+      <Route path={routePath.application.coinProduct} component={CoinProduct} />
       <Route exact path={routePath.application.applicationInfo} component={ApplicationInfo} />
     </Switch>
   )

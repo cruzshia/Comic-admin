@@ -19,10 +19,6 @@ export default defineMessages({
     id: PREFIX + '.message',
     defaultMessage: 'Message'
   },
-  status: {
-    id: PREFIX + '.status',
-    defaultMessage: 'Status'
-  },
   likes: {
     id: PREFIX + '.likes',
     defaultMessage: 'Likes'

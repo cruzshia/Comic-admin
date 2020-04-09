@@ -67,7 +67,7 @@ export default function PushNotificationList() {
         icon={EditIcon}
         buttonText={formatMessage(messages.create)}
         onClick={() => {
-          history.push(routePath.application.displaySettingCreation)
+          history.push(routePath.application.pushNotificationCreation)
         }}
       />
     ],

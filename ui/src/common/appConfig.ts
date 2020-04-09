@@ -47,6 +47,9 @@ export const routePath = {
     pushNotificationEdit: `${RouteSection.Application}/push_notification/edit/:id`,
     pushNotificationCreation: `${RouteSection.Application}/push_notification/creation/:id`,
     coinProduct: `${RouteSection.Application}/coin_product`,
+    coinProductEdit: `${RouteSection.Application}/coin_product/edit/:id`,
+    coinProductDetail: `${RouteSection.Application}/coin_product/detail/:id`,
+    coinProductCreation: `${RouteSection.Application}/coin_product/creation`,
     applicationInfo: `${RouteSection.Application}/application_info`
   },
   user: {
