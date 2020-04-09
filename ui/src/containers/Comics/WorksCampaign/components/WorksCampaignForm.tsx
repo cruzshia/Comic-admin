@@ -5,11 +5,16 @@ import arrayMutators from 'final-form-arrays'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core'
 import DataTable from '@src/components/table/DataTable'
-import { TextInput } from '@src/components/form'
+import { TextInputAdapter, TextAreaAdapter } from '@src/components/finalForm'
+import StartEndForm from '@src/components/form/StartEndForm'
+import DropZone from '@src/components/DropZone'
+import ScrollTo from '@src/components/scroll/ScrollTo'
+import { _range, toDataUri } from '@src/utils/functions'
 import commonMessages from '@src/messages'
-import { required, checkError } from '@src/utils/validation'
-import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
+import comicMessages from '../../messages'
 import AdSettingForm from '../../components/AdSettingForm'
+import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
+import messages from '../messages'
 
 interface Props {
   onSubmit: (data: any) => void
@@ -24,47 +29,87 @@ const useStyle = makeStyles({
   },
   tableMargin: {
     marginBottom: '30px'
+  },
+  photo: {
+    maxWidth: IMAGE_MAX_WIDTH
   }
 })
 
 export default function WorksCampaignForm({ onSubmit, formRef }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
+  const { anchorRefs, deliveryRef, adSettingRef, episodeInfoRef } = useComicsRef()
 
   return (
     <>
+      <ScrollTo anchorRef={anchorRefs} withStickHeader />
       <Form
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
-              title={formatMessage(commonMessages.deliveryDuration)}
+              title={formatMessage(commonMessages.basicInfo)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
               dataSet={[
                 {
-                  label: formatMessage(commonMessages.startDateTime),
-                  content: (
-                    <Field name='startDateTime' validate={required}>
-                      {({ input, meta }) => (
-                        <TextInput {...input} error={checkError(meta)} placeholder={DATE_TIME_PLACEHOLDER} />
-                      )}
-                    </Field>
-                  )
+                  label: formatMessage(comicMessages.campaignId),
+                  content: <Field name='campaignId' component={TextInputAdapter} />
                 },
                 {
-                  label: formatMessage(commonMessages.endDateTime),
-                  content: (
-                    <Field name='endDateTime' validate={required}>
-                      {({ input, meta }) => (
-                        <TextInput {...input} error={checkError(meta)} placeholder={DATE_TIME_PLACEHOLDER} />
-                      )}
-                    </Field>
-                  )
+                  label: formatMessage(comicMessages.workId),
+                  content: <Field name='workId' component={TextInputAdapter} />
+                },
+                {
+                  label: formatMessage(commonMessages.appId),
+                  content: <Field name='appId' component={TextInputAdapter} />
+                },
+                {
+                  label: formatMessage(comicMessages.priority),
+                  content: <Field name='priority' component={TextInputAdapter} short />
+                },
+                {
+                  label: formatMessage(commonMessages.introduction),
+                  content: <Field name='description' component={TextAreaAdapter} />
+                },
+                {
+                  label: formatMessage(messages.freeContentId),
+                  content: <Field name='freeContentId' component={TextAreaAdapter} />
                 }
               ]}
             />
-            <AdSettingForm mutators={form.mutators as any} />
+            <DataTable
+              innerRef={episodeInfoRef}
+              title={formatMessage(comicMessages.episodeInfo)}
+              tableClass={clsx(classes.tableClass, classes.tableMargin)}
+              dataSet={[
+                ..._range(0, IMAGE_NUM).map(num => ({
+                  label: `${formatMessage(comicMessages.episodeImage)}${num + 1}`,
+                  content: (
+                    <Field name={`images[${num}]`}>
+                      {({ input: { value, onChange } }) => (
+                        <DropZone
+                          classnames={classes.photo}
+                          name={`images${num}`}
+                          preview={value && <img src={toDataUri(value)} alt={`images${num}`} />}
+                          onDropAccepted={files => onChange(files[0])}
+                        />
+                      )}
+                    </Field>
+                  )
+                }))
+              ]}
+            />
+            <StartEndForm
+              innerRef={deliveryRef}
+              classnames={classes.tableMargin}
+              title={formatMessage(commonMessages.deliveryDuration)}
+              startLabel={formatMessage(commonMessages.startDateTime)}
+              startName='startDateTime'
+              endLabel={formatMessage(commonMessages.endDateTime)}
+              endName='endDateTime'
+            />
+            <AdSettingForm adSettingRef={adSettingRef} mutators={form.mutators as any} />
           </form>
         )}
       />

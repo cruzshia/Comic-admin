@@ -8,13 +8,13 @@ import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { _range } from '@src/utils/functions'
-import { ScrollAnchor } from './WorkForm'
+import commonMessages from '@src/messages'
 import StickyHeader from './StickyHeader'
 import workContext from '../context/WorkContext'
-import commonMessages from '@src/messages'
+import { ScrollAnchor, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
 import comicMessages from '../../messages'
 import messages from '../messages'
-import { IMAGE_NUM, IMAGE_MAX_WIDTH, BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../constants'
 import AdSettingTable from '../../components/AdSettingTable'
 
 const useStyle = makeStyles({
@@ -63,9 +63,6 @@ export default function WorkDetail() {
     [history, id]
   )
   const handleEdit = useMemo(() => handleRedirect(), [handleRedirect])
-  const handleEditDelivery = useMemo(() => handleRedirect(ScrollAnchor.Delivery), [handleRedirect])
-  const handleEditAdSetting = useMemo(() => handleRedirect(ScrollAnchor.AdSetting), [handleRedirect])
-  const handleEditEpisodeInfo = useMemo(() => handleRedirect(ScrollAnchor.EpisodeInfo), [handleRedirect])
 
   const EditButton = useMemo(
     () => (
@@ -100,7 +97,7 @@ export default function WorkDetail() {
       <DataTable
         title={formatMessage(commonMessages.deliveryDuration)}
         tableClass={classes.table}
-        onEdit={handleEditDelivery}
+        onEdit={useMemo(() => handleRedirect(ScrollAnchor.Delivery), [handleRedirect])}
         dataSet={[
           toDataSet(formatMessage(commonMessages.deliveryStartDateTime), currentWork.deliveryStartDateTime),
           toDataSet(formatMessage(commonMessages.deliveryEndDateTime), currentWork.deliveryEndDateTime)
@@ -109,7 +106,7 @@ export default function WorkDetail() {
       <DataTable
         title={formatMessage(commonMessages.episodeInfo)}
         tableClass={classes.table}
-        onEdit={handleEditEpisodeInfo}
+        onEdit={useMemo(() => handleRedirect(ScrollAnchor.EpisodeInfo), [handleRedirect])}
         dataSet={[
           toDataSet(formatMessage(messages.episodeCategory), currentWork.episodeCategory),
           toDataSet(formatMessage(messages.updateFrequency), currentWork.updateFrequency),
@@ -123,7 +120,10 @@ export default function WorkDetail() {
           })
         ]}
       />
-      <AdSettingTable onEdit={handleEditAdSetting} data={currentWork.advertisement} />
+      <AdSettingTable
+        onEdit={useMemo(() => handleRedirect(ScrollAnchor.AdSetting), [handleRedirect])}
+        data={currentWork.advertisement}
+      />
     </>
   )
 }

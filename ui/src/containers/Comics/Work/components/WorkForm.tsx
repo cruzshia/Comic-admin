@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
@@ -10,12 +10,12 @@ import Button from '@src/components/Button/Button'
 import DropZone from '@src/components/DropZone'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { ReactComponent as AddIcon } from '@src/assets/form/add.svg'
-import { checkError } from '@src/utils/validation'
+import { checkError, required } from '@src/utils/validation'
+import { toDataUri } from '@src/utils/functions'
 import commonMessages from '@src/messages'
-import { required } from '@src/utils/validation'
 import comicsMessages from '../../messages'
 import AdSettingForm from '../../components/AdSettingForm'
-import { IMAGE_NUM, IMAGE_MAX_WIDTH } from '../constants'
+import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
 import messages from '../messages'
 import clsx from 'clsx'
 
@@ -45,23 +45,10 @@ const useStyle = makeStyles({
   }
 })
 
-export enum ScrollAnchor {
-  Delivery = 'delivery',
-  AdSetting = 'adSetting',
-  EpisodeInfo = 'episodeInfo'
-}
-
 export default function WorkForm({ workData, onSubmit, formRef }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
-  const deliveryRef = useRef<HTMLDivElement>(null)
-  const adSettingRef = useRef<HTMLDivElement>(null)
-  const episodeInfoRef = useRef<HTMLDivElement>(null)
-  const anchorRef = {
-    [ScrollAnchor.Delivery]: deliveryRef,
-    [ScrollAnchor.AdSetting]: adSettingRef,
-    [ScrollAnchor.EpisodeInfo]: episodeInfoRef
-  }
+  const { anchorRefs, deliveryRef, adSettingRef, episodeInfoRef } = useComicsRef()
 
   const imageDataSet = useMemo(() => {
     const dataSet = []
@@ -74,13 +61,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
               <DropZone
                 classnames={classes.photo}
                 name={`images${i}`}
-                preview={
-                  value ? (
-                    <img src={typeof value === 'string' ? value : URL.createObjectURL(value)} alt='preview-img' />
-                  ) : (
-                    undefined
-                  )
-                }
+                preview={value && <img src={toDataUri(value)} alt={`images${i}`} />}
                 onDropAccepted={files => onChange(files[0])}
               />
             )}
@@ -93,7 +74,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
 
   return (
     <>
-      <ScrollTo anchorRef={anchorRef} withStickHeader />
+      <ScrollTo anchorRef={anchorRefs} withStickHeader />
       <Form
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}
@@ -183,6 +164,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
               ]}
             />
             <StartEndForm
+              innerRef={deliveryRef}
               title={formatMessage(commonMessages.deliveryDuration)}
               classnames={clsx(classes.tableClass, classes.tableMargin)}
               startLabel={formatMessage(commonMessages.deliveryStartDateTime)}
@@ -191,6 +173,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
               endName='deliveryEndDateTime'
             />
             <DataTable
+              innerRef={episodeInfoRef}
               title={formatMessage(comicsMessages.episodeInfo)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
               dataSet={[

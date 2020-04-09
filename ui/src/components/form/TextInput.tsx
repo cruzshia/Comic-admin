@@ -5,18 +5,22 @@ import { OutlinedInput, makeStyles, FormHelperText } from '@material-ui/core'
 import messages from './messages'
 import { InputProps } from './inputProps'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   root: {
-    width: 410,
+    width: short => (short ? 205 : 410),
     '& input': {
       padding: '8px 15px'
     }
   }
-})
+}))
 
-export default function TextInput({ name, onChange, onBlur, error, placeholder, value }: InputProps) {
+interface Props extends InputProps {
+  short?: boolean
+}
+
+export default function TextInput({ name, onChange, onBlur, error, placeholder, value, short }: Props) {
   const { formatMessage } = useIntl()
-  const classes = useStyles()
+  const classes = useStyles(!!short)
   return (
     <div>
       <OutlinedInput
