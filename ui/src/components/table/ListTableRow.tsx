@@ -1,6 +1,7 @@
 import React from 'react'
 import { TableCell, TableRow, makeStyles } from '@material-ui/core'
 import clsx from 'clsx'
+import { backgroundColor } from '@src/common/styles'
 
 interface Props {
   items: { [key: string]: any }
@@ -19,6 +20,9 @@ const useStyles = makeStyles({
         paddingRight: 20
       }
     },
+    '&.MuiTableRow-hover:hover': {
+      backgroundColor
+    },
     '& img': {
       height: 60,
       width: 60,
@@ -33,7 +37,7 @@ const useStyles = makeStyles({
 export default function ListTableRow({ items, onClick, classnames }: Props) {
   const classes = useStyles({ pointer: !!onClick })
   return (
-    <TableRow className={clsx(classes.root, classnames)} data-testid='list-table-row' onClick={onClick}>
+    <TableRow hover className={clsx(classes.root, classnames)} data-testid='list-table-row' onClick={onClick}>
       {Object.keys(items).map(key => (
         <TableCell key={key}>{items[key]}</TableCell>
       ))}

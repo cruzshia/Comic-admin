@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core'
 import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
+import { hyperlinkColor } from '@src/common/styles'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { _range } from '@src/utils/functions'
@@ -33,7 +34,7 @@ const useStyle = makeStyles({
     }
   },
   blueText: {
-    color: '#1A0DAB'
+    color: hyperlinkColor
   },
   image: {
     maxWidth: IMAGE_MAX_WIDTH

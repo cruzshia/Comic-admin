@@ -15,6 +15,9 @@ const useStyle = makeStyles({
     border: `2px solid ${borderColorLight}`,
     borderRadius: '4px'
   },
+  marginBottom: {
+    marginBottom: '30px'
+  },
   subTitle: {
     padding: '20px',
     borderBottom: `2px solid ${borderColorLight}`
@@ -38,6 +41,13 @@ const useStyle = makeStyles({
     '& svg, path': {
       fill: '#000000'
     }
+  },
+  innerTable: {
+    margin: '-20px',
+    border: 'none',
+    '& .MuiGrid-container .MuiGrid-item:first-child': {
+      maxWidth: 120
+    }
   }
 })
 
@@ -48,9 +58,10 @@ export interface DataSet {
   classes?: string
 }
 
-export const toDataSet = (label: string, content: string | JSX.Element) => ({
+export const toDataSet = (label: string, content: string | JSX.Element, isSubTitle?: boolean) => ({
   label,
-  content
+  content,
+  isSubTitle
 })
 
 interface Props {
@@ -59,14 +70,25 @@ interface Props {
   dataSet: DataSet[]
   tableClass?: string
   innerRef?: React.RefObject<HTMLDivElement>
+  innerTable?: boolean
+  marginBottom?: boolean
   buttons?: JSX.Element
 }
 
-export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef, buttons }: Props) {
+export default function DataTable({
+  title,
+  dataSet,
+  tableClass,
+  onEdit,
+  innerRef,
+  innerTable,
+  marginBottom,
+  buttons
+}: Props) {
   const classes = useStyle()
 
   return dataSet.length ? (
-    <div ref={innerRef}>
+    <div className={marginBottom ? classes.marginBottom : ''} ref={innerRef}>
       {(title || onEdit) && (
         <Box
           display='flex'
@@ -79,10 +101,10 @@ export default function DataTable({ title, dataSet, tableClass, onEdit, innerRef
             {title}
           </Typography>
           {onEdit && <PenIcon onClick={onEdit} className={classes.penIcon} data-testid='data-table-button' />}
-          {buttons && buttons}
+          {buttons}
         </Box>
       )}
-      <div className={clsx(classes.table, tableClass)} data-testid='data-table'>
+      <div className={clsx(classes.table, tableClass, { [classes.innerTable]: innerTable })} data-testid='data-table'>
         {dataSet.map((data, idx) =>
           data.isSubTitle ? (
             <Typography

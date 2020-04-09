@@ -10,5 +10,9 @@ export default defineMessages({
   detail: {
     id: PREFIX + 'detail',
     defaultMessage: 'Author Detail'
+  },
+  edit: {
+    id: PREFIX + 'edit',
+    defaultMessage: 'Author Edit'
   }
 })

@@ -117,6 +117,9 @@ export default function ContentList() {
         buttonList={tableButtonList}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
+        onRowClick={useCallback((id: string) => history.push(routePath.comics.contentDetail.replace(':id', id!)), [
+          history
+        ])}
       />
     </>
   )

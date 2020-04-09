@@ -22,13 +22,6 @@ const useStyles = makeStyles({
     '&.gray': {
       backgroundColor: backgroundColorGray
     }
-  },
-  innerTable: {
-    margin: '-20px',
-    border: 'none',
-    '& .MuiGrid-container .MuiGrid-item:first-child': {
-      maxWidth: 120
-    }
   }
 })
 
@@ -48,7 +41,6 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
           label: formatMessage(commonMessages.original),
           content: (
             <DataTable
-              tableClass={classes.innerTable}
               dataSet={[
                 {
                   label: formatMessage(commonMessages.photo),
@@ -58,6 +50,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
                 genTableData('buttonName', data),
                 genTableData('deliveryDuration', data)
               ]}
+              innerTable
             />
           )
         }

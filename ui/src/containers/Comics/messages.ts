@@ -39,6 +39,10 @@ export default defineMessages({
     id: PREFIX + 'episode_info',
     defaultMessage: 'Episode Info'
   },
+  episodeNumber: {
+    id: PREFIX + 'episode_number',
+    defaultMessage: 'Episode Number'
+  },
   workId: {
     id: PREFIX + 'work_id',
     defaultMessage: 'Work ID'
