@@ -15,6 +15,14 @@ export default defineMessages({
     id: PREFIX + 'author',
     defaultMessage: 'Author'
   },
+  authorName: {
+    id: PREFIX + 'author_name',
+    defaultMessage: 'Author Name'
+  },
+  authorNameKana: {
+    id: PREFIX + 'author_name_kana',
+    defaultMessage: 'Author Name(kana)'
+  },
   create: {
     id: PREFIX + 'create',
     defaultMessage: 'Create'

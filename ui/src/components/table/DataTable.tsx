@@ -4,13 +4,14 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
 import DataTableRow from './DataTableRow'
-import { borderColorLight, contentWidth } from '@src/common/styles'
+import { borderColorLight, contentWidth, minWidth } from '@src/common/styles'
 import { ReactComponent as PenIcon } from '@src/assets/common/pen.svg'
 import clsx from 'clsx'
 
 const useStyle = makeStyles({
   table: {
     maxWidth: contentWidth,
+    minWidth,
     border: `2px solid ${borderColorLight}`,
     borderRadius: '4px'
   },

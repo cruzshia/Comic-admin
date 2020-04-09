@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext, useState, useEffect } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -9,8 +9,8 @@ import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
 import { ReactComponent as IconPublish } from '@src/assets/common/publish.svg'
 import { routePath } from '@src/common/appConfig'
-import { PAGE_LIMIT } from '@src/common/constants'
 import useSort from '@src/hooks/useSort'
+import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import comicMessages from '../../messages'
@@ -32,7 +32,7 @@ export default function ContentList() {
   const classes = useStyle()
   const { contentList, totalContent } = useContext(ContentContext)
   const { sortBy, handleSort } = useSort<string>('createAt')
-  const [page, setPage] = useState<number>(1)
+  const { page, pagination, handlePageChange } = usePaging({ total: totalContent })
 
   useEffect(() => {
     // dispatch get action
@@ -77,23 +77,16 @@ export default function ContentList() {
     [formatMessage, handleSort]
   )
 
-  const dataList = contentList.map(content => ({
-    id: content.contentId,
-    data: {
-      ...content,
-      image: <img src={content.image} alt='content img' />,
-      spacer: ''
-    }
-  }))
-
-  const handlePageChange = useCallback((_, page) => setPage(page), [setPage])
-  const pagination = useMemo(
-    () => ({
-      start: (page - 1) * PAGE_LIMIT + 1,
-      total: totalContent
-    }),
-    [page, totalContent]
-  )
+  const dataList = contentList
+    .map(content => ({
+      id: content.contentId,
+      data: {
+        ...content,
+        image: <img src={content.image} alt='content img' />,
+        spacer: ''
+      }
+    }))
+    .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
 
   const tableButtonList = useMemo(
     () => [

@@ -33,7 +33,9 @@ export const routePath = {
     contentsCampaignCreation: `${RouteSection.Comics}/contents_campaign/creation`,
     contentsCampaignEdit: `${RouteSection.Comics}/contents_campaign/edit/:id`,
     contentsCampaignDetail: `${RouteSection.Comics}/contents_campaign/detail/:id`,
-    author: `${RouteSection.Comics}/author`
+    author: `${RouteSection.Comics}/author`,
+    authorDetail: `${RouteSection.Comics}/author/detail/:id`,
+    authorEdit: `${RouteSection.Comics}/author/edit/:id`
   },
   application: {
     base: RouteSection.Application,

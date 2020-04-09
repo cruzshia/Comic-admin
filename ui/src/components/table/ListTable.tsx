@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import {
   Paper,
@@ -43,6 +43,7 @@ interface Thead {
 interface Pagination {
   total: number
   start: number
+  perPage?: number
 }
 
 interface RowData {
@@ -138,7 +139,7 @@ export default function ListTable({
   tableClass,
   tbodyClass,
   buttonList,
-  pagination: { start, total },
+  pagination: { start, total, perPage },
   onPageChange,
   onRowClick,
   sortOrder = SortOrder.Desc,
@@ -146,6 +147,7 @@ export default function ListTable({
 }: Props) {
   const classes = useStyles()
   const { formatMessage } = useIntl()
+  const pageItemNum = useMemo(() => perPage || PAGE_LIMIT, [perPage])
 
   const handleSort = useCallback(
     (id, sortFunction, sortOrder) => (e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>) =>
@@ -216,7 +218,7 @@ export default function ListTable({
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination total={Math.ceil(total / PAGE_LIMIT)} onChange={onPageChange} />
+      <Pagination total={Math.ceil(total / pageItemNum)} onChange={onPageChange} />
     </div>
   )
 }

@@ -7,6 +7,7 @@ export const headerMenuHeight = 60
 export const topOffset = headerHeight + headerMenuHeight
 export const stickBarOffset = 75
 export const contentWidth = 1180
+export const minWidth = 740
 export const sidebarWidth = 200
 
 export const mainColor = '#ED3632'

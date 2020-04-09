@@ -43,5 +43,5 @@ export const mockContentList = _range(0, 4).map(num => ({
   price: 100 + num,
   campaignPrice: 99,
   sort: 100 + num,
-  createAt: '2020-01-21 16:34:00'
+  createAt: `2020-01-21 16:34:0${num}`
 }))
