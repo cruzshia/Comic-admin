@@ -13,5 +13,9 @@ export default defineMessages({
   message: {
     id: PREFIX + 'message',
     defaultMessage: 'Message'
+  },
+  pushedTimes: {
+    id: PREFIX + 'pushed_times',
+    defaultMessage: 'Pushed Times'
   }
 })

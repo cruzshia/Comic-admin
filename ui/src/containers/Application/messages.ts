@@ -18,5 +18,9 @@ export default defineMessages({
   applicationId: {
     id: PREFIX + 'application_id',
     defaultMessage: 'Application ID'
+  },
+  status: {
+    id: PREFIX + 'status',
+    defaultMessage: 'Status'
   }
 })

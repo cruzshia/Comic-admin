@@ -5,11 +5,18 @@ import PushNotificationList from './components/PushNotificationList'
 import PushNotificationEdit from './components/PushNotificationEdit'
 import PushNotificationCreation from './components/PushNotificationCreation'
 import PushNotificationContext from './context/PushNotificationContext'
+import { mockNotificationDetail, mockNotificationList, mockNotificationTotal } from './mockData/mockNotification'
 
 export default function PushNotification() {
   return (
     <Switch>
-      <PushNotificationContext.Provider value={{ notificationList: [], notificationTotal: 0 }}>
+      <PushNotificationContext.Provider
+        value={{
+          notificationList: mockNotificationList,
+          notificationTotal: mockNotificationTotal,
+          currentNotification: mockNotificationDetail
+        }}
+      >
         <Route exact path={routePath.application.pushNotification} component={PushNotificationList} />
         <Route exact path={routePath.application.pushNotificationEdit} component={PushNotificationEdit} />
         <Route exact path={routePath.application.pushNotificationCreation} component={PushNotificationCreation} />

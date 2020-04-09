@@ -9,17 +9,15 @@ import ListTable, { SortOrder, Padding } from '@src/components/table/ListTable'
 import { StyledCheckBox } from '@src/components/form'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import { ReactComponent as DeleteIcon } from '@src/assets/common/delete.svg'
-import { mainColor } from '@src/common/styles'
+import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
 import useSort from '@src/hooks/useSort'
-import applicationMessages from '../../messages'
+import Capsule from '../../components/Capsule'
 import DisplaySettingContext from '../context/DisplaySettingContext'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import SearchBlock from './SearchBlock'
-import { Status } from '../constants'
-import clsx from 'clsx'
-import usePaging from '@src/hooks/usePaging'
+import { Status } from '../../constants'
 
 const useStyles = makeStyles({
   table: {
@@ -34,28 +32,11 @@ const useStyles = makeStyles({
     }
   },
   tbody: {
-    '& .reserved': {
+    '& .reservedRow': {
       backgroundColor: '#F8FFEC'
     },
-    '& .closed': {
+    '& .closedRow': {
       backgroundColor: '#EDEDED'
-    }
-  },
-  status: {
-    width: 80,
-    lineHeight: '20px',
-    borderRadius: '10px',
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    '&.opened': {
-      backgroundColor: mainColor
-    },
-    '&.reserved': {
-      backgroundColor: '#A2CD5A'
-    },
-    '&.closed': {
-      backgroundColor: '#757575'
     }
   }
 })
@@ -102,7 +83,7 @@ export default function DisplaySettingList() {
   const theadList = useMemo(
     () => [
       { id: 'checkbox', label: '', padding: Padding.Checkbox },
-      { id: 'status', label: formatMessage(messages.status) },
+      { id: 'status', label: formatMessage(commonMessages.status) },
       { id: 'screen', label: formatMessage(messages.screen) },
       {
         id: 'deliveryStartTime',
@@ -114,10 +95,7 @@ export default function DisplaySettingList() {
         label: formatMessage(commonMessages.createDateTime),
         onSort: handleSort
       },
-      {
-        id: 'spacer',
-        label: ''
-      }
+      { id: 'spacer', label: '' }
     ],
     [handleSort, formatMessage]
   )
@@ -137,14 +115,10 @@ export default function DisplaySettingList() {
       settingList
         .map(({ id, status, screen, ...rest }) => ({
           id: id,
-          classnames: Status[status as keyof typeof Status],
+          classnames: `${Status[status as keyof typeof Status]}Row`,
           data: {
             checkbox: <StyledCheckBox value={id} checked={!!checkedList[id]} onCheck={handleCheck} />,
-            status: (
-              <div className={clsx(classes.status, Status[status as keyof typeof Status])}>
-                {formatMessage(applicationMessages[status as keyof typeof applicationMessages])}
-              </div>
-            ),
+            status: <Capsule status={status} />,
             display: formatMessage(messages[screen as keyof typeof messages]),
             ...rest,
             spacer: ''
@@ -156,7 +130,7 @@ export default function DisplaySettingList() {
             (sortBy.order === SortOrder.Asc ? 1 : -1)
           )
         }),
-    [sortBy, handleCheck, formatMessage, checkedList, settingList, classes.status]
+    [sortBy.key, sortBy.order, handleCheck, formatMessage, checkedList, settingList]
   )
 
   const handleRowClick = useCallback(
