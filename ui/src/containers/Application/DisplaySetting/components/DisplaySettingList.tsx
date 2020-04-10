@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useState, useContext } from 'react'
+import React, { useMemo, useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
@@ -12,12 +12,14 @@ import { ReactComponent as DeleteIcon } from '@src/assets/common/delete.svg'
 import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
 import useSort from '@src/hooks/useSort'
+import useCheckbox from '@src/hooks/useCheckbox'
 import Capsule from '../../components/Capsule'
+import { Status } from '../../constants'
 import DisplaySettingContext from '../context/DisplaySettingContext'
+import applicationMessages from '../../messages'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import SearchBlock from './SearchBlock'
-import { Status } from '../../constants'
 
 const useStyles = makeStyles({
   table: {
@@ -48,7 +50,7 @@ export default function DisplaySettingList() {
   const { settingList, settingTotal } = useContext(DisplaySettingContext)
   const { sortBy, handleSort } = useSort<string>('deliveryStartTime')
   const { pagination, handlePageChange } = usePaging({ perPage: 3, total: settingTotal })
-  const [checkedList, setCheckedList] = useState<{ [key: string]: boolean }>({})
+  const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll } = useCheckbox()
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
@@ -68,48 +70,6 @@ export default function DisplaySettingList() {
   )
   const handleSearch = useCallback(data => console.log(data), [])
 
-  const tableButtonList = useMemo(
-    () => [
-      <Button
-        theme={Theme.LIGHT}
-        buttonText={formatMessage(commonMessages.delete)}
-        icon={DeleteIcon}
-        onClick={() => {}}
-      />
-    ],
-    [formatMessage]
-  )
-
-  const theadList = useMemo(
-    () => [
-      { id: 'checkbox', label: '', padding: Padding.Checkbox },
-      { id: 'status', label: formatMessage(commonMessages.status) },
-      { id: 'screen', label: formatMessage(messages.screen) },
-      {
-        id: 'deliveryStartTime',
-        label: formatMessage(commonMessages.deliveryStartDateTime),
-        onSort: handleSort
-      },
-      {
-        id: 'creationTime',
-        label: formatMessage(commonMessages.createDateTime),
-        onSort: handleSort
-      },
-      { id: 'spacer', label: '' }
-    ],
-    [handleSort, formatMessage]
-  )
-
-  const handleCheck = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, checked) => {
-      setCheckedList(preCheckedList => ({
-        ...preCheckedList,
-        [e.currentTarget.value]: checked
-      }))
-    },
-    [setCheckedList]
-  )
-
   const settingDataList = useMemo(
     () =>
       settingList
@@ -117,7 +77,7 @@ export default function DisplaySettingList() {
           id: id,
           classnames: `${Status[status as keyof typeof Status]}Row`,
           data: {
-            checkbox: <StyledCheckBox value={id} checked={!!checkedList[id]} onCheck={handleCheck} />,
+            checkbox: <StyledCheckBox value={id} checked={isChecked(id)} onCheck={handleCheck} />,
             status: <Capsule status={status} />,
             display: formatMessage(messages[screen as keyof typeof messages]),
             ...rest,
@@ -130,9 +90,53 @@ export default function DisplaySettingList() {
             (sortBy.order === SortOrder.Asc ? 1 : -1)
           )
         }),
-    [sortBy.key, sortBy.order, handleCheck, formatMessage, checkedList, settingList]
+    [sortBy.key, sortBy.order, handleCheck, formatMessage, isChecked, settingList]
   )
 
+  const handleCheckAll = useCallback(() => {
+    onCheckAll(settingDataList)
+  }, [onCheckAll, settingDataList])
+
+  const theadList = useMemo(
+    () => [
+      {
+        id: 'checkbox',
+        label: <StyledCheckBox value='' checked={isCheckAll} onCheck={handleCheckAll} />,
+        padding: Padding.Checkbox
+      },
+      { id: 'status', label: formatMessage(applicationMessages.status) },
+      { id: 'screen', label: formatMessage(messages.screen) },
+      {
+        id: 'deliveryStartTime',
+        label: formatMessage(commonMessages.deliveryStartDateTime),
+        onSort: handleSort
+      },
+      {
+        id: 'creationTime',
+        label: formatMessage(commonMessages.createDateTime),
+        onSort: handleSort
+      },
+      {
+        id: 'spacer',
+        label: ''
+      }
+    ],
+    [handleSort, formatMessage, handleCheckAll, isCheckAll]
+  )
+
+  const handleDelete = useCallback(() => console.log(checkedList), [checkedList])
+
+  const tableButtonList = useMemo(
+    () => [
+      <Button
+        theme={Theme.LIGHT}
+        buttonText={formatMessage(commonMessages.delete)}
+        icon={DeleteIcon}
+        onClick={handleDelete}
+      />
+    ],
+    [formatMessage, handleDelete]
+  )
   const handleRowClick = useCallback(
     id => {
       history.push(routePath.application.displaySettingEdit.replace(':id', id))

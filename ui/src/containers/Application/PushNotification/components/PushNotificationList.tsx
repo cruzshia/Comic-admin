@@ -114,7 +114,7 @@ export default function PushNotificationList() {
   const theadList = useMemo(
     () => [
       { id: 'checkbox', label: '', padding: Padding.Checkbox },
-      { id: 'status', label: formatMessage(commonMessages.status) },
+      { id: 'status', label: formatMessage(applicationMessages.status) },
       { id: 'message', label: formatMessage(messages.message) },
       { id: 'applicationId', label: formatMessage(applicationMessages.applicationId) },
       { id: 'timesPushed', label: formatMessage(messages.pushedTimes) },
