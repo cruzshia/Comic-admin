@@ -22,5 +22,17 @@ export default defineMessages({
   status: {
     id: PREFIX + 'status',
     defaultMessage: 'Status'
+  },
+  releaseStartTime: {
+    id: PREFIX + 'release_start_time',
+    defaultMessage: 'Release Start Time'
+  },
+  releaseEndTime: {
+    id: PREFIX + 'release_end_time',
+    defaultMessage: 'Release End Time'
+  },
+  releaseDuration: {
+    id: PREFIX + 'release_duration',
+    defaultMessage: 'Release Duration'
   }
 })

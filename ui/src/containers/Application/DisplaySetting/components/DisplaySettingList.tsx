@@ -49,7 +49,7 @@ export default function DisplaySettingList() {
   const classes = useStyles()
   const { settingList, settingTotal } = useContext(DisplaySettingContext)
   const { sortBy, handleSort } = useSort<string>('deliveryStartTime')
-  const { pagination, handlePageChange } = usePaging({ perPage: 3, total: settingTotal })
+  const { pagination, handlePageChange } = usePaging({ total: settingTotal })
   const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll } = useCheckbox()
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
