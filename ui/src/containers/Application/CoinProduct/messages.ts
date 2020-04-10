@@ -25,5 +25,25 @@ export default defineMessages({
   productId: {
     id: PREFIX + 'product_id',
     defaultMessage: 'Product ID'
+  },
+  paidCoin: {
+    id: PREFIX + 'paid_coin',
+    defaultMessage: 'Paid Coin'
+  },
+  givenCoin: {
+    id: PREFIX + 'given_coin',
+    defaultMessage: 'Given Coin'
+  },
+  releaseStartTime: {
+    id: PREFIX + 'release_start_time',
+    defaultMessage: 'Release Start Time'
+  },
+  releaseEndTime: {
+    id: PREFIX + 'release_end_time',
+    defaultMessage: 'Release End Time'
+  },
+  releaseDuration: {
+    id: PREFIX + 'release_duration',
+    defaultMessage: 'Release Duration'
   }
 })
