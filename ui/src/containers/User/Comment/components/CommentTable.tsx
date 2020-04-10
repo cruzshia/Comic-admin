@@ -31,7 +31,7 @@ export default function CommentTable({ comment, isEdit }: { comment: any; isEdit
           content: comment.userId
         },
         {
-          label: formatMessage(messages.contentId),
+          label: formatMessage(commonMessages.contentId),
           content: comment.contentId
         },
         {

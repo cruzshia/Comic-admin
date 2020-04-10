@@ -4,8 +4,8 @@ export const mockSetting = {
   id: '0',
   status: 'reserved',
   screen: 'home',
-  deliveryStartTime: '2019-12-20 00:00:00',
-  creationTime: '2019-12-20 00:00:00'
+  deliveryStartTime: '2019-12-20 00:00',
+  creationTime: '2019-12-20 00:00'
 }
 
 export const mockSettingDetail = {
@@ -13,8 +13,8 @@ export const mockSettingDetail = {
   status: 'reserved',
   screen: 'home',
   applicationId: 'SHST01_CATEGORY_TOP_IOS',
-  deliveryStartTime: '2019-12-20 00:00:00',
-  creationTime: '2019-12-20 00:00:00',
+  deliveryStartTime: '2019-12-20 00:00',
+  creationTime: '2019-12-20 00:00',
   setting: `"navigation": {
     "#comment": [],
     "section": [

@@ -27,12 +27,12 @@ export const mockCampaign = {
 サンプルテキストサンプルテキスト
 サンプルテキストサンプルテキスト
 サンプルテキストサンプルテキスト`,
-  startDateTime: '2019-12-25 00:00:00',
-  endDateTime: '2019-12-25 00:00:00',
+  startDateTime: '2019-12-25 00:00',
+  endDateTime: '2019-12-25 00:00',
   description:
     'サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト',
-  createAt: '2019-12-25 00:00:00',
-  updateAt: '2019-12-25 00:00:00',
+  createAt: '2019-12-25 00:00',
+  updateAt: '2019-12-25 00:00',
   images: [mockCover1, mockCover2, mockCover3, mockCover4, mockCover5, mockCover6, mockCover7],
   advertisement: {
     deviceCategory: 'common',

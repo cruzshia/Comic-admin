@@ -6,7 +6,7 @@ export const mockNotification = {
   message: '2020年新年ログインボーナス	ログインボー',
   applicationId: 'SHJP01',
   timesPushed: 1000,
-  deliveryStartTime: `2019-12-20 00:00:00`,
+  deliveryStartTime: `2019-12-20 00:00`,
   detail: ''
 }
 

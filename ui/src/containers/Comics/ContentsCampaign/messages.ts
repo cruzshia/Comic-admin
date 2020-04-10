@@ -20,5 +20,13 @@ export default defineMessages({
   edit: {
     id: PREFIX + 'edit',
     defaultMessage: 'Content Campaign Edit'
+  },
+  completeBonus: {
+    id: PREFIX + 'complete_bonus',
+    defaultMessage: 'Complete Bonus'
+  },
+  campaignPeriod: {
+    id: PREFIX + 'campaign_period',
+    defaultMessage: 'Campaign Period'
   }
 })

@@ -7,10 +7,6 @@ export default defineMessages({
     id: PREFIX,
     defaultMessage: 'Comment List'
   },
-  contentId: {
-    id: PREFIX + '.content_id',
-    defaultMessage: 'Content ID'
-  },
   content: {
     id: PREFIX + '.content',
     defaultMessage: 'Content'

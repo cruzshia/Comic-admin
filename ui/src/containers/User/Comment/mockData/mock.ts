@@ -7,8 +7,8 @@ export const mockComment = {
   status: 'not_approved',
   likes: 10,
   report: 10,
-  createDateTime: '2019-12-25 00:00:00',
-  updateDateTime: '2019-12-25 00:00:00'
+  createDateTime: '2019-12-25 00:00',
+  updateDateTime: '2019-12-25 00:00'
 }
 
 const mockCommentUnit = {
@@ -20,8 +20,8 @@ const mockCommentUnit = {
   status: '未承認',
   likes: 100,
   report: 500,
-  createDateTime: '2019-12-25 00:00:00',
-  updateDateTime: '2019-12-25 00:00:00'
+  createDateTime: '2019-12-25 00:00',
+  updateDateTime: '2019-12-25 00:00'
 }
 
 export const mockCommentList = [
