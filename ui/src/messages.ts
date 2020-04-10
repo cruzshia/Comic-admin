@@ -23,6 +23,10 @@ export default defineMessages({
     id: PREFIX + 'author_name_kana',
     defaultMessage: 'Author Name(kana)'
   },
+  authorCreateStart: {
+    id: PREFIX + 'author_create_start',
+    defaultMessage: 'Create Author'
+  },
   create: {
     id: PREFIX + 'create',
     defaultMessage: 'Create'
