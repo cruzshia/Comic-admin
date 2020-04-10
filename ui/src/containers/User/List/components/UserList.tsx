@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useContext, useState } from 'react'
 import { useIntl } from 'react-intl'
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
+import { routePath } from '@src/common/appConfig'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import ListTable, { SortOrder } from '@src/components/table/ListTable'
 import Button from '@src/components/Button/Button'
@@ -30,6 +32,7 @@ const useStyles = makeStyles({
 export default function UserList() {
   const classes = useStyles()
   const { formatMessage } = useIntl()
+  const history = useHistory()
   const { userList, userTotal } = useContext(UserContext)
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Desc)
   const [sortBy, setSortBy] = useState<ListTableProp>(ListTableProp.CreateDateTime)
@@ -100,6 +103,7 @@ export default function UserList() {
     [setPage]
   )
 
+  const handleRowClick = useCallback(id => history.push(routePath.user.userDetail.replace(':id', id)), [history])
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} />
@@ -113,6 +117,7 @@ export default function UserList() {
         pagination={pagination}
         sortOrder={sortOrder}
         sortBy={sortBy}
+        onRowClick={handleRowClick}
       />
     </>
   )

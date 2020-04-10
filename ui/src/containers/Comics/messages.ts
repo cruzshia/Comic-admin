@@ -51,10 +51,6 @@ export default defineMessages({
     id: PREFIX + 'campaign_id',
     defaultMessage: 'Campaign ID'
   },
-  contentId: {
-    id: PREFIX + 'content_id',
-    defaultMessage: 'Content ID'
-  },
   priority: {
     id: PREFIX + 'priority',
     defaultMessage: 'Priority'

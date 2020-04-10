@@ -21,7 +21,7 @@ export default function SearchBlock({ onSubmit }: Prop) {
           input: <Field name='campaignId' component={SelectAdapter} options={[]} />
         },
         {
-          label: formatMessage(messages.contentId),
+          label: formatMessage(commonMessages.contentId),
           input: <Field name='contentId' component={SelectAdapter} options={[]} />
         },
         {

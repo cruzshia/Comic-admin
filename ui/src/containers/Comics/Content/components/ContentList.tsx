@@ -65,7 +65,7 @@ export default function ContentList() {
   const theadList = useMemo(
     () => [
       { id: 'image', label: formatMessage(commonMessages.photo) },
-      { id: 'contentId', label: formatMessage(comicMessages.contentId) },
+      { id: 'contentId', label: formatMessage(commonMessages.contentId) },
       { id: 'title', label: formatMessage(messages.title) },
       { id: 'category', label: formatMessage(messages.category) },
       { id: 'price', label: formatMessage(comicMessages.contentPrice) },

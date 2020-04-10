@@ -10,5 +10,9 @@ export default defineMessages({
   status: {
     id: PREFIX + 'status',
     defaultMessage: 'Status'
+  },
+  change: {
+    id: PREFIX + 'change',
+    defaultMessage: 'Change'
   }
 })

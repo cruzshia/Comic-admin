@@ -41,11 +41,11 @@ export default function SelectMenu({
   onBlur,
   error,
   placeholder,
-  value: defaulValue
+  value: defaultValue
 }: Props) {
   const { formatMessage } = useIntl()
   const classes = useStyles({ isShort })
-  const [value, setValue] = React.useState<any>(defaulValue ?? '')
+  const [value, setValue] = React.useState<any>(defaultValue ?? '')
   const ArrowImg = useCallback((props: any) => <img {...props} src={selectArrowImg} alt='select' />, [])
   const handleChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
     setValue(e.target.value)

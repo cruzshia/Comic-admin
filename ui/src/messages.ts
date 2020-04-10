@@ -183,6 +183,10 @@ export default defineMessages({
     id: PREFIX + 'delivery_end_date_time',
     defaultMessage: 'Delivery end date time'
   },
+  contentId: {
+    id: PREFIX + 'content_id',
+    defaultMessage: 'Content ID'
+  },
   setting: {
     id: PREFIX + 'setting',
     defaultMessage: 'Setting'

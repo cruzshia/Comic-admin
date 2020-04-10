@@ -65,7 +65,7 @@ export default function ContentDetail() {
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
-          toDataSet(formatMessage(comicMessages.contentId), currentContent.id),
+          toDataSet(formatMessage(commonMessages.contentId), currentContent.id),
           toDataSet(formatMessage(messages.title), currentContent.title),
           toDataSet(formatMessage(messages.titleKana), currentContent.titleKana),
           toDataSet(formatMessage(messages.category), currentContent.category),
