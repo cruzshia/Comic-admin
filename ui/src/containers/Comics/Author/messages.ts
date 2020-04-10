@@ -14,5 +14,9 @@ export default defineMessages({
   edit: {
     id: PREFIX + 'edit',
     defaultMessage: 'Author Edit'
+  },
+  create: {
+    id: PREFIX + 'create',
+    defaultMessage: 'Author Create'
   }
 })
