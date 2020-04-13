@@ -24,7 +24,8 @@ describe('WorkForm component test', () => {
 
     const mockRes = {
       id: '123',
-      title: '大冒險'
+      title: '大冒險',
+      author: ['']
     }
     fireEvent.change(container.querySelector('[name=id]')!, { target: { value: mockRes.id } })
     fireEvent.change(container.querySelector('[name=title]')!, { target: { value: mockRes.title } })
