@@ -3,17 +3,14 @@ import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
 import { makeStyles } from '@material-ui/core'
-import Grid from '@material-ui/core/Grid'
 import DataTable from '@src/components/table/DataTable'
-import { TextInput, SearchInput, TextArea, Select, StartEndForm } from '@src/components/form'
-import Button from '@src/components/Button/Button'
-import DropZone from '@src/components/DropZone'
+import { TextInput, TextArea, Select, StartEndForm } from '@src/components/form'
+import DropZoneAdapter from '@src/components/finalForm/DropZoneAdapter'
 import ScrollTo from '@src/components/scroll/ScrollTo'
-import { ReactComponent as AddIcon } from '@src/assets/form/add.svg'
 import { checkError, required } from '@src/utils/validation'
-import { toDataUri } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import comicsMessages from '../../messages'
+import AuthorEditForm from '../../components/AuthorEditForm'
 import AdSettingForm from '../../components/AdSettingForm'
 import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
 import messages from '../messages'
@@ -27,11 +24,6 @@ interface Props {
 }
 
 const useStyle = makeStyles({
-  buttonMargin: {
-    '& button': {
-      marginLeft: '15px'
-    }
-  },
   tableClass: {
     '& .MuiGrid-container:not(.display) .MuiGrid-item': {
       padding: '15px 20px'
@@ -55,22 +47,11 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
     for (let i = 0; i < IMAGE_NUM; i++) {
       dataSet.push({
         label: `${formatMessage(comicsMessages.episodeImage)}${i + 1}`,
-        content: (
-          <Field name={`images[${i}]`}>
-            {({ input: { value, onChange } }) => (
-              <DropZone
-                classnames={classes.photo}
-                name={`images${i}`}
-                preview={value && <img src={toDataUri(value)} alt={`images${i}`} />}
-                onDropAccepted={files => onChange(files[0])}
-              />
-            )}
-          </Field>
-        )
+        content: <Field name={`images[${i}]`} component={DropZoneAdapter} />
       })
     }
     return dataSet
-  }, [formatMessage, classes])
+  }, [formatMessage])
 
   return (
     <>
@@ -78,7 +59,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
       <Form
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}
-        initialValues={{ ...workData }}
+        initialValues={workData ? { ...workData } : { author: [''] }}
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
@@ -120,16 +101,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 },
                 {
                   label: formatMessage(commonMessages.author),
-                  content: (
-                    <Field name='author'>
-                      {({ input, meta }) => (
-                        <Grid className={classes.buttonMargin} container alignItems='center'>
-                          <SearchInput {...input} error={checkError(meta)} icon={true} />
-                          <Button buttonText='新規作成' onClick={() => {}} icon={AddIcon} />
-                        </Grid>
-                      )}
-                    </Field>
-                  )
+                  content: <AuthorEditForm mutators={form.mutators as any} />
                 },
                 {
                   label: formatMessage(messages.category),

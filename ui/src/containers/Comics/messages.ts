@@ -66,5 +66,9 @@ export default defineMessages({
   campaignPrice: {
     id: PREFIX + 'campaign_price',
     defaultMessage: 'Campaign Price'
+  },
+  addAuthor: {
+    id: PREFIX + 'author_add',
+    defaultMessage: 'Add Author'
   }
 })

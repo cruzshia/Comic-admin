@@ -12,7 +12,7 @@ export default function ContentCreation() {
 
   const titleText = formatMessage(messages.create)
   const formRef = useRef<HTMLFormElement>(null)
-  const handleSubmitCreate = useCallback(() => {}, [])
+  const handleSubmitCreate = useCallback(data => console.log(data), [])
   const breadcrumbList = useMemo(
     () =>
       CONTENT_BREADCRUMBS.map(({ title, route }) => ({

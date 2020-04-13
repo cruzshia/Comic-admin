@@ -13,7 +13,7 @@ export const mockWork = {
   titleKana: 'ドラゴンクエストダイノダイボウケン',
   introduction:
     '【２０２０年 秋アニメ化決定！】モンスターに育てられた、勇者に憧れる少年・ダイ。師や仲間とともに、世界を救う冒険が今始まる——！',
-  author: 'イナダコウジ',
+  author: ['イナダコウジ'],
   category: 'コミックス',
   updateFrequency: '毎週月月金曜日に更新',
   rensai: 'ジャンプ本誌',

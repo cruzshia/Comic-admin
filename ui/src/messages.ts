@@ -202,5 +202,9 @@ export default defineMessages({
   setting: {
     id: PREFIX + 'setting',
     defaultMessage: 'Setting'
+  },
+  createNew: {
+    id: PREFIX + 'create_new',
+    defaultMessage: 'Create New'
   }
 })

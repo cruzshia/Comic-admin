@@ -1,16 +1,17 @@
-import React, { useRef, useMemo, useCallback } from 'react'
+import React, { useRef, useMemo, useCallback, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import Button from '@src/components/Button/Button'
 import { ButtonTheme } from '@src/components/Button/buttonTheme'
+import commonMessages from '@src/messages'
 import StickyHeader from './StickyHeader'
 import WorkForm from './WorkForm'
-import { mockWork } from '../mockData/mockWork'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
-import commonMessages from '@src/messages'
+import WorkContext from '../context/WorkContext'
 
 export default function WorkEdit() {
+  const { currentWork } = useContext(WorkContext)
   const formRef = useRef<HTMLFormElement>(null)
   const { formatMessage } = useIntl()
   const handleClickSubmit = useCallback(() => {
@@ -18,7 +19,7 @@ export default function WorkEdit() {
   }, [formRef])
   const handleSubmitUpdate = useCallback(data => console.log(data), [])
 
-  const titleText = mockWork.title
+  const titleText = currentWork.title
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
@@ -40,7 +41,7 @@ export default function WorkEdit() {
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <StickyHeader title={formatMessage(messages.createWork)} button={CreateButton} />
-      <WorkForm workData={mockWork} onSubmit={handleSubmitUpdate} formRef={formRef} withStickHeader />
+      <WorkForm workData={currentWork} onSubmit={handleSubmitUpdate} formRef={formRef} withStickHeader />
     </>
   )
 }

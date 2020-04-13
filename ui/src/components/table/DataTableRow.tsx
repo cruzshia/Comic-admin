@@ -8,7 +8,8 @@ const useStyles = makeStyles({
     width: '100%',
     margin: 0,
     '& .MuiGrid-item': {
-      padding: '20px'
+      padding: '20px',
+      maxWidth: '75%'
     }
   },
   title: {

@@ -20,7 +20,7 @@ export default function AdSettingForm({
   mutators: Mutators
 }) {
   const { formatMessage } = useIntl()
-  const createDeleteHandler = (idx: number) => () => mutators && mutators.remove(AD_COLUMN, idx)
+  const createDeleteHandler = (idx: number) => () => mutators.remove(AD_COLUMN, idx)
   const tableTitle = formatMessage(commonMessages.advertisementSetting)
   const dataSet = [
     {

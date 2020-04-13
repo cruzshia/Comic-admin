@@ -87,7 +87,7 @@ export default function WorkDetail() {
           toDataSet(formatMessage(messages.introduction), currentWork.introduction),
           toDataSet(
             formatMessage(commonMessages.author),
-            <span className={classes.blueText}>{currentWork.author}</span>
+            <span className={classes.blueText}>{currentWork.author[0]}</span>
           ),
           toDataSet(formatMessage(messages.category), currentWork.category),
           toDataSet(formatMessage(messages.reduction), currentWork.reduction),
