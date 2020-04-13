@@ -47,6 +47,7 @@
   "application.display_setting.section": "Section",
   "application.display_setting.status": "Status",
   "application.display_setting.supplement": "Supplement",
+  "application.input_coin_num": "Input coin number",
   "application.opened": "Opened",
   "application.push_notification": "Application Push Notification",
   "application.push_notification.create": "Create Push Notification ",

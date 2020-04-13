@@ -47,6 +47,7 @@
   "application.display_setting.section": "セクション",
   "application.display_setting.status": "",
   "application.display_setting.supplement": "補足",
+  "application.input_coin_num": "コイン枚数を入力",
   "application.opened": "公開中",
   "application.push_notification": "プッシュ通知ログ一覧",
   "application.push_notification.create": "プッシュ通知を登録",
