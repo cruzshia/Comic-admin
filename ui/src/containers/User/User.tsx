@@ -18,7 +18,7 @@ export default function User() {
       <Route exact path={routePath.user.returnGift} component={ReturnGift} />
       <Route exact path={routePath.user.inquiry} component={Inquiry} />
       <Route exact path={routePath.user.notification} component={Notification} />
-      <Route exact path={routePath.user.questionnaire} component={Questionnaire} />
+      <Route path={routePath.user.questionnaire} component={Questionnaire} />
     </Switch>
   )
 }

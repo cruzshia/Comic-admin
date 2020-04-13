@@ -17,8 +17,8 @@ export default function AuthorForm({ author, onSubmit, formRef }: Props) {
   return (
     <Form
       onSubmit={onSubmit}
-      initialValues={{ ...author }}
-      render={({ handleSubmit, form }) => (
+      initialValues={author}
+      render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit} ref={formRef}>
           <DataTable
             title={formatMessage(commonMessages.basicInfo)}
@@ -27,13 +27,10 @@ export default function AuthorForm({ author, onSubmit, formRef }: Props) {
                 formatMessage(commonMessages.id),
                 author ? author.id : <Field name='id' component={TextInputAdapter} />
               ),
+              toDataSet(formatMessage(commonMessages.authorName), <Field name='name' component={TextInputAdapter} />),
               toDataSet(
-                formatMessage(commonMessages.authorName),
-                <Field name='name' value={author?.name} component={TextInputAdapter} />
-              ),
-              toDataSet(
-                formatMessage(commonMessages.authorName),
-                <Field name='nameKana' value={author?.nameKana} component={TextInputAdapter} />
+                formatMessage(commonMessages.authorNameKana),
+                <Field name='nameKana' component={TextInputAdapter} />
               )
             ]}
           />

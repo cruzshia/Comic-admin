@@ -6,10 +6,13 @@ import QuestionnaireDetail from './components/QuestionnaireDetail'
 import QuestionnaireEdit from './components/QuestionnaireEdit'
 import QuestionnaireCreation from './components/QuestionnaireCreation'
 import QuestionnaireContext from './context/QuestionnaireContext'
+import { mockQuestionnaireList } from './mockData/mockData'
 
 export default function Questionnaire() {
   return (
-    <QuestionnaireContext.Provider value={{ questionnaireList: [], questionnaireTotal: 0 }}>
+    <QuestionnaireContext.Provider
+      value={{ questionnaireList: mockQuestionnaireList, questionnaireTotal: mockQuestionnaireList.length }}
+    >
       <Switch>
         <Route exact path={routePath.user.questionnaire} component={QuestionnaireList} />
         <Route exact path={routePath.user.questionnaireDetail} component={QuestionnaireDetail} />

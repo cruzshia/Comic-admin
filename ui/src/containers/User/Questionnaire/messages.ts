@@ -22,5 +22,9 @@ export default defineMessages({
   category: {
     id: PREFIX + 'category',
     defaultMessage: 'Questionnaire Category'
+  },
+  answerReward: {
+    id: PREFIX + 'answer_reward',
+    defaultMessage: 'Answer Reward'
   }
 })
