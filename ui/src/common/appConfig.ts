@@ -71,6 +71,9 @@ export const routePath = {
     returnGift: `${RouteSection.User}/return_gift`,
     inquiry: `${RouteSection.User}/inquiry`,
     notification: `${RouteSection.User}/notification`,
-    questionnaire: `${RouteSection.User}/questionnaire`
+    questionnaire: `${RouteSection.User}/questionnaire`,
+    questionnaireDetail: `${RouteSection.User}/questionnaire/detail/:id`,
+    questionnaireEdit: `${RouteSection.User}/questionnaire/edit/:id`,
+    questionnaireCreation: `${RouteSection.User}/questionnaire/creation`
   }
 }

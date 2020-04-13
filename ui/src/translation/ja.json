@@ -269,6 +269,11 @@
   "user.ng_word.comment_ng_word": "コメントNGワード",
   "user.ng_word_management": "NGワード管理",
   "user.notification_management": "お知らせ管理",
+  "user.questionnaire.category": "アンケート種別",
+  "user.questionnaire.id": "アンケートID",
+  "user.questionnaire.list": "アンケート一覧",
+  "user.questionnaire.name": "アンケート名",
+  "user.questionnaire.start_create": "アンケートを登録",
   "user.questionnaire_management": "アンケート管理",
   "user.return_gift": "贈答（コイン・マンガ）",
   "user.status": "ステータス"

@@ -269,6 +269,11 @@
   "user.ng_word.comment_ng_word": "Comment NG Word",
   "user.ng_word_management": "NG word Management",
   "user.notification_management": "Notification Management",
+  "user.questionnaire.category": "Questionnaire Category",
+  "user.questionnaire.id": "Questionnaire ID",
+  "user.questionnaire.list": "Questionnaire List",
+  "user.questionnaire.name": "Questionnaire Name",
+  "user.questionnaire.start_create": "Create questionnaire",
   "user.questionnaire_management": "Questionnaire Management",
   "user.return_gift": "Return Gift Management",
   "user.status": "Status"
