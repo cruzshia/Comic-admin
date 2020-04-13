@@ -41,7 +41,7 @@ export default function DataTableRow({ title, content, classnames }: Props) {
       <Grid item xs={3} className={classes.title}>
         {title}
       </Grid>
-      <Grid item className={classes.content}>
+      <Grid item xs={9} className={classes.content}>
         {content}
       </Grid>
     </Grid>

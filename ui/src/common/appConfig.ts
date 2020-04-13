@@ -54,7 +54,10 @@ export const routePath = {
     coinProductEdit: `${RouteSection.Application}/coin_product/edit/:id`,
     coinProductDetail: `${RouteSection.Application}/coin_product/detail/:id`,
     coinProductCreation: `${RouteSection.Application}/coin_product/creation`,
-    applicationInfo: `${RouteSection.Application}/application_info`
+    applicationInfo: `${RouteSection.Application}/application_info`,
+    applicationInfoEdit: `${RouteSection.Application}/application_info/edit/:id`,
+    applicationInfoDetail: `${RouteSection.Application}/application_info/detail/:id`,
+    applicationInfoCreation: `${RouteSection.Application}/application_info/creation`
   },
   user: {
     base: RouteSection.User,
