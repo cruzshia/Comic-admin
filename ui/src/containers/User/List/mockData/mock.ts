@@ -1,3 +1,5 @@
+import { _range } from '@src/utils/functions'
+
 export const mockUser = {
   id: 'WORK_SHUNKAN10000006',
   nickName: 'サンプルテキスト',
@@ -70,6 +72,17 @@ export const mockUserList = new Array(6)
   .map((e, idx) => ({
     ...mockUserUnit,
     id: mockUserUnit.id + idx,
-    status: idx % 2 === 0 ? 'アクティブ' : '退会済み'
+    createDateTime: `2019-12-25 00:0${idx + 1}`,
+    lastLoginTime: `2019-12-25 00:0${idx + 1}`,
+    status: idx % 2 === 0 ? '退会済み' : 'アクティブ'
   }))
-  .concat([{ ...mockUserUnit, status: '退会済み' }])
+  .concat([{ ...mockUserUnit, id: mockUserUnit.id + 7, status: '退会済み' }])
+
+export const mockCsvExportLogs = _range(0, 7).map(idx => ({
+  id: `log-${idx}`,
+  createDateTime: `2020-01-21 16:3${idx}`,
+  updateDateTime: '2020-01-21 16:34',
+  fileName: 'works_master_202003310015.zip',
+  status: idx === 6 ? 'failure' : 'success'
+}))
+export const mockCsvLogsTotal = mockCsvExportLogs.length

@@ -1,16 +1,19 @@
-import React, { useCallback, useMemo, useContext, useState } from 'react'
+import React, { useCallback, useMemo, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
 import { routePath } from '@src/common/appConfig'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
-import ListTable, { SortOrder } from '@src/components/table/ListTable'
+import ListTable from '@src/components/table/ListTable'
 import Button from '@src/components/Button/Button'
+import useSort from '@src/hooks/useSort'
+import usePaging from '@src/hooks/usePaging'
 import UserContext from '../context/UserContext'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS, ListTableProp } from '../constants'
 import { toListTableData } from '../../utils'
 import { ReactComponent as PublishIco } from '@src/assets/common/publish.svg'
+import { backgroundColorGray } from '@src/common/styles'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
@@ -26,6 +29,9 @@ const useStyles = makeStyles({
     '& .ListTable-col-5': {
       width: 180
     }
+  },
+  dark: {
+    backgroundColor: backgroundColorGray
   }
 })
 
@@ -34,9 +40,8 @@ export default function UserList() {
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { userList, userTotal } = useContext(UserContext)
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Desc)
-  const [sortBy, setSortBy] = useState<ListTableProp>(ListTableProp.CreateDateTime)
-  const [page, setPage] = useState<number>(1)
+  const { sortBy, handleSort } = useSort('createDateTime')
+  const { pagination, handlePageChange } = usePaging({ total: userTotal })
 
   const breadcrumbList: Breadcrumb[] = BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) }))
   const titleText = formatMessage(messages.userList)
@@ -45,20 +50,13 @@ export default function UserList() {
 
   const buttonList = [
     <Button buttonText={formatMessage(commonMessages.csvExport)} icon={PublishIco} />,
-    <Button buttonText={formatMessage(commonMessages.csvExportLogs)} />
+    <Button
+      buttonText={formatMessage(commonMessages.csvExportLogs)}
+      onClick={() => {
+        history.push(routePath.user.userExportLogs)
+      }}
+    />
   ]
-
-  const handleSort = useCallback(
-    (id: any, sortOrder: SortOrder, e: any) => {
-      if (sortBy === id) {
-        setSortOrder(sortOrder === SortOrder.Asc ? SortOrder.Desc : SortOrder.Asc)
-        return
-      }
-      setSortOrder(SortOrder.Desc)
-      setSortBy(id)
-    },
-    [sortBy]
-  )
   const theadList = useMemo(
     () => [
       {
@@ -83,27 +81,15 @@ export default function UserList() {
       userList
         .map(user => ({
           id: user.id,
+          classnames: user.status === '退会済み' ? classes.dark : undefined,
           data: toListTableData(user, ListTableProp)
         }))
-        .sort((a, b) => (Date.parse(a.data[sortBy]) - Date.parse(b.data[sortBy])) * (sortOrder === 'desc' ? 1 : -1)),
-    [sortBy, sortOrder, userList]
-  )
-
-  const pagination = useMemo(
-    () => ({
-      total: userTotal,
-      start: (page - 1) * 10 + 1
-    }),
-    [page, userTotal]
-  )
-  const handlePageChange = useCallback(
-    (_: React.ChangeEvent<unknown>, page: number) => {
-      setPage(page)
-    },
-    [setPage]
+        .sort((a, b) => (Date.parse(a.data[sortBy.key]) - Date.parse(b.data[sortBy.key])) * sortBy.multiplier),
+    [sortBy, userList, classes.dark]
   )
 
   const handleRowClick = useCallback(id => history.push(routePath.user.userDetail.replace(':id', id)), [history])
+
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} />
@@ -115,8 +101,8 @@ export default function UserList() {
         buttonList={buttonList}
         dataList={displayData}
         pagination={pagination}
-        sortOrder={sortOrder}
-        sortBy={sortBy}
+        sortOrder={sortBy.order}
+        sortBy={sortBy.key}
         onRowClick={handleRowClick}
       />
     </>
