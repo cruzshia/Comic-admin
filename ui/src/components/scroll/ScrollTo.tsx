@@ -5,7 +5,7 @@ import { topOffset, stickBarOffset } from '@src/common/styles'
 
 interface Props {
   anchorRef: { [key: string]: RefObject<HTMLDivElement> }
-  withStickHeader: boolean
+  withStickHeader?: boolean
 }
 
 export default function ScrollTo({ anchorRef, withStickHeader }: Props) {

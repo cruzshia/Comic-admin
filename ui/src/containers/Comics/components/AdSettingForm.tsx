@@ -14,10 +14,12 @@ const AD_COLUMN = 'contents'
 
 export default function AdSettingForm({
   adSettingRef,
-  mutators
+  mutators,
+  marginBottom
 }: {
   adSettingRef?: React.RefObject<HTMLDivElement>
   mutators: Mutators
+  marginBottom?: boolean
 }) {
   const { formatMessage } = useIntl()
   const createDeleteHandler = (idx: number) => () => mutators.remove(AD_COLUMN, idx)
@@ -54,5 +56,5 @@ export default function AdSettingForm({
       )
     }
   ]
-  return <DataTable title={tableTitle} dataSet={dataSet} innerRef={adSettingRef} />
+  return <DataTable title={tableTitle} dataSet={dataSet} innerRef={adSettingRef} marginBottom={marginBottom} />
 }

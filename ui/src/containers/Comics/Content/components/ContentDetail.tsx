@@ -6,13 +6,14 @@ import ContentHeader from '@src/components/ContentHeader'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
-import { routePath } from '@src/common/appConfig'
+import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import { hyperlinkColor, borderColorLight } from '@src/common/styles'
 import { _range } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import AdSettingTable from '../../components/AdSettingTable'
 import ContentContext from '../context/ContentContext'
 import { CONTENT_BREADCRUMBS, MAGAZINE_BANNER_NUM } from '../constants'
+import { ContentAnchor } from './ContentForm'
 import comicMessages from '../../messages'
 import messages from '../messages'
 
@@ -40,24 +41,25 @@ export default function ContentDetail() {
       ]),
     [formatMessage]
   )
+
+  const handleRedirect = useCallback(
+    (target?: ContentAnchor) => () =>
+      history.push(routePath.comics.contentEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')),
+    [history, id]
+  )
+
+  const handleEdit = useCallback(() => handleRedirect(), [handleRedirect])
   const buttonList = useMemo(
     () => [
       <Button
         theme={Theme.DARK_BORDER}
         icon={IconEdit}
         buttonText={formatMessage(messages.edit)}
-        onClick={() => {
-          history.push(routePath.comics.contentEdit.replace(':id', id!))
-        }}
+        onClick={handleEdit}
       />
     ],
-    [formatMessage, history, id]
+    [formatMessage, handleEdit]
   )
-
-  const handleRedirect = useCallback(() => history.push(routePath.comics.contentEdit.replace(':id', id!)), [
-    history,
-    id
-  ])
 
   return (
     <>
@@ -90,6 +92,7 @@ export default function ContentDetail() {
         marginBottom
       />
       <DataTable
+        onEdit={handleRedirect(ContentAnchor.Delivery)}
         title={formatMessage(commonMessages.deliveryDuration)}
         dataSet={[
           toDataSet(formatMessage(commonMessages.deliveryStartDateTime), currentContent.deliverStart),
@@ -100,6 +103,7 @@ export default function ContentDetail() {
         marginBottom
       />
       <DataTable
+        onEdit={handleRedirect(ContentAnchor.FreePPV)}
         title={formatMessage(messages.freePPVDuration)}
         dataSet={[
           toDataSet(formatMessage(messages.freePPVStart, { num: 1 }), currentContent.freePPVStart1),
@@ -109,15 +113,16 @@ export default function ContentDetail() {
         ]}
         marginBottom
       />
-      <AdSettingTable data={currentContent.advertisement} onEdit={handleRedirect} />
+      <AdSettingTable data={currentContent.advertisement} onEdit={handleRedirect(ContentAnchor.AdSetting)} />
       <DataTable
+        onEdit={handleRedirect(ContentAnchor.Magazine)}
         title={formatMessage(messages.magazineBannerSetting)}
         dataSet={[
-          toDataSet('', formatMessage(commonMessages.deviceCommon), true),
+          toDataSet('', currentContent.magazineBanner.deviceCategory, true),
           ..._range(0, MAGAZINE_BANNER_NUM).map(num =>
             toDataSet(
               `${formatMessage(messages.magazineBannerSetting)}${num + 1}`,
-              currentContent.magazineBanner[num].map((setting: any, idx: number) => (
+              currentContent.magazineBanner.contents[num].map((setting: any, idx: number) => (
                 <DataTable
                   key={`mag${num}-setting${idx}`}
                   tableClass={idx > 0 ? classes.overlapTable : ''}

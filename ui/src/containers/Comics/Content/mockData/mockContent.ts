@@ -22,16 +22,16 @@ export const mockContent = {
   thumbnail: mockCover,
   adImage: mockCover,
   requestId: 'WORK_SHUNKAN10000006',
-  createAt: '2019-12-25 00:00:00',
-  updateAt: '2019-12-25 00:00:00',
-  deliverStart: '2019-12-25 00:00:00',
-  deliverEnd: '2019-12-25 00:00:00',
-  paidCoinDeliverStart: '2019-12-25 00:00:00',
-  paidCoinDeliverEnd: '2019-12-25 00:00:00',
-  freePPVStart1: '2019-12-25 00:00:00',
-  freePPVEnd1: '2019-12-25 00:00:00',
-  freePPVStart2: '2019-12-25 00:00:00',
-  freePPVEnd2: '2019-12-25 00:00:00',
+  createAt: '2019-12-25 00:00',
+  updateAt: '2019-12-25 00:00',
+  deliverStart: '2019-12-25 00:00',
+  deliverEnd: '2019-12-25 00:00',
+  paidCoinDeliverStart: '2019-12-25 00:00',
+  paidCoinDeliverEnd: '2019-12-25 00:00',
+  freePPVStart1: '2019-12-25 00:00',
+  freePPVEnd1: '2019-12-25 00:00',
+  freePPVStart2: '2019-12-25 00:00',
+  freePPVEnd2: '2019-12-25 00:00',
   advertisement: {
     deviceCategory: 'common',
     content: {
@@ -39,7 +39,7 @@ export const mockContent = {
       image: mockManga,
       link: 'https://shonenjumpplus.com/episode/10834108156758729535',
       buttonName: 'サンプルテキスト',
-      deliveryDuration: '2020-02-20 19:00:00　〜　2020-02-20 19:00:00'
+      deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00'
     },
     contents: [
       {
@@ -55,38 +55,41 @@ export const mockContent = {
         image: mockManga,
         link: 'https://shonenjumpplus.com/episode/10834108156758729535',
         buttonName: 'サンプルテキスト',
-        deliveryDuration: '2020-02-20 19:00:00　〜　2020-02-20 19:00:00'
+        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00'
       }
     ]
   },
-  magazineBanner: [
-    [
-      {
-        condition: '単品購入者（定期購読）',
-        image: mockGreyImg,
-        url: 'https://shonenjumpplus.com/episode/10834108156758729535'
-      }
-    ],
-    [
-      {
-        condition: '全員',
-        image: mockGreyImg,
-        url: 'https://shonenjumpplus.com/episode/10834108156758729535'
-      }
-    ],
-    [
-      {
-        condition: '未購入者',
-        image: mockGreyImg,
-        url: 'https://shonenjumpplus.com/episode/10834108156758729535'
-      },
-      {
-        condition: '定期購読者',
-        image: mockGreyImg,
-        url: 'https://shonenjumpplus.com/episode/10834108156758729535'
-      }
+  magazineBanner: {
+    deviceCategory: '',
+    contents: [
+      [
+        {
+          condition: '単品購入者（定期購読）',
+          image: mockGreyImg,
+          url: 'https://shonenjumpplus.com/episode/10834108156758729535'
+        }
+      ],
+      [
+        {
+          condition: '全員',
+          image: mockGreyImg,
+          url: 'https://shonenjumpplus.com/episode/10834108156758729535'
+        }
+      ],
+      [
+        {
+          condition: '未購入者',
+          image: mockGreyImg,
+          url: 'https://shonenjumpplus.com/episode/10834108156758729535'
+        },
+        {
+          condition: '定期購読者',
+          image: mockGreyImg,
+          url: 'https://shonenjumpplus.com/episode/10834108156758729535'
+        }
+      ]
     ]
-  ]
+  }
 }
 
 export const mockContentList = _range(0, 4).map(num => ({
@@ -97,5 +100,5 @@ export const mockContentList = _range(0, 4).map(num => ({
   price: 100 + num,
   campaignPrice: 99,
   sort: 100 + num,
-  createAt: `2020-01-21 16:34:0${num}`
+  createAt: `2020-01-21 16:3${num}`
 }))
