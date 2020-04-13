@@ -6,12 +6,18 @@ import CoinProductEdit from './components/CoinProductEdit'
 import CoinProductDetail from './components/CoinProductDetail'
 import CoinProductCreation from './components/CoinProductCreation'
 import CoinProductContext from './context/CoinProductContext'
-import { mockCoinProductDetail } from './mockData/mockCoinProduct'
+import { mockCoinProductDetail, mockCoinProductList } from './mockData/mockCoinProduct'
 
 export default function CoinProduct() {
   return (
     <Switch>
-      <CoinProductContext.Provider value={{ productList: [], productTotal: 0, currentProduct: mockCoinProductDetail }}>
+      <CoinProductContext.Provider
+        value={{
+          productList: mockCoinProductList,
+          productTotal: mockCoinProductList.length,
+          currentProduct: mockCoinProductDetail
+        }}
+      >
         <Route exact path={routePath.application.coinProduct} component={CoinProductList} />
         <Route exact path={routePath.application.coinProductEdit} component={CoinProductEdit} />
         <Route exact path={routePath.application.coinProductCreation} component={CoinProductCreation} />

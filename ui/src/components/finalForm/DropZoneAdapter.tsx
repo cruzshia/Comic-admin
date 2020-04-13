@@ -13,7 +13,7 @@ const useStyle = makeStyles(() => ({
   }
 }))
 
-export default function SearchInputAdapter({ input: { name, value, onChange }, maxWidth }: FieldRenderProps<string>) {
+export default function DropZoneAdapter({ input: { name, value, onChange }, maxWidth }: FieldRenderProps<string>) {
   const classes = useStyle(maxWidth)
   return (
     <div className={classes.previewBox}>
