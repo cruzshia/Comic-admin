@@ -16,14 +16,24 @@ const useStyle = makeStyles({
 
 interface Prop {
   title: string
-  classnames?: string
-  innerRef?: React.RefObject<any>
   startLabel: string
   startName: string
   endLabel: string
   endName: string
+  classnames?: string
+  innerRef?: React.RefObject<any>
+  marginBottom?: boolean
 }
-export default function StartEndForm({ classnames, title, innerRef, startLabel, startName, endLabel, endName }: Prop) {
+export default function StartEndForm({
+  classnames,
+  title,
+  innerRef,
+  startLabel,
+  startName,
+  endLabel,
+  endName,
+  marginBottom
+}: Prop) {
   const classes = useStyle()
   return (
     <DataTable
@@ -40,6 +50,7 @@ export default function StartEndForm({ classnames, title, innerRef, startLabel, 
           content: <Field name={endName} component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
         }
       ]}
+      marginBottom={marginBottom}
     />
   )
 }

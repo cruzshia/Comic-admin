@@ -38,11 +38,11 @@ const useStyle = makeStyles({
 export default function WorksCampaignForm({ onSubmit, formRef }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
-  const { anchorRefs, deliveryRef, adSettingRef, episodeInfoRef } = useComicsRef()
+  const { allAnchorRefs, deliveryRef, adSettingRef, episodeInfoRef } = useComicsRef()
 
   return (
     <>
-      <ScrollTo anchorRef={anchorRefs} withStickHeader />
+      <ScrollTo anchorRef={allAnchorRefs} withStickHeader />
       <Form
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}

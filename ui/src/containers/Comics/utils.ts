@@ -6,23 +6,27 @@ export const IMAGE_MAX_WIDTH = '40%'
 export enum ScrollAnchor {
   Delivery = 'delivery',
   AdSetting = 'adSetting',
-  EpisodeInfo = 'episodeInfo'
+  EpisodeInfo = 'episodeInfo',
+  CampaignTime = 'campaignTime'
 }
 
 export const useComicsRef = () => {
   const deliveryRef = useRef<HTMLDivElement>(null)
   const adSettingRef = useRef<HTMLDivElement>(null)
   const episodeInfoRef = useRef<HTMLDivElement>(null)
-  const anchorRefs = {
+  const campaignTimeRef = useRef<HTMLDivElement>(null)
+  const allAnchorRefs = {
     [ScrollAnchor.Delivery]: deliveryRef,
     [ScrollAnchor.AdSetting]: adSettingRef,
-    [ScrollAnchor.EpisodeInfo]: episodeInfoRef
+    [ScrollAnchor.EpisodeInfo]: episodeInfoRef,
+    [ScrollAnchor.CampaignTime]: campaignTimeRef
   }
 
   return {
-    anchorRefs,
+    allAnchorRefs,
     deliveryRef,
     adSettingRef,
-    episodeInfoRef
+    episodeInfoRef,
+    campaignTimeRef
   }
 }

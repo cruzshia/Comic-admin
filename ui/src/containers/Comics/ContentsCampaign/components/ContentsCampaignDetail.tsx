@@ -6,11 +6,12 @@ import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import commonMessages from '@src/messages'
-import { routePath } from '@src/common/appConfig'
+import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import ContentsCampaignContext from '../context/ContentsCampaignContext'
 import { BREADCRUMBS } from '../constants'
 import comicMessages from '../../messages'
 import messages from '../messages'
+import { ScrollAnchor } from '../../utils'
 
 export default function ContentCampaignDetail() {
   const { currentContentCampaign } = useContext(ContentsCampaignContext)
@@ -26,10 +27,16 @@ export default function ContentCampaignDetail() {
       })).concat([{ title: titleText, route: undefined }]),
     [formatMessage, titleText]
   )
-  const handleEdit = useCallback(() => history.push(routePath.comics.contentsCampaignEdit.replace(':id', id!)), [
-    id,
-    history
-  ])
+
+  const handleRedirect = useCallback(
+    (target?: ScrollAnchor) => () =>
+      history.push(
+        routePath.comics.contentsCampaignEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')
+      ),
+    [history, id]
+  )
+  const handleEdit = useMemo(() => handleRedirect(), [handleRedirect])
+
   const buttonList = useMemo(
     () => [
       <Button
@@ -62,7 +69,7 @@ export default function ContentCampaignDetail() {
       />
       <DataTable
         title={formatMessage(commonMessages.deliveryDuration)}
-        onEdit={handleEdit}
+        onEdit={handleRedirect(ScrollAnchor.Delivery)}
         dataSet={[
           toDataSet(formatMessage(commonMessages.deliveryStartDateTime), currentContentCampaign.deliverStart),
           toDataSet(formatMessage(commonMessages.deliveryEndDateTime), currentContentCampaign.deliverEnd)
@@ -71,7 +78,7 @@ export default function ContentCampaignDetail() {
       />
       <DataTable
         title={formatMessage(messages.campaignPeriod)}
-        onEdit={handleEdit}
+        onEdit={handleRedirect(ScrollAnchor.CampaignTime)}
         dataSet={[
           toDataSet(formatMessage(commonMessages.startTime), currentContentCampaign.campaignStart),
           toDataSet(formatMessage(commonMessages.endTime), currentContentCampaign.campaignEnd)

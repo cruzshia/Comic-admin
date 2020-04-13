@@ -16,7 +16,7 @@ export const mockCampaign = {
 }
 
 export const mockCampaignList = _range(1, 7).map(num => ({
-  campaignId: 'WORK_SHUNKAN10000006',
+  campaignId: `WORK_SHUNKAN1000000${num}`,
   contentId: 'WORK_SHUNKAN10000006',
   priority: 100,
   contentPrice: 100,
