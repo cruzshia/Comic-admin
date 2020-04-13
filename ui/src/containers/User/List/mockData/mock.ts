@@ -38,8 +38,22 @@ export const mockUser = {
   storePurchaseLogs: 10,
   bonusCoinsChargeLogs: 10,
   paidCoinsChargeLogs: 10,
-  device1: 'サンプルテキストのiPhone',
-  device2: 'サンプルテキストのiPad '
+  device1: {
+    name: 'サンプルテキストのiPhone',
+    deviceId: 'サンプルテキスト',
+    model: 'サンプルテキスト',
+    osInfo: 'サンプルテキスト',
+    createDateTime: '2019-12-25 00:00',
+    updateDateTime: '2019-12-25 00:00'
+  },
+  device2: {
+    name: 'サンプルテキストのiPhone',
+    deviceId: 'サンプルテキスト',
+    model: 'サンプルテキスト',
+    osInfo: 'サンプルテキスト',
+    createDateTime: '2019-12-25 00:00',
+    updateDateTime: '2019-12-25 00:00'
+  }
 }
 
 export const mockUserUnit = {

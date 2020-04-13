@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
-import { borderColorLight } from '@src/common/styles'
+import { borderColorLight, backgroundColorLightGray } from '@src/common/styles'
 
 const useStyle = makeStyles(() => ({
   scrollBox: {
@@ -8,7 +8,7 @@ const useStyle = makeStyles(() => ({
     width: ({ width }: Prop) => width || 800,
     height: ({ height }: Prop) => height || 188,
     padding: '10px 15px',
-    backgroundColor: '#FAFAFA',
+    backgroundColor: backgroundColorLightGray,
     border: `1px solid ${borderColorLight}`,
     overflowY: 'auto',
     whiteSpace: 'pre-wrap',

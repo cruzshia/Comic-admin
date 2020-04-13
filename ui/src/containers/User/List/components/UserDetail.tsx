@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Field } from 'react-final-form'
 import { useIntl } from 'react-intl'
@@ -10,7 +10,8 @@ import { SelectAdapter, AmountInputAdapter, SearchInputAdapter, TextInputAdapter
 import Button, { Theme } from '@src/components/Button/Button'
 import { TimeSpanInput } from '@src/components/form'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
-import { ReactComponent as IconList } from '@src/assets/form/round_list.svg'
+import { ReactComponent as ListIcon } from '@src/assets/form/round_list.svg'
+import DeviceDiaLog from './DeviceDiaLog'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
@@ -74,7 +75,11 @@ export default function UserDetail() {
   const { formatMessage } = useIntl()
   const { currentUser } = useContext(UserContext)
   const classes = useStyles()
-
+  const [open, setOpen] = useState<boolean>(false)
+  const [selectedDevice, setSelectedDevice] = useState<any>(undefined)
+  const handleClose = () => {
+    setOpen(false)
+  }
   const titleText = formatMessage(messages.userDetail)
   const breadcrumbList = useMemo(
     () =>
@@ -254,15 +259,25 @@ export default function UserDetail() {
                 toDataSet(
                   `${formatMessage(messages.device)}1`,
                   <div className={classes.device}>
-                    <div>{currentUser.device1}</div>
-                    <IconList onClick={() => {}} />
+                    <div>{currentUser.device1.name}</div>
+                    <ListIcon
+                      onClick={() => {
+                        setOpen(true)
+                        setSelectedDevice(currentUser.device1)
+                      }}
+                    />
                   </div>
                 ),
                 toDataSet(
                   `${formatMessage(messages.device)}2`,
                   <div className={classes.device}>
-                    <div>{currentUser.device1}</div>
-                    <IconList onClick={() => {}} />
+                    <div>{currentUser.device2.name}</div>
+                    <ListIcon
+                      onClick={() => {
+                        setOpen(true)
+                        setSelectedDevice(currentUser.device2)
+                      }}
+                    />
                   </div>
                 )
               ]}
@@ -327,6 +342,7 @@ export default function UserDetail() {
           </form>
         )}
       />
+      <DeviceDiaLog onClose={handleClose} open={open} selectedDevice={selectedDevice} />
     </>
   )
 }

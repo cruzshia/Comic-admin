@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, makeStyles } from '@material-ui/core'
-import { borderColorLight, fontWeightBold } from '@src/common/styles'
+import { borderColorLight, fontWeightBold, backgroundColorLightGray } from '@src/common/styles'
 import clsx from 'clsx'
 
 const useStyles = makeStyles({
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     borderRight: `1px solid ${borderColorLight}`,
     fontSize: 12,
     fontWeight: fontWeightBold,
-    backgroundColor: '#FAFAFA'
+    backgroundColor: backgroundColorLightGray
   },
   content: {
     flexGrow: 1,

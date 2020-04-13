@@ -17,6 +17,7 @@ export const borderColorLight = '#E0E0E0'
 export const backgroundColor = '#F5F5F5'
 export const backgroundColorGray = '#E0E0E0'
 export const backgroundColorLight = '#F8F8F8'
+export const backgroundColorLightGray = '#FAFAFA'
 export const disableColor = '#E0E0E0'
 export const fontWeightBold = 600
 export const hyperlinkColor = '#1A0DAB'

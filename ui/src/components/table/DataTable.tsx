@@ -73,6 +73,7 @@ interface Props {
   innerTable?: boolean
   marginBottom?: boolean
   buttons?: JSX.Element
+  titleClass?: string
 }
 
 export default function DataTable({
@@ -83,7 +84,8 @@ export default function DataTable({
   innerRef,
   innerTable,
   marginBottom,
-  buttons
+  buttons,
+  titleClass
 }: Props) {
   const classes = useStyle()
 
@@ -96,6 +98,7 @@ export default function DataTable({
           alignItems='center'
           marginBottom='15px'
           maxWidth={contentWidth}
+          className={titleClass}
         >
           <Typography variant='subtitle1' data-testid='data-table-title'>
             {title}

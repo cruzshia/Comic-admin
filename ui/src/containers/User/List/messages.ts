@@ -178,5 +178,21 @@ export default defineMessages({
   gift: {
     id: PREFIX + '.gift',
     defaultMessage: 'Gift'
+  },
+  model: {
+    id: PREFIX + '.model',
+    defaultMessage: 'Model'
+  },
+  deviceId: {
+    id: PREFIX + '.device_id',
+    defaultMessage: 'Device Id'
+  },
+  osInfo: {
+    id: PREFIX + '.os_info',
+    defaultMessage: 'Os Info'
+  },
+  deleteDevice: {
+    id: PREFIX + '.delete_device',
+    defaultMessage: 'Delete Device'
   }
 })

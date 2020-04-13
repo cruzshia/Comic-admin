@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { Grid, makeStyles } from '@material-ui/core'
+import { backgroundColorLightGray } from '@src/common/styles'
 import clsx from 'clsx'
 import menuIcon from '@src/assets/common/menu.svg'
 import closeIcon from '@src/assets/common/close.svg'
@@ -13,7 +14,7 @@ const useStyle = makeStyles({
     position: 'relative',
     width: 920,
     padding: '20px 40px 21px 15px',
-    backgroundColor: '#FAFAFA',
+    backgroundColor: backgroundColorLightGray,
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.1)',
     borderRadius: '4px'
   },
