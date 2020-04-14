@@ -4,5 +4,5 @@ import messages from './messages'
 
 export const BREADCRUMBS = [
   { title: commonMessages.comicsManagement },
-  { title: messages.comicsWorksCampaign, route: routePath.comics.worksCampaign }
+  { title: messages.list, route: routePath.comics.worksCampaign }
 ]

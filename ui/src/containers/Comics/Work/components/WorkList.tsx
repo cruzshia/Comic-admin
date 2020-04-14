@@ -107,11 +107,7 @@ export default function WorkList() {
 
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.comicsWork)}
-        buttonList={buttonList}
-      />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.list)} buttonList={buttonList} />
       <SearchBlock onSubmit={handleSearch} />
       <ListTable
         tableClass={classes.table}

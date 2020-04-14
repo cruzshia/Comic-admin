@@ -4,7 +4,7 @@ import { routePath } from '@src/common/appConfig'
 
 export const CONTENT_BREADCRUMBS = [
   { title: commonMessages.comicsManagement },
-  { title: messages.management, route: routePath.comics.content }
+  { title: messages.list, route: routePath.comics.content }
 ]
 
 export const MAGAZINE_BANNER_NUM = 3

@@ -127,8 +127,8 @@ export const SIDEBAR_TABS: { [key: string]: Tab[] } = {
       title: messages.userReturnGift
     },
     {
-      to: routePath.user.inquiry,
-      title: messages.userInquiryManagement
+      to: routePath.user.contactUs,
+      title: messages.userContactUs
     },
     {
       to: routePath.user.notification,

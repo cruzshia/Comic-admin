@@ -71,7 +71,6 @@ export const routePath = {
     commentEdit: `${RouteSection.User}/comment/edit/:id`,
     ngWord: `${RouteSection.User}/ng_word`,
     returnGift: `${RouteSection.User}/return_gift`,
-    inquiry: `${RouteSection.User}/inquiry`,
     notification: `${RouteSection.User}/notification`,
     notificationDetail: `${RouteSection.User}/notification/detail/:id`,
     notificationEdit: `${RouteSection.User}/notification/edit/:id`,
@@ -79,6 +78,8 @@ export const routePath = {
     questionnaire: `${RouteSection.User}/questionnaire`,
     questionnaireDetail: `${RouteSection.User}/questionnaire/detail/:id`,
     questionnaireEdit: `${RouteSection.User}/questionnaire/edit/:id`,
-    questionnaireCreation: `${RouteSection.User}/questionnaire/creation`
+    questionnaireCreation: `${RouteSection.User}/questionnaire/creation`,
+    contactUs: `${RouteSection.User}/contact_us`,
+    contactUsDetail: `${RouteSection.User}/contact_us/detail/:id`
   }
 }

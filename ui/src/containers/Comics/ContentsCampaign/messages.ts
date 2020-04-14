@@ -1,6 +1,10 @@
 import { defineMessages } from 'react-intl'
 const PREFIX = 'comics.contents_campaign.'
 export default defineMessages({
+  list: {
+    id: PREFIX + 'list',
+    defaultMessage: 'Content Campaign List'
+  },
   management: {
     id: PREFIX + 'management',
     defaultMessage: 'Content Campaign Management'

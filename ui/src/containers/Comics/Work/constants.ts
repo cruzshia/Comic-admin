@@ -4,5 +4,5 @@ import { routePath } from '@src/common/appConfig'
 
 export const BREADCRUMBS = [
   { title: commonMessages.comicsManagement },
-  { title: messages.comicsWork, route: routePath.comics.work }
+  { title: messages.list, route: routePath.comics.work }
 ]

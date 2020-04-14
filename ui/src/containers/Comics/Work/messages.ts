@@ -3,6 +3,10 @@ import { defineMessages } from 'react-intl'
 const PREFIX = 'comics.work.'
 
 export default defineMessages({
+  list: {
+    id: PREFIX + 'list',
+    defaultMessage: 'Work List'
+  },
   category: {
     id: PREFIX + 'category',
     defaultMessage: 'Work category'

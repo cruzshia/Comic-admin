@@ -105,11 +105,7 @@ export default function WorksCampaignList() {
 
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.comicsWorksCampaign)}
-        buttonList={buttonList}
-      />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.list)} buttonList={buttonList} />
       <SearchBlock onSubmit={handleSearch} />
       <ListTable
         tableClass={classes.table}

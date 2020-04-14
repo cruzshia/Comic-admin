@@ -226,13 +226,5 @@ export default defineMessages({
   createNew: {
     id: PREFIX + 'create_new',
     defaultMessage: 'Create New'
-  },
-  title: {
-    id: PREFIX + 'title',
-    defaultMessage: 'Title'
-  },
-  application: {
-    id: PREFIX + 'application',
-    defaultMessage: 'Application'
   }
 })

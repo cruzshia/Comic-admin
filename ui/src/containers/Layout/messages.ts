@@ -77,10 +77,6 @@ export default defineMessages({
     id: 'user.return_gift',
     defaultMessage: 'Return Gift Management'
   },
-  userInquiryManagement: {
-    id: 'user.inquiry_management',
-    defaultMessage: 'Inquiry Management'
-  },
   userNotificationManagement: {
     id: 'user.notification_management',
     defaultMessage: 'Notification Management'
@@ -88,5 +84,9 @@ export default defineMessages({
   userQuestionnaireManagement: {
     id: 'user.questionnaire_management',
     defaultMessage: 'Questionnaire Management'
+  },
+  userContactUs: {
+    id: 'user.contact_us',
+    defaultMessage: 'Contact Us'
   }
 })
