@@ -2,7 +2,7 @@ import { createContext } from 'react'
 
 interface Context {
   questionnaireList: any[]
-  currentQuestionnaire?: undefined
+  currentQuestionnaire?: any
   questionnaireTotal: number
 }
 

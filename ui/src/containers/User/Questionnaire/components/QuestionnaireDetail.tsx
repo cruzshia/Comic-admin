@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import Button, { Theme } from '@src/components/Button/Button'
@@ -6,12 +6,17 @@ import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import { ReactComponent as IconPC } from '@src/assets/common/pc.svg'
 import { ReactComponent as IconPhone } from '@src/assets/common/phone.svg'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
+import DataTable, { toDataSet, toPreWrapDataSet } from '@src/components/table/DataTable'
+import commonMessages from '@src/messages'
+import QuestionTable from './QuestionTable'
+import QuestionnaireContext from '../context/QuestionnaireContext'
 import HeadBlock from './HeadBlock'
 import messages from '../messages'
 
 export default function QuestionnaireDetail() {
   const history = useHistory()
   const { formatMessage } = useIntl()
+  const { currentQuestionnaire } = useContext(QuestionnaireContext)
   const { id } = useParams()
   const handleRedirect = useCallback(
     (target?: string) =>
@@ -46,6 +51,40 @@ export default function QuestionnaireDetail() {
   return (
     <>
       <HeadBlock breadcrumb={title} title={title} buttonList={buttonList} />
+      <DataTable
+        title={formatMessage(commonMessages.basicInfo)}
+        dataSet={[
+          toDataSet(formatMessage(messages.id), currentQuestionnaire.id),
+          toDataSet(formatMessage(messages.name), currentQuestionnaire.name),
+          toDataSet(formatMessage(messages.category), currentQuestionnaire.category),
+          toDataSet(formatMessage(commonMessages.contents), currentQuestionnaire.content),
+          toDataSet(formatMessage(messages.answerReward), currentQuestionnaire.answerReward),
+          toDataSet(formatMessage(messages.externalUrl), currentQuestionnaire.externalUrl),
+          toDataSet(formatMessage(messages.bannerUrl), currentQuestionnaire.bannerUrl),
+          toDataSet(formatMessage(messages.descriptionTitle), currentQuestionnaire.descriptionTitle),
+          toPreWrapDataSet(formatMessage(commonMessages.introduction), currentQuestionnaire.description),
+          toPreWrapDataSet(formatMessage(messages.footer), currentQuestionnaire.footer),
+          toPreWrapDataSet(formatMessage(messages.answerCompletedMessage), currentQuestionnaire.answerCompletedMessage),
+          toDataSet(formatMessage(messages.questionnaireResponse), currentQuestionnaire.response),
+          toDataSet(formatMessage(commonMessages.createDateTime), currentQuestionnaire.createAt)
+        ]}
+        marginBottom
+      />
+      <DataTable
+        title={formatMessage(commonMessages.deliveryDuration)}
+        dataSet={[
+          toDataSet(formatMessage(messages.answerStartTime), currentQuestionnaire.answerStartTime),
+          toDataSet(formatMessage(messages.answerEndTime), currentQuestionnaire.answerEndTime)
+        ]}
+        marginBottom
+      />
+      <DataTable
+        title={formatMessage(messages.question)}
+        dataSet={currentQuestionnaire.questions.map((question: any, idx: number) => ({
+          label: `${formatMessage(messages.question)}${idx + 1}`,
+          content: <QuestionTable question={question} />
+        }))}
+      />
     </>
   )
 }

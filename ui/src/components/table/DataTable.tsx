@@ -64,6 +64,11 @@ export const toDataSet = (label: string, content: string | JSX.Element, isSubTit
   isSubTitle
 })
 
+export const toPreWrapDataSet = (label: string, content: string | JSX.Element) => ({
+  label,
+  content: <Box whiteSpace='pre-wrap'>{content}</Box>
+})
+
 interface Props {
   title?: string
   onEdit?: () => void

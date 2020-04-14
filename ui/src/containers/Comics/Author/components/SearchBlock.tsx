@@ -5,20 +5,20 @@ import SearchInputAdapter from '@src/components/finalForm/SearchInputAdapter'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
 import commonMessages from '@src/messages'
 
-export default function AuthorList({ onSubmit }: { onSubmit: (data: any) => void }) {
+export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => void }) {
   const { formatMessage } = useIntl()
   const conditions: Conditions = useMemo(
     () => ({
       left: [
         {
           label: formatMessage(commonMessages.id),
-          input: <Field name='id' component={SearchInputAdapter} />
+          input: <Field name='id' component={SearchInputAdapter} icon />
         }
       ],
       right: [
         {
           label: formatMessage(commonMessages.authorName),
-          input: <Field name='authorName' component={SearchInputAdapter} />
+          input: <Field name='authorName' component={SearchInputAdapter} icon />
         }
       ]
     }),

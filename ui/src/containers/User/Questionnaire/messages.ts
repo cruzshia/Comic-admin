@@ -71,6 +71,10 @@ export default defineMessages({
     id: PREFIX + 'answer_required',
     defaultMessage: 'Answer Required'
   },
+  requiredOfAnswer: {
+    id: PREFIX + 'require_of_answer',
+    defaultMessage: 'Require Of Answer'
+  },
   questionType: {
     id: PREFIX + 'question_type',
     defaultMessage: 'Question Type'
@@ -106,5 +110,17 @@ export default defineMessages({
   answerReward: {
     id: PREFIX + 'answer_reward',
     defaultMessage: 'Answer Reward'
+  },
+  inputRange: {
+    id: PREFIX + 'input_range',
+    defaultMessage: 'Input Range'
+  },
+  inputLimitation: {
+    id: PREFIX + 'input_limitation',
+    defaultMessage: 'Input Limitation'
+  },
+  answerRequirement: {
+    id: PREFIX + 'answer_requirement',
+    defaultMessage: 'Answer Requirement'
   }
 })
