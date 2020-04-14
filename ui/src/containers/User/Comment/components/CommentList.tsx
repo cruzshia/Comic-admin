@@ -80,7 +80,7 @@ export default function CommentList() {
       { id: ListTableProp.CreateDateTime, label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
       { id: ListTableProp.UserId, label: formatMessage(userMessages.userId), onSort: handleSort },
       { id: ListTableProp.Content, label: formatMessage(messages.content), onSort: handleSort },
-      { id: ListTableProp.Message, label: formatMessage(messages.message) },
+      { id: ListTableProp.Message, label: formatMessage(commonMessages.message) },
       { id: ListTableProp.Likes, label: formatMessage(messages.likes), onSort: handleSort },
       { id: ListTableProp.Report, label: formatMessage(messages.report), onSort: handleSort },
       { id: ListTableProp.Status, label: formatMessage(userMessages.status) }

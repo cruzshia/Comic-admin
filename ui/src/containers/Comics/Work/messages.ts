@@ -47,10 +47,6 @@ export default defineMessages({
     id: PREFIX + 'edit',
     defaultMessage: 'Edit work'
   },
-  deliveryDateTime: {
-    id: PREFIX + 'delivery_date_time',
-    defaultMessage: 'Delivery date time'
-  },
   comicsWork: {
     id: 'comics.work',
     defaultMessage: 'Comics work'

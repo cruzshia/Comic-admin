@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext, useState } from 'react'
+import React, { useMemo, useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles, FormHelperText } from '@material-ui/core'
@@ -9,8 +9,7 @@ import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import { ReactComponent as DeleteIcon } from '@src/assets/common/delete.svg'
 import ListTable, { Padding, SortOrder } from '@src/components/table/ListTable'
 import { StyledCheckBox } from '@src/components/form'
-import usePaging from '@src/hooks/usePaging'
-import useSort from '@src/hooks/useSort'
+import { usePaging, useSort, useCheckbox } from '@src/hooks'
 import commonMessages from '@src/messages'
 import Capsule from '../../components/Capsule'
 import applicationMessages from '../../messages'
@@ -53,9 +52,9 @@ export default function PushNotificationList() {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   const { notificationList, notificationTotal } = useContext(PushNotificationContext)
-  const { sortBy, handleSort } = useSort<string>('deliveryStartTime')
+  const { sortBy, handleSort } = useSort<string>('scheduledStartTime')
   const { pagination, handlePageChange } = usePaging({ total: notificationTotal })
-  const [checkedList, setCheckedList] = useState<{ [key: string]: boolean }>({})
+  const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll } = useCheckbox()
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
@@ -75,20 +74,13 @@ export default function PushNotificationList() {
   )
   const handleSearch = useCallback(data => console.log(data), [])
 
-  const handleCheck = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, checked) => {
-      setCheckedList(preCheckedList => ({
-        ...preCheckedList,
-        [e.currentTarget.value]: checked
-      }))
-    },
-    [setCheckedList]
-  )
+  const handleDelete = useCallback(() => console.log(checkedList), [checkedList])
 
   const tableButtonList = useMemo(
-    () => [<Button buttonText={formatMessage(commonMessages.delete)} icon={DeleteIcon} onClick={() => {}} />],
-    [formatMessage]
+    () => [<Button buttonText={formatMessage(commonMessages.delete)} icon={DeleteIcon} onClick={handleDelete} />],
+    [handleDelete, formatMessage]
   )
+
   const listTableData = useMemo(
     () =>
       notificationList
@@ -96,7 +88,7 @@ export default function PushNotificationList() {
           id: id,
           classnames: detail ? '' : `${Status[status as keyof typeof Status]}Row`,
           data: {
-            checkbox: <StyledCheckBox value={id} checked={!!checkedList[id]} onCheck={handleCheck} />,
+            checkbox: <StyledCheckBox value={id} checked={isChecked(id)} onCheck={handleCheck} />,
             status: <Capsule status={status} />,
             ...rest,
             detail: detail && <FormHelperText className='error'>{detail}</FormHelperText>
@@ -108,24 +100,32 @@ export default function PushNotificationList() {
             (sortBy.order === SortOrder.Asc ? 1 : -1)
           )
         }),
-    [notificationList, checkedList, handleCheck, sortBy.key, sortBy.order]
+    [notificationList, handleCheck, sortBy.key, sortBy.order, isChecked]
   )
+
+  const handleCheckAll = useCallback(() => {
+    onCheckAll(listTableData)
+  }, [onCheckAll, listTableData])
 
   const theadList = useMemo(
     () => [
-      { id: 'checkbox', label: '', padding: Padding.Checkbox },
+      {
+        id: 'checkbox',
+        label: <StyledCheckBox value='' checked={isCheckAll} onCheck={handleCheckAll} />,
+        padding: Padding.Checkbox
+      },
       { id: 'status', label: formatMessage(applicationMessages.status) },
-      { id: 'message', label: formatMessage(messages.message) },
+      { id: 'message', label: formatMessage(commonMessages.message) },
       { id: 'applicationId', label: formatMessage(applicationMessages.applicationId) },
       { id: 'timesPushed', label: formatMessage(messages.pushedTimes) },
       {
-        id: 'deliveryStartTime',
-        label: formatMessage(commonMessages.deliveryStartDateTime),
+        id: 'scheduledStartTime',
+        label: formatMessage(messages.scheduledStartTime),
         onSort: handleSort
       },
       { id: 'detail', label: formatMessage(commonMessages.detail) }
     ],
-    [handleSort, formatMessage]
+    [handleSort, formatMessage, handleCheckAll, isCheckAll]
   )
 
   const handleRowClick = useCallback(

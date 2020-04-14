@@ -40,7 +40,7 @@ export default function CommentTable({ comment, isEdit }: { comment: any; isEdit
           classes: isEdit ? '' : classes.hide
         },
         {
-          label: formatMessage(messages.message),
+          label: formatMessage(commonMessages.message),
           content: comment.content
         },
         {

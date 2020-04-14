@@ -207,6 +207,22 @@ export default defineMessages({
     id: PREFIX + 'setting',
     defaultMessage: 'Setting'
   },
+  title: {
+    id: PREFIX + 'title',
+    defaultMessage: 'Title'
+  },
+  message: {
+    id: PREFIX + 'message',
+    defaultMessage: 'Message'
+  },
+  application: {
+    id: PREFIX + 'application',
+    defaultMessage: 'Application'
+  },
+  deliveryDateTime: {
+    id: PREFIX + 'delivery_date_time',
+    defaultMessage: 'Delivery date time'
+  },
   createNew: {
     id: PREFIX + 'create_new',
     defaultMessage: 'Create New'

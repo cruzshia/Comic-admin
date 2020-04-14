@@ -4,9 +4,8 @@ import { useIntl } from 'react-intl'
 import SearchFilter from '@src/components/SearchFilter'
 import commonMessages from '@src/messages'
 import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
-import messages from '../messages'
-import applicationMessages from '../../messages'
 import { TimeSpanInput } from '@src/components/form'
+import applicationMessages from '../../messages'
 
 interface Props {
   onSubmit: (data: any) => void
@@ -19,7 +18,7 @@ export default function SearchBlock({ onSubmit, formRef }: Props) {
     () => ({
       left: [
         {
-          label: formatMessage(messages.message),
+          label: formatMessage(commonMessages.message),
           input: <Field name='message' component={TextInputAdapter} />
         },
         {
