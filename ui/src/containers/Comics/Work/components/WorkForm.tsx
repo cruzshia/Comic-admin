@@ -78,7 +78,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   )
                 },
                 {
-                  label: formatMessage(messages.title),
+                  label: formatMessage(commonMessages.title),
                   content: (
                     <Field name='title'>{({ input, meta }) => <TextInput {...input} error={checkError(meta)} />}</Field>
                   )

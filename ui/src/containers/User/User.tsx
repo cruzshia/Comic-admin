@@ -17,7 +17,7 @@ export default function User() {
       <Route exact path={routePath.user.ngWord} component={NGWord} />
       <Route exact path={routePath.user.returnGift} component={ReturnGift} />
       <Route exact path={routePath.user.inquiry} component={Inquiry} />
-      <Route exact path={routePath.user.notification} component={Notification} />
+      <Route path={routePath.user.notification} component={Notification} />
       <Route path={routePath.user.questionnaire} component={Questionnaire} />
     </Switch>
   )

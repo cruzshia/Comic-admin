@@ -68,7 +68,7 @@ export default function ContentDetail() {
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
           toDataSet(formatMessage(commonMessages.contentId), currentContent.id),
-          toDataSet(formatMessage(messages.title), currentContent.title),
+          toDataSet(formatMessage(commonMessages.title), currentContent.title),
           toDataSet(formatMessage(messages.titleKana), currentContent.titleKana),
           toDataSet(formatMessage(messages.category), currentContent.category),
           toDataSet(formatMessage(commonMessages.introduction), currentContent.description),

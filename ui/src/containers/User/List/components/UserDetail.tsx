@@ -291,7 +291,7 @@ export default function UserDetail() {
                     tableClass={classes.innerTable}
                     dataSet={[
                       toDataSet(
-                        formatMessage(messages.application),
+                        formatMessage(commonMessages.application),
                         <Field name='contentGift.application' component={SelectAdapter} options={[]} />
                       ),
                       toDataSet(
@@ -315,7 +315,7 @@ export default function UserDetail() {
                     tableClass={classes.innerTable}
                     dataSet={[
                       toDataSet(
-                        formatMessage(messages.application),
+                        formatMessage(commonMessages.application),
                         <Field name='subscriptionGift.application' component={SelectAdapter} options={[]} />
                       ),
                       toDataSet(

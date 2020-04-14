@@ -29,10 +29,6 @@ export default defineMessages({
     id: PREFIX + 'name',
     defaultMessage: 'Content Name'
   },
-  title: {
-    id: PREFIX + 'title',
-    defaultMessage: 'Content title'
-  },
   titleKana: {
     id: PREFIX + 'title_kana',
     defaultMessage: 'Content title(Kana)'
