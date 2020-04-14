@@ -51,7 +51,7 @@ export default function QuestionnaireList() {
       { id: 'id', label: formatMessage(messages.id) },
       { id: 'name', label: formatMessage(messages.name) },
       { id: 'deliverStart', label: formatMessage(commonMessages.deliveryStartDateTime), onSort: handleSort },
-      { id: 'deliverEnd', label: formatMessage(commonMessages.deliveryEndDateTime) },
+      { id: 'deliverEnd', label: formatMessage(commonMessages.deliveryEndStartTime) },
       { id: 'answerReward', label: formatMessage(messages.answerReward) },
       { id: 'spacer', label: '' }
     ],

@@ -6,12 +6,14 @@ import CoinDeliveryEventEdit from './components/CoinDeliveryEventEdit'
 import CoinDeliveryEventDetail from './components/CoinDeliveryEventDetail'
 import CoinDeliveryEventCreation from './components/CoinDeliveryEventCreation'
 import CoinDeliveryEventContext from './context/CoinDeliveryEventContext'
-import { mockEventDetail } from './mockData/mockCoinDeliveryEvent'
+import { mockEventDetail, mockEventList } from './mockData/mockCoinDeliveryEvent'
 
 export default function CoinDeliveryEvent() {
   return (
     <Switch>
-      <CoinDeliveryEventContext.Provider value={{ eventList: [], eventTotal: 0, currentEvent: mockEventDetail }}>
+      <CoinDeliveryEventContext.Provider
+        value={{ eventList: mockEventList, eventTotal: mockEventList.length, currentEvent: mockEventDetail }}
+      >
         <Route exact path={routePath.application.coinDeliveryEvent} component={CoinDeliveryEventList} />
         <Route exact path={routePath.application.coinDeliveryEventEdit} component={CoinDeliveryEventEdit} />
         <Route exact path={routePath.application.coinDeliveryEventCreation} component={CoinDeliveryEventCreation} />

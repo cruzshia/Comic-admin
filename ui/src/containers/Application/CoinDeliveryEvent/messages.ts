@@ -37,5 +37,13 @@ export default defineMessages({
   eventTypeSetting: {
     id: PREFIX + 'event_type_setting',
     defaultMessage: 'Event Type Setting'
+  },
+  eventStartAt: {
+    id: PREFIX + 'start_at',
+    defaultMessage: 'Event Start Time'
+  },
+  eventEndAt: {
+    id: PREFIX + 'end_at',
+    defaultMessage: 'Event End Time'
   }
 })
