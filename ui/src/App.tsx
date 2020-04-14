@@ -9,6 +9,7 @@ import { GlobalStyle, theme } from './common/styles'
 import configureStore from './store/configureStore'
 import ScrollTop from './components/scroll/ScrollTop'
 import AuthRoute from './components/AuthRoute'
+import GlobalDialog from './components/GlobalDialog'
 import Layout from './containers/Layout'
 import Home from './containers/Home'
 import Login from './containers/Login'
@@ -33,6 +34,7 @@ const App: React.FC = () => {
               <Layout>
                 <CssBaseline />
                 <GlobalStyle />
+                <GlobalDialog />
                 <Switch>
                   <AuthRoute exact path={routePath.root} component={Home} />
                   <AuthRoute exact path={routePath.login} guestOnly component={Login} />
