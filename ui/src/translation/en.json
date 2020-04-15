@@ -237,6 +237,8 @@
   "user.comment.report": "Report Count",
   "user.comment.self_visible_only": "Self Visible Only",
   "user.contact_us": "Contact Us",
+  "user.contact_us.app_version": "App Version",
+  "user.contact_us.contact_time": "Contact Time",
   "user.contact_us.list": "Contact Us List",
   "user.contact_us.mail": "Mail Address",
   "user.contact_us.message": "Message",

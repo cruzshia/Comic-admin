@@ -237,6 +237,8 @@
   "user.comment.report": "通報",
   "user.comment.self_visible_only": "本人にのみ表示",
   "user.contact_us": "お問い合わせ",
+  "user.contact_us.app_version": "アプリバージョン",
+  "user.contact_us.contact_time": "お問い合わせ日時",
   "user.contact_us.list": "お問い合わせ一覧",
   "user.contact_us.mail": "メールアドレス",
   "user.contact_us.message": "メッセージ",

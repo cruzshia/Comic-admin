@@ -26,5 +26,13 @@ export default defineMessages({
   message: {
     id: PREFIX + 'message',
     defaultMessage: 'Message'
+  },
+  contactTime: {
+    id: PREFIX + 'contact_time',
+    defaultMessage: 'Contact Time'
+  },
+  appVersion: {
+    id: PREFIX + 'app_version',
+    defaultMessage: 'App Version'
   }
 })
