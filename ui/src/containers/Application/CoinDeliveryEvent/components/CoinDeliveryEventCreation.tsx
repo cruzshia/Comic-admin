@@ -1,5 +1,11 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import CoinDeliveryEventForm from './CoinDeliveryEventForm'
 
 export default function CoinDeliveryEventCreation() {
-  return <>Coin Delivery Event Creation</>
+  const handleSubmit = useCallback(data => console.log(data), [])
+  return (
+    <>
+      <CoinDeliveryEventForm onSubmit={handleSubmit} />
+    </>
+  )
 }

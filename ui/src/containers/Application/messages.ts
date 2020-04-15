@@ -37,6 +37,10 @@ export default defineMessages({
   },
   inputCoinNum: {
     id: PREFIX + 'input_coin_num',
-    defaultMessage: 'Input coin number'
+    defaultMessage: 'Input Coin Number'
+  },
+  inputCode: {
+    id: PREFIX + 'input_code',
+    defaultMessage: 'Input Code'
   }
 })

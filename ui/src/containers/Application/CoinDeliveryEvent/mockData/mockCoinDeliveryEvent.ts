@@ -6,7 +6,7 @@ export const mockEventDetail = {
   eventId: 'WORK_SHUNKAN10000006',
   eventName: 'サンプルテキスト',
   eventType: 'サンプルテキスト',
-  eventTypeSetting: 'サンプルテキスト',
+  eventRewardSetting: 'サンプルテキスト',
   createdAt: '2020-04-02 14:00',
   updatedAt: '2020-04-02 14:00',
   releaseStartAt: '2020-04-02 14:00',

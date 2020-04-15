@@ -59,6 +59,7 @@ export const theme = createMuiTheme({
         lineHeight: '24px',
         fontWeight: 'normal',
         minHeight: 36,
+        backgroundColor: '#FFFFFF',
         '&.Mui-focused fieldset': {
           borderWidth: '1px!important'
         },

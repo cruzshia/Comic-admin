@@ -12,17 +12,17 @@ import Advertisement from './Advertisement'
 
 const AD_COLUMN = 'contents'
 
-export default function AdSettingForm({
-  adSettingRef,
-  mutators,
-  marginBottom
-}: {
+interface Props {
   adSettingRef?: React.RefObject<HTMLDivElement>
   mutators: Mutators
   marginBottom?: boolean
-}) {
+  colName?: string
+}
+
+export default function AdSettingForm({ adSettingRef, mutators, marginBottom, colName }: Props) {
+  const colKey = colName || AD_COLUMN
   const { formatMessage } = useIntl()
-  const createDeleteHandler = (idx: number) => () => mutators.remove(AD_COLUMN, idx)
+  const createDeleteHandler = (idx: number) => () => mutators.remove(colKey, idx)
   const tableTitle = formatMessage(commonMessages.advertisementSetting)
   const dataSet = [
     {
@@ -45,7 +45,7 @@ export default function AdSettingForm({
       label: tableTitle,
       content: (
         <Box height={1024}>
-          <FieldArray name={AD_COLUMN}>
+          <FieldArray name={colKey}>
             {({ fields }) =>
               fields.map((name, index) => (
                 <Advertisement key={name} name={name} onDelete={createDeleteHandler(index)} />

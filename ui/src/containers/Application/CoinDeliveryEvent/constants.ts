@@ -6,3 +6,5 @@ export const BREADCRUMBS = [
   { title: commonMessages.applicationManagement },
   { title: messages.list, route: routePath.application.coinDeliveryEvent }
 ]
+
+export const REWARD_NUM = 3

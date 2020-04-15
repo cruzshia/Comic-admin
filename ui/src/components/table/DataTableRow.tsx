@@ -8,8 +8,7 @@ const useStyles = makeStyles({
     width: '100%',
     margin: 0,
     '& .MuiGrid-item': {
-      padding: '20px',
-      maxWidth: '75%'
+      padding: '20px'
     }
   },
   title: {
@@ -23,6 +22,7 @@ const useStyles = makeStyles({
   },
   content: {
     flexGrow: 1,
+    flexBasis: 1,
     fontWeight: 'normal',
     backgroundColor: '#FFFFFF'
   }
@@ -41,7 +41,7 @@ export default function DataTableRow({ title, content, classnames }: Props) {
       <Grid item xs={3} className={classes.title}>
         {title}
       </Grid>
-      <Grid item xs={9} className={classes.content}>
+      <Grid item className={classes.content}>
         {content}
       </Grid>
     </Grid>

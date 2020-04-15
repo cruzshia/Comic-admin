@@ -34,6 +34,34 @@ export default defineMessages({
     id: PREFIX + 'event_type',
     defaultMessage: 'Event Type'
   },
+  eventReward: {
+    id: PREFIX + 'event_reward',
+    defaultMessage: 'Event Reward'
+  },
+  eventRewardSetting: {
+    id: PREFIX + 'event_reward_setting',
+    defaultMessage: 'Event Reward Setting'
+  },
+  resultCode: {
+    id: PREFIX + 'result_code',
+    defaultMessage: 'Result Code'
+  },
+  coinReward: {
+    id: PREFIX + 'coin_reward',
+    defaultMessage: 'Coin Reward'
+  },
+  coinRewardNum: {
+    id: PREFIX + 'coin_reward_num',
+    defaultMessage: 'Coin Reward Number'
+  },
+  rewardLimitation: {
+    id: PREFIX + 'reward_limitation',
+    defaultMessage: 'Reward Limitation'
+  },
+  addReward: {
+    id: PREFIX + 'add_reward',
+    defaultMessage: 'Add Reward'
+  },
   eventTypeSetting: {
     id: PREFIX + 'event_type_setting',
     defaultMessage: 'Event Type Setting'

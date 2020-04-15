@@ -62,7 +62,7 @@ export default function CoinDeliveryEventDetail() {
           toDataSet(formatMessage(messages.eventId), currentEvent.eventId),
           toDataSet(formatMessage(messages.eventName), currentEvent.eventName),
           toDataSet(formatMessage(messages.eventType), currentEvent.eventType),
-          toDataSet(formatMessage(messages.eventTypeSetting), currentEvent.eventTypeSetting),
+          toDataSet(formatMessage(messages.eventRewardSetting), currentEvent.eventRewardSetting),
           toDataSet(formatMessage(commonMessages.createDateTime), currentEvent.createdAt),
           toDataSet(formatMessage(commonMessages.updateDateTime), currentEvent.updatedAt)
         ]}
