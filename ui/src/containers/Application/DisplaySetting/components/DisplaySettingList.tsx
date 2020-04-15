@@ -137,12 +137,6 @@ export default function DisplaySettingList() {
     ],
     [formatMessage, handleDelete]
   )
-  const handleRowClick = useCallback(
-    id => {
-      history.push(routePath.application.displaySettingEdit.replace(':id', id))
-    },
-    [history]
-  )
 
   return (
     <>
@@ -158,7 +152,12 @@ export default function DisplaySettingList() {
         buttonList={tableButtonList}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
-        onRowClick={handleRowClick}
+        onRowClick={useCallback(
+          id => {
+            history.push(routePath.application.displaySettingEdit.replace(':id', id))
+          },
+          [history]
+        )}
       />
     </>
   )

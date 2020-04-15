@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
-import DataTable from '@src/components/table/DataTable'
+import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import TextFieldAdapter from '@src/components/finalForm/TextInputAdapter'
 import { TextAreaAdapter, SelectAdapter } from '@src/components/finalForm'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
@@ -39,32 +39,28 @@ export default function PushNotificationTable({
     if (onSubmit) {
       return {
         basicInfo: [
-          { label: tableTitles.id, content: currentNotification?.id || 'id' },
-          { label: tableTitles.title, content: <Field name='title' component={TextFieldAdapter} /> },
-          { label: tableTitles.message, content: <Field name='message' component={TextAreaAdapter} /> },
-          {
-            label: tableTitles.application,
-            content: <Field name='application' component={SelectAdapter} options={[]} />
-          },
-          {
-            label: tableTitles.deepLinkUrl,
-            content: (
-              <Field name='deepLinkUrl' component={TextFieldAdapter} placeholder={formatMessage(messages.inputUrl)} />
-            )
-          },
-          { label: tableTitles.bigIconUrl, content: <IconPreview /> }
+          toDataSet(tableTitles.id, currentNotification?.id || <Field name='id' component={TextFieldAdapter} />),
+          toDataSet(tableTitles.title, <Field name='title' component={TextFieldAdapter} />),
+          toDataSet(tableTitles.message, <Field name='message' component={TextAreaAdapter} />),
+          toDataSet(tableTitles.application, <Field name='application' component={SelectAdapter} options={[]} />),
+          toDataSet(
+            tableTitles.deepLinkUrl,
+            <Field name='deepLinkUrl' component={TextFieldAdapter} placeholder={formatMessage(messages.inputUrl)} />
+          ),
+          toDataSet(tableTitles.bigIconUrl, <IconPreview />)
         ],
         schedule: [
-          {
-            label: tableTitles.deliveryDateTime,
-            content: <Field name='schedule' component={TextFieldAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
-          }
+          toDataSet(
+            tableTitles.deliveryDateTime,
+            <Field name='schedule' component={TextFieldAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+          )
         ]
       }
     } else if (currentNotification) {
       return {
         basicInfo: [
           { label: tableTitles.id, content: currentNotification.id },
+          { label: tableTitles.title, content: currentNotification.title },
           { label: tableTitles.message, content: currentNotification.message },
           { label: tableTitles.application, content: currentNotification.application },
           { label: tableTitles.deepLinkUrl, content: currentNotification.deepLinkUrl },
@@ -78,11 +74,10 @@ export default function PushNotificationTable({
 
   return onSubmit ? (
     <Form
-      onSubmit={onSubmit ?? function() {}}
+      onSubmit={onSubmit!}
       initialValues={{ ...currentNotification }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit} ref={formRef}>
-          <input name='id' disabled style={{ display: 'none' }} />
           <DataTable dataSet={dataSet.basicInfo} title={tableTitles.basicInfo} marginBottom />
           <DataTable dataSet={dataSet.schedule} title={tableTitles.schedule} />
         </form>

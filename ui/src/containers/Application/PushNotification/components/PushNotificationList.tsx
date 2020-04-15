@@ -128,13 +128,6 @@ export default function PushNotificationList() {
     [handleSort, formatMessage, handleCheckAll, isCheckAll]
   )
 
-  const handleRowClick = useCallback(
-    id => {
-      history.push(routePath.application.pushNotificationEdit.replace(':id', id))
-    },
-    [history]
-  )
-
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.list)} buttonList={buttonList} />
@@ -149,7 +142,12 @@ export default function PushNotificationList() {
         buttonList={tableButtonList}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
-        onRowClick={handleRowClick}
+        onRowClick={useCallback(
+          id => {
+            history.push(routePath.application.pushNotificationEdit.replace(':id', id))
+          },
+          [history]
+        )}
       />
     </>
   )

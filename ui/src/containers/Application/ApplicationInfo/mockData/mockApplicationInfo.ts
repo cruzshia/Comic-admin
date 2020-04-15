@@ -1,3 +1,5 @@
+import { _range } from '@src/utils/functions'
+
 export const mockInfoTotal = 7
 
 export const mockInfoDetail = {
@@ -30,3 +32,9 @@ export const mockInfoDetail = {
   }`,
   createdAt: '2019-12-25 00:00 '
 }
+
+export const mockInfoList = _range(0, 2).map(num => ({
+  applicationId: `SHJP01I${num}`,
+  applicationName: '少年ジャンプ+ for iOS	',
+  commonKey: '8f0943d888fddd4098fae24c090707a3	'
+}))

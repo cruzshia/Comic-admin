@@ -1,30 +1,22 @@
 import React, { useMemo, useContext, useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core'
 import ContentHeader from '@src/components/ContentHeader'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import Button, { Theme } from '@src/components/Button/Button'
 import { routePath } from '@src/common/appConfig'
-import DataTable, { toDataSet } from '@src/components/table/DataTable'
+import DataTable, { toDataSet, toPreWrapDataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
 import applicationMessages from '../../messages'
 import ApplicationInfoContext from '../context/ApplicationInfoContext'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 
-const useStyles = makeStyles({
-  preWrap: {
-    whiteSpace: 'pre-wrap'
-  }
-})
-
 export default function ApplicationInfoDetail() {
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
   const { currentInfo } = useContext(ApplicationInfoContext)
-  const classes = useStyles()
 
   const breadcrumbList = useMemo(
     () =>
@@ -37,7 +29,7 @@ export default function ApplicationInfoDetail() {
     [formatMessage]
   )
 
-  const handleEdit = useCallback(() => history.push(routePath.application.coinProductEdit.replace(':id', id!)), [
+  const handleEdit = useCallback(() => history.push(routePath.application.applicationInfoEdit.replace(':id', id!)), [
     id,
     history
   ])
@@ -67,15 +59,12 @@ export default function ApplicationInfoDetail() {
           toDataSet(formatMessage(applicationMessages.applicationId), currentInfo.applicationId),
           toDataSet(formatMessage(messages.applicationName), currentInfo.applicationName),
           toDataSet(formatMessage(messages.commonKey), currentInfo.commonKey),
-          toDataSet(formatMessage(messages.apnsValidityPeriod), currentInfo.apnsValidityPeriod),
           toDataSet(formatMessage(messages.apnsCertificate), currentInfo.apnsCertificate),
+          toDataSet(formatMessage(messages.apnsValidityPeriod), currentInfo.apnsValidityPeriod),
           toDataSet(formatMessage(messages.fcnmApiKey), currentInfo.fcnmApiKey),
           toDataSet(formatMessage(messages.androidPublicKey), currentInfo.androidPublicKey),
           toDataSet(formatMessage(messages.iTunesPublicKey), currentInfo.iTunesPublicKey),
-          toDataSet(
-            formatMessage(messages.supplementSetting),
-            <div className={classes.preWrap}>{currentInfo.supplementSetting}</div>
-          ),
+          toPreWrapDataSet(formatMessage(messages.supplementSetting), currentInfo.supplementSetting),
           toDataSet(formatMessage(commonMessages.createDateTime), currentInfo.createdAt)
         ]}
       />
