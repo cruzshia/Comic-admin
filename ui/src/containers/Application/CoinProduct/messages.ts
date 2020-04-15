@@ -41,9 +41,5 @@ export default defineMessages({
   releaseEndTime: {
     id: PREFIX + 'release_end_time',
     defaultMessage: 'Release End Time'
-  },
-  releaseDuration: {
-    id: PREFIX + 'release_duration',
-    defaultMessage: 'Release Duration'
   }
 })

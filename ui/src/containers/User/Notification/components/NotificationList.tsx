@@ -1,14 +1,15 @@
 import React, { useCallback, useContext } from 'react'
 import { useIntl } from 'react-intl'
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
 import NotificationContext from '../context/NotificationContext'
 import ContentHeader from '@src/components/ContentHeader'
 import ListTable from '@src/components/table/ListTable'
 import Button, { Theme } from '@src/components/Button/Button'
-import usePaging from '@src/hooks/usePaging'
-import useSort from '@src/hooks/useSort'
+import { usePaging, useSort } from '@src/hooks'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import commonMessages from '@src/messages'
+import { routePath } from '@src/common/appConfig'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
@@ -36,6 +37,7 @@ const useStyles = makeStyles({
 export default function NotificationList() {
   const { formatMessage } = useIntl()
   const classes = useStyles()
+  const history = useHistory()
   const { notificationTotal, notificationList } = useContext(NotificationContext)
   const { sortBy, handleSort } = useSort('createDateTime')
   const { pagination, handlePageChange } = usePaging({ total: notificationTotal })
@@ -77,6 +79,9 @@ export default function NotificationList() {
         dataList={displayData}
         pagination={pagination}
         onPageChange={handlePageChange}
+        onRowClick={id => {
+          history.push(routePath.user.notificationDetail.replace(':id', id))
+        }}
       />
     </>
   )

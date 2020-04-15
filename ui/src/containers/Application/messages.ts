@@ -31,10 +31,6 @@ export default defineMessages({
     id: PREFIX + 'release_end_time',
     defaultMessage: 'Release End Time'
   },
-  releaseDuration: {
-    id: PREFIX + 'release_duration',
-    defaultMessage: 'Release Duration'
-  },
   inputCoinNum: {
     id: PREFIX + 'input_coin_num',
     defaultMessage: 'Input Coin Number'

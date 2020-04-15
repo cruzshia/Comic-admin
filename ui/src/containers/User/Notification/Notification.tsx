@@ -6,13 +6,17 @@ import NotificationEdit from './components/NotificationEdit'
 import NotificationCreation from './components/NotificationCreation'
 import { routePath } from '@src/common/appConfig'
 import NotificationContext from './context/NotificationContext'
-import { mockNotificationList } from './mockData/mock'
+import { mockNotificationList, mockNotification } from './mockData/mock'
 
 export default function Notification() {
   return (
     <>
       <NotificationContext.Provider
-        value={{ notificationList: mockNotificationList, notificationTotal: mockNotificationList.length }}
+        value={{
+          notificationList: mockNotificationList,
+          notificationTotal: mockNotificationList.length,
+          currentNotification: mockNotification
+        }}
       >
         <Switch>
           <Route exact path={routePath.user.notificationDetail} component={NotificationDetail}></Route>

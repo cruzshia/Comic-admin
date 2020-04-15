@@ -1,6 +1,6 @@
 import React, { useMemo, useContext } from 'react'
 import { useIntl } from 'react-intl'
-import { Grid, makeStyles } from '@material-ui/core'
+import { Grid, makeStyles, IconButton } from '@material-ui/core'
 import UserContext from '../context/UserContext'
 import ContentHeader from '@src/components/ContentHeader'
 import ListTable from '@src/components/table/ListTable'
@@ -36,8 +36,8 @@ const useStyles = makeStyles({
     }
   },
   fileName: {
-    '& > svg': {
-      marginLeft: '10px'
+    '& svg': {
+      marginLeft: '5px'
     }
   }
 })
@@ -76,7 +76,9 @@ export default function UserExportLogs() {
         fileName: (
           <Grid container alignItems='center' className={classes.fileName}>
             {fileName}
-            <DownloadIcon />
+            <IconButton size='small'>
+              <DownloadIcon />
+            </IconButton>
           </Grid>
         ),
         status,

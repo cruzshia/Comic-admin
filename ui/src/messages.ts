@@ -226,5 +226,9 @@ export default defineMessages({
   createNew: {
     id: PREFIX + 'create_new',
     defaultMessage: 'Create New'
+  },
+  releaseDuration: {
+    id: PREFIX + 'release_duration',
+    defaultMessage: 'Release Duration'
   }
 })

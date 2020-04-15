@@ -70,7 +70,7 @@ export default function CoinDeliveryEventDetail() {
         onEdit={handleEdit}
       />
       <DataTable
-        title={formatMessage(applicationMessages.releaseDuration)}
+        title={formatMessage(commonMessages.releaseDuration)}
         dataSet={[
           toDataSet(formatMessage(applicationMessages.releaseStartTime), currentEvent.releaseStartAt),
           toDataSet(formatMessage(applicationMessages.releaseEndTime), currentEvent.releaseEndAt)

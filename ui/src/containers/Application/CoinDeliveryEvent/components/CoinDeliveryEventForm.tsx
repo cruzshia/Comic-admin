@@ -84,7 +84,7 @@ export default function CoinDeliveryEventForm({ coinDeliveryEvent, onSubmit }: P
               marginBottom
             />
             <StartEndForm
-              title={formatMessage(applicationMessages.releaseDuration)}
+              title={formatMessage(commonMessages.releaseDuration)}
               startLabel={formatMessage(applicationMessages.releaseStartTime)}
               startName='releaseStartAt'
               endLabel={formatMessage(applicationMessages.releaseEndTime)}
