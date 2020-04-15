@@ -29,7 +29,7 @@ export const mockNotificationList = (data => {
       id: `${i}`,
       message: '2020年新年ログインボーナス	',
       status: i < 3 ? 'reserved' : 'closed',
-      scheduledStartTime: `2019-12-2${i} 00:00:0${i}`,
+      scheduledStartTime: `2019-12-2${i} 00:0${i}`,
       detail: i === 1 ? '情報の取得に失敗しました' : ''
     })
   }

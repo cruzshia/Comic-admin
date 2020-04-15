@@ -11,5 +11,5 @@ export const mockAuthor = {
 export const mockAuthorList = _range(0, 7).map(num => ({
   ...mockAuthor,
   id: `WORK_SHUNKAN10000006${num}`,
-  createAt: `2019-12-25 00:00:0${num}`
+  createAt: `2019-12-25 00:0${num}`
 }))

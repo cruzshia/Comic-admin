@@ -10,4 +10,4 @@ export const checkError = (meta: FieldMetaState<any>) => {
 }
 
 export const validDateTime = (dateTime: string) =>
-  new RegExp('^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$', 'i').test(dateTime)
+  new RegExp('^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$', 'i').test(dateTime)

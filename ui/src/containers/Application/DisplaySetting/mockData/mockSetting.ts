@@ -68,8 +68,8 @@ export const mockSettingList = (data => {
       ...data,
       id: `${i}`,
       status: i === 1 ? 'opened' : 'closed',
-      deliveryStartTime: `2019-12-2${i} 00:00:0${i}`,
-      creationTime: `2019-12-2${i} 00:00:0${i}`
+      deliveryStartTime: `2019-12-2${i} 00:0${i}`,
+      creationTime: `2019-12-2${i} 00:0${i}`
     })
   }
   return arr
