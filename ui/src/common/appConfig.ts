@@ -80,6 +80,11 @@ export const routePath = {
     questionnaireEdit: `${RouteSection.User}/questionnaire/edit/:id`,
     questionnaireCreation: `${RouteSection.User}/questionnaire/creation`,
     contactUs: `${RouteSection.User}/contact_us`,
-    contactUsDetail: `${RouteSection.User}/contact_us/detail/:id`
+    contactUsDetail: `${RouteSection.User}/contact_us/detail/:id`,
+    history: `${RouteSection.User}/history`,
+    historyEpisode: `${RouteSection.User}/history/:userId/episode`,
+    historyEpisodeDetail: `${RouteSection.User}/history/:userId/episode/detail/:id`,
+    historySubscription: `${RouteSection.User}/history/:userId/subscription`,
+    historySubscriptionDetail: `${RouteSection.User}/history/:userId/subscription/detail/:id`
   }
 }

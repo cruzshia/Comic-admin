@@ -44,7 +44,7 @@ export default function UserList() {
   const { pagination, handlePageChange } = usePaging({ total: userTotal })
 
   const breadcrumbList: Breadcrumb[] = BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) }))
-  const titleText = formatMessage(messages.userList)
+  const titleText = formatMessage(userMessages.list)
 
   const handleSearch = useCallback((data: any) => {}, [])
 

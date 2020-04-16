@@ -80,7 +80,7 @@ export default function UserDetail() {
   const handleClose = () => {
     setOpen(false)
   }
-  const titleText = formatMessage(messages.userDetail)
+  const titleText = formatMessage(userMessages.detail)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }): Breadcrumb => ({ title: formatMessage(title), route })).concat({

@@ -1,10 +1,10 @@
 import commonMessage from '@src/messages'
-import messages from './messages'
+import userMessage from '../messages'
 import { routePath } from '@src/common/appConfig'
 
 export const BREADCRUMBS = [
   { title: commonMessage.userManagement },
-  { title: messages.userList, route: routePath.user.list }
+  { title: userMessage.list, route: routePath.user.list }
 ]
 
 export enum ListTableProp {

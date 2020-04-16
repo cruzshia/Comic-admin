@@ -8,6 +8,7 @@ import ReturnGift from './ReturnGift/ReturnGift'
 import ContactUs from './ContactUs/ContactUs'
 import Notification from './Notification/Notification'
 import Questionnaire from './Questionnaire/Questionnaire'
+import History from './History/History'
 
 export default function User() {
   return (
@@ -19,6 +20,7 @@ export default function User() {
       <Route path={routePath.user.contactUs} component={ContactUs} />
       <Route path={routePath.user.notification} component={Notification} />
       <Route path={routePath.user.questionnaire} component={Questionnaire} />
+      <Route path={routePath.user.history} component={History} />
     </Switch>
   )
 }
