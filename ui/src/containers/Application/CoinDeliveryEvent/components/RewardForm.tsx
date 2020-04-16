@@ -29,6 +29,7 @@ const useStyle = makeStyles({
   },
   tbody: {
     '& td': {
+      width: '25%',
       padding: `${PADDING} 12px ${PADDING} 5px`,
       backgroundColor: backgroundColorLightGray,
       '&:first-child': {

@@ -52,7 +52,7 @@ const useStyles = makeStyles({
     }
   },
   innerTable: {
-    border: 'none',
+    padding: '20px',
     '& > .MuiGrid-container': {
       border: 'none',
       alignItems: 'start'
@@ -293,6 +293,7 @@ export default function UserDetail() {
                 toDataSet(
                   formatMessage(messages.contentGift),
                   <DataTable
+                    innerTable
                     tableClass={classes.innerTable}
                     dataSet={[
                       toDataSet(
@@ -317,6 +318,7 @@ export default function UserDetail() {
                 toDataSet(
                   formatMessage(messages.subscriptionGift),
                   <DataTable
+                    innerTable
                     tableClass={classes.innerTable}
                     dataSet={[
                       toDataSet(

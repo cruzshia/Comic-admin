@@ -2,16 +2,15 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-
-import DataTableRow from './DataTableRow'
 import { borderColorLight, contentWidth, minWidth } from '@src/common/styles'
 import { ReactComponent as PenIcon } from '@src/assets/common/pen.svg'
+import DataTableRow, { LABEL_WIDTH } from './DataTableRow'
 import clsx from 'clsx'
 
 const useStyle = makeStyles({
   table: {
     maxWidth: contentWidth,
-    minWidth,
+    minWidth: innerTable => (innerTable ? `calc(100% - ${LABEL_WIDTH}px)` : minWidth),
     border: `2px solid ${borderColorLight}`,
     borderRadius: '4px'
   },
@@ -45,8 +44,12 @@ const useStyle = makeStyles({
   innerTable: {
     margin: '-20px',
     border: 'none',
-    '& .MuiGrid-container .MuiGrid-item:first-child': {
-      maxWidth: 120
+    '& .MuiGrid-container .MuiGrid-item': {
+      maxWidth: 'calc(100% - 120px)',
+      wordBreak: 'break-all',
+      '&:first-child': {
+        maxWidth: 120
+      }
     }
   }
 })
@@ -92,7 +95,7 @@ export default function DataTable({
   buttons,
   titleClass
 }: Props) {
-  const classes = useStyle()
+  const classes = useStyle(!!innerTable)
 
   return dataSet.length ? (
     <div className={marginBottom ? classes.marginBottom : ''} ref={innerRef}>

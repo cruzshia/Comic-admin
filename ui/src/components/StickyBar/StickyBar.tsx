@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { fromEvent } from 'rxjs'
 import Box from '@material-ui/core/Box'
 import RootRef from '@material-ui/core/RootRef'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import useBreakpoint from '@src/hooks/useBreakpoint'
 import { borderColorLight, topOffset, contentWidth, sidebarWidth, zIndex } from '@src/common/styles'
 
 interface Props {
@@ -15,8 +15,10 @@ const offsetLeft = 30
 export default function StickyBar({ top, contentOffset = 0, children }: Props) {
   const [visible, setVisible] = useState<boolean>(false)
   const domRef = useRef<HTMLDivElement>(null)
-  const matches = useMediaQuery(`(max-width: 1440px)`)
-  const paddingRight = matches ? `${offsetLeft + sidebarWidth}px` : `calc(100% - ${offsetLeft}px - ${contentWidth}px)`
+  const { isResponsive } = useBreakpoint()
+  const paddingRight = isResponsive
+    ? `${offsetLeft + sidebarWidth}px`
+    : `calc(100% - ${offsetLeft}px - ${contentWidth}px)`
 
   useEffect(() => {
     const displayPos = top + (contentOffset || domRef.current!.clientHeight)

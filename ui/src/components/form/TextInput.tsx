@@ -7,7 +7,6 @@ import { InputProps } from './inputProps'
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: short => (short ? 205 : 410),
     '& input': {
       padding: '8px 15px'
     }
@@ -20,7 +19,7 @@ interface Props extends InputProps {
 
 export default function TextInput({ name, onChange, onBlur, error, placeholder, value, short }: Props) {
   const { formatMessage } = useIntl()
-  const classes = useStyles(!!short)
+  const classes = useStyles()
   return (
     <div>
       <OutlinedInput
@@ -28,7 +27,7 @@ export default function TextInput({ name, onChange, onBlur, error, placeholder, 
         color='secondary'
         data-testid='text_input'
         name={name}
-        className={clsx(classes.root, { error: !!error })}
+        className={clsx(classes.root, { error: !!error, 'vearth-input-small': !!short })}
         onChange={onChange}
         onBlur={onBlur}
         value={value}

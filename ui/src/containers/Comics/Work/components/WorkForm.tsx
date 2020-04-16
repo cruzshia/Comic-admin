@@ -47,11 +47,11 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
     for (let i = 0; i < IMAGE_NUM; i++) {
       dataSet.push({
         label: `${formatMessage(comicsMessages.episodeImage)}${i + 1}`,
-        content: <Field name={`images[${i}]`} component={DropZoneAdapter} />
+        content: <Field name={`images[${i}]`} className={classes.photo} component={DropZoneAdapter} />
       })
     }
     return dataSet
-  }, [formatMessage])
+  }, [formatMessage, classes.photo])
 
   return (
     <>

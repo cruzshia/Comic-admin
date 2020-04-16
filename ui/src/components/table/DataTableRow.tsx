@@ -3,6 +3,8 @@ import { Grid, makeStyles } from '@material-ui/core'
 import { borderColorLight, fontWeightBold, backgroundColorLightGray } from '@src/common/styles'
 import clsx from 'clsx'
 
+export const LABEL_WIDTH = 200
+
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -14,7 +16,7 @@ const useStyles = makeStyles({
   title: {
     display: 'flex',
     alignItems: 'center',
-    maxWidth: 200,
+    maxWidth: LABEL_WIDTH,
     borderRight: `1px solid ${borderColorLight}`,
     fontSize: 12,
     fontWeight: fontWeightBold,

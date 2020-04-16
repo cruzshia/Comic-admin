@@ -17,6 +17,7 @@ import Pagination from '@src/components/table/Pagination'
 import { ReactComponent as SortImg } from '@src/assets/common/expand_more.svg'
 import { mainColor, backgroundColor, borderColor, borderColorLight, contentWidth } from '@src/common/styles'
 import { PAGE_LIMIT } from '@src/common/constants'
+import useBreakpoint from '@src/hooks/useBreakpoint'
 import ListTableRow from './ListTableRow'
 import messages from './messages'
 import clsx from 'clsx'
@@ -71,11 +72,16 @@ const Container = styled(Paper)({
   border: `2px solid ${borderColorLight}`,
   boxShadow: 'none',
   maxWidth: contentWidth,
+  '&.responsive': {
+    minWidth: 740,
+    maxWidth: 'calc(100vw - 260px)'
+  },
   '& .MuiTableCell-root': {
     overflowWrap: 'break-word',
     fontSize: 12
   },
   '& table': {
+    width: contentWidth,
     tableLayout: 'fixed'
   },
   '& tbody .MuiTableRow-root:last-child .MuiTableCell-root': {
@@ -149,6 +155,7 @@ export default function ListTable({
 }: Props) {
   const classes = useStyles({ noMarginTop })
   const { formatMessage } = useIntl()
+  const { isResponsive } = useBreakpoint()
   const pageItemNum = useMemo(() => perPage || PAGE_LIMIT, [perPage])
 
   const handleSort = useCallback(
@@ -168,7 +175,7 @@ export default function ListTable({
           ))}
         </div>
       </Grid>
-      <TableContainer component={Container}>
+      <TableContainer component={Container} className={isResponsive ? 'responsive' : ''}>
         <Table>
           <TableHead>
             <TableRow className={clsx(classes.tableHeadRow, tableClass)}>

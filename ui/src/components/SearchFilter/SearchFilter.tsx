@@ -3,9 +3,10 @@ import { useIntl } from 'react-intl'
 import { Form } from 'react-final-form'
 import { Paper, Grid, makeStyles } from '@material-ui/core'
 import expandImg from '@src/assets/common/expand_more_black.svg'
-import { borderColorLight, backgroundColorLight, contentWidth } from '@src/common/styles'
+import { borderColorLight, backgroundColorLight, contentWidth, minWidth } from '@src/common/styles'
 import ActionButton from '@src/components/Button/ActionButton'
 import Button from '@src/components/Button/Button'
+import useBreakpoint from '@src/hooks/useBreakpoint'
 import { ButtonTheme } from '../Button/buttonTheme'
 import messages from './messages'
 import clsx from 'clsx'
@@ -28,25 +29,34 @@ interface Props {
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: contentWidth,
-    '&>div': {
+    maxWidth: contentWidth,
+    minWidth,
+    '& > div': {
       padding: '20px 40px',
       borderColor: borderColorLight
     }
   },
   left: {
-    marginRight: '40px',
+    paddingRight: '40px',
     margin: '-7.5px 0',
-    '&+div': {
+    '&.margin': {
+      marginBottom: '12px'
+    },
+    '& + div': {
       margin: '-7.5px 0'
     }
   },
   item: {
     margin: '7.5px 0',
+    width: '100%',
     '& .title': {
       fontSize: 12,
       fontWeight: 600,
       width: 120
+    },
+    '& .MuiGrid-item:not(.title)': {
+      maxWidth: 'calc(100% - 120px)',
+      flexGrow: 1
     },
     '&.hide': {
       display: 'none'
@@ -57,13 +67,14 @@ const useStyles = makeStyles(() => ({
     marginTop: '12.5px',
     backgroundColor: backgroundColorLight,
     cursor: 'pointer',
-    '&.fold>img': {
+    '&.fold > img': {
       transform: 'rotate(180deg)'
     }
   },
   buttons: {
     marginTop: '15px',
-    width: contentWidth
+    maxWidth: contentWidth,
+    minWidth
   }
 }))
 
@@ -71,6 +82,8 @@ export default function SearchFilter({ onSubmit, conditions, formRef }: Props) {
   const { formatMessage } = useIntl()
   const [isExpand, setIsExpand] = useState<boolean>(false)
   const classes = useStyles()
+  const { isSearchResponsive } = useBreakpoint()
+  const gridSize = isSearchResponsive ? 12 : 6
   const generateItem = useCallback(
     (side: Item[]) =>
       side.map((item: Item, idx) => {
@@ -103,11 +116,17 @@ export default function SearchFilter({ onSubmit, conditions, formRef }: Props) {
           <form onSubmit={handleSubmit} ref={formRef}>
             <Grid container direction='column' className={classes.root}>
               <Paper variant='outlined'>
-                <Grid container wrap='nowrap'>
-                  <Grid container direction='column' className={classes.left}>
+                <Grid container wrap='nowrap' justify='space-evenly' direction={isSearchResponsive ? 'column' : 'row'}>
+                  <Grid
+                    container
+                    direction='column'
+                    item
+                    xs={gridSize}
+                    className={clsx(classes.left, { margin: isSearchResponsive })}
+                  >
                     {generateItem(conditions.left)}
                   </Grid>
-                  <Grid container direction='column'>
+                  <Grid container direction='column' item xs={gridSize}>
                     {generateItem(conditions.right)}
                   </Grid>
                 </Grid>

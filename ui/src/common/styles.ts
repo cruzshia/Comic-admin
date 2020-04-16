@@ -7,8 +7,15 @@ export const headerMenuHeight = 60
 export const topOffset = headerHeight + headerMenuHeight
 export const stickBarOffset = 75
 export const contentWidth = 1180
+export const minTableWidth = 920
 export const minWidth = 740
 export const sidebarWidth = 200
+export const breakpoint = 1440
+export const breakpointXs = 1000
+export const breakpointSearchForm = 1180
+
+export const inputWidth = 410
+export const shortInputWidth = 205
 
 export const mainColor = '#ED3632'
 export const textColor = '#333333'
@@ -53,13 +60,36 @@ export const theme = createMuiTheme({
     }
   },
   overrides: {
+    MuiSelect: {
+      select: {
+        maxWidth: inputWidth,
+        width: '100%',
+        backgroundColor: '#FFFFFF'
+      },
+      root: {
+        maxWidth: inputWidth,
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        '&.vearth-input-small': {
+          width: shortInputWidth
+        }
+      }
+    },
     MuiOutlinedInput: {
+      multiline: {
+        maxWidth: 'none'
+      },
       root: {
         fontSize: 14,
         lineHeight: '24px',
         fontWeight: 'normal',
+        maxWidth: inputWidth,
+        width: '100%',
         minHeight: 36,
         backgroundColor: '#FFFFFF',
+        '&.vearth-input-small': {
+          maxWidth: shortInputWidth
+        },
         '&.Mui-focused fieldset': {
           borderWidth: '1px!important'
         },

@@ -18,13 +18,14 @@ interface Props extends InputProps {
 }
 
 const useStyles = makeStyles(() => ({
-  root: ({ isShort }: { isShort?: boolean }) => ({
-    width: isShort ? 205 : 410,
+  root: isShort => ({
     '& .MuiSelect-select': {
-      padding: '8px 0 8px 15px'
+      padding: '8px 0 8px 15px',
+      ...(isShort ? { maxWidth: 205 } : {})
     },
     '& .MuiSelect-icon': {
-      right: 15
+      right: 5,
+      backgroundColor: 'transparent'
     }
   }),
   placeholder: {
@@ -44,7 +45,7 @@ export default function SelectMenu({
   value: defaultValue
 }: Props) {
   const { formatMessage } = useIntl()
-  const classes = useStyles({ isShort })
+  const classes = useStyles(!!isShort)
   const [value, setValue] = React.useState<any>(defaultValue ?? '')
   const ArrowImg = useCallback((props: any) => <img {...props} src={selectArrowImg} alt='select' />, [])
   const handleChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
@@ -64,7 +65,7 @@ export default function SelectMenu({
         variant='outlined'
         color='secondary'
         displayEmpty
-        className={clsx(classes.root, { error: !!error })}
+        className={clsx(classes.root, { error: !!error, 'vearth-input-small': !!isShort })}
         IconComponent={ArrowImg}
         renderValue={(value: any) => {
           const selected = options.find(option => option.value === value)

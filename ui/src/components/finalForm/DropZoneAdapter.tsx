@@ -8,7 +8,7 @@ const useStyle = makeStyles(() => ({
   previewBox: {
     maxWidth: (maxWidth: string | number) => (typeof maxWidth === 'object' ? '40%' : maxWidth),
     '& img': {
-      width: '100%'
+      maxWidth: '100%'
     }
   }
 }))

@@ -6,12 +6,11 @@ import messages from './messages'
 import { InputProps } from './inputProps'
 
 const useStyles = makeStyles({
-  root: ({ isShort }: { isShort?: boolean }) => ({
-    width: isShort ? 205 : 410,
+  root: {
     '& input': {
       padding: '8px 15px'
     }
-  })
+  }
 })
 
 interface Props extends InputProps {
@@ -20,7 +19,7 @@ interface Props extends InputProps {
 
 export default function AmountInput({ name, onChange, onBlur, error, placeholder, value, isShort }: Props) {
   const { formatMessage } = useIntl()
-  const classes = useStyles({ isShort })
+  const classes = useStyles()
   return (
     <div>
       <OutlinedInput
@@ -28,7 +27,7 @@ export default function AmountInput({ name, onChange, onBlur, error, placeholder
         color='secondary'
         data-testid='amount_input'
         name={name}
-        className={clsx(classes.root, { error: !!error })}
+        className={clsx(classes.root, { error: !!error, 'vearth-input-small': !!isShort })}
         onChange={onChange}
         onBlur={onBlur}
         value={value}

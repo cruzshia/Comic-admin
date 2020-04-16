@@ -12,7 +12,6 @@ interface Props extends InputProps {
 
 const useStyles = makeStyles(() => ({
   root: ({ icon }: { icon?: boolean }) => ({
-    width: 410,
     '& input': {
       padding: icon ? '8px 15px 8px 0' : '8px 15px'
     }

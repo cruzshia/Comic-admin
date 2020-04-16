@@ -9,7 +9,8 @@ const useStyles = makeStyles({
   root: {
     whiteSpace: 'nowrap',
     '& .MuiOutlinedInput-root': {
-      width: 190,
+      maxWidth: 190,
+      width: 'calc(50% - 15px)',
       '& input': {
         padding: '8px 15px'
       }
