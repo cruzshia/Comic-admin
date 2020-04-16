@@ -4,6 +4,5 @@ import userMessages from '../messages'
 
 export const BREADCRUMBS = [
   { title: commonMessages.userManagement },
-  { title: userMessages.list, route: routePath.user.list },
-  { title: userMessages.detail, route: routePath.user.userDetail }
+  { title: userMessages.list, route: routePath.user.list }
 ]

@@ -5,7 +5,7 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import ListTable, { SortOrder } from '@src/components/table/ListTable'
 import { errorColor, fontWeightBold } from '@src/common/styles'
 import { ReactComponent as AlertIcon } from '@src/assets/form/error_alert.svg'
-import { ReactComponent as DownloadIcon } from '@src/assets/common/download.svg'
+import { ReactComponent as DownloadIcon } from '@src/assets/common/download_circle.svg'
 import messages from '@src/messages'
 import { BREADCRUMBS } from '../constants'
 import WorkContext from '../context/WorkContext'

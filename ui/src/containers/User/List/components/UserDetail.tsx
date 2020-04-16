@@ -1,5 +1,5 @@
-import React, { useContext, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useMemo, useState, useCallback } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { Form, Field } from 'react-final-form'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
@@ -10,6 +10,7 @@ import { SelectAdapter, AmountInputAdapter, SearchInputAdapter, TextInputAdapter
 import Button, { Theme } from '@src/components/Button/Button'
 import { TimeSpanInput } from '@src/components/form'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
+import { routePath } from '@src/common/appConfig'
 import { ReactComponent as ListIcon } from '@src/assets/form/round_list.svg'
 import DeviceDiaLog from './DeviceDiaLog'
 import { BREADCRUMBS } from '../constants'
@@ -74,12 +75,14 @@ const useStyles = makeStyles({
 export default function UserDetail() {
   const { formatMessage } = useIntl()
   const { currentUser } = useContext(UserContext)
+  const { id } = useParams()
   const classes = useStyles()
   const [open, setOpen] = useState<boolean>(false)
   const [selectedDevice, setSelectedDevice] = useState<any>(undefined)
-  const handleClose = () => {
+  const replaceUserId = useCallback((route: string) => route.replace(':userId', id || ''), [id])
+  const handleClose = useCallback(() => {
     setOpen(false)
-  }
+  }, [setOpen])
   const titleText = formatMessage(userMessages.detail)
   const breadcrumbList = useMemo(
     () =>
@@ -233,7 +236,9 @@ export default function UserDetail() {
               dataSet={[
                 toDataSet(
                   formatMessage(messages.epicsPurchaseLogs),
-                  <Link to='#'>{formatMessage(messages.amountOfItems, { num: currentUser.epicsPurchaseLogs })}</Link>
+                  <Link to={replaceUserId(routePath.user.historyEpisode)}>
+                    {formatMessage(messages.amountOfItems, { num: currentUser.epicsPurchaseLogs })}
+                  </Link>
                 ),
                 toDataSet(
                   formatMessage(messages.subscriptionLogs),

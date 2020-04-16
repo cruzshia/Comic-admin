@@ -64,6 +64,7 @@ interface Props {
   onRowClick?: (id: string) => void
   sortOrder?: SortOrder
   sortBy?: string
+  noMarginTop?: boolean
 }
 
 const Container = styled(Paper)({
@@ -120,8 +121,8 @@ const useStyles = makeStyles({
       cursor: 'pointer'
     }
   },
-  pagination: {
-    margin: '60px 0 20px 0',
+  pagination: ({ noMarginTop }: { noMarginTop?: boolean }) => ({
+    margin: noMarginTop ? '20px 0' : '60px 0 20px 0',
     maxWidth: contentWidth,
     '& .MuiButtonBase-root': {
       margin: '0 5px',
@@ -129,7 +130,7 @@ const useStyles = makeStyles({
         marginRight: 0
       }
     }
-  }
+  })
 })
 
 export default function ListTable({
@@ -143,9 +144,10 @@ export default function ListTable({
   onPageChange,
   onRowClick,
   sortOrder = SortOrder.Desc,
-  sortBy
+  sortBy,
+  noMarginTop
 }: Props) {
-  const classes = useStyles()
+  const classes = useStyles({ noMarginTop })
   const { formatMessage } = useIntl()
   const pageItemNum = useMemo(() => perPage || PAGE_LIMIT, [perPage])
 
