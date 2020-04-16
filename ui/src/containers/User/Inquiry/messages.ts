@@ -1,11 +1,15 @@
 import { defineMessages } from 'react-intl'
 
-const PREFIX = 'user.contact_us.'
+const PREFIX = 'user.inquiry.'
 
 export default defineMessages({
   list: {
     id: PREFIX + 'list',
-    defaultMessage: 'Contact Us List'
+    defaultMessage: 'Inquiry List'
+  },
+  detail: {
+    id: PREFIX + 'detail',
+    defaultMessage: 'Inquiry Detail'
   },
   mail: {
     id: PREFIX + 'mail',
@@ -27,12 +31,16 @@ export default defineMessages({
     id: PREFIX + 'message',
     defaultMessage: 'Message'
   },
-  contactTime: {
-    id: PREFIX + 'contact_time',
-    defaultMessage: 'Contact Time'
+  inquiryTime: {
+    id: PREFIX + 'inquiry_time',
+    defaultMessage: 'Inquiry Time'
   },
   appVersion: {
     id: PREFIX + 'app_version',
     defaultMessage: 'App Version'
+  },
+  inquiryType: {
+    id: PREFIX + 'inquiry_type',
+    defaultMessage: 'Inquiry Type'
   }
 })

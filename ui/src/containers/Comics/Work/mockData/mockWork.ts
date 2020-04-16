@@ -31,7 +31,7 @@ export const mockWork = {
       image: mockManga,
       link: 'https://shonenjumpplus.com/episode/10834108156758729535',
       buttonName: 'サンプルテキスト',
-      deliveryDuration: '2020-02-20 19:00:00　〜　2020-02-20 19:00:00'
+      deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00'
     },
     contents: [
       {
@@ -47,7 +47,7 @@ export const mockWork = {
         image: mockManga,
         link: 'https://shonenjumpplus.com/episode/10834108156758729535',
         buttonName: 'サンプルテキスト',
-        deliveryDuration: '2020-02-20 19:00:00　〜　2020-02-20 19:00:00'
+        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00'
       }
     ]
   }

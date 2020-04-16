@@ -85,8 +85,8 @@ export default defineMessages({
     id: 'user.questionnaire_management',
     defaultMessage: 'Questionnaire Management'
   },
-  userContactUs: {
-    id: 'user.contact_us',
-    defaultMessage: 'Contact Us'
+  userInquiry: {
+    id: 'user.inquiry',
+    defaultMessage: 'User Inquiry'
   }
 })

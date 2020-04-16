@@ -12,8 +12,8 @@ import commonMessages from '@src/messages'
 import messages from '../messages'
 
 interface Props {
-  contactList: any[]
-  contactTotal: number
+  inquiryList: any[]
+  inquiryTotal: number
 }
 
 const useStyle = makeStyles({
@@ -33,12 +33,12 @@ const useStyle = makeStyles({
   }
 })
 
-export default function ContactUsList({ contactList, contactTotal }: Props) {
+export default function InquiryList({ inquiryList, inquiryTotal }: Props) {
   const history = useHistory()
   const classes = useStyle()
   const { formatMessage } = useIntl()
-  const { sortBy, handleSort } = useSort('contactAt')
-  const { pagination, handlePageChange } = usePaging({ total: contactTotal })
+  const { sortBy, handleSort } = useSort('inquiryAt')
+  const { pagination, handlePageChange } = usePaging({ total: inquiryTotal })
 
   const breadcrumbList = useMemo(
     () =>
@@ -48,19 +48,21 @@ export default function ContactUsList({ contactList, contactTotal }: Props) {
     [formatMessage]
   )
 
-  const dataList = contactList.map(contact => ({
-    id: contact.id,
-    data: {
-      ...contact,
-      spacer: ''
-    }
-  }))
+  const dataList = inquiryList
+    .map(inquiry => ({
+      id: inquiry.id,
+      data: {
+        ...inquiry,
+        spacer: ''
+      }
+    }))
+    .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
 
   const theadList = useMemo(
     () => [
-      { id: 'contactAt', label: formatMessage(messages.contactTime), onSort: handleSort },
+      { id: 'inquiryAt', label: formatMessage(messages.inquiryTime), onSort: handleSort },
       { id: 'id', label: formatMessage(commonMessages.id) },
-      { id: 'type', label: formatMessage(messages.questionType) },
+      { id: 'inquiryType', label: formatMessage(messages.questionType) },
       { id: 'message', label: formatMessage(messages.message) },
       { id: 'appVersion', label: formatMessage(messages.appVersion) },
       { id: 'spacer', label: '' }
@@ -80,7 +82,7 @@ export default function ContactUsList({ contactList, contactTotal }: Props) {
         onPageChange={handlePageChange}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
-        onRowClick={useCallback((id: string) => history.push(routePath.user.contactUsDetail.replace(':id', id)), [
+        onRowClick={useCallback((id: string) => history.push(routePath.user.inquiryDetail.replace(':id', id)), [
           history
         ])}
       />
