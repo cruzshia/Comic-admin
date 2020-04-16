@@ -56,7 +56,7 @@ export default function CoinProductList() {
   const theadList = useMemo(
     () => [
       { id: 'createdAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
-      { id: 'releaseStartTime', label: formatMessage(messages.releaseStartTime), onSort: handleSort },
+      { id: 'releaseStartTime', label: formatMessage(commonMessages.publicStartTime), onSort: handleSort },
       { id: 'productId', label: formatMessage(messages.productId) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
       { id: 'paidCoin', label: formatMessage(messages.paidCoin), onSort: handleSort },

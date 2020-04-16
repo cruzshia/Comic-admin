@@ -23,14 +23,6 @@ export default defineMessages({
     id: PREFIX + 'status',
     defaultMessage: 'Status'
   },
-  releaseStartTime: {
-    id: PREFIX + 'release_start_time',
-    defaultMessage: 'Release Start Time'
-  },
-  releaseEndTime: {
-    id: PREFIX + 'release_end_time',
-    defaultMessage: 'Release End Time'
-  },
   inputCoinNum: {
     id: PREFIX + 'input_coin_num',
     defaultMessage: 'Input Coin Number'

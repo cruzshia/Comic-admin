@@ -77,8 +77,8 @@ export default function CoinProductDetail() {
       <DataTable
         title={formatMessage(commonMessages.releaseDuration)}
         dataSet={[
-          toDataSet(formatMessage(messages.releaseStartTime), currentProduct.releaseStartTime),
-          toDataSet(formatMessage(messages.releaseEndTime), currentProduct.releaseEndTime)
+          toDataSet(formatMessage(commonMessages.publicStartTime), currentProduct.releaseStartTime),
+          toDataSet(formatMessage(commonMessages.publicEndTime), currentProduct.releaseEndTime)
         ]}
         onEdit={handleRedirect(ScrollAnchor.Release)}
       />

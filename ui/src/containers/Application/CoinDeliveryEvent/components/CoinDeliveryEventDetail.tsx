@@ -8,7 +8,6 @@ import Button, { Theme } from '@src/components/Button/Button'
 import { routePath } from '@src/common/appConfig'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
-import applicationMessages from '../../messages'
 import CoinDeliveryEventContext from '../context/CoinDeliveryEventContext'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
@@ -72,8 +71,8 @@ export default function CoinDeliveryEventDetail() {
       <DataTable
         title={formatMessage(commonMessages.releaseDuration)}
         dataSet={[
-          toDataSet(formatMessage(applicationMessages.releaseStartTime), currentEvent.releaseStartAt),
-          toDataSet(formatMessage(applicationMessages.releaseEndTime), currentEvent.releaseEndAt)
+          toDataSet(formatMessage(commonMessages.publicStartTime), currentEvent.releaseStartAt),
+          toDataSet(formatMessage(commonMessages.publicEndTime), currentEvent.releaseEndAt)
         ]}
         onEdit={handleEdit}
       />

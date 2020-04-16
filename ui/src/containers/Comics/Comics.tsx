@@ -6,6 +6,7 @@ import Work from './Work/Work'
 import Content from './Content/Content'
 import Author from './Author/Author'
 import ContentsCampaign from './ContentsCampaign/ContentsCampaign'
+import Subscription from './Subscription/Subscription'
 
 export default function Comics() {
   return (
@@ -15,6 +16,7 @@ export default function Comics() {
       <Route path={routePath.comics.worksCampaign} component={WorksCampaign} />
       <Route path={routePath.comics.contentsCampaign} component={ContentsCampaign} />
       <Route path={routePath.comics.author} component={Author} />
+      <Route path={routePath.comics.subscription} component={Subscription} />
     </Switch>
   )
 }

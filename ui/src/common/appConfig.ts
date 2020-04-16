@@ -36,7 +36,11 @@ export const routePath = {
     author: `${RouteSection.Comics}/author`,
     authorDetail: `${RouteSection.Comics}/author/detail/:id`,
     authorEdit: `${RouteSection.Comics}/author/edit/:id`,
-    authorCreation: `${RouteSection.Comics}/author/creation`
+    authorCreation: `${RouteSection.Comics}/author/creation`,
+    subscription: `${RouteSection.Comics}/subscription`,
+    subscriptionDetail: `${RouteSection.Comics}/subscription/detail/:id`,
+    subscriptionEdit: `${RouteSection.Comics}/subscription/edit/:id`,
+    subscriptionCreation: `${RouteSection.Comics}/subscription/creation`
   },
   application: {
     base: RouteSection.Application,

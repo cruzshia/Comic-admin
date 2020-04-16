@@ -73,9 +73,9 @@ export default function CoinProductForm({ coinProduct, onSubmit, formRef }: Prop
             <StartEndForm
               innerRef={releaseRef}
               title={formatMessage(commonMessages.releaseDuration)}
-              startLabel={formatMessage(messages.releaseStartTime)}
+              startLabel={formatMessage(commonMessages.publicStartTime)}
               startName='releaseStartTime'
-              endLabel={formatMessage(messages.releaseEndTime)}
+              endLabel={formatMessage(commonMessages.publicEndTime)}
               endName='releaseEndTime'
             />
           </form>

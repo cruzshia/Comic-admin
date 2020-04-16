@@ -10,7 +10,6 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import RewardForm from './RewardForm'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
-import applicationMessages from '../../messages'
 import messages from '../messages'
 
 interface Props {
@@ -85,9 +84,9 @@ export default function CoinDeliveryEventForm({ coinDeliveryEvent, onSubmit }: P
             />
             <StartEndForm
               title={formatMessage(commonMessages.releaseDuration)}
-              startLabel={formatMessage(applicationMessages.releaseStartTime)}
+              startLabel={formatMessage(commonMessages.publicStartTime)}
               startName='releaseStartAt'
-              endLabel={formatMessage(applicationMessages.releaseEndTime)}
+              endLabel={formatMessage(commonMessages.publicEndTime)}
               endName='releaseEndAt'
             />
           </form>

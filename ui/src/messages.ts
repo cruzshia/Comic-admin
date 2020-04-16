@@ -67,6 +67,14 @@ export default defineMessages({
     id: PREFIX + 'update_date_time',
     defaultMessage: 'Update date time'
   },
+  publicStartTime: {
+    id: PREFIX + 'public_start_time',
+    defaultMessage: 'Public Start Time'
+  },
+  publicEndTime: {
+    id: PREFIX + 'public_end_time',
+    defaultMessage: 'Public End Time'
+  },
   startTime: {
     id: PREFIX + 'start_time',
     defaultMessage: 'Start Time'

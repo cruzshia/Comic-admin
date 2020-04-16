@@ -21,6 +21,10 @@ export default defineMessages({
     id: 'comics.contents_campaign',
     defaultMessage: 'Comics contents campaign'
   },
+  comicsSubscription: {
+    id: 'comics.subscription',
+    defaultMessage: 'Comics Subscription'
+  },
   menuReport: {
     id: 'header.menu.report',
     defaultMessage: 'Report'
