@@ -55,8 +55,8 @@ export default function NotificationDetail() {
       <DataTable
         title={formatMessage(commonMessages.releaseDuration)}
         dataSet={[
-          toDataSet(formatMessage(messages.releaseStartDate), currentNotification.releaseStartDate),
-          toDataSet(formatMessage(messages.releaseEndDate), currentNotification.releaseEndDate)
+          toDataSet(formatMessage(commonMessages.publicStartTime), currentNotification.publicStartTime),
+          toDataSet(formatMessage(commonMessages.publicEndTime), currentNotification.publicEndTime)
         ]}
         marginBottom
         onEdit={useCallback(() => {
