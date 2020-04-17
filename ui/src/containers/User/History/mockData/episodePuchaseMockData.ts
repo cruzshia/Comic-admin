@@ -18,3 +18,18 @@ export const mockEpisodePurchaseList = _range(0, 5).map(num => ({
   coinChangeTotal: '-100',
   coinChangeDetail: coinDetails[num]
 }))
+
+export const mockEposodePurchaseDetail = {
+  createdAt: '2020-04-02 14:00',
+  updatedAt: '2020-04-02 14:00',
+  userId: 'WORK_SHUNKAN10000006',
+  contentsId: 'WORK_SHUNKAN10000006',
+  applicationId: '少年ジャンプ+ for iOS',
+  coinCount: -60,
+  paidCoinCount: -10,
+  givenCoinCount: -10,
+  giftCoinCount: -10,
+  bonusCoinCount: -10,
+  adCoinCount: -10,
+  freeVideoAdCoinCount: -10
+}

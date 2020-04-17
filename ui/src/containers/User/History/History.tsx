@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
 import HistoryEpisodeList from './components/HistoryEpisodeList'
 import HistoryEpisodeDetail from './components/HistoryEpisodeDetail'
-import { mockEpisodePurchaseList } from './mockData/episodePuchaseMockData'
+import { mockEpisodePurchaseList, mockEposodePurchaseDetail } from './mockData/episodePuchaseMockData'
 
 export default function History() {
   return (
@@ -15,7 +15,11 @@ export default function History() {
           <HistoryEpisodeList historyTotal={mockEpisodePurchaseList.length} historyList={mockEpisodePurchaseList} />
         )}
       />
-      <Route exact path={routePath.user.historyEpisodeDetail} render={() => <HistoryEpisodeDetail />} />
+      <Route
+        exact
+        path={routePath.user.historyEpisodeDetail}
+        render={() => <HistoryEpisodeDetail currentHistory={mockEposodePurchaseDetail} />}
+      />
     </Switch>
   )
 }

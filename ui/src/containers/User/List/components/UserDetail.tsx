@@ -94,7 +94,7 @@ export default function UserDetail() {
 
   const genCoinContent = (device: string, coin: string) => (
     <div className={classes.input}>
-      <div className='content'>{formatMessage(messages.amountOfCoins, { num: currentUser[device][coin] })}</div>
+      <div className='content'>{formatMessage(userMessages.amountOfCoins, { num: currentUser[device][coin] })}</div>
       <Field
         name={`${device}.${coin}`}
         component={AmountInputAdapter}
@@ -160,21 +160,21 @@ export default function UserDetail() {
               dataSet={[
                 toDataSet(
                   formatMessage(messages.paidCoins),
-                  formatMessage(messages.amountOfCoins, { num: currentUser.ios.paidCoins })
+                  formatMessage(userMessages.amountOfCoins, { num: currentUser.ios.paidCoins })
                 ),
                 toDataSet(
                   formatMessage(messages.paidBonusCoins),
-                  formatMessage(messages.amountOfCoins, { num: currentUser.ios.paidBonusCoins })
+                  formatMessage(userMessages.amountOfCoins, { num: currentUser.ios.paidBonusCoins })
                 ),
                 toDataSet(formatMessage(messages.paidGiftCoins), genCoinContent('ios', 'paidGiftCoins')),
                 toDataSet(formatMessage(messages.paidGiftCoins), genCoinContent('ios', 'freeBonusCoin')),
                 toDataSet(
                   formatMessage(messages.freeAdCoin),
-                  formatMessage(messages.amountOfCoins, { num: currentUser.ios.freeAdCoin })
+                  formatMessage(userMessages.amountOfCoins, { num: currentUser.ios.freeAdCoin })
                 ),
                 toDataSet(
                   formatMessage(messages.freeVideoAdCoin),
-                  formatMessage(messages.amountOfCoins, { num: currentUser.ios.freeVideoAdCoin })
+                  formatMessage(userMessages.amountOfCoins, { num: currentUser.ios.freeVideoAdCoin })
                 )
               ]}
             />
@@ -183,21 +183,21 @@ export default function UserDetail() {
               dataSet={[
                 toDataSet(
                   formatMessage(messages.paidCoins),
-                  formatMessage(messages.amountOfCoins, { num: currentUser.android.paidCoins })
+                  formatMessage(userMessages.amountOfCoins, { num: currentUser.android.paidCoins })
                 ),
                 toDataSet(
                   formatMessage(messages.paidBonusCoins),
-                  formatMessage(messages.amountOfCoins, { num: currentUser.android.paidBonusCoins })
+                  formatMessage(userMessages.amountOfCoins, { num: currentUser.android.paidBonusCoins })
                 ),
                 toDataSet(formatMessage(messages.paidGiftCoins), genCoinContent('android', 'paidGiftCoins')),
                 toDataSet(formatMessage(messages.paidGiftCoins), genCoinContent('android', 'freeBonusCoin')),
                 toDataSet(
                   formatMessage(messages.freeAdCoin),
-                  formatMessage(messages.amountOfCoins, { num: currentUser.android.freeAdCoin })
+                  formatMessage(userMessages.amountOfCoins, { num: currentUser.android.freeAdCoin })
                 ),
                 toDataSet(
                   formatMessage(messages.freeVideoAdCoin),
-                  formatMessage(messages.amountOfCoins, { num: currentUser.android.freeVideoAdCoin })
+                  formatMessage(userMessages.amountOfCoins, { num: currentUser.android.freeVideoAdCoin })
                 )
               ]}
             />

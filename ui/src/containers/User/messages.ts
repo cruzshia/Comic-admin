@@ -22,5 +22,9 @@ export default defineMessages({
   change: {
     id: PREFIX + 'change',
     defaultMessage: 'Change'
+  },
+  amountOfCoins: {
+    id: PREFIX + 'amount_of_coins',
+    defaultMessage: '{num} coins'
   }
 })

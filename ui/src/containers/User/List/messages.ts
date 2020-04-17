@@ -63,10 +63,6 @@ export default defineMessages({
     id: PREFIX + '.user_paid_coins',
     defaultMessage: 'Paid Coins'
   },
-  amountOfCoins: {
-    id: PREFIX + '.amount_of_coins',
-    defaultMessage: '{num} coins'
-  },
   paidBonusCoins: {
     id: PREFIX + '.user_paid_bonus_coins',
     defaultMessage: 'Paid Bonus Coins'
