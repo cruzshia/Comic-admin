@@ -248,7 +248,9 @@ export default function UserDetail() {
                 ),
                 toDataSet(
                   formatMessage(messages.storePurchaseLogs),
-                  <Link to='#'>{formatMessage(messages.amountOfItems, { num: currentUser.storePurchaseLogs })}</Link>
+                  <Link to={replaceUserId(routePath.user.historyMagazine)}>
+                    {formatMessage(messages.amountOfItems, { num: currentUser.storePurchaseLogs })}
+                  </Link>
                 ),
                 toDataSet(
                   formatMessage(messages.bonusCoinsChargeLogs),

@@ -15,6 +15,18 @@ export default defineMessages({
     id: PREFIX + 'episode_purchase_detail',
     defaultMessage: 'Episode Purchase History Detail'
   },
+  magazinePurchaseList: {
+    id: PREFIX + 'magazine_purchase_list',
+    defaultMessage: 'Magazine Purchase History List'
+  },
+  magazinePurchase: {
+    id: PREFIX + 'magazine_purchase',
+    defaultMessage: 'Magazine Purchase History'
+  },
+  magazinePurchaseDetail: {
+    id: PREFIX + 'magazine_purchase_detail',
+    defaultMessage: 'Magazine Purchase History Detail'
+  },
   subscription: {
     id: PREFIX + 'subscription',
     defaultMessage: 'Subscription History'
@@ -46,6 +58,22 @@ export default defineMessages({
   currency: {
     id: PREFIX + 'currency',
     defaultMessage: 'currency'
+  },
+  paidCoinCount: {
+    id: PREFIX + 'paid_coin_count',
+    defaultMessage: 'Paid Coin Count'
+  },
+  paidGivenCoinCount: {
+    id: PREFIX + 'paid_given_coin_count',
+    defaultMessage: 'Paid Given Coin Count'
+  },
+  paidGiftCoinCount: {
+    id: PREFIX + 'paid_gift_coin_count',
+    defaultMessage: 'Paid Gift Coin Count'
+  },
+  supplementInfo: {
+    id: PREFIX + 'supplement_info',
+    defaultMessage: 'Supplement Info'
   },
   subscriptionStartAt: {
     id: PREFIX + 'subscription_start_at',

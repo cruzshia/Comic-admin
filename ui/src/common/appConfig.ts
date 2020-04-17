@@ -89,6 +89,8 @@ export const routePath = {
     historyEpisode: `${RouteSection.User}/history/:userId/episode`,
     historyEpisodeDetail: `${RouteSection.User}/history/:userId/episode/detail/:id`,
     historySubscription: `${RouteSection.User}/history/:userId/subscription`,
-    historySubscriptionDetail: `${RouteSection.User}/history/:userId/subscription/detail/:id`
+    historySubscriptionDetail: `${RouteSection.User}/history/:userId/subscription/detail/:id`,
+    historyMagazine: `${RouteSection.User}/history/:userId/magazine_purchase`,
+    historyMagazineDetail: `${RouteSection.User}/history/:userId/magazine_purchase/detail/:id`
   }
 }
