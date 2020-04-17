@@ -242,7 +242,9 @@ export default function UserDetail() {
                 ),
                 toDataSet(
                   formatMessage(messages.subscriptionLogs),
-                  <Link to='#'>{formatMessage(messages.amountOfItems, { num: currentUser.subscriptionLogs })}</Link>
+                  <Link to={replaceUserId(routePath.user.historySubscription)}>
+                    {formatMessage(messages.amountOfItems, { num: currentUser.subscriptionLogs })}
+                  </Link>
                 ),
                 toDataSet(
                   formatMessage(messages.storePurchaseLogs),
@@ -330,7 +332,7 @@ export default function UserDetail() {
                         <Field name='subscriptionGift.subscription' component={SelectAdapter} options={[]} />
                       ),
                       toDataSet(
-                        formatMessage(messages.validityPeriod),
+                        formatMessage(userMessages.validityPeriod),
                         <>
                           <TimeSpanInput name='subscriptionGift.validityPeriod' />
                           <Button

@@ -247,6 +247,7 @@
   "user.history.coin_change_detail": "Coin Change Detail",
   "user.history.coin_change_total": "Coin Change Total",
   "user.history.coin_count": "Coin Count",
+  "user.history.currency": "currency",
   "user.history.episode_purchase": "Episode Purchase History",
   "user.history.episode_purchase_detail": "Episode Purchase History Detail",
   "user.history.episode_purchase_list": "Episode Purchase History List",
@@ -254,6 +255,14 @@
   "user.history.pay_bonus_coin_count": "Pay Bonus Coin Count",
   "user.history.pay_coin_count": "Pay Coin Count",
   "user.history.pay_gift_coin_count": "Pay Gift Coin Count",
+  "user.history.price": "price",
+  "user.history.subscription": "Subscription History",
+  "user.history.subscription_detail": "Subscription History Detail",
+  "user.history.subscription_id": "Subscription Id",
+  "user.history.subscription_list": "Subscription History List",
+  "user.history.subscription_start_at": "Subscription Start At",
+  "user.history.subscription_updated_at": "Subscription Updated At",
+  "user.history.subscription_validity_period": "Subscription Validity Period",
   "user.id": "User ID",
   "user.inquiry": "User Inquiry",
   "user.inquiry.app_version": "App Version",
@@ -310,7 +319,6 @@
   "user.list.user_paid_gift_coins": "Paid Gifted Coins",
   "user.list.user_unsubscribe_date_time": "Unsubscribe Date Time",
   "user.list.user_unsubscribe_flag": "Unsubscribe Flag",
-  "user.list.validity_period": "Validity Period",
   "user.ng_word.account_ng_word": "Account NG Word",
   "user.ng_word.comment_ng_word": "Comment NG Word",
   "user.ng_word_management": "NG word Management",
@@ -357,5 +365,6 @@
   "user.questionnaire.start_edit": "Edit questionnaire",
   "user.questionnaire_management": "Questionnaire Management",
   "user.return_gift": "Return Gift Management",
-  "user.status": "Status"
+  "user.status": "Status",
+  "user.validity_period": "Validity Period"
 }

@@ -155,10 +155,6 @@ export default defineMessages({
     id: PREFIX + '.subscription',
     defaultMessage: 'Subscription'
   },
-  validityPeriod: {
-    id: PREFIX + '.validity_period',
-    defaultMessage: 'Validity Period'
-  },
   gift: {
     id: PREFIX + '.gift',
     defaultMessage: 'Gift'

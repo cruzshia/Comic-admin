@@ -247,6 +247,7 @@
   "user.history.coin_change_detail": "コイン種別毎の増減数",
   "user.history.coin_change_total": "コインの増減数",
   "user.history.coin_count": "コイン数",
+  "user.history.currency": "通貨",
   "user.history.episode_purchase": "話購入履歴",
   "user.history.episode_purchase_detail": "話購入履歴詳細",
   "user.history.episode_purchase_list": "話購入履歴一覧",
@@ -254,6 +255,14 @@
   "user.history.pay_bonus_coin_count": "購入お得コイン数",
   "user.history.pay_coin_count": "購入コイン数",
   "user.history.pay_gift_coin_count": "贈答用購入コイン数",
+  "user.history.price": "価格",
+  "user.history.subscription": "定期購読履歴",
+  "user.history.subscription_detail": "定期購読履歴詳細",
+  "user.history.subscription_id": "定期購読ID",
+  "user.history.subscription_list": "定期購読履歴一覽",
+  "user.history.subscription_start_at": "定期購読開始日時",
+  "user.history.subscription_updated_at": "定期購読更新日時",
+  "user.history.subscription_validity_period": "定期購読有効期限",
   "user.id": "ユーザーID",
   "user.inquiry": "お問い合わせ",
   "user.inquiry.app_version": "アプリバージョン",
@@ -310,7 +319,6 @@
   "user.list.user_paid_gift_coins": "有償贈答コイン",
   "user.list.user_unsubscribe_date_time": "退会日時",
   "user.list.user_unsubscribe_flag": "退会フラグ",
-  "user.list.validity_period": "有効期限",
   "user.ng_word.account_ng_word": "アカウントNGワード",
   "user.ng_word.comment_ng_word": "コメントNGワード",
   "user.ng_word_management": "NGワード管理",
@@ -357,5 +365,6 @@
   "user.questionnaire.start_edit": "アンケートを編集",
   "user.questionnaire_management": "アンケート管理",
   "user.return_gift": "贈答（コイン・マンガ）",
-  "user.status": "ステータス"
+  "user.status": "ステータス",
+  "user.validity_period": "有効期限"
 }

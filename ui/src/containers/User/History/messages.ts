@@ -15,6 +15,18 @@ export default defineMessages({
     id: PREFIX + 'episode_purchase_detail',
     defaultMessage: 'Episode Purchase History Detail'
   },
+  subscription: {
+    id: PREFIX + 'subscription',
+    defaultMessage: 'Subscription History'
+  },
+  subscriptionList: {
+    id: PREFIX + 'subscription_list',
+    defaultMessage: 'Subscription History List'
+  },
+  subscriptionDetail: {
+    id: PREFIX + 'subscription_detail',
+    defaultMessage: 'Subscription History Detail'
+  },
   coinChangeTotal: {
     id: PREFIX + 'coin_change_total',
     defaultMessage: 'Coin Change Total'
@@ -22,6 +34,30 @@ export default defineMessages({
   coinChangeDetail: {
     id: PREFIX + 'coin_change_detail',
     defaultMessage: 'Coin Change Detail'
+  },
+  subscriptionId: {
+    id: PREFIX + 'subscription_id',
+    defaultMessage: 'Subscription Id'
+  },
+  price: {
+    id: PREFIX + 'price',
+    defaultMessage: 'price'
+  },
+  currency: {
+    id: PREFIX + 'currency',
+    defaultMessage: 'currency'
+  },
+  subscriptionStartAt: {
+    id: PREFIX + 'subscription_start_at',
+    defaultMessage: 'Subscription Start At'
+  },
+  subscriptionUpdatedAt: {
+    id: PREFIX + 'subscription_updated_at',
+    defaultMessage: 'Subscription Updated At'
+  },
+  subscriptionValidityPeriod: {
+    id: PREFIX + 'subscription_validity_period',
+    defaultMessage: 'Subscription Validity Period'
   },
   coinCount: {
     id: PREFIX + 'coin_count',

@@ -23,6 +23,10 @@ export default defineMessages({
     id: PREFIX + 'change',
     defaultMessage: 'Change'
   },
+  validityPeriod: {
+    id: PREFIX + 'validity_period',
+    defaultMessage: 'Validity Period'
+  },
   amountOfCoins: {
     id: PREFIX + 'amount_of_coins',
     defaultMessage: '{num} coins'

@@ -19,7 +19,7 @@ export const mockEpisodePurchaseList = _range(0, 5).map(num => ({
   coinChangeDetail: coinDetails[num]
 }))
 
-export const mockEposodePurchaseDetail = {
+export const mockEpisodePurchaseDetail = {
   createdAt: '2020-04-02 14:00',
   updatedAt: '2020-04-02 14:00',
   userId: 'WORK_SHUNKAN10000006',
