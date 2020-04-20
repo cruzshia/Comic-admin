@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { mainColor, appBarGrey, headerMenuHeight } from '@src/common/styles'
 
 export interface TabProps {
-  icon: string
+  icon: React.FC
   title: MessageDescriptor | string
   basePath?: string
   route: string
@@ -14,14 +14,14 @@ export interface TabProps {
   selected?: boolean
 }
 
-const TabIcon = ({ marginRight, src, alt }: { marginRight: number; src: string; alt: string }) => {
-  const Img = styled('img')({
+const TabIcon = ({ marginRight, icon }: { marginRight: number; icon: React.FC }) => {
+  const Svg = styled(icon)({
     display: 'inline-block',
     width: 24,
     height: 24,
     marginRight
   })
-  return <Img src={src} alt={alt} />
+  return <Svg />
 }
 
 export default memo(function HeaderTabItem({ icon, title, route, fontSize, selected }: TabProps) {
@@ -40,8 +40,9 @@ export default memo(function HeaderTabItem({ icon, title, route, fontSize, selec
         height={headerMenuHeight}
         color='#FFFFFF'
         bgcolor={appBarGrey}
+        className={selected ? 'selected' : undefined}
       >
-        <TabIcon src={icon} alt={title as string} marginRight={isSmallFont ? 5 : 10} />
+        <TabIcon icon={icon} marginRight={isSmallFont ? 5 : 10} />
         {title}
         {selected && (
           <Box

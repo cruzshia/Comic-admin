@@ -44,7 +44,10 @@ const useStyle = makeStyles({
     border: `1px solid ${borderColorLight}`,
     fontSize: '14px',
     backgroundColor: '#FFFFFF',
-    borderRightWidth: 0
+    borderRightWidth: 0,
+    '&:hover': {
+      backgroundColor: backgroundColor
+    }
   },
   last: {
     borderRightWidth: 1

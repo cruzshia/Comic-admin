@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from 'react'
 import { Grid, makeStyles } from '@material-ui/core'
-import { backgroundColorLightGray } from '@src/common/styles'
+import { backgroundColorLightGray, disableColorDark, textColor } from '@src/common/styles'
 import clsx from 'clsx'
 import menuIcon from '@src/assets/common/menu.svg'
-import closeIcon from '@src/assets/common/close.svg'
+import { ReactComponent as CloseIcon } from '@src/assets/common/close.svg'
 
 interface Prop {
   onDelete?: () => void
@@ -25,7 +25,13 @@ const useStyle = makeStyles({
     position: 'absolute',
     right: '-12px',
     top: '-12px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    '& path': {
+      fill: disableColorDark,
+      '&:hover': {
+        fill: textColor
+      }
+    }
   }
 })
 
@@ -35,7 +41,7 @@ export default function InputBlock({ onDelete, children }: PropsWithChildren<Pro
     <div className={clsx(classes.root)}>
       <Grid container>
         <img className={classes.menu} src={menuIcon} alt='menu' />
-        <img className={classes.delete} onClick={onDelete} src={closeIcon} alt='del' data-testid='del-ico' />
+        <CloseIcon className={classes.delete} onClick={onDelete} data-testid='del-ico' />
         {children}
       </Grid>
     </div>

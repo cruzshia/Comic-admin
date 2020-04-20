@@ -39,6 +39,34 @@ const useStyle = makeStyles({
   image: {
     maxWidth: IMAGE_MAX_WIDTH
   }
+
+  // Image action when img hovering:
+  // image: {
+  //   maxWidth: '100%'
+  // },
+  // imageSet: {
+  //   maxWidth: IMAGE_MAX_WIDTH,
+  //   display: 'inline-flex',
+  //   alignContent: 'center',
+  //   justifyContent: 'center',
+  //   position: 'relative',
+  //   '&:hover': {
+  //     cursor: 'pointer'
+  //   },
+  //   '&:hover img': {
+  //     filter: 'brightness(0.3)'
+  //   },
+  //   '&:hover div': {
+  //     visibility: 'visible'
+  //   }
+  // },
+  // helperText: {
+  //   visibility: 'hidden',
+  //   position: 'absolute',
+  //   color: '#FFFFFF',
+  //   textAlign: 'center',
+  //   alignSelf: 'center'
+  // }
 })
 
 export default function WorkDetail() {

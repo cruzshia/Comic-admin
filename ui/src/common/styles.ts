@@ -26,11 +26,17 @@ export const backgroundColorGray = '#E0E0E0'
 export const backgroundColorLight = '#F8F8F8'
 export const backgroundColorLightGray = '#FAFAFA'
 export const disableColor = '#E0E0E0'
+export const disableColorDark = '#BDBDBD'
 export const fontWeightBold = 600
 export const hyperlinkColor = '#1A0DAB'
 
 export const errorColor = '#F5A623'
 export const errorBackgroundColor = '#FCEFD9'
+
+export const darkColorHover = '#C4322F'
+export const lightColorHover = '#FFF4F4'
+
+export const darkBorderShadow = '0px 0px 4px rgba(237, 54, 50, 0.5)'
 
 // https://material-ui.com/customization/z-index/
 export const zIndex = {
@@ -116,6 +122,33 @@ export const theme = createMuiTheme({
           '&::before': {
             content: `url(${errorAlertImg})`,
             marginRight: 7
+          }
+        }
+      }
+    },
+    MuiButton: {
+      root: {
+        '&:hover': {
+          backgroundColor: lightColorHover,
+          '&.dark': {
+            backgroundColor: darkColorHover
+          },
+          '&.dark_border,&.light': {
+            backgroundColor: lightColorHover
+          }
+        },
+        '&.Mui-disabled': {
+          color: disableColor,
+          '&.dark': {
+            backgroundColor: disableColorDark,
+            border: 'none'
+          },
+          '&.dark_border': {
+            color: disableColor,
+            border: `1px solid ${disableColor}`
+          },
+          '& svg g path': {
+            fill: disableColor
           }
         }
       }

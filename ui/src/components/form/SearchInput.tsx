@@ -2,6 +2,7 @@ import React from 'react'
 import { InputAdornment, OutlinedInput, makeStyles, FormHelperText } from '@material-ui/core'
 import { useIntl } from 'react-intl'
 import messages from './messages'
+import { mainColor, darkBorderShadow } from '@src/common/styles'
 import searchImg from '@src/assets/form/search.svg'
 import { InputProps } from './inputProps'
 import clsx from 'clsx'
@@ -14,6 +15,10 @@ const useStyles = makeStyles(() => ({
   root: ({ icon }: { icon?: boolean }) => ({
     '& input': {
       padding: icon ? '8px 15px 8px 0' : '8px 15px'
+    },
+    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      border: `1px solid ${mainColor}`,
+      boxShadow: darkBorderShadow
     }
   })
 }))

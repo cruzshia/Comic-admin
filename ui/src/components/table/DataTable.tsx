@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-import { borderColorLight, contentWidth, minWidth } from '@src/common/styles'
+import { borderColorLight, contentWidth, minWidth, lightColorHover } from '@src/common/styles'
 import { ReactComponent as PenIcon } from '@src/assets/common/pen.svg'
 import DataTableRow, { LABEL_WIDTH } from './DataTableRow'
 import clsx from 'clsx'
@@ -35,7 +35,8 @@ const useStyle = makeStyles({
     borderRadius: '50%',
     backgroundColor: '#FFFFFF',
     '&:hover': {
-      cursor: 'pointer'
+      cursor: 'pointer',
+      backgroundColor: lightColorHover
     },
     '& svg, path': {
       fill: '#000000'

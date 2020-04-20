@@ -11,9 +11,5 @@ export const buttonStyleBase = {
   borderRadius: 4,
   fontWeight: fontWeightBold,
   alignItems: 'center',
-  backgroundColor: '#FFFFFF',
-  '&.Mui-disabled': {
-    color: 'inherit',
-    opacity: 0.6
-  }
+  backgroundColor: '#FFFFFF'
 }

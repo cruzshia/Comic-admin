@@ -4,7 +4,7 @@ import { styled } from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
-import { appBarGrey, headerMenuHeight } from '@src/common/styles'
+import { appBarGrey, headerMenuHeight, disableColorDark } from '@src/common/styles'
 import HeaderTabItem from './HeaderTabItem'
 import { HEADER_TABS, HEADER_TABS_RIGHT } from './constants'
 import layoutContext from '../context'
@@ -15,7 +15,19 @@ const StyledToolBar = styled(Toolbar)({
   padding: 0,
   height: headerMenuHeight,
   minHeight: headerMenuHeight,
-  backgroundColor: appBarGrey
+  backgroundColor: appBarGrey,
+  '& .MuiBox-root:first-child .MuiBox-root': {
+    color: disableColorDark,
+    '& svg path': {
+      fill: disableColorDark
+    },
+    '&:hover,&.selected': {
+      color: '#FFFFFF',
+      '& svg path': {
+        fill: '#FFFFFF'
+      }
+    }
+  }
 })
 
 export default function HeaderTabMenu() {
