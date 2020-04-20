@@ -85,7 +85,7 @@ export default function CoinDeliveryEventList() {
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
         onRowClick={useCallback(
-          (id: string) => history.push(routePath.application.coinProductDetail.replace(':id', id)),
+          (id: string) => history.push(routePath.application.coinDeliveryEventDetail.replace(':id', id)),
           [history]
         )}
       />

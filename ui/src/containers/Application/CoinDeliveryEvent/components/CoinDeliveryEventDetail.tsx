@@ -29,7 +29,7 @@ export default function CoinDeliveryEventDetail() {
     [formatMessage]
   )
 
-  const handleEdit = useCallback(() => history.push(routePath.application.coinProductEdit.replace(':id', id!)), [
+  const handleEdit = useCallback(() => history.push(routePath.application.coinDeliveryEventEdit.replace(':id', id!)), [
     id,
     history
   ])

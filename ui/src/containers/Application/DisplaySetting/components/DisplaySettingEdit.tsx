@@ -16,6 +16,7 @@ import { BREADCRUMBS } from '../constants'
 import applicationMessages from '../../messages'
 import messages from '../messages'
 import DisplaySettingContext from '../context/DisplaySettingContext'
+import Section from './Section'
 
 enum Mode {
   batch = 'batch',
@@ -140,9 +141,13 @@ export default function DisplaySettingEdit() {
                 toDataSet(
                   formatMessage(commonMessages.setting),
                   <Field name='setting'>
-                    {({ input, meta }) => (
-                      <TextArea rows={40} {...input} error={checkError(meta)} classnames={classes.setting} />
-                    )}
+                    {({ input, meta }) =>
+                      mode === Mode.batch ? (
+                        <TextArea rows={40} {...input} error={checkError(meta)} classnames={classes.setting} />
+                      ) : (
+                        <Section />
+                      )
+                    }
                   </Field>
                 )
               ]}
