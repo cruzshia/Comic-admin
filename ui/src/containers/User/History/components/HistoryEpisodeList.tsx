@@ -50,7 +50,7 @@ export default function HistoryEpisodeList({
         title: formatMessage(title),
         route
       })).concat([
-        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId || '') },
+        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
           title: formatMessage(messages.episodePurchaseList),
           route: undefined
@@ -99,7 +99,7 @@ export default function HistoryEpisodeList({
         sortOrder={sortBy.order}
         onRowClick={useCallback(
           (id: string) =>
-            history.push(routePath.user.historyEpisodeDetail.replace(':id', id).replace(':userId', userId || '')),
+            history.push(routePath.user.historyEpisodeDetail.replace(':id', id).replace(':userId', userId!)),
           [history, userId]
         )}
         noMarginTop

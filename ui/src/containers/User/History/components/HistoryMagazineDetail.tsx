@@ -18,10 +18,10 @@ export default function HistoryMagazineDetail({ currentHistory }: { currentHisto
         title: formatMessage(title),
         route
       })).concat([
-        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId || '') },
+        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
           title: formatMessage(messages.magazinePurchaseList),
-          route: routePath.user.historyMagazine.replace(':userId', userId || '')
+          route: routePath.user.historyMagazine.replace(':userId', userId!)
         },
         {
           title: formatMessage(messages.magazinePurchaseDetail),

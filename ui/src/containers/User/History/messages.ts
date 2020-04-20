@@ -15,6 +15,18 @@ export default defineMessages({
     id: PREFIX + 'episode_purchase_detail',
     defaultMessage: 'Episode Purchase History Detail'
   },
+  bonusCoinList: {
+    id: PREFIX + 'bonus_coin_charge_list',
+    defaultMessage: 'Bonus Coin Charge History List'
+  },
+  bonusCoin: {
+    id: PREFIX + 'bonus_coin_charge',
+    defaultMessage: 'Bonus Coin Charge History'
+  },
+  bonusCoinDetail: {
+    id: PREFIX + 'bonus_coin_charge_detail',
+    defaultMessage: 'Bonus Coin Charge History Detail'
+  },
   magazinePurchaseList: {
     id: PREFIX + 'magazine_purchase_list',
     defaultMessage: 'Magazine Purchase History List'
@@ -130,5 +142,25 @@ export default defineMessages({
   logType: {
     id: PREFIX + 'log_type',
     defaultMessage: 'Log Type'
+  },
+  campaignDetail: {
+    id: PREFIX + 'campaign_detail',
+    defaultMessage: 'Campaign Detail'
+  },
+  contentsCampaignId: {
+    id: PREFIX + 'contents_campaign_id',
+    defaultMessage: 'Contents Campaign ID'
+  },
+  customEventId: {
+    id: PREFIX + 'custom_event_id',
+    defaultMessage: 'Custom Event ID'
+  },
+  customEventPaymentId: {
+    id: PREFIX + 'custom_event_payment_id',
+    defaultMessage: 'Custom Event Payment ID'
+  },
+  videoAdCoinCount: {
+    id: PREFIX + 'video_ad_coin_count',
+    defaultMessage: 'Video Ad Coin Count'
   }
 })

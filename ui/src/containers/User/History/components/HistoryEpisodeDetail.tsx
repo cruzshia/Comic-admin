@@ -20,10 +20,10 @@ export default function HistoryEpisodeDetail({ currentHistory }: { currentHistor
         title: formatMessage(title),
         route
       })).concat([
-        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId || '') },
+        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
           title: formatMessage(messages.episodePurchaseList),
-          route: routePath.user.historyEpisode.replace(':userId', userId || '')
+          route: routePath.user.historyEpisode.replace(':userId', userId!)
         },
         {
           title: formatMessage(messages.episodePurchaseDetail),
