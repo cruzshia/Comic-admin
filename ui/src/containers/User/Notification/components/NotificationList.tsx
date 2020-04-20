@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react'
+import React, { useCallback, useContext, useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -42,10 +42,22 @@ export default function NotificationList() {
   const { sortBy, handleSort } = useSort('createDateTime')
   const { pagination, handlePageChange } = usePaging({ total: notificationTotal })
 
-  const breadcrumbList = BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) }))
-  const buttonList = [
-    <Button theme={Theme.DARK_BORDER} buttonText={formatMessage(messages.startCreate)} icon={IconEdit} />
-  ]
+  const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
+    formatMessage
+  ])
+  const buttonList = useMemo(
+    () => [
+      <Button
+        theme={Theme.DARK_BORDER}
+        buttonText={formatMessage(messages.startCreate)}
+        icon={IconEdit}
+        onClick={() => {
+          history.push(routePath.user.notificationCreation)
+        }}
+      />
+    ],
+    [formatMessage, history]
+  )
 
   const handleSearch = useCallback((data: any) => {}, [])
 
@@ -59,7 +71,7 @@ export default function NotificationList() {
   ]
   const displayData = notificationList
     .map((data, idx) => ({
-      id: `notification-${idx}`,
+      id: `WORK_SHUNKAN10000006${idx}`,
       data
     }))
     .sort((a, b) => (Date.parse(a.data[sortBy.key]) - Date.parse(b.data[sortBy.key])) * sortBy.multiplier)

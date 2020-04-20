@@ -2,7 +2,7 @@ import { _range } from '@src/utils/functions'
 export const mockEventTotal = 7
 
 export const mockEventDetail = {
-  id: 'WORK_SHUNKAN1000000',
+  id: 'WORK_SHUNKAN10000006',
   eventId: 'WORK_SHUNKAN10000006',
   eventName: 'サンプルテキスト',
   eventType: 'サンプルテキスト',

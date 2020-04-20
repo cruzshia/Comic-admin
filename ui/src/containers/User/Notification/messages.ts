@@ -42,5 +42,21 @@ export default defineMessages({
   content: {
     id: PREFIX + '.content',
     defaultMessage: 'Content'
+  },
+  creation: {
+    id: PREFIX + '.creation',
+    defaultMessage: 'Notification Creation'
+  },
+  contentDetail: {
+    id: PREFIX + '.content_detail',
+    defaultMessage: 'Content Detail'
+  },
+  significantEvent: {
+    id: PREFIX + '.significant_event',
+    defaultMessage: 'Significant Event'
+  },
+  enterTitle: {
+    id: PREFIX + '.enter_title',
+    defaultMessage: 'Enter Title'
   }
 })
