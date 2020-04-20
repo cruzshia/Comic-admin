@@ -51,7 +51,7 @@ interface Props {
   type?: 'button' | 'reset' | 'submit'
 }
 
-export const Theme = ButtonTheme
+export { ButtonTheme as Theme }
 export default function Button({ icon: Icon, theme, buttonText, onClick, disabled, classnames, type }: Props) {
   const classes = useStyles()
 

@@ -127,8 +127,12 @@ export const SIDEBAR_TABS: { [key: string]: Tab[] } = {
       title: messages.userNGWordManagement
     },
     {
-      to: routePath.user.returnGift,
-      title: messages.userReturnGift
+      to: routePath.user.giftCoinsCreation,
+      title: messages.userGiftCoins
+    },
+    {
+      to: routePath.user.giftComicsCreation,
+      title: messages.userGiftComics
     },
     {
       to: routePath.user.inquiry,

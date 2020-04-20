@@ -77,9 +77,13 @@ export default defineMessages({
     id: 'user.ng_word_management',
     defaultMessage: 'NG word Management'
   },
-  userReturnGift: {
-    id: 'user.return_gift',
-    defaultMessage: 'Return Gift Management'
+  userGiftCoins: {
+    id: 'user.gift_coins',
+    defaultMessage: 'Gift Coins Management'
+  },
+  userGiftComics: {
+    id: 'user.gift_comics',
+    defaultMessage: 'Gift Comics Management'
   },
   userNotificationManagement: {
     id: 'user.notification_management',

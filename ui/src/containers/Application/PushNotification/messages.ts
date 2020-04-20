@@ -26,10 +26,6 @@ export default defineMessages({
     id: PREFIX + 'input_url',
     defaultMessage: 'Input URL'
   },
-  schedule: {
-    id: PREFIX + 'schedule',
-    defaultMessage: 'Schedule'
-  },
   bigIconUrl: {
     id: PREFIX + 'big_icon_url',
     defaultMessage: 'Big Icon Url'

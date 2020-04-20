@@ -59,20 +59,18 @@ export default function SideBar() {
     <Drawer className={classes.drawer} classes={{ paper: classes.drawerPaper }} variant='permanent'>
       <div data-testid='toolbar_spacer' className={classes.toolbar} />
       <List className={classes.list}>
-        {SIDEBAR_TABS[`/${headTab}`]?.map(({ to, title }) => {
-          return (
-            <Link to={to} key={to}>
-              <ListItem
-                button
-                className={clsx(classes.listItem, {
-                  selected: matchTab === to
-                })}
-              >
-                <ListItemText primary={formatMessage(title)} disableTypography={true} />
-              </ListItem>
-            </Link>
-          )
-        })}
+        {SIDEBAR_TABS[`/${headTab}`]?.map(({ to, title }) => (
+          <Link to={to} key={to}>
+            <ListItem
+              button
+              className={clsx(classes.listItem, {
+                selected: matchTab === to.match(/\/\w+\/\w+/gi)![0]
+              })}
+            >
+              <ListItemText primary={formatMessage(title)} disableTypography={true} />
+            </ListItem>
+          </Link>
+        ))}
       </List>
       <div className={classes.filler} />
     </Drawer>

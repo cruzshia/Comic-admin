@@ -30,5 +30,13 @@ export default defineMessages({
   amountOfCoins: {
     id: PREFIX + 'amount_of_coins',
     defaultMessage: '{num} coins'
+  },
+  template: {
+    id: PREFIX + 'template',
+    defaultMessage: 'Template (Shift_JIS)'
+  },
+  csvFile: {
+    id: PREFIX + 'csv_file',
+    defaultMessage: 'Csv File'
   }
 })

@@ -239,6 +239,10 @@ export default defineMessages({
     id: PREFIX + 'release_duration',
     defaultMessage: 'Release Duration'
   },
+  schedule: {
+    id: PREFIX + 'schedule',
+    defaultMessage: 'Schedule'
+  },
   changeImage: {
     id: PREFIX + 'change_image',
     defaultMessage: 'Change Image'

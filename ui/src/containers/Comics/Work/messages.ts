@@ -23,10 +23,6 @@ export default defineMessages({
     id: PREFIX + 'rensai',
     defaultMessage: 'rensai'
   },
-  schedule: {
-    id: PREFIX + 'schedule',
-    defaultMessage: 'Schedule'
-  },
   workTitle: {
     id: PREFIX + 'work_title',
     defaultMessage: 'Work title'

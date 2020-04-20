@@ -29,7 +29,7 @@ export default function PushNotificationTable({
       application: formatMessage(commonMessages.application),
       deepLinkUrl: formatMessage(messages.deepLinkUrl),
       bigIconUrl: formatMessage(messages.bigIconUrl),
-      schedule: formatMessage(messages.schedule),
+      schedule: formatMessage(commonMessages.schedule),
       deliveryDateTime: formatMessage(commonMessages.deliveryDateTime)
     }),
     [formatMessage]
