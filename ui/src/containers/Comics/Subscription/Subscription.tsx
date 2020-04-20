@@ -6,14 +6,15 @@ import SubscriptionEdit from './components/SubscriptionEdit'
 import SubscriptionDetail from './components/SubscriptionDetail'
 import SubscriptionList from './components/SubscriptionList'
 import SubscriptionContext from './context/SubscriptionContext'
-import { mockSubscriptionList } from './mockData/mockData'
+import { mockSubscriptionList, mockSubscriptionDetail } from './mockData/mockData'
 
 export default function Content() {
   return (
     <SubscriptionContext.Provider
       value={{
         subscriptionList: mockSubscriptionList,
-        subscriptionTotal: mockSubscriptionList.length
+        subscriptionTotal: mockSubscriptionList.length,
+        currentSubscription: mockSubscriptionDetail
       }}
     >
       <Switch>
