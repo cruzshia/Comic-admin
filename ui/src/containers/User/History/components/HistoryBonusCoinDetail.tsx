@@ -20,7 +20,7 @@ export default function HistoryBonusCoinDetail({ currentHistory }: { currentHist
       })).concat([
         { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
-          title: formatMessage(messages.bonusCoin),
+          title: formatMessage(messages.bonusCoinList),
           route: routePath.user.historyBonusCoin.replace(':userId', userId!)
         },
         {
