@@ -27,6 +27,18 @@ export default defineMessages({
     id: PREFIX + 'magazine_purchase_detail',
     defaultMessage: 'Magazine Purchase History Detail'
   },
+  payCoinList: {
+    id: PREFIX + 'pay_coin_list',
+    defaultMessage: 'Pay Coin History List'
+  },
+  payCoin: {
+    id: PREFIX + 'pay_coin',
+    defaultMessage: 'Pay Coin History'
+  },
+  payCoinDetail: {
+    id: PREFIX + 'pay_coin_detail',
+    defaultMessage: 'Pay Coin History Detail'
+  },
   subscription: {
     id: PREFIX + 'subscription',
     defaultMessage: 'Subscription History'
@@ -114,5 +126,9 @@ export default defineMessages({
   freeVideoAdCoinCount: {
     id: PREFIX + 'free_coin_count',
     defaultMessage: 'Free Coin Count'
+  },
+  logType: {
+    id: PREFIX + 'log_type',
+    defaultMessage: 'Log Type'
   }
 })

@@ -258,7 +258,9 @@ export default function UserDetail() {
                 ),
                 toDataSet(
                   formatMessage(messages.paidCoinsChargeLogs),
-                  <Link to='#'>{formatMessage(messages.amountOfItems, { num: currentUser.paidCoinsChargeLogs })}</Link>
+                  <Link to={replaceUserId(routePath.user.historyPayCoin)}>
+                    {formatMessage(messages.amountOfItems, { num: currentUser.paidCoinsChargeLogs })}
+                  </Link>
                 )
               ]}
             />

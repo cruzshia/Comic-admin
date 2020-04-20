@@ -7,9 +7,12 @@ import HistorySubscriptionList from './components/HistorySubscriptionList'
 import HistorySubscriptionDetail from './components/HistorySubscriptionDetail'
 import HistoryMagazineList from './components/HistoryMagazineList'
 import HistoryMagazineDetail from './components/HistoryMagazineDetail'
+import HistoryPayCoinList from './components/HistoryPayCoinList'
+import HistoryPayCoinDetail from './components/HistoryPayCoinDetail'
 import { mockEpisodePurchaseList, mockEpisodePurchaseDetail } from './mockData/episodePurchaseMockData'
 import { mockSubscriptionList, mockSubscriptionDetail } from './mockData/subscriptionMockData'
 import { mockMagazineList, mockMagazineDetail } from './mockData/magazineMockData'
+import { mockPayCoinList, mockPayCoinDetail } from './mockData/payCoinMockData'
 
 export default function History() {
   return (
@@ -47,6 +50,16 @@ export default function History() {
         exact
         path={routePath.user.historyMagazineDetail}
         render={() => <HistoryMagazineDetail currentHistory={mockMagazineDetail} />}
+      />
+      <Route
+        exact
+        path={routePath.user.historyPayCoin}
+        render={() => <HistoryPayCoinList historyTotal={mockPayCoinList.length} historyList={mockPayCoinList} />}
+      />
+      <Route
+        exact
+        path={routePath.user.historyPayCoinDetail}
+        render={() => <HistoryPayCoinDetail currentHistory={mockPayCoinDetail} />}
       />
     </Switch>
   )
