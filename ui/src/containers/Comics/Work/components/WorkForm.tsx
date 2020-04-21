@@ -8,6 +8,7 @@ import { TextInput, TextArea, Select, StartEndForm } from '@src/components/form'
 import DropZoneAdapter from '@src/components/finalForm/DropZoneAdapter'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { checkError, required } from '@src/utils/validation'
+import { emptyWork } from '@src/reducers/comics/work/workReducer'
 import commonMessages from '@src/messages'
 import comicsMessages from '../../messages'
 import AuthorEditForm from '../../components/AuthorEditForm'
@@ -59,7 +60,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
       <Form
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}
-        initialValues={workData || { author: [''] }}
+        initialValues={workData || emptyWork}
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable

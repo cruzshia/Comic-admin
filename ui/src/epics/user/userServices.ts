@@ -1,6 +1,6 @@
 import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
-import { User } from '@src/model/userModel'
+import { User } from '@src/models/userModel'
 
 // fake response only
 export const loginAjax = (

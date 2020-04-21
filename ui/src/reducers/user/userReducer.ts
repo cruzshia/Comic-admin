@@ -1,6 +1,6 @@
 import { UserActionType, LoginResult } from './userActions'
 import { ActionType } from '../types'
-import { User } from '@src/model/userModel'
+import { User } from '@src/models/userModel'
 import { StorageKey } from '@src/common/storageKey'
 import { setAuthHeader, removeAuthHeader } from '@src/utils/ajaxUtil'
 

@@ -1,4 +1,4 @@
-import { User } from '@src/model/userModel'
+import { User } from '@src/models/userModel'
 export enum UserActionType {
   LOGIN = '@User/LOGIN',
   LOGIN_SUCCESS = '@User/LOGIN_SUCCESS',
