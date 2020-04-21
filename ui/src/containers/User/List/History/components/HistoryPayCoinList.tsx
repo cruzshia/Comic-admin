@@ -7,7 +7,7 @@ import { routePath } from '@src/common/appConfig'
 import ListTable from '@src/components/table/ListTable'
 import { useSort, usePaging } from '@src/hooks'
 import { BREADCRUMBS } from '../utils'
-import userMessages from '../../messages'
+import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
 import commonMessages from '@src/messages'
 

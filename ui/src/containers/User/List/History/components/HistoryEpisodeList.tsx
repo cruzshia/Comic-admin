@@ -5,9 +5,11 @@ import { makeStyles, Box } from '@material-ui/core'
 import ContentHeader from '@src/components/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import ListTable from '@src/components/table/ListTable'
+import Button from '@src/components/Button/Button'
+import { ReactComponent as DownloadIcon } from '@src/assets/common/download.svg'
 import { useSort, usePaging } from '@src/hooks'
 import { BREADCRUMBS } from '../utils'
-import userMessages from '../../messages'
+import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
 import commonMessages from '@src/messages'
 
@@ -16,19 +18,19 @@ const useStyle = makeStyles({
     '& .ListTable-col-1': {
       width: 150
     },
-    '& .ListTable-col-2, .ListTable-col-3': {
+    '& .ListTable-col-2': {
+      width: 230
+    },
+    '& .ListTable-col-3': {
       width: 200
     },
     '& .ListTable-col-4': {
-      width: 230
-    },
-    '& .ListTable-col-5': {
       width: 110
     }
   }
 })
 
-export default function HistoryBonusCoinList({
+export default function HistoryEpisodeList({
   historyTotal,
   historyList
 }: {
@@ -50,19 +52,23 @@ export default function HistoryBonusCoinList({
       })).concat([
         { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
-          title: formatMessage(messages.bonusCoinList),
+          title: formatMessage(messages.episodePurchaseList),
           route: undefined
         }
       ]),
     [formatMessage, userId]
   )
 
+  const buttonList = useMemo(
+    () => [<Button icon={DownloadIcon} buttonText={formatMessage(commonMessages.csvExport)} />],
+    [formatMessage]
+  )
+
   const theadList = useMemo(
     () => [
       { id: 'createdAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
-      { id: 'logType', label: formatMessage(messages.logType) },
+      { id: 'contents', label: formatMessage(commonMessages.contents) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
-      { id: 'campaignDetail', label: formatMessage(messages.campaignDetail) },
       { id: 'coinChangeTotal', label: formatMessage(messages.coinChangeTotal) },
       { id: 'coinChangeDetail', label: formatMessage(messages.coinChangeDetail) }
     ],
@@ -71,7 +77,7 @@ export default function HistoryBonusCoinList({
 
   const dataList = historyList
     .map(({ id, coinChangeDetail, ...rest }) => ({
-      id,
+      id: id,
       data: {
         ...rest,
         coinChangeDetail: <Box whiteSpace='pre-wrap'>{coinChangeDetail}</Box>
@@ -81,18 +87,19 @@ export default function HistoryBonusCoinList({
 
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.bonusCoin)} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.episodePurchase)} />
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
         dataList={dataList}
+        buttonList={buttonList}
         pagination={pagination}
         onPageChange={handlePageChange}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
         onRowClick={useCallback(
           (id: string) =>
-            history.push(routePath.user.historyBonusCoinDetail.replace(':id', id).replace(':userId', userId!)),
+            history.push(routePath.user.historyEpisodeDetail.replace(':id', id).replace(':userId', userId!)),
           [history, userId]
         )}
         noMarginTop

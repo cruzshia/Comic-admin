@@ -90,16 +90,16 @@ export const routePath = {
     questionnaireCreation: `${RouteSection.User}/questionnaire/creation`,
     inquiry: `${RouteSection.User}/inquiry`,
     inquiryDetail: `${RouteSection.User}/inquiry/detail/:id`,
-    history: `${RouteSection.User}/history`,
-    historyEpisode: `${RouteSection.User}/history/:userId/episode`,
-    historyEpisodeDetail: `${RouteSection.User}/history/:userId/episode/detail/:id`,
-    historySubscription: `${RouteSection.User}/history/:userId/subscription`,
-    historySubscriptionDetail: `${RouteSection.User}/history/:userId/subscription/detail/:id`,
-    historyMagazine: `${RouteSection.User}/history/:userId/magazine_purchase`,
-    historyMagazineDetail: `${RouteSection.User}/history/:userId/magazine_purchase/detail/:id`,
-    historyBonusCoin: `${RouteSection.User}/history/:userId/bonus_coin_charge`,
-    historyBonusCoinDetail: `${RouteSection.User}/history/:userId/bonus_coin_charge/detail/:id`,
-    historyPayCoin: `${RouteSection.User}/history/:userId/pay_coin_charge`,
-    historyPayCoinDetail: `${RouteSection.User}/history/:userId/pay_coin_charge/detail/:id`
+    history: `${RouteSection.User}/list/history`,
+    historyEpisode: `${RouteSection.User}/list/history/:userId/episode`,
+    historyEpisodeDetail: `${RouteSection.User}/list/history/:userId/episode/:id`,
+    historySubscription: `${RouteSection.User}/list/history/:userId/subscription`,
+    historySubscriptionDetail: `${RouteSection.User}/list/history/:userId/subscription/:id`,
+    historyMagazine: `${RouteSection.User}/list/history/:userId/magazine_purchase`,
+    historyMagazineDetail: `${RouteSection.User}/history/:userId/magazine_purchase/:id`,
+    historyBonusCoin: `${RouteSection.User}/list/history/:userId/bonus_coin_charge`,
+    historyBonusCoinDetail: `${RouteSection.User}/list/history/:userId/bonus_coin_charge/:id`,
+    historyPayCoin: `${RouteSection.User}/list/history/:userId/pay_coin_charge`,
+    historyPayCoinDetail: `${RouteSection.User}/list/history/:userId/pay_coin_charge/:id`
   }
 }

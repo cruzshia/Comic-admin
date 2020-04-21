@@ -5,11 +5,9 @@ import { makeStyles, Box } from '@material-ui/core'
 import ContentHeader from '@src/components/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import ListTable from '@src/components/table/ListTable'
-import Button from '@src/components/Button/Button'
-import { ReactComponent as DownloadIcon } from '@src/assets/common/download.svg'
 import { useSort, usePaging } from '@src/hooks'
 import { BREADCRUMBS } from '../utils'
-import userMessages from '../../messages'
+import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
 import commonMessages from '@src/messages'
 
@@ -30,7 +28,7 @@ const useStyle = makeStyles({
   }
 })
 
-export default function HistoryEpisodeList({
+export default function HistoryMagazineList({
   historyTotal,
   historyList
 }: {
@@ -52,22 +50,17 @@ export default function HistoryEpisodeList({
       })).concat([
         { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
-          title: formatMessage(messages.episodePurchaseList),
+          title: formatMessage(messages.magazinePurchaseList),
           route: undefined
         }
       ]),
     [formatMessage, userId]
   )
 
-  const buttonList = useMemo(
-    () => [<Button icon={DownloadIcon} buttonText={formatMessage(commonMessages.csvExport)} />],
-    [formatMessage]
-  )
-
   const theadList = useMemo(
     () => [
       { id: 'createdAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
-      { id: 'contents', label: formatMessage(commonMessages.contents) },
+      { id: 'contentId', label: formatMessage(commonMessages.contentId) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
       { id: 'coinChangeTotal', label: formatMessage(messages.coinChangeTotal) },
       { id: 'coinChangeDetail', label: formatMessage(messages.coinChangeDetail) }
@@ -87,19 +80,18 @@ export default function HistoryEpisodeList({
 
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.episodePurchase)} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.magazinePurchase)} />
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
         dataList={dataList}
-        buttonList={buttonList}
         pagination={pagination}
         onPageChange={handlePageChange}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
         onRowClick={useCallback(
           (id: string) =>
-            history.push(routePath.user.historyEpisodeDetail.replace(':id', id).replace(':userId', userId!)),
+            history.push(routePath.user.historyMagazineDetail.replace(':id', id).replace(':userId', userId!)),
           [history, userId]
         )}
         noMarginTop

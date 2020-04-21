@@ -1,6 +1,6 @@
 import { routePath } from '@src/common/appConfig'
 import commonMessages from '@src/messages'
-import userMessages from '../messages'
+import userMessages from '../../messages'
 
 export const BREADCRUMBS = [
   { title: commonMessages.userManagement },

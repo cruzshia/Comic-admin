@@ -1,13 +1,13 @@
 import React, { useMemo, useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams, useHistory } from 'react-router-dom'
-import { makeStyles, Box } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 import ContentHeader from '@src/components/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import ListTable from '@src/components/table/ListTable'
 import { useSort, usePaging } from '@src/hooks'
 import { BREADCRUMBS } from '../utils'
-import userMessages from '../../messages'
+import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
 import commonMessages from '@src/messages'
 
@@ -22,13 +22,16 @@ const useStyle = makeStyles({
     '& .ListTable-col-3': {
       width: 200
     },
-    '& .ListTable-col-4': {
-      width: 110
+    '& .ListTable-col-4, .ListTable-col-5': {
+      width: 80
+    },
+    '& .ListTable-col-6, .ListTable-col-7': {
+      width: 140
     }
   }
 })
 
-export default function HistoryMagazineList({
+export default function HistorySubscriptionList({
   historyTotal,
   historyList
 }: {
@@ -50,7 +53,7 @@ export default function HistoryMagazineList({
       })).concat([
         { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
-          title: formatMessage(messages.magazinePurchaseList),
+          title: formatMessage(messages.subscriptionList),
           route: undefined
         }
       ]),
@@ -60,27 +63,27 @@ export default function HistoryMagazineList({
   const theadList = useMemo(
     () => [
       { id: 'createdAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
-      { id: 'contentId', label: formatMessage(commonMessages.contentId) },
+      { id: 'subscriptionId', label: formatMessage(messages.subscriptionId) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
-      { id: 'coinChangeTotal', label: formatMessage(messages.coinChangeTotal) },
-      { id: 'coinChangeDetail', label: formatMessage(messages.coinChangeDetail) }
+      { id: 'price', label: formatMessage(messages.price) },
+      { id: 'currency', label: formatMessage(messages.currency) },
+      { id: 'startAt', label: formatMessage(commonMessages.startDateTime) },
+      { id: 'updateAt', label: formatMessage(commonMessages.updateDateTime) },
+      { id: 'validityPeriod', label: formatMessage(userMessages.validityPeriod) }
     ],
     [formatMessage, handleSort]
   )
 
   const dataList = historyList
-    .map(({ id, coinChangeDetail, ...rest }) => ({
+    .map(({ id, ...rest }) => ({
       id: id,
-      data: {
-        ...rest,
-        coinChangeDetail: <Box whiteSpace='pre-wrap'>{coinChangeDetail}</Box>
-      }
+      data: rest
     }))
     .sort((a: any, b: any) => (Date.parse(a.data[sortBy.key]) - Date.parse(b.data[sortBy.key])) * sortBy.multiplier)
 
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.magazinePurchase)} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.subscription)} />
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
@@ -91,7 +94,7 @@ export default function HistoryMagazineList({
         sortOrder={sortBy.order}
         onRowClick={useCallback(
           (id: string) =>
-            history.push(routePath.user.historyMagazineDetail.replace(':id', id).replace(':userId', userId!)),
+            history.push(routePath.user.historySubscriptionDetail.replace(':id', id).replace(':userId', userId!)),
           [history, userId]
         )}
         noMarginTop

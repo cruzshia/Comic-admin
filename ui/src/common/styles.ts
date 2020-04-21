@@ -49,7 +49,10 @@ export const GlobalStyle = withStyles({
     backgroundColor,
     color: textColor,
     a: {
-      textDecoration: 'none'
+      textDecoration: 'none',
+      '&:visited': {
+        color: hyperlinkColor
+      }
     }
   }
 })(() => null)

@@ -6,10 +6,10 @@ import ContentHeader from '@src/components/ContentHeader'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
-import userMessages from '../../messages'
+import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
 
-export default function HistoryPayCoinDetail({ currentHistory }: { currentHistory: any }) {
+export default function HistoryBonusCoinDetail({ currentHistory }: { currentHistory: any }) {
   const { formatMessage } = useIntl()
   const { userId } = useParams()
   const breadcrumbList = useMemo(
@@ -18,13 +18,13 @@ export default function HistoryPayCoinDetail({ currentHistory }: { currentHistor
         title: formatMessage(title),
         route
       })).concat([
-        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId || '') },
+        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
-          title: formatMessage(messages.payCoinList),
-          route: routePath.user.historyPayCoin.replace(':userId', userId || '')
+          title: formatMessage(messages.bonusCoinList),
+          route: routePath.user.historyBonusCoin.replace(':userId', userId!)
         },
         {
-          title: formatMessage(messages.payCoinDetail),
+          title: formatMessage(messages.bonusCoinDetail),
           route: undefined
         }
       ]),
@@ -32,19 +32,21 @@ export default function HistoryPayCoinDetail({ currentHistory }: { currentHistor
   )
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.payCoin)} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.bonusCoin)} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
           toDataSet(formatMessage(commonMessages.createDateTime), currentHistory.createdAt),
           toDataSet(formatMessage(commonMessages.updateDateTime), currentHistory.updatedAt),
           toDataSet(formatMessage(userMessages.userId), currentHistory.userId),
+          toDataSet(formatMessage(messages.contentsCampaignId), currentHistory.contentsCampaignId),
+          toDataSet(formatMessage(messages.customEventId), currentHistory.customEventId),
+          toDataSet(formatMessage(messages.customEventPaymentId), currentHistory.customEventPaymentId),
           toDataSet(formatMessage(messages.logType), currentHistory.logType),
-          toDataSet(formatMessage(commonMessages.application), currentHistory.application),
-          toDataSet(formatMessage(messages.payCoinCount), currentHistory.payCoinCount),
-          toDataSet(formatMessage(messages.payBonusCoinCount), currentHistory.payBonusCoinCount),
-          toDataSet(formatMessage(messages.payGiftCoinCount), currentHistory.payGiftCoinCount),
-          toDataSet(formatMessage(messages.supplementInfo), currentHistory.supplementInfo)
+          toDataSet(formatMessage(commonMessages.appId), currentHistory.applicationId),
+          toDataSet(formatMessage(messages.bonusCoinCount), currentHistory.bonusCoinCount),
+          toDataSet(formatMessage(messages.adCoinCount), currentHistory.adCoinCount),
+          toDataSet(formatMessage(messages.videoAdCoinCount), currentHistory.videoAdCoinCount)
         ]}
       />
     </>

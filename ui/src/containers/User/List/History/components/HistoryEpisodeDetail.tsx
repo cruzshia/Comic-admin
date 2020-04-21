@@ -5,7 +5,7 @@ import { routePath } from '@src/common/appConfig'
 import ContentHeader from '@src/components/ContentHeader'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
-import userMessages from '../../messages'
+import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 
