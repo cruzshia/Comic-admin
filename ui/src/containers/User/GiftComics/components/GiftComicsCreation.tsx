@@ -37,7 +37,7 @@ export default function GiftComicsCreation() {
               dataSet={[
                 toDataSet(
                   formatMessage(userMessages.csvFile),
-                  <UploadButton text={formatMessage(commonMessages.selectFile)} name='csv_file' />
+                  <UploadButton text={formatMessage(commonMessages.csvFile)} name='csv_file' />
                 ),
                 toDataSet(
                   formatMessage(commonMessages.schedule),

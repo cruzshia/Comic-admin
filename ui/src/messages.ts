@@ -254,5 +254,9 @@ export default defineMessages({
   releaseEndTime: {
     id: PREFIX + 'release_end_time',
     defaultMessage: 'Release End Time'
+  },
+  csvFile: {
+    id: PREFIX + 'csv_file',
+    defaultMessage: 'Csv File'
   }
 })

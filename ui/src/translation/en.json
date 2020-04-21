@@ -190,6 +190,7 @@
   "common.create_new": "Create New",
   "common.csv_export": "CSV Export",
   "common.csv_export_logs": "CSV Export Logs",
+  "common.csv_file": "Csv File",
   "common.csv_import": "CSV Import",
   "common.csv_import_logs": "CSV Import Logs",
   "common.delete": "Delete",
