@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { of, Observable } from 'rxjs'
+import { of } from 'rxjs'
 import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
 import responseUtil from '@src/utils/responseUtils'
 import * as userServices from './userServices'
@@ -12,7 +12,7 @@ import {
   getProfileErrorAction
 } from '@src/reducers/user/userActions'
 
-export const userLoginEpic = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> =>
+export const userLoginEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(UserActionType.LOGIN),
     exhaustMap(action =>
@@ -24,7 +24,7 @@ export const userLoginEpic = (action$: ActionsObservable<AnyAction>): Observable
     )
   )
 
-export const userGetProfileEpic = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> =>
+export const userGetProfileEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(UserActionType.GET_PROFILE),
     exhaustMap(() =>
