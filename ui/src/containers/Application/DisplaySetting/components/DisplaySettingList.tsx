@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
@@ -9,13 +9,13 @@ import ListTable, { SortOrder, Padding } from '@src/components/table/ListTable'
 import { StyledCheckBox } from '@src/components/form'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import { ReactComponent as DeleteIcon } from '@src/assets/common/delete.svg'
-import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
-import useSort from '@src/hooks/useSort'
-import useCheckbox from '@src/hooks/useCheckbox'
+import { useSort, useCheckbox, usePaging } from '@src/hooks'
+import { successSubject } from '@src/utils/responseSubject'
+import { DisplaySettingActionType } from '@src/reducers/application/displaySetting/displaySettingActions'
+import DisplaySettingContext, { ActionContext } from '../context/DisplaySettingContext'
 import Capsule from '../../components/Capsule'
 import { Status } from '../../constants'
-import DisplaySettingContext from '../context/DisplaySettingContext'
 import applicationMessages from '../../messages'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
@@ -48,9 +48,10 @@ export default function DisplaySettingList() {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   const { settingList, settingTotal } = useContext(DisplaySettingContext)
+  const { onGetDisplaySettingList, onDeleteDisplaySetting } = useContext(ActionContext)
   const { sortBy, handleSort } = useSort<string>('deliveryStartTime')
   const { pagination, handlePageChange } = usePaging({ total: settingTotal })
-  const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll } = useCheckbox()
+  const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll, onResetCheck } = useCheckbox()
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
@@ -124,7 +125,9 @@ export default function DisplaySettingList() {
     [handleSort, formatMessage, handleCheckAll, isCheckAll]
   )
 
-  const handleDelete = useCallback(() => console.log(checkedList), [checkedList])
+  const handleDelete = useCallback(() => {
+    onDeleteDisplaySetting(checkedList)
+  }, [checkedList, onDeleteDisplaySetting])
 
   const tableButtonList = useMemo(
     () => [
@@ -137,6 +140,18 @@ export default function DisplaySettingList() {
     ],
     [formatMessage, handleDelete]
   )
+
+  useEffect(() => {
+    onGetDisplaySettingList()
+  }, [onGetDisplaySettingList])
+
+  useEffect(() => {
+    const subscription = successSubject.subscribe([DisplaySettingActionType.DELETE_SUCCESS], () => {
+      onResetCheck()
+      onGetDisplaySettingList()
+    })
+    return () => subscription.unsubscribe()
+  }, [onGetDisplaySettingList, onResetCheck])
 
   return (
     <>

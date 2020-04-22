@@ -1,5 +1,3 @@
-export const mockSettingTotal = 6
-
 export const mockSetting = {
   id: '0',
   status: 'reserved',
@@ -63,7 +61,7 @@ export const mockSettingDetail = {
 
 export const mockSettingList = (data => {
   let arr = [mockSetting]
-  for (let i = 1; i < mockSettingTotal; i++) {
+  for (let i = 1; i < 6; i++) {
     arr.push({
       ...data,
       id: `${i}`,

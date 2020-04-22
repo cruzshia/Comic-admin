@@ -1,12 +1,12 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { of } from 'rxjs'
+import { of, Observable } from 'rxjs'
 import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
 import responseUtil from '@src/utils/responseUtils'
 import { WorkActionType, getWorkListSuccessAction, getWorkSuccessAction } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
 
-export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
+export const getWorkListEpic = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> =>
   action$.pipe(
     ofType(WorkActionType.GET_LIST),
     exhaustMap(() =>
@@ -21,7 +21,7 @@ export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export const getWorkEpic = (action$: ActionsObservable<AnyAction>) =>
+export const getWorkEpic = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> =>
   action$.pipe(
     ofType(WorkActionType.GET_WORK),
     exhaustMap(action =>

@@ -40,11 +40,17 @@ export default function useCheckbox() {
 
   const checkedList = useMemo(() => Object.keys(checkedMap), [checkedMap])
 
+  const onResetCheck = useCallback(() => {
+    setCheckedMap({})
+    setIsCheckAll(false)
+  }, [setCheckedMap, setIsCheckAll])
+
   return {
     onCheckAll,
     handleCheck,
     checkedList,
     isChecked,
-    isCheckAll
+    isCheckAll,
+    onResetCheck
   }
 }

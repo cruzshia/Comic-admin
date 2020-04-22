@@ -4,7 +4,7 @@ import { TreeView, TreeItem } from '@material-ui/lab'
 import { TextArea } from '@src/components/form'
 import { backgroundColorLightGray } from '@src/common/styles'
 import { ReactComponent as ExpandIcon } from '@src/assets/common/arrow_drop_down_filled.svg'
-import { mockSettingData } from '../mockData/mockSetting'
+import { mockSettingData } from '../../../../epics/application/displaySetting/mockData/mockSetting'
 import clsx from 'clsx'
 
 const useStyles = makeStyles({
