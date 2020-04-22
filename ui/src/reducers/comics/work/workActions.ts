@@ -5,6 +5,10 @@ export enum WorkActionType {
   GET_LIST_SUCCESS = '@ComicsWork/GET_LIST_SUCCESS',
   GET_LIST_ERROR = '@ComicsWork/GET_LIST_ERROR',
 
+  GET_WORK = '@ComicsWork/GET_WORK',
+  GET_WORK_SUCCESS = '@ComicsWork/GET_WORK_SUCCESS',
+  GET_WORK_ERROR = '@ComicsWork/GET_WORK_ERROR',
+
   CREATE = '@ComicsWork/CREATE',
   CREATE_SUCCESS = '@ComicsWork/CREATE_SUCCESS',
   CREATE_ERROR = '@ComicsWork/CREATE_ERROR',
@@ -21,6 +25,16 @@ export const getWorkListAction = () => ({
 export const getWorkListSuccessAction = (payload: Work[]) => ({
   type: WorkActionType.GET_LIST_SUCCESS,
   payload
+})
+
+export const getWorkAction = (workId: string) => ({
+  type: WorkActionType.GET_WORK,
+  payload: workId
+})
+
+export const getWorkSuccessAction = (workId: string) => ({
+  type: WorkActionType.GET_WORK_SUCCESS,
+  payload: workId
 })
 
 export const createWorkAction = (work: Work) => ({

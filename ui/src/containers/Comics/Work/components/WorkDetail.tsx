@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo } from 'react'
+import React, { useContext, useCallback, useMemo, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
@@ -11,7 +11,7 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import { _range } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import StickyHeader from './StickyHeader'
-import workContext from '../context/WorkContext'
+import workContext, { ActionContext } from '../context/WorkContext'
 import { ScrollAnchor, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
 import comicMessages from '../../messages'
 import messages from '../messages'
@@ -42,7 +42,8 @@ const useStyle = makeStyles({
 })
 
 export default function WorkDetail() {
-  const { currentWork } = useContext(workContext)
+  const { currentWork = {} } = useContext(workContext)
+  const { onGetWork } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const { id } = useParams()
   const classes = useStyle()
@@ -58,12 +59,19 @@ export default function WorkDetail() {
     [formatMessage]
   )
 
+  useEffect(() => {
+    onGetWork(id!)
+  }, [onGetWork, id])
+
   const handleRedirect = useCallback(
     (target?: ScrollAnchor) => () =>
       history.push(routePath.comics.workEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')),
     [history, id]
   )
   const handleEdit = useMemo(() => handleRedirect(), [handleRedirect])
+  const handleEditDelivery = useMemo(() => handleRedirect(ScrollAnchor.Delivery), [handleRedirect])
+  const handleEditEpisode = useMemo(() => handleRedirect(ScrollAnchor.EpisodeInfo), [handleRedirect])
+  const handleEditAd = useMemo(() => handleRedirect(ScrollAnchor.AdSetting), [handleRedirect])
 
   const EditButton = useMemo(
     () => (
@@ -71,6 +79,8 @@ export default function WorkDetail() {
     ),
     [formatMessage, handleEdit]
   )
+
+  if (!currentWork.id) return null
 
   return (
     <>
@@ -98,7 +108,7 @@ export default function WorkDetail() {
       <DataTable
         title={formatMessage(commonMessages.deliveryDuration)}
         tableClass={classes.table}
-        onEdit={useMemo(() => handleRedirect(ScrollAnchor.Delivery), [handleRedirect])}
+        onEdit={handleEditDelivery}
         dataSet={[
           toDataSet(formatMessage(commonMessages.deliveryStartDateTime), currentWork.deliveryStartDateTime),
           toDataSet(formatMessage(commonMessages.deliveryEndDateTime), currentWork.deliveryEndDateTime)
@@ -107,7 +117,7 @@ export default function WorkDetail() {
       <DataTable
         title={formatMessage(commonMessages.episodeInfo)}
         tableClass={classes.table}
-        onEdit={useMemo(() => handleRedirect(ScrollAnchor.EpisodeInfo), [handleRedirect])}
+        onEdit={handleEditEpisode}
         dataSet={[
           toDataSet(formatMessage(messages.episodeCategory), currentWork.episodeCategory),
           toDataSet(formatMessage(messages.updateFrequency), currentWork.updateFrequency),
@@ -121,10 +131,7 @@ export default function WorkDetail() {
           })
         ]}
       />
-      <AdSettingTable
-        onEdit={useMemo(() => handleRedirect(ScrollAnchor.AdSetting), [handleRedirect])}
-        data={currentWork.advertisement}
-      />
+      <AdSettingTable onEdit={handleEditAd} data={currentWork.advertisement} />
     </>
   )
 }

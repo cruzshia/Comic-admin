@@ -3,7 +3,7 @@ import { AnyAction } from 'redux'
 import { of } from 'rxjs'
 import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
 import responseUtil from '@src/utils/responseUtils'
-import { WorkActionType, getWorkListSuccessAction } from '@src/reducers/comics/work/workActions'
+import { WorkActionType, getWorkListSuccessAction, getWorkSuccessAction } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
 
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
@@ -21,4 +21,19 @@ export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export default [getWorkListEpic]
+export const getWorkEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(WorkActionType.GET_WORK),
+    exhaustMap(action =>
+      workServices.getWorkAjax(action.payload).pipe(
+        map(res => getWorkSuccessAction(res.response)),
+        tap(() => responseUtil.success(WorkActionType.GET_WORK_SUCCESS)),
+        catchError(() => {
+          responseUtil.error(WorkActionType.GET_WORK_ERROR)
+          return of({ type: '' })
+        })
+      )
+    )
+  )
+
+export default [getWorkListEpic, getWorkEpic]

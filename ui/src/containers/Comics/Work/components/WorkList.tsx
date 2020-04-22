@@ -16,7 +16,7 @@ import SearchBlock from './SearchBlock'
 import { BREADCRUMBS } from '../constants'
 import comicMessages from '../../messages'
 import messages from '../messages'
-import workContext from '../context/WorkContext'
+import WorkContext, { ActionContext } from '../context/WorkContext'
 
 const useStyle = makeStyles({
   table: {
@@ -30,13 +30,15 @@ export default function WorkList() {
   const { formatMessage } = useIntl()
   const classes = useStyle()
   const history = useHistory()
-  const { workList, workTotal } = useContext(workContext)
+  const { onGetWorkList } = useContext(ActionContext)
+  const { workList, workTotal } = useContext(WorkContext)
   const { sortBy, handleSort } = useSort<string>('releaseDate')
   const { page, pagination, handlePageChange } = usePaging({ total: workTotal })
 
   useEffect(() => {
     // dispatch getAction(sortBy.key, sortBy.order, page)
-  }, [sortBy, page])
+    onGetWorkList()
+  }, [sortBy, page, onGetWorkList])
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
@@ -71,6 +73,7 @@ export default function WorkList() {
       id: item.workID,
       data: {
         ...item,
+        image: <img src={item.image} alt='work-img' />,
         spacer: ''
       }
     }))

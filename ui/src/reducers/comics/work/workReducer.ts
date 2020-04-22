@@ -27,6 +27,12 @@ const handler: Record<string, (state: WorkState, action: ActionType<any>) => Wor
       ...state,
       currentWork: action.payload
     }
+  },
+  [WorkActionType.GET_WORK_SUCCESS]: (state: WorkState = initState, action: ActionType<Work>): WorkState => {
+    return {
+      ...state,
+      currentWork: action.payload
+    }
   }
 }
 

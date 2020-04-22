@@ -1,8 +1,7 @@
-import React from 'react'
 import mockImg from './mockListImg.png'
 
 export const mockDatum = {
-  image: <img src={mockImg} alt='' />,
+  image: mockImg,
   workID: 'WORK_ROOKIE000014751',
   title: 'クラスメイトの田中さんはすごく怖い',
   releaseDate: '2020-01-21 16:34',

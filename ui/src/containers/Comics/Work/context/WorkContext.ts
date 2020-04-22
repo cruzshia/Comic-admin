@@ -14,3 +14,13 @@ export default createContext<WorkContext>({
   importLogList: [],
   logTotal: 0
 })
+
+interface ActionContext {
+  onGetWorkList: () => void
+  onGetWork: (workId: string) => void
+}
+
+export const ActionContext = createContext<ActionContext>({
+  onGetWorkList: () => {},
+  onGetWork: (_: string) => {}
+})
