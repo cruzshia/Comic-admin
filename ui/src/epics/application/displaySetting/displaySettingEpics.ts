@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
+import { exhaustMap, catchError, tap, map } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   DisplaySettingActionType,

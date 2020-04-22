@@ -5,21 +5,31 @@ import displaySettingReducer, {
   DisplaySettingState,
   DisplaySettingPreloadState
 } from './application/displaySetting/displaySettingReducer'
+import coinProductReducer, {
+  CoinProductPreloadState,
+  CoinProductState
+} from './application/coinProduct/coinProductReducer'
 
 export interface StoreState {
   user: UserState
   work: WorkState
+
   displaySetting: DisplaySettingState
+  coinProduct: CoinProductState
 }
 
 export const storePreloadState: StoreState = {
   user: userPreloadState,
   work: WorkPreloadState,
-  displaySetting: DisplaySettingPreloadState
+
+  displaySetting: DisplaySettingPreloadState,
+  coinProduct: CoinProductPreloadState
 }
 
 export default combineReducers<StoreState>({
   user: userReducer,
   work: workReducer,
-  displaySetting: displaySettingReducer
+
+  displaySetting: displaySettingReducer,
+  coinProduct: coinProductReducer
 })

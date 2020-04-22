@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
@@ -9,7 +9,7 @@ import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import usePaging from '@src/hooks/usePaging'
 import useSort from '@src/hooks/useSort'
-import CoinProductContext from '../context/CoinProductContext'
+import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
 import messages from '../messages'
@@ -29,6 +29,7 @@ const useStyle = makeStyles({
 
 export default function CoinProductList() {
   const { productList, productTotal } = useContext(CoinProductContext)
+  const { onGetCoinProductList } = useContext(ActionContext)
   const history = useHistory()
   const { formatMessage } = useIntl()
   const classes = useStyle()
@@ -76,6 +77,10 @@ export default function CoinProductList() {
         ? a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier
         : (a.data[sortBy.key] - b.data[sortBy.key]) * sortBy.multiplier
     })
+
+  useEffect(() => {
+    onGetCoinProductList()
+  }, [onGetCoinProductList])
 
   return (
     <>

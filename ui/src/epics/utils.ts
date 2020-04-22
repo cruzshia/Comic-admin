@@ -1,5 +1,5 @@
 import { filter } from 'rxjs/operators'
-import { of } from 'rxjs'
+import { of, Observable } from 'rxjs'
 
 export const emptyReturnOperator = () => filter(() => false)
-export const emptyErrorReturn = of()
+export const emptyErrorReturn: Observable<any> = of()
