@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useCallback } from 'react'
+import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -11,7 +11,7 @@ import { hyperlinkColor, borderColorLight } from '@src/common/styles'
 import { _range } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import AdSettingTable from '../../components/AdSettingTable'
-import ContentContext from '../context/ContentContext'
+import ContentContext, { ActionContext } from '../context/ContentContext'
 import { CONTENT_BREADCRUMBS, MAGAZINE_BANNER_NUM } from '../constants'
 import { ContentAnchor } from './ContentForm'
 import comicMessages from '../../messages'
@@ -30,9 +30,14 @@ const useStyle = makeStyles({
 export default function ContentDetail() {
   const classes = useStyle()
   const { currentContent = {} } = useContext(ContentContext)
+  const { onGetContent } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
+
+  useEffect(() => {
+    onGetContent(id!)
+  }, [onGetContent, id])
 
   const breadcrumbList = useMemo(
     () =>
@@ -48,7 +53,7 @@ export default function ContentDetail() {
     [history, id]
   )
 
-  const handleEdit = useCallback(() => handleRedirect(), [handleRedirect])
+  const handleEdit = useCallback(handleRedirect(), [handleRedirect])
   const buttonList = useMemo(
     () => [
       <Button
@@ -61,6 +66,7 @@ export default function ContentDetail() {
     [formatMessage, handleEdit]
   )
 
+  if (!currentContent.id) return null
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={currentContent.title} buttonList={buttonList} />

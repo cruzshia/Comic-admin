@@ -1,16 +1,23 @@
-import React, { useMemo, useRef, useCallback, useContext } from 'react'
+import React, { useMemo, useRef, useCallback, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
+import { useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentForm from './ContentForm'
 import commonMessages from '@src/messages'
-import ContentContext from '../context/ContentContext'
+import ContentContext, { ActionContext } from '../context/ContentContext'
 import { CONTENT_BREADCRUMBS } from '../constants'
 import messages from '../messages'
 
 export default function ContentEdit() {
   const { currentContent = {} } = useContext(ContentContext)
+  const { onGetContent } = useContext(ActionContext)
   const { formatMessage } = useIntl()
+  const { id } = useParams()
+
+  useEffect(() => {
+    onGetContent(id!)
+  }, [onGetContent, id])
 
   const titleText = formatMessage(messages.create)
   const formRef = useRef<HTMLFormElement>(null)

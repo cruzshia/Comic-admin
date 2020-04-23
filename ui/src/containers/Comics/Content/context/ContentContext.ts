@@ -13,8 +13,10 @@ export default createContext<ContentContext>({
 
 interface ActionContext {
   onGetContentList: () => void
+  onGetContent: (contentId: string) => void
 }
 
 export const ActionContext = createContext<ActionContext>({
-  onGetContentList: () => {}
+  onGetContentList: () => {},
+  onGetContent: (_: string) => {}
 })

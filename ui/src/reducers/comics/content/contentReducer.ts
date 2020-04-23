@@ -13,6 +13,11 @@ const initState: ContentState = {
 
 export const ContentPreloadState = initState
 
+const updateCurrentContentHandler = (state: ContentState, action: ActionType<any>): ContentState => ({
+  ...state,
+  currentContent: action.payload
+})
+
 const handler: Record<string, (state: ContentState, action: ActionType<any>) => ContentState> = {
   [ContentActionType.GET_LIST_SUCCESS]: (
     state: ContentState = initState,
@@ -23,15 +28,7 @@ const handler: Record<string, (state: ContentState, action: ActionType<any>) => 
       contentList: action.payload
     }
   },
-  [ContentActionType.GET_CONTENT_SUCCESS]: (
-    state: ContentState = initState,
-    action: ActionType<Content>
-  ): ContentState => {
-    return {
-      ...state,
-      currentContent: action.payload
-    }
-  }
+  [ContentActionType.GET_CONTENT_SUCCESS]: updateCurrentContentHandler
 }
 
 export default function contentReducer(state: ContentState = initState, action: ActionType<any>) {
