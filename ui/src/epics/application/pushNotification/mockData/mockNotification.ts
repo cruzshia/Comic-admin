@@ -1,5 +1,3 @@
-export const mockNotificationTotal = 7
-
 export const mockNotification = {
   id: '0',
   status: 'reserved',
@@ -23,7 +21,7 @@ export const mockNotificationDetail = {
 
 export const mockNotificationList = (data => {
   let arr = [mockNotification]
-  for (let i = 1; i < mockNotificationTotal; i++) {
+  for (let i = 1; i < 7; i++) {
     arr.push({
       ...data,
       id: `${i}`,

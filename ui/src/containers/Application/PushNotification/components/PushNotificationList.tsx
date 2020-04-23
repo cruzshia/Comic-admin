@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles, FormHelperText } from '@material-ui/core'
@@ -11,13 +11,15 @@ import ListTable, { Padding, SortOrder } from '@src/components/table/ListTable'
 import { StyledCheckBox } from '@src/components/form'
 import { usePaging, useSort, useCheckbox } from '@src/hooks'
 import commonMessages from '@src/messages'
+import { successSubject } from '@src/utils/responseSubject'
+import { PushNotificationActionType } from '@src/reducers/application/pushNotification/pushNotificationActions'
 import Capsule from '../../components/Capsule'
 import applicationMessages from '../../messages'
 import { Status } from '../../constants'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import SearchBlock from './SearchBlock'
-import PushNotificationContext from '../context/PushNotificationContext'
+import PushNotificationContext, { ActionContext } from '../context/PushNotificationContext'
 
 const useStyles = makeStyles({
   table: {
@@ -52,9 +54,10 @@ export default function PushNotificationList() {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   const { notificationList, notificationTotal } = useContext(PushNotificationContext)
+  const { onGetPushNotificationList, onDeletePushNotification } = useContext(ActionContext)
   const { sortBy, handleSort } = useSort<string>('scheduledStartTime')
   const { pagination, handlePageChange } = usePaging({ total: notificationTotal })
-  const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll } = useCheckbox()
+  const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll, onResetCheck } = useCheckbox()
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
@@ -74,7 +77,7 @@ export default function PushNotificationList() {
   )
   const handleSearch = useCallback(data => console.log(data), [])
 
-  const handleDelete = useCallback(() => console.log(checkedList), [checkedList])
+  const handleDelete = useCallback(() => onDeletePushNotification(checkedList), [checkedList, onDeletePushNotification])
 
   const tableButtonList = useMemo(
     () => [<Button buttonText={formatMessage(commonMessages.delete)} icon={DeleteIcon} onClick={handleDelete} />],
@@ -127,6 +130,18 @@ export default function PushNotificationList() {
     ],
     [handleSort, formatMessage, handleCheckAll, isCheckAll]
   )
+
+  useEffect(() => {
+    onGetPushNotificationList()
+  }, [onGetPushNotificationList])
+
+  useEffect(() => {
+    const subscription = successSubject.subscribe([PushNotificationActionType.DELETE_SUCCESS], () => {
+      onResetCheck()
+      onGetPushNotificationList()
+    })
+    return () => subscription.unsubscribe()
+  }, [onGetPushNotificationList, onResetCheck])
 
   return (
     <>

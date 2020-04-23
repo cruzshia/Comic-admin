@@ -125,9 +125,7 @@ export default function DisplaySettingList() {
     [handleSort, formatMessage, handleCheckAll, isCheckAll]
   )
 
-  const handleDelete = useCallback(() => {
-    onDeleteDisplaySetting(checkedList)
-  }, [checkedList, onDeleteDisplaySetting])
+  const handleDelete = useCallback(() => onDeleteDisplaySetting(checkedList), [checkedList, onDeleteDisplaySetting])
 
   const tableButtonList = useMemo(
     () => [

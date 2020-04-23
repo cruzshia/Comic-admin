@@ -2,11 +2,11 @@ import React, { useCallback } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { routePath } from '@src/common/appConfig'
+import { StoreState } from '@src/reducers'
 import {
   getDisplaySettingListAction,
   deleteDisplaySettingAction
 } from '@src/reducers/application/displaySetting/displaySettingActions'
-import { StoreState } from '@src/reducers'
 import DisplaySettingList from './components/DisplaySettingList'
 import DisplaySettingEdit from './components/DisplaySettingEdit'
 import DisplaySettingCreation from './components/DisplaySettingCreation'
