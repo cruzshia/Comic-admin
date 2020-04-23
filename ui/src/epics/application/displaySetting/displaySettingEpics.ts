@@ -1,5 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
+import { of } from 'rxjs'
 import { exhaustMap, catchError, tap, map, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
@@ -18,7 +19,7 @@ export const getDisplaySettingListEpic = (action$: ActionsObservable<AnyAction>)
         tap(() => successSubject.next({ type: DisplaySettingActionType.GET_LIST_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: DisplaySettingActionType.GET_LIST_ERROR })
-          return ignoreElements()
+          return of().pipe(ignoreElements())
         })
       )
     )
@@ -33,7 +34,7 @@ export const deleteDisplaySettingEpic = (action$: ActionsObservable<AnyAction>) 
         ignoreElements(),
         catchError(() => {
           errorSubject.next({ type: DisplaySettingActionType.DELETE_ERROR })
-          return ignoreElements()
+          return of().pipe(ignoreElements())
         })
       )
     )

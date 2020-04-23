@@ -59,6 +59,18 @@ export default function PushNotificationList() {
   const { pagination, handlePageChange } = usePaging({ total: notificationTotal })
   const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll, onResetCheck } = useCheckbox()
 
+  useEffect(() => {
+    onGetPushNotificationList()
+  }, [onGetPushNotificationList])
+
+  useEffect(() => {
+    const subscription = successSubject.subscribe([PushNotificationActionType.DELETE_SUCCESS], () => {
+      onResetCheck()
+      onGetPushNotificationList()
+    })
+    return () => subscription.unsubscribe()
+  }, [onGetPushNotificationList, onResetCheck])
+
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
   ])
@@ -130,18 +142,6 @@ export default function PushNotificationList() {
     ],
     [handleSort, formatMessage, handleCheckAll, isCheckAll]
   )
-
-  useEffect(() => {
-    onGetPushNotificationList()
-  }, [onGetPushNotificationList])
-
-  useEffect(() => {
-    const subscription = successSubject.subscribe([PushNotificationActionType.DELETE_SUCCESS], () => {
-      onResetCheck()
-      onGetPushNotificationList()
-    })
-    return () => subscription.unsubscribe()
-  }, [onGetPushNotificationList, onResetCheck])
 
   return (
     <>

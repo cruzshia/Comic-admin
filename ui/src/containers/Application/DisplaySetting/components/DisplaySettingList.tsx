@@ -53,6 +53,18 @@ export default function DisplaySettingList() {
   const { pagination, handlePageChange } = usePaging({ total: settingTotal })
   const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll, onResetCheck } = useCheckbox()
 
+  useEffect(() => {
+    onGetDisplaySettingList()
+  }, [onGetDisplaySettingList])
+
+  useEffect(() => {
+    const subscription = successSubject.subscribe([DisplaySettingActionType.DELETE_SUCCESS], () => {
+      onResetCheck()
+      onGetDisplaySettingList()
+    })
+    return () => subscription.unsubscribe()
+  }, [onGetDisplaySettingList, onResetCheck])
+
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
   ])
@@ -138,18 +150,6 @@ export default function DisplaySettingList() {
     ],
     [formatMessage, handleDelete]
   )
-
-  useEffect(() => {
-    onGetDisplaySettingList()
-  }, [onGetDisplaySettingList])
-
-  useEffect(() => {
-    const subscription = successSubject.subscribe([DisplaySettingActionType.DELETE_SUCCESS], () => {
-      onResetCheck()
-      onGetDisplaySettingList()
-    })
-    return () => subscription.unsubscribe()
-  }, [onGetDisplaySettingList, onResetCheck])
 
   return (
     <>

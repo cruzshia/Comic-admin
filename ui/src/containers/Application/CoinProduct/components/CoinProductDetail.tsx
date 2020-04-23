@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useCallback } from 'react'
+import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
@@ -9,7 +9,7 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
 import { ScrollAnchor } from './CoinProductForm'
 import applicationMessages from '../../messages'
-import CoinProductContext from '../context/CoinProductContext'
+import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 
@@ -17,7 +17,12 @@ export default function CoinProductDetail() {
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
-  const { currentProduct } = useContext(CoinProductContext)
+  const { currentProduct = {} } = useContext(CoinProductContext)
+  const { onGetCoinProduct } = useContext(ActionContext)
+
+  useEffect(() => {
+    onGetCoinProduct(id!)
+  }, [onGetCoinProduct, id])
 
   const breadcrumbList = useMemo(
     () =>
@@ -51,7 +56,7 @@ export default function CoinProductDetail() {
     [history, id]
   )
 
-  const handleEdit = useCallback(() => handleRedirect(), [handleRedirect])
+  if (!currentProduct.productId) return null
 
   return (
     <>
@@ -72,7 +77,7 @@ export default function CoinProductDetail() {
           toDataSet(formatMessage(commonMessages.updateDateTime), currentProduct.updatedAt)
         ]}
         marginBottom
-        onEdit={handleEdit}
+        onEdit={handleRedirect()}
       />
       <DataTable
         title={formatMessage(commonMessages.releaseDuration)}

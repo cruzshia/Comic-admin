@@ -1,5 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
+import { of } from 'rxjs'
 import { exhaustMap, catchError, tap, map, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
@@ -17,7 +18,7 @@ export const getPushNotificationListEpic = (action$: ActionsObservable<AnyAction
         tap(() => successSubject.next({ type: PushNotificationActionType.GET_LIST_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: PushNotificationActionType.GET_LIST_ERROR })
-          return ignoreElements()
+          return of().pipe(ignoreElements())
         })
       )
     )
@@ -32,7 +33,7 @@ export const deletePushNotificationEpic = (action$: ActionsObservable<AnyAction>
         ignoreElements(),
         catchError(() => {
           errorSubject.next({ type: PushNotificationActionType.DELETE_ERROR })
-          return ignoreElements()
+          return of().pipe(ignoreElements())
         })
       )
     )

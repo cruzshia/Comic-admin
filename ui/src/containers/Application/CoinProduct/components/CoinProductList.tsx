@@ -36,6 +36,10 @@ export default function CoinProductList() {
   const { sortBy, handleSort } = useSort('createdAt')
   const { pagination, handlePageChange } = usePaging({ total: productTotal })
 
+  useEffect(() => {
+    onGetCoinProductList()
+  }, [onGetCoinProductList])
+
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
   ])
@@ -77,10 +81,6 @@ export default function CoinProductList() {
         ? a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier
         : (a.data[sortBy.key] - b.data[sortBy.key]) * sortBy.multiplier
     })
-
-  useEffect(() => {
-    onGetCoinProductList()
-  }, [onGetCoinProductList])
 
   return (
     <>

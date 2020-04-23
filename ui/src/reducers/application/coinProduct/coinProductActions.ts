@@ -5,6 +5,10 @@ export enum CoinProductActionType {
   GET_LIST_SUCCESS = '@AppCoinProduct/GET_LIST_SUCCESS',
   GET_LIST_ERROR = '@AppCoinProduct/GET_LIST_ERROR',
 
+  GET = '@AppCoinProduct/GET',
+  GET_SUCCESS = '@AppCoinProduct/GET_SUCCESS',
+  GET_ERROR = '@AppCoinProduct/GET_ERROR',
+
   CREATE = '@AppCoinProduct/CREATE',
   CREATE_SUCCESS = '@AppCoinProduct/CREATE_SUCCESS',
   CREATE_ERROR = '@AppCoinProduct/CREATE_ERROR',
@@ -20,6 +24,16 @@ export const getCoinProductListAction = () => ({
 
 export const getCoinProductListSuccessAction = (payload: CoinProduct[]) => ({
   type: CoinProductActionType.GET_LIST_SUCCESS,
+  payload
+})
+
+export const getCoinProductAction = (CoinProductId: string) => ({
+  type: CoinProductActionType.GET,
+  payload: CoinProductId
+})
+
+export const getCoinProductSuccessAction = (payload: CoinProduct) => ({
+  type: CoinProductActionType.GET_SUCCESS,
   payload
 })
 

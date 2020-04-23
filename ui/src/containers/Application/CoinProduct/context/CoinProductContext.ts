@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import { CoinProduct } from '@src/models/application/coinProduct'
 
 interface CoinProductContext {
   productList: any[]
@@ -12,8 +13,14 @@ export default createContext<CoinProductContext>({
 })
 interface CoinProductActionContext {
   onGetCoinProductList: () => void
+  onGetCoinProduct: (_: string) => void
+  onCreateCoinProduct: (_: CoinProduct) => void
+  onUpdateCoinProduct: (_: CoinProduct) => void
 }
 
 export const ActionContext = createContext<CoinProductActionContext>({
-  onGetCoinProductList: () => {}
+  onGetCoinProductList: () => {},
+  onGetCoinProduct: (_: string) => {},
+  onCreateCoinProduct: (_: CoinProduct) => {},
+  onUpdateCoinProduct: (_: CoinProduct) => {}
 })

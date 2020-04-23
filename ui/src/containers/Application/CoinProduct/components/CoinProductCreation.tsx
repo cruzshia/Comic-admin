@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useCallback } from 'react'
+import React, { useMemo, useRef, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
@@ -6,9 +6,11 @@ import CoinProductForm from './CoinProductForm'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
 import messages from '../messages'
+import { ActionContext } from '../context/CoinProductContext'
 
 export default function CoinProductCreation() {
   const { formatMessage } = useIntl()
+  const { onCreateCoinProduct } = useContext(ActionContext)
   const formRef = useRef<HTMLFormElement>(null)
   const breadcrumbList = useMemo(
     () =>
@@ -32,7 +34,6 @@ export default function CoinProductCreation() {
     ],
     [formatMessage]
   )
-  const handleSubmit = useCallback(data => console.log(data), [])
 
   return (
     <>
@@ -41,7 +42,7 @@ export default function CoinProductCreation() {
         titleText={formatMessage(messages.creation)}
         buttonList={buttonList}
       />
-      <CoinProductForm onSubmit={handleSubmit} formRef={formRef} />
+      <CoinProductForm onSubmit={onCreateCoinProduct} formRef={formRef} />
     </>
   )
 }
