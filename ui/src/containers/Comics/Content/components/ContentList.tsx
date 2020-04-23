@@ -15,7 +15,7 @@ import commonMessages from '@src/messages'
 import messages from '../messages'
 import comicMessages from '../../messages'
 import { CONTENT_BREADCRUMBS } from '../constants'
-import ContentContext from '../context/ContentContext'
+import ContentContext, { ActionContext } from '../context/ContentContext'
 import SearchBlock from './SearchBlock'
 
 const useStyle = makeStyles(() => ({
@@ -31,12 +31,14 @@ export default function ContentList() {
   const { formatMessage } = useIntl()
   const classes = useStyle()
   const { contentList, totalContent } = useContext(ContentContext)
+  const { onGetContentList } = useContext(ActionContext)
   const { sortBy, handleSort } = useSort<string>('createAt')
   const { page, pagination, handlePageChange } = usePaging({ total: totalContent })
 
   useEffect(() => {
     // dispatch get action
-  }, [sortBy, page])
+    onGetContentList()
+  }, [sortBy, page, onGetContentList])
 
   const handleSearch = useCallback(() => {}, [])
   const breadcrumbList = useMemo(() => CONTENT_BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
