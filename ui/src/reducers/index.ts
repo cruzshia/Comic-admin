@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import userReducer, { UserState, userPreloadState } from './user/userReducer'
 import workReducer, { WorkState, WorkPreloadState } from './comics/work/workReducer'
+import commentReducer, { CommentState, CommentPreloadState } from './user/comment/commentReducer'
 import contentReducer, { ContentState, ContentPreloadState } from './comics/content/contentReducer'
 import displaySettingReducer, {
   DisplaySettingState,
@@ -20,6 +21,7 @@ export interface StoreState {
   work: WorkState
   content: ContentState
 
+  comment: CommentState
   displaySetting: DisplaySettingState
   coinProduct: CoinProductState
   pushNotification: PushNotificationState
@@ -28,6 +30,8 @@ export interface StoreState {
 export const storePreloadState: StoreState = {
   user: userPreloadState,
   work: WorkPreloadState,
+
+  comment: CommentPreloadState,
   content: ContentPreloadState,
 
   displaySetting: DisplaySettingPreloadState,
@@ -38,6 +42,8 @@ export const storePreloadState: StoreState = {
 export default combineReducers<StoreState>({
   user: userReducer,
   work: workReducer,
+
+  comment: commentReducer,
   content: contentReducer,
 
   displaySetting: displaySettingReducer,
