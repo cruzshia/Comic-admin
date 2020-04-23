@@ -9,15 +9,15 @@ interface SuccessType {
   data?: any
 }
 export const successSubject = {
-  next: (data: SuccessType) => success.next(data),
+  next: (data: SuccessType) => {
+    success.next(data)
+    logger.log('%c Success subject: ', 'color: #04C1F9', data)
+  },
   subscribe: (actions: string[], next: (value: SuccessType) => void) =>
     success
       .asObservable()
       .pipe(ofType(...actions))
-      .subscribe(props => {
-        next(props)
-        logger.log('%c Success subject: ', 'color: #04C1F9', props)
-      })
+      .subscribe(next)
 }
 
 const error = new Subject<ErrorType>()
@@ -26,13 +26,13 @@ interface ErrorType {
   error?: any
 }
 export const errorSubject = {
-  next: (data: ErrorType) => error.next(data),
+  next: (data: ErrorType) => {
+    error.next(data)
+    logger.info('%c Error subject: ', 'color: #F4800A', data)
+  },
   subscribe: (actions: string[], next: (value: ErrorType) => void) =>
     error
       .asObservable()
       .pipe(ofType(...actions))
-      .subscribe(props => {
-        next(props)
-        logger.info('%c Error subject: ', 'color: #F4800A', props)
-      })
+      .subscribe(next)
 }

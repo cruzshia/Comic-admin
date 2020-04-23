@@ -1,4 +1,5 @@
-import React, { useRef, useMemo, useCallback, useContext } from 'react'
+import React, { useRef, useMemo, useCallback, useContext, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import Button from '@src/components/Button/Button'
@@ -8,18 +9,24 @@ import StickyHeader from './StickyHeader'
 import WorkForm from './WorkForm'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
-import WorkContext from '../context/WorkContext'
+import WorkContext, { ActionContext } from '../context/WorkContext'
 
 export default function WorkEdit() {
   const { currentWork } = useContext(WorkContext)
+  const { onGetWork, onUpdateWork } = useContext(ActionContext)
+  const { id } = useParams()
   const formRef = useRef<HTMLFormElement>(null)
   const { formatMessage } = useIntl()
+
+  useEffect(() => {
+    onGetWork(id!)
+  }, [onGetWork, id])
+
   const handleClickSubmit = useCallback(() => {
     formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
   }, [formRef])
-  const handleSubmitUpdate = useCallback(data => console.log(data), [])
+  const handleSubmitUpdate = useCallback(data => onUpdateWork(data), [onUpdateWork])
 
-  const titleText = currentWork.title
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
@@ -29,18 +36,18 @@ export default function WorkEdit() {
     [formatMessage]
   )
 
-  const CreateButton = useMemo(
+  const UpdateButton = useMemo(
     () => (
       <Button theme={ButtonTheme.DARK} buttonText={formatMessage(commonMessages.create)} onClick={handleClickSubmit} />
     ),
     [formatMessage, handleClickSubmit]
   )
-  const buttonList = useMemo(() => [CreateButton], [CreateButton])
+  const buttonList = useMemo(() => [UpdateButton], [UpdateButton])
 
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
-      <StickyHeader title={formatMessage(messages.createWork)} button={CreateButton} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={currentWork?.title} buttonList={buttonList} />
+      <StickyHeader title={formatMessage(messages.createWork)} button={UpdateButton} />
       <WorkForm workData={currentWork} onSubmit={handleSubmitUpdate} formRef={formRef} withStickHeader />
     </>
   )

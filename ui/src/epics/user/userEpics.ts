@@ -2,7 +2,7 @@ import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
 import { of } from 'rxjs'
 import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
-import responseUtil from '@src/utils/responseUtils'
+import { successSubject } from '@src/utils/responseSubject'
 import * as userServices from './userServices'
 import {
   UserActionType,
@@ -18,7 +18,7 @@ export const userLoginEpic = (action$: ActionsObservable<AnyAction>) =>
     exhaustMap(action =>
       userServices.loginAjax(action.payload.email, action.payload.password).pipe(
         map(res => loginSuccessAction(res.response)),
-        tap(() => responseUtil.success(UserActionType.LOGIN_SUCCESS)),
+        tap(() => successSubject.next({ type: UserActionType.LOGIN_SUCCESS })),
         catchError(err => of(loginErrorAction(err)))
       )
     )
@@ -30,7 +30,7 @@ export const userGetProfileEpic = (action$: ActionsObservable<AnyAction>) =>
     exhaustMap(() =>
       userServices.getProfileAjax().pipe(
         map(res => getProfileSuccessAction(res.response)),
-        tap(() => responseUtil.success(UserActionType.GET_PROFILE_SUCCESS)),
+        tap(() => successSubject.next({ type: UserActionType.GET_PROFILE_SUCCESS })),
         catchError(err => of(getProfileErrorAction(err)))
       )
     )

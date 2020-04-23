@@ -8,9 +8,15 @@ import WorkEdit from './components/WorkEdit'
 import WorkDetail from './components/WorkDetail'
 import WorkExport from './components/WorkExport'
 import WorkImportLogs from './components/WorkImportLogs'
+import WorkModel from '@src/models/comics/work'
 import WorkContext, { ActionContext } from './context/WorkContext'
 import { StoreState } from '@src/reducers'
-import { getWorkListAction, getWorkAction } from '@src/reducers/comics/work/workActions'
+import {
+  getWorkListAction,
+  getWorkAction,
+  createWorkAction,
+  updateWorkAction
+} from '@src/reducers/comics/work/workActions'
 import { mockLogList } from './mockData/mockImportLogs'
 
 export default function Work() {
@@ -19,9 +25,18 @@ export default function Work() {
 
   const handleGetWorkList = useCallback(() => dispatch(getWorkListAction()), [dispatch])
   const handleGetWork = useCallback((workId: string) => dispatch(getWorkAction(workId)), [dispatch])
+  const handleCreateWork = useCallback((work: WorkModel) => dispatch(createWorkAction(work)), [dispatch])
+  const handleUpdateWork = useCallback((work: WorkModel) => dispatch(updateWorkAction(work)), [dispatch])
 
   return (
-    <ActionContext.Provider value={{ onGetWorkList: handleGetWorkList, onGetWork: handleGetWork }}>
+    <ActionContext.Provider
+      value={{
+        onGetWorkList: handleGetWorkList,
+        onGetWork: handleGetWork,
+        onCreateWork: handleCreateWork,
+        onUpdateWork: handleUpdateWork
+      }}
+    >
       <WorkContext.Provider
         value={{
           workList,

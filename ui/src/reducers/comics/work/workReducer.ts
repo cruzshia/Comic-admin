@@ -15,6 +15,11 @@ export const emptyWork: Work = { author: [''] }
 
 export const WorkPreloadState = initState
 
+const updateCurrentWorkHandler = (state: WorkState, action: ActionType<any>): WorkState => ({
+  ...state,
+  currentWork: action.payload
+})
+
 const handler: Record<string, (state: WorkState, action: ActionType<any>) => WorkState> = {
   [WorkActionType.GET_LIST_SUCCESS]: (state: WorkState = initState, action: ActionType<Work[]>): WorkState => {
     return {
@@ -22,18 +27,9 @@ const handler: Record<string, (state: WorkState, action: ActionType<any>) => Wor
       workList: action.payload
     }
   },
-  [WorkActionType.UPDATE_SUCCESS]: (state: WorkState = initState, action: ActionType<Work>): WorkState => {
-    return {
-      ...state,
-      currentWork: action.payload
-    }
-  },
-  [WorkActionType.GET_WORK_SUCCESS]: (state: WorkState = initState, action: ActionType<Work>): WorkState => {
-    return {
-      ...state,
-      currentWork: action.payload
-    }
-  }
+  [WorkActionType.UPDATE_SUCCESS]: updateCurrentWorkHandler,
+  [WorkActionType.GET_WORK_SUCCESS]: updateCurrentWorkHandler,
+  [WorkActionType.CREATE_SUCCESS]: updateCurrentWorkHandler
 }
 
 export default function workReducer(state: WorkState = initState, action: ActionType<any>) {

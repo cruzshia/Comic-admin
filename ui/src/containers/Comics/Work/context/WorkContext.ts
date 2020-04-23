@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import Work from '@src/models/comics/work'
 
 interface WorkContext {
   workList: any[]
@@ -18,9 +19,13 @@ export default createContext<WorkContext>({
 interface ActionContext {
   onGetWorkList: () => void
   onGetWork: (workId: string) => void
+  onCreateWork: (work: Work) => void
+  onUpdateWork: (work: Work) => void
 }
 
 export const ActionContext = createContext<ActionContext>({
   onGetWorkList: () => {},
-  onGetWork: (_: string) => {}
+  onGetWork: (_: string) => {},
+  onCreateWork: (_: Work) => {},
+  onUpdateWork: (_: Work) => {}
 })

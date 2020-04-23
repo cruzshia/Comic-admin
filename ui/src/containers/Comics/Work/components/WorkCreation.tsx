@@ -1,20 +1,22 @@
-import React, { useRef, useCallback, useMemo } from 'react'
+import React, { useRef, useCallback, useMemo, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import StickyHeader from './StickyHeader'
 import WorkForm from './WorkForm'
 import { BREADCRUMBS } from '../constants'
+import { ActionContext } from '../context/WorkContext'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export default function WorkCreation() {
+  const { onCreateWork } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
   const handleClickSubmit = useCallback(() => {
     formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
   }, [formRef])
-  const handleSubmitCreate = useCallback(data => console.log(data), [])
+  const handleSubmitCreate = useCallback(data => onCreateWork(data), [onCreateWork])
 
   const titleText = formatMessage(messages.createWork)
 

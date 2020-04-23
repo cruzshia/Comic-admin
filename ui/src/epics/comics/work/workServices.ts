@@ -23,3 +23,23 @@ export const getWorkAjax = (workId: string): Observable<{ status: number; respon
     }
   ])
 }
+
+export const createWorkAjax = (work: Work): Observable<{ status: number; response: Work }> => {
+  authAjax.post('/work/', work)
+  return from([
+    {
+      status: 200,
+      response: mockListData[0]
+    }
+  ])
+}
+
+export const updateWorkAjax = (work: Work): Observable<{ status: number; response: Work }> => {
+  authAjax.put('/work/', work)
+  return from([
+    {
+      status: 200,
+      response: mockWork
+    }
+  ])
+}
