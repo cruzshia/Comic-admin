@@ -44,5 +44,5 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     ]
   }
 
-  return <SearchFilter onSubmit={onSubmit} conditions={conditions} />
+  return <SearchFilter onSubmit={onSubmit} conditions={conditions} disableExpand />
 }

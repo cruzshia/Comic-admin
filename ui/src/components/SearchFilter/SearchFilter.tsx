@@ -25,6 +25,7 @@ interface Props {
   onSubmit: (data: any) => void
   conditions: Conditions
   formRef?: React.RefObject<HTMLFormElement>
+  disableExpand?: boolean
 }
 
 const useStyles = makeStyles(() => ({
@@ -78,9 +79,9 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function SearchFilter({ onSubmit, conditions, formRef }: Props) {
+export default function SearchFilter({ onSubmit, conditions, formRef, disableExpand }: Props) {
   const { formatMessage } = useIntl()
-  const [isExpand, setIsExpand] = useState<boolean>(false)
+  const [isExpand, setIsExpand] = useState<boolean>(!!disableExpand)
   const classes = useStyles()
   const { isSearchResponsive } = useBreakpoint()
   const gridSize = isSearchResponsive ? 12 : 6
@@ -130,7 +131,7 @@ export default function SearchFilter({ onSubmit, conditions, formRef }: Props) {
                     {generateItem(conditions.right)}
                   </Grid>
                 </Grid>
-                {conditions.left.length > 3 && (
+                {!disableExpand && conditions.left.length > 3 && (
                   <Grid
                     container
                     justify='center'
