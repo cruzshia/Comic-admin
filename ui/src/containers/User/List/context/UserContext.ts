@@ -14,3 +14,11 @@ export default createContext<UserContext>({
   csvExportLogs: [],
   csvLogsTotal: 0
 })
+
+interface ActionContext {
+  onGetUserList: () => void
+}
+
+export const ActionContext = createContext<ActionContext>({
+  onGetUserList: () => {}
+})

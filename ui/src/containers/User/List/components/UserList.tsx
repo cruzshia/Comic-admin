@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useContext } from 'react'
+import React, { useCallback, useMemo, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -8,7 +8,7 @@ import ListTable from '@src/components/table/ListTable'
 import Button from '@src/components/Button/Button'
 import useSort from '@src/hooks/useSort'
 import usePaging from '@src/hooks/usePaging'
-import UserContext from '../context/UserContext'
+import UserContext, { ActionContext } from '../context/UserContext'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS, ListTableProp } from '../constants'
 import { toListTableData } from '../../utils'
@@ -40,8 +40,13 @@ export default function UserList() {
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { userList, userTotal } = useContext(UserContext)
+  const { onGetUserList } = useContext(ActionContext)
   const { sortBy, handleSort } = useSort('createDateTime')
   const { pagination, handlePageChange } = usePaging({ total: userTotal })
+
+  useEffect(() => {
+    onGetUserList()
+  }, [sortBy, onGetUserList])
 
   const breadcrumbList: Breadcrumb[] = BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) }))
   const titleText = formatMessage(userMessages.list)

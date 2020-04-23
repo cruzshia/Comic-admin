@@ -3,22 +3,22 @@ import { AnyAction } from 'redux'
 import { of } from 'rxjs'
 import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
 import { successSubject } from '@src/utils/responseSubject'
-import * as userServices from './userServices'
+import * as userServices from './profileServices'
 import {
-  UserActionType,
+  ProfileActionType,
   loginSuccessAction,
   loginErrorAction,
   getProfileSuccessAction,
   getProfileErrorAction
-} from '@src/reducers/user/userActions'
+} from '@src/reducers/user/profileActions'
 
 export const userLoginEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
-    ofType(UserActionType.LOGIN),
+    ofType(ProfileActionType.LOGIN),
     exhaustMap(action =>
       userServices.loginAjax(action.payload.email, action.payload.password).pipe(
         map(res => loginSuccessAction(res.response)),
-        tap(() => successSubject.next({ type: UserActionType.LOGIN_SUCCESS })),
+        tap(() => successSubject.next({ type: ProfileActionType.LOGIN_SUCCESS })),
         catchError(err => of(loginErrorAction(err)))
       )
     )
@@ -26,11 +26,11 @@ export const userLoginEpic = (action$: ActionsObservable<AnyAction>) =>
 
 export const userGetProfileEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
-    ofType(UserActionType.GET_PROFILE),
+    ofType(ProfileActionType.GET_PROFILE),
     exhaustMap(() =>
       userServices.getProfileAjax().pipe(
         map(res => getProfileSuccessAction(res.response)),
-        tap(() => successSubject.next({ type: UserActionType.GET_PROFILE_SUCCESS })),
+        tap(() => successSubject.next({ type: ProfileActionType.GET_PROFILE_SUCCESS })),
         catchError(err => of(getProfileErrorAction(err)))
       )
     )

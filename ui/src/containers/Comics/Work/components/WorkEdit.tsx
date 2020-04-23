@@ -5,6 +5,7 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import Button from '@src/components/Button/Button'
 import { ButtonTheme } from '@src/components/Button/buttonTheme'
 import commonMessages from '@src/messages'
+import { submitForm } from '@src/utils/validation'
 import StickyHeader from './StickyHeader'
 import WorkForm from './WorkForm'
 import { BREADCRUMBS } from '../constants'
@@ -22,9 +23,7 @@ export default function WorkEdit() {
     onGetWork(id!)
   }, [onGetWork, id])
 
-  const handleClickSubmit = useCallback(() => {
-    formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
-  }, [formRef])
+  const handleClickSubmit = useCallback(() => submitForm(formRef), [formRef])
   const handleSubmitUpdate = useCallback(data => onUpdateWork(data), [onUpdateWork])
 
   const breadcrumbList: Breadcrumb[] = useMemo(

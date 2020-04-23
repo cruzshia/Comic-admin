@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import userReducer, { UserState, userPreloadState } from './user/userReducer'
+import profileReducer, { ProfileState, ProfilePreloadState } from './user/profileReducer'
 import workReducer, { WorkState, WorkPreloadState } from './comics/work/workReducer'
 import commentReducer, { CommentState, CommentPreloadState } from './user/comment/commentReducer'
 import contentReducer, { ContentState, ContentPreloadState } from './comics/content/contentReducer'
@@ -11,13 +11,14 @@ import coinProductReducer, {
   CoinProductPreloadState,
   CoinProductState
 } from './application/coinProduct/coinProductReducer'
+import userReducer, { UserState, UserPreloadState } from './user/user/userReducer'
 import pushNotificationReducer, {
   PushNotificationState,
   PushNotificationPreloadState
 } from './application/pushNotification/pushNotificationReducer'
 
 export interface StoreState {
-  user: UserState
+  profile: ProfileState
   work: WorkState
   content: ContentState
 
@@ -25,10 +26,12 @@ export interface StoreState {
   displaySetting: DisplaySettingState
   coinProduct: CoinProductState
   pushNotification: PushNotificationState
+
+  user: UserState
 }
 
 export const storePreloadState: StoreState = {
-  user: userPreloadState,
+  profile: ProfilePreloadState,
   work: WorkPreloadState,
 
   comment: CommentPreloadState,
@@ -36,11 +39,13 @@ export const storePreloadState: StoreState = {
 
   displaySetting: DisplaySettingPreloadState,
   coinProduct: CoinProductPreloadState,
-  pushNotification: PushNotificationPreloadState
+  pushNotification: PushNotificationPreloadState,
+
+  user: UserPreloadState
 }
 
 export default combineReducers<StoreState>({
-  user: userReducer,
+  profile: profileReducer,
   work: workReducer,
 
   comment: commentReducer,
@@ -48,5 +53,7 @@ export default combineReducers<StoreState>({
 
   displaySetting: displaySettingReducer,
   coinProduct: coinProductReducer,
-  pushNotification: pushNotificationReducer
+  pushNotification: pushNotificationReducer,
+
+  user: userReducer
 })

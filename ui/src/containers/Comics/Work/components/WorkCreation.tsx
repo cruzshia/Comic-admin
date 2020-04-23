@@ -2,6 +2,7 @@ import React, { useRef, useCallback, useMemo, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
+import { submitForm } from '@src/utils/validation'
 import StickyHeader from './StickyHeader'
 import WorkForm from './WorkForm'
 import { BREADCRUMBS } from '../constants'
@@ -13,9 +14,7 @@ export default function WorkCreation() {
   const { onCreateWork } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
-  const handleClickSubmit = useCallback(() => {
-    formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
-  }, [formRef])
+  const handleClickSubmit = useCallback(() => submitForm(formRef), [formRef])
   const handleSubmitCreate = useCallback(data => onCreateWork(data), [onCreateWork])
 
   const titleText = formatMessage(messages.createWork)

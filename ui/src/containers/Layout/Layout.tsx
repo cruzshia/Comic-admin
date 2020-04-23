@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
 import { styled } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
-import { getProfileAction } from '@src/reducers/user/userActions'
+import { getProfileAction } from '@src/reducers/user/profileActions'
 import { StoreState } from '@src/reducers'
 import { topOffset, backgroundColor } from '@src/common/styles'
 import LayoutContext from './context'
@@ -20,7 +20,7 @@ const Content = styled('main')({
 export default function Layout({ children }: PropsWithChildren<{}>) {
   const dispatch = useDispatch()
   const { isLogin } = useSelector((state: StoreState) => ({
-    isLogin: !!state.user.token
+    isLogin: !!state.profile.token
   }))
 
   const match = useRouteMatch<{ headTab: string }>('/:headTab')

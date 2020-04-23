@@ -1,6 +1,6 @@
 import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
-import { User } from '@src/models/userModel'
+import { Profile } from '@src/models/profile'
 
 // fake response only
 export const loginAjax = (
@@ -18,7 +18,7 @@ export const loginAjax = (
   ])
 }
 
-export const getProfileAjax = (): Observable<{ status: number; response: User }> => {
+export const getProfileAjax = (): Observable<{ status: number; response: Profile }> => {
   authAjax.get('/user/profile')
   return from([
     {

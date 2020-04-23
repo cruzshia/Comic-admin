@@ -10,7 +10,7 @@ interface AuthRouteProps extends RouteProps {
 }
 
 export default function AuthRoute(props: PropsWithChildren<AuthRouteProps>) {
-  const isLogin = useSelector((state: StoreState) => !!state.user.token)
+  const isLogin = useSelector((state: StoreState) => !!state.profile.token)
   const { authRequired, guestOnly, ...routeProps } = props
   if (authRequired && !isLogin) {
     return <Redirect to={routePath.login} />

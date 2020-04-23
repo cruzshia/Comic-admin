@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { StoreState } from '../../reducers'
-import { loginAction, logoutAction } from '../../reducers/user/userActions'
+import { loginAction, logoutAction } from '../../reducers/user/profileActions'
 import LoginForm from './components/LoginForm'
 
 export default function Login() {
   const dispatch = useDispatch()
-  const isLogin = useSelector((state: StoreState) => !!state.user.token)
+  const isLogin = useSelector((state: StoreState) => !!state.profile.token)
   const onLogin = useCallback(
     () =>
       dispatch(

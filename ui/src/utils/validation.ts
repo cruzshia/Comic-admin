@@ -5,6 +5,8 @@ export const composeValidators = (...validators: ((data: any) => any)[]) => (val
 
 export const required = (value: any) => (value && (value.length > 1 || !isNaN(value)) ? undefined : 'Required')
 
+export const submitForm = (formRef: React.RefObject<HTMLFormElement>) =>
+  formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
 export const checkError = (meta: FieldMetaState<any>) => {
   return meta.error && meta.touched ? meta.error : undefined
 }

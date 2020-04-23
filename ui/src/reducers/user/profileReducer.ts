@@ -1,10 +1,10 @@
-import { UserActionType, LoginResult } from './userActions'
+import { ProfileActionType, LoginResult } from './profileActions'
 import { ActionType } from '../types'
-import { User } from '@src/models/userModel'
+import { Profile } from '@src/models/profile'
 import { StorageKey } from '@src/common/storageKey'
 import { setAuthHeader, removeAuthHeader } from '@src/utils/ajaxUtil'
 
-export interface UserState {
+export interface ProfileState {
   token?: string
   profile?: {
     id: string
@@ -12,17 +12,17 @@ export interface UserState {
   }
 }
 
-const initState: UserState = {}
+const initState: ProfileState = {}
 const cacheToken = localStorage.getItem(StorageKey.LOGIN_TOKEN) ?? undefined
 cacheToken && setAuthHeader(cacheToken)
 
-export const userPreloadState: UserState = {
+export const ProfilePreloadState: ProfileState = {
   ...initState,
   token: cacheToken
 }
 
-const handler: Record<string, (state: UserState, action: ActionType<any>) => UserState> = {
-  [UserActionType.LOGIN_SUCCESS]: (state: UserState = initState, action: ActionType<LoginResult>) => {
+const handler: Record<string, (state: ProfileState, action: ActionType<any>) => ProfileState> = {
+  [ProfileActionType.LOGIN_SUCCESS]: (state: ProfileState = initState, action: ActionType<LoginResult>) => {
     localStorage.setItem(StorageKey.LOGIN_TOKEN, action.payload.token)
     setAuthHeader(action.payload.token)
     return {
@@ -30,12 +30,12 @@ const handler: Record<string, (state: UserState, action: ActionType<any>) => Use
       token: action.payload.token
     }
   },
-  [UserActionType.LOGOUT]: () => {
+  [ProfileActionType.LOGOUT]: () => {
     localStorage.removeItem(StorageKey.LOGIN_TOKEN)
     removeAuthHeader()
     return initState
   },
-  [UserActionType.GET_PROFILE_SUCCESS]: (state: UserState = initState, action: ActionType<User>) => {
+  [ProfileActionType.GET_PROFILE_SUCCESS]: (state: ProfileState = initState, action: ActionType<Profile>) => {
     return {
       ...state,
       profile: action.payload
@@ -43,7 +43,7 @@ const handler: Record<string, (state: UserState, action: ActionType<any>) => Use
   }
 }
 
-export default function userReducer(state: UserState = initState, action: ActionType<any>) {
+export default function userReducer(state: ProfileState = initState, action: ActionType<any>) {
   if (handler.hasOwnProperty(action.type)) {
     return handler[action.type](state, action)
   }
