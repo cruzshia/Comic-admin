@@ -1,7 +1,7 @@
 import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
 import { DisplaySetting } from '@src/models/application/displaySetting'
-import { mockSettingList } from './mockData/mockSetting'
+import { mockSettingList, mockSettingDetail } from './mockData/mockSetting'
 
 export const getDisplaySettingListAjax = (): Observable<{ status: number; response: DisplaySetting[] }> => {
   authAjax.get('/application/display_setting/list')
@@ -18,6 +18,18 @@ export const deleteDisplaySettingAjax = (list: string[]): Observable<{ status: n
   return from([
     {
       status: 200
+    }
+  ])
+}
+
+export const createDisplaySettingAjax = (
+  displaySetting: any
+): Observable<{ status: number; response: DisplaySetting }> => {
+  authAjax.post('/application/display_setting/', displaySetting)
+  return from([
+    {
+      status: 200,
+      response: mockSettingDetail
     }
   ])
 }

@@ -6,17 +6,19 @@ interface DisplaySettingContext {
   settingTotal: number
 }
 
-interface DisplaySettingActionContext {
-  onGetDisplaySettingList: () => void
-  onDeleteDisplaySetting: (list: string[]) => void
-}
-
 export default createContext<DisplaySettingContext>({
   settingList: [],
   settingTotal: 0
 })
 
+interface DisplaySettingActionContext {
+  onGetDisplaySettingList: () => void
+  onDeleteDisplaySetting: (_: string[]) => void
+  onCreateDisplaySetting: (_: any) => void
+}
+
 export const ActionContext = createContext<DisplaySettingActionContext>({
   onGetDisplaySettingList: () => {},
-  onDeleteDisplaySetting: list => {}
+  onDeleteDisplaySetting: (_: string[]) => {},
+  onCreateDisplaySetting: (_: any) => {}
 })

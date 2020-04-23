@@ -4,7 +4,8 @@ import { exhaustMap, catchError, tap, map, ignoreElements } from 'rxjs/operators
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   DisplaySettingActionType,
-  getDisplaySettingListSuccessAction
+  getDisplaySettingListSuccessAction,
+  createDisplaySettingSuccessAction
 } from '@src/reducers/application/displaySetting/displaySettingActions'
 import * as displaySettingServices from './displaySettingServices'
 
@@ -38,4 +39,18 @@ export const deleteDisplaySettingEpic = (action$: ActionsObservable<AnyAction>) 
     )
   )
 
-export default [getDisplaySettingListEpic, deleteDisplaySettingEpic]
+export const createDisplaySettingEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(DisplaySettingActionType.CREATE),
+    exhaustMap(action =>
+      displaySettingServices.createDisplaySettingAjax(action.payload).pipe(
+        map(res => createDisplaySettingSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: DisplaySettingActionType.CREATE_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: DisplaySettingActionType.CREATE_ERROR })
+          return ignoreElements()
+        })
+      )
+    )
+  )
+export default [getDisplaySettingListEpic, deleteDisplaySettingEpic, createDisplaySettingEpic]

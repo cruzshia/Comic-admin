@@ -32,8 +32,8 @@ export default function TextArea({
   onBlur,
   error,
   placeholder,
-  value = TEXT_AREA_DEFAULT_ROWS,
-  rows,
+  value,
+  rows = TEXT_AREA_DEFAULT_ROWS,
   classnames,
   autoSize,
   onClick

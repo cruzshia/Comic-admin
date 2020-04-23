@@ -11,7 +11,7 @@ const initState: DisplaySettingState = {
   settingList: []
 }
 
-export const emptySetting: DisplaySetting = {}
+export const emptyDisplaySetting: DisplaySetting = {}
 
 export const DisplaySettingPreloadState = initState
 
@@ -23,6 +23,15 @@ const handler: Record<string, (state: DisplaySettingState, action: ActionType<an
     return {
       ...state,
       settingList: action.payload
+    }
+  },
+  [DisplaySettingActionType.CREATE_SUCCESS]: (
+    state: DisplaySettingState,
+    action: ActionType<DisplaySetting[]>
+  ): DisplaySettingState => {
+    return {
+      ...state,
+      currentSetting: action.payload
     }
   }
 }
