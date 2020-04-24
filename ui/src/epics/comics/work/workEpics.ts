@@ -1,13 +1,14 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
+import { map, exhaustMap, catchError, tap, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   WorkActionType,
   getWorkListSuccessAction,
   getWorkSuccessAction,
   createWorkSuccessAction,
-  updateWorkSuccessAction
+  updateWorkSuccessAction,
+  getCsvLogListSuccessAction
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
 import { emptyErrorReturn } from '../../utils'
@@ -71,4 +72,34 @@ export const updateWorkEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export default [getWorkListEpic, getWorkEpic, createWorkEpic, updateWorkEpic]
+export const getCsvLogListEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(WorkActionType.GET_CSV_LOG_LIST),
+    exhaustMap(() =>
+      workServices.getCsvLogListAjax().pipe(
+        map(res => getCsvLogListSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: WorkActionType.GET_CSV_LOG_LIST_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: WorkActionType.GET_CSV_LOG_LIST_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export const importWorksEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(WorkActionType.IMPORT_WORKS),
+    exhaustMap(() =>
+      workServices.importWorksAjax().pipe(
+        tap(() => successSubject.next({ type: WorkActionType.IMPORT_WORKS_SUCCESS })),
+        ignoreElements(),
+        catchError(() => {
+          errorSubject.next({ type: WorkActionType.IMPORT_WORKS_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export default [getWorkListEpic, getWorkEpic, createWorkEpic, updateWorkEpic, getCsvLogListEpic, importWorksEpic]

@@ -18,6 +18,7 @@ export default createContext<WorkContext>({
 
 interface ActionContext {
   onGetWorkList: () => void
+  onGetCsvLogList: () => void
   onGetWork: (workId: string) => void
   onCreateWork: (work: Work) => void
   onUpdateWork: (work: Work) => void
@@ -25,6 +26,7 @@ interface ActionContext {
 
 export const ActionContext = createContext<ActionContext>({
   onGetWorkList: () => {},
+  onGetCsvLogList: () => {},
   onGetWork: (_: string) => {},
   onCreateWork: (_: Work) => {},
   onUpdateWork: (_: Work) => {}

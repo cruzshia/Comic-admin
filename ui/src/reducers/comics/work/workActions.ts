@@ -1,4 +1,4 @@
-import Work from '@src/models/comics/work'
+import Work, { CsvLog } from '@src/models/comics/work'
 
 export enum WorkActionType {
   GET_LIST = '@ComicsWork/GET_LIST',
@@ -15,7 +15,15 @@ export enum WorkActionType {
 
   UPDATE = '@ComicsWork/UPDATE',
   UPDATE_SUCCESS = '@ComicsWork/UPDATE_SUCCESS',
-  UPDATE_ERROR = '@ComicsWork/UPDATE_ERROR'
+  UPDATE_ERROR = '@ComicsWork/UPDATE_ERROR',
+
+  GET_CSV_LOG_LIST = '@ComicsWork/GET_CSV_LOGS',
+  GET_CSV_LOG_LIST_SUCCESS = '@ComicsWork/GET_CSV_LOG_LIST_SUCCESS',
+  GET_CSV_LOG_LIST_ERROR = '@ComicsWork/GET_CSV_LOG_LIST_ERROR',
+
+  IMPORT_WORKS = '@ComicsWork/IMPORT_WORKS',
+  IMPORT_WORKS_SUCCESS = '@ComicsWork/IMPORT_WORKS_SUCCESS',
+  IMPORT_WORKS_ERROR = '@ComicsWork/IMPORT_WORKS_ERROR'
 }
 
 export const getWorkListAction = () => ({
@@ -55,4 +63,18 @@ export const updateWorkAction = (work: Work) => ({
 export const updateWorkSuccessAction = (work: Work) => ({
   type: WorkActionType.UPDATE_SUCCESS,
   payload: work
+})
+
+export const getCsvLogListAction = () => ({
+  type: WorkActionType.GET_CSV_LOG_LIST
+})
+
+export const getCsvLogListSuccessAction = (logList: CsvLog[]) => ({
+  type: WorkActionType.GET_CSV_LOG_LIST_SUCCESS,
+  payload: logList
+})
+
+export const importWorksAction = (payload: any) => ({
+  type: WorkActionType.IMPORT_WORKS,
+  payload
 })

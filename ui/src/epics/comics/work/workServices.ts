@@ -1,8 +1,9 @@
 import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
-import Work from '@src/models/comics/work'
+import Work, { CsvLog } from '@src/models/comics/work'
 import { mockListData } from './mockData/mockData'
 import { mockWork } from './mockData/mockWork'
+import { mockLogList } from './mockData/mockImportLogs'
 
 export const getWorkListAjax = (): Observable<{ status: number; response: Work[] }> => {
   authAjax.get('/work/list')
@@ -40,6 +41,26 @@ export const updateWorkAjax = (work: Work): Observable<{ status: number; respons
     {
       status: 200,
       response: mockWork
+    }
+  ])
+}
+
+export const getCsvLogListAjax = (): Observable<{ status: number; response: CsvLog[] }> => {
+  authAjax.get('/work/csv_logs')
+  return from([
+    {
+      status: 200,
+      response: mockLogList
+    }
+  ])
+}
+
+export const importWorksAjax = (): Observable<{ status: number; response: any }> => {
+  authAjax.post('/work/import')
+  return from([
+    {
+      status: 200,
+      response: {}
     }
   ])
 }

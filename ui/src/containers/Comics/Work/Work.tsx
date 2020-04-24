@@ -15,18 +15,19 @@ import {
   getWorkListAction,
   getWorkAction,
   createWorkAction,
-  updateWorkAction
+  updateWorkAction,
+  getCsvLogListAction
 } from '@src/reducers/comics/work/workActions'
-import { mockLogList } from './mockData/mockImportLogs'
 
 export default function Work() {
   const dispatch = useDispatch()
-  const { workList, currentWork } = useSelector((state: StoreState) => state.work)
+  const { workList, currentWork, importLogList } = useSelector((state: StoreState) => state.work)
 
   const handleGetWorkList = useCallback(() => dispatch(getWorkListAction()), [dispatch])
   const handleGetWork = useCallback((workId: string) => dispatch(getWorkAction(workId)), [dispatch])
   const handleCreateWork = useCallback((work: WorkModel) => dispatch(createWorkAction(work)), [dispatch])
   const handleUpdateWork = useCallback((work: WorkModel) => dispatch(updateWorkAction(work)), [dispatch])
+  const handleGetCsvLogList = useCallback(() => dispatch(getCsvLogListAction()), [dispatch])
 
   return (
     <ActionContext.Provider
@@ -34,7 +35,8 @@ export default function Work() {
         onGetWorkList: handleGetWorkList,
         onGetWork: handleGetWork,
         onCreateWork: handleCreateWork,
-        onUpdateWork: handleUpdateWork
+        onUpdateWork: handleUpdateWork,
+        onGetCsvLogList: handleGetCsvLogList
       }}
     >
       <WorkContext.Provider
@@ -42,8 +44,8 @@ export default function Work() {
           workList,
           currentWork,
           workTotal: workList.length,
-          importLogList: mockLogList,
-          logTotal: mockLogList.length
+          importLogList,
+          logTotal: importLogList.length
         }}
       >
         <Switch>

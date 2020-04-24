@@ -27,6 +27,9 @@ const SystemMenuItem = styled(Link)({
   color: '#FFFFFF',
   '&.selected': {
     fontWeight: fontWeightBold
+  },
+  '&:visited': {
+    color: '#FFFFFF'
   }
 })
 

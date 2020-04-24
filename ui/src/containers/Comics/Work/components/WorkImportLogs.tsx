@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo, useState } from 'react'
+import React, { useContext, useCallback, useMemo, useState, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { makeStyles, Grid, IconButton } from '@material-ui/core'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
@@ -8,7 +8,7 @@ import { ReactComponent as AlertIcon } from '@src/assets/form/error_alert.svg'
 import { ReactComponent as DownloadIcon } from '@src/assets/common/download_circle.svg'
 import messages from '@src/messages'
 import { BREADCRUMBS } from '../constants'
-import WorkContext from '../context/WorkContext'
+import WorkContext, { ActionContext } from '../context/WorkContext'
 
 const useStyle = makeStyles({
   table: {
@@ -41,7 +41,13 @@ export default function WorkImportLogs() {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const { importLogList, logTotal } = useContext(WorkContext)
+  const { onGetCsvLogList } = useContext(ActionContext)
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Desc)
+
+  useEffect(() => {
+    onGetCsvLogList()
+  }, [onGetCsvLogList])
+
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat({
