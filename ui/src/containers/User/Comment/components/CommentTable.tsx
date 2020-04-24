@@ -1,8 +1,9 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
+import { Field } from 'react-final-form'
 import { makeStyles } from '@material-ui/core'
 import DataTable from '@src/components/table/DataTable'
-import Select from '@src/components/form/Select'
+import { SelectAdapter } from '@src/components/finalForm'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
@@ -46,12 +47,13 @@ export default function CommentTable({ comment, isEdit }: { comment: any; isEdit
         {
           label: formatMessage(userMessages.status),
           content: isEdit ? (
-            <Select
+            <Field
+              name='status'
+              component={SelectAdapter}
               options={[
                 { label: formatMessage(commonMessages.approved), value: 'approved' },
                 { label: formatMessage(commonMessages.not_approved), value: 'not_approved' }
               ]}
-              value={comment.status}
             />
           ) : (
             formatMessage(commonMessages[comment.status as keyof typeof commonMessages])

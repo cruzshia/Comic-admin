@@ -23,8 +23,9 @@ export const getCommentListSuccessAction = (payload: UserComment[]) => ({
   payload
 })
 
-export const getCommentAction = () => ({
-  type: CommentActionType.GET_COMMENT
+export const getCommentAction = (commentId: string) => ({
+  type: CommentActionType.GET_COMMENT,
+  payload: commentId
 })
 
 export const getCommentSuccessAction = (payload: UserComment) => ({

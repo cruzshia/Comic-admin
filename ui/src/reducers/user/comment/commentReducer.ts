@@ -3,12 +3,12 @@ import UserComment from '@src/models/user/comment'
 import { ActionType } from '../../types'
 
 export interface CommentState {
-  CommentList: UserComment[]
+  commentList: UserComment[]
   currentComment?: UserComment
 }
 
 const InitState = {
-  CommentList: []
+  commentList: []
 }
 
 export const CommentPreloadState = InitState
@@ -16,7 +16,7 @@ export const CommentPreloadState = InitState
 const handlers: Record<string, (state: CommentState, action: ActionType<any>) => CommentState> = {
   [CommentActionType.GET_LIST_SUCCESS]: (state = InitState, action: ActionType<UserComment[]>) => ({
     ...state,
-    CommentList: action.payload
+    commentList: action.payload
   }),
   [CommentActionType.GET_COMMENT_SUCCESS]: (state = InitState, action: ActionType<UserComment>) => ({
     ...state,

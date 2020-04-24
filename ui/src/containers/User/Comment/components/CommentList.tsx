@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo } from 'react'
+import React, { useContext, useCallback, useMemo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -11,7 +11,7 @@ import { ReactComponent as PublishIco } from '@src/assets/common/publish.svg'
 import { ReactComponent as DeleteIco } from '@src/assets/common/delete.svg'
 import { ReactComponent as UserIco } from '@src/assets/common/user.svg'
 import { useSort, usePaging, useCheckbox } from '@src/hooks'
-import Context from '../context/CommentContext'
+import Context, { ActionContext } from '../context/CommentContext'
 import { COMMENT_BREADCRUMBS, ListTableProp } from '../utils'
 import { toListTableData } from '../../utils'
 import commonMessages from '@src/messages'
@@ -37,9 +37,14 @@ export default function CommentList() {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const { commentList, commentTotal } = useContext(Context)
+  const { onGetCommentList } = useContext(ActionContext)
   const { sortBy, handleSort } = useSort(ListTableProp.Report)
   const { pagination, handlePageChange } = usePaging({ total: commentTotal })
   const { onCheckAll, handleCheck, checkedList, isChecked } = useCheckbox()
+
+  useEffect(() => {
+    onGetCommentList()
+  }, [onGetCommentList])
 
   const breadcrumbList: Breadcrumb[] = COMMENT_BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) }))
 

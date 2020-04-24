@@ -22,38 +22,36 @@ export interface StoreState {
   work: WorkState
   content: ContentState
 
-  comment: CommentState
   displaySetting: DisplaySettingState
   coinProduct: CoinProductState
   pushNotification: PushNotificationState
 
   user: UserState
+  comment: CommentState
 }
 
 export const storePreloadState: StoreState = {
   profile: ProfilePreloadState,
   work: WorkPreloadState,
-
-  comment: CommentPreloadState,
   content: ContentPreloadState,
 
   displaySetting: DisplaySettingPreloadState,
   coinProduct: CoinProductPreloadState,
   pushNotification: PushNotificationPreloadState,
 
-  user: UserPreloadState
+  user: UserPreloadState,
+  comment: CommentPreloadState
 }
 
 export default combineReducers<StoreState>({
   profile: profileReducer,
   work: workReducer,
-
-  comment: commentReducer,
   content: contentReducer,
 
   displaySetting: displaySettingReducer,
   coinProduct: coinProductReducer,
   pushNotification: pushNotificationReducer,
 
-  user: userReducer
+  user: userReducer,
+  comment: commentReducer
 })
