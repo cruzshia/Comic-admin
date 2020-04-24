@@ -1,20 +1,30 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
+import NGWord from '@src/models/user/NGWord'
 import { NG_WORD_BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import SwitchTab from './SwitchTab'
 
-export default function NGWord({
-  onSubmit,
-  defaultValue
-}: {
-  onSubmit: (value: string) => () => void
-  defaultValue: string
-}) {
+interface Props {
+  onSubmit: (value: NGWord) => void
+  currentNGWord: NGWord
+  onGetNGWord: () => void
+}
+
+export default function NGWordList({ onSubmit, currentNGWord, onGetNGWord }: Props) {
   const { formatMessage } = useIntl()
   const [selectedTab, setSelectedTab] = useState<string>('commentNGWord')
-  const [value, setValue] = useState<string>(defaultValue)
+  const [value, setValue] = useState<NGWord>(currentNGWord)
+
+  useEffect(() => {
+    onGetNGWord()
+  }, [onGetNGWord])
+
+  useEffect(() => {
+    setValue(currentNGWord)
+  }, [currentNGWord])
+
   const handleChange = useCallback(e => setValue(e.currentTarget.value), [setValue])
   const handleTabClick = useCallback((id: string) => () => setSelectedTab(id), [setSelectedTab])
   const breadcrumbList: Breadcrumb[] = useMemo(
@@ -42,7 +52,9 @@ export default function NGWord({
         tabList={tabList}
         selected={selectedTab}
         onTabClick={handleTabClick}
-        onSubmit={onSubmit(value)}
+        onSubmit={() => {
+          onSubmit(value)
+        }}
         onChange={handleChange}
         value={value}
       />
