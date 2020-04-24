@@ -16,10 +16,12 @@ interface ActionProvider {
   onGetCommentList: () => void
   onGetComment: (id: string) => void
   onUpdateComment: (data: UserComment) => void
+  onDeleteComment: (idList: string[]) => void
 }
 
 export const ActionContext = createContext({
   onGetCommentList: () => {},
   onGetComment: (_: string) => {},
-  onUpdateComment: (_: UserComment) => {}
+  onUpdateComment: (_: UserComment) => {},
+  onDeleteComment: (_: string[]) => {}
 })

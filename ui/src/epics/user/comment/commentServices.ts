@@ -31,3 +31,11 @@ export const updateCommentAjax = (data: string) => {
     }
   ])
 }
+export const deleteCommentAjax = (idList: string[]) => {
+  ajaxUtil.delete('/comment/list', idList)
+  return from([
+    {
+      status: 200
+    }
+  ])
+}

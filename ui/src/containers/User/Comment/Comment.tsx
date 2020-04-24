@@ -3,7 +3,13 @@ import { Switch, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { StoreState } from '@src/reducers'
 import { routePath } from '@src/common/appConfig'
-import { getCommentListAction, getCommentAction, updateCommentAction } from '@src/reducers/user/comment/commentAction'
+import {
+  getCommentListAction,
+  getCommentAction,
+  updateCommentAction,
+  deleteCommentAction
+} from '@src/reducers/user/comment/commentAction'
+import UserComment from '@src/models/user/comment'
 import CommentContext, { ActionContext } from './context/CommentContext'
 import CommentList from './components/CommentList'
 import CommentDetail from './components/CommentDetail'
@@ -13,13 +19,19 @@ export default function Comment() {
   const dispatch = useDispatch()
   const { commentList, currentComment } = useSelector((state: StoreState) => state.comment)
 
-  const onGetCommentList = useCallback(() => dispatch(getCommentListAction()), [dispatch])
-  const onGetComment = useCallback((commentId: string) => dispatch(getCommentAction(commentId)), [dispatch])
-  const onUpdateComment = useCallback((data: any) => dispatch(updateCommentAction(data)), [dispatch])
+  const handleGetCommentList = useCallback(() => dispatch(getCommentListAction()), [dispatch])
+  const handleGetComment = useCallback((commentId: string) => dispatch(getCommentAction(commentId)), [dispatch])
+  const handleUpdateComment = useCallback((data: UserComment) => dispatch(updateCommentAction(data)), [dispatch])
+  const handleDeleteComment = useCallback((idList: string[]) => dispatch(deleteCommentAction(idList)), [dispatch])
 
   return (
     <ActionContext.Provider
-      value={{ onGetCommentList: onGetCommentList, onGetComment: onGetComment, onUpdateComment: onUpdateComment }}
+      value={{
+        onGetCommentList: handleGetCommentList,
+        onGetComment: handleGetComment,
+        onUpdateComment: handleUpdateComment,
+        onDeleteComment: handleDeleteComment
+      }}
     >
       <CommentContext.Provider
         value={{ commentList: commentList, currentComment: currentComment, commentTotal: commentList.length }}

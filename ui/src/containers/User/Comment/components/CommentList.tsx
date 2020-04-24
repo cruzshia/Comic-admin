@@ -18,6 +18,8 @@ import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
 import SearchBlock from './SearchBlock'
+import { successSubject } from '@src/utils/responseSubject'
+import { CommentActionType } from '@src/reducers/user/comment/commentAction'
 
 const useStyle = makeStyles({
   table: {
@@ -37,10 +39,22 @@ export default function CommentList() {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const { commentList, commentTotal } = useContext(Context)
-  const { onGetCommentList } = useContext(ActionContext)
+  const { onGetCommentList, onDeleteComment } = useContext(ActionContext)
   const { sortBy, handleSort } = useSort(ListTableProp.Report)
   const { pagination, handlePageChange } = usePaging({ total: commentTotal })
-  const { onCheckAll, handleCheck, checkedList, isChecked } = useCheckbox()
+  const { onCheckAll, handleCheck, checkedList, isChecked, onResetCheck, isCheckAll } = useCheckbox()
+
+  useEffect(() => {
+    onGetCommentList()
+  }, [onGetCommentList])
+
+  useEffect(() => {
+    const subscription = successSubject.subscribe([CommentActionType.DELETE_SUCCESS], () => {
+      onResetCheck()
+      onGetCommentList()
+    })
+    return () => subscription.unsubscribe()
+  }, [onGetCommentList, onResetCheck])
 
   useEffect(() => {
     onGetCommentList()
@@ -71,7 +85,7 @@ export default function CommentList() {
     () => [
       {
         id: 'checkbox',
-        label: <StyledCheckBox value='' onCheck={handleCheckAll} />,
+        label: <StyledCheckBox value='' onCheck={handleCheckAll} checked={isCheckAll} />,
         padding: Padding.Checkbox
       },
       { id: ListTableProp.CreateDateTime, label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
@@ -82,20 +96,23 @@ export default function CommentList() {
       { id: ListTableProp.Report, label: formatMessage(messages.report), onSort: handleSort },
       { id: ListTableProp.Status, label: formatMessage(userMessages.status) }
     ],
-    [formatMessage, handleSort, handleCheckAll]
+    [formatMessage, handleSort, handleCheckAll, isCheckAll]
   )
 
   const buttonList = useMemo(
-    () => [
-      <Button buttonText={formatMessage(commonMessages.csvExport)} icon={PublishIco} />,
-      <Button
-        buttonText={formatMessage(commonMessages.delete)}
-        icon={DeleteIco}
-        onClick={() => console.log(checkedList)}
-      />,
-      <Button buttonText={formatMessage(messages.selfVisibleOnly)} icon={UserIco} />
-    ],
-    [formatMessage, checkedList]
+    () =>
+      Object.keys(checkedList).length === 0
+        ? [<Button buttonText={formatMessage(commonMessages.csvExport)} icon={PublishIco} />]
+        : [
+            <Button buttonText={formatMessage(commonMessages.csvExport)} icon={PublishIco} />,
+            <Button
+              buttonText={formatMessage(commonMessages.delete)}
+              icon={DeleteIco}
+              onClick={() => onDeleteComment(checkedList)}
+            />,
+            <Button buttonText={formatMessage(messages.selfVisibleOnly)} icon={UserIco} />
+          ],
+    [formatMessage, checkedList, onDeleteComment]
   )
   const handleSearch = useCallback((data: any) => {}, [])
 

@@ -11,7 +11,11 @@ export enum CommentActionType {
 
   UPDATE = '@UserComment/UPDATE',
   UPDATE_SUCCESS = '@UserComment/UPDATE_SUCCESS',
-  UPDATE_ERROR = '@UserComment/UPDATE_ERROR'
+  UPDATE_ERROR = '@UserComment/UPDATE_ERROR',
+
+  DELETE = '@UserComment/DELETE',
+  DELETE_SUCCESS = '@UserComment/DELETE_SUCCESS',
+  DELETE_ERROR = '@UserComment/DELETE_ERROR'
 }
 
 export const getCommentListAction = () => ({
@@ -41,4 +45,9 @@ export const updateCommentAction = (payload: UserComment) => ({
 export const updateCommentSuccessAction = (payload: UserComment) => ({
   type: CommentActionType.UPDATE_SUCCESS,
   payload
+})
+
+export const deleteCommentAction = (idList: string[]) => ({
+  type: CommentActionType.DELETE,
+  payload: idList
 })

@@ -7,7 +7,7 @@ import {
   updateCommentSuccessAction
 } from '@src/reducers/user/comment/commentAction'
 import { AnyAction } from 'redux'
-import { exhaustMap, map, tap, catchError } from 'rxjs/operators'
+import { exhaustMap, map, tap, catchError, ignoreElements } from 'rxjs/operators'
 import * as commentServices from './commentServices'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import { emptyErrorReturn } from '../../utils'
@@ -56,5 +56,19 @@ const updateCommentEpics = (action$: Observable<AnyAction>) =>
       )
     )
   )
+const deleteCommentEpics = (action$: Observable<AnyAction>) =>
+  action$.pipe(
+    ofType(CommentActionType.DELETE),
+    exhaustMap(action =>
+      commentServices.deleteCommentAjax(action.payload).pipe(
+        tap(() => successSubject.next({ type: CommentActionType.DELETE_SUCCESS })),
+        ignoreElements(),
+        catchError(err => {
+          errorSubject.next({ type: CommentActionType.DELETE_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
 
-export default [getCommentListEpics, getCommentEpics, updateCommentEpics]
+export default [getCommentListEpics, getCommentEpics, updateCommentEpics, deleteCommentEpics]
