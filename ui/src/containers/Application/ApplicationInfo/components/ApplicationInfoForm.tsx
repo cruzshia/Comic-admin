@@ -6,6 +6,7 @@ import commonMessages from '@src/messages'
 import ContentHeader from '@src/components/ContentHeader'
 import { TextAreaAdapter, TextInputAdapter } from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
+import { submitForm } from '@src/utils/validation'
 import applicationMessages from '../../messages'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
@@ -36,9 +37,7 @@ export default function ApplicationInfoForm({
       <Button
         theme={Theme.DARK}
         buttonText={formatMessage(commonMessages.create)}
-        onClick={() => {
-          formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
-        }}
+        onClick={() => submitForm(formRef)}
       />
     ],
     [formatMessage]

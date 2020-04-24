@@ -6,6 +6,7 @@ import { routePath } from '@src/common/appConfig'
 import { CoinProductActionType } from '@src/reducers/application/coinProduct/coinProductActions'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
+import { submitForm } from '@src/utils/validation'
 import CoinProductForm from './CoinProductForm'
 import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
 import { BREADCRUMBS } from '../constants'
@@ -46,9 +47,7 @@ export default function CoinProductEdit() {
       <Button
         theme={Theme.DARK}
         buttonText={formatMessage(commonMessages.create)}
-        onClick={() => {
-          formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
-        }}
+        onClick={() => submitForm(formRef)}
       />
     ],
     [formatMessage]

@@ -9,6 +9,7 @@ import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import DisplaySettingForm from './DisplaySettingForm'
 import { ActionContext } from '../context/DisplaySettingContext'
+import { submitForm } from '@src/utils/validation'
 
 export default function DisplaySettingCreation() {
   const { formatMessage } = useIntl()
@@ -28,9 +29,7 @@ export default function DisplaySettingCreation() {
       <Button
         theme={Theme.DARK}
         buttonText={formatMessage(commonMessages.create)}
-        onClick={() => {
-          formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
-        }}
+        onClick={() => submitForm(formRef)}
       />,
       <Button
         theme={Theme.DARK_BORDER}

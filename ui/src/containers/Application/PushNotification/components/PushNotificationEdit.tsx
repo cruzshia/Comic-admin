@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import commonMessages from '@src/messages'
+import { submitForm } from '@src/utils/validation'
 import PushNotificationTable from './pushNotificationTable'
 import PushNotificationContext from '../context/PushNotificationContext'
 import { BREADCRUMBS } from '../constants'
@@ -25,9 +26,7 @@ export default function PushNotificationEdit() {
       <Button
         theme={Theme.DARK}
         buttonText={formatMessage(commonMessages.create)}
-        onClick={() => {
-          formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
-        }}
+        onClick={() => submitForm(formRef)}
       />
     ],
     [formatMessage]

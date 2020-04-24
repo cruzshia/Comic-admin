@@ -1,7 +1,7 @@
 import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
 import { PushNotification } from '@src/models/application/pushNotification'
-import { mockNotificationList } from './mockData/mockNotification'
+import { mockNotificationList, mockNotificationDetail } from './mockData/mockNotification'
 
 export const getPushNotificationListAjax = (): Observable<{ status: number; response: PushNotification[] }> => {
   authAjax.get('/application/push_notification/list')
@@ -18,6 +18,18 @@ export const deletePushNotificationAjax = (list: string[]): Observable<{ status:
   return from([
     {
       status: 200
+    }
+  ])
+}
+
+export const createPushNotificationAjax = (
+  pushNotification: PushNotification
+): Observable<{ status: number; response: PushNotification }> => {
+  authAjax.post('/application/push_notification/', pushNotification)
+  return from([
+    {
+      status: 200,
+      response: mockNotificationDetail
     }
   ])
 }

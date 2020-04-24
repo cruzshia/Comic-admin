@@ -24,6 +24,15 @@ const handler: Record<string, (state: PushNotificationState, action: ActionType<
       ...state,
       notificationList: action.payload
     }
+  },
+  [PushNotificationActionType.CREATE_SUCCESS]: (
+    state: PushNotificationState,
+    action: ActionType<PushNotification[]>
+  ): PushNotificationState => {
+    return {
+      ...state,
+      currentNotification: action.payload
+    }
   }
 }
 

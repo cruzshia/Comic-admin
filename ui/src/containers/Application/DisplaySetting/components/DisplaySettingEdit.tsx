@@ -5,6 +5,7 @@ import ContentHeader from '@src/components/ContentHeader'
 import commonMessages from '@src/messages'
 import { ReactComponent as PhoneIcon } from '@src/assets/header/phone.svg'
 import { ReactComponent as CopyIcon } from '@src/assets/header/copy.svg'
+import { submitForm } from '@src/utils/validation'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import DisplaySettingContext from '../context/DisplaySettingContext'
@@ -28,9 +29,7 @@ export default function DisplaySettingEdit() {
       <Button
         theme={Theme.DARK}
         buttonText={formatMessage(commonMessages.create)}
-        onClick={() => {
-          formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
-        }}
+        onClick={() => submitForm(formRef)}
       />,
       <Button
         theme={Theme.DARK_BORDER}

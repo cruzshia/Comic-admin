@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import { PushNotification } from '@src/models/application/pushNotification'
 
 interface PushNotificationContext {
   notificationList: any[]
@@ -13,10 +14,12 @@ export default createContext<PushNotificationContext>({
 
 interface PushNotificationActionContext {
   onGetPushNotificationList: () => void
-  onDeletePushNotification: (list: string[]) => void
+  onDeletePushNotification: (_: string[]) => void
+  onCreatePushNotification: (_: PushNotification) => void
 }
 
 export const ActionContext = createContext<PushNotificationActionContext>({
   onGetPushNotificationList: () => {},
-  onDeletePushNotification: list => {}
+  onDeletePushNotification: (_: string[]) => {},
+  onCreatePushNotification: (_: PushNotification) => {}
 })

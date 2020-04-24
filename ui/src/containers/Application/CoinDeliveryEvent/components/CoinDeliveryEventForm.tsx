@@ -7,6 +7,7 @@ import StartEndForm from '@src/components/form/StartEndForm'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
+import { submitForm } from '@src/utils/validation'
 import RewardForm from './RewardForm'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
@@ -20,10 +21,7 @@ interface Props {
 export default function CoinDeliveryEventForm({ coinDeliveryEvent, onSubmit }: Props) {
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
-  const handleClickSubmit = useCallback(
-    () => formRef.current?.dispatchEvent(new Event('submit', { cancelable: true })),
-    []
-  )
+  const handleClickSubmit = useCallback(() => submitForm(formRef), [])
 
   const breadcrumbList = useMemo(
     () =>

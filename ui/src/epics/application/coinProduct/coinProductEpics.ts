@@ -1,7 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { of } from 'rxjs'
-import { map, exhaustMap, catchError, tap, ignoreElements } from 'rxjs/operators'
+import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   CoinProductActionType,
@@ -11,6 +10,7 @@ import {
   updateCoinProductSuccessAction
 } from '@src/reducers/application/coinProduct/coinProductActions'
 import * as coinProductServices from './coinProductServices'
+import { emptyErrorReturn } from '@src/epics/utils'
 
 export const getCoinProductListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -21,7 +21,7 @@ export const getCoinProductListEpic = (action$: ActionsObservable<AnyAction>) =>
         tap(() => successSubject.next({ type: CoinProductActionType.GET_LIST_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: CoinProductActionType.GET_LIST_ERROR })
-          return of().pipe(ignoreElements())
+          return emptyErrorReturn()
         })
       )
     )
@@ -36,7 +36,7 @@ export const getCoinProductEpic = (action$: ActionsObservable<AnyAction>) =>
         tap(() => successSubject.next({ type: CoinProductActionType.GET_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: CoinProductActionType.GET_ERROR })
-          return of().pipe(ignoreElements())
+          return emptyErrorReturn()
         })
       )
     )
@@ -51,7 +51,7 @@ export const createCoinProductEpic = (action$: ActionsObservable<AnyAction>) =>
         tap(() => successSubject.next({ type: CoinProductActionType.CREATE_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: CoinProductActionType.CREATE_ERROR })
-          return of().pipe(ignoreElements())
+          return emptyErrorReturn()
         })
       )
     )
@@ -66,7 +66,7 @@ export const updateCoinProductEpic = (action$: ActionsObservable<AnyAction>) =>
         tap(() => successSubject.next({ type: CoinProductActionType.UPDATE_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: CoinProductActionType.UPDATE_ERROR })
-          return of().pipe(ignoreElements())
+          return emptyErrorReturn()
         })
       )
     )

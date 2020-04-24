@@ -1,13 +1,14 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { of } from 'rxjs'
 import { exhaustMap, catchError, tap, map, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   PushNotificationActionType,
-  getPushNotificationListSuccessAction
+  getPushNotificationListSuccessAction,
+  createPushNotificationSuccessAction
 } from '@src/reducers/application/pushNotification/pushNotificationActions'
 import * as pushNotificationServices from './pushNotificationServices'
+import { emptyErrorReturn } from '@src/epics/utils'
 
 export const getPushNotificationListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -18,7 +19,7 @@ export const getPushNotificationListEpic = (action$: ActionsObservable<AnyAction
         tap(() => successSubject.next({ type: PushNotificationActionType.GET_LIST_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: PushNotificationActionType.GET_LIST_ERROR })
-          return of().pipe(ignoreElements())
+          return emptyErrorReturn()
         })
       )
     )
@@ -33,10 +34,25 @@ export const deletePushNotificationEpic = (action$: ActionsObservable<AnyAction>
         ignoreElements(),
         catchError(() => {
           errorSubject.next({ type: PushNotificationActionType.DELETE_ERROR })
-          return of().pipe(ignoreElements())
+          return emptyErrorReturn()
         })
       )
     )
   )
 
-export default [getPushNotificationListEpic, deletePushNotificationEpic]
+export const createPushNotificationEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(PushNotificationActionType.CREATE),
+    exhaustMap(action =>
+      pushNotificationServices.createPushNotificationAjax(action.payload).pipe(
+        map(res => createPushNotificationSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: PushNotificationActionType.CREATE_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: PushNotificationActionType.CREATE_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export default [getPushNotificationListEpic, deletePushNotificationEpic, createPushNotificationEpic]
