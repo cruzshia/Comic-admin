@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import Content from '@src/models/comics/content'
 
 interface ContentContext {
   contentList: any[]
@@ -14,9 +15,13 @@ export default createContext<ContentContext>({
 interface ActionContext {
   onGetContentList: () => void
   onGetContent: (contentId: string) => void
+  onCreateContent: (content: Content) => void
+  onUpdateContent: (content: Content) => void
 }
 
 export const ActionContext = createContext<ActionContext>({
   onGetContentList: () => {},
-  onGetContent: (_: string) => {}
+  onGetContent: (_: string) => {},
+  onCreateContent: (_: Content) => {},
+  onUpdateContent: (_: Content) => {}
 })

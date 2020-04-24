@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { map, exhaustMap, catchError, tap, ignoreElements } from 'rxjs/operators'
+import { map, switchMap, exhaustMap, catchError, tap, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   WorkActionType,
@@ -16,7 +16,7 @@ import { emptyErrorReturn } from '../../utils'
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(WorkActionType.GET_LIST),
-    exhaustMap(() =>
+    switchMap(() =>
       workServices.getWorkListAjax().pipe(
         map(res => getWorkListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: WorkActionType.GET_LIST_SUCCESS })),
@@ -31,7 +31,7 @@ export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
 export const getWorkEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(WorkActionType.GET_WORK),
-    exhaustMap(action =>
+    switchMap(action =>
       workServices.getWorkAjax(action.payload).pipe(
         map(res => getWorkSuccessAction(res.response)),
         tap(() => successSubject.next({ type: WorkActionType.GET_WORK_SUCCESS })),

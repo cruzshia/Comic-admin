@@ -5,6 +5,7 @@ import arrayMutators from 'final-form-arrays'
 import { TextInputAdapter, SelectAdapter, TextAreaAdapter, DropZoneAdapter } from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import ScrollTo from '@src/components/scroll/ScrollTo'
+import Content from '@src/models/comics/content'
 import { _range } from '@src/utils/functions'
 import StartEndGroupForm from './StartEndGroupForm'
 import commonMessages from '@src/messages'
@@ -15,8 +16,8 @@ import AuthorEditForm from '../../components/AuthorEditForm'
 import { MAGAZINE_BANNER_NUM } from '../constants'
 
 interface Props {
-  content?: any
-  onFormSubmit: (data: {}) => void
+  content?: Content
+  onFormSubmit: (data: Content) => void
   formRef?: React.RefObject<HTMLFormElement> | null
 }
 

@@ -22,3 +22,23 @@ export const getContentAjax = (contentId: string): Observable<{ status: number; 
     }
   ])
 }
+
+export const createContentAjax = (content: Content): Observable<{ status: number; response: Content }> => {
+  authAjax.post('/content', content)
+  return from([
+    {
+      status: 200,
+      response: mockContent
+    }
+  ])
+}
+
+export const updateContentAjax = (content: Content): Observable<{ status: number; response: Content }> => {
+  authAjax.put('/content', content)
+  return from([
+    {
+      status: 200,
+      response: mockContent
+    }
+  ])
+}

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useCallback, useContext, useEffect } from 'react'
+import React, { useMemo, useRef, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
@@ -11,7 +11,7 @@ import messages from '../messages'
 
 export default function ContentEdit() {
   const { currentContent = {} } = useContext(ContentContext)
-  const { onGetContent } = useContext(ActionContext)
+  const { onGetContent, onUpdateContent } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const { id } = useParams()
 
@@ -21,7 +21,6 @@ export default function ContentEdit() {
 
   const titleText = formatMessage(messages.create)
   const formRef = useRef<HTMLFormElement>(null)
-  const handleSubmit = useCallback(data => console.log(data), [])
   const breadcrumbList = useMemo(
     () =>
       CONTENT_BREADCRUMBS.map(({ title, route }) => ({
@@ -46,7 +45,7 @@ export default function ContentEdit() {
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
-      <ContentForm onFormSubmit={handleSubmit} content={currentContent} formRef={formRef} />
+      <ContentForm onFormSubmit={onUpdateContent} content={currentContent} formRef={formRef} />
     </>
   )
 }
