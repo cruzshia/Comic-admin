@@ -408,6 +408,7 @@
   "user.questionnaire.start_edit": "アンケートを編集",
   "user.questionnaire_management": "アンケート管理",
   "user.status": "ステータス",
-  "user.template": "テンプレート（Shift_JIS）",
+  "user.template_JIS": "テンプレート（Shift_JIS）",
+  "user.template_UTF8": "テンプレート（UTF-8）",
   "user.validity_period": "有効期限"
 }

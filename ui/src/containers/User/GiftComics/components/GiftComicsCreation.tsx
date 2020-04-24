@@ -2,7 +2,7 @@ import React from 'react'
 import { Field, Form } from 'react-final-form'
 import { useIntl } from 'react-intl'
 import ContentHeader from '@src/components/ContentHeader'
-import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
+import { ReactComponent as IconDownload } from '@src/assets/common/download.svg'
 import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
@@ -18,8 +18,8 @@ export default function GiftComicsCreation() {
   const breadcrumbList = BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) }))
   const buttonList = [
     <Button theme={Theme.DARK} buttonText={formatMessage(commonMessages.create)} />,
-    <Button buttonText={formatMessage(userMessages.template)} icon={IconSave} />,
-    <Button buttonText={formatMessage(commonMessages.csvImportLogs)} />
+    <Button buttonText={formatMessage(userMessages.templateJIS)} icon={IconDownload} normalCase />,
+    <Button buttonText={formatMessage(userMessages.templateUTF8)} icon={IconDownload} />
   ]
   return (
     <>
@@ -36,8 +36,8 @@ export default function GiftComicsCreation() {
               title={formatMessage(commonMessages.basicInfo)}
               dataSet={[
                 toDataSet(
-                  formatMessage(userMessages.csvFile),
-                  <UploadButton text={formatMessage(commonMessages.csvFile)} name='csv_file' />
+                  formatMessage(commonMessages.csvFile),
+                  <UploadButton text={formatMessage(userMessages.csvFile)} name='csv_file' />
                 ),
                 toDataSet(
                   formatMessage(commonMessages.schedule),

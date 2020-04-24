@@ -408,6 +408,7 @@
   "user.questionnaire.start_edit": "Edit questionnaire",
   "user.questionnaire_management": "Questionnaire Management",
   "user.status": "Status",
-  "user.template": "Template (Shift_JIS)",
+  "user.template_JIS": "Template (Shift_JIS)",
+  "user.template_UTF8": "Template (UTF-8)",
   "user.validity_period": "Validity Period"
 }

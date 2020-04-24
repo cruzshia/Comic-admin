@@ -34,6 +34,9 @@ const useStyles = makeStyles({
       '& svg, g, path': {
         fill: '#FFFFFF'
       }
+    },
+    '&.normalCase': {
+      textTransform: 'none'
     }
   },
   icon: {
@@ -49,16 +52,26 @@ interface Props {
   icon?: React.FC<SVGProps<SVGSVGElement>>
   classnames?: string
   type?: 'button' | 'reset' | 'submit'
+  normalCase?: boolean
 }
 
 export { ButtonTheme as Theme }
-export default function Button({ icon: Icon, theme, buttonText, onClick, disabled, classnames, type }: Props) {
+export default function Button({
+  icon: Icon,
+  theme,
+  buttonText,
+  onClick,
+  disabled,
+  classnames,
+  type,
+  normalCase
+}: Props) {
   const classes = useStyles()
 
   return (
     <MaterialButton
       data-testid='normal_button'
-      className={clsx(classes.button, theme, classnames)}
+      className={clsx(classes.button, theme, classnames, { normalCase })}
       onClick={onClick}
       disabled={disabled}
       type={type}
