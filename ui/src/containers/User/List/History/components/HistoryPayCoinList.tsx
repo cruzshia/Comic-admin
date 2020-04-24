@@ -48,7 +48,7 @@ export default function HistoryPayCoinList({
         title: formatMessage(title),
         route
       })).concat([
-        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId || '') },
+        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
           title: formatMessage(messages.payCoinList),
           route: undefined
@@ -91,7 +91,7 @@ export default function HistoryPayCoinList({
         sortOrder={sortBy.order}
         onRowClick={useCallback(
           (id: string) =>
-            history.push(routePath.user.historyPayCoinDetail.replace(':id', id).replace(':userId', userId || '')),
+            history.push(routePath.user.historyPayCoinDetail.replace(':id', id).replace(':userId', userId!)),
           [history, userId]
         )}
         noMarginTop

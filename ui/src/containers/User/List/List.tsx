@@ -2,7 +2,12 @@ import React, { useCallback } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { StoreState } from '@src/reducers'
-import { getUserListAction } from '@src/reducers/user/user/userActions'
+import {
+  getUserListAction,
+  createUserAction,
+  getUserAction,
+  getUserExportLogListAction
+} from '@src/reducers/user/user/userActions'
 import { routePath } from '@src/common/appConfig'
 import UserList from './components/UserList'
 import UserDetail from './components/UserDetail'
@@ -10,22 +15,31 @@ import UserEdit from './components/UserEdit'
 import UserExportLogs from './components/UserExportLogs'
 import UserContext, { ActionContext } from './context/UserContext'
 import History from './History/History'
-import { mockUser, mockCsvExportLogs, mockCsvLogsTotal } from './mockData/mock'
 
 export default function List() {
   const dispatch = useDispatch()
-  const { userList } = useSelector((state: StoreState) => state.user)
+  const { userList, currentUser, csvExportLogs } = useSelector((state: StoreState) => state.user)
   const handleGetUserList = useCallback(() => dispatch(getUserListAction()), [dispatch])
+  const handleGetUser = useCallback(id => dispatch(getUserAction(id)), [dispatch])
+  const handleGetExportLogList = useCallback(() => dispatch(getUserExportLogListAction()), [dispatch])
+  const handleCreateUser = useCallback(data => dispatch(createUserAction(data)), [dispatch])
 
   return (
-    <ActionContext.Provider value={{ onGetUserList: handleGetUserList }}>
+    <ActionContext.Provider
+      value={{
+        onGetUserList: handleGetUserList,
+        onCreateUser: handleCreateUser,
+        onGetUser: handleGetUser,
+        onGetUserExportLog: handleGetExportLogList
+      }}
+    >
       <UserContext.Provider
         value={{
-          currentUser: mockUser,
+          currentUser,
           userList,
           userTotal: userList.length,
-          csvExportLogs: mockCsvExportLogs,
-          csvLogsTotal: mockCsvLogsTotal
+          csvExportLogs: csvExportLogs,
+          csvLogsTotal: csvExportLogs.length
         }}
       >
         <Switch>

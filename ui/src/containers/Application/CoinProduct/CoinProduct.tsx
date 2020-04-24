@@ -35,9 +35,9 @@ export default function CoinProduct() {
       >
         <CoinProductContext.Provider
           value={{
-            productList: productList,
+            productList,
             productTotal: productList.length,
-            currentProduct: currentProduct
+            currentProduct
           }}
         >
           <Route exact path={routePath.application.coinProduct} component={CoinProductList} />

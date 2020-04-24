@@ -18,10 +18,10 @@ export default function HistoryPayCoinDetail({ currentHistory }: { currentHistor
         title: formatMessage(title),
         route
       })).concat([
-        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId || '') },
+        { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
           title: formatMessage(messages.payCoinList),
-          route: routePath.user.historyPayCoin.replace(':userId', userId || '')
+          route: routePath.user.historyPayCoin.replace(':userId', userId!)
         },
         {
           title: formatMessage(messages.payCoinDetail),

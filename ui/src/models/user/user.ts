@@ -1,2 +1,4 @@
-type user = any
-export default user
+type User = any
+export default User
+
+export type UserExportLog = any

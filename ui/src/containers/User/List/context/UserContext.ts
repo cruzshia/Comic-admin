@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import User from '@src/models/user/user'
 
 interface UserContext {
   userList: any[]
@@ -17,8 +18,14 @@ export default createContext<UserContext>({
 
 interface ActionContext {
   onGetUserList: () => void
+  onGetUser: (_: string) => void
+  onGetUserExportLog: () => void
+  onCreateUser: (_: User) => void
 }
 
 export const ActionContext = createContext<ActionContext>({
-  onGetUserList: () => {}
+  onGetUserList: () => {},
+  onGetUser: (_: string) => {},
+  onGetUserExportLog: () => {},
+  onCreateUser: (_: User) => {}
 })

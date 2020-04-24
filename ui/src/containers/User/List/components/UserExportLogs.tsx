@@ -1,7 +1,6 @@
-import React, { useMemo, useContext } from 'react'
+import React, { useMemo, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { Grid, makeStyles, IconButton } from '@material-ui/core'
-import UserContext from '../context/UserContext'
 import ContentHeader from '@src/components/ContentHeader'
 import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as DownloadIcon } from '@src/assets/common/download_circle.svg'
@@ -11,6 +10,7 @@ import useSort from '@src/hooks/useSort'
 import { errorColor, fontWeightBold } from '@src/common/styles'
 import commonMessages from '@src/messages'
 import { BREADCRUMBS } from '../constants'
+import UserContext, { ActionContext } from '../context/UserContext'
 
 const useStyles = makeStyles({
   listTable: {
@@ -46,9 +46,15 @@ export default function UserExportLogs() {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   const { csvExportLogs, csvLogsTotal } = useContext(UserContext)
+  const { onGetUserExportLog } = useContext(ActionContext)
   const titleText = formatMessage(commonMessages.csvExportLogs)
   const { pagination, handlePageChange } = usePaging({ total: csvLogsTotal })
   const { sortBy, handleSort } = useSort('createDateTime')
+
+  useEffect(() => {
+    onGetUserExportLog()
+  }, [onGetUserExportLog])
+
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([

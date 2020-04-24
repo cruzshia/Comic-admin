@@ -1,9 +1,8 @@
-import React, { useContext, useMemo, useState, useCallback } from 'react'
+import React, { useContext, useMemo, useState, useCallback, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Form, Field } from 'react-final-form'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
-import UserContext from '../context/UserContext'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { SelectAdapter, AmountInputAdapter, SearchInputAdapter, TextInputAdapter } from '@src/components/finalForm'
@@ -12,6 +11,7 @@ import { TimeSpanInput } from '@src/components/form'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import { routePath } from '@src/common/appConfig'
 import { ReactComponent as ListIcon } from '@src/assets/form/round_list.svg'
+import UserContext, { ActionContext } from '../context/UserContext'
 import DeviceDiaLog from './DeviceDiaLog'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
@@ -74,12 +74,18 @@ const useStyles = makeStyles({
 
 export default function UserDetail() {
   const { formatMessage } = useIntl()
-  const { currentUser } = useContext(UserContext)
-  const { id } = useParams()
   const classes = useStyles()
+  const { id } = useParams()
+  const { currentUser } = useContext(UserContext)
+  const { onGetUser } = useContext(ActionContext)
   const [open, setOpen] = useState<boolean>(false)
   const [selectedDevice, setSelectedDevice] = useState<any>(undefined)
-  const replaceUserId = useCallback((route: string) => route.replace(':userId', id || ''), [id])
+
+  useEffect(() => {
+    onGetUser(id!)
+  }, [onGetUser, id])
+
+  const replaceUserId = useCallback((route: string) => route.replace(':userId', id!), [id])
   const handleClose = useCallback(() => {
     setOpen(false)
   }, [setOpen])
@@ -91,6 +97,8 @@ export default function UserDetail() {
       }),
     [titleText, formatMessage]
   )
+
+  if (!currentUser) return null
 
   const genCoinContent = (device: string, coin: string) => (
     <div className={classes.input}>

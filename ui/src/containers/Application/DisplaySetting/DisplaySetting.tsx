@@ -34,7 +34,7 @@ export default function DisplaySetting() {
       >
         <DisplaySettingContext.Provider
           value={{
-            settingList: settingList,
+            settingList,
             settingTotal: settingList.length,
             currentSetting: mockSettingDetail
           }}
