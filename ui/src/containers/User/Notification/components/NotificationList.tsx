@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useMemo } from 'react'
+import React, { useCallback, useContext, useMemo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
-import NotificationContext from '../context/NotificationContext'
+import NotificationContext, { ActionContext } from '../context/NotificationContext'
 import ContentHeader from '@src/components/ContentHeader'
 import ListTable from '@src/components/table/ListTable'
 import Button, { Theme } from '@src/components/Button/Button'
@@ -39,8 +39,13 @@ export default function NotificationList() {
   const classes = useStyles()
   const history = useHistory()
   const { notificationTotal, notificationList } = useContext(NotificationContext)
+  const { onGetNotificationList } = useContext(ActionContext)
   const { sortBy, handleSort } = useSort('createDateTime')
-  const { pagination, handlePageChange } = usePaging({ total: notificationTotal })
+  const { page, pagination, handlePageChange } = usePaging({ total: notificationTotal })
+
+  useEffect(() => {
+    onGetNotificationList()
+  }, [onGetNotificationList, sortBy, page])
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage

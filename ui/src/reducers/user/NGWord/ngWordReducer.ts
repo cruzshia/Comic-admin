@@ -6,11 +6,11 @@ export interface NGWordState {
   account: string
 }
 
-export const initNGWordState = {
+export const initState = {
   comment: '',
   account: ''
 }
-export const ngWordPreLoadState = initNGWordState
+export const ngWordPreLoadState = initState
 
 const handler: Record<string, (state: NGWordState, action: AnyAction) => NGWordState> = {
   [NGWordActionType.GET_SUCCESS]: (state: NGWordState, action: AnyAction): NGWordState => ({
@@ -25,7 +25,7 @@ const handler: Record<string, (state: NGWordState, action: AnyAction) => NGWordS
   })
 }
 
-export default function ngWordReducer(state = initNGWordState, action: AnyAction) {
+export default function ngWordReducer(state = initState, action: AnyAction) {
   if (handler.hasOwnProperty(action.type)) {
     return handler[action.type](state, action)
   }

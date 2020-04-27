@@ -3,6 +3,10 @@ import profileReducer, { ProfileState, ProfilePreloadState } from './user/profil
 import workReducer, { WorkState, WorkPreloadState } from './comics/work/workReducer'
 import commentReducer, { CommentState, CommentPreloadState } from './user/comment/commentReducer'
 import ngWordReducer, { NGWordState, ngWordPreLoadState } from './user/NGWord/ngWordReducer'
+import notificationReducer, {
+  NotificationState,
+  NotificationPreLoadState
+} from './user/notifiaction/notificationReducer'
 import contentReducer, { ContentState, ContentPreloadState } from './comics/content/contentReducer'
 import authorReducer, { AuthorState, AuthorPreloadState } from './comics/author/authorReducer'
 import displaySettingReducer, {
@@ -42,6 +46,7 @@ export interface StoreState {
   user: UserState
   comment: CommentState
   ngWord: NGWordState
+  notification: NotificationState
 }
 
 export const storePreloadState: StoreState = {
@@ -58,7 +63,8 @@ export const storePreloadState: StoreState = {
 
   user: UserPreloadState,
   comment: CommentPreloadState,
-  ngWord: ngWordPreLoadState
+  ngWord: ngWordPreLoadState,
+  notification: NotificationPreLoadState
 }
 
 export default combineReducers<StoreState>({
@@ -75,5 +81,6 @@ export default combineReducers<StoreState>({
 
   user: userReducer,
   comment: commentReducer,
-  ngWord: ngWordReducer
+  ngWord: ngWordReducer,
+  notification: notificationReducer
 })

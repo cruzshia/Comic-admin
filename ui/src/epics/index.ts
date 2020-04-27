@@ -6,6 +6,7 @@ import authorEpics from './comics/author/authorEpics'
 import displaySettingEpics from './application/displaySetting/displaySettingEpics'
 import commentEpics from './user/comment/commentEpics'
 import ngWordEpics from './user/NGWord/ngWordEpics'
+import notificationEpics from './user/notification/notificationEpics'
 import coinProductEpics from './application/coinProduct/coinProductEpics'
 import pushNotificationEpics from './application/pushNotification/pushNotificationEpics'
 import userEpics from './user/user/userEpics'
@@ -26,5 +27,6 @@ export default combineEpics(
 
   ...userEpics,
   ...commentEpics,
-  ...ngWordEpics
+  ...ngWordEpics,
+  ...notificationEpics
 )

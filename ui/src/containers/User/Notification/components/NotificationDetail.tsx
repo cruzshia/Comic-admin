@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from 'react'
+import React, { useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
@@ -8,7 +8,7 @@ import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import { ReactComponent as IconCopy } from '@src/assets/header/copy.svg'
 import commonMessages from '@src/messages'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
-import NotificationContext from '../context/NotificationContext'
+import NotificationContext, { ActionContext } from '../context/NotificationContext'
 import { ScrollAnchor } from '../../utils'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
@@ -17,7 +17,13 @@ export default function NotificationDetail() {
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
-  const { currentNotification } = useContext(NotificationContext)
+  const { currentNotification = {} } = useContext(NotificationContext)
+  const { onGetNotification, onResetNotification } = useContext(ActionContext)
+
+  useEffect(() => {
+    onGetNotification(id!)
+    return () => onResetNotification()
+  }, [id, onGetNotification, onResetNotification])
 
   const titleText = formatMessage(messages.detail)
   const breadcrumbList = BREADCRUMBS.map(({ title, route }) => ({
@@ -35,6 +41,14 @@ export default function NotificationDetail() {
     },
     [history, id]
   )
+  const handleEditRelease = useCallback(() => {
+    handleRedirect(ScrollAnchor.ReleaseDuration)
+  }, [handleRedirect])
+  const handleEditContent = useCallback(() => {
+    handleRedirect(ScrollAnchor.Content)
+  }, [handleRedirect])
+
+  if (!currentNotification.id) return null
 
   return (
     <>
@@ -48,9 +62,7 @@ export default function NotificationDetail() {
           toDataSet(formatMessage(commonMessages.updateDateTime), currentNotification.updateDateTime)
         ]}
         marginBottom
-        onEdit={useCallback(() => {
-          handleRedirect()
-        }, [handleRedirect])}
+        onEdit={handleRedirect}
       />
       <DataTable
         title={formatMessage(commonMessages.releaseDuration)}
@@ -59,9 +71,7 @@ export default function NotificationDetail() {
           toDataSet(formatMessage(commonMessages.publicEndTime), currentNotification.publicEndTime)
         ]}
         marginBottom
-        onEdit={useCallback(() => {
-          handleRedirect(ScrollAnchor.ReleaseDuration)
-        }, [handleRedirect])}
+        onEdit={handleEditRelease}
       />
       <DataTable
         title={formatMessage(messages.content)}
@@ -71,9 +81,7 @@ export default function NotificationDetail() {
           toDataSet(formatMessage(commonMessages.title), currentNotification.title),
           toPreWrapDataSet(formatMessage(messages.text), currentNotification.text)
         ]}
-        onEdit={useCallback(() => {
-          handleRedirect(ScrollAnchor.Content)
-        }, [handleRedirect])}
+        onEdit={handleEditContent}
       />
     </>
   )

@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { SelectAdapter, TextInputAdapter, TextAreaAdapter } from '@src/components/finalForm'
 import { StartEndForm, StyledCheckBox } from '@src/components/form'
+import Notification from '@src/models/user/notification'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
 
 interface Props {
   formRef: React.RefObject<HTMLFormElement>
-  onSubmit: (data: any) => void
+  onSubmit: (data: Notification) => void
 }
 export default function NotificationForm({ formRef, onSubmit }: Props) {
   const { formatMessage } = useIntl()
