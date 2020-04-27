@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { exhaustMap, catchError, tap, map, ignoreElements } from 'rxjs/operators'
+import { exhaustMap, switchMap, catchError, tap, map, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   PushNotificationActionType,
@@ -13,7 +13,7 @@ import { emptyErrorReturn } from '@src/epics/utils'
 export const getPushNotificationListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(PushNotificationActionType.GET_LIST),
-    exhaustMap(() =>
+    switchMap(() =>
       pushNotificationServices.getPushNotificationListAjax().pipe(
         map(res => getPushNotificationListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: PushNotificationActionType.GET_LIST_SUCCESS })),

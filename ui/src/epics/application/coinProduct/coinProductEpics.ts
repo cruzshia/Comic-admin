@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
+import { map, exhaustMap, switchMap, catchError, tap } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   CoinProductActionType,
@@ -15,7 +15,7 @@ import { emptyErrorReturn } from '@src/epics/utils'
 export const getCoinProductListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(CoinProductActionType.GET_LIST),
-    exhaustMap(() =>
+    switchMap(() =>
       coinProductServices.getCoinProductListAjax().pipe(
         map(res => getCoinProductListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: CoinProductActionType.GET_LIST_SUCCESS })),
@@ -30,7 +30,7 @@ export const getCoinProductListEpic = (action$: ActionsObservable<AnyAction>) =>
 export const getCoinProductEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(CoinProductActionType.GET),
-    exhaustMap(action =>
+    switchMap(action =>
       coinProductServices.getCoinProductAjax(action.payload).pipe(
         map(res => getCoinProductSuccessAction(res.response)),
         tap(() => successSubject.next({ type: CoinProductActionType.GET_SUCCESS })),

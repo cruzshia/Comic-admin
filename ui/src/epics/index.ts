@@ -9,6 +9,7 @@ import ngWordEpics from './user/NGWord/ngWordEpics'
 import coinProductEpics from './application/coinProduct/coinProductEpics'
 import pushNotificationEpics from './application/pushNotification/pushNotificationEpics'
 import userEpics from './user/user/userEpics'
+import applicationInfoEpics from './application/applicationInfo/applicationInfoEpics'
 import coinDeliveryEventEpics from './application/coinDeliveryEvent/coinDeliveryEventEpics'
 
 export default combineEpics(
@@ -20,6 +21,7 @@ export default combineEpics(
   ...displaySettingEpics,
   ...coinProductEpics,
   ...pushNotificationEpics,
+  ...applicationInfoEpics,
   ...coinDeliveryEventEpics,
 
   ...userEpics,

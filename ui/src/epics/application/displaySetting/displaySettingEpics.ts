@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { exhaustMap, catchError, tap, map, ignoreElements } from 'rxjs/operators'
+import { exhaustMap, switchMap, catchError, tap, map, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   DisplaySettingActionType,
@@ -13,7 +13,7 @@ import { emptyErrorReturn } from '@src/epics/utils'
 export const getDisplaySettingListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(DisplaySettingActionType.GET_LIST),
-    exhaustMap(() =>
+    switchMap(() =>
       displaySettingServices.getDisplaySettingListAjax().pipe(
         map(res => getDisplaySettingListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: DisplaySettingActionType.GET_LIST_SUCCESS })),

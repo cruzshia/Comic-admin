@@ -1,0 +1,1 @@
+export type ApplicationInfo = any

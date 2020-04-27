@@ -11,7 +11,7 @@ const initState: CoinProductState = {
   productList: []
 }
 
-export const emptySetting: CoinProduct = {}
+export const emptyProduct: CoinProduct = {}
 
 export const CoinProductPreloadState = initState
 
