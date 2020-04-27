@@ -16,6 +16,8 @@ interface Props {
   formRef?: React.RefObject<HTMLFormElement> | null
 }
 
+const CAMPAIGN_TIME_PLACEHOLDER = 'hh:mm'
+
 export default function ContentsCampaignForm({ contentCampaign, onSubmit, formRef }: Props) {
   const { formatMessage } = useIntl()
   const { allAnchorRefs, deliveryRef, campaignTimeRef } = useComicsRef()
@@ -69,8 +71,10 @@ export default function ContentsCampaignForm({ contentCampaign, onSubmit, formRe
               title={formatMessage(messages.campaignPeriod)}
               startLabel={formatMessage(commonMessages.startTime)}
               startName='campaignStart'
+              startPlaceholder={CAMPAIGN_TIME_PLACEHOLDER}
               endLabel={formatMessage(commonMessages.endTime)}
               endName='campaignEnd'
+              endPlaceholder={CAMPAIGN_TIME_PLACEHOLDER}
             />
           </form>
         )}

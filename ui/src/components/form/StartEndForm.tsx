@@ -18,8 +18,10 @@ interface Prop {
   title: string
   startLabel: string
   startName: string
+  startPlaceholder?: string
   endLabel: string
   endName: string
+  endPlaceholder?: string
   classnames?: string
   innerRef?: React.RefObject<any>
   marginBottom?: boolean
@@ -30,8 +32,10 @@ export default function StartEndForm({
   innerRef,
   startLabel,
   startName,
+  startPlaceholder,
   endLabel,
   endName,
+  endPlaceholder,
   marginBottom
 }: Prop) {
   const classes = useStyle()
@@ -43,11 +47,19 @@ export default function StartEndForm({
       dataSet={[
         {
           label: startLabel,
-          content: <Field name={startName} component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+          content: (
+            <Field
+              name={startName}
+              component={TextInputAdapter}
+              placeholder={startPlaceholder || DATE_TIME_PLACEHOLDER}
+            />
+          )
         },
         {
           label: endLabel,
-          content: <Field name={endName} component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+          content: (
+            <Field name={endName} component={TextInputAdapter} placeholder={endPlaceholder || DATE_TIME_PLACEHOLDER} />
+          )
         }
       ]}
       marginBottom={marginBottom}
