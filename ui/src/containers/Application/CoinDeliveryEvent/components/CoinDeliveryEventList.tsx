@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
@@ -9,7 +9,7 @@ import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import useSort from '@src/hooks/useSort'
 import usePaging from '@src/hooks/usePaging'
-import CoinEventContext from '../context/CoinDeliveryEventContext'
+import CoinEventContext, { ActionContext } from '../context/CoinDeliveryEventContext'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import SearchBlock from './SearchBlock'
@@ -31,10 +31,15 @@ const useStyle = makeStyles({
 export default function CoinDeliveryEventList() {
   const classes = useStyle()
   const { eventList, eventTotal } = useContext(CoinEventContext)
+  const { onGetCoinDeliveryEventList } = useContext(ActionContext)
   const history = useHistory()
   const { formatMessage } = useIntl()
   const { sortBy, handleSort } = useSort('releaseStartAt')
   const { pagination, handlePageChange } = usePaging({ total: eventTotal })
+
+  useEffect(() => {
+    onGetCoinDeliveryEventList()
+  }, [onGetCoinDeliveryEventList])
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage

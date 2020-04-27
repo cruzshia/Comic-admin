@@ -18,6 +18,10 @@ import pushNotificationReducer, {
   PushNotificationState,
   PushNotificationPreloadState
 } from './application/pushNotification/pushNotificationReducer'
+import coinDeliveryEventReducer, {
+  CoinDeliveryEventState,
+  CoinDeliveryEventPreloadState
+} from './application/coinDeliveryEvent/coinDeliveryEventReducer'
 
 export interface StoreState {
   profile: ProfileState
@@ -28,6 +32,7 @@ export interface StoreState {
   displaySetting: DisplaySettingState
   coinProduct: CoinProductState
   pushNotification: PushNotificationState
+  coinDeliveryEvent: CoinDeliveryEventState
 
   user: UserState
   comment: CommentState
@@ -43,6 +48,7 @@ export const storePreloadState: StoreState = {
   displaySetting: DisplaySettingPreloadState,
   coinProduct: CoinProductPreloadState,
   pushNotification: PushNotificationPreloadState,
+  coinDeliveryEvent: CoinDeliveryEventPreloadState,
 
   user: UserPreloadState,
   comment: CommentPreloadState,
@@ -58,6 +64,7 @@ export default combineReducers<StoreState>({
   displaySetting: displaySettingReducer,
   coinProduct: coinProductReducer,
   pushNotification: pushNotificationReducer,
+  coinDeliveryEvent: coinDeliveryEventReducer,
 
   user: userReducer,
   comment: commentReducer,

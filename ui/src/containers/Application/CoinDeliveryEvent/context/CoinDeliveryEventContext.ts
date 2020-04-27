@@ -10,3 +10,11 @@ export default createContext<CoinDeliveryEventContext>({
   eventList: [],
   eventTotal: 0
 })
+
+interface CoinDeliveryEventActionContext {
+  onGetCoinDeliveryEventList: () => void
+}
+
+export const ActionContext = createContext<CoinDeliveryEventActionContext>({
+  onGetCoinDeliveryEventList: () => {}
+})
