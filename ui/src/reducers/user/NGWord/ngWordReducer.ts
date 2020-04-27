@@ -1,24 +1,27 @@
 import { AnyAction } from 'redux'
-import NGWord from '@src/models/user/NGWord'
 import { NGWordActionType } from './ngWordActions'
 
 export interface NGWordState {
-  ngWord: NGWord
+  comment: string
+  account: string
 }
 
 export const initNGWordState = {
-  ngWord: ''
+  comment: '',
+  account: ''
 }
 export const ngWordPreLoadState = initNGWordState
 
 const handler: Record<string, (state: NGWordState, action: AnyAction) => NGWordState> = {
-  [NGWordActionType.GET_NGWORD_SUCCESS]: (state: NGWordState, action: AnyAction) => ({
+  [NGWordActionType.GET_SUCCESS]: (state: NGWordState, action: AnyAction): NGWordState => ({
     ...state,
-    ngWord: action.payload
+    comment: action.payload.comment,
+    account: action.payload.account
   }),
-  [NGWordActionType.UPDATE_NGWORD_SUCCESS]: (state: NGWordState, action: AnyAction) => ({
+  [NGWordActionType.UPDATE_SUCCESS]: (state: NGWordState, action: AnyAction): NGWordState => ({
     ...state,
-    ngWord: action.payload
+    comment: action.payload.comment,
+    account: action.payload.account
   })
 }
 

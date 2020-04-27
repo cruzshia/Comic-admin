@@ -12,13 +12,13 @@ import { emptyErrorReturn } from '../../utils'
 
 export const getNGWordEpics = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
-    ofType(NGWordActionType.GET_NGWORD),
+    ofType(NGWordActionType.GET),
     exhaustMap(() =>
       ngWordServices.getNGWordAjax().pipe(
         map(res => getNGWordSuccessAction(res.response)),
-        tap(() => successSubject.next({ type: NGWordActionType.GET_NGWORD_SUCCESS })),
+        tap(() => successSubject.next({ type: NGWordActionType.GET_SUCCESS })),
         catchError(() => {
-          errorSubject.next({ type: NGWordActionType.GET_NGWORD_ERROR })
+          errorSubject.next({ type: NGWordActionType.GET_ERROR })
           return emptyErrorReturn()
         })
       )
@@ -27,13 +27,13 @@ export const getNGWordEpics = (action$: ActionsObservable<AnyAction>) =>
 
 export const updateNGWordEpics = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
-    ofType(NGWordActionType.UPDATE_NGWORD),
+    ofType(NGWordActionType.UPDATE),
     exhaustMap(action =>
       ngWordServices.updateNGWordAjax(action.payload).pipe(
         map(res => updateNGWordSuccessAction(res.response)),
-        tap(() => successSubject.next({ type: NGWordActionType.UPDATE_NGWORD_SUCCESS })),
+        tap(() => successSubject.next({ type: NGWordActionType.UPDATE_SUCCESS })),
         catchError(() => {
-          errorSubject.next({ type: NGWordActionType.UPDATE_NGWORD_ERROR })
+          errorSubject.next({ type: NGWordActionType.UPDATE_ERROR })
           return emptyErrorReturn()
         })
       )
