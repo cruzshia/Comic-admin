@@ -1,24 +1,35 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Switch, Route } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { routePath } from '@src/common/appConfig'
 import AuthorList from './components/AuthorList'
 import AuthorCreation from './components/AuthorCreation'
 import AuthorEdit from './components/AuthorEdit'
 import AuthorDetail from './components/AuthorDetail'
-import AuthorContext from './context/AuthorContext'
-import { mockAuthor, mockAuthorList } from './mockData/mockData'
+import AuthorContext, { ActionContext } from './context/AuthorContext'
+import { StoreState } from '@src/reducers'
+import { getAuthorListAction, getAuthorAction, resetAuthorAction } from '@src/reducers/comics/author/authorActions'
 
 export default function Author() {
+  const dispatch = useDispatch()
+  const { authorList, authorTotal, currentAuthor } = useSelector((state: StoreState) => state.author)
+
+  const handleGetAuthorList = useCallback(() => dispatch(getAuthorListAction()), [dispatch])
+  const handleResetAuthor = useCallback(() => dispatch(resetAuthorAction()), [dispatch])
+  const handleGetAuthor = useCallback((authorId: string) => dispatch(getAuthorAction(authorId)), [dispatch])
+
   return (
-    <AuthorContext.Provider
-      value={{ authorList: mockAuthorList, authorTotal: mockAuthorList.length, currentAuthor: mockAuthor }}
+    <ActionContext.Provider
+      value={{ onGetAuthorList: handleGetAuthorList, onGetAuthor: handleGetAuthor, onResetAuthor: handleResetAuthor }}
     >
-      <Switch>
-        <Route exact path={routePath.comics.authorCreation} component={AuthorCreation} />
-        <Route exact path={routePath.comics.authorEdit} component={AuthorEdit} />
-        <Route exact path={routePath.comics.authorDetail} component={AuthorDetail} />
-        <Route exact path={routePath.comics.author} component={AuthorList} />
-      </Switch>
-    </AuthorContext.Provider>
+      <AuthorContext.Provider value={{ authorList, authorTotal, currentAuthor }}>
+        <Switch>
+          <Route exact path={routePath.comics.authorCreation} component={AuthorCreation} />
+          <Route exact path={routePath.comics.authorEdit} component={AuthorEdit} />
+          <Route exact path={routePath.comics.authorDetail} component={AuthorDetail} />
+          <Route exact path={routePath.comics.author} component={AuthorList} />
+        </Switch>
+      </AuthorContext.Provider>
+    </ActionContext.Provider>
   )
 }

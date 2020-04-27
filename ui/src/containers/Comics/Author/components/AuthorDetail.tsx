@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useCallback } from 'react'
+import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
@@ -9,13 +9,20 @@ import commonMessages from '@src/messages'
 import { routePath } from '@src/common/appConfig'
 import { BREADCRUMBS } from '../utils'
 import messages from '../messages'
-import AuthorContext from '../context/AuthorContext'
+import AuthorContext, { ActionContext } from '../context/AuthorContext'
 
 export default function AuthorDetail() {
+  const { onGetAuthor, onResetAuthor } = useContext(ActionContext)
   const { currentAuthor = {} } = useContext(AuthorContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
+
+  useEffect(() => {
+    onGetAuthor(id!)
+    return () => onResetAuthor()
+  }, [onGetAuthor, onResetAuthor, id])
+
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
@@ -31,6 +38,8 @@ export default function AuthorDetail() {
     ],
     [formatMessage, handleEdit]
   )
+
+  if (!currentAuthor.id) return null
 
   return (
     <>

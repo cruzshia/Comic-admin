@@ -2,6 +2,7 @@ import { combineEpics } from 'redux-observable'
 import profileEpics from './user/profileEpics'
 import workEpics from './comics/work/workEpics'
 import contentEpics from './comics/content/contentEpics'
+import authorEpics from './comics/author/authorEpics'
 import displaySettingEpics from './application/displaySetting/displaySettingEpics'
 import commentEpics from './user/comment/commentEpics'
 import ngWordEpics from './user/NGWord/ngWordEpics'
@@ -13,6 +14,7 @@ export default combineEpics(
   ...profileEpics,
   ...workEpics,
   ...contentEpics,
+  ...authorEpics,
 
   ...displaySettingEpics,
   ...coinProductEpics,

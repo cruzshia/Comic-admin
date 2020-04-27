@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -9,7 +9,7 @@ import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import commonMessages from '@src/messages'
 import useSort from '@src/hooks/useSort'
 import usePaging from '@src/hooks/usePaging'
-import AuthorContext from '../context/AuthorContext'
+import AuthorContext, { ActionContext } from '../context/AuthorContext'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS } from '../utils'
 import messages from '../messages'
@@ -27,17 +27,22 @@ const useStyle = makeStyles({
 })
 
 export default function AuthorList() {
+  const { onGetAuthorList } = useContext(ActionContext)
   const { authorList, authorTotal } = useContext(AuthorContext)
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { sortBy, handleSort } = useSort('createAt')
   const { pagination, handlePageChange } = usePaging({ total: authorTotal })
+
+  useEffect(() => {
+    onGetAuthorList()
+  }, [onGetAuthorList])
+
   const breadcrumbList: Breadcrumb[] = useMemo(
     () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
     [formatMessage]
   )
-
   const buttonList = useMemo(
     () => [
       <Button
