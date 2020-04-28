@@ -13,9 +13,19 @@ const initState: CoinDeliveryEventState = {
   eventTotal: 0
 }
 
-export const emptyCoinDeliveryEvent: CoinDeliveryEvent = {}
+export const emptyCoinDeliveryEvent: CoinDeliveryEvent = { reward: [{}] }
 
 export const CoinDeliveryEventPreloadState = initState
+
+const updateCurrentEventHandler = (
+  state: CoinDeliveryEventState,
+  action: ActionType<CoinDeliveryEvent[]>
+): CoinDeliveryEventState => {
+  return {
+    ...state,
+    currentEvent: action.payload
+  }
+}
 
 const handler: Record<string, (state: CoinDeliveryEventState, action: ActionType<any>) => CoinDeliveryEventState> = {
   [CoinDeliveryEventActionType.GET_LIST_SUCCESS]: (
@@ -33,7 +43,16 @@ const handler: Record<string, (state: CoinDeliveryEventState, action: ActionType
       ...state,
       currentEvent: undefined
     }
-  }
+  },
+  [CoinDeliveryEventActionType.RESET_CURRENT]: (state: CoinDeliveryEventState): CoinDeliveryEventState => {
+    return {
+      ...state,
+      currentEvent: undefined
+    }
+  },
+  [CoinDeliveryEventActionType.CREATE_SUCCESS]: updateCurrentEventHandler,
+  [CoinDeliveryEventActionType.GET_SUCCESS]: updateCurrentEventHandler,
+  [CoinDeliveryEventActionType.UPDATE_SUCCESS]: updateCurrentEventHandler
 }
 
 export default function coinDeliveryEventReducer(state: CoinDeliveryEventState = initState, action: ActionType<any>) {

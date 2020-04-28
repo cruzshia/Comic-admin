@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useCallback } from 'react'
+import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
@@ -8,7 +8,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import { routePath } from '@src/common/appConfig'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
-import CoinDeliveryEventContext from '../context/CoinDeliveryEventContext'
+import CoinDeliveryEventContext, { ActionContext } from '../context/CoinDeliveryEventContext'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 
@@ -16,7 +16,13 @@ export default function CoinDeliveryEventDetail() {
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
-  const { currentEvent } = useContext(CoinDeliveryEventContext)
+  const { currentEvent = {} } = useContext(CoinDeliveryEventContext)
+  const { onGetCoinDeliveryEvent, onResetCoinDeliveryEvent } = useContext(ActionContext)
+
+  useEffect(() => {
+    onGetCoinDeliveryEvent(id!)
+    return () => onResetCoinDeliveryEvent()
+  }, [onGetCoinDeliveryEvent, id, onResetCoinDeliveryEvent])
 
   const breadcrumbList = useMemo(
     () =>
@@ -46,6 +52,8 @@ export default function CoinDeliveryEventDetail() {
     ],
     [formatMessage, handleEdit]
   )
+
+  if (!currentEvent.id) return null
 
   return (
     <>

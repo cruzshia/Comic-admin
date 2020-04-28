@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import { CoinDeliveryEvent } from '@src/models/application/coinDeliveryEvent'
 
 interface CoinDeliveryEventContext {
   eventList: any[]
@@ -13,8 +14,16 @@ export default createContext<CoinDeliveryEventContext>({
 
 interface CoinDeliveryEventActionContext {
   onGetCoinDeliveryEventList: () => void
+  onGetCoinDeliveryEvent: (_: string) => void
+  onCreateCoinDeliveryEvent: (_: CoinDeliveryEvent) => void
+  onUpdateCoinDeliveryEvent: (_: CoinDeliveryEvent) => void
+  onResetCoinDeliveryEvent: () => void
 }
 
 export const ActionContext = createContext<CoinDeliveryEventActionContext>({
-  onGetCoinDeliveryEventList: () => {}
+  onGetCoinDeliveryEventList: () => {},
+  onGetCoinDeliveryEvent: (_: string) => {},
+  onCreateCoinDeliveryEvent: (_: CoinDeliveryEvent) => {},
+  onUpdateCoinDeliveryEvent: (_: CoinDeliveryEvent) => {},
+  onResetCoinDeliveryEvent: () => {}
 })
