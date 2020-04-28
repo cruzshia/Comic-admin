@@ -1,14 +1,18 @@
 import { combineReducers } from 'redux'
 import profileReducer, { ProfileState, ProfilePreloadState } from './user/profileReducer'
 import workReducer, { WorkState, WorkPreloadState } from './comics/work/workReducer'
+import contentReducer, { ContentState, ContentPreloadState } from './comics/content/contentReducer'
+import authorReducer, { AuthorState, AuthorPreloadState } from './comics/author/authorReducer'
+import subscriptionReducer, {
+  SubscriptionState,
+  SubscriptionPreloadState
+} from './comics/subscription/subscriptionReducer'
 import commentReducer, { CommentState, CommentPreloadState } from './user/comment/commentReducer'
 import ngWordReducer, { NGWordState, ngWordPreLoadState } from './user/NGWord/ngWordReducer'
 import notificationReducer, {
   NotificationState,
   NotificationPreLoadState
-} from './user/notifiaction/notificationReducer'
-import contentReducer, { ContentState, ContentPreloadState } from './comics/content/contentReducer'
-import authorReducer, { AuthorState, AuthorPreloadState } from './comics/author/authorReducer'
+} from './user/notification/notificationReducer'
 import displaySettingReducer, {
   DisplaySettingState,
   DisplaySettingPreloadState
@@ -36,6 +40,7 @@ export interface StoreState {
   work: WorkState
   content: ContentState
   author: AuthorState
+  subscription: SubscriptionState
 
   displaySetting: DisplaySettingState
   coinProduct: CoinProductState
@@ -54,6 +59,7 @@ export const storePreloadState: StoreState = {
   work: WorkPreloadState,
   content: ContentPreloadState,
   author: AuthorPreloadState,
+  subscription: SubscriptionPreloadState,
 
   displaySetting: DisplaySettingPreloadState,
   coinProduct: CoinProductPreloadState,
@@ -72,6 +78,7 @@ export default combineReducers<StoreState>({
   work: workReducer,
   content: contentReducer,
   author: authorReducer,
+  subscription: subscriptionReducer,
 
   displaySetting: displaySettingReducer,
   coinProduct: coinProductReducer,

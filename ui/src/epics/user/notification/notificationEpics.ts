@@ -6,7 +6,7 @@ import {
   getNotificationListSuccessAction,
   getNotificationSuccessAction,
   createNotificationSuccessAction
-} from '@src/reducers/user/notifiaction/notificationAction'
+} from '@src/reducers/user/notification/notificationAction'
 import * as notificationServices from './notificationServices'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import { emptyErrorReturn } from '../../utils'

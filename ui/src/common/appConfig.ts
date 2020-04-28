@@ -96,7 +96,7 @@ export const routePath = {
     historySubscription: `${RouteSection.User}/list/history/:userId/subscription`,
     historySubscriptionDetail: `${RouteSection.User}/list/history/:userId/subscription/:id`,
     historyMagazine: `${RouteSection.User}/list/history/:userId/magazine_purchase`,
-    historyMagazineDetail: `${RouteSection.User}/history/:userId/magazine_purchase/:id`,
+    historyMagazineDetail: `${RouteSection.User}/list/history/:userId/magazine_purchase/:id`,
     historyBonusCoin: `${RouteSection.User}/list/history/:userId/bonus_coin_charge`,
     historyBonusCoinDetail: `${RouteSection.User}/list/history/:userId/bonus_coin_charge/:id`,
     historyPayCoin: `${RouteSection.User}/list/history/:userId/pay_coin_charge`,

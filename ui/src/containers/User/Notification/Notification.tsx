@@ -8,7 +8,7 @@ import {
   getNotificationAction,
   createNotificationAction,
   resetNotificationAction
-} from '@src/reducers/user/notifiaction/notificationAction'
+} from '@src/reducers/user/notification/notificationAction'
 import NotificationContext, { ActionContext } from './context/NotificationContext'
 import NotificationList from './components/NotificationList'
 import NotificationDetail from './components/NotificationDetail'

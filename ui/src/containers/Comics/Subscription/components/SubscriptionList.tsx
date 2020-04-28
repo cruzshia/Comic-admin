@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useCallback } from 'react'
+import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -11,11 +11,10 @@ import { routePath } from '@src/common/appConfig'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import messages from '../messages'
-import SubscriptionContext from '../context/SubscriptionContext'
+import SubscriptionContext, { ActionContext } from '../context/SubscriptionContext'
 
 const useStyle = makeStyles({
   table: {
-    marginTop: '-55px',
     '& .ListTable-col-2': {
       width: 240
     }
@@ -27,8 +26,13 @@ export default function SubscriptionList() {
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { subscriptionList, subscriptionTotal } = useContext(SubscriptionContext)
+  const { onGetSubscriptionList } = useContext(ActionContext)
   const { sortBy, handleSort } = useSort('createAt')
   const { pagination, handlePageChange } = usePaging({ total: subscriptionTotal })
+
+  useEffect(() => {
+    onGetSubscriptionList()
+  }, [onGetSubscriptionList])
 
   const breadcrumbList = BREADCRUMBS.map(({ title }) => ({
     title: formatMessage(title)
@@ -79,6 +83,7 @@ export default function SubscriptionList() {
         onRowClick={useCallback((id: string) => history.push(routePath.comics.subscriptionDetail.replace(':id', id!)), [
           history
         ])}
+        noMarginTop
       />
     </>
   )
