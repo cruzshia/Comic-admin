@@ -1,0 +1,4 @@
+{
+  "baseUrl": "http://localhost:9000",
+  "ignoreTestFiles": "/**/examples/*.spec.js"
+}

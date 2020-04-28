@@ -52,6 +52,10 @@ The page will reload if you make edits. story were written in `src/stories`.
 
 Extract & sort (alphabetically) i18n messages into translation folder.
 
+### `npm run cypress:open`
+
+Run e2e test with GUI
+
 ## customize create-react-app webpack config
 
 Edit `config-overrides.js` file

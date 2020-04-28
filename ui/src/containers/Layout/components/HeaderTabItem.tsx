@@ -29,6 +29,7 @@ export default memo(function HeaderTabItem({ icon, title, route, fontSize, selec
   return (
     <Link to={route}>
       <Box
+        data-testid='header-tab'
         position='relative'
         display='flex'
         justifyContent='center'
