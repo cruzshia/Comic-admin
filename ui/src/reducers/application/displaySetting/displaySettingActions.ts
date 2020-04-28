@@ -15,7 +15,9 @@ export enum DisplaySettingActionType {
 
   DELETE = '@AppDisplaySetting/DELETE',
   DELETE_SUCCESS = '@AppDisplaySetting/DELETE_SUCCESS',
-  DELETE_ERROR = '@AppDisplaySetting/DELETE_ERROR'
+  DELETE_ERROR = '@AppDisplaySetting/DELETE_ERROR',
+
+  RESET_CURRENT = '@AppDisplaySetting/RESET_CURRENT'
 }
 
 export const getDisplaySettingListAction = () => ({
@@ -50,4 +52,8 @@ export const updateDisplaySettingSuccessAction = (displaySetting: DisplaySetting
 export const deleteDisplaySettingAction = (payload: string[]) => ({
   type: DisplaySettingActionType.DELETE,
   payload
+})
+
+export const resetDisplaySettingAction = () => ({
+  type: DisplaySettingActionType.RESET_CURRENT
 })

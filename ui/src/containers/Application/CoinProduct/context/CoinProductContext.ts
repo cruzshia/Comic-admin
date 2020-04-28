@@ -16,11 +16,13 @@ interface CoinProductActionContext {
   onGetCoinProduct: (_: string) => void
   onCreateCoinProduct: (_: CoinProduct) => void
   onUpdateCoinProduct: (_: CoinProduct) => void
+  onResetCoinProduct: () => void
 }
 
 export const ActionContext = createContext<CoinProductActionContext>({
   onGetCoinProductList: () => {},
   onGetCoinProduct: (_: string) => {},
   onCreateCoinProduct: (_: CoinProduct) => {},
-  onUpdateCoinProduct: (_: CoinProduct) => {}
+  onUpdateCoinProduct: (_: CoinProduct) => {},
+  onResetCoinProduct: () => {}
 })

@@ -18,7 +18,7 @@ import { mockNotificationDetail } from '../../../epics/application/pushNotificat
 
 export default function PushNotification() {
   const dispatch = useDispatch()
-  const { notificationList } = useSelector((store: StoreState) => store.pushNotification)
+  const { notificationList, notificationTotal } = useSelector((store: StoreState) => store.pushNotification)
   const handleGetList = useCallback(() => dispatch(getPushNotificationListAction()), [dispatch])
   const handleDelete = useCallback((list: string[]) => dispatch(deletePushNotificationAction(list)), [dispatch])
   const handleCreate = useCallback((data: PushNotificationModel) => dispatch(createPushNotificationAction(data)), [
@@ -35,8 +35,8 @@ export default function PushNotification() {
       >
         <PushNotificationContext.Provider
           value={{
-            notificationList: notificationList,
-            notificationTotal: notificationList.length,
+            notificationList,
+            notificationTotal,
             currentNotification: mockNotificationDetail
           }}
         >

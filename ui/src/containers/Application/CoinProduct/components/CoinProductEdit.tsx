@@ -18,12 +18,13 @@ export default function CoinProductEdit() {
   const { id } = useParams()
   const history = useHistory()
   const { currentProduct } = useContext(CoinProductContext)
-  const { onUpdateCoinProduct, onGetCoinProduct } = useContext(ActionContext)
+  const { onUpdateCoinProduct, onGetCoinProduct, onResetCoinProduct } = useContext(ActionContext)
   const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
     onGetCoinProduct(id!)
-  }, [onGetCoinProduct, id])
+    return () => onResetCoinProduct()
+  }, [onGetCoinProduct, id, onResetCoinProduct])
 
   useEffect(() => {
     const subscription = successSubject.subscribe([CoinProductActionType.UPDATE_SUCCESS], () =>
@@ -60,7 +61,7 @@ export default function CoinProductEdit() {
         titleText={formatMessage(messages.creation)}
         buttonList={buttonList}
       />
-      <CoinProductForm onSubmit={onUpdateCoinProduct} coinProduct={currentProduct} formRef={formRef} />
+      <CoinProductForm onSubmit={onUpdateCoinProduct} currentProduct={currentProduct} formRef={formRef} />
     </>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useCallback } from 'react'
+import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
@@ -8,7 +8,7 @@ import { routePath } from '@src/common/appConfig'
 import DataTable, { toDataSet, toPreWrapDataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
 import applicationMessages from '../../messages'
-import ApplicationInfoContext from '../context/ApplicationInfoContext'
+import ApplicationInfoContext, { ActionContext } from '../context/ApplicationInfoContext'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 
@@ -16,7 +16,13 @@ export default function ApplicationInfoDetail() {
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
-  const { currentInfo } = useContext(ApplicationInfoContext)
+  const { currentInfo = {} } = useContext(ApplicationInfoContext)
+  const { onGetApplicationInfo, onResetApplicationInfo } = useContext(ActionContext)
+
+  useEffect(() => {
+    onGetApplicationInfo(id!)
+    return () => onResetApplicationInfo()
+  }, [onResetApplicationInfo, onGetApplicationInfo, id])
 
   const breadcrumbList = useMemo(
     () =>
@@ -45,7 +51,7 @@ export default function ApplicationInfoDetail() {
     ],
     [formatMessage, handleEdit]
   )
-
+  if (!currentInfo.applicationId) return null
   return (
     <>
       <ContentHeader

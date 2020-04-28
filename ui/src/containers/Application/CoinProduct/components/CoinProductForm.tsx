@@ -5,12 +5,13 @@ import { TextInputAdapter, SelectAdapter } from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import StartEndForm from '@src/components/form/StartEndForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
+import { emptyCoinProduct } from '@src/reducers/application/coinProduct/coinProductReducer'
 import commonMessages from '@src/messages'
 import applicationMessages from '../../messages'
 import messages from '../messages'
 
 interface Props {
-  coinProduct?: any
+  currentProduct?: any
   onSubmit: (data: any) => void
   formRef?: React.RefObject<HTMLFormElement>
 }
@@ -19,7 +20,7 @@ export enum ScrollAnchor {
   Release = 'release'
 }
 
-export default function CoinProductForm({ coinProduct, onSubmit, formRef }: Props) {
+export default function CoinProductForm({ currentProduct, onSubmit, formRef }: Props) {
   const { formatMessage } = useIntl()
   const releaseRef = useRef<HTMLDivElement>(null)
   const anchorRefs = {
@@ -31,7 +32,7 @@ export default function CoinProductForm({ coinProduct, onSubmit, formRef }: Prop
       <ScrollTo anchorRef={anchorRefs} />
       <Form
         onSubmit={onSubmit}
-        initialValues={coinProduct}
+        initialValues={currentProduct || emptyCoinProduct}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
@@ -39,7 +40,7 @@ export default function CoinProductForm({ coinProduct, onSubmit, formRef }: Prop
               dataSet={[
                 toDataSet(
                   formatMessage(messages.productId),
-                  coinProduct ? coinProduct.productId : <Field name='productId' component={TextInputAdapter} />
+                  currentProduct ? currentProduct.productId : <Field name='productId' component={TextInputAdapter} />
                 ),
                 toDataSet(
                   formatMessage(applicationMessages.applicationId),

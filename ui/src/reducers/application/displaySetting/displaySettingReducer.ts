@@ -4,11 +4,13 @@ import { ActionType } from '../../types'
 
 export interface DisplaySettingState {
   settingList: DisplaySetting[]
+  settingTotal: number
   currentSetting?: DisplaySetting
 }
 
 const initState: DisplaySettingState = {
-  settingList: []
+  settingList: [],
+  settingTotal: 0
 }
 
 export const emptyDisplaySetting: DisplaySetting = {}
@@ -22,7 +24,14 @@ const handler: Record<string, (state: DisplaySettingState, action: ActionType<an
   ): DisplaySettingState => {
     return {
       ...state,
-      settingList: action.payload
+      settingList: action.payload,
+      settingTotal: action.payload.length
+    }
+  },
+  [DisplaySettingActionType.RESET_CURRENT]: (state: DisplaySettingState): DisplaySettingState => {
+    return {
+      ...state,
+      currentSetting: undefined
     }
   },
   [DisplaySettingActionType.CREATE_SUCCESS]: (

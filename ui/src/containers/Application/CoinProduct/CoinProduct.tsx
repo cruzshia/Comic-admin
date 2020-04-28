@@ -7,7 +7,8 @@ import {
   getCoinProductListAction,
   createCoinProductAction,
   getCoinProductAction,
-  updateCoinProductAction
+  updateCoinProductAction,
+  resetCoinProductAction
 } from '@src/reducers/application/coinProduct/coinProductActions'
 import CoinProductList from './components/CoinProductList'
 import CoinProductEdit from './components/CoinProductEdit'
@@ -17,11 +18,12 @@ import CoinProductContext, { ActionContext } from './context/CoinProductContext'
 
 export default function CoinProduct() {
   const dispatch = useDispatch()
-  const { productList, currentProduct } = useSelector((store: StoreState) => store.coinProduct)
+  const { productList, currentProduct, productTotal } = useSelector((store: StoreState) => store.coinProduct)
   const handleGetList = useCallback(() => dispatch(getCoinProductListAction()), [dispatch])
   const handleCreate = useCallback(data => dispatch(createCoinProductAction(data)), [dispatch])
   const handleGet = useCallback(id => dispatch(getCoinProductAction(id)), [dispatch])
   const handleUpdate = useCallback(data => dispatch(updateCoinProductAction(data)), [dispatch])
+  const handleReset = useCallback(() => dispatch(resetCoinProductAction()), [dispatch])
 
   return (
     <Switch>
@@ -30,13 +32,14 @@ export default function CoinProduct() {
           onGetCoinProductList: handleGetList,
           onCreateCoinProduct: handleCreate,
           onGetCoinProduct: handleGet,
-          onUpdateCoinProduct: handleUpdate
+          onUpdateCoinProduct: handleUpdate,
+          onResetCoinProduct: handleReset
         }}
       >
         <CoinProductContext.Provider
           value={{
             productList,
-            productTotal: productList.length,
+            productTotal,
             currentProduct
           }}
         >

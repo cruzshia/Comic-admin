@@ -4,16 +4,28 @@ import { ActionType } from '../../types'
 
 export interface ApplicationInfoState {
   infoList: ApplicationInfo[]
+  infoTotal: number
   currentInfo?: ApplicationInfo
 }
 
 const initState: ApplicationInfoState = {
-  infoList: []
+  infoList: [],
+  infoTotal: 0
 }
 
-export const emptyInfo: ApplicationInfo = {}
+export const emptyApplicationInfo: ApplicationInfo = {}
 
 export const ApplicationInfoPreloadState = initState
+
+const updateCurrentInfoHandler = (
+  state: ApplicationInfoState,
+  action: ActionType<ApplicationInfo[]>
+): ApplicationInfoState => {
+  return {
+    ...state,
+    currentInfo: action.payload
+  }
+}
 
 const handler: Record<string, (state: ApplicationInfoState, action: ActionType<any>) => ApplicationInfoState> = {
   [ApplicationInfoActionType.GET_LIST_SUCCESS]: (
@@ -22,9 +34,19 @@ const handler: Record<string, (state: ApplicationInfoState, action: ActionType<a
   ): ApplicationInfoState => {
     return {
       ...state,
-      infoList: action.payload
+      infoList: action.payload,
+      infoTotal: action.payload.length
     }
-  }
+  },
+  [ApplicationInfoActionType.RESET_CURRENT]: (state: ApplicationInfoState): ApplicationInfoState => {
+    return {
+      ...state,
+      currentInfo: undefined
+    }
+  },
+  [ApplicationInfoActionType.CREATE_SUCCESS]: updateCurrentInfoHandler,
+  [ApplicationInfoActionType.GET_SUCCESS]: updateCurrentInfoHandler,
+  [ApplicationInfoActionType.UPDATE_SUCCESS]: updateCurrentInfoHandler
 }
 
 export default function applicationInfoReducer(state: ApplicationInfoState = initState, action: ActionType<any>) {

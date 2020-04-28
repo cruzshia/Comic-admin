@@ -15,7 +15,9 @@ export enum CoinDeliveryEventActionType {
 
   UPDATE = '@AppCoinDeliveryEvent/UPDATE',
   UPDATE_SUCCESS = '@AppCoinDeliveryEvent/UPDATE_SUCCESS',
-  UPDATE_ERROR = '@AppCoinDeliveryEvent/UPDATE_ERROR'
+  UPDATE_ERROR = '@AppCoinDeliveryEvent/UPDATE_ERROR',
+
+  RESET_CURRENT = '@AppCoinDeliveryEvent/RESET_CURRENT'
 }
 
 export const getCoinDeliveryEventListAction = () => ({
@@ -55,4 +57,8 @@ export const updateCoinDeliveryEventAction = (coinDeliveryEvent: CoinDeliveryEve
 export const updateCoinDeliveryEventSuccessAction = (coinDeliveryEvent: CoinDeliveryEvent) => ({
   type: CoinDeliveryEventActionType.UPDATE_SUCCESS,
   payload: coinDeliveryEvent
+})
+
+export const resetCoinDeliveryEventAction = () => ({
+  type: CoinDeliveryEventActionType.RESET_CURRENT
 })

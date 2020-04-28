@@ -15,7 +15,9 @@ export enum PushNotificationActionType {
 
   DELETE = '@AppPushNotification/DELETE',
   DELETE_SUCCESS = '@AppPushNotification/DELETE_SUCCESS',
-  DELETE_ERROR = '@AppPushNotification/DELETE_ERROR'
+  DELETE_ERROR = '@AppPushNotification/DELETE_ERROR',
+
+  RESET_CURRENT = '@AppPushNotification/RESET_CURRENT'
 }
 
 export const getPushNotificationListAction = () => ({
@@ -50,4 +52,8 @@ export const updatePushNotificationSuccessAction = (pushNotification: PushNotifi
 export const deletePushNotificationAction = (payload: string[]) => ({
   type: PushNotificationActionType.DELETE,
   payload
+})
+
+export const resetPushNotificationAction = () => ({
+  type: PushNotificationActionType.RESET_CURRENT
 })

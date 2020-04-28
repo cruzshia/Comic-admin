@@ -15,7 +15,9 @@ export enum ApplicationInfoActionType {
 
   UPDATE = '@ApplicationInfo/UPDATE',
   UPDATE_SUCCESS = '@ApplicationInfo/UPDATE_SUCCESS',
-  UPDATE_ERROR = '@ApplicationInfo/UPDATE_ERROR'
+  UPDATE_ERROR = '@ApplicationInfo/UPDATE_ERROR',
+
+  RESET_CURRENT = '@ApplicationInfo/RESET_CURRENT'
 }
 
 export const getApplicationInfoListAction = () => ({
@@ -55,4 +57,8 @@ export const updateApplicationInfoAction = (applicationInfo: ApplicationInfo) =>
 export const updateApplicationInfoSuccessAction = (applicationInfo: ApplicationInfo) => ({
   type: ApplicationInfoActionType.UPDATE_SUCCESS,
   payload: applicationInfo
+})
+
+export const resetApplicationInfoAction = () => ({
+  type: ApplicationInfoActionType.RESET_CURRENT
 })

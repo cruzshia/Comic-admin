@@ -17,7 +17,7 @@ import { mockSettingDetail } from '../../../epics/application/displaySetting/moc
 
 export default function DisplaySetting() {
   const dispatch = useDispatch()
-  const { settingList } = useSelector((store: StoreState) => store.displaySetting)
+  const { settingList, settingTotal } = useSelector((store: StoreState) => store.displaySetting)
   const handleGetList = useCallback(() => dispatch(getDisplaySettingListAction()), [dispatch])
   const handleDelete = useCallback((list: string[]) => dispatch(deleteDisplaySettingAction(list)), [dispatch])
   const handleCreate = useCallback((data: DisplaySettingModel) => dispatch(createDisplaySettingAction(data)), [
@@ -35,7 +35,7 @@ export default function DisplaySetting() {
         <DisplaySettingContext.Provider
           value={{
             settingList,
-            settingTotal: settingList.length,
+            settingTotal,
             currentSetting: mockSettingDetail
           }}
         >

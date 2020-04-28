@@ -15,7 +15,9 @@ export enum CoinProductActionType {
 
   UPDATE = '@AppCoinProduct/UPDATE',
   UPDATE_SUCCESS = '@AppCoinProduct/UPDATE_SUCCESS',
-  UPDATE_ERROR = '@AppCoinProduct/UPDATE_ERROR'
+  UPDATE_ERROR = '@AppCoinProduct/UPDATE_ERROR',
+
+  RESET_CURRENT = '@AppCoinProduct/RESET_CURRENT'
 }
 
 export const getCoinProductListAction = () => ({
@@ -55,4 +57,8 @@ export const updateCoinProductAction = (coinProduct: CoinProduct) => ({
 export const updateCoinProductSuccessAction = (coinProduct: CoinProduct) => ({
   type: CoinProductActionType.UPDATE_SUCCESS,
   payload: coinProduct
+})
+
+export const resetCoinProductAction = () => ({
+  type: CoinProductActionType.RESET_CURRENT
 })

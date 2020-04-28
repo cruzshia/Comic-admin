@@ -18,11 +18,12 @@ export default function CoinProductDetail() {
   const history = useHistory()
   const { id } = useParams()
   const { currentProduct = {} } = useContext(CoinProductContext)
-  const { onGetCoinProduct } = useContext(ActionContext)
+  const { onGetCoinProduct, onResetCoinProduct } = useContext(ActionContext)
 
   useEffect(() => {
     onGetCoinProduct(id!)
-  }, [onGetCoinProduct, id])
+    return () => onResetCoinProduct()
+  }, [onGetCoinProduct, id, onResetCoinProduct])
 
   const breadcrumbList = useMemo(
     () =>

@@ -13,14 +13,12 @@ import { mockEventDetail } from './mockData/mockCoinDeliveryEvent'
 
 export default function CoinDeliveryEvent() {
   const dispatch = useDispatch()
-  const { eventList } = useSelector((store: StoreState) => store.coinDeliveryEvent)
+  const { eventList, eventTotal } = useSelector((store: StoreState) => store.coinDeliveryEvent)
   const handleGetList = useCallback(() => dispatch(getCoinDeliveryEventListAction()), [dispatch])
   return (
     <Switch>
       <ActionContext.Provider value={{ onGetCoinDeliveryEventList: handleGetList }}>
-        <CoinDeliveryEventContext.Provider
-          value={{ eventList: eventList, eventTotal: eventList.length, currentEvent: mockEventDetail }}
-        >
+        <CoinDeliveryEventContext.Provider value={{ eventList, eventTotal, currentEvent: mockEventDetail }}>
           <Route exact path={routePath.application.coinDeliveryEvent} component={CoinDeliveryEventList} />
           <Route exact path={routePath.application.coinDeliveryEventEdit} component={CoinDeliveryEventEdit} />
           <Route exact path={routePath.application.coinDeliveryEventCreation} component={CoinDeliveryEventCreation} />

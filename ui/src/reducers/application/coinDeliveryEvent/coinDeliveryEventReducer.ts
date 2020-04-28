@@ -4,14 +4,16 @@ import { ActionType } from '../../types'
 
 export interface CoinDeliveryEventState {
   eventList: CoinDeliveryEvent[]
+  eventTotal: number
   currentEvent?: CoinDeliveryEvent
 }
 
 const initState: CoinDeliveryEventState = {
-  eventList: []
+  eventList: [],
+  eventTotal: 0
 }
 
-export const emptyEvent: CoinDeliveryEvent = {}
+export const emptyCoinDeliveryEvent: CoinDeliveryEvent = {}
 
 export const CoinDeliveryEventPreloadState = initState
 
@@ -22,7 +24,14 @@ const handler: Record<string, (state: CoinDeliveryEventState, action: ActionType
   ): CoinDeliveryEventState => {
     return {
       ...state,
-      eventList: action.payload
+      eventList: action.payload,
+      eventTotal: action.payload.length
+    }
+  },
+  [CoinDeliveryEventActionType.RESET_CURRENT]: (state: CoinDeliveryEventState): CoinDeliveryEventState => {
+    return {
+      ...state,
+      currentEvent: undefined
     }
   }
 }

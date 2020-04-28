@@ -4,14 +4,16 @@ import { ActionType } from '../../types'
 
 export interface CoinProductState {
   productList: CoinProduct[]
+  productTotal: number
   currentProduct?: CoinProduct
 }
 
 const initState: CoinProductState = {
-  productList: []
+  productList: [],
+  productTotal: 0
 }
 
-export const emptyProduct: CoinProduct = {}
+export const emptyCoinProduct: CoinProduct = {}
 
 export const CoinProductPreloadState = initState
 
@@ -29,7 +31,14 @@ const handler: Record<string, (state: CoinProductState, action: ActionType<any>)
   ): CoinProductState => {
     return {
       ...state,
-      productList: action.payload
+      productList: action.payload,
+      productTotal: action.payload.length
+    }
+  },
+  [CoinProductActionType.RESET_CURRENT]: (state: CoinProductState): CoinProductState => {
+    return {
+      ...state,
+      currentProduct: undefined
     }
   },
   [CoinProductActionType.CREATE_SUCCESS]: updateCurrentProductHandler,

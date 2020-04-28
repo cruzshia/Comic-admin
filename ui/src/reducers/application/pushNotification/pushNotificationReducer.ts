@@ -4,14 +4,16 @@ import { ActionType } from '../../types'
 
 export interface PushNotificationState {
   notificationList: PushNotification[]
+  notificationTotal: number
   currentNotification?: PushNotification
 }
 
 const initState: PushNotificationState = {
-  notificationList: []
+  notificationList: [],
+  notificationTotal: 0
 }
 
-export const emptyNotification: PushNotification = {}
+export const emptyPushNotification: PushNotification = {}
 
 export const PushNotificationPreloadState = initState
 
@@ -22,7 +24,14 @@ const handler: Record<string, (state: PushNotificationState, action: ActionType<
   ): PushNotificationState => {
     return {
       ...state,
-      notificationList: action.payload
+      notificationList: action.payload,
+      notificationTotal: action.payload.length
+    }
+  },
+  [PushNotificationActionType.RESET_CURRENT]: (state: PushNotificationState): PushNotificationState => {
+    return {
+      ...state,
+      currentNotification: undefined
     }
   },
   [PushNotificationActionType.CREATE_SUCCESS]: (
