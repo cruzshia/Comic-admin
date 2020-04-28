@@ -1,12 +1,13 @@
 import React, { useContext, useMemo, useState, useCallback, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Form, Field } from 'react-final-form'
+import { Form, Field, FieldRenderProps } from 'react-final-form'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { SelectAdapter, AmountInputAdapter, SearchInputAdapter, TextInputAdapter } from '@src/components/finalForm'
 import Button, { Theme } from '@src/components/Button/Button'
+import DetectiveButton from './DetectiveButton'
 import { TimeSpanInput } from '@src/components/form'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import { routePath } from '@src/common/appConfig'
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
     },
     '& .MuiOutlinedInput-root': {
       marginLeft: '40px',
-      marginRight: '10px'
+      marginRight: '20px'
     }
   },
   device: {
@@ -98,6 +99,30 @@ export default function UserDetail() {
     [titleText, formatMessage]
   )
 
+  const CoinAdapter = (props: FieldRenderProps<string>) => (
+    <>
+      <AmountInputAdapter {...props} />
+      <Button
+        theme={Theme.DARK}
+        onClick={() => {}}
+        buttonText={formatMessage(messages.giftOrWithdraw)}
+        disabled={props.meta.pristine}
+      />
+    </>
+  )
+
+  const SelectButtonAdapter = (props: FieldRenderProps<string>) => (
+    <>
+      <SelectAdapter {...props} />
+      <Button
+        classnames={classes.margin}
+        theme={Theme.DARK}
+        onClick={() => {}}
+        buttonText={formatMessage(userMessages.change)}
+        disabled={props.meta.pristine}
+      />
+    </>
+  )
   if (!currentUser) return null
 
   const genCoinContent = (device: string, coin: string) => (
@@ -105,26 +130,20 @@ export default function UserDetail() {
       <div className='content'>{formatMessage(userMessages.amountOfCoins, { num: currentUser[device][coin] })}</div>
       <Field
         name={`${device}.${coin}`}
-        component={AmountInputAdapter}
         placeholder={formatMessage(messages.amountToGift)}
         isShort
+        buttonText={formatMessage(messages.giftOrWithdraw)}
+        component={CoinAdapter}
       />
-      <Button theme={Theme.DARK} onClick={() => {}} buttonText={formatMessage(messages.giftOrWithdraw)} />
     </div>
   )
   const genSelectContent = (key: string) => (
     <>
       <Field
         name={key}
-        component={SelectAdapter}
         options={[{ label: currentUser[key], value: currentUser[key] }]}
         initialValue={currentUser[key]}
-      />
-      <Button
-        classnames={classes.margin}
-        theme={Theme.DARK}
-        onClick={() => {}}
-        buttonText={formatMessage(userMessages.change)}
+        component={SelectButtonAdapter}
       />
     </>
   )
@@ -320,7 +339,9 @@ export default function UserDetail() {
                         formatMessage(commonMessages.contentId),
                         <>
                           <Field name='contentGift.contentId' component={SearchInputAdapter} icon />
-                          <Button
+                          <DetectiveButton
+                            name='contentGift'
+                            validate={value => !!value.application && !!value.contentId}
                             classnames={classes.margin}
                             buttonText={formatMessage(messages.gift)}
                             theme={Theme.DARK}
@@ -349,7 +370,14 @@ export default function UserDetail() {
                         formatMessage(userMessages.validityPeriod),
                         <>
                           <TimeSpanInput name='subscriptionGift.validityPeriod' />
-                          <Button
+                          <DetectiveButton
+                            name='subscriptionGift'
+                            validate={value =>
+                              !!value.application &&
+                              !!value.subscription &&
+                              !!value.validityPeriodStart &&
+                              !!value.validityPeriodEnd
+                            }
                             classnames={classes.margin}
                             buttonText={formatMessage(messages.gift)}
                             theme={Theme.DARK}
