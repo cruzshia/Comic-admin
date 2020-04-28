@@ -32,7 +32,9 @@ const handler: Record<string, (state: AuthorState, action: ActionType<any>) => A
     ...state,
     currentAuthor: undefined
   }),
-  [AuthorActionType.GET_AUTHOR_SUCCESS]: updateCurrentAuthorHandler
+  [AuthorActionType.GET_AUTHOR_SUCCESS]: updateCurrentAuthorHandler,
+  [AuthorActionType.CREATE_SUCCESS]: updateCurrentAuthorHandler,
+  [AuthorActionType.UPDATE_SUCCESS]: updateCurrentAuthorHandler
 }
 
 export default function authorReducer(state: AuthorState = initState, action: ActionType<any>) {

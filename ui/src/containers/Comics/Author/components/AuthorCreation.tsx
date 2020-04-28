@@ -1,13 +1,17 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo, useContext, useRef } from 'react'
 import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import commonMessages from '@src/messages'
+import { submitForm } from '@src/utils/validation'
+import { ActionContext } from '../context/AuthorContext'
 import AuthorForm from './AuthorForm'
 import { BREADCRUMBS } from '../utils'
 import messages from '../messages'
 
 export default function AuthorCreation() {
+  const { onCreateAuthor } = useContext(ActionContext)
+  const formRef = useRef<HTMLFormElement>(null)
   const { formatMessage } = useIntl()
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
@@ -16,9 +20,14 @@ export default function AuthorCreation() {
       ]),
     [formatMessage]
   )
-  const handleSubmit = useCallback(data => console.log(data), [])
   const buttonList = useMemo(
-    () => [<Button buttonText={formatMessage(commonMessages.create)} theme={Theme.DARK} onClick={() => {}} />],
+    () => [
+      <Button
+        buttonText={formatMessage(commonMessages.create)}
+        theme={Theme.DARK}
+        onClick={() => submitForm(formRef)}
+      />
+    ],
     [formatMessage]
   )
 
@@ -29,7 +38,7 @@ export default function AuthorCreation() {
         titleText={formatMessage(messages.create)}
         buttonList={buttonList}
       />
-      <AuthorForm onSubmit={handleSubmit} />
+      <AuthorForm formRef={formRef} onSubmit={onCreateAuthor} />
     </>
   )
 }

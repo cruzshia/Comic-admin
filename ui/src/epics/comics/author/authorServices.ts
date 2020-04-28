@@ -22,3 +22,23 @@ export const getAuthorAjax = (authorId: string): Observable<{ status: number; re
     }
   ])
 }
+
+export const createAuthorAjax = (author: Author): Observable<{ status: number; response: Author }> => {
+  authAjax.post('/author', author)
+  return from([
+    {
+      status: 200,
+      response: mockAuthor
+    }
+  ])
+}
+
+export const updateAuthorAjax = (author: Author): Observable<{ status: number; response: Author }> => {
+  authAjax.put('/author', author)
+  return from([
+    {
+      status: 200,
+      response: mockAuthor
+    }
+  ])
+}

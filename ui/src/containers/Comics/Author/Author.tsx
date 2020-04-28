@@ -8,7 +8,14 @@ import AuthorEdit from './components/AuthorEdit'
 import AuthorDetail from './components/AuthorDetail'
 import AuthorContext, { ActionContext } from './context/AuthorContext'
 import { StoreState } from '@src/reducers'
-import { getAuthorListAction, getAuthorAction, resetAuthorAction } from '@src/reducers/comics/author/authorActions'
+import AuthorModel from '@src/models/comics/author'
+import {
+  getAuthorListAction,
+  getAuthorAction,
+  resetAuthorAction,
+  createAuthorAction,
+  updateAuthorAction
+} from '@src/reducers/comics/author/authorActions'
 
 export default function Author() {
   const dispatch = useDispatch()
@@ -17,10 +24,18 @@ export default function Author() {
   const handleGetAuthorList = useCallback(() => dispatch(getAuthorListAction()), [dispatch])
   const handleResetAuthor = useCallback(() => dispatch(resetAuthorAction()), [dispatch])
   const handleGetAuthor = useCallback((authorId: string) => dispatch(getAuthorAction(authorId)), [dispatch])
+  const handleCreateAuthor = useCallback((author: AuthorModel) => dispatch(createAuthorAction(author)), [dispatch])
+  const handleUpdateAuthor = useCallback((author: AuthorModel) => dispatch(updateAuthorAction(author)), [dispatch])
 
   return (
     <ActionContext.Provider
-      value={{ onGetAuthorList: handleGetAuthorList, onGetAuthor: handleGetAuthor, onResetAuthor: handleResetAuthor }}
+      value={{
+        onGetAuthorList: handleGetAuthorList,
+        onGetAuthor: handleGetAuthor,
+        onResetAuthor: handleResetAuthor,
+        onCreateAuthor: handleCreateAuthor,
+        onUpdateAuthor: handleUpdateAuthor
+      }}
     >
       <AuthorContext.Provider value={{ authorList, authorTotal, currentAuthor }}>
         <Switch>
