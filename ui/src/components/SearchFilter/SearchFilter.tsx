@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useIntl } from 'react-intl'
+import { FORM_ERROR } from 'final-form'
 import { Form } from 'react-final-form'
 import { Paper, Grid, makeStyles } from '@material-ui/core'
 import expandImg from '@src/assets/common/expand_more_black.svg'
@@ -109,11 +110,19 @@ export default function SearchFilter({ onSubmit, conditions, formRef, disableExp
   )
   const handleExpand = useCallback(() => setIsExpand(isExpand => !isExpand), [setIsExpand])
 
+  const formValidation = (values: object) => {
+    const errors: { [key: string]: any } = {}
+    if (!Object.values(values).find((val: string) => val.trim() !== '')) {
+      errors[FORM_ERROR] = 'Empty input'
+    }
+    return errors
+  }
   return (
     <div data-testid='search_filter'>
       <Form
         onSubmit={onSubmit}
-        render={({ handleSubmit, form: { reset } }) => (
+        validate={formValidation}
+        render={({ handleSubmit, form: { reset }, error }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <Grid container direction='column' className={classes.root}>
               <Paper variant='outlined'>
@@ -145,8 +154,18 @@ export default function SearchFilter({ onSubmit, conditions, formRef, disableExp
               </Paper>
             </Grid>
             <Grid container justify='space-between' className={classes.buttons}>
-              <ActionButton theme={ButtonTheme.DARK} buttonText={formatMessage(messages.search)} type='submit' />
-              <Button theme={ButtonTheme.LIGHT} buttonText={formatMessage(messages.reset)} onClick={reset} />
+              <ActionButton
+                theme={ButtonTheme.DARK}
+                buttonText={formatMessage(messages.search)}
+                type='submit'
+                disabled={!!error}
+              />
+              <Button
+                theme={ButtonTheme.LIGHT}
+                buttonText={formatMessage(messages.reset)}
+                onClick={reset}
+                disabled={!!error}
+              />
             </Grid>
           </form>
         )}
