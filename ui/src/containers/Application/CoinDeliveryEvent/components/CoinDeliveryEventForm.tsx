@@ -34,17 +34,17 @@ export default function CoinDeliveryEventForm({ coinDeliveryEvent, onSubmit, for
                 coinDeliveryEvent ? coinDeliveryEvent.id : <Field name='id' component={TextInputAdapter} />
               ),
               toDataSet(
-                formatMessage(messages.eventId),
-                coinDeliveryEvent ? coinDeliveryEvent.eventId : <Field name='eventId' component={TextInputAdapter} />
+                formatMessage(commonMessages.appId),
+                coinDeliveryEvent ? (
+                  coinDeliveryEvent.applicationId
+                ) : (
+                  <Field name='applicationId' component={TextInputAdapter} />
+                )
               ),
               toDataSet(formatMessage(messages.eventName), <Field name='eventName' component={TextInputAdapter} />),
               toDataSet(
                 formatMessage(messages.eventType),
                 <Field name='eventType' component={SelectAdapter} options={[]} isShort />
-              ),
-              toDataSet(
-                formatMessage(messages.eventRewardSetting),
-                <Field name='eventRewardSetting' component={SelectAdapter} options={[]} />
               )
             ]}
             marginBottom
