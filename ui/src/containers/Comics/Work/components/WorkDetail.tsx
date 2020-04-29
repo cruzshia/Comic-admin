@@ -101,6 +101,7 @@ export default function WorkDetail() {
           ),
           toDataSet(formatMessage(messages.category), currentWork.category),
           toDataSet(formatMessage(messages.reduction), currentWork.reduction),
+          toDataSet(formatMessage(commonMessages.subscriptionId), currentWork.subscriptionId),
           toDataSet(formatMessage(commonMessages.createDateTime), currentWork.createDateTime),
           toDataSet(formatMessage(commonMessages.updateDateTime), currentWork.updateDateTime)
         ]}
@@ -125,7 +126,7 @@ export default function WorkDetail() {
           ..._range(0, IMAGE_NUM).map(i => {
             const img = currentWork.images[i]
             return toDataSet(
-              `${formatMessage(commonMessages.photo)}${i + 1}`,
+              `${formatMessage(comicMessages.episodeImage)}${i + 1}`,
               img ? <img key={`image-${i}`} className={classes.image} src={img} alt={img} /> : ''
             )
           })

@@ -18,12 +18,13 @@ export const mockWork = {
   updateFrequency: '毎週月月金曜日に更新',
   rensai: 'ジャンプ本誌',
   reduction: '還元あり',
-  createDateTime: '2019-12-25 00:00 +0900',
-  updateDateTime: '2019-12-25 00:00 +0900',
+  subscriptionId: '週刊少年ジャンプ定期購読',
+  createDateTime: '2019-12-25 00:00',
+  updateDateTime: '2019-12-25 00:00',
   episodeCategory: 'オリジナル連載',
   images: [mockCover1, mockCover2, mockCover3, mockCover4, mockCover5, mockCover6, mockCover7],
-  deliveryStartDateTime: '2019-12-25 00:00 +0900',
-  deliveryEndDateTime: '2019-12-25 00:00 +0900',
+  deliveryStartDateTime: '2019-12-25 00:00',
+  deliveryEndDateTime: '2019-12-25 00:00',
   advertisement: {
     deviceCategory: 'common',
     content: {
