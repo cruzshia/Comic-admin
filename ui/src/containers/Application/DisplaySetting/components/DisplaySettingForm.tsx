@@ -6,7 +6,7 @@ import commonMessages from '@src/messages'
 import { fontWeightBold, borderColorLight, textColor } from '@src/common/styles'
 import { checkError } from '@src/utils/validation'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
-import { TextAreaAdapter, TextInputAdapter, SelectAdapter } from '@src/components/finalForm'
+import { TextAreaAdapter, SelectAdapter } from '@src/components/finalForm'
 import { StartEndForm, TextArea } from '@src/components/form'
 import { emptyDisplaySetting } from '@src/reducers/application/displaySetting/displaySettingReducer'
 import applicationMessages from '../../messages'
@@ -82,7 +82,7 @@ export default function DisplaySettingForm({ onSubmit, formRef, currentSetting }
               ),
               toDataSet(
                 formatMessage(applicationMessages.applicationId),
-                <Field name='applicationId' component={TextInputAdapter} />
+                <Field name='applicationId' component={SelectAdapter} options={[]} />
               ),
               toDataSet(formatMessage(messages.supplement), <Field name='supplement' component={TextAreaAdapter} />)
             ]}
