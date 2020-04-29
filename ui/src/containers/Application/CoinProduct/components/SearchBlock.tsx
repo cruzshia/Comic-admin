@@ -30,7 +30,7 @@ export default function SearchBlock({ onSubmit, formRef }: Props) {
       right: [
         {
           label: formatMessage(applicationMessages.status),
-          input: <Field name='display' component={SelectAdapter} options={[]} />
+          input: <Field name='status' component={SelectAdapter} options={[]} isShort />
         }
       ]
     }),
