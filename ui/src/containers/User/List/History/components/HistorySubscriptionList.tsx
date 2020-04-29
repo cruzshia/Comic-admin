@@ -63,7 +63,7 @@ export default function HistorySubscriptionList({
   const theadList = useMemo(
     () => [
       { id: 'createdAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
-      { id: 'subscriptionId', label: formatMessage(messages.subscriptionId) },
+      { id: 'subscriptionId', label: formatMessage(commonMessages.subscriptionId) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
       { id: 'price', label: formatMessage(messages.price) },
       { id: 'currency', label: formatMessage(messages.currency) },

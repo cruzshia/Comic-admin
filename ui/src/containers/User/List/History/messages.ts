@@ -71,10 +71,6 @@ export default defineMessages({
     id: PREFIX + 'coin_change_detail',
     defaultMessage: 'Coin Change Detail'
   },
-  subscriptionId: {
-    id: PREFIX + 'subscription_id',
-    defaultMessage: 'Subscription Id'
-  },
   price: {
     id: PREFIX + 'price',
     defaultMessage: 'price'

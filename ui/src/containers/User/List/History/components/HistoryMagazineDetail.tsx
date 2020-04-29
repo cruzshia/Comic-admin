@@ -40,7 +40,7 @@ export default function HistoryMagazineDetail({ currentHistory }: { currentHisto
           toDataSet(formatMessage(commonMessages.updateDateTime), currentHistory.updatedAt),
           toDataSet(formatMessage(userMessages.userId), currentHistory.userId),
           toDataSet(formatMessage(commonMessages.contentId), currentHistory.contentsId),
-          toDataSet(formatMessage(messages.subscriptionId), currentHistory.subscriptionId),
+          toDataSet(formatMessage(commonMessages.subscriptionId), currentHistory.subscriptionId),
           toDataSet(formatMessage(commonMessages.appId), currentHistory.applicationId),
           toDataSet(formatMessage(messages.paidCoinCount), currentHistory.paidCoinCount),
           toDataSet(formatMessage(messages.paidGivenCoinCount), currentHistory.paidGivenCoinCount),
