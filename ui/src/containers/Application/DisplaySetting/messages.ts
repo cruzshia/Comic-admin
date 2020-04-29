@@ -23,10 +23,6 @@ export default defineMessages({
     id: PREFIX + 'screen',
     defaultMessage: 'Screen'
   },
-  status: {
-    id: PREFIX + 'status',
-    defaultMessage: 'Status'
-  },
   supplement: {
     id: PREFIX + 'supplement',
     defaultMessage: 'Supplement'

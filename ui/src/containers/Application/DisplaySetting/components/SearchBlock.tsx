@@ -3,8 +3,9 @@ import { Field } from 'react-final-form'
 import { useIntl } from 'react-intl'
 import SearchFilter from '@src/components/SearchFilter'
 import commonMessages from '@src/messages'
-import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
-import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
+import { SelectAdapter } from '@src/components/finalForm'
+import { TimeSpanInput } from '@src/components/form'
+import applicationMessages from '../../messages'
 import messages from '../messages'
 
 interface Props {
@@ -23,17 +24,13 @@ export default function SearchBlock({ onSubmit, formRef }: Props) {
         },
         {
           label: formatMessage(commonMessages.deliveryStartDateTime),
-          input: <Field name='deliveryTimeStart' component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+          input: <TimeSpanInput />
         }
       ],
       right: [
         {
-          label: formatMessage(messages.screen),
-          input: <Field name='display' component={SelectAdapter} options={[]} />
-        },
-        {
-          label: formatMessage(commonMessages.deliveryEndDateTime),
-          input: <Field name='deliveryTimeStart' component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+          label: formatMessage(applicationMessages.status),
+          input: <Field name='status' component={SelectAdapter} options={[]} />
         }
       ]
     }),
