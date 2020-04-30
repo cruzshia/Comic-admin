@@ -7,25 +7,46 @@ import SubscriptionEdit from './components/SubscriptionEdit'
 import SubscriptionDetail from './components/SubscriptionDetail'
 import SubscriptionList from './components/SubscriptionList'
 import SubscriptionContext, { ActionContext } from './context/SubscriptionContext'
+import SubscriptionModel from '@src/models/comics/subscription'
 import { StoreState } from '@src/reducers'
-import { getSubscriptionListAction, getSubscriptionAction } from '@src/reducers/comics/subscription/subscriptionAction'
-import { mockSubscriptionDetail } from './mockData/mockData'
+import {
+  getSubscriptionListAction,
+  getSubscriptionAction,
+  createSubscriptionAction,
+  updateSubscriptionAction,
+  resetSubscriptionAction
+} from '@src/reducers/comics/subscription/subscriptionAction'
 
 export default function Subscription() {
-  const { subscriptionList, subscriptionTotal } = useSelector((state: StoreState) => state.subscription)
+  const { subscriptionList, subscriptionTotal, currentSubscription } = useSelector(
+    (state: StoreState) => state.subscription
+  )
   const dispatch = useDispatch()
   const handleGetSubscriptionList = useCallback(() => dispatch(getSubscriptionListAction()), [dispatch])
   const handleGetSubscription = useCallback((id: string) => dispatch(getSubscriptionAction(id)), [dispatch])
+  const handleResetSubscription = useCallback(() => dispatch(resetSubscriptionAction()), [dispatch])
+  const handleCreateSubscription = useCallback((data: SubscriptionModel) => dispatch(createSubscriptionAction(data)), [
+    dispatch
+  ])
+  const handleUpdateSubscription = useCallback((data: SubscriptionModel) => dispatch(updateSubscriptionAction(data)), [
+    dispatch
+  ])
 
   return (
     <ActionContext.Provider
-      value={{ onGetSubscription: handleGetSubscription, onGetSubscriptionList: handleGetSubscriptionList }}
+      value={{
+        onGetSubscription: handleGetSubscription,
+        onGetSubscriptionList: handleGetSubscriptionList,
+        onCreateSubscription: handleCreateSubscription,
+        onUpdateSubscription: handleUpdateSubscription,
+        onResetSubscription: handleResetSubscription
+      }}
     >
       <SubscriptionContext.Provider
         value={{
           subscriptionList,
           subscriptionTotal,
-          currentSubscription: mockSubscriptionDetail
+          currentSubscription
         }}
       >
         <Switch>

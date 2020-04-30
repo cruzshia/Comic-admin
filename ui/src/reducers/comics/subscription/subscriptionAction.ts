@@ -8,6 +8,7 @@ export enum SubscriptionActionType {
   GET_SUBSCRIPTION = '@ComicsSubscription/GET_SUBSCRIPTION',
   GET_SUBSCRIPTION_SUCCESS = '@ComicsSubscription/GET_SUBSCRIPTION_SUCCESS',
   GET_SUBSCRIPTION_ERROR = '@ComicsSubscription/GET_SUBSCRIPTION_ERROR',
+  RESET_SUBSCRIPTION = '@ComicsSubscription/RESET_SUBSCRIPTION',
 
   CREATE = '@ComicsSubscription/CREATE',
   CREATE_SUCCESS = '@ComicsSubscription/CREATE_SUCCESS',
@@ -55,4 +56,8 @@ export const updateSubscriptionAction = (subscription: Subscription) => ({
 export const updateSubscriptionSuccessAction = (subscription: Subscription) => ({
   type: SubscriptionActionType.UPDATE_SUCCESS,
   payload: subscription
+})
+
+export const resetSubscriptionAction = () => ({
+  type: SubscriptionActionType.RESET_SUBSCRIPTION
 })

@@ -6,6 +6,7 @@ import TextFieldAdapter from '@src/components/finalForm/TextInputAdapter'
 import { SelectAdapter, DropZoneAdapter } from '@src/components/finalForm'
 import { StartEndForm } from '@src/components/form'
 import commonMessages from '@src/messages'
+import Subscription from '@src/models/comics/subscription'
 import messages from '../messages'
 
 enum DeviceType {
@@ -14,7 +15,7 @@ enum DeviceType {
 }
 
 interface Props {
-  onSubmit: () => void
+  onSubmit: (data: Subscription) => void
   currentSubscription?: any
   formRef: React.RefObject<HTMLFormElement>
 }

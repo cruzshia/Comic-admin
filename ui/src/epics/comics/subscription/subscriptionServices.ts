@@ -13,8 +13,32 @@ export const getSubscriptionListAjax = (): Observable<{ status: number; response
   ])
 }
 
-export const getSubscriptionAjax = (workId: string): Observable<{ status: number; response: Subscription }> => {
-  authAjax.get('/subscription/' + workId)
+export const getSubscriptionAjax = (subscriptionId: string): Observable<{ status: number; response: Subscription }> => {
+  authAjax.get('/subscription/' + subscriptionId)
+  return from([
+    {
+      status: 200,
+      response: mockSubscriptionDetail
+    }
+  ])
+}
+
+export const createSubscriptionAjax = (
+  subscription: Subscription
+): Observable<{ status: number; response: Subscription }> => {
+  authAjax.post('/subscription', subscription)
+  return from([
+    {
+      status: 200,
+      response: mockSubscriptionDetail
+    }
+  ])
+}
+
+export const updateSubscriptionAjax = (
+  subscription: Subscription
+): Observable<{ status: number; response: Subscription }> => {
+  authAjax.put('/subscription', subscription)
   return from([
     {
       status: 200,

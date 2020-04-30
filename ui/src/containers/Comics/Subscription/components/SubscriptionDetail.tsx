@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useCallback } from 'react'
+import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
@@ -7,15 +7,22 @@ import DataTable, { toDataSet, toPreWrapDataSet } from '@src/components/table/Da
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import commonMessages from '@src/messages'
 import { routePath } from '@src/common/appConfig'
-import SubscriptionContext from '../context/SubscriptionContext'
+import SubscriptionContext, { ActionContext } from '../context/SubscriptionContext'
 import messages from '../messages'
 import { BREADCRUMBS } from '../utils'
 
 export default function SubscriptionDetail() {
-  const { currentSubscription } = useContext(SubscriptionContext)
+  const { onGetSubscription, onResetSubscription } = useContext(ActionContext)
+  const { currentSubscription = {} } = useContext(SubscriptionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
+
+  useEffect(() => {
+    onGetSubscription(id!)
+    return () => onResetSubscription()
+  }, [onGetSubscription, onResetSubscription, id])
+
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({

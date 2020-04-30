@@ -31,6 +31,7 @@ const handler: Record<string, (state: SubscriptionState, action: ActionType<any>
       subscriptionTotal: action.payload.length
     }
   },
+  [SubscriptionActionType.RESET_SUBSCRIPTION]: updateCurrentSubscriptionHandler,
   [SubscriptionActionType.GET_SUBSCRIPTION_SUCCESS]: updateCurrentSubscriptionHandler,
   [SubscriptionActionType.CREATE_SUCCESS]: updateCurrentSubscriptionHandler,
   [SubscriptionActionType.UPDATE_SUCCESS]: updateCurrentSubscriptionHandler

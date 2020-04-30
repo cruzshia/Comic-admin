@@ -1,13 +1,15 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useRef, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import SubscriptionForm from './SubscriptionForm'
 import { BREADCRUMBS } from '../utils'
+import { ActionContext } from '../context/SubscriptionContext'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export default function SubscriptionCreation() {
+  const { onCreateSubscription } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
   const breadcrumbList = useMemo(
@@ -38,7 +40,7 @@ export default function SubscriptionCreation() {
         titleText={formatMessage(messages.creation)}
         buttonList={buttonList}
       />
-      <SubscriptionForm onSubmit={console.log} formRef={formRef} />
+      <SubscriptionForm onSubmit={onCreateSubscription} formRef={formRef} />
     </>
   )
 }

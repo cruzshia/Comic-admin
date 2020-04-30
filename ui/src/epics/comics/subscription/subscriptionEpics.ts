@@ -1,11 +1,13 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { map, switchMap, catchError, tap } from 'rxjs/operators'
+import { map, switchMap, catchError, tap, exhaustMap } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   SubscriptionActionType,
   getSubscriptionListSuccessAction,
-  getSubscriptionSuccessAction
+  getSubscriptionSuccessAction,
+  createSubscriptionSuccessAction,
+  updateSubscriptionSuccessAction
 } from '@src/reducers/comics/subscription/subscriptionAction'
 import * as subscriptionServices from './subscriptionServices'
 import { emptyErrorReturn } from '../../utils'
@@ -40,4 +42,34 @@ export const getSubscriptionEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export default [getSubscriptionListEpic, getSubscriptionEpic]
+export const createSubscriptionEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(SubscriptionActionType.CREATE),
+    exhaustMap(action =>
+      subscriptionServices.createSubscriptionAjax(action.payload).pipe(
+        map(res => createSubscriptionSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: SubscriptionActionType.CREATE_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: SubscriptionActionType.CREATE_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export const updateSubscriptionEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(SubscriptionActionType.UPDATE),
+    exhaustMap(action =>
+      subscriptionServices.updateSubscriptionAjax(action.payload).pipe(
+        map(res => updateSubscriptionSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: SubscriptionActionType.UPDATE_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: SubscriptionActionType.UPDATE_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export default [getSubscriptionListEpic, getSubscriptionEpic, createSubscriptionEpic, updateSubscriptionEpic]
