@@ -15,20 +15,20 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     () => ({
       left: [
         {
-          label: formatMessage(commonMessages.contentId),
-          input: <Field name='contentId' component={SearchInputAdapter} icon />
+          label: formatMessage(messages.contentsId),
+          input: <Field name='contentId' component={SearchInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.contentName),
-          input: <Field name='name' component={SearchInputAdapter} icon />
+          input: <Field name='name' component={SearchInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.author),
           input: <Field name='author' component={SelectAdapter} options={[]} />
         },
         {
-          label: formatMessage(comicMessages.workId),
-          input: <Field name='workId' component={SearchInputAdapter} icon />
+          label: formatMessage(comicMessages.worksId),
+          input: <Field name='workId' component={SearchInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.appId),

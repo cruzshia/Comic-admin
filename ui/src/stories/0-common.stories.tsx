@@ -22,7 +22,7 @@ import { mockSearchFilterData } from '@src/components/SearchFilter/mockData'
 const setError = () => select('error', ['', 'error', '項目が入力されていません'], '')
 
 storiesOf('Common components', module)
-  .add('SearchInput', () => <SearchInput icon={boolean('icon', false)} error={setError()} />)
+  .add('SearchInput', () => <SearchInput noIcon={boolean('noIcon', false)} error={setError()} />)
   .add('Select', () => (
     <Select
       isShort={boolean('isShort', false)}

@@ -20,7 +20,7 @@ describe('SearchInput component test', () => {
   })
 
   it('Show icon as expect', () => {
-    const { getByTestId } = render(withAllProvider(<SearchInput icon={true} />))
+    const { getByTestId } = render(withAllProvider(<SearchInput />))
     expect(getByTestId('search_icon')).toBeInTheDocument()
   })
 

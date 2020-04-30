@@ -338,7 +338,7 @@ export default function UserDetail() {
                       toDataSet(
                         formatMessage(commonMessages.contentId),
                         <>
-                          <Field name='contentGift.contentId' component={SearchInputAdapter} icon />
+                          <Field name='contentGift.contentId' component={SearchInputAdapter} />
                           <DetectiveButton
                             name='contentGift'
                             validate={value => !!value.application && !!value.contentId}

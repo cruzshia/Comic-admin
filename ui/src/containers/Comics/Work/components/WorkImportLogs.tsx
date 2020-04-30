@@ -6,7 +6,8 @@ import ListTable, { SortOrder } from '@src/components/table/ListTable'
 import { errorColor, fontWeightBold } from '@src/common/styles'
 import { ReactComponent as AlertIcon } from '@src/assets/form/error_alert.svg'
 import { ReactComponent as DownloadIcon } from '@src/assets/common/download_circle.svg'
-import messages from '@src/messages'
+import commonMessages from '@src/messages'
+import messages from '../messages'
 import { BREADCRUMBS } from '../constants'
 import WorkContext, { ActionContext } from '../context/WorkContext'
 
@@ -51,7 +52,7 @@ export default function WorkImportLogs() {
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat({
-        title: formatMessage(messages.csvImport),
+        title: formatMessage(messages.worksCsvImportLog),
         route: undefined
       }),
     [formatMessage]
@@ -61,13 +62,13 @@ export default function WorkImportLogs() {
     () => [
       {
         id: 'createAt',
-        label: formatMessage(messages.createDateTime),
+        label: formatMessage(commonMessages.createDateTime),
         onSort: () => setSortOrder(sortOrder => (sortOrder === SortOrder.Asc ? SortOrder.Desc : SortOrder.Asc))
       },
-      { id: 'updateAt', label: formatMessage(messages.updateDateTime) },
-      { id: 'filename', label: formatMessage(messages.filename) },
-      { id: 'status', label: formatMessage(messages.status) },
-      { id: 'detail', label: formatMessage(messages.detail) }
+      { id: 'updateAt', label: formatMessage(commonMessages.updateDateTime) },
+      { id: 'filename', label: formatMessage(commonMessages.filename) },
+      { id: 'status', label: formatMessage(commonMessages.status) },
+      { id: 'detail', label: formatMessage(commonMessages.detail) }
     ],
     [setSortOrder, formatMessage]
   )
@@ -91,7 +92,7 @@ export default function WorkImportLogs() {
           log.status === 'failure' ? (
             <Grid container alignItems='center' className={classes.error}>
               <AlertIcon className='alert-icon' />
-              {formatMessage(messages.errorAsyncFailed)}
+              {formatMessage(commonMessages.errorAsyncFailed)}
             </Grid>
           ) : (
             log.detail
@@ -115,7 +116,7 @@ export default function WorkImportLogs() {
 
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.csvImport)} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.worksCsvImportLog)} />
       <ListTable
         classnames={classes.table}
         theadList={theadList}

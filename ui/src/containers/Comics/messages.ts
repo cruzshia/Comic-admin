@@ -78,5 +78,9 @@ export default defineMessages({
   addNewAuthor: {
     id: PREFIX + 'add_new_author',
     defaultMessage: 'Add New Author'
+  },
+  worksId: {
+    id: PREFIX + 'works_id',
+    defaultMessage: 'Work (ID)'
   }
 })

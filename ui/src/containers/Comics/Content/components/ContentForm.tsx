@@ -2,7 +2,13 @@ import React, { useRef } from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
-import { TextInputAdapter, SelectAdapter, TextAreaAdapter, DropZoneAdapter } from '@src/components/finalForm'
+import {
+  TextInputAdapter,
+  SelectAdapter,
+  TextAreaAdapter,
+  DropZoneAdapter,
+  SearchInputAdapter
+} from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import Content from '@src/models/comics/content'
@@ -94,8 +100,8 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
                 ),
                 toDataSet(formatMessage(messages.openAdImage), <Field name='adImage' component={DropZoneAdapter} />),
                 toDataSet(
-                  formatMessage(commonMessages.appId),
-                  <Field name='requestId' component={SelectAdapter} options={[]} />
+                  formatMessage(messages.requestContentId),
+                  <Field name='requestId' component={SearchInputAdapter} />
                 )
               ]}
               marginBottom

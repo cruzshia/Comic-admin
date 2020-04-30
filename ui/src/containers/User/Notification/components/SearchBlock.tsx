@@ -12,7 +12,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
 
   const conditions: Conditions = {
     left: [
-      { label: formatMessage(commonMessage.id), input: <Field name='id' component={SearchInputAdapter} icon /> },
+      { label: formatMessage(commonMessage.id), input: <Field name='id' component={SearchInputAdapter} /> },
       {
         label: formatMessage(commonMessage.title),
         input: <Field name='title' component={TextInputAdapter} placeholder={formatMessage(messages.enterTitle)} />

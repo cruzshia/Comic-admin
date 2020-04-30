@@ -90,5 +90,13 @@ export default defineMessages({
   transitionUrl: {
     id: PREFIX + 'transition_url',
     defaultMessage: 'Transition URL'
+  },
+  contentsId: {
+    id: PREFIX + 'contents_id',
+    defaultMessage: 'Contents (ID)'
+  },
+  requestContentId: {
+    id: PREFIX + 'request_content_id',
+    defaultMessage: 'Request Content (ID)'
   }
 })

@@ -90,5 +90,9 @@ export default defineMessages({
   reduction: {
     id: PREFIX + 'reduction',
     defaultMessage: 'Reduction'
+  },
+  worksCsvImportLog: {
+    id: PREFIX + 'works_csv_import_log',
+    defaultMessage: 'Works CSV Import Log'
   }
 })

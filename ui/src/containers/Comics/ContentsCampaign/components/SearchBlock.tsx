@@ -15,15 +15,15 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
       left: [
         {
           label: formatMessage(commonMessages.id),
-          input: <Field name='id' component={SearchInputAdapter} icon />
+          input: <Field name='id' component={SearchInputAdapter} />
         },
         {
           label: formatMessage(comicMessages.campaignId),
-          input: <Field name='campaignId' component={SearchInputAdapter} icon />
+          input: <Field name='campaignId' component={SearchInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.contentId),
-          input: <Field name='contentId' component={SearchInputAdapter} icon />
+          input: <Field name='contentId' component={SearchInputAdapter} />
         }
       ],
       right: [

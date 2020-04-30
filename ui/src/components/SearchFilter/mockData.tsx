@@ -6,7 +6,7 @@ import { Conditions } from './SearchFilter'
 
 export const mockSearchFilterData: Conditions = {
   left: [
-    { label: '作品（ID）', input: <SearchInput icon /> },
+    { label: '作品（ID）', input: <SearchInput /> },
     { label: '著者', input: <Select options={[]} /> },
     { label: '作品種別', input: <Select options={[]} /> },
     { label: '配信開始日時', input: <TimeSpanInput /> },

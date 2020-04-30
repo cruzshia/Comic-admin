@@ -8,13 +8,13 @@ import { InputProps } from './inputProps'
 import clsx from 'clsx'
 
 interface Props extends InputProps {
-  icon?: boolean
+  noIcon?: boolean
 }
 
 const useStyles = makeStyles(() => ({
-  root: ({ icon }: { icon?: boolean }) => ({
+  root: ({ noIcon }: { noIcon?: boolean }) => ({
     '& input': {
-      padding: icon ? '8px 15px 8px 0' : '8px 15px'
+      padding: noIcon ? '8px 15px' : '8px 15px 8px 0'
     },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: `1px solid ${mainColor}`,
@@ -23,9 +23,9 @@ const useStyles = makeStyles(() => ({
   })
 }))
 
-export default function SearchInput({ name, icon, onChange, onBlur, error, placeholder, value }: Props) {
+export default function SearchInput({ name, noIcon, onChange, onBlur, error, placeholder, value }: Props) {
   const { formatMessage } = useIntl()
-  const classes = useStyles({ icon })
+  const classes = useStyles({ noIcon })
 
   return (
     <>
@@ -39,7 +39,7 @@ export default function SearchInput({ name, icon, onChange, onBlur, error, place
         onBlur={onBlur}
         value={value}
         startAdornment={
-          icon && (
+          !noIcon && (
             <InputAdornment position='start' data-testid='search_icon'>
               <img src={searchImg} alt='search icon' />
             </InputAdornment>

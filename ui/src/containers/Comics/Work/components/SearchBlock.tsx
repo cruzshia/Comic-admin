@@ -16,11 +16,11 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
       left: [
         {
           label: formatMessage(messages.workId),
-          input: <Field name='workId' component={SearchInputAdapter} icon />
+          input: <Field name='workId' component={SearchInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.author),
-          input: <Field name='author' component={SearchInputAdapter} icon />
+          input: <Field name='author' component={SearchInputAdapter} />
         },
         {
           label: formatMessage(messages.category),

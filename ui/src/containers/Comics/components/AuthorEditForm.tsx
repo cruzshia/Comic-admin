@@ -35,7 +35,7 @@ export default function AuthorEditForm({ prefix, mutators }: { prefix?: string; 
               {({ input, meta }) => (
                 <>
                   <Grid className={classes.margin} container alignItems='center'>
-                    <SearchInput {...input} error={checkError(meta)} icon={true} />
+                    <SearchInput {...input} error={checkError(meta)} />
                     {idx === 0 && (
                       <Button
                         buttonText={formatMessage(comicMessages.addNewAuthor)}
