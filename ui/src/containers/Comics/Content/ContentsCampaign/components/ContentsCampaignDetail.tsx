@@ -7,11 +7,11 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import commonMessages from '@src/messages'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
+import { ScrollAnchor } from '@src/containers/Comics/utils'
 import ContentsCampaignContext from '../context/ContentsCampaignContext'
 import { BREADCRUMBS } from '../constants'
-import comicMessages from '../../messages'
+import comicMessages from '@src/containers/Comics/messages'
 import messages from '../messages'
-import { ScrollAnchor } from '../../utils'
 
 export default function ContentCampaignDetail() {
   const { currentContentCampaign } = useContext(ContentsCampaignContext)

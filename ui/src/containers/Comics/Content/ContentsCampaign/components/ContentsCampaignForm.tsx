@@ -5,9 +5,9 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import StartEndForm from '@src/components/form/StartEndForm'
 import { TextInputAdapter } from '@src/components/finalForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
-import { useComicsRef } from '../../utils'
+import { useComicsRef } from '@src/containers/Comics/utils'
 import commonMessages from '@src/messages'
-import comicMessages from '../../messages'
+import comicMessages from '@src/containers/Comics/messages'
 import messages from '../messages'
 
 interface Props {

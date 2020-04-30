@@ -3,11 +3,10 @@ import { Switch, Route } from 'react-router-dom'
 import { DndProvider } from 'react-dnd'
 import Backend from 'react-dnd-html5-backend'
 import { routePath } from '@src/common/appConfig'
-import WorksCampaign from './WorksCampaign/WorksCampaign'
+import Campaign from './Campaign/Campaign'
 import Work from './Work/Work'
 import Content from './Content/Content'
 import Author from './Author/Author'
-import ContentsCampaign from './ContentsCampaign/ContentsCampaign'
 import Subscription from './Subscription/Subscription'
 
 export default function Comics() {
@@ -16,8 +15,7 @@ export default function Comics() {
       <Switch>
         <Route path={routePath.comics.work} component={Work} />
         <Route path={routePath.comics.content} component={Content} />
-        <Route path={routePath.comics.worksCampaign} component={WorksCampaign} />
-        <Route path={routePath.comics.contentsCampaign} component={ContentsCampaign} />
+        <Route path={routePath.comics.campaign} component={Campaign} />
         <Route path={routePath.comics.author} component={Author} />
         <Route path={routePath.comics.subscription} component={Subscription} />
       </Switch>

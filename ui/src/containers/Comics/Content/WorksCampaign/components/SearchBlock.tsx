@@ -5,7 +5,7 @@ import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFil
 import { SelectAdapter } from '@src/components/finalForm'
 import TimeSpanInput from '@src/components/form/TimeSpanInput'
 import commonMessages from '@src/messages'
-import messages from '../../messages'
+import messages from '@src/containers/Comics/messages'
 
 interface Prop {
   onSubmit: (data: any) => void

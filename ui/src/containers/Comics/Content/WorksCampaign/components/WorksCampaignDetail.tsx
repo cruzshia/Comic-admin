@@ -9,13 +9,13 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import ScrollableContent from '@src/components/table/ScrollableContent'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import { _range } from '@src/utils/functions'
+import { IMAGE_NUM, ScrollAnchor } from '@src/containers/Comics/utils'
+import AdSettingTable from '@src/containers/Comics/components/AdSettingTable'
 import commonMessages from '@src/messages'
 import messages from '../messages'
-import comicMessages from '../../messages'
+import comicMessages from '@src/containers/Comics/messages'
 import worksCampaignContext from '../context/worksCampaignContext'
 import { BREADCRUMBS } from '../constants'
-import { IMAGE_NUM, ScrollAnchor } from '../../utils'
-import AdSettingTable from '../../components/AdSettingTable'
 
 const useStyles = makeStyles({
   table: {

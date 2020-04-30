@@ -11,9 +11,9 @@ import DropZone from '@src/components/DropZone'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { _range, toDataUri } from '@src/utils/functions'
 import commonMessages from '@src/messages'
-import comicMessages from '../../messages'
-import AdSettingForm from '../../components/AdSettingForm'
-import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
+import comicMessages from '@src/containers/Comics/messages'
+import AdSettingForm from '@src/containers/Comics/components/AdSettingForm'
+import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '@src/containers/Comics/utils'
 import messages from '../messages'
 
 interface Props {

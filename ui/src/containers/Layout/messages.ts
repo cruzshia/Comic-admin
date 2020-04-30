@@ -5,10 +5,6 @@ export default defineMessages({
     id: 'comics.work',
     defaultMessage: 'Comics work'
   },
-  comicsWorksCampaign: {
-    id: 'comics.works_campaign',
-    defaultMessage: 'Comics works campaign'
-  },
   comicsContent: {
     id: 'comics.content',
     defaultMessage: 'Comics content'
@@ -17,13 +13,14 @@ export default defineMessages({
     id: 'comics.author_management',
     defaultMessage: 'Comics author'
   },
-  comicsContentsCampaign: {
-    id: 'comics.contents_campaign',
-    defaultMessage: 'Comics contents campaign'
-  },
+
   comicsSubscription: {
     id: 'comics.subscription',
     defaultMessage: 'Comics Subscription'
+  },
+  campaignManagement: {
+    id: 'comics.campaign_management',
+    defaultMessage: 'Campaign Management'
   },
   menuReport: {
     id: 'header.menu.report',

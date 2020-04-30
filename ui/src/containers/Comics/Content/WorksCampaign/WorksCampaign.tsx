@@ -2,7 +2,6 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
 import WorksCampaignEdit from './components/WorksCampaignEdit'
-import WorksCampaignList from './components/WorksCampaignList'
 import WorksCampaignDetail from './components/WorksCampaignDetail'
 import WorksCampaignCreation from './components/WorksCampaignCreation'
 import WorksCampaignContext from './context/worksCampaignContext'
@@ -14,7 +13,6 @@ export default function WorksCampaign() {
       value={{ campaignList: mockCampaignList, currentCampaign: mockCampaign, campaignTotal: mockCampaignList.length }}
     >
       <Switch>
-        <Route exact path={routePath.comics.worksCampaign} component={WorksCampaignList} />
         <Route exact path={routePath.comics.worksCampaignEdit} component={WorksCampaignEdit} />
         <Route exact path={routePath.comics.worksCampaignDetail} component={WorksCampaignDetail} />
         <Route exact path={routePath.comics.worksCampaignCreation} component={WorksCampaignCreation} />

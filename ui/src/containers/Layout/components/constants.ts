@@ -75,12 +75,8 @@ export const SIDEBAR_TABS: { [key: string]: Tab[] } = {
       title: messages.comicsContent
     },
     {
-      to: routePath.comics.worksCampaign,
-      title: messages.comicsWorksCampaign
-    },
-    {
-      to: routePath.comics.contentsCampaign,
-      title: messages.comicsContentsCampaign
+      to: routePath.comics.campaign,
+      title: messages.campaignManagement
     },
     {
       to: routePath.comics.author,
