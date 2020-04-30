@@ -13,9 +13,7 @@ describe('Header components test', () => {
       title: 'comic management',
       route: '/comic/management'
     }
-    const { container, getByAltText, getByText, queryAllByTestId } = render(
-      withAllProvider(<HeaderTabItem {...fakeTab} />)
-    )
+    const { container, getByText, queryAllByTestId } = render(withAllProvider(<HeaderTabItem {...fakeTab} />))
 
     expect(container).toBeInTheDocument()
     expect(getByText(fakeTab.title)).toBeInTheDocument()

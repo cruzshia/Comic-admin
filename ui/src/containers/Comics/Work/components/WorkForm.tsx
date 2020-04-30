@@ -5,7 +5,7 @@ import arrayMutators from 'final-form-arrays'
 import { makeStyles } from '@material-ui/core'
 import DataTable from '@src/components/table/DataTable'
 import { TextInput, TextArea, Select, StartEndForm } from '@src/components/form'
-import DropZoneAdapter from '@src/components/finalForm/DropZoneAdapter'
+import { DropZoneAdapter, SelectAdapter } from '@src/components/finalForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { checkError, required } from '@src/utils/validation'
 import { emptyWork } from '@src/reducers/comics/work/workReducer'
@@ -134,6 +134,10 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                       }
                     </Field>
                   )
+                },
+                {
+                  label: formatMessage(commonMessages.subscriptionId),
+                  content: <Field name='subscriptionId' component={SelectAdapter} options={[]} />
                 }
               ]}
             />

@@ -9,7 +9,6 @@ import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as AddIcon } from '@src/assets/form/add.svg'
 import { ReactComponent as AddCircleIcon } from '@src/assets/form/add_circle.svg'
 import { checkError } from '@src/utils/validation'
-import commonMessages from '@src/messages'
 import comicMessages from '../messages'
 
 const useStyle = makeStyles({
@@ -38,7 +37,11 @@ export default function AuthorEditForm({ prefix, mutators }: { prefix?: string; 
                   <Grid className={classes.margin} container alignItems='center'>
                     <SearchInput {...input} error={checkError(meta)} icon={true} />
                     {idx === 0 && (
-                      <Button buttonText={formatMessage(commonMessages.createNew)} onClick={handleAdd} icon={AddIcon} />
+                      <Button
+                        buttonText={formatMessage(comicMessages.addNewAuthor)}
+                        onClick={handleAdd}
+                        icon={AddIcon}
+                      />
                     )}
                   </Grid>
                   <Button
