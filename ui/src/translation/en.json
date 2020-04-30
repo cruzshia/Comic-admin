@@ -316,6 +316,7 @@
   "user.inquiry.name": "Name",
   "user.inquiry.period": "Period",
   "user.inquiry.question_type": "Question Type",
+  "user.inquiry.search_by_email": "Search By Email",
   "user.list": "User List",
   "user.list.amount_of_coins_to_gift": "Amount of Coins to Gift",
   "user.list.amount_of_comment": "Amount Of Comment",

@@ -2,7 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
-import { SelectAdapter, TextInputAdapter, SearchInputAdapter } from '@src/components/finalForm'
+import { SelectAdapter, SearchInputAdapter } from '@src/components/finalForm'
 import TimeSpanInput from '@src/components/form/TimeSpanInput'
 import commonMessages from '@src/messages'
 import messages from '../messages'
@@ -17,21 +17,23 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
       },
       {
         label: formatMessage(messages.mail),
-        input: <Field name='mail' component={TextInputAdapter} />
+        input: (
+          <Field name='mail' component={SearchInputAdapter} icon placeholder={formatMessage(messages.searchByEmail)} />
+        )
       },
       {
         label: formatMessage(messages.name),
-        input: <Field name='name' component={TextInputAdapter} />
+        input: <Field name='name' component={SearchInputAdapter} icon />
       },
       {
         label: formatMessage(messages.message),
-        input: <Field name='message' component={TextInputAdapter} />
+        input: <Field name='message' component={SearchInputAdapter} icon />
       }
     ],
     right: [
       {
-        label: formatMessage(commonMessages.application),
-        input: <Field name='app' component={TextInputAdapter} />
+        label: formatMessage(commonMessages.appId),
+        input: <Field name='app' component={SelectAdapter} options={[]} />
       },
       {
         label: formatMessage(messages.questionType),

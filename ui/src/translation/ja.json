@@ -316,6 +316,7 @@
   "user.inquiry.name": "名前",
   "user.inquiry.period": "期間",
   "user.inquiry.question_type": "問い合わせ種別",
+  "user.inquiry.search_by_email": "メールアドレスで検索",
   "user.list": "ユーザー一覧",
   "user.list.amount_of_coins_to_gift": "贈答枚数を入力",
   "user.list.amount_of_comment": "コメント件数",

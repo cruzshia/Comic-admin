@@ -19,7 +19,7 @@ export default function GiftComicsCreation() {
   const buttonList = [
     <Button theme={Theme.DARK} buttonText={formatMessage(commonMessages.create)} />,
     <Button buttonText={formatMessage(userMessages.templateJIS)} icon={IconDownload} normalCase />,
-    <Button buttonText={formatMessage(userMessages.templateUTF8)} icon={IconDownload} />
+    <Button buttonText={formatMessage(commonMessages.csvImportLogs)} />
   ]
   return (
     <>
