@@ -194,7 +194,7 @@ export default function UserDetail() {
                   formatMessage(userMessages.amountOfCoins, { num: currentUser.ios.paidBonusCoins })
                 ),
                 toDataSet(formatMessage(messages.paidGiftCoins), genCoinContent('ios', 'paidGiftCoins')),
-                toDataSet(formatMessage(messages.paidGiftCoins), genCoinContent('ios', 'freeBonusCoin')),
+                toDataSet(formatMessage(messages.freeBonusCoin), genCoinContent('ios', 'freeBonusCoin')),
                 toDataSet(
                   formatMessage(messages.freeAdCoin),
                   formatMessage(userMessages.amountOfCoins, { num: currentUser.ios.freeAdCoin })
@@ -217,7 +217,7 @@ export default function UserDetail() {
                   formatMessage(userMessages.amountOfCoins, { num: currentUser.android.paidBonusCoins })
                 ),
                 toDataSet(formatMessage(messages.paidGiftCoins), genCoinContent('android', 'paidGiftCoins')),
-                toDataSet(formatMessage(messages.paidGiftCoins), genCoinContent('android', 'freeBonusCoin')),
+                toDataSet(formatMessage(messages.freeBonusCoin), genCoinContent('android', 'freeBonusCoin')),
                 toDataSet(
                   formatMessage(messages.freeAdCoin),
                   formatMessage(userMessages.amountOfCoins, { num: currentUser.android.freeAdCoin })
