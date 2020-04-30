@@ -64,10 +64,10 @@ export default function NotificationForm({ formRef, onSubmit }: Props) {
               marginBottom
             />
             <DataTable
-              title={formatMessage(commonMessages.basicInfo)}
+              title={formatMessage(messages.contentDetail)}
               dataSet={[
                 toDataSet(
-                  formatMessage(messages.contentDetail),
+                  formatMessage(messages.notificationType),
                   <Field name='application' component={SelectAdapter} options={[]} isShort />
                 ),
                 toDataSet(

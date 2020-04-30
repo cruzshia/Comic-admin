@@ -31,7 +31,7 @@ export default function NotificationDetail() {
     route
   })).concat([{ title: titleText, route: undefined }])
   const buttonList = [
-    <Button buttonText={formatMessage(messages.startCreate)} icon={IconEdit} theme={Theme.DARK_BORDER} />,
+    <Button buttonText={formatMessage(messages.startEdit)} icon={IconEdit} theme={Theme.DARK_BORDER} />,
     <Button buttonText={formatMessage(commonMessages.copy)} icon={IconCopy} />
   ]
 
