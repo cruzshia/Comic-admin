@@ -6,6 +6,7 @@ import { TextInputAdapter, SelectAdapter, TextAreaAdapter, DropZoneAdapter } fro
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import Content from '@src/models/comics/content'
+import { emptyContent } from '@src/reducers/comics/content/contentReducer'
 import { _range } from '@src/utils/functions'
 import StartEndGroupForm from './StartEndGroupForm'
 import commonMessages from '@src/messages'
@@ -47,7 +48,8 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
       <Form
         onSubmit={onFormSubmit}
         mutators={{ ...arrayMutators }}
-        initialValues={content || { author: [''] }}
+        subscription={{ pristine: true }}
+        initialValues={content || emptyContent}
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
@@ -122,7 +124,7 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
               endLabel2={formatMessage(messages.freePPVEnd, { num: 2 })}
               endName2='freePPVEnd2'
             />
-            <AdSettingForm mutators={form.mutators as any} marginBottom />
+            <AdSettingForm marginBottom />
             <DataTable
               innerRef={magazineRef}
               title={formatMessage(messages.magazineBannerSetting)}

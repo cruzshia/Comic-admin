@@ -1,5 +1,6 @@
 import Content from '@src/models/comics/content'
 import { ContentActionType } from './contentActions'
+import { defaultContentAd, defaultOpeningAd } from '../constant'
 import { ActionType } from '../../types'
 
 export interface ContentState {
@@ -9,6 +10,14 @@ export interface ContentState {
 
 const initState: ContentState = {
   contentList: []
+}
+
+export const emptyContent: Content = {
+  author: [''],
+  advertisement: {
+    contents: defaultContentAd,
+    opening: defaultOpeningAd
+  }
 }
 
 export const ContentPreloadState = initState

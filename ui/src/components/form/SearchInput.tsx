@@ -28,7 +28,7 @@ export default function SearchInput({ name, icon, onChange, onBlur, error, place
   const classes = useStyles({ icon })
 
   return (
-    <div>
+    <>
       <OutlinedInput
         name={name}
         data-testid='search_input'
@@ -51,6 +51,6 @@ export default function SearchInput({ name, icon, onChange, onBlur, error, place
           {error}
         </FormHelperText>
       )}
-    </div>
+    </>
   )
 }

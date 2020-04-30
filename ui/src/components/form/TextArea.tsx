@@ -42,7 +42,7 @@ export default function TextArea({
   const { formatMessage } = useIntl()
 
   return (
-    <div>
+    <>
       <TextField
         data-testid='text-area'
         multiline
@@ -64,6 +64,6 @@ export default function TextArea({
           {error}
         </FormHelperText>
       )}
-    </div>
+    </>
   )
 }

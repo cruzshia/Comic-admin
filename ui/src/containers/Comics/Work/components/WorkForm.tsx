@@ -60,6 +60,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
       <Form
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}
+        subscription={{ pristine: true }}
         initialValues={workData || emptyWork}
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
@@ -177,7 +178,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 ...imageDataSet
               ]}
             />
-            <AdSettingForm adSettingRef={adSettingRef} mutators={form.mutators as any} />
+            <AdSettingForm adSettingRef={adSettingRef} />
           </form>
         )}
       />

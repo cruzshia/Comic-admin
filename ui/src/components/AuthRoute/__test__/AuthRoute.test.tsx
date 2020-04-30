@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import AuthRoute from '../AuthRoute'
-import { loginSuccessAction } from '@src/reducers/user/userActions'
+import { loginSuccessAction } from '@src/reducers/user/profileActions'
 
 import { withAllProvider, store } from '@src/utils/__test__/providers'
 

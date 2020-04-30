@@ -9,7 +9,7 @@ import HeaderTabItem from '../HeaderTabItem'
 describe('Header components test', () => {
   it('check HeaderTabItem renders correctly', () => {
     const fakeTab = {
-      icon: '/static/image',
+      icon: () => null,
       title: 'comic management',
       route: '/comic/management'
     }
@@ -18,7 +18,6 @@ describe('Header components test', () => {
     )
 
     expect(container).toBeInTheDocument()
-    expect(getByAltText(fakeTab.title)).toBeInTheDocument()
     expect(getByText(fakeTab.title)).toBeInTheDocument()
     expect(queryAllByTestId('highlight_bar')).toEqual([])
     expect(container.getElementsByTagName('a')[0].getAttribute('href')).toBe('#' + fakeTab.route)
@@ -26,7 +25,7 @@ describe('Header components test', () => {
 
   it('check HeaderTabItem with HIGHLIGHT renders correctly', () => {
     const fakeTab = {
-      icon: '/static/image',
+      icon: () => null,
       title: 'comic management',
       route: '/comic/management',
       selected: true

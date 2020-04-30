@@ -30,7 +30,8 @@ describe('WorkDetail test', () => {
         buttonName: 'サンプルテキスト',
         deliveryDuration: '2020-02-20 19:00:00　〜　2020-02-20 19:00:00'
       },
-      contents: []
+      contents: [],
+      opening: []
     }
   }
 

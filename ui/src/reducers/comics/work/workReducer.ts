@@ -1,5 +1,6 @@
 import Work, { CsvLog } from '@src/models/comics/work'
 import { WorkActionType } from './workActions'
+import { defaultContentAd, defaultOpeningAd } from '../constant'
 import { ActionType } from '../../types'
 
 export interface WorkState {
@@ -13,7 +14,13 @@ const initState: WorkState = {
   importLogList: []
 }
 
-export const emptyWork: Work = { author: [''] }
+export const emptyWork: Work = {
+  author: [''],
+  advertisement: {
+    contents: defaultContentAd,
+    opening: defaultOpeningAd
+  }
+}
 
 export const WorkPreloadState = initState
 

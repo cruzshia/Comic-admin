@@ -70,5 +70,9 @@ export default defineMessages({
   addAuthor: {
     id: PREFIX + 'author_add',
     defaultMessage: 'Add Author'
+  },
+  addAds: {
+    id: PREFIX + 'add_advertisement',
+    defaultMessage: 'Add Advertisement'
   }
 })

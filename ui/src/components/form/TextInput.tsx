@@ -26,7 +26,7 @@ export default function TextInput({ name, onChange, onBlur, error, placeholder, 
   const { formatMessage } = useIntl()
   const classes = useStyles()
   return (
-    <div>
+    <>
       <OutlinedInput
         placeholder={placeholder ?? formatMessage(messages.textInput)}
         color='secondary'
@@ -42,6 +42,6 @@ export default function TextInput({ name, onChange, onBlur, error, placeholder, 
           {error}
         </FormHelperText>
       )}
-    </div>
+    </>
   )
 }

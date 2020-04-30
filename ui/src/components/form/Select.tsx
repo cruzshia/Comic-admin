@@ -54,7 +54,7 @@ export default function SelectMenu({
   }
 
   return (
-    <div>
+    <>
       <Select
         name={name}
         open={open}
@@ -82,6 +82,6 @@ export default function SelectMenu({
         ))}
       </Select>
       {error && <FormHelperText className='error'>{error}</FormHelperText>}
-    </div>
+    </>
   )
 }

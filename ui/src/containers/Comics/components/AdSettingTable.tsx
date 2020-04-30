@@ -35,7 +35,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
   })
 
   const genAdvertisementData = (data: any) => {
-    switch (data.type) {
+    switch (data.adCategory) {
       case 'original':
         return {
           label: formatMessage(commonMessages.original),
@@ -44,7 +44,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
               dataSet={[
                 {
                   label: formatMessage(commonMessages.photo),
-                  content: <img src={data.image} alt={data.image} />
+                  content: <img src={data.imageUrl} alt={data.imageUrl} />
                 },
                 genTableData('link', data),
                 genTableData('buttonName', data),
@@ -56,7 +56,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
         }
       default:
         return {
-          label: data.type,
+          label: data.adCategory,
           content: data.content
         }
     }
@@ -80,7 +80,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
       onEdit={onEdit}
       dataSet={[
         ...initialDataSet,
-        genAdvertisementData(data.content),
+        ...data.opening.map((ad: any) => genAdvertisementData(ad)),
         {
           label: '',
           content: formatMessage(commonMessages.contents),

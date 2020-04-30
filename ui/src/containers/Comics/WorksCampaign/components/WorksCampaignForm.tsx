@@ -46,7 +46,7 @@ export default function WorksCampaignForm({ onSubmit, formRef }: Props) {
       <Form
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}
-        render={({ handleSubmit, form }) => (
+        render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
@@ -109,7 +109,7 @@ export default function WorksCampaignForm({ onSubmit, formRef }: Props) {
               endLabel={formatMessage(commonMessages.endDateTime)}
               endName='endDateTime'
             />
-            <AdSettingForm adSettingRef={adSettingRef} mutators={form.mutators as any} />
+            <AdSettingForm adSettingRef={adSettingRef} />
           </form>
         )}
       />

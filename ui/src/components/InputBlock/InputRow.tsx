@@ -34,7 +34,7 @@ export default function InputRow({ title, classnames, alignItems, children }: Pr
       <Typography className={classes.label} variant='body1'>
         {title}
       </Typography>
-      <Box fontWeight='normal' display='flex'>
+      <Box fontWeight='normal' display='flex' flexGrow={1}>
         {children}
       </Box>
     </Grid>

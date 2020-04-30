@@ -42,10 +42,10 @@ export default function ContentEdit() {
     [formatMessage]
   )
 
-  return (
+  return currentContent.id ? (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <ContentForm onFormSubmit={onUpdateContent} content={currentContent} formRef={formRef} />
     </>
-  )
+  ) : null
 }
