@@ -7,6 +7,7 @@ export const mockQuestionnaire = {
   deliverEnd: '2019-12-25 00:00',
   category: 'アンケート',
   content: 'サンプル',
+  contentName: 'サンプル',
   answerReward: 100,
   externalUrl: 'https://webview.shonenjump.com/top/survey/wj/2012/header.jpg',
   bannerUrl: 'https://webview.shonenjump.com/top/survey/wj/2012/header.jpg',

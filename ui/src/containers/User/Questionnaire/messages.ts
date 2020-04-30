@@ -17,7 +17,7 @@ export default defineMessages({
   },
   id: {
     id: PREFIX + 'id',
-    defaultMessage: 'Questionnaire ID'
+    defaultMessage: 'Questionnaire (ID)'
   },
   name: {
     id: PREFIX + 'name',
@@ -122,5 +122,9 @@ export default defineMessages({
   answerRequirement: {
     id: PREFIX + 'answer_requirement',
     defaultMessage: 'Answer Requirement'
+  },
+  contentId: {
+    id: PREFIX + 'content_id',
+    defaultMessage: 'Content (ID)'
   }
 })

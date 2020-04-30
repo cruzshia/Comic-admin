@@ -259,6 +259,10 @@ export default defineMessages({
     id: PREFIX + 'csv_file',
     defaultMessage: 'Csv File'
   },
+  contentName: {
+    id: PREFIX + 'content_name',
+    defaultMessage: 'Content Name'
+  },
   subscriptionId: {
     id: PREFIX + 'subscription_id',
     defaultMessage: 'Subscription ID'
