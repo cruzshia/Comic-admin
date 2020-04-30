@@ -64,7 +64,7 @@ export default function CommentTable({ comment, isEdit }: { comment: any; isEdit
           content: comment.likes
         },
         {
-          label: formatMessage(messages.report),
+          label: formatMessage(messages.reportCount),
           content: comment.report
         },
         {

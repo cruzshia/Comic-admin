@@ -46,7 +46,7 @@ export default function TimeSpanInput({ name = '', isRequired }: { name?: string
           />
         )}
       </Field>
-      <span className={classes.separator}>~</span>
+      <span className={classes.separator}>～</span>
       <Field name={nameEnd} validate={isRequired ? required : undefined}>
         {({ input }) => (
           <OutlinedInput

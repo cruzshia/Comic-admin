@@ -4,7 +4,6 @@ import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
 import { SelectAdapter, TextInputAdapter, SearchInputAdapter } from '@src/components/finalForm'
 import { TimeSpanInput } from '@src/components/form'
-import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
 
@@ -13,7 +12,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
   const conditions: Conditions = {
     left: [
       {
-        label: formatMessage(commonMessages.contents),
+        label: formatMessage(messages.contentId),
         input: <Field name='contents' component={SearchInputAdapter} icon />
       },
       {

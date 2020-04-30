@@ -11,13 +11,21 @@ export default defineMessages({
     id: PREFIX + '.content',
     defaultMessage: 'Content'
   },
+  contentId: {
+    id: PREFIX + '.content_id',
+    defaultMessage: 'Content(ID)'
+  },
   likes: {
     id: PREFIX + '.likes',
     defaultMessage: 'Likes'
   },
+  reportCount: {
+    id: PREFIX + '.report_count',
+    defaultMessage: 'Report Count'
+  },
   report: {
     id: PREFIX + '.report',
-    defaultMessage: 'Report Count'
+    defaultMessage: 'Report'
   },
   detail: {
     id: PREFIX + '.detail',
@@ -38,5 +46,9 @@ export default defineMessages({
   period: {
     id: PREFIX + '.period',
     defaultMessage: 'Period'
+  },
+  commentEdit: {
+    id: PREFIX + '.comment_edit',
+    defaultMessage: 'Comment Edit'
   }
 })

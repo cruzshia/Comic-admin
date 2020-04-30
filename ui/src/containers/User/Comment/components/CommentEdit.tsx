@@ -3,11 +3,13 @@ import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import { Form } from 'react-final-form'
 import ActionButton, { Theme } from '@src/components/Button/ActionButton'
+import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
+import { submitForm } from '@src/utils/validation'
 import commonMessages from '@src/messages'
 import CommentContext, { ActionContext } from '../context/CommentContext'
-import CommonHeader from './CommonHeader'
 import CommentTable from './CommentTable'
-import { submitForm } from '@src/utils/validation'
+import { COMMENT_BREADCRUMBS } from '../utils'
+import messages from '../messages'
 
 export default function CommentEdit() {
   const { currentComment = {} } = useContext(CommentContext)
@@ -20,6 +22,11 @@ export default function CommentEdit() {
     onGetComment(id!)
   }, [onGetComment, id])
 
+  const titleText = formatMessage(messages.commentEdit)
+  const breadcrumbList: Breadcrumb[] = COMMENT_BREADCRUMBS.map(({ title, route }) => ({
+    title: formatMessage(title),
+    route: route
+  })).concat([{ title: titleText, route: undefined }])
   const buttonList = useMemo(
     () => [
       <ActionButton
@@ -38,7 +45,7 @@ export default function CommentEdit() {
   }
   return (
     <>
-      <CommonHeader buttonList={buttonList} />
+      <ContentHeader breadcrumbList={breadcrumbList} buttonList={buttonList} titleText={titleText} />
       <Form
         onSubmit={values => {
           onUpdateComment(values)
