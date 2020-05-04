@@ -1,12 +1,22 @@
 import { createContext } from 'react'
+import worksCampaign from '@src/models/comics/worksCampaign'
 
 interface WorksCampaignContext {
-  campaignList: any[]
   currentCampaign?: any
-  campaignTotal: number
 }
 
-export default createContext<WorksCampaignContext>({
-  campaignList: [],
-  campaignTotal: 0
+export default createContext<WorksCampaignContext>({})
+
+interface ActionContext {
+  onGetWorksCampaign: (campaignId: string) => void
+  onCreateWorksCampaign: (campaign: worksCampaign) => void
+  onUpdateWorksCampaign: (campaign: worksCampaign) => void
+  onResetWorksCampaign: () => void
+}
+
+export const ActionContext = createContext<ActionContext>({
+  onGetWorksCampaign: () => {},
+  onCreateWorksCampaign: () => {},
+  onUpdateWorksCampaign: () => {},
+  onResetWorksCampaign: () => {}
 })

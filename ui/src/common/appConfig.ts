@@ -28,6 +28,7 @@ export const routePath = {
     contentImportLogs: `${RouteSection.Comics}/content/import_logs`,
     campaign: `${RouteSection.Comics}/campaign`,
     campaignCreation: `${RouteSection.Comics}/campaign/creation`,
+    worksCampaign: `${RouteSection.Comics}/campaign/work`,
     worksCampaignEdit: `${RouteSection.Comics}/campaign/work/edit/:id`,
     worksCampaignDetail: `${RouteSection.Comics}/campaign/work/detail/:id`,
     worksCampaignCreation: `${RouteSection.Comics}/campaign/work/creation`,

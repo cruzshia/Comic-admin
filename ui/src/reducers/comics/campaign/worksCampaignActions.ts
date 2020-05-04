@@ -44,3 +44,7 @@ export const updateWorksCampaignSuccessAction = (campaign: WorksCampaign) => ({
   type: WorksCampaignActionType.UPDATE_SUCCESS,
   payload: campaign
 })
+
+export const resetWorksCampaignAction = () => ({
+  type: WorksCampaignActionType.RESET_CAMPAIGN
+})

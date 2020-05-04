@@ -1,13 +1,20 @@
 import WorksCampaign from '@src/models/comics/worksCampaign'
 import { WorksCampaignActionType } from './worksCampaignActions'
+import { defaultContentAd, defaultOpeningAd } from '../constant'
 import { ActionType } from '../../types'
 
 export interface WorksCampaignState {
   currentCampaign?: WorksCampaign
 }
 
-const initState: WorksCampaignState = {}
+export const emptyWorksCampaign: WorksCampaign = {
+  advertisement: {
+    contents: defaultContentAd,
+    opening: defaultOpeningAd
+  }
+}
 
+const initState: WorksCampaignState = {}
 export const WorksCampaignPreloadState = initState
 
 const updateCurrentCampaignHandler = (state: WorksCampaignState, action: ActionType<any>): WorksCampaignState => ({

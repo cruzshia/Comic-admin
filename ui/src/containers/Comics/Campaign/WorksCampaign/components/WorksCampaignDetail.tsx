@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useContext } from 'react'
+import React, { useCallback, useMemo, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -14,7 +14,7 @@ import AdSettingTable from '@src/containers/Comics/components/AdSettingTable'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import comicMessages from '@src/containers/Comics/messages'
-import worksCampaignContext from '../context/worksCampaignContext'
+import WorksCampaignContext, { ActionContext } from '../context/worksCampaignContext'
 import { BREADCRUMBS } from '../constants'
 
 const useStyles = makeStyles({
@@ -27,10 +27,16 @@ const useStyles = makeStyles({
 export default function WorksCampaignDetail() {
   const { formatMessage } = useIntl()
   const classes = useStyles()
-  const { currentCampaign: campaign } = useContext(worksCampaignContext)
+  const { currentCampaign: campaign = {} } = useContext(WorksCampaignContext)
+  const { onGetWorksCampaign, onResetWorksCampaign } = useContext(ActionContext)
   const history = useHistory()
   const { id } = useParams()
   const titleText = formatMessage(messages.detail)
+
+  useEffect(() => {
+    onGetWorksCampaign(id!)
+    return () => onResetWorksCampaign()
+  }, [id, onGetWorksCampaign, onResetWorksCampaign])
 
   const handleRedirect = useCallback(
     (target?: ScrollAnchor) => () =>
@@ -40,6 +46,9 @@ export default function WorksCampaignDetail() {
     [history, id]
   )
   const handleEdit = useMemo(() => handleRedirect(), [handleRedirect])
+  const handleEditEpisode = useMemo(() => handleRedirect(ScrollAnchor.EpisodeInfo), [handleRedirect])
+  const handleEditDelivery = useMemo(() => handleRedirect(ScrollAnchor.Delivery), [handleRedirect])
+  const handleEditAdSetting = useMemo(() => handleRedirect(ScrollAnchor.AdSetting), [handleRedirect])
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
@@ -57,7 +66,7 @@ export default function WorksCampaignDetail() {
     [formatMessage, handleEdit]
   )
 
-  return (
+  return campaign.campaignId ? (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
@@ -81,7 +90,7 @@ export default function WorksCampaignDetail() {
       <DataTable
         title={formatMessage(commonMessages.episodeInfo)}
         tableClass={classes.table}
-        onEdit={useMemo(() => handleRedirect(ScrollAnchor.EpisodeInfo), [handleRedirect])}
+        onEdit={handleEditEpisode}
         dataSet={[
           ..._range(0, IMAGE_NUM).map(i => {
             const img = campaign.images[i]
@@ -95,16 +104,13 @@ export default function WorksCampaignDetail() {
       <DataTable
         title={formatMessage(commonMessages.deliveryDuration)}
         tableClass={classes.table}
-        onEdit={useMemo(() => handleRedirect(ScrollAnchor.Delivery), [handleRedirect])}
+        onEdit={handleEditDelivery}
         dataSet={[
           toDataSet(formatMessage(commonMessages.startDateTime), campaign.startDateTime),
           toDataSet(formatMessage(commonMessages.endDateTime), campaign.endDateTime)
         ]}
       />
-      <AdSettingTable
-        data={campaign.advertisement}
-        onEdit={useMemo(() => handleRedirect(ScrollAnchor.AdSetting), [handleRedirect])}
-      />
+      <AdSettingTable data={campaign.advertisement} onEdit={handleEditAdSetting} />
     </>
-  )
+  ) : null
 }

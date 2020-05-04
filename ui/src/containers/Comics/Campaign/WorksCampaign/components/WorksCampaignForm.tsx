@@ -1,7 +1,6 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
-import arrayMutators from 'final-form-arrays'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core'
 import DataTable from '@src/components/table/DataTable'
@@ -10,15 +9,18 @@ import StartEndForm from '@src/components/form/StartEndForm'
 import DropZone from '@src/components/DropZone'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { _range, toDataUri } from '@src/utils/functions'
+import worksCampaign from '@src/models/comics/worksCampaign'
 import commonMessages from '@src/messages'
 import comicMessages from '@src/containers/Comics/messages'
 import AdSettingForm from '@src/containers/Comics/components/AdSettingForm'
 import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '@src/containers/Comics/utils'
+import { emptyWorksCampaign } from '@src/reducers/comics/campaign/worksCampaignReducer'
 import messages from '../messages'
 
 interface Props {
   onSubmit: (data: any) => void
   formRef?: React.RefObject<HTMLFormElement> | null
+  worksCampaign?: worksCampaign
 }
 
 const useStyle = makeStyles({
@@ -35,7 +37,7 @@ const useStyle = makeStyles({
   }
 })
 
-export default function WorksCampaignForm({ onSubmit, formRef }: Props) {
+export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const { allAnchorRefs, deliveryRef, adSettingRef, episodeInfoRef } = useComicsRef()
@@ -45,7 +47,7 @@ export default function WorksCampaignForm({ onSubmit, formRef }: Props) {
       <ScrollTo anchorRef={allAnchorRefs} withStickHeader />
       <Form
         onSubmit={onSubmit}
-        mutators={{ ...arrayMutators }}
+        initialValues={worksCampaign || emptyWorksCampaign}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable

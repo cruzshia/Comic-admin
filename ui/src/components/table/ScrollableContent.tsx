@@ -4,8 +4,8 @@ import { borderColorLight, backgroundColorLightGray } from '@src/common/styles'
 
 const useStyle = makeStyles(() => ({
   scrollBox: {
-    maxWidth: '100%',
-    width: ({ width }: Prop) => width || 800,
+    maxWidth: 800,
+    width: ({ width }: Prop) => width || '100%',
     height: ({ height }: Prop) => height || 188,
     padding: '10px 15px',
     backgroundColor: backgroundColorLightGray,

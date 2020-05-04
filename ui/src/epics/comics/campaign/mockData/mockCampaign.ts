@@ -8,7 +8,7 @@ import mockCover7 from './mockCover7.png'
 import mockManga from './manga.png'
 
 export const mockCampaign = {
-  id: 'WORK_SHUNKAN10000006',
+  campaignId: 'WORK_SHUNKAN10000006',
   workId: 'WORK_SHUNKAN10000006',
   appId: 'サンプルテキスト',
   priority: 'サンプルテキスト',
@@ -35,25 +35,27 @@ export const mockCampaign = {
   images: [mockCover1, mockCover2, mockCover3, mockCover4, mockCover5, mockCover6, mockCover7],
   advertisement: {
     deviceCategory: 'common',
-    content: {
-      type: 'original',
-      image: mockManga,
-      link: 'https://shonenjumpplus.com/episode/10834108156758729535',
-      buttonName: 'サンプルテキスト',
-      deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00'
-    },
+    opening: [
+      {
+        adCategory: 'original',
+        imageUrl: mockManga,
+        link: 'https://shonenjumpplus.com/episode/10834108156758729535',
+        buttonName: 'サンプルテキスト',
+        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00'
+      }
+    ],
     contents: [
       {
-        type: 'Admob（FAN）',
+        adCategory: 'admob',
         content: '表示位置情報のみ'
       },
       {
-        type: 'MAP',
+        adCategory: 'map',
         content: '表示位置情報のみ'
       },
       {
-        type: 'original',
-        image: mockManga,
+        adCategory: 'original',
+        imageUrl: mockManga,
         link: 'https://shonenjumpplus.com/episode/10834108156758729535',
         buttonName: 'サンプルテキスト',
         deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00'
