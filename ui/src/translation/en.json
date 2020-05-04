@@ -180,6 +180,7 @@
   "common.approved": "Approved",
   "common.author": "Author",
   "common.author_create_start": "Create Author",
+  "common.author_id": "Author (ID)",
   "common.author_name": "Author Name",
   "common.author_name_kana": "Author Name(kana)",
   "common.basic_info": "Basic Information",

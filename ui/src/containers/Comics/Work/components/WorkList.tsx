@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
-import { ReactComponent as IconPublish } from '@src/assets/common/publish.svg'
+import { ReactComponent as IconDownload } from '@src/assets/common/download.svg'
 import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
@@ -78,12 +78,13 @@ export default function WorkList() {
       }
     }))
     .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
+
   const tableButtonList = useMemo(
     () => [
       <Button
         theme={Theme.LIGHT}
         buttonText={formatMessage(commonMessages.csvExport)}
-        icon={IconPublish}
+        icon={IconDownload}
         onClick={() => history.push(routePath.comics.workExport)}
       />
     ],
