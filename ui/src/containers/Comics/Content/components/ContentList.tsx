@@ -7,7 +7,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import { ReactComponent as IconSave } from '@src/assets/form/button_save.svg'
-import { ReactComponent as IconPublish } from '@src/assets/common/publish.svg'
+import { ReactComponent as IconDownload } from '@src/assets/common/download.svg'
 import { routePath } from '@src/common/appConfig'
 import useSort from '@src/hooks/useSort'
 import usePaging from '@src/hooks/usePaging'
@@ -59,6 +59,12 @@ export default function ContentList() {
         icon={IconSave}
         buttonText={formatMessage(commonMessages.csvImport)}
         onClick={() => {}}
+      />,
+      <Button
+        buttonText={formatMessage(commonMessages.csvImportLogs)}
+        onClick={() => {
+          history.push(routePath.comics.contentImportLogs)
+        }}
       />
     ],
     [formatMessage, history]
@@ -95,7 +101,7 @@ export default function ContentList() {
       <Button
         theme={Theme.LIGHT}
         buttonText={formatMessage(commonMessages.csvExport)}
-        icon={IconPublish}
+        icon={IconDownload}
         onClick={() => {}}
       />
     ],

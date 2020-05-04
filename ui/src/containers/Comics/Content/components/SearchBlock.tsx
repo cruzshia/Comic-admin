@@ -19,10 +19,6 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
           input: <Field name='contentId' component={SearchInputAdapter} />
         },
         {
-          label: formatMessage(commonMessages.contentName),
-          input: <Field name='name' component={SearchInputAdapter} />
-        },
-        {
           label: formatMessage(commonMessages.author),
           input: <Field name='author' component={SelectAdapter} options={[]} />
         },
@@ -56,5 +52,5 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     }),
     [formatMessage]
   )
-  return <SearchFilter conditions={conditions} onSubmit={onSubmit} />
+  return <SearchFilter conditions={conditions} onSubmit={onSubmit} disableExpand />
 }

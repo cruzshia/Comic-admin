@@ -13,6 +13,7 @@ import ContentCreation from './components/ContentCreation'
 import ContentEdit from './components/ContentEdit'
 import ContentDetail from './components/ContentDetail'
 import ContentList from './components/ContentList'
+import ContentImportLogs from './components/ContentImportLogs'
 import ContentModel from '@src/models/comics/content'
 import ContentContext, { ActionContext } from './context/ContentContext'
 
@@ -39,6 +40,7 @@ export default function Content() {
           <Route exact path={routePath.comics.contentEdit} component={ContentEdit} />
           <Route exact path={routePath.comics.contentDetail} component={ContentDetail} />
           <Route exact path={routePath.comics.content} component={ContentList} />
+          <Route exact path={routePath.comics.contentImportLogs} component={ContentImportLogs} />
         </Switch>
       </ContentContext.Provider>
     </ActionContext.Provider>
