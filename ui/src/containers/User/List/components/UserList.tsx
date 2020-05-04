@@ -5,15 +5,15 @@ import { makeStyles } from '@material-ui/core'
 import { routePath } from '@src/common/appConfig'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import ListTable from '@src/components/table/ListTable'
-import Button from '@src/components/Button/Button'
-import useSort from '@src/hooks/useSort'
-import usePaging from '@src/hooks/usePaging'
+import Button, { Theme } from '@src/components/Button/Button'
+import { useSort, usePaging } from '@src/hooks'
+import { ReactComponent as SaveIcon } from '@src/assets/form/button_save.svg'
+import { ReactComponent as DownloadIcon } from '@src/assets/common/download.svg'
+import { backgroundColorGray } from '@src/common/styles'
 import UserContext, { ActionContext } from '../context/UserContext'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS, ListTableProp } from '../constants'
 import { toListTableData } from '../../utils'
-import { ReactComponent as PublishIco } from '@src/assets/common/publish.svg'
-import { backgroundColorGray } from '@src/common/styles'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
@@ -54,13 +54,18 @@ export default function UserList() {
   const handleSearch = useCallback((data: any) => {}, [])
 
   const buttonList = [
-    <Button buttonText={formatMessage(commonMessages.csvExport)} icon={PublishIco} />,
+    <Button buttonText={formatMessage(commonMessages.csvImport)} theme={Theme.DARK_BORDER} icon={SaveIcon} />,
+    <Button buttonText={formatMessage(commonMessages.csvImportLogs)} />
+  ]
+
+  const tableButtonList = [
     <Button
       buttonText={formatMessage(commonMessages.csvExportLogs)}
       onClick={() => {
         history.push(routePath.user.userExportLogs)
       }}
-    />
+    />,
+    <Button buttonText={formatMessage(commonMessages.csvExport)} icon={DownloadIcon} />
   ]
   const theadList = useMemo(
     () => [
@@ -97,13 +102,13 @@ export default function UserList() {
 
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <SearchBlock onSubmit={handleSearch} />
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
         onPageChange={handlePageChange}
-        buttonList={buttonList}
+        buttonList={tableButtonList}
         dataList={displayData}
         pagination={pagination}
         sortOrder={sortBy.order}

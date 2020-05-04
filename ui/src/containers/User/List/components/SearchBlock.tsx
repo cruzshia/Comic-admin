@@ -2,11 +2,12 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
-import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
+import { SelectAdapter } from '@src/components/finalForm'
 import SearchInputAdapter from '@src/components/finalForm/SearchInputAdapter'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
+import { TimeSpanInput } from '@src/components/form'
 
 export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => void }) {
   const { formatMessage } = useIntl()
@@ -14,7 +15,13 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     left: [
       {
         label: formatMessage(commonMessages.email),
-        input: <Field name='emailAddress' component={TextInputAdapter} />
+        input: (
+          <Field
+            name='emailAddress'
+            component={SearchInputAdapter}
+            placeholder={formatMessage(commonMessages.searchByEmail)}
+          />
+        )
       },
       {
         label: formatMessage(messages.nickName),
@@ -22,7 +29,13 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
       },
       {
         label: formatMessage(userMessages.userId),
-        input: <Field name='userId' component={TextInputAdapter} />
+        input: (
+          <Field name='userId' component={SearchInputAdapter} placeholder={formatMessage(commonMessages.searchById)} />
+        )
+      },
+      {
+        label: formatMessage(userMessages.status),
+        input: <Field name='status' component={SelectAdapter} options={[]} isShort />
       }
     ],
     right: [
@@ -31,11 +44,15 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         input: <Field name='commentAuthority' component={SelectAdapter} options={[]} isShort />
       },
       {
-        label: formatMessage(userMessages.status),
-        input: <Field name='status' component={SelectAdapter} options={[]} isShort />
+        label: formatMessage(commonMessages.createDateTime),
+        input: <TimeSpanInput name='createAt' />
+      },
+      {
+        label: formatMessage(messages.lastLoginTime),
+        input: <TimeSpanInput name='latestLogIn' />
       }
     ]
   }
 
-  return <SearchFilter onSubmit={onSubmit} conditions={conditions} />
+  return <SearchFilter onSubmit={onSubmit} conditions={conditions} disableExpand />
 }
