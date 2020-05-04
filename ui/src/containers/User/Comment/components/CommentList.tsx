@@ -7,7 +7,7 @@ import ListTable, { Padding } from '@src/components/table/ListTable'
 import Button from '@src/components/Button/Button'
 import { StyledCheckBox } from '@src/components/form'
 import { routePath } from '@src/common/appConfig'
-import { ReactComponent as PublishIco } from '@src/assets/common/publish.svg'
+import { ReactComponent as DownloadIco } from '@src/assets/common/download.svg'
 import { ReactComponent as DeleteIco } from '@src/assets/common/delete.svg'
 import { ReactComponent as UserIco } from '@src/assets/common/user.svg'
 import { useSort, usePaging, useCheckbox } from '@src/hooks'
@@ -102,9 +102,9 @@ export default function CommentList() {
   const buttonList = useMemo(
     () =>
       Object.keys(checkedList).length === 0
-        ? [<Button buttonText={formatMessage(commonMessages.csvExport)} icon={PublishIco} />]
+        ? [<Button buttonText={formatMessage(commonMessages.csvExport)} icon={DownloadIco} />]
         : [
-            <Button buttonText={formatMessage(commonMessages.csvExport)} icon={PublishIco} />,
+            <Button buttonText={formatMessage(commonMessages.csvExport)} icon={DownloadIco} />,
             <Button
               buttonText={formatMessage(commonMessages.delete)}
               icon={DeleteIco}
