@@ -7,10 +7,6 @@ export default defineMessages({
     id: PREFIX + 'list',
     defaultMessage: 'Works Campaign List'
   },
-  comicsWorksCampaign: {
-    id: 'comics.works_campaign',
-    defaultMessage: 'Comics works campaign'
-  },
   creation: {
     id: PREFIX + 'works_campaign_creation',
     defaultMessage: 'Works Campaign Creation'

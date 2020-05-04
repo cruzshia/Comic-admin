@@ -109,14 +109,12 @@ export default function SearchFilter({ onSubmit, conditions, formRef, disableExp
     [isExpand, classes.item]
   )
   const handleExpand = useCallback(() => setIsExpand(isExpand => !isExpand), [setIsExpand])
+  const formValidation = (values: object) => ({
+    [FORM_ERROR]: !Object.values(values).some((val: string | number) => String(val).trim() !== '')
+      ? 'Empty input'
+      : undefined
+  })
 
-  const formValidation = (values: object) => {
-    const errors: { [key: string]: any } = {}
-    if (!Object.values(values).find((val: string) => val.trim() !== '')) {
-      errors[FORM_ERROR] = 'Empty input'
-    }
-    return errors
-  }
   return (
     <div data-testid='search_filter'>
       <Form
