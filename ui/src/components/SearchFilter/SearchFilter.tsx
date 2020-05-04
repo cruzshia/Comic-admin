@@ -151,7 +151,7 @@ export default function SearchFilter({ onSubmit, conditions, formRef, disableExp
                 )}
               </Paper>
             </Grid>
-            <Grid container justify='space-between' className={classes.buttons}>
+            <Grid container justify='space-between' className={classes.buttons} data-testid='search-filter-buttons'>
               <ActionButton
                 theme={ButtonTheme.DARK}
                 buttonText={formatMessage(messages.search)}

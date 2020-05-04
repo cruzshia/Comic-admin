@@ -66,7 +66,7 @@ export default function ContentHeader({ breadcrumbList, titleText, buttonList: B
             {titleText}
           </Typography>
         </Grid>
-        <Grid item container direction='row-reverse'>
+        <Grid item container direction='row-reverse' data-testid='content-header-buttons'>
           {ButtonList && ButtonList.map((btn, idx) => <React.Fragment key={idx}>{btn}</React.Fragment>)}
         </Grid>
       </Grid>
