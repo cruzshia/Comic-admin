@@ -25,4 +25,20 @@ context('Headers', () => {
       })
     })
   })
+
+  it('header tab renders right style', () => {
+    cy.findAllByTestId('header-tab').then($tabs => {
+      $tabs.each((idx, $tab) => {
+        // TODO: remove the condition while レポート and システム are implemented
+        if (idx < 3) {
+          cy.wrap($tab)
+            .click()
+            .and('have.css', 'color', 'rgb(255, 255, 255)')
+          cy.findByTestId('highlight_bar')
+            .parent()
+            .should('have', $tab)
+        }
+      })
+    })
+  })
 })

@@ -62,6 +62,7 @@ export default function SideBar() {
         {SIDEBAR_TABS[`/${headTab}`]?.map(({ to, title }) => (
           <Link to={to} key={to}>
             <ListItem
+              data-testid='sidebar-tab'
               button
               className={clsx(classes.listItem, {
                 selected: matchTab === to.match(/\/\w+\/\w+/gi)![0]
