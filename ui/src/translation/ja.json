@@ -234,6 +234,7 @@
   "common.release_end_time": "公開終了日時",
   "common.release_start_time": "公開開始日時",
   "common.schedule": "スケジュール",
+  "common.scheduled_date_time": "予約日時",
   "common.search_by_email": "メールアドレスで検索",
   "common.search_by_id": "IDで検索",
   "common.select_file": "ファイルを選択する",

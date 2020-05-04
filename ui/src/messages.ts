@@ -286,5 +286,9 @@ export default defineMessages({
   authorId: {
     id: PREFIX + 'author_id',
     defaultMessage: 'Author (ID)'
+  },
+  scheduledDateTime: {
+    id: PREFIX + 'scheduled_date_time',
+    defaultMessage: 'Scheduled Date Time'
   }
 })

@@ -14,14 +14,14 @@ import WorkContext, { ActionContext } from '../context/WorkContext'
 const useStyle = makeStyles({
   table: {
     marginTop: '-55px',
-    '& .ListTable-col-3': {
-      width: '23%'
-    },
-    '& .ListTable-col-4': {
-      width: 70
+    '& .ListTable-col-1, .ListTable-col-2,.ListTable-col-3,.ListTable-col-4': {
+      width: '12%'
     },
     '& .ListTable-col-5': {
-      width: '44%'
+      width: '23%'
+    },
+    '& .ListTable-col-6': {
+      width: 70
     },
     '& .download-icon': {
       marginLeft: '5px'
@@ -65,6 +65,8 @@ export default function WorkImportLogs() {
         label: formatMessage(commonMessages.createDateTime),
         onSort: () => setSortOrder(sortOrder => (sortOrder === SortOrder.Asc ? SortOrder.Desc : SortOrder.Asc))
       },
+      { id: 'scheduledAt', label: formatMessage(commonMessages.scheduledDateTime) },
+      { id: 'startAt', label: formatMessage(commonMessages.startDateTime) },
       { id: 'updateAt', label: formatMessage(commonMessages.updateDateTime) },
       { id: 'filename', label: formatMessage(commonMessages.filename) },
       { id: 'status', label: formatMessage(commonMessages.status) },
@@ -78,6 +80,8 @@ export default function WorkImportLogs() {
       id: log.id,
       data: {
         createAt: log.createAt,
+        scheduledAt: log.scheduledAt,
+        startAt: log.startAt,
         updateAt: log.updateAt,
         filename: (
           <Grid container alignItems='center'>

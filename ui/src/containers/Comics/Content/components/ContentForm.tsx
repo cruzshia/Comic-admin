@@ -61,6 +61,10 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
               dataSet={[
+                toDataSet(
+                  formatMessage(commonMessages.contentId),
+                  <Field name='contentsId' component={TextInputAdapter} />
+                ),
                 toDataSet(formatMessage(commonMessages.title), <Field name='title' component={TextInputAdapter} />),
                 toDataSet(formatMessage(messages.titleKana), <Field name='titleKana' component={TextInputAdapter} />),
                 toDataSet(
