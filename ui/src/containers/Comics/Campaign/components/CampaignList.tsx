@@ -63,8 +63,8 @@ export default function CampaignList() {
   )
 
   const dataList = campaignList
-    .map(({ id, ...campaign }) => ({
-      id,
+    .map(({ campaignId, ...campaign }) => ({
+      id: campaignId,
       data: {
         ...campaign,
         spacer: ''
@@ -84,7 +84,7 @@ export default function CampaignList() {
         onPageChange={handlePageChange}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
-        onRowClick={useCallback((id: string) => history.push(routePath.comics.contentDetail.replace(':id', id!)), [
+        onRowClick={useCallback((id: string) => history.push(routePath.comics.campaignDetail.replace(':id', id!)), [
           history
         ])}
       />

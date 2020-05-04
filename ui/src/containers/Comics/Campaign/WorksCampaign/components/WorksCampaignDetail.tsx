@@ -74,7 +74,7 @@ export default function WorksCampaignDetail() {
         tableClass={classes.table}
         onEdit={handleEdit}
         dataSet={[
-          toDataSet(formatMessage(comicMessages.campaignId), campaign.id),
+          toDataSet(formatMessage(comicMessages.campaignId), campaign.campaignId),
           toDataSet(formatMessage(comicMessages.workId), campaign.workId),
           toDataSet(formatMessage(commonMessages.appId), campaign.appId),
           toDataSet(formatMessage(comicMessages.priority), campaign.priority),
