@@ -33,9 +33,9 @@ export const getAuthorAction = (authorId: string) => ({
   payload: authorId
 })
 
-export const getAuthorSuccessAction = (authorId: string) => ({
+export const getAuthorSuccessAction = (author: Author) => ({
   type: AuthorActionType.GET_AUTHOR_SUCCESS,
-  payload: authorId
+  payload: author
 })
 
 export const resetAuthorAction = () => ({

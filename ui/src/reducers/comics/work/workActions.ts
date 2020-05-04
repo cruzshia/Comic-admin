@@ -40,9 +40,9 @@ export const getWorkAction = (workId: string) => ({
   payload: workId
 })
 
-export const getWorkSuccessAction = (workId: string) => ({
+export const getWorkSuccessAction = (work: Work) => ({
   type: WorkActionType.GET_WORK_SUCCESS,
-  payload: workId
+  payload: work
 })
 
 export const createWorkAction = (work: Work) => ({

@@ -32,9 +32,9 @@ export const getContentAction = (contentId: string) => ({
   payload: contentId
 })
 
-export const getContentSuccessAction = (contentId: string) => ({
+export const getContentSuccessAction = (content: Content) => ({
   type: ContentActionType.GET_CONTENT_SUCCESS,
-  payload: contentId
+  payload: content
 })
 
 export const createContentAction = (content: Content) => ({

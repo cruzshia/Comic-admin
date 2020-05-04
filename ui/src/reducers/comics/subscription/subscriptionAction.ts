@@ -33,9 +33,9 @@ export const getSubscriptionAction = (subscriptionId: string) => ({
   payload: subscriptionId
 })
 
-export const getSubscriptionSuccessAction = (subscriptionId: string) => ({
+export const getSubscriptionSuccessAction = (subscription: Subscription) => ({
   type: SubscriptionActionType.GET_SUBSCRIPTION_SUCCESS,
-  payload: subscriptionId
+  payload: subscription
 })
 
 export const createSubscriptionAction = (subscription: Subscription) => ({

@@ -3,6 +3,10 @@ import profileReducer, { ProfileState, ProfilePreloadState } from './user/profil
 import workReducer, { WorkState, WorkPreloadState } from './comics/work/workReducer'
 import contentReducer, { ContentState, ContentPreloadState } from './comics/content/contentReducer'
 import authorReducer, { AuthorState, AuthorPreloadState } from './comics/author/authorReducer'
+import worksCampaignReducer, {
+  WorksCampaignState,
+  WorksCampaignPreloadState
+} from './comics/campaign/worksCampaignReducer'
 import subscriptionReducer, {
   SubscriptionState,
   SubscriptionPreloadState
@@ -41,6 +45,7 @@ export interface StoreState {
   content: ContentState
   author: AuthorState
   subscription: SubscriptionState
+  worksCampaign: WorksCampaignState
 
   displaySetting: DisplaySettingState
   coinProduct: CoinProductState
@@ -60,6 +65,7 @@ export const storePreloadState: StoreState = {
   content: ContentPreloadState,
   author: AuthorPreloadState,
   subscription: SubscriptionPreloadState,
+  worksCampaign: WorksCampaignPreloadState,
 
   displaySetting: DisplaySettingPreloadState,
   coinProduct: CoinProductPreloadState,
@@ -79,6 +85,7 @@ export default combineReducers<StoreState>({
   content: contentReducer,
   author: authorReducer,
   subscription: subscriptionReducer,
+  worksCampaign: worksCampaignReducer,
 
   displaySetting: displaySettingReducer,
   coinProduct: coinProductReducer,
