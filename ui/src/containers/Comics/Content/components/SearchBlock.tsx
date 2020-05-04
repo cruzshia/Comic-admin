@@ -20,7 +20,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         },
         {
           label: formatMessage(commonMessages.author),
-          input: <Field name='author' component={SelectAdapter} options={[]} />
+          input: <Field name='author' component={SearchInputAdapter} />
         },
         {
           label: formatMessage(comicMessages.worksId),

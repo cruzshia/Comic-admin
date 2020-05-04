@@ -7,7 +7,7 @@ import DataTable from '@src/components/table/DataTable'
 import { TextInput, TextArea, Select, StartEndForm } from '@src/components/form'
 import { DropZoneAdapter, SelectAdapter } from '@src/components/finalForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
-import { checkError, required } from '@src/utils/validation'
+import { checkError } from '@src/utils/validation'
 import { emptyWork } from '@src/reducers/comics/work/workReducer'
 import commonMessages from '@src/messages'
 import comicsMessages from '../../messages'
@@ -71,13 +71,8 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 {
                   label: formatMessage(comicsMessages.workId),
                   classes: workData ? 'display' : undefined,
-                  content: (
-                    <Field name='id' validate={required}>
-                      {({ input, meta }) =>
-                        workData ? workData.id : <TextInput {...input} error={checkError(meta)} />
-                      }
-                    </Field>
-                  )
+                  content: workData ? workData.id : 'WORK_SHUNKAN10000006'
+                  //<Field name='id' component={TextInputAdapter} validate={required} />
                 },
                 {
                   label: formatMessage(commonMessages.title),
