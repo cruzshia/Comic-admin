@@ -267,6 +267,22 @@ export default defineMessages({
     id: PREFIX + 'subscription_id',
     defaultMessage: 'Subscription ID'
   },
+  workId: {
+    id: PREFIX + 'work_id',
+    defaultMessage: 'Work ID'
+  },
+  email: {
+    id: PREFIX + 'email_address',
+    defaultMessage: 'Email Address'
+  },
+  searchById: {
+    id: PREFIX + 'search_by_id',
+    defaultMessage: 'Search By ID'
+  },
+  searchByEmail: {
+    id: PREFIX + 'search_by_email',
+    defaultMessage: 'Search By Email'
+  },
   authorId: {
     id: PREFIX + 'author_id',
     defaultMessage: 'Author (ID)'

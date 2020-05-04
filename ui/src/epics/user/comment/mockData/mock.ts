@@ -2,6 +2,7 @@ export const mockComment = {
   id: 'WORK_SHUNKAN10000006',
   userId: 'WORK_SHUNKAN10000006',
   contentId: 'WORK_SHUNKAN10000006',
+  contentName: 'サンプルテキスト',
   appId: 'WORK_SHUNKAN10000006',
   content: '純粋に面白くない。',
   status: 'not_approved',

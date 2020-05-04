@@ -59,10 +59,6 @@ export default defineMessages({
     id: PREFIX + 'detail',
     defaultMessage: 'Comic work detail'
   },
-  workId: {
-    id: PREFIX + 'work_id',
-    defaultMessage: 'Work ID'
-  },
   rensaiStatus: {
     id: PREFIX + 'rensai_status',
     defaultMessage: 'Rensai Status'

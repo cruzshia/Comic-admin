@@ -2,8 +2,9 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
-import { SelectAdapter, TextInputAdapter, SearchInputAdapter } from '@src/components/finalForm'
+import { SelectAdapter, SearchInputAdapter } from '@src/components/finalForm'
 import { TimeSpanInput } from '@src/components/form'
+import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
 
@@ -16,12 +17,24 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         input: <Field name='contents' component={SearchInputAdapter} />
       },
       {
-        label: formatMessage(userMessages.userId),
-        input: <Field name='userId' component={TextInputAdapter} />
+        label: formatMessage(commonMessages.workId),
+        input: <Field name='contents' component={SearchInputAdapter} />
       },
       {
-        label: formatMessage(userMessages.status),
-        input: <Field name='status' component={SelectAdapter} options={[]} isShort />
+        label: formatMessage(userMessages.userId),
+        input: (
+          <Field name='userId' component={SearchInputAdapter} placeholder={formatMessage(commonMessages.searchById)} />
+        )
+      },
+      {
+        label: formatMessage(commonMessages.email),
+        input: (
+          <Field
+            name='status'
+            component={SearchInputAdapter}
+            placeholder={formatMessage(commonMessages.searchByEmail)}
+          />
+        )
       }
     ],
     right: [
@@ -30,11 +43,19 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         input: <Field name='isReported' component={SelectAdapter} options={[]} isShort />
       },
       {
+        label: formatMessage(userMessages.status),
+        input: <Field name='isReported' component={SelectAdapter} options={[]} isShort />
+      },
+      {
+        label: formatMessage(commonMessages.appId),
+        input: <Field name='isReported' component={SelectAdapter} options={[]} />
+      },
+      {
         label: formatMessage(messages.period),
         input: <TimeSpanInput name='period' />
       }
     ]
   }
 
-  return <SearchFilter onSubmit={onSubmit} conditions={conditions} />
+  return <SearchFilter onSubmit={onSubmit} conditions={conditions} disableExpand />
 }

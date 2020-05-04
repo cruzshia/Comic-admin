@@ -32,13 +32,16 @@ export default function CommentTable({ comment, isEdit }: { comment: any; isEdit
           content: comment.userId
         },
         {
+          label: formatMessage(commonMessages.appId),
+          content: comment.appId
+        },
+        {
           label: formatMessage(commonMessages.contentId),
           content: comment.contentId
         },
         {
-          label: formatMessage(commonMessages.appId),
-          content: comment.appId,
-          classes: isEdit ? '' : classes.hide
+          label: formatMessage(commonMessages.contentName),
+          content: comment.contentName
         },
         {
           label: formatMessage(commonMessages.message),

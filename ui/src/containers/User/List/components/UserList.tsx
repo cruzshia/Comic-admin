@@ -74,7 +74,7 @@ export default function UserList() {
         label: formatMessage(messages.lastLoginTime),
         onSort: handleSort
       },
-      { id: ListTableProp.EmailAddress, label: formatMessage(messages.email) },
+      { id: ListTableProp.EmailAddress, label: formatMessage(commonMessages.email) },
       { id: ListTableProp.NickName, label: formatMessage(messages.nickName) },
       { id: ListTableProp.UserId, label: formatMessage(userMessages.userId) },
       { id: ListTableProp.Status, label: formatMessage(userMessages.status) }

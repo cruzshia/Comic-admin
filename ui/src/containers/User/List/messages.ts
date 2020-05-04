@@ -3,10 +3,6 @@ import { defineMessages } from 'react-intl'
 const PREFIX = 'user.list'
 
 export default defineMessages({
-  email: {
-    id: PREFIX + '.email_address',
-    defaultMessage: 'Email Address'
-  },
   nickName: {
     id: PREFIX + '.nick_name',
     defaultMessage: 'Nick Name'

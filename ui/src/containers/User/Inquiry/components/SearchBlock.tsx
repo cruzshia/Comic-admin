@@ -17,7 +17,9 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
       },
       {
         label: formatMessage(messages.mail),
-        input: <Field name='mail' component={SearchInputAdapter} placeholder={formatMessage(messages.searchByEmail)} />
+        input: (
+          <Field name='mail' component={SearchInputAdapter} placeholder={formatMessage(commonMessages.searchByEmail)} />
+        )
       },
       {
         label: formatMessage(messages.name),

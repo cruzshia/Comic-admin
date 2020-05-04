@@ -160,7 +160,7 @@ export default function UserDetail() {
               dataSet={[
                 toDataSet(formatMessage(commonMessages.id), currentUser.id),
                 toDataSet(formatMessage(messages.nickName), currentUser.nickName),
-                toDataSet(formatMessage(messages.email), currentUser.email),
+                toDataSet(formatMessage(commonMessages.email), currentUser.email),
                 toDataSet(formatMessage(messages.birthDate), currentUser.birthDate),
                 toDataSet(formatMessage(messages.gender), currentUser.gender),
                 toDataSet(

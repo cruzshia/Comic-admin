@@ -42,9 +42,5 @@ export default defineMessages({
   inquiryType: {
     id: PREFIX + 'inquiry_type',
     defaultMessage: 'Inquiry Type'
-  },
-  searchByEmail: {
-    id: PREFIX + 'search_by_email',
-    defaultMessage: 'Search By Email'
   }
 })
