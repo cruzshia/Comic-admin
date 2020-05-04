@@ -12,6 +12,7 @@ export enum AdType {
 export const defaultContentAd = [
   { adCategory: AdType.Admob },
   { adCategory: AdType.Map },
-  { adCategory: AdType.Original }
+  { adCategory: AdType.Original },
+  {}
 ]
 export const defaultOpeningAd = [{ adCategory: AdType.Original }]
