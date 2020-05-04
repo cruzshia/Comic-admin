@@ -72,6 +72,7 @@ export default function ContentDetail() {
       <ContentHeader breadcrumbList={breadcrumbList} titleText={currentContent.title} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
+        onEdit={handleRedirect()}
         dataSet={[
           toDataSet(formatMessage(commonMessages.contentId), currentContent.id),
           toDataSet(formatMessage(commonMessages.title), currentContent.title),
@@ -92,6 +93,7 @@ export default function ContentDetail() {
           toDataSet(formatMessage(messages.thumbnailImage), <img src={currentContent.thumbnail} alt='thumbnail' />),
           toDataSet(formatMessage(messages.openAdImage), <img src={currentContent.adImage} alt='ad' />),
           toDataSet(formatMessage(messages.requestId), currentContent.requestId),
+          toDataSet(formatMessage(comicMessages.requestName), currentContent.requestName),
           toDataSet(formatMessage(commonMessages.createDateTime), currentContent.createAt),
           toDataSet(formatMessage(commonMessages.updateDateTime), currentContent.updateAt)
         ]}

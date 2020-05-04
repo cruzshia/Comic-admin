@@ -123,6 +123,7 @@
   "comics.image_url": "Image URL",
   "comics.link_url": "Link URL",
   "comics.priority": "Priority",
+  "comics.request_name": "Request Name",
   "comics.subscription": "Comics Subscription",
   "comics.subscription.charge_device_type": "Charge Device Type",
   "comics.subscription.create_start": "Create subscription",

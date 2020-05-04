@@ -22,6 +22,7 @@ export const mockContent = {
   thumbnail: mockCover,
   adImage: mockCover,
   requestId: 'WORK_SHUNKAN10000006',
+  requestName: 'こち亀',
   createAt: '2019-12-25 00:00',
   updateAt: '2019-12-25 00:00',
   deliverStart: '2019-12-25 00:00',

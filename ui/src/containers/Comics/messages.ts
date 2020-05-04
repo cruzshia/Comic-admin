@@ -82,5 +82,9 @@ export default defineMessages({
   worksId: {
     id: PREFIX + 'works_id',
     defaultMessage: 'Work (ID)'
+  },
+  requestName: {
+    id: PREFIX + 'request_name',
+    defaultMessage: 'Request Name'
   }
 })

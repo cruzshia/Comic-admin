@@ -123,6 +123,7 @@
   "comics.image_url": "画像URL",
   "comics.link_url": "リンクURL",
   "comics.priority": "優先度",
+  "comics.request_name": "要求コンテンツ名",
   "comics.subscription": "定期購読管理",
   "comics.subscription.charge_device_type": "料金デバイス種別",
   "comics.subscription.create_start": "定期購読を登録",
