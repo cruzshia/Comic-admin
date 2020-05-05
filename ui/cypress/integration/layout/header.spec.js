@@ -28,15 +28,14 @@ context('Headers', () => {
 
   it('header tab renders right style', () => {
     cy.findAllByTestId('header-tab').then($tabs => {
-      $tabs.each((idx, $tab) => {
-        // TODO: remove the condition while レポート and システム are implemented
-        if (idx < 3) {
+      $tabs.each((_, $tab) => {
+        if (['マンガ管理', 'アプリ管理', 'ユーザー管理'].includes($tab.innerText)) {
           cy.wrap($tab)
             .click()
             .and('have.css', 'color', 'rgb(255, 255, 255)')
-          cy.findByTestId('highlight_bar')
-            .parent()
-            .should('have', $tab)
+            .findByTestId('highlight_bar')
+            .should('be.visible')
+            .and('have.css', 'backgroundColor', 'rgb(237, 54, 50)')
         }
       })
     })

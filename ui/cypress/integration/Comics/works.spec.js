@@ -12,8 +12,7 @@ context('Works', () => {
     cy.findAllByTestId('sidebar-tab')
       .contains('作品管理')
       .parent()
-      .should('have.css', 'fontWeight', '700')
-      .and('have.css', 'backgroundColor', 'rgb(245, 245, 245)')
+      .should('be.sideTabSelected')
   })
 
   it('Click tab comics_management in sidebar renders work list page', () => {
