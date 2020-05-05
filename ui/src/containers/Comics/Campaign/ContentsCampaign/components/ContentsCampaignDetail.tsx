@@ -64,8 +64,9 @@ export default function ContentCampaignDetail() {
         title={formatMessage(commonMessages.basicInfo)}
         onEdit={handleEdit}
         dataSet={[
-          toDataSet(formatMessage(comicMessages.campaignId), currentContentCampaign.campaignId),
+          toDataSet(formatMessage(messages.contentCampaignName), currentContentCampaign.campaignName),
           toDataSet(formatMessage(commonMessages.contentId), currentContentCampaign.contentId),
+          toDataSet(formatMessage(commonMessages.contentName), currentContentCampaign.contentName),
           toDataSet(formatMessage(commonMessages.appId), currentContentCampaign.appId),
           toDataSet(formatMessage(comicMessages.priority), currentContentCampaign.priority),
           toDataSet(formatMessage(comicMessages.contentPrice), currentContentCampaign.contentPrice),

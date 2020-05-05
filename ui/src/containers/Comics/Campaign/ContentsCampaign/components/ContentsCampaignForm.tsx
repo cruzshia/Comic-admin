@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import StartEndForm from '@src/components/form/StartEndForm'
-import { TextInputAdapter } from '@src/components/finalForm'
+import { TextInputAdapter, SearchInputAdapter, SelectAdapter } from '@src/components/finalForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { useComicsRef } from '@src/containers/Comics/utils'
 import commonMessages from '@src/messages'
@@ -34,14 +34,14 @@ export default function ContentsCampaignForm({ contentCampaign, onSubmit, formRe
               title={formatMessage(commonMessages.basicInfo)}
               dataSet={[
                 toDataSet(
-                  formatMessage(comicMessages.campaignId),
-                  <Field name='campaignId' component={TextInputAdapter} />
+                  formatMessage(messages.contentCampaignName),
+                  <Field name='campaignName' component={TextInputAdapter} />
                 ),
+                toDataSet(formatMessage(messages.contentId), <Field name='contentId' component={SearchInputAdapter} />),
                 toDataSet(
-                  formatMessage(commonMessages.contentId),
-                  <Field name='contentId' component={TextInputAdapter} />
+                  formatMessage(commonMessages.appId),
+                  <Field name='appId' component={SelectAdapter} options={[]} />
                 ),
-                toDataSet(formatMessage(commonMessages.appId), <Field name='appId' component={TextInputAdapter} />),
                 toDataSet(
                   formatMessage(comicMessages.priority),
                   <Field name='priority' component={TextInputAdapter} short />

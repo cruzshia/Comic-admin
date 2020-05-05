@@ -1,5 +1,7 @@
 export const mockCampaign = {
   campaignId: 'WORK_SHUNKAN10000006',
+  campaignName: 'WORK_SHUNKAN10000006',
+  contentName: 'サンプルテキスト',
   contentId: 'WORK_SHUNKAN10000006',
   appId: '少年ジャンプ+ for iOS	',
   priority: 'サンプルテキスト',
