@@ -41,9 +41,10 @@ export default function WorksCampaignDetail() {
   const handleRedirect = useCallback(
     (target?: ScrollAnchor) => () =>
       history.push(
-        routePath.comics.worksCampaignEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')
+        routePath.comics.worksCampaignEdit.replace(':campaignId', campaignId!).replace(':id', id!) +
+          (target ? `?${ANCHOR_QUERY}=${target}` : '')
       ),
-    [history, id]
+    [history, campaignId, id]
   )
   const handleEdit = useMemo(() => handleRedirect(), [handleRedirect])
   const handleEditEpisode = useMemo(() => handleRedirect(ScrollAnchor.EpisodeInfo), [handleRedirect])

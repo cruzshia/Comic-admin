@@ -5,6 +5,7 @@ import contentEpics from './comics/content/contentEpics'
 import authorEpics from './comics/author/authorEpics'
 import subscriptionEpics from './comics/subscription/subscriptionEpics'
 import worksCampaignEpics from './comics/campaign/worksCampaignEpics'
+import contentsCampaignEpics from './comics/campaign/contentsCampaignEpics'
 import displaySettingEpics from './application/displaySetting/displaySettingEpics'
 import commentEpics from './user/comment/commentEpics'
 import ngWordEpics from './user/NGWord/ngWordEpics'
@@ -22,6 +23,7 @@ export default combineEpics(
   ...authorEpics,
   ...subscriptionEpics,
   ...worksCampaignEpics,
+  ...contentsCampaignEpics,
 
   ...displaySettingEpics,
   ...coinProductEpics,

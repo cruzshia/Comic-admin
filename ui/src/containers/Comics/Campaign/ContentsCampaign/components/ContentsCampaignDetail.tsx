@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useCallback } from 'react'
+import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
@@ -8,16 +8,23 @@ import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import commonMessages from '@src/messages'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import { ScrollAnchor } from '@src/containers/Comics/utils'
-import ContentsCampaignContext from '../context/ContentsCampaignContext'
+import ContentsCampaignContext, { ActionContext } from '../context/ContentsCampaignContext'
 import { BREADCRUMBS } from '../constants'
 import comicMessages from '@src/containers/Comics/messages'
 import messages from '../messages'
 
 export default function ContentCampaignDetail() {
-  const { currentContentCampaign } = useContext(ContentsCampaignContext)
+  const { currentContentCampaign = {} } = useContext(ContentsCampaignContext)
+  const { onGetContentCampaign, onResetContentCampaign } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
-  const { id } = useParams()
+  const { id, campaignId } = useParams()
+
+  useEffect(() => {
+    onGetContentCampaign(id!)
+    return () => onResetContentCampaign()
+  }, [onResetContentCampaign, onGetContentCampaign, id])
+
   const titleText = formatMessage(messages.detail)
   const breadcrumbList = useMemo(
     () =>
@@ -31,9 +38,10 @@ export default function ContentCampaignDetail() {
   const handleRedirect = useCallback(
     (target?: ScrollAnchor) => () =>
       history.push(
-        routePath.comics.contentsCampaignEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')
+        routePath.comics.contentsCampaignEdit.replace(':campaignId', campaignId!).replace(':id', id!) +
+          (target ? `?${ANCHOR_QUERY}=${target}` : '')
       ),
-    [history, id]
+    [history, id, campaignId]
   )
   const handleEdit = useMemo(() => handleRedirect(), [handleRedirect])
 

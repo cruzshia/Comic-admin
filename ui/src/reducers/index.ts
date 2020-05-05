@@ -7,6 +7,10 @@ import worksCampaignReducer, {
   WorksCampaignState,
   WorksCampaignPreloadState
 } from './comics/campaign/worksCampaignReducer'
+import contentsCampaignReducer, {
+  ContentsCampaignState,
+  ContentsCampaignPreloadState
+} from './comics/campaign/contentsCampaignReducer'
 import subscriptionReducer, {
   SubscriptionState,
   SubscriptionPreloadState
@@ -46,6 +50,7 @@ export interface StoreState {
   author: AuthorState
   subscription: SubscriptionState
   worksCampaign: WorksCampaignState
+  contentsCampaign: ContentsCampaignState
 
   displaySetting: DisplaySettingState
   coinProduct: CoinProductState
@@ -66,6 +71,7 @@ export const storePreloadState: StoreState = {
   author: AuthorPreloadState,
   subscription: SubscriptionPreloadState,
   worksCampaign: WorksCampaignPreloadState,
+  contentsCampaign: ContentsCampaignPreloadState,
 
   displaySetting: DisplaySettingPreloadState,
   coinProduct: CoinProductPreloadState,
@@ -86,6 +92,7 @@ export default combineReducers<StoreState>({
   author: authorReducer,
   subscription: subscriptionReducer,
   worksCampaign: worksCampaignReducer,
+  contentsCampaign: contentsCampaignReducer,
 
   displaySetting: displaySettingReducer,
   coinProduct: coinProductReducer,

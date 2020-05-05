@@ -1,12 +1,17 @@
 import { createContext } from 'react'
 
 interface ContentsCampaignContext {
-  contentsCampaignList: any[]
   currentContentCampaign?: any
-  contentCampaignTotal: number
 }
 
-export default createContext<ContentsCampaignContext>({
-  contentsCampaignList: [],
-  contentCampaignTotal: 0
+export default createContext<ContentsCampaignContext>({})
+
+interface ActionContext {
+  onGetContentCampaign: (id: string) => void
+  onResetContentCampaign: () => void
+}
+
+export const ActionContext = createContext<ActionContext>({
+  onGetContentCampaign: () => {},
+  onResetContentCampaign: () => {}
 })

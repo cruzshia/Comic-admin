@@ -1,15 +1,26 @@
-import React, { useMemo, useCallback, useRef } from 'react'
+import React, { useMemo, useCallback, useRef, useEffect, useContext } from 'react'
 import { useIntl } from 'react-intl'
+import { useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentsCampaignForm from './ContentsCampaignForm'
 import { BREADCRUMBS } from '../constants'
+import ContentsCampaignContext, { ActionContext } from '../context/ContentsCampaignContext'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export default function ContentsCampaignEdit() {
   const { formatMessage } = useIntl()
+  const { currentContentCampaign = {} } = useContext(ContentsCampaignContext)
+  const { onGetContentCampaign, onResetContentCampaign } = useContext(ActionContext)
   const formRef = useRef<HTMLFormElement>(null)
+  const { id } = useParams()
+
+  useEffect(() => {
+    onGetContentCampaign(id!)
+    return () => onResetContentCampaign()
+  }, [onResetContentCampaign, onGetContentCampaign, id])
+
   const titleText = formatMessage(messages.create)
   const breadcrumbList = useMemo(
     () =>
@@ -34,7 +45,7 @@ export default function ContentsCampaignEdit() {
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
-      <ContentsCampaignForm onSubmit={handleSubmit} formRef={formRef} />
+      <ContentsCampaignForm onSubmit={handleSubmit} formRef={formRef} contentCampaign={currentContentCampaign} />
     </>
   )
 }
