@@ -99,7 +99,7 @@ export default function SearchFilter({ onSubmit, conditions, formRef, disableExp
             wrap='nowrap'
             data-testid={hide ? '' : 'search_filter_item'}
           >
-            <Grid item className='title'>
+            <Grid item className='title' data-testid={hide ? '' : 'search-filter-item-label'}>
               {item.label}
             </Grid>
             <Grid item>{item.input}</Grid>
@@ -127,6 +127,7 @@ export default function SearchFilter({ onSubmit, conditions, formRef, disableExp
                 <Grid container wrap='nowrap' justify='space-evenly' direction={isSearchResponsive ? 'column' : 'row'}>
                   <Grid
                     container
+                    data-testid='search-filter-items-left'
                     direction='column'
                     item
                     xs={gridSize}
@@ -134,7 +135,7 @@ export default function SearchFilter({ onSubmit, conditions, formRef, disableExp
                   >
                     {generateItem(conditions.left)}
                   </Grid>
-                  <Grid container direction='column' item xs={gridSize}>
+                  <Grid container direction='column' item xs={gridSize} data-testid='search-filter-items-right'>
                     {generateItem(conditions.right)}
                   </Grid>
                 </Grid>
