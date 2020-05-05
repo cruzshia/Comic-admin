@@ -29,7 +29,11 @@ const useStyles = makeStyles({
     }
   },
   margin: {
-    marginTop: '15px'
+    display: 'block',
+    marginTop: '15px',
+    '& > .MuiButton-label': {
+      margin: 0
+    }
   },
   input: {
     display: 'flex',

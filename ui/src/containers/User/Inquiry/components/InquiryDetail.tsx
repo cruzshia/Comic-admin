@@ -25,10 +25,12 @@ export default function InquiryDetail({ inquiry }: { inquiry: any }) {
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
           toDataSet(formatMessage(commonMessages.id), inquiry.id),
-          toDataSet(formatMessage(userMessages.userId), inquiry.userId),
           toDataSet(formatMessage(messages.inquiryType), inquiry.inquiryType),
-          toDataSet(formatMessage(messages.appVersion), inquiry.appVersion),
           toPreWrapDataSet(formatMessage(messages.message), inquiry.message),
+          toPreWrapDataSet(formatMessage(messages.name), inquiry.name),
+          toDataSet(formatMessage(userMessages.userId), inquiry.userId),
+          toDataSet(formatMessage(commonMessages.appId), inquiry.appId),
+          toDataSet(formatMessage(messages.appVersion), inquiry.appVersion),
           toPreWrapDataSet(formatMessage(messages.inquiryTime), inquiry.inquiryAt)
         ]}
       />
