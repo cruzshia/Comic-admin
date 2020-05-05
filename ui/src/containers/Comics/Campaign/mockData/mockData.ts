@@ -20,7 +20,7 @@ export const mockCampaign = {
 
 export const mockSubCampaignList = _range(0, 7).map(idx => ({
   id: `campaign-${idx}`,
-  type: idx % 2 ? '作品キャンペーン' : 'コンテンツキャンペーン',
+  type: idx % 2 ? 'works' : 'content',
   name: idx % 2 ? 'GW作品キャンペーン' : 'GWコンテンツキャンペーン',
   target: idx % 2 ? 'こち亀' : 'こち亀 ３話',
   startAt: `2020-01-21 16:3${idx}`,

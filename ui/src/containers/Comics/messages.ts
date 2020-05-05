@@ -86,5 +86,13 @@ export default defineMessages({
   requestName: {
     id: PREFIX + 'request_name',
     defaultMessage: 'Request Name'
+  },
+  worksCampaign: {
+    id: PREFIX + 'works_campaign',
+    defaultMessage: 'Works Campaign'
+  },
+  contentCampaign: {
+    id: PREFIX + 'content_campaign',
+    defaultMessage: 'Content Campaign'
   }
 })

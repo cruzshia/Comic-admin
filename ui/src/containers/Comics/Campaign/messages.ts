@@ -11,6 +11,10 @@ export default defineMessages({
     id: PREFIX + 'create',
     defaultMessage: 'Create Campaign'
   },
+  creation: {
+    id: PREFIX + 'creation',
+    defaultMessage: 'Create Campaign'
+  },
   name: {
     id: PREFIX + 'name',
     defaultMessage: 'Campaign Name'

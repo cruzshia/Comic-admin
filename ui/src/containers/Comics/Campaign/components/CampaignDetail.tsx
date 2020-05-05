@@ -16,6 +16,11 @@ import worksCampaignMessages from '../WorksCampaign/messages'
 import contentCampaignMessages from '../ContentsCampaign/messages'
 import messages from '../messages'
 
+const ROUTE = {
+  works: routePath.comics.worksCampaignDetail,
+  content: routePath.comics.contentsCampaignDetail
+}
+
 export default function CampaignDetail() {
   const { currentCampaign = {}, subCampaignList, subCampaignTotal } = useContext(CampaignContext)
   const { formatMessage } = useIntl()
@@ -77,9 +82,22 @@ export default function CampaignDetail() {
   const dataList = subCampaignList
     .map(({ id, ...data }) => ({
       id,
-      data
+      data: {
+        ...data,
+        type: formatMessage(comicMessages[`${data.type}Campaign` as keyof typeof comicMessages])
+      }
     }))
     .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
+
+  const handleRowClick = useCallback(
+    (rowId: string) =>
+      history.push(
+        ROUTE[subCampaignList.find(campaign => campaign.id === rowId).type as keyof typeof ROUTE]
+          .replace(':campaignId', id!)
+          .replace(':id', rowId!)
+      ),
+    [history, id, subCampaignList]
+  )
 
   return (
     <>
@@ -110,11 +128,7 @@ export default function CampaignDetail() {
         onPageChange={handlePageChange}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
-        onRowClick={useCallback(
-          (rowId: string) =>
-            history.push(routePath.comics.worksCampaignDetail.replace(':campaignId', id!).replace(':id', rowId!)),
-          [history, id]
-        )}
+        onRowClick={handleRowClick}
       />
     </>
   )
