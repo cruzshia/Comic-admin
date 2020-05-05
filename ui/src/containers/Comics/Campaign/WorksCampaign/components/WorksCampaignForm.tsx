@@ -1,9 +1,8 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
-import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core'
-import DataTable from '@src/components/table/DataTable'
+import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { TextInputAdapter, TextAreaAdapter } from '@src/components/finalForm'
 import StartEndForm from '@src/components/form/StartEndForm'
 import DropZone from '@src/components/DropZone'
@@ -15,7 +14,7 @@ import comicMessages from '@src/containers/Comics/messages'
 import AdSettingForm from '@src/containers/Comics/components/AdSettingForm'
 import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '@src/containers/Comics/utils'
 import { emptyWorksCampaign } from '@src/reducers/comics/campaign/worksCampaignReducer'
-import messages from '../messages'
+import clsx from 'clsx'
 
 interface Props {
   onSubmit: (data: any) => void
@@ -54,30 +53,20 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
               title={formatMessage(commonMessages.basicInfo)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
               dataSet={[
-                {
-                  label: formatMessage(comicMessages.campaignId),
-                  content: <Field name='campaignId' component={TextInputAdapter} />
-                },
-                {
-                  label: formatMessage(comicMessages.workId),
-                  content: <Field name='workId' component={TextInputAdapter} />
-                },
-                {
-                  label: formatMessage(commonMessages.appId),
-                  content: <Field name='appId' component={TextInputAdapter} />
-                },
-                {
-                  label: formatMessage(comicMessages.priority),
-                  content: <Field name='priority' component={TextInputAdapter} short />
-                },
-                {
-                  label: formatMessage(commonMessages.introduction),
-                  content: <Field name='description' component={TextAreaAdapter} />
-                },
-                {
-                  label: formatMessage(messages.freeContentId),
-                  content: <Field name='freeContentId' component={TextAreaAdapter} />
-                }
+                toDataSet(
+                  formatMessage(comicMessages.campaignId),
+                  <Field name='campaignId' component={TextInputAdapter} />
+                ),
+                toDataSet(formatMessage(comicMessages.workId), <Field name='workId' component={TextInputAdapter} />),
+                toDataSet(formatMessage(commonMessages.appId), <Field name='appId' component={TextInputAdapter} />),
+                toDataSet(
+                  formatMessage(comicMessages.priority),
+                  <Field name='priority' component={TextInputAdapter} />
+                ),
+                toDataSet(
+                  formatMessage(commonMessages.introduction),
+                  <Field name='description' component={TextAreaAdapter} />
+                )
               ]}
             />
             <DataTable

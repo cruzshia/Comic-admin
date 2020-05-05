@@ -6,7 +6,6 @@ import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
-import ScrollableContent from '@src/components/table/ScrollableContent'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import { _range } from '@src/utils/functions'
 import { IMAGE_NUM, ScrollAnchor } from '@src/containers/Comics/utils'
@@ -80,10 +79,6 @@ export default function WorksCampaignDetail() {
           toDataSet(formatMessage(commonMessages.appId), campaign.appId),
           toDataSet(formatMessage(comicMessages.priority), campaign.priority),
           toDataSet(formatMessage(commonMessages.introduction), campaign.description),
-          toDataSet(
-            formatMessage(messages.freeContentId),
-            <ScrollableContent>{campaign.freeContentId}</ScrollableContent>
-          ),
           toDataSet(formatMessage(commonMessages.createDateTime), campaign.createAt),
           toDataSet(formatMessage(commonMessages.updateDateTime), campaign.updateAt)
         ]}
