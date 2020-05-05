@@ -30,7 +30,7 @@ export default function WorksCampaignDetail() {
   const { currentCampaign: campaign = {} } = useContext(WorksCampaignContext)
   const { onGetWorksCampaign, onResetWorksCampaign } = useContext(ActionContext)
   const history = useHistory()
-  const { id } = useParams()
+  const { id, campaignId } = useParams()
   const titleText = formatMessage(messages.detail)
 
   useEffect(() => {
@@ -54,9 +54,9 @@ export default function WorksCampaignDetail() {
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
-        route
+        route: route?.replace(':id', campaignId!)
       })).concat([{ title: titleText, route: undefined }]),
-    [formatMessage, titleText]
+    [formatMessage, titleText, campaignId]
   )
 
   const buttonList = useMemo(
@@ -74,7 +74,7 @@ export default function WorksCampaignDetail() {
         tableClass={classes.table}
         onEdit={handleEdit}
         dataSet={[
-          toDataSet(formatMessage(comicMessages.campaignId), campaign.campaignId),
+          toDataSet(formatMessage(messages.name), campaign.campaignName),
           toDataSet(formatMessage(comicMessages.workId), campaign.workId),
           toDataSet(formatMessage(commonMessages.appId), campaign.appId),
           toDataSet(formatMessage(comicMessages.priority), campaign.priority),
@@ -95,7 +95,7 @@ export default function WorksCampaignDetail() {
           ..._range(0, IMAGE_NUM).map(i => {
             const img = campaign.images[i]
             return toDataSet(
-              `${formatMessage(commonMessages.photo)}${i + 1}`,
+              `${formatMessage(comicMessages.episodeImage)}${i + 1}`,
               img ? <img key={`image-${i}`} src={img} alt={img} /> : ''
             )
           })

@@ -1,8 +1,9 @@
-import commonMessages from '@src/messages'
 import { routePath } from '@src/common/appConfig'
-import messages from './messages'
+import commonMessages from '@src/messages'
+import campaignMessages from '../messages'
 
 export const BREADCRUMBS = [
   { title: commonMessages.comicsManagement },
-  { title: messages.list, route: routePath.comics.campaign }
+  { title: campaignMessages.list, route: routePath.comics.campaign },
+  { title: campaignMessages.detail, route: routePath.comics.campaignDetail }
 ]

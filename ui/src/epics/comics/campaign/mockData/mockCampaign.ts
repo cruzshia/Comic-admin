@@ -8,6 +8,7 @@ import mockCover7 from './mockCover7.png'
 import mockManga from './manga.png'
 
 export const mockCampaign = {
+  campaignName: 'GW作品キャンペーン',
   campaignId: 'WORK_SHUNKAN10000006',
   workId: 'WORK_SHUNKAN10000006',
   appId: 'サンプルテキスト',
