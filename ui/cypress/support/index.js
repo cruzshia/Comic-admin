@@ -35,37 +35,6 @@ import './commands'
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-const isSideTabSelected = (_chai, utils) => {
-  function assertIsSideTabSelected(options) {
-    this.assert(
-      this._obj.css('fontWeight') === '700' && this._obj.css('backgroundColor') === 'rgb(245, 245, 245)',
-      'expected #{this} css font-weight to be 700 and background-color = rgb(245, 245, 245)',
-      'expected #{this} css font-weight not to be 700 and background-color = rgb(245, 245, 245)',
-      this._obj
-    )
-  }
-
-  _chai.Assertion.addMethod('sideTabSelected', assertIsSideTabSelected)
-}
-
-const isSortByTableHeadCell = (_chai, _) => {
-  function assertIsSortByTableHeadCell(_) {
-    this.assert(
-      this._obj.css('fontWeight') === '600' &&
-        this._obj.css('color') === 'rgb(237, 54, 50)' &&
-        this._obj.css('backgroundColor') === 'rgb(245, 245, 245)',
-      'expected #{this} css font-weight to be 600, css color = rgb(237, 54, 50) and background-color = rgb(245, 245, 245',
-      'expected #{this} css font-weight not to be 600, css color = rgb(237, 54, 50) and background-color = rgb(237, 54, 50)',
-      this._obj
-    )
-  }
-
-  _chai.Assertion.addMethod('sortByTableHeadCell', assertIsSortByTableHeadCell)
-}
-
-// registers our assertion function "isFoo" with Chai
-chai.use(isSideTabSelected)
-chai.use(isSortByTableHeadCell)
+import './isSideTabSelected'
+import './isRightSearchBtn'
+import './isSortByTableHeadCell'
