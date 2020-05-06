@@ -28,11 +28,11 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         },
         {
           label: formatMessage(commonMessages.deliveryStartDateTime),
-          input: <TimeSpanInput />
+          input: <TimeSpanInput name='releaseStart' />
         },
         {
           label: formatMessage(commonMessages.deliveryEndDateTime),
-          input: <TimeSpanInput />
+          input: <TimeSpanInput name='releaseEnd' />
         },
         {
           label: formatMessage(comicMessages.adUnit),
