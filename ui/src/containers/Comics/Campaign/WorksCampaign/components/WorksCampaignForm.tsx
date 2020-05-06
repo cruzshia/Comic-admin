@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
 import { makeStyles } from '@material-ui/core'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
-import { TextInputAdapter, TextAreaAdapter } from '@src/components/finalForm'
+import { TextInputAdapter, TextAreaAdapter, SelectAdapter } from '@src/components/finalForm'
 import StartEndForm from '@src/components/form/StartEndForm'
 import DropZone from '@src/components/DropZone'
 import ScrollTo from '@src/components/scroll/ScrollTo'
@@ -15,6 +15,7 @@ import AdSettingForm from '@src/containers/Comics/components/AdSettingForm'
 import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '@src/containers/Comics/utils'
 import { emptyWorksCampaign } from '@src/reducers/comics/campaign/worksCampaignReducer'
 import clsx from 'clsx'
+import formMessages from '@src/components/form/messages'
 import messages from '../messages'
 
 interface Props {
@@ -54,12 +55,15 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
               title={formatMessage(commonMessages.basicInfo)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
               dataSet={[
+                toDataSet(formatMessage(messages.name), <Field name='campaignName' component={TextInputAdapter} />),
                 toDataSet(
-                  formatMessage(comicMessages.campaignId),
-                  <Field name='campaignId' component={TextInputAdapter} />
+                  formatMessage(comicMessages.workIdBrackets),
+                  <Field name='workId' component={TextInputAdapter} placeholder={formatMessage(formMessages.search)} />
                 ),
-                toDataSet(formatMessage(comicMessages.workId), <Field name='workId' component={TextInputAdapter} />),
-                toDataSet(formatMessage(commonMessages.appId), <Field name='appId' component={TextInputAdapter} />),
+                toDataSet(
+                  formatMessage(commonMessages.appId),
+                  <Field name='appId' component={SelectAdapter} options={[]} />
+                ),
                 toDataSet(
                   formatMessage(comicMessages.priority),
                   <Field name='priority' component={TextInputAdapter} />

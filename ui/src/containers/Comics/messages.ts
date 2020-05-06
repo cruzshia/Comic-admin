@@ -47,6 +47,10 @@ export default defineMessages({
     id: PREFIX + 'work_id',
     defaultMessage: 'Work ID'
   },
+  workIdBrackets: {
+    id: PREFIX + 'work_id_brackets',
+    defaultMessage: 'Work(ID)'
+  },
   workName: {
     id: PREFIX + 'work_name',
     defaultMessage: 'Work Name'

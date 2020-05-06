@@ -178,6 +178,7 @@
   "comics.work.work_title": "作品タイトル",
   "comics.work.works_csv_import_log": "作品CSV登録ログ",
   "comics.work_id": "作品ID",
+  "comics.work_id_brackets": "作品（ID）",
   "comics.work_name": "作品名",
   "comics.works_campaign": "作品キャンペーン",
   "comics.works_campaign.free_range": "無料範囲",

@@ -178,6 +178,7 @@
   "comics.work.work_title": "Work title",
   "comics.work.works_csv_import_log": "Works CSV Import Log",
   "comics.work_id": "Work ID",
+  "comics.work_id_brackets": "Work(ID)",
   "comics.work_name": "Work Name",
   "comics.works_campaign": "Works Campaign",
   "comics.works_campaign.free_range": "Free Range",
