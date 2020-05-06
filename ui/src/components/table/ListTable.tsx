@@ -168,17 +168,19 @@ export default function ListTable({
   return (
     <div className={classnames} data-testid='list-table'>
       <Grid container justify='space-between' alignItems='center' className={classes.pagination}>
-        <div>{formatMessage(messages.pagination, { total: 1000, start, end: start + PAGE_LIMIT - 1 })}</div>
+        <div data-testid='list-table-pagination'>
+          {formatMessage(messages.pagination, { total: 1000, start, end: start + PAGE_LIMIT - 1 })}
+        </div>
         <div>
           {buttonList?.map((button, index) => (
             <React.Fragment key={index}>{button}</React.Fragment>
           ))}
         </div>
       </Grid>
-      <TableContainer component={Container} className={isResponsive ? 'responsive' : ''}>
+      <TableContainer component={Container} className={isResponsive ? 'responsive' : ''} data-testid='table-container'>
         <Table>
           <TableHead>
-            <TableRow className={clsx(classes.tableHeadRow, tableClass)}>
+            <TableRow className={clsx(classes.tableHeadRow, tableClass)} data-testid='table-head-row'>
               {theadList.map(({ id, label, onSort, padding, classes }, index) => {
                 const sorting = sortBy === id
                 const sortClass = clsx({ sortable: !!onSort, sorting })

@@ -39,7 +39,9 @@ export default function ListTableRow({ items, onClick, classnames }: Props) {
   return (
     <TableRow hover className={clsx(classes.root, classnames)} data-testid='list-table-row' onClick={onClick}>
       {Object.keys(items).map(key => (
-        <TableCell key={key}>{items[key]}</TableCell>
+        <TableCell data-testid='list-table-row-cell' key={key}>
+          {items[key]}
+        </TableCell>
       ))}
     </TableRow>
   )

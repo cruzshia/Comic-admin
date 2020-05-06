@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('Works', () => {
+context('WorkList', () => {
   beforeEach(() => {
     cy.visit('/')
     cy.findAllByTestId('header-tab')
@@ -31,7 +31,7 @@ context('Works', () => {
     cy.findByTestId('pagination').should('not.be.empty')
   })
 
-  it('Click ComicsWork in sidebar renders correct work search form', () => {
+  it('Renders work search form', () => {
     const searchFormLabel = {
       left: ['作品（ID）', '著者', '作品種別'],
       right: ['連載状態', '連載誌名', '連載頻度']
@@ -110,5 +110,28 @@ context('Works', () => {
         })
       })
     })
+  })
+
+  it('Renders work list table', () => {
+    const tableHeads = ['画像', '作品ID', '作品タイトル', '作成日時', '作品種別', '話作品種別', '更新頻度', '']
+    cy.findByTestId('list-table-pagination').should('contain', '全1000件表示（1~100件目を表示）')
+
+    cy.findByTestId('table-head-row')
+      .children('th')
+      .then($tableHeads => {
+        expect($tableHeads).to.have.length(tableHeads.length)
+        $tableHeads.each((idx, $cell) => expect($cell.innerText).eq(tableHeads[idx]))
+      })
+
+    cy.findByTestId('sortable sorting')
+      .should('be.sortByTableHeadCell')
+      .and('contain', '作成日時')
+      .children()
+      .findByTestId('sort-icon')
+      .should('be.visible')
+
+    cy.findAllByTestId('list-table-row')
+      .findAllByTestId('list-table-row-cell')
+      .should('have.length', tableHeads.length)
   })
 })
