@@ -11,22 +11,11 @@ export const mockCampaign = {
   campaignName: 'GW作品キャンペーン',
   campaignId: 'WORK_SHUNKAN10000006',
   workId: 'WORK_SHUNKAN10000006',
+  workName: 'サンプルテキスト',
   appId: 'サンプルテキスト',
   priority: 'サンプルテキスト',
-  freeContentId: `サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト
-サンプルテキストサンプルテキスト`,
+  freeRange: '1-30',
+  freeRangeDisplayString: '1~30話無料',
   startDateTime: '2019-12-25 00:00',
   endDateTime: '2019-12-25 00:00',
   description:

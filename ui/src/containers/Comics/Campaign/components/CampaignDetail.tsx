@@ -38,16 +38,20 @@ export default function CampaignDetail() {
       })).concat({ title: titleText, route: undefined }),
     [formatMessage, titleText]
   )
+  const handleRedirectEdit = useCallback(() => history.push(routePath.comics.campaignEdit.replace(':id', id!)), [
+    id,
+    history
+  ])
   const buttonList = useMemo(
     () => [
       <Button
         theme={Theme.DARK_BORDER}
         buttonText={formatMessage(messages.edit)}
-        onClick={() => history.push(routePath.comics.campaignEdit.replace(':id', id!))}
+        onClick={handleRedirectEdit}
         icon={penIcon}
       />
     ],
-    [formatMessage, id, history]
+    [formatMessage, handleRedirectEdit]
   )
 
   const theadList = useMemo(
@@ -55,8 +59,8 @@ export default function CampaignDetail() {
       { id: 'category', label: formatMessage(messages.category) },
       { id: 'name', label: formatMessage(messages.name) },
       { id: 'target', label: formatMessage(messages.target) },
-      { id: 'startAt', label: formatMessage(commonMessages.startDateTime), onSort: handleSort },
-      { id: 'endAt', label: formatMessage(commonMessages.endDateTime) }
+      { id: 'startAt', label: formatMessage(commonMessages.deliveryStartDateTime), onSort: handleSort },
+      { id: 'endAt', label: formatMessage(commonMessages.deliveryEndDateTime) }
     ],
     [formatMessage, handleSort]
   )
@@ -103,6 +107,7 @@ export default function CampaignDetail() {
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
+        onEdit={handleRedirectEdit}
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
           toDataSet(formatMessage(comicMessages.campaignId), currentCampaign.campaignId),

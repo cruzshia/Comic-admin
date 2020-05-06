@@ -6,6 +6,7 @@ import StartEndForm from '@src/components/form/StartEndForm'
 import { TextInputAdapter, SearchInputAdapter, SelectAdapter } from '@src/components/finalForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { useComicsRef } from '@src/containers/Comics/utils'
+import { CAMPAIGN_TIME_PLACEHOLDER } from '@src/common/constants'
 import commonMessages from '@src/messages'
 import comicMessages from '@src/containers/Comics/messages'
 import messages from '../messages'
@@ -15,8 +16,6 @@ interface Props {
   onSubmit: (data: {}) => void
   formRef?: React.RefObject<HTMLFormElement> | null
 }
-
-const CAMPAIGN_TIME_PLACEHOLDER = 'hh:mm'
 
 export default function ContentsCampaignForm({ contentCampaign, onSubmit, formRef }: Props) {
   const { formatMessage } = useIntl()

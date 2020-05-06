@@ -27,8 +27,12 @@ export default defineMessages({
     id: PREFIX + 'works_campaign_detail',
     defaultMessage: 'Works Campaign Detail'
   },
-  freeContentId: {
-    id: PREFIX + 'free_content_id',
-    defaultMessage: 'Free Content ID'
+  freeRange: {
+    id: PREFIX + 'free_range',
+    defaultMessage: 'Free Range'
+  },
+  freeRangeDisplayString: {
+    id: PREFIX + 'free_range_display_string',
+    defaultMessage: 'Free Range Display String'
   }
 })

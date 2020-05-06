@@ -76,9 +76,12 @@ export default function WorksCampaignDetail() {
         dataSet={[
           toDataSet(formatMessage(messages.name), campaign.campaignName),
           toDataSet(formatMessage(comicMessages.workId), campaign.workId),
+          toDataSet(formatMessage(comicMessages.workName), campaign.workName),
           toDataSet(formatMessage(commonMessages.appId), campaign.appId),
           toDataSet(formatMessage(comicMessages.priority), campaign.priority),
           toDataSet(formatMessage(commonMessages.introduction), campaign.description),
+          toDataSet(formatMessage(messages.freeRange), campaign.freeRange),
+          toDataSet(formatMessage(messages.freeRangeDisplayString), campaign.freeRangeDisplayString),
           toDataSet(formatMessage(commonMessages.createDateTime), campaign.createAt),
           toDataSet(formatMessage(commonMessages.updateDateTime), campaign.updateAt)
         ]}

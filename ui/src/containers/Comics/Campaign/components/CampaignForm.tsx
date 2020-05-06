@@ -4,6 +4,7 @@ import { Form, Field } from 'react-final-form'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { TextInputAdapter, TextAreaAdapter } from '@src/components/finalForm'
 import Campaign from '@src/models/comics/campaign'
+import { CAMPAIGN_TIME_PLACEHOLDER } from '@src/common/constants'
 import commonMessages from '@src/messages'
 import comicMessages from '../../messages'
 import messages from '../messages'
@@ -33,11 +34,11 @@ export default function CampaignForm({ onSubmit, formRef, campaign }: Props) {
                 toDataSet(formatMessage(messages.adminComment), <Field name='comment' component={TextAreaAdapter} />),
                 toDataSet(
                   `${formatMessage(commonMessages.startDateTime)}（${formatMessage(messages.adminUsage)}）`,
-                  <Field name='startAt' component={TextInputAdapter} />
+                  <Field name='startAt' component={TextInputAdapter} placeholder={CAMPAIGN_TIME_PLACEHOLDER} />
                 ),
                 toDataSet(
                   `${formatMessage(commonMessages.endDateTime)}（${formatMessage(messages.adminUsage)}）`,
-                  <Field name='endAt' component={TextInputAdapter} />
+                  <Field name='endAt' component={TextInputAdapter} placeholder={CAMPAIGN_TIME_PLACEHOLDER} />
                 )
               ]}
             />

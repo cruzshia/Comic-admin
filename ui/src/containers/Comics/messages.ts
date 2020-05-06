@@ -47,6 +47,10 @@ export default defineMessages({
     id: PREFIX + 'work_id',
     defaultMessage: 'Work ID'
   },
+  workName: {
+    id: PREFIX + 'work_name',
+    defaultMessage: 'Work Name'
+  },
   campaignId: {
     id: PREFIX + 'campaign_id',
     defaultMessage: 'Campaign ID'

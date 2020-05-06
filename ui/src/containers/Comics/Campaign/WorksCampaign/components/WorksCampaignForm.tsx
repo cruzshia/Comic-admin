@@ -15,6 +15,7 @@ import AdSettingForm from '@src/containers/Comics/components/AdSettingForm'
 import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '@src/containers/Comics/utils'
 import { emptyWorksCampaign } from '@src/reducers/comics/campaign/worksCampaignReducer'
 import clsx from 'clsx'
+import messages from '../messages'
 
 interface Props {
   onSubmit: (data: any) => void
@@ -66,6 +67,11 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
                 toDataSet(
                   formatMessage(commonMessages.introduction),
                   <Field name='description' component={TextAreaAdapter} />
+                ),
+                toDataSet(formatMessage(messages.freeRange), <Field name='freeRange' component={TextInputAdapter} />),
+                toDataSet(
+                  formatMessage(messages.freeRangeDisplayString),
+                  <Field name='freeRangeDisplayString' component={TextInputAdapter} />
                 )
               ]}
             />
