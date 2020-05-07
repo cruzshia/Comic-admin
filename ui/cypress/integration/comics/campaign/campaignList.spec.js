@@ -38,7 +38,48 @@ context('Campaign List', () => {
     cy.findByTestId('content-header-buttons').should('contain', 'キャンペーンを登録')
   })
 
-  it('Renders right search button', () => {
+  it('Renders correct search form', () => {
+    cy.findByTestId('search_filter').should('be.exist')
+    cy.findByTestId('search-filter-items-left')
+      .findByTestId('search_filter_item')
+      .then($item => {
+        cy.wrap($item).as('searchItem')
+        cy.get('@searchItem')
+          .findByTestId('search-filter-item-label')
+          .contains('キャンペーン名')
+        cy.get('@searchItem')
+          .findByTestId('search_input')
+          .should('be.exist')
+      })
+
+    cy.findByTestId('search-filter-items-right').as('filterRight')
+    cy.get('@filterRight')
+      .findAllByTestId('search_filter_item')
+      .first()
+      .then($item => {
+        cy.wrap($item).as('searchItem')
+        cy.get('@searchItem')
+          .findByTestId('search-filter-item-label')
+          .contains('開始日時')
+        cy.get('@searchItem')
+          .findByTestId('time_span_input')
+          .should('be.exist')
+      })
+    cy.get('@filterRight')
+      .findAllByTestId('search_filter_item')
+      .eq(1)
+      .then($item => {
+        cy.wrap($item).as('searchItem')
+        cy.get('@searchItem')
+          .findByTestId('search-filter-item-label')
+          .contains('終了日時')
+        cy.get('@searchItem')
+          .findByTestId('time_span_input')
+          .should('be.exist')
+      })
+  })
+
+  it('Renders correct search button', () => {
     cy.findByTestId('search-filter-buttons')
       .children('button')
       .should('be.rightSearchBtn')
