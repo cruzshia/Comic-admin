@@ -118,17 +118,16 @@ context('WorkList', () => {
 
     cy.findByTestId('table-head-row')
       .children('th')
+      .as('tableHeadCell')
       .then($tableHeads => {
         expect($tableHeads).to.have.length(tableHeads.length)
         $tableHeads.each((idx, $cell) => expect($cell.innerText).eq(tableHeads[idx]))
       })
 
-    cy.findByTestId('sortable sorting')
-      .should('be.sortByTableHeadCell')
-      .and('contain', '作成日時')
-      .children()
-      .findByTestId('sort-icon')
-      .should('be.visible')
+    cy.get('@tableHeadCell')
+      .contains('作成日時')
+      .parent()
+      .should('be.sortableHeadCell', { sorting: true })
 
     cy.findAllByTestId('list-table-row')
       .findAllByTestId('list-table-row-cell')

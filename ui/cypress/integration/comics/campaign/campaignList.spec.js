@@ -17,7 +17,8 @@ context('Campaign List', () => {
         cy.findAllByTestId('sidebar-tab')
           .contains('キャンペーン管理')
           .click()
-        cy.url().should('include', targetRoute)
+          .url()
+          .should('include', targetRoute)
       })
   })
 
@@ -83,6 +84,38 @@ context('Campaign List', () => {
     cy.findByTestId('search-filter-buttons')
       .children('button')
       .should('be.rightSearchBtn')
+  })
+
+  it('Renders correct list table', () => {
+    const tableColNum = 4
+    cy.findByTestId('list-table')
+      .as('listTable')
+      .should('be.exist')
+
+    cy.get('@listTable')
+      .findByTestId('list-table-pagination')
+      .should('be.exist')
+
+    cy.get('@listTable')
+      .findByTestId('table-head-row')
+      .children('th')
+      .should('have.lengthOf', tableColNum)
+      .first()
+      .should('have.text', 'キャンペーン名')
+      .next()
+      .should('have.text', '開始日時')
+      .and('be.sortableHeadCell', { sorting: true })
+      .next()
+      .should('have.text', '終了日時')
+      .and('be.sortableHeadCell')
+      .click()
+      .should('be.sortableHeadCell', { sorting: true })
+
+    cy.get('@listTable')
+      .findAllByTestId('list-table-row')
+      .first()
+      .findAllByTestId('list-table-row-cell')
+      .should('have.lengthOf', tableColNum)
   })
 
   it('Renders pagination', () => {
