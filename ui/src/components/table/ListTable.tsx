@@ -171,7 +171,7 @@ export default function ListTable({
         <div data-testid='list-table-pagination'>
           {formatMessage(messages.pagination, { total: 1000, start, end: start + PAGE_LIMIT - 1 })}
         </div>
-        <div>
+        <div data-testid='list-table-button'>
           {buttonList?.map((button, index) => (
             <React.Fragment key={index}>{button}</React.Fragment>
           ))}
