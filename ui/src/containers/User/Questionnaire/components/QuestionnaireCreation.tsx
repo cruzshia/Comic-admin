@@ -1,5 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ActionContext } from '../context/QuestionnaireContext'
 
 export default function QuestionnaireCreation() {
-  return <div>Creation</div>
+  const { onCreateQuestionnaire } = useContext(ActionContext)
+
+  return (
+    <>
+      <div>create</div>
+      <div>{onCreateQuestionnaire.toString()}</div>
+    </>
+  )
 }

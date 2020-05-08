@@ -15,6 +15,7 @@ import pushNotificationEpics from './application/pushNotification/pushNotificati
 import userEpics from './user/user/userEpics'
 import applicationInfoEpics from './application/applicationInfo/applicationInfoEpics'
 import coinDeliveryEventEpics from './application/coinDeliveryEvent/coinDeliveryEventEpics'
+import questionnaireEpics from './user/questionnaire/questionnaireEpics'
 
 export default combineEpics(
   ...profileEpics,
@@ -34,5 +35,6 @@ export default combineEpics(
   ...userEpics,
   ...commentEpics,
   ...ngWordEpics,
-  ...notificationEpics
+  ...notificationEpics,
+  ...questionnaireEpics
 )

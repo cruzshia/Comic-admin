@@ -42,6 +42,10 @@ import coinDeliveryEventReducer, {
   CoinDeliveryEventState,
   CoinDeliveryEventPreloadState
 } from './application/coinDeliveryEvent/coinDeliveryEventReducer'
+import questionnaireReducer, {
+  QuestionnairePreloadState,
+  QuestionnaireState
+} from './user/questionnaire/questionnaireReducer'
 
 export interface StoreState {
   profile: ProfileState
@@ -62,6 +66,7 @@ export interface StoreState {
   comment: CommentState
   ngWord: NGWordState
   notification: NotificationState
+  questionnaire: QuestionnaireState
 }
 
 export const storePreloadState: StoreState = {
@@ -82,7 +87,8 @@ export const storePreloadState: StoreState = {
   user: UserPreloadState,
   comment: CommentPreloadState,
   ngWord: ngWordPreLoadState,
-  notification: NotificationPreLoadState
+  notification: NotificationPreLoadState,
+  questionnaire: QuestionnairePreloadState
 }
 
 export default combineReducers<StoreState>({
@@ -103,5 +109,6 @@ export default combineReducers<StoreState>({
   user: userReducer,
   comment: commentReducer,
   ngWord: ngWordReducer,
-  notification: notificationReducer
+  notification: notificationReducer,
+  questionnaire: questionnaireReducer
 })

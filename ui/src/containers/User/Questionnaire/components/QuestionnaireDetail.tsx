@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import Button, { Theme } from '@src/components/Button/Button'
@@ -7,17 +7,25 @@ import { ReactComponent as IconPC } from '@src/assets/common/pc.svg'
 import { ReactComponent as IconPhone } from '@src/assets/common/phone.svg'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import DataTable, { toDataSet, toPreWrapDataSet } from '@src/components/table/DataTable'
+import { emptyQuestionnaire } from '@src/reducers/user/questionnaire/questionnaireReducer'
 import commonMessages from '@src/messages'
 import QuestionTable from './QuestionTable'
-import QuestionnaireContext from '../context/QuestionnaireContext'
+import QuestionnaireContext, { ActionContext } from '../context/QuestionnaireContext'
 import HeadBlock from './HeadBlock'
 import messages from '../messages'
 
 export default function QuestionnaireDetail() {
   const history = useHistory()
   const { formatMessage } = useIntl()
-  const { currentQuestionnaire } = useContext(QuestionnaireContext)
+  const { currentQuestionnaire = emptyQuestionnaire } = useContext(QuestionnaireContext)
+  const { onGetQuestionnaire, onResetQuestionnaire } = useContext(ActionContext)
   const { id } = useParams()
+
+  useEffect(() => {
+    onGetQuestionnaire(id!)
+    return () => onResetQuestionnaire()
+  }, [onResetQuestionnaire, onGetQuestionnaire, id])
+
   const handleRedirect = useCallback(
     (target?: string) =>
       history.push(routePath.user.questionnaireEdit.replace(':id', id!) + (target ? `?${ANCHOR_QUERY}=${target}` : '')),
