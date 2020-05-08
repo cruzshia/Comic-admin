@@ -12,14 +12,14 @@ export default createContext<CommentContext>({
   commentTotal: 0
 })
 
-interface ActionProvider {
+interface ActionContext {
   onGetCommentList: () => void
   onGetComment: (id: string) => void
   onUpdateComment: (data: UserComment) => void
   onDeleteComment: (idList: string[]) => void
 }
 
-export const ActionContext = createContext({
+export const ActionContext = createContext<ActionContext>({
   onGetCommentList: () => {},
   onGetComment: (_: string) => {},
   onUpdateComment: (_: UserComment) => {},

@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import profileReducer, { ProfileState, ProfilePreloadState } from './user/profileReducer'
 import workReducer, { WorkState, WorkPreloadState } from './comics/work/workReducer'
 import contentReducer, { ContentState, ContentPreloadState } from './comics/content/contentReducer'
 import authorReducer, { AuthorState, AuthorPreloadState } from './comics/author/authorReducer'
@@ -15,6 +14,7 @@ import subscriptionReducer, {
   SubscriptionState,
   SubscriptionPreloadState
 } from './comics/subscription/subscriptionReducer'
+import profileReducer, { ProfileState, ProfilePreloadState } from './user/profileReducer'
 import commentReducer, { CommentState, CommentPreloadState } from './user/comment/commentReducer'
 import ngWordReducer, { NGWordState, ngWordPreLoadState } from './user/NGWord/ngWordReducer'
 import notificationReducer, {
@@ -46,6 +46,7 @@ import questionnaireReducer, {
   QuestionnairePreloadState,
   QuestionnaireState
 } from './user/questionnaire/questionnaireReducer'
+import inquiryReducer, { InquiryPreloadState, InquiryState } from './user/inquiry/inquiryReducer'
 
 export interface StoreState {
   profile: ProfileState
@@ -67,6 +68,7 @@ export interface StoreState {
   ngWord: NGWordState
   notification: NotificationState
   questionnaire: QuestionnaireState
+  inquiry: InquiryState
 }
 
 export const storePreloadState: StoreState = {
@@ -88,7 +90,8 @@ export const storePreloadState: StoreState = {
   comment: CommentPreloadState,
   ngWord: ngWordPreLoadState,
   notification: NotificationPreLoadState,
-  questionnaire: QuestionnairePreloadState
+  questionnaire: QuestionnairePreloadState,
+  inquiry: InquiryPreloadState
 }
 
 export default combineReducers<StoreState>({
@@ -110,5 +113,6 @@ export default combineReducers<StoreState>({
   comment: commentReducer,
   ngWord: ngWordReducer,
   notification: notificationReducer,
-  questionnaire: questionnaireReducer
+  questionnaire: questionnaireReducer,
+  inquiry: inquiryReducer
 })

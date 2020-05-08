@@ -1,5 +1,6 @@
 import ajaxUtil from '@src/utils/ajaxUtil'
 import { from } from 'rxjs'
+import UserComment from '@src/models/user/comment'
 import { mockCommentList, mockComment } from './mockData/mock'
 
 export const getCommentListAjax = () => {
@@ -22,7 +23,7 @@ export const getCommentAjax = (id: string) => {
   ])
 }
 
-export const updateCommentAjax = (data: string) => {
+export const updateCommentAjax = (data: UserComment) => {
   ajaxUtil.put('/comment/', data)
   return from([
     {

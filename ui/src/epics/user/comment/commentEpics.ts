@@ -7,7 +7,7 @@ import {
   updateCommentSuccessAction
 } from '@src/reducers/user/comment/commentAction'
 import { AnyAction } from 'redux'
-import { exhaustMap, map, tap, catchError, ignoreElements } from 'rxjs/operators'
+import { switchMap, exhaustMap, map, tap, catchError, ignoreElements } from 'rxjs/operators'
 import * as commentServices from './commentServices'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import { emptyErrorReturn } from '../../utils'
@@ -15,7 +15,7 @@ import { emptyErrorReturn } from '../../utils'
 const getCommentListEpics = (action$: Observable<AnyAction>) =>
   action$.pipe(
     ofType(CommentActionType.GET_LIST),
-    exhaustMap(() =>
+    switchMap(() =>
       commentServices.getCommentListAjax().pipe(
         map(res => getCommentListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: CommentActionType.GET_LIST_SUCCESS })),
@@ -30,7 +30,7 @@ const getCommentListEpics = (action$: Observable<AnyAction>) =>
 const getCommentEpics = (action$: Observable<AnyAction>) =>
   action$.pipe(
     ofType(CommentActionType.GET_COMMENT),
-    exhaustMap(action =>
+    switchMap(action =>
       commentServices.getCommentAjax(action.payload).pipe(
         map(res => getCommentSuccessAction(res.response)),
         tap(() => successSubject.next({ type: CommentActionType.GET_COMMENT_SUCCESS })),

@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -14,6 +14,7 @@ import messages from '../messages'
 interface Props {
   inquiryList: any[]
   inquiryTotal: number
+  onGetInquiryList: () => void
 }
 
 const useStyle = makeStyles({
@@ -33,12 +34,16 @@ const useStyle = makeStyles({
   }
 })
 
-export default function InquiryList({ inquiryList, inquiryTotal }: Props) {
+export default function InquiryList({ inquiryList, inquiryTotal, onGetInquiryList }: Props) {
   const history = useHistory()
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const { sortBy, handleSort } = useSort('inquiryAt')
   const { pagination, handlePageChange } = usePaging({ total: inquiryTotal })
+
+  useEffect(() => {
+    onGetInquiryList()
+  }, [onGetInquiryList])
 
   const breadcrumbList = useMemo(
     () =>

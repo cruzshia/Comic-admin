@@ -16,6 +16,7 @@ import userEpics from './user/user/userEpics'
 import applicationInfoEpics from './application/applicationInfo/applicationInfoEpics'
 import coinDeliveryEventEpics from './application/coinDeliveryEvent/coinDeliveryEventEpics'
 import questionnaireEpics from './user/questionnaire/questionnaireEpics'
+import inquirytEpics from './user/inquiry/inquirytEpics'
 
 export default combineEpics(
   ...profileEpics,
@@ -36,5 +37,6 @@ export default combineEpics(
   ...commentEpics,
   ...ngWordEpics,
   ...notificationEpics,
-  ...questionnaireEpics
+  ...questionnaireEpics,
+  ...inquirytEpics
 )
