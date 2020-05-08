@@ -4,12 +4,28 @@ import { map, switchMap, exhaustMap, catchError, tap } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   QuestionnaireActionType,
+  getQuestionnaireListSuccessAction,
   getQuestionnaireSuccessAction,
   createQuestionnaireSuccessAction,
   updateQuestionnaireSuccessAction
 } from '@src/reducers/user/questionnaire/questionnaireAction'
 import * as questionnaireServices from './questionnaireServices'
 import { emptyErrorReturn } from '@src/epics/utils'
+
+export const getQuestionnaireListEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(QuestionnaireActionType.GET_LIST),
+    switchMap(() =>
+      questionnaireServices.getQuestionnaireListAjax().pipe(
+        map(res => getQuestionnaireListSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: QuestionnaireActionType.GET_LIST_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: QuestionnaireActionType.GET_LIST_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
 
 export const getQuestionnaireEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -56,4 +72,4 @@ export const updateQuestionnaireEpic = (action$: ActionsObservable<AnyAction>) =
     )
   )
 
-export default [getQuestionnaireEpic, createQuestionnaireEpic, updateQuestionnaireEpic]
+export default [getQuestionnaireListEpic, getQuestionnaireEpic, createQuestionnaireEpic, updateQuestionnaireEpic]

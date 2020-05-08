@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -12,7 +12,7 @@ import HeadBlock from './HeadBlock'
 import SearchBlock from './SearchBlock'
 import commonMessages from '@src/messages'
 import messages from '../messages'
-import QuestionnaireContext from '../context/QuestionnaireContext'
+import QuestionnaireContext, { ActionContext } from '../context/QuestionnaireContext'
 
 const useStyle = makeStyles(() => ({
   table: {
@@ -27,11 +27,17 @@ const useStyle = makeStyles(() => ({
 
 export default function QuestionnaireList() {
   const { questionnaireList, questionnaireTotal } = useContext(QuestionnaireContext)
+  const { onGetQuestionnaireList } = useContext(ActionContext)
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { sortBy, handleSort } = useSort('deliverStart')
   const { pagination, handlePageChange } = usePaging({ total: questionnaireTotal })
+
+  useEffect(() => {
+    onGetQuestionnaireList()
+  }, [onGetQuestionnaireList])
+
   const buttonList = useMemo(
     () => [
       <Button

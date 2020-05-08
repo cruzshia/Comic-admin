@@ -13,6 +13,7 @@ export default createContext<Context>({
 })
 
 interface QuestionnaireActionContext {
+  onGetQuestionnaireList: () => void
   onGetQuestionnaire: (_: string) => void
   onCreateQuestionnaire: (_: Questionnaire) => void
   onUpdateQuestionnaire: (_: Questionnaire) => void
@@ -20,6 +21,7 @@ interface QuestionnaireActionContext {
 }
 
 export const ActionContext = createContext<QuestionnaireActionContext>({
+  onGetQuestionnaireList: () => {},
   onGetQuestionnaire: () => {},
   onCreateQuestionnaire: () => {},
   onUpdateQuestionnaire: () => {},

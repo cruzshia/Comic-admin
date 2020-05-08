@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { routePath } from '@src/common/appConfig'
 import { StoreState } from '@src/reducers'
 import {
+  getQuestionnaireListAction,
   createQuestionnaireAction,
   getQuestionnaireAction,
   updateQuestionnaireAction,
@@ -14,11 +15,13 @@ import QuestionnaireDetail from './components/QuestionnaireDetail'
 import QuestionnaireEdit from './components/QuestionnaireEdit'
 import QuestionnaireCreation from './components/QuestionnaireCreation'
 import QuestionnaireContext, { ActionContext } from './context/QuestionnaireContext'
-import { mockQuestionnaireList } from './mockData/mockData'
 
 export default function Questionnaire() {
   const dispatch = useDispatch()
-  const { questionnaireTotal, currentQuestionnaire } = useSelector((store: StoreState) => store.questionnaire)
+  const { questionnaireTotal, currentQuestionnaire, questionnaireList } = useSelector(
+    (store: StoreState) => store.questionnaire
+  )
+  const handleGetList = useCallback(() => dispatch(getQuestionnaireListAction()), [dispatch])
   const handleCreate = useCallback(data => dispatch(createQuestionnaireAction(data)), [dispatch])
   const handleGet = useCallback(id => dispatch(getQuestionnaireAction(id)), [dispatch])
   const handleUpdate = useCallback(data => dispatch(updateQuestionnaireAction(data)), [dispatch])
@@ -26,6 +29,7 @@ export default function Questionnaire() {
   return (
     <ActionContext.Provider
       value={{
+        onGetQuestionnaireList: handleGetList,
         onGetQuestionnaire: handleGet,
         onCreateQuestionnaire: handleCreate,
         onUpdateQuestionnaire: handleUpdate,
@@ -34,7 +38,7 @@ export default function Questionnaire() {
     >
       <QuestionnaireContext.Provider
         value={{
-          questionnaireList: mockQuestionnaireList,
+          questionnaireList,
           questionnaireTotal,
           currentQuestionnaire
         }}
