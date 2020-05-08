@@ -13,12 +13,10 @@ context('ContentList', () => {
     cy.findAllByTestId('header-tab')
       .contains(this.headerTabs.comic)
       .click()
-      .then(() => {
-        cy.findAllByTestId('sidebar-tab')
-          .contains('コンテンツ管理')
-          .click()
-        cy.url().should('include', targetRoute)
-      })
+    cy.findAllByTestId('sidebar-tab')
+      .contains('コンテンツ管理')
+      .click()
+    cy.url().should('include', targetRoute)
   })
 
   it('Renders selected style when click content tab in sidebar', () => {
@@ -158,6 +156,48 @@ context('ContentList', () => {
           .findByTestId('time_span_input')
           .should('be.exist')
       })
+  })
+
+  it('Renders correct list table', () => {
+    const tableColNum = 9
+
+    cy.findByTestId('list-table')
+      .as('listTable')
+      .should('be.exist')
+
+    cy.get('@listTable')
+      .findAllByTestId('table-head-row')
+      .children('th')
+      .should('have.lengthOf', tableColNum)
+      .first()
+      .should('have.text', '画像')
+      .next()
+      .should('have.text', 'コンテンツID')
+      .next()
+      .should('have.text', 'タイトル')
+      .next()
+      .should('have.text', 'コンテンツ種別')
+      .next()
+      .should('have.text', 'コイン価格')
+      .next()
+      .should('have.text', 'キャンペーン価格')
+      .next()
+      .should('have.text', '並換コード')
+      .next()
+      .should('have.text', '作成日時')
+      .and('be.sortableHeadCell', true)
+
+    cy.get('@listTable')
+      .findAllByTestId('list-table-row')
+      .findAllByTestId('list-table-row-cell')
+      .should('have.lengthOf', tableColNum)
+  })
+
+  it('Renders correct list table button and pagination information', () => {
+    cy.findByTestId('list-table-button')
+      .children('button')
+      .should('contain', 'CSV出力')
+    cy.findByTestId('list-table-pagination').should('be.exist')
   })
 
   it('Renders pagination', () => {

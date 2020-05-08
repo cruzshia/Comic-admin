@@ -41,7 +41,7 @@ context('Subscription List', () => {
   })
 
   it('Renders correct list table', () => {
-    const tableColNum = 5
+    const tableColNum = 6
 
     cy.findByTestId('list-table')
       .as('listTable')

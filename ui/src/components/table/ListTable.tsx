@@ -177,7 +177,7 @@ export default function ListTable({
           ))}
         </div>
       </Grid>
-      <TableContainer component={Container} className={isResponsive ? 'responsive' : ''} data-testid='table-container'>
+      <TableContainer component={Container} className={isResponsive ? 'responsive' : ''}>
         <Table>
           <TableHead>
             <TableRow className={clsx(classes.tableHeadRow, tableClass)} data-testid='table-head-row'>
