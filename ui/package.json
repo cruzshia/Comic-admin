@@ -105,7 +105,7 @@
     "@storybook/preset-create-react-app": "^1.5.2",
     "@storybook/react": "^5.3.12",
     "@testing-library/cypress": "^6.0.0",
-    "cypress": "^4.4.1",
+    "cypress": "^4.5.0",
     "extract-react-intl-messages": "^2.3.5",
     "husky": "^4.2.3",
     "lint-staged": "^10.0.7",

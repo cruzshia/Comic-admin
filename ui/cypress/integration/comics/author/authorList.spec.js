@@ -72,7 +72,7 @@ context('Author List', () => {
           .should('have.length', tableColumnNum)
           .first()
           .should('contain', '作成日時')
-          .and('is.sortByTableHeadCell', { sorting: true })
+          .and('is.sortableHeadCell', { sorting: true })
           .next()
           .should('contain', 'ID')
           .next()
