@@ -1,11 +1,19 @@
-Antikythera.Test.Config.init()
+alias Antikythera.Test.Config
+alias Mix.Tasks.RaiseServer.Ecto
 
-white_box_secret = Antikythera.Test.Config.whitebox_test_secret()
+Config.init()
 
-%{
-}
-|> Map.put("db", white_box_secret["db"])
-|> Antikythera.Test.GearConfigHelper.set_config()
+if Config.test_mode() == :whitebox do
+  white_box_secret = Config.whitebox_test_secret()
+
+  %{
+  }
+  |> Map.put("db", white_box_secret["db"])
+  |> Antikythera.Test.GearConfigHelper.set_config()
+
+  Ecto.Create.execute()
+  Ecto.Migrate.execute()
+end
 
 defmodule Req do
   use Antikythera.Test.HttpClient
@@ -14,9 +22,6 @@ end
 defmodule Socket do
   use Antikythera.Test.WebsocketClient
 end
-
-Mix.Tasks.RaiseServer.Ecto.Create.execute()
-Mix.Tasks.RaiseServer.Ecto.Migrate.execute()
 
 [
   "test/support/*.exs",
