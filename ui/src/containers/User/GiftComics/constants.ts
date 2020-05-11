@@ -4,5 +4,5 @@ import { routePath } from '@src/common/appConfig'
 
 export const BREADCRUMBS = [
   { title: commonMessages.userManagement },
-  { title: messages.csvBatchGift, route: routePath.user.giftComics }
+  { title: messages.csvBatchGift, route: routePath.user.giftComicsCreation }
 ]

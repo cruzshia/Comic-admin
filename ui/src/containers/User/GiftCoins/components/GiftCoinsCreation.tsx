@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useIntl } from 'react-intl'
+import { useHistory } from 'react-router-dom'
 import { ReactComponent as IconDownload } from '@src/assets/common/download.svg'
 import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import { TextInputAdapter } from '@src/components/finalForm'
 import ContentHeader from '@src/components/ContentHeader'
+import { routePath } from '@src/common/appConfig'
 import UploadButton from '../../components/UploadButton'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
@@ -15,12 +17,22 @@ import messages from '../messages'
 
 export default function GiftCoinsCreation() {
   const { formatMessage } = useIntl()
+  const history = useHistory()
+
   const breadcrumbList = BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) }))
-  const buttonList = [
-    <Button theme={Theme.DARK} buttonText={formatMessage(commonMessages.create)} />,
-    <Button buttonText={formatMessage(userMessages.templateJIS)} icon={IconDownload} normalCase />,
-    <Button buttonText={formatMessage(commonMessages.csvImportLogs)} />
-  ]
+  const buttonList = useMemo(
+    () => [
+      <Button theme={Theme.DARK} buttonText={formatMessage(commonMessages.create)} />,
+      <Button buttonText={formatMessage(userMessages.templateJIS)} icon={IconDownload} normalCase />,
+      <Button
+        buttonText={formatMessage(commonMessages.csvImportLogs)}
+        onClick={() => {
+          history.push(routePath.user.giftCoinsBatchLogs)
+        }}
+      />
+    ],
+    [history, formatMessage]
+  )
 
   return (
     <>
