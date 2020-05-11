@@ -14,15 +14,11 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     left: [
       {
         label: formatMessage(messages.contentId),
-        input: <Field name='contents' component={SearchInputAdapter} />
+        input: <Field name='contentId' component={SearchInputAdapter} />
       },
       {
         label: formatMessage(commonMessages.workId),
-        input: <Field name='contents' component={SearchInputAdapter} />
-      },
-      {
-        label: formatMessage(commonMessages.workId),
-        input: <Field name='contents' component={SearchInputAdapter} />
+        input: <Field name='workId' component={SearchInputAdapter} />
       },
       {
         label: formatMessage(userMessages.userId),
@@ -34,7 +30,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         label: formatMessage(commonMessages.email),
         input: (
           <Field
-            name='status'
+            name='email'
             component={SearchInputAdapter}
             placeholder={formatMessage(commonMessages.searchByEmail)}
           />
@@ -48,11 +44,11 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
       },
       {
         label: formatMessage(userMessages.status),
-        input: <Field name='isReported' component={SelectAdapter} options={[]} isShort />
+        input: <Field name='status' component={SelectAdapter} options={[]} isShort />
       },
       {
         label: formatMessage(commonMessages.appId),
-        input: <Field name='isReported' component={SelectAdapter} options={[]} />
+        input: <Field name='appId' component={SelectAdapter} options={[]} />
       },
       {
         label: formatMessage(messages.period),
