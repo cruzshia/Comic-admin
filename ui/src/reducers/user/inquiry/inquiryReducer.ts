@@ -15,16 +15,21 @@ const InitState = {
 
 export const InquiryPreloadState = InitState
 
+function updateCurrentInquiryHandler(state: InquiryState = InitState, action: ActionType<Inquiry>): InquiryState {
+  return {
+    ...state,
+    currentInquiry: action.payload
+  }
+}
+
 const handlers: Record<string, (state: InquiryState, action: ActionType<any>) => InquiryState> = {
   [InquiryActionType.GET_LIST_SUCCESS]: (state = InitState, action: ActionType<Inquiry[]>) => ({
     ...state,
     inquiryList: action.payload,
     inquiryTotal: action.payload.length
   }),
-  [InquiryActionType.GET_INQUIRY_SUCCESS]: (state = InitState, action: ActionType<Inquiry>) => ({
-    ...state,
-    currentInquiry: action.payload
-  })
+  [InquiryActionType.GET_INQUIRY_SUCCESS]: updateCurrentInquiryHandler,
+  [InquiryActionType.RESET_INQUIRY]: updateCurrentInquiryHandler
 }
 
 export default function inquiryReducer(state: InquiryState = InitState, action: ActionType<Inquiry>) {

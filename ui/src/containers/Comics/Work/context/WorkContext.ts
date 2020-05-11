@@ -22,12 +22,14 @@ interface ActionContext {
   onGetWork: (workId: string) => void
   onCreateWork: (work: Work) => void
   onUpdateWork: (work: Work) => void
+  onResetWork: () => void
 }
 
 export const ActionContext = createContext<ActionContext>({
   onGetWorkList: () => {},
   onGetCsvLogList: () => {},
-  onGetWork: (_: string) => {},
-  onCreateWork: (_: Work) => {},
-  onUpdateWork: (_: Work) => {}
+  onGetWork: () => {},
+  onCreateWork: () => {},
+  onUpdateWork: () => {},
+  onResetWork: () => {}
 })

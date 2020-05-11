@@ -43,7 +43,7 @@ const useStyle = makeStyles({
 
 export default function WorkDetail() {
   const { currentWork = {} } = useContext(workContext)
-  const { onGetWork } = useContext(ActionContext)
+  const { onGetWork, onResetWork } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const { id } = useParams()
   const classes = useStyle()
@@ -61,7 +61,8 @@ export default function WorkDetail() {
 
   useEffect(() => {
     onGetWork(id!)
-  }, [onGetWork, id])
+    return () => onResetWork()
+  }, [onGetWork, id, onResetWork])
 
   const handleRedirect = useCallback(
     (target?: ScrollAnchor) => () =>

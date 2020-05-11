@@ -14,14 +14,15 @@ import WorkContext, { ActionContext } from '../context/WorkContext'
 
 export default function WorkEdit() {
   const { currentWork = {} } = useContext(WorkContext)
-  const { onGetWork, onUpdateWork } = useContext(ActionContext)
+  const { onGetWork, onUpdateWork, onResetWork } = useContext(ActionContext)
   const { id } = useParams()
   const formRef = useRef<HTMLFormElement>(null)
   const { formatMessage } = useIntl()
 
   useEffect(() => {
     onGetWork(id!)
-  }, [onGetWork, id])
+    return () => onResetWork()
+  }, [onGetWork, id, onResetWork])
 
   const handleClickSubmit = useCallback(() => submitForm(formRef), [formRef])
   const handleSubmitUpdate = useCallback(data => onUpdateWork(data), [onUpdateWork])

@@ -1,14 +1,29 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
+import { useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader/ContentHeader'
 import DataTable, { toDataSet, toPreWrapDataSet } from '@src/components/table/DataTable'
-import { BREADCRUMBS } from '../utils'
+import Inquiry from '@src/models/user/inquiry'
 import commonMessages from '@src/messages'
 import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
+import { BREADCRUMBS } from '../utils'
 
-export default function InquiryDetail({ inquiry }: { inquiry: any }) {
+interface Props {
+  inquiry: Inquiry
+  onGetInquiry: (id: string) => void
+  onResetInquiry: () => void
+}
+
+export default function InquiryDetail({ inquiry = {}, onGetInquiry, onResetInquiry }: Props) {
   const { formatMessage } = useIntl()
+  const { id } = useParams()
+
+  useEffect(() => {
+    onGetInquiry(id!)
+    return () => onResetInquiry()
+  }, [onGetInquiry, id, onResetInquiry])
+
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({

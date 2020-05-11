@@ -7,7 +7,8 @@ export enum InquiryActionType {
 
   GET_INQUIRY = '@UserInquiry/GET_INQUIRY',
   GET_INQUIRY_SUCCESS = '@UserInquiry/GET_INQUIRY_SUCCESS',
-  GET_INQUIRY_ERROR = '@UserInquiry/GET_INQUIRY_ERROR'
+  GET_INQUIRY_ERROR = '@UserInquiry/GET_INQUIRY_ERROR',
+  RESET_INQUIRY = '@UserInquiry/RESET_INQUIRY'
 }
 
 export const getInquiryListAction = () => ({
@@ -27,4 +28,8 @@ export const getInquiryAction = (inquiryId: string) => ({
 export const getInquirySuccessAction = (payload: UserInquiry) => ({
   type: InquiryActionType.GET_INQUIRY_SUCCESS,
   payload
+})
+
+export const resetInquiryAction = () => ({
+  type: InquiryActionType.RESET_INQUIRY
 })

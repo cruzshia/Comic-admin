@@ -8,6 +8,7 @@ export enum WorkActionType {
   GET_WORK = '@ComicsWork/GET_WORK',
   GET_WORK_SUCCESS = '@ComicsWork/GET_WORK_SUCCESS',
   GET_WORK_ERROR = '@ComicsWork/GET_WORK_ERROR',
+  RESET_WORK = '@ComicsWork/RESET_WORK',
 
   CREATE = '@ComicsWork/CREATE',
   CREATE_SUCCESS = '@ComicsWork/CREATE_SUCCESS',
@@ -43,6 +44,10 @@ export const getWorkAction = (workId: string) => ({
 export const getWorkSuccessAction = (work: Work) => ({
   type: WorkActionType.GET_WORK_SUCCESS,
   payload: work
+})
+
+export const resetWorkAction = () => ({
+  type: WorkActionType.RESET_WORK
 })
 
 export const createWorkAction = (work: Work) => ({

@@ -16,7 +16,8 @@ import {
   getWorkAction,
   createWorkAction,
   updateWorkAction,
-  getCsvLogListAction
+  getCsvLogListAction,
+  resetWorkAction
 } from '@src/reducers/comics/work/workActions'
 
 export default function Work() {
@@ -28,6 +29,7 @@ export default function Work() {
   const handleCreateWork = useCallback((work: WorkModel) => dispatch(createWorkAction(work)), [dispatch])
   const handleUpdateWork = useCallback((work: WorkModel) => dispatch(updateWorkAction(work)), [dispatch])
   const handleGetCsvLogList = useCallback(() => dispatch(getCsvLogListAction()), [dispatch])
+  const handleResetWork = useCallback(() => dispatch(resetWorkAction()), [dispatch])
 
   return (
     <ActionContext.Provider
@@ -36,7 +38,8 @@ export default function Work() {
         onGetWork: handleGetWork,
         onCreateWork: handleCreateWork,
         onUpdateWork: handleUpdateWork,
-        onGetCsvLogList: handleGetCsvLogList
+        onGetCsvLogList: handleGetCsvLogList,
+        onResetWork: handleResetWork
       }}
     >
       <WorkContext.Provider
