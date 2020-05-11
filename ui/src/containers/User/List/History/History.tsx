@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Switch, Route } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { routePath } from '@src/common/appConfig'
+import { StoreState } from '@src/reducers'
+import { getHistoryEpisodeListAction } from '@src/reducers/user/user/historyEpisodeActions'
 import HistoryEpisodeList from './components/HistoryEpisodeList'
 import HistoryEpisodeDetail from './components/HistoryEpisodeDetail'
 import HistorySubscriptionList from './components/HistorySubscriptionList'
@@ -11,26 +14,35 @@ import HistoryBonusCoinList from './components/HistoryBonusCoinList'
 import HistoryBonusCoinDetail from './components/HistoryBonusCoinDetail'
 import HistoryPayCoinList from './components/HistoryPayCoinList'
 import HistoryPayCoinDetail from './components/HistoryPayCoinDetail'
-import { mockEpisodePurchaseList, mockEpisodePurchaseDetail } from './mockData/episodePurchaseMockData'
 import { mockSubscriptionList, mockSubscriptionDetail } from './mockData/subscriptionMockData'
 import { mockMagazineList, mockMagazineDetail } from './mockData/magazineMockData'
 import { mockBonusCoinList, mockBonusCoinDetail } from './mockData/bonusCoinMockData'
 import { mockPayCoinList, mockPayCoinDetail } from './mockData/payCoinMockData'
 
 export default function History() {
+  const dispatch = useDispatch()
+  const { historyEpisodeList, currentHistoryEpisode, historyEpisodeTotal } = useSelector(
+    (state: StoreState) => state.historyEpisode
+  )
+  const handleGetHistoryEpisode = useCallback(() => dispatch(getHistoryEpisodeListAction()), [dispatch])
+
   return (
     <Switch>
       <Route
         exact
         path={routePath.user.historyEpisode}
         render={() => (
-          <HistoryEpisodeList historyTotal={mockEpisodePurchaseList.length} historyList={mockEpisodePurchaseList} />
+          <HistoryEpisodeList
+            onGetHistoryEpisode={handleGetHistoryEpisode}
+            historyTotal={historyEpisodeTotal}
+            historyList={historyEpisodeList}
+          />
         )}
       />
       <Route
         exact
         path={routePath.user.historyEpisodeDetail}
-        render={() => <HistoryEpisodeDetail currentHistory={mockEpisodePurchaseDetail} />}
+        render={() => <HistoryEpisodeDetail currentHistory={currentHistoryEpisode} />}
       />
       <Route
         exact

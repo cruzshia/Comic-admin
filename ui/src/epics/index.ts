@@ -13,10 +13,11 @@ import notificationEpics from './user/notification/notificationEpics'
 import coinProductEpics from './application/coinProduct/coinProductEpics'
 import pushNotificationEpics from './application/pushNotification/pushNotificationEpics'
 import userEpics from './user/user/userEpics'
+import historyEpisodeEpics from './user/user/historyEpisodeEpics'
 import applicationInfoEpics from './application/applicationInfo/applicationInfoEpics'
 import coinDeliveryEventEpics from './application/coinDeliveryEvent/coinDeliveryEventEpics'
 import questionnaireEpics from './user/questionnaire/questionnaireEpics'
-import inquirytEpics from './user/inquiry/inquirytEpics'
+import inquiryEpics from './user/inquiry/inquiryEpics'
 
 export default combineEpics(
   ...profileEpics,
@@ -34,9 +35,10 @@ export default combineEpics(
   ...coinDeliveryEventEpics,
 
   ...userEpics,
+  ...historyEpisodeEpics,
   ...commentEpics,
   ...ngWordEpics,
   ...notificationEpics,
   ...questionnaireEpics,
-  ...inquirytEpics
+  ...inquiryEpics
 )

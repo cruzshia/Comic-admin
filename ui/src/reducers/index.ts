@@ -47,6 +47,10 @@ import questionnaireReducer, {
   QuestionnaireState
 } from './user/questionnaire/questionnaireReducer'
 import inquiryReducer, { InquiryPreloadState, InquiryState } from './user/inquiry/inquiryReducer'
+import historyEpisodeReducer, {
+  HistoryEpisodePreloadState,
+  HistoryEpisodeState
+} from './user/user/historyEpisodeReducer'
 
 export interface StoreState {
   profile: ProfileState
@@ -69,6 +73,7 @@ export interface StoreState {
   notification: NotificationState
   questionnaire: QuestionnaireState
   inquiry: InquiryState
+  historyEpisode: HistoryEpisodeState
 }
 
 export const storePreloadState: StoreState = {
@@ -91,7 +96,8 @@ export const storePreloadState: StoreState = {
   ngWord: ngWordPreLoadState,
   notification: NotificationPreLoadState,
   questionnaire: QuestionnairePreloadState,
-  inquiry: InquiryPreloadState
+  inquiry: InquiryPreloadState,
+  historyEpisode: HistoryEpisodePreloadState
 }
 
 export default combineReducers<StoreState>({
@@ -114,5 +120,6 @@ export default combineReducers<StoreState>({
   ngWord: ngWordReducer,
   notification: notificationReducer,
   questionnaire: questionnaireReducer,
-  inquiry: inquiryReducer
+  inquiry: inquiryReducer,
+  historyEpisode: historyEpisodeReducer
 })

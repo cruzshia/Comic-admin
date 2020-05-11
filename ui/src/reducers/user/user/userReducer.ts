@@ -42,7 +42,7 @@ const handler: Record<string, (state: UserState, action: ActionType<any>) => Use
   [UserActionType.CREATE_SUCCESS]: updateCurrentUserHandler
 }
 
-export default function workReducer(state: UserState = initState, action: ActionType<any>) {
+export default function userReducer(state: UserState = initState, action: ActionType<any>) {
   if (handler.hasOwnProperty(action.type)) {
     return handler[action.type](state, action)
   }
