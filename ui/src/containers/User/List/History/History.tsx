@@ -8,6 +8,7 @@ import {
   getHistoryEpisodeAction,
   resetHistoryEpisodeAction
 } from '@src/reducers/user/user/historyEpisodeActions'
+import { getHistorySubscriptionListAction } from '@src/reducers/user/user/historySubscriptionActions'
 import HistoryEpisodeList from './components/HistoryEpisodeList'
 import HistoryEpisodeDetail from './components/HistoryEpisodeDetail'
 import HistorySubscriptionList from './components/HistorySubscriptionList'
@@ -18,7 +19,7 @@ import HistoryBonusCoinList from './components/HistoryBonusCoinList'
 import HistoryBonusCoinDetail from './components/HistoryBonusCoinDetail'
 import HistoryPayCoinList from './components/HistoryPayCoinList'
 import HistoryPayCoinDetail from './components/HistoryPayCoinDetail'
-import { mockSubscriptionList, mockSubscriptionDetail } from './mockData/subscriptionMockData'
+import { mockSubscriptionDetail } from './mockData/subscriptionMockData'
 import { mockMagazineList, mockMagazineDetail } from './mockData/magazineMockData'
 import { mockBonusCoinList, mockBonusCoinDetail } from './mockData/bonusCoinMockData'
 import { mockPayCoinList, mockPayCoinDetail } from './mockData/payCoinMockData'
@@ -31,6 +32,13 @@ export default function History() {
   const handleGetHistoryListEpisode = useCallback(() => dispatch(getHistoryEpisodeListAction()), [dispatch])
   const handleGetHistoryEpisode = useCallback((id: string) => dispatch(getHistoryEpisodeAction(id)), [dispatch])
   const handleResetHistoryEpisode = useCallback(() => dispatch(resetHistoryEpisodeAction()), [dispatch])
+
+  const { historySubscriptionList, historySubscriptionTotal } = useSelector(
+    (state: StoreState) => state.historySubscription
+  )
+  const handleGetHistorySubscriptionListEpisode = useCallback(() => dispatch(getHistorySubscriptionListAction()), [
+    dispatch
+  ])
 
   return (
     <Switch>
@@ -60,7 +68,11 @@ export default function History() {
         exact
         path={routePath.user.historySubscription}
         render={() => (
-          <HistorySubscriptionList historyTotal={mockSubscriptionList.length} historyList={mockSubscriptionList} />
+          <HistorySubscriptionList
+            onGetList={handleGetHistorySubscriptionListEpisode}
+            historyTotal={historySubscriptionTotal}
+            historyList={historySubscriptionList}
+          />
         )}
       />
       <Route

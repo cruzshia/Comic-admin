@@ -51,6 +51,10 @@ import historyEpisodeReducer, {
   HistoryEpisodePreloadState,
   HistoryEpisodeState
 } from './user/user/historyEpisodeReducer'
+import historySubscriptionReducer, {
+  HistorySubscriptionPreloadState,
+  HistorySubscriptionState
+} from './user/user/historySubscriptionReducer'
 
 export interface StoreState {
   profile: ProfileState
@@ -74,6 +78,7 @@ export interface StoreState {
   questionnaire: QuestionnaireState
   inquiry: InquiryState
   historyEpisode: HistoryEpisodeState
+  historySubscription: HistorySubscriptionState
 }
 
 export const storePreloadState: StoreState = {
@@ -97,7 +102,8 @@ export const storePreloadState: StoreState = {
   notification: NotificationPreLoadState,
   questionnaire: QuestionnairePreloadState,
   inquiry: InquiryPreloadState,
-  historyEpisode: HistoryEpisodePreloadState
+  historyEpisode: HistoryEpisodePreloadState,
+  historySubscription: HistorySubscriptionPreloadState
 }
 
 export default combineReducers<StoreState>({
@@ -121,5 +127,6 @@ export default combineReducers<StoreState>({
   notification: notificationReducer,
   questionnaire: questionnaireReducer,
   inquiry: inquiryReducer,
-  historyEpisode: historyEpisodeReducer
+  historyEpisode: historyEpisodeReducer,
+  historySubscription: historySubscriptionReducer
 })

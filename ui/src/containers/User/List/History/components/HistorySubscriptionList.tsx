@@ -1,9 +1,10 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams, useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
 import ContentHeader from '@src/components/ContentHeader'
 import { routePath } from '@src/common/appConfig'
+import HistorySubscription from '@src/models/user/historySubscription'
 import ListTable from '@src/components/table/ListTable'
 import { useSort, usePaging } from '@src/hooks'
 import { BREADCRUMBS } from '../utils'
@@ -31,19 +32,23 @@ const useStyle = makeStyles({
   }
 })
 
-export default function HistorySubscriptionList({
-  historyTotal,
-  historyList
-}: {
+interface Props {
   historyTotal: number
-  historyList: { [key: string]: any }[]
-}) {
+  historyList: HistorySubscription[]
+  onGetList: () => void
+}
+
+export default function HistorySubscriptionList({ historyTotal, historyList, onGetList }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { userId } = useParams()
   const { sortBy, handleSort } = useSort('createdAt')
   const { pagination, handlePageChange } = usePaging({ total: historyTotal })
+
+  useEffect(() => {
+    onGetList()
+  }, [onGetList])
 
   const breadcrumbList = useMemo(
     () =>
