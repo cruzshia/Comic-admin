@@ -3,7 +3,7 @@ export const mockEventTotal = 7
 
 export const mockEventDetail = {
   id: 'WORK_SHUNKAN10000006',
-  applicationId: 'WORK_SHUNKAN10000006',
+  eventId: 'WORK_SHUNKAN10000006',
   eventName: 'サンプルテキスト',
   eventType: 'サンプルテキスト',
   eventRewardSetting: 'サンプルテキスト',

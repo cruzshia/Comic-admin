@@ -1,7 +1,8 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams, useHistory } from 'react-router-dom'
 import { makeStyles, Box } from '@material-ui/core'
+import HistoryMagazine from '@src/models/user/historyMagazine'
 import ContentHeader from '@src/components/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import ListTable from '@src/components/table/ListTable'
@@ -28,19 +29,23 @@ const useStyle = makeStyles({
   }
 })
 
-export default function HistoryMagazineList({
-  historyTotal,
-  historyList
-}: {
+interface Props {
   historyTotal: number
-  historyList: { [key: string]: any }[]
-}) {
+  historyList: HistoryMagazine[]
+  onGetMagazineList: () => void
+}
+
+export default function HistoryMagazineList({ historyTotal, historyList, onGetMagazineList }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { userId } = useParams()
   const { sortBy, handleSort } = useSort('createdAt')
   const { pagination, handlePageChange } = usePaging({ total: historyTotal })
+
+  useEffect(() => {
+    onGetMagazineList()
+  }, [onGetMagazineList])
 
   const breadcrumbList = useMemo(
     () =>

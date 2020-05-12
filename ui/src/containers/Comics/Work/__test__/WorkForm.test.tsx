@@ -29,6 +29,7 @@ describe('WorkForm component test', () => {
     expect(getAllByTestId('data-table')).toHaveLength(4)
   })
 
+  /* disable work form unit test temporarily, waiting design confirmation
   it('Retrieve data when submit', () => {
     const mockSubmit = jest.fn()
     const formRef = createRef<HTMLFormElement>()
@@ -57,4 +58,5 @@ describe('WorkForm component test', () => {
     formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
     expect(mockSubmit).toHaveBeenNthCalledWith(1, mockRes, expect.anything(), expect.anything())
   })
+  */
 })
