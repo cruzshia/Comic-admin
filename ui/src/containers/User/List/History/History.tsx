@@ -8,7 +8,11 @@ import {
   getHistoryEpisodeAction,
   resetHistoryEpisodeAction
 } from '@src/reducers/user/user/historyEpisodeActions'
-import { getHistorySubscriptionListAction } from '@src/reducers/user/user/historySubscriptionActions'
+import {
+  getHistorySubscriptionListAction,
+  getHistorySubscriptionAction,
+  resetHistorySubscriptionAction
+} from '@src/reducers/user/user/historySubscriptionActions'
 import HistoryEpisodeList from './components/HistoryEpisodeList'
 import HistoryEpisodeDetail from './components/HistoryEpisodeDetail'
 import HistorySubscriptionList from './components/HistorySubscriptionList'
@@ -19,7 +23,6 @@ import HistoryBonusCoinList from './components/HistoryBonusCoinList'
 import HistoryBonusCoinDetail from './components/HistoryBonusCoinDetail'
 import HistoryPayCoinList from './components/HistoryPayCoinList'
 import HistoryPayCoinDetail from './components/HistoryPayCoinDetail'
-import { mockSubscriptionDetail } from './mockData/subscriptionMockData'
 import { mockMagazineList, mockMagazineDetail } from './mockData/magazineMockData'
 import { mockBonusCoinList, mockBonusCoinDetail } from './mockData/bonusCoinMockData'
 import { mockPayCoinList, mockPayCoinDetail } from './mockData/payCoinMockData'
@@ -33,12 +36,14 @@ export default function History() {
   const handleGetHistoryEpisode = useCallback((id: string) => dispatch(getHistoryEpisodeAction(id)), [dispatch])
   const handleResetHistoryEpisode = useCallback(() => dispatch(resetHistoryEpisodeAction()), [dispatch])
 
-  const { historySubscriptionList, historySubscriptionTotal } = useSelector(
+  const { historySubscriptionList, historySubscriptionTotal, currentHistorySubscription } = useSelector(
     (state: StoreState) => state.historySubscription
   )
-  const handleGetHistorySubscriptionListEpisode = useCallback(() => dispatch(getHistorySubscriptionListAction()), [
+  const handleGetHistorySubscriptionList = useCallback(() => dispatch(getHistorySubscriptionListAction()), [dispatch])
+  const handleGetHistorySubscription = useCallback((id: string) => dispatch(getHistorySubscriptionAction(id)), [
     dispatch
   ])
+  const handleResetHistorySubscription = useCallback(() => dispatch(resetHistorySubscriptionAction()), [dispatch])
 
   return (
     <Switch>
@@ -69,7 +74,7 @@ export default function History() {
         path={routePath.user.historySubscription}
         render={() => (
           <HistorySubscriptionList
-            onGetList={handleGetHistorySubscriptionListEpisode}
+            onGetList={handleGetHistorySubscriptionList}
             historyTotal={historySubscriptionTotal}
             historyList={historySubscriptionList}
           />
@@ -78,7 +83,13 @@ export default function History() {
       <Route
         exact
         path={routePath.user.historySubscriptionDetail}
-        render={() => <HistorySubscriptionDetail currentHistory={mockSubscriptionDetail} />}
+        render={() => (
+          <HistorySubscriptionDetail
+            onGetSubscription={handleGetHistorySubscription}
+            onResetSubscription={handleResetHistorySubscription}
+            currentSubscription={currentHistorySubscription}
+          />
+        )}
       />
       <Route
         exact

@@ -1,17 +1,34 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
 import ContentHeader from '@src/components/ContentHeader'
+import HistorySubscription from '@src/models/user/historySubscription'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
 
-export default function HistorySubscriptionDetail({ currentHistory }: { currentHistory: any }) {
+interface Props {
+  currentSubscription?: HistorySubscription
+  onGetSubscription: (id: string) => void
+  onResetSubscription: () => void
+}
+
+export default function HistorySubscriptionDetail({
+  currentSubscription = {},
+  onGetSubscription,
+  onResetSubscription
+}: Props) {
   const { formatMessage } = useIntl()
-  const { userId } = useParams()
+  const { userId, id } = useParams()
+
+  useEffect(() => {
+    onGetSubscription(id!)
+    return () => onResetSubscription()
+  }, [onResetSubscription, onGetSubscription, id])
+
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
@@ -36,15 +53,15 @@ export default function HistorySubscriptionDetail({ currentHistory }: { currentH
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
-          toDataSet(formatMessage(commonMessages.createDateTime), currentHistory.createdAt),
-          toDataSet(formatMessage(userMessages.userId), currentHistory.userId),
-          toDataSet(formatMessage(commonMessages.subscriptionId), currentHistory.subscriptionId),
-          toDataSet(formatMessage(commonMessages.appId), currentHistory.applicationId),
-          toDataSet(formatMessage(messages.price), currentHistory.price),
-          toDataSet(formatMessage(messages.currency), currentHistory.currency),
-          toDataSet(formatMessage(messages.subscriptionStartAt), currentHistory.startAt),
-          toDataSet(formatMessage(messages.subscriptionUpdatedAt), currentHistory.updatedAt),
-          toDataSet(formatMessage(messages.subscriptionValidityPeriod), currentHistory.validityPeriod)
+          toDataSet(formatMessage(commonMessages.createDateTime), currentSubscription.createdAt),
+          toDataSet(formatMessage(userMessages.userId), currentSubscription.userId),
+          toDataSet(formatMessage(commonMessages.subscriptionId), currentSubscription.subscriptionId),
+          toDataSet(formatMessage(commonMessages.appId), currentSubscription.applicationId),
+          toDataSet(formatMessage(messages.price), currentSubscription.price),
+          toDataSet(formatMessage(messages.currency), currentSubscription.currency),
+          toDataSet(formatMessage(messages.subscriptionStartAt), currentSubscription.startAt),
+          toDataSet(formatMessage(messages.subscriptionUpdatedAt), currentSubscription.updatedAt),
+          toDataSet(formatMessage(messages.subscriptionValidityPeriod), currentSubscription.validityPeriod)
         ]}
       />
     </>
