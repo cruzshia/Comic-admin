@@ -1,12 +1,12 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { Grid, IconButton } from '@material-ui/core'
 import { ReactComponent as DownloadIcon } from '@src/assets/common/download_circle.svg'
 import { ReactComponent as AlertIcon } from '@src/assets/form/error_alert.svg'
 import ContentHeader from '@src/components/ContentHeader'
-import { mockList } from '@src/epics/user/giftComics/mockData/mock'
 import ListTable from '@src/components/table/ListTable'
 import { usePaging, useSort } from '@src/hooks'
+import GiftComicsContext, { ActionContext } from '../context/GiftComicsContext'
 import { useCsvLogsStyles } from '../../utils'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
@@ -14,9 +14,15 @@ import messages from '../messages'
 
 export default function GiftComicsBatchLogs() {
   const { formatMessage } = useIntl()
-  const { pagination, handlePageChange } = usePaging({ total: mockList.length })
+  const { csvLogList, csvLogTotal } = useContext(GiftComicsContext)
+  const { onGetCsvLogList } = useContext(ActionContext)
+  const { pagination, handlePageChange } = usePaging({ total: csvLogTotal })
   const { sortBy, handleSort } = useSort('create_data_time')
   const classes = useCsvLogsStyles()
+
+  useEffect(() => {
+    onGetCsvLogList()
+  }, [onGetCsvLogList])
 
   const titleText = formatMessage(messages.csvBatchGiftLogs)
   const breadcrumbList = BREADCRUMBS.map(({ title, route }) => ({
@@ -40,7 +46,7 @@ export default function GiftComicsBatchLogs() {
     ],
     [handleSort, formatMessage]
   )
-  const dataList = mockList
+  const dataList = csvLogList
     .map(({ id, ...rest }) => ({
       id,
       data: {

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { Field, Form } from 'react-final-form'
 import { useIntl } from 'react-intl'
+import { useHistory } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
 import { ReactComponent as IconDownload } from '@src/assets/common/download.svg'
 import Button, { Theme } from '@src/components/Button/Button'
@@ -13,7 +14,6 @@ import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
-import { useHistory } from 'react-router-dom'
 
 export default function GiftComicsCreation() {
   const { formatMessage } = useIntl()

@@ -46,6 +46,8 @@ import questionnaireReducer, {
   QuestionnairePreloadState,
   QuestionnaireState
 } from './user/questionnaire/questionnaireReducer'
+import giftCoinsReducer, { GiftCoinsPreLoadState, GiftCoinsState } from './user/giftCoins/giftCoinsReducer'
+import giftComicsReducer, { GiftComicsPreloadState, GiftComicsState } from './user/giftComics/giftComicsReducer'
 import inquiryReducer, { InquiryPreloadState, InquiryState } from './user/inquiry/inquiryReducer'
 import historyEpisodeReducer, {
   HistoryEpisodePreloadState,
@@ -76,6 +78,8 @@ export interface StoreState {
   ngWord: NGWordState
   notification: NotificationState
   questionnaire: QuestionnaireState
+  giftCoins: GiftCoinsState
+  giftComics: GiftComicsState
   inquiry: InquiryState
   historyEpisode: HistoryEpisodeState
   historySubscription: HistorySubscriptionState
@@ -101,6 +105,8 @@ export const storePreloadState: StoreState = {
   ngWord: ngWordPreLoadState,
   notification: NotificationPreLoadState,
   questionnaire: QuestionnairePreloadState,
+  giftCoins: GiftCoinsPreLoadState,
+  giftComics: GiftComicsPreloadState,
   inquiry: InquiryPreloadState,
   historyEpisode: HistoryEpisodePreloadState,
   historySubscription: HistorySubscriptionPreloadState
@@ -126,6 +132,8 @@ export default combineReducers<StoreState>({
   ngWord: ngWordReducer,
   notification: notificationReducer,
   questionnaire: questionnaireReducer,
+  giftCoins: giftCoinsReducer,
+  giftComics: giftComicsReducer,
   inquiry: inquiryReducer,
   historyEpisode: historyEpisodeReducer,
   historySubscription: historySubscriptionReducer
