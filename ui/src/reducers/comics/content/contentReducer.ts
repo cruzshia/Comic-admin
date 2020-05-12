@@ -37,7 +37,8 @@ const handler: Record<string, (state: ContentState, action: ActionType<any>) => 
       contentList: action.payload
     }
   },
-  [ContentActionType.GET_CONTENT_SUCCESS]: updateCurrentContentHandler
+  [ContentActionType.GET_CONTENT_SUCCESS]: updateCurrentContentHandler,
+  [ContentActionType.RESET_CONTENT]: updateCurrentContentHandler
 }
 
 export default function contentReducer(state: ContentState = initState, action: ActionType<any>) {

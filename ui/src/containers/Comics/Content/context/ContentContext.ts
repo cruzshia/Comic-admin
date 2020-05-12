@@ -17,11 +17,13 @@ interface ActionContext {
   onGetContent: (contentId: string) => void
   onCreateContent: (content: Content) => void
   onUpdateContent: (content: Content) => void
+  onResetContent: () => void
 }
 
 export const ActionContext = createContext<ActionContext>({
   onGetContentList: () => {},
-  onGetContent: (_: string) => {},
-  onCreateContent: (_: Content) => {},
-  onUpdateContent: (_: Content) => {}
+  onGetContent: () => {},
+  onCreateContent: () => {},
+  onUpdateContent: () => {},
+  onResetContent: () => {}
 })

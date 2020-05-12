@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
@@ -9,9 +9,25 @@ import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 
-export default function HistoryEpisodeDetail({ currentHistory }: { currentHistory: any }) {
+interface Props {
+  currentHistory: any
+  onGetEpisodeHistory: (id: string) => void
+  onResetHistoryEpisode: () => void
+}
+
+export default function HistoryEpisodeDetail({
+  currentHistory = {},
+  onGetEpisodeHistory,
+  onResetHistoryEpisode
+}: Props) {
   const { formatMessage } = useIntl()
-  const { userId } = useParams()
+  const { userId, id } = useParams()
+
+  useEffect(() => {
+    onGetEpisodeHistory(id!)
+    return () => onResetHistoryEpisode()
+  }, [onResetHistoryEpisode, onGetEpisodeHistory, id])
+
   const formatCoinCount = (num: number) => formatMessage(userMessages.amountOfCoins, { num })
 
   const breadcrumbList = useMemo(

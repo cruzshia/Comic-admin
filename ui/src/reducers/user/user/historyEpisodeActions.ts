@@ -7,7 +7,8 @@ export enum HistoryEpisodeActionType {
 
   GET_HISTORY_EPISODE = '@HistoryEpisode/GET_HISTORY_EPISODE',
   GET_HISTORY_EPISODE_SUCCESS = '@HistoryEpisode/GET_HISTORY_EPISODE_SUCCESS',
-  GET_HISTORY_EPISODE_ERROR = '@HistoryEpisode/GET_HISTORY_EPISODE_ERROR'
+  GET_HISTORY_EPISODE_ERROR = '@HistoryEpisode/GET_HISTORY_EPISODE_ERROR',
+  RESET_HISTORY_EPISODE = '@HistoryEpisode/RESET_HISTORY_EPISODE'
 }
 
 export const getHistoryEpisodeListAction = () => ({
@@ -27,4 +28,8 @@ export const getHistoryEpisodeAction = (historyId: string) => ({
 export const getHistoryEpisodeSuccessAction = (history: HistoryEpisode) => ({
   type: HistoryEpisodeActionType.GET_HISTORY_EPISODE_SUCCESS,
   payload: history
+})
+
+export const resetHistoryEpisodeAction = () => ({
+  type: HistoryEpisodeActionType.RESET_HISTORY_EPISODE
 })

@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { exhaustMap, map, catchError, tap } from 'rxjs/operators'
+import { switchMap, exhaustMap, map, catchError, tap } from 'rxjs/operators'
 import {
   NGWordActionType,
   getNGWordSuccessAction,
@@ -13,7 +13,7 @@ import { emptyErrorReturn } from '../../utils'
 export const getNGWordEpics = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(NGWordActionType.GET),
-    exhaustMap(() =>
+    switchMap(() =>
       ngWordServices.getNGWordAjax().pipe(
         map(res => getNGWordSuccessAction(res.response)),
         tap(() => successSubject.next({ type: NGWordActionType.GET_SUCCESS })),

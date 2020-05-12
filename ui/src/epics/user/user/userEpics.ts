@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { map, exhaustMap, catchError, tap } from 'rxjs/operators'
+import { map, exhaustMap, switchMap, catchError, tap } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   UserActionType,
@@ -15,7 +15,7 @@ import { emptyErrorReturn } from '../../utils'
 export const getUserListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(UserActionType.GET_LIST),
-    exhaustMap(() =>
+    switchMap(() =>
       userServices.getUserListAjax().pipe(
         map(res => getUserListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: UserActionType.GET_LIST_SUCCESS })),
@@ -30,7 +30,7 @@ export const getUserListEpic = (action$: ActionsObservable<AnyAction>) =>
 export const getUserEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(UserActionType.GET_USER),
-    exhaustMap(action =>
+    switchMap(action =>
       userServices.getUserAjax(action.payload).pipe(
         map(res => getUserSuccessAction(res.response)),
         tap(() => successSubject.next({ type: UserActionType.GET_USER_SUCCESS })),
@@ -45,7 +45,7 @@ export const getUserEpic = (action$: ActionsObservable<AnyAction>) =>
 export const getUserExportLogListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(UserActionType.GET_EXPORT_LOG_LIST),
-    exhaustMap(() =>
+    switchMap(() =>
       userServices.getUserExportLogListAjax().pipe(
         map(res => getUserExportLogListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: UserActionType.GET_EXPORT_LOG_LIST_SUCCESS })),

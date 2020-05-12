@@ -3,7 +3,11 @@ import { Switch, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { routePath } from '@src/common/appConfig'
 import { StoreState } from '@src/reducers'
-import { getHistoryEpisodeListAction } from '@src/reducers/user/user/historyEpisodeActions'
+import {
+  getHistoryEpisodeListAction,
+  getHistoryEpisodeAction,
+  resetHistoryEpisodeAction
+} from '@src/reducers/user/user/historyEpisodeActions'
 import HistoryEpisodeList from './components/HistoryEpisodeList'
 import HistoryEpisodeDetail from './components/HistoryEpisodeDetail'
 import HistorySubscriptionList from './components/HistorySubscriptionList'
@@ -24,7 +28,9 @@ export default function History() {
   const { historyEpisodeList, currentHistoryEpisode, historyEpisodeTotal } = useSelector(
     (state: StoreState) => state.historyEpisode
   )
-  const handleGetHistoryEpisode = useCallback(() => dispatch(getHistoryEpisodeListAction()), [dispatch])
+  const handleGetHistoryListEpisode = useCallback(() => dispatch(getHistoryEpisodeListAction()), [dispatch])
+  const handleGetHistoryEpisode = useCallback((id: string) => dispatch(getHistoryEpisodeAction(id)), [dispatch])
+  const handleResetHistoryEpisode = useCallback(() => dispatch(resetHistoryEpisodeAction()), [dispatch])
 
   return (
     <Switch>
@@ -33,7 +39,7 @@ export default function History() {
         path={routePath.user.historyEpisode}
         render={() => (
           <HistoryEpisodeList
-            onGetHistoryEpisode={handleGetHistoryEpisode}
+            onGetHistoryEpisode={handleGetHistoryListEpisode}
             historyTotal={historyEpisodeTotal}
             historyList={historyEpisodeList}
           />
@@ -42,7 +48,13 @@ export default function History() {
       <Route
         exact
         path={routePath.user.historyEpisodeDetail}
-        render={() => <HistoryEpisodeDetail currentHistory={currentHistoryEpisode} />}
+        render={() => (
+          <HistoryEpisodeDetail
+            onGetEpisodeHistory={handleGetHistoryEpisode}
+            onResetHistoryEpisode={handleResetHistoryEpisode}
+            currentHistory={currentHistoryEpisode}
+          />
+        )}
       />
       <Route
         exact

@@ -8,6 +8,7 @@ export enum ContentActionType {
   GET_CONTENT = '@ComicsContent/GET_CONTENT',
   GET_CONTENT_SUCCESS = '@ComicsContent/GET_CONTENT_SUCCESS',
   GET_CONTENT_ERROR = '@ComicsContent/GET_CONTENT_ERROR',
+  RESET_CONTENT = '@ComicsContent/RESET_CONTENT',
 
   CREATE = '@ComicsContent/CREATE',
   CREATE_SUCCESS = '@ComicsContent/CREATE_SUCCESS',
@@ -35,6 +36,10 @@ export const getContentAction = (contentId: string) => ({
 export const getContentSuccessAction = (content: Content) => ({
   type: ContentActionType.GET_CONTENT_SUCCESS,
   payload: content
+})
+
+export const resetContentAction = () => ({
+  type: ContentActionType.RESET_CONTENT
 })
 
 export const createContentAction = (content: Content) => ({

@@ -30,14 +30,15 @@ const useStyle = makeStyles({
 export default function ContentDetail() {
   const classes = useStyle()
   const { currentContent = {} } = useContext(ContentContext)
-  const { onGetContent } = useContext(ActionContext)
+  const { onGetContent, onResetContent } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
 
   useEffect(() => {
     onGetContent(id!)
-  }, [onGetContent, id])
+    return () => onResetContent()
+  }, [onResetContent, onGetContent, id])
 
   const breadcrumbList = useMemo(
     () =>

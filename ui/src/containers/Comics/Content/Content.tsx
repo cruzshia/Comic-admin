@@ -7,7 +7,8 @@ import {
   getContentListAction,
   getContentAction,
   createContentAction,
-  updateContentAction
+  updateContentAction,
+  resetContentAction
 } from '@src/reducers/comics/content/contentActions'
 import ContentCreation from './components/ContentCreation'
 import ContentEdit from './components/ContentEdit'
@@ -24,6 +25,7 @@ export default function Content() {
   const handleGetContentList = useCallback(() => dispatch(getContentListAction()), [dispatch])
   const handleCreateContent = useCallback((content: ContentModel) => dispatch(createContentAction(content)), [dispatch])
   const handleUpdateContent = useCallback((content: ContentModel) => dispatch(updateContentAction(content)), [dispatch])
+  const handleResetContent = useCallback(() => dispatch(resetContentAction()), [dispatch])
 
   return (
     <ActionContext.Provider
@@ -31,7 +33,8 @@ export default function Content() {
         onGetContentList: handleGetContentList,
         onGetContent: handleGetContent,
         onCreateContent: handleCreateContent,
-        onUpdateContent: handleUpdateContent
+        onUpdateContent: handleUpdateContent,
+        onResetContent: handleResetContent
       }}
     >
       <ContentContext.Provider value={{ contentList, currentContent, totalContent: contentList.length }}>
