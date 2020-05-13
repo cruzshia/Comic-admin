@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
@@ -7,11 +7,28 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import userMessages from '@src/containers/User/messages'
+import HistoryBonusCoin from '@src/models/user/historyBonusCoin'
 import messages from '../messages'
 
-export default function HistoryBonusCoinDetail({ currentHistory }: { currentHistory: any }) {
+interface Props {
+  currentHistory: HistoryBonusCoin
+  onGetHistoryBonusCoin: (id: string) => void
+  onResetHistoryBonusCoin: () => void
+}
+
+export default function HistoryBonusCoinDetail({
+  currentHistory = {},
+  onGetHistoryBonusCoin,
+  onResetHistoryBonusCoin
+}: Props) {
   const { formatMessage } = useIntl()
-  const { userId } = useParams()
+  const { userId, id } = useParams()
+
+  useEffect(() => {
+    onGetHistoryBonusCoin(id!)
+    return () => onResetHistoryBonusCoin()
+  }, [onResetHistoryBonusCoin, onGetHistoryBonusCoin, id])
+
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({

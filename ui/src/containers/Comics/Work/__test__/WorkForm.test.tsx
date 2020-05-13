@@ -1,9 +1,9 @@
-import React, { createRef } from 'react'
+import React from 'react'
 import { DndProvider } from 'react-dnd'
 import Backend from 'react-dnd-html5-backend'
-import { render, fireEvent } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { withAllProvider } from '@src/utils/__test__/providers'
-import { defaultOpeningAd, defaultContentAd } from '@src/reducers/comics/constant'
+// import { defaultOpeningAd, defaultContentAd } from '@src/reducers/comics/constant'
 import WorkForm from '../components/WorkForm'
 
 describe('WorkForm component test', () => {

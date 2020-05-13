@@ -13,6 +13,11 @@ import {
   getHistorySubscriptionAction,
   resetHistorySubscriptionAction
 } from '@src/reducers/user/user/historySubscriptionActions'
+import {
+  getHistoryBonusCoinAction,
+  getHistoryBonusCoinListAction,
+  resetHistoryBonusCoinAction
+} from '@src/reducers/user/user/historyBonusCoinActions'
 import { getHistoryMagazineListAction } from '@src/reducers/user/user/historyMagazineActions'
 import HistoryEpisodeList from './components/HistoryEpisodeList'
 import HistoryEpisodeDetail from './components/HistoryEpisodeDetail'
@@ -25,7 +30,6 @@ import HistoryBonusCoinDetail from './components/HistoryBonusCoinDetail'
 import HistoryPayCoinList from './components/HistoryPayCoinList'
 import HistoryPayCoinDetail from './components/HistoryPayCoinDetail'
 import { mockMagazineDetail } from './mockData/magazineMockData'
-import { mockBonusCoinList, mockBonusCoinDetail } from './mockData/bonusCoinMockData'
 import { mockPayCoinList, mockPayCoinDetail } from './mockData/payCoinMockData'
 
 export default function History() {
@@ -33,11 +37,13 @@ export default function History() {
   const {
     historyEpisode: { historyEpisodeList, currentHistoryEpisode, historyEpisodeTotal },
     historySubscription: { historySubscriptionList, historySubscriptionTotal, currentHistorySubscription },
-    historyMagazine: { historyMagazineList, historyMagazineTotal }
+    historyMagazine: { historyMagazineList, historyMagazineTotal },
+    historyBonusCoin: { historyBonusCoinList, historyBonusCoinTotal, currentHistoryBonusCoin }
   } = useSelector((state: StoreState) => ({
     historyEpisode: state.historyEpisode,
     historySubscription: state.historySubscription,
-    historyMagazine: state.historyMagazine
+    historyMagazine: state.historyMagazine,
+    historyBonusCoin: state.historyBonusCoin
   }))
   const handleGetHistoryListEpisode = useCallback(() => dispatch(getHistoryEpisodeListAction()), [dispatch])
   const handleGetHistoryEpisode = useCallback((id: string) => dispatch(getHistoryEpisodeAction(id)), [dispatch])
@@ -48,6 +54,9 @@ export default function History() {
   ])
   const handleResetHistorySubscription = useCallback(() => dispatch(resetHistorySubscriptionAction()), [dispatch])
   const handleGetHistoryMagazineList = useCallback(() => dispatch(getHistoryMagazineListAction()), [dispatch])
+  const handleGetHistoryBonusCoinList = useCallback(() => dispatch(getHistoryBonusCoinListAction()), [dispatch])
+  const handleGetHistoryBonusCoin = useCallback((id: string) => dispatch(getHistoryBonusCoinAction(id)), [dispatch])
+  const handleResetHistoryBonusCoin = useCallback(() => dispatch(resetHistoryBonusCoinAction()), [dispatch])
 
   return (
     <Switch>
@@ -114,12 +123,24 @@ export default function History() {
       <Route
         exact
         path={routePath.user.historyBonusCoin}
-        render={() => <HistoryBonusCoinList historyTotal={mockBonusCoinList.length} historyList={mockBonusCoinList} />}
+        render={() => (
+          <HistoryBonusCoinList
+            onGetHistoryBonusCoin={handleGetHistoryBonusCoinList}
+            historyTotal={historyBonusCoinTotal}
+            historyList={historyBonusCoinList}
+          />
+        )}
       />
       <Route
         exact
         path={routePath.user.historyBonusCoinDetail}
-        render={() => <HistoryBonusCoinDetail currentHistory={mockBonusCoinDetail} />}
+        render={() => (
+          <HistoryBonusCoinDetail
+            currentHistory={currentHistoryBonusCoin}
+            onGetHistoryBonusCoin={handleGetHistoryBonusCoin}
+            onResetHistoryBonusCoin={handleResetHistoryBonusCoin}
+          />
+        )}
       />
       <Route
         exact
