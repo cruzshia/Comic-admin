@@ -5,10 +5,10 @@ export enum HistoryBonusCoinActionType {
   GET_LIST_SUCCESS = '@HistoryBonusCoin/GET_LIST_SUCCESS',
   GET_LIST_ERROR = '@HistoryBonusCoin/GET_LIST_ERROR',
 
-  GET_HISTORY_BONUS_CHARGE = '@HistoryBonusCoin/GET_HISTORY_BONUS_CHARGE',
-  GET_HISTORY_BONUS_CHARGE_SUCCESS = '@HistoryBonusCoin/GET_HISTORY_BONUS_CHARGE_SUCCESS',
-  GET_HISTORY_BONUS_CHARGE_ERROR = '@HistoryBonusCoin/GET_HISTORY_BONUS_CHARGE_ERROR',
-  RESET_HISTORY_BONUS_CHARGE = '@HistoryBonusCoin/RESET_HISTORY_BONUS_CHARGE'
+  GET_HISTORY_BONUS_COIN = '@HistoryBonusCoin/GET_HISTORY_BONUS_COIN',
+  GET_HISTORY_BONUS_COIN_SUCCESS = '@HistoryBonusCoin/GET_HISTORY_BONUS_COIN_SUCCESS',
+  GET_HISTORY_BONUS_COIN_ERROR = '@HistoryBonusCoin/GET_HISTORY_BONUS_COIN_ERROR',
+  RESET_HISTORY_BONUS_COIN = '@HistoryBonusCoin/RESET_HISTORY_BONUS_COIN'
 }
 
 export const getHistoryBonusCoinListAction = () => ({
@@ -21,15 +21,15 @@ export const getHistoryBonusCoinListSuccessAction = (payload: HistoryBonusCoin[]
 })
 
 export const getHistoryBonusCoinAction = (historyId: string) => ({
-  type: HistoryBonusCoinActionType.GET_HISTORY_BONUS_CHARGE,
+  type: HistoryBonusCoinActionType.GET_HISTORY_BONUS_COIN,
   payload: historyId
 })
 
 export const getHistoryBonusCoinSuccessAction = (history: HistoryBonusCoin) => ({
-  type: HistoryBonusCoinActionType.GET_HISTORY_BONUS_CHARGE_SUCCESS,
+  type: HistoryBonusCoinActionType.GET_HISTORY_BONUS_COIN_SUCCESS,
   payload: history
 })
 
 export const resetHistoryBonusCoinAction = () => ({
-  type: HistoryBonusCoinActionType.RESET_HISTORY_BONUS_CHARGE
+  type: HistoryBonusCoinActionType.RESET_HISTORY_BONUS_COIN
 })

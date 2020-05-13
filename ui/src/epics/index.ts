@@ -16,7 +16,8 @@ import userEpics from './user/user/userEpics'
 import historyEpisodeEpics from './user/user/historyEpisodeEpics'
 import historySubscriptionEpics from './user/user/historySubscriptionEpics'
 import historyMagazineEpics from './user/user/historyMagazineEpics'
-import historyBonusChargeEpics from './user/user/historyBonusCoinEpics'
+import historyBonusCoinEpics from './user/user/historyBonusCoinEpics'
+import historyPayCoinEpics from './user/user/historyPayCoinEpics'
 import applicationInfoEpics from './application/applicationInfo/applicationInfoEpics'
 import coinDeliveryEventEpics from './application/coinDeliveryEvent/coinDeliveryEventEpics'
 import questionnaireEpics from './user/questionnaire/questionnaireEpics'
@@ -42,7 +43,8 @@ export default combineEpics(
   ...userEpics,
   ...historyEpisodeEpics,
   ...historySubscriptionEpics,
-  ...historyBonusChargeEpics,
+  ...historyBonusCoinEpics,
+  ...historyPayCoinEpics,
   ...historyMagazineEpics,
   ...commentEpics,
   ...ngWordEpics,

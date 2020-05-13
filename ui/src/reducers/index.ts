@@ -65,6 +65,10 @@ import historyBonusCoinReducer, {
   HistoryBonusCoinState,
   HistoryBonusCoinPreloadState
 } from './user/user/historyBonusCoinReducer'
+import historyPayCoinReducer, {
+  HistoryPayCoinState,
+  HistoryPayCoinPreloadState
+} from './user/user/historyPayCoinReducer'
 
 export interface StoreState {
   profile: ProfileState
@@ -93,6 +97,7 @@ export interface StoreState {
   historySubscription: HistorySubscriptionState
   historyMagazine: HistoryMagazineState
   historyBonusCoin: HistoryBonusCoinState
+  historyPayCoin: HistoryPayCoinState
 }
 
 export const storePreloadState: StoreState = {
@@ -121,7 +126,8 @@ export const storePreloadState: StoreState = {
   historyEpisode: HistoryEpisodePreloadState,
   historySubscription: HistorySubscriptionPreloadState,
   historyMagazine: HistoryMagazinePreloadState,
-  historyBonusCoin: HistoryBonusCoinPreloadState
+  historyBonusCoin: HistoryBonusCoinPreloadState,
+  historyPayCoin: HistoryPayCoinPreloadState
 }
 
 export default combineReducers<StoreState>({
@@ -150,5 +156,6 @@ export default combineReducers<StoreState>({
   historyEpisode: historyEpisodeReducer,
   historySubscription: historySubscriptionReducer,
   historyMagazine: historyMagazineReducer,
-  historyBonusCoin: historyBonusCoinReducer
+  historyBonusCoin: historyBonusCoinReducer,
+  historyPayCoin: historyPayCoinReducer
 })

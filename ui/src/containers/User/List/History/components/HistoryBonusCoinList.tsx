@@ -15,7 +15,7 @@ import commonMessages from '@src/messages'
 interface Props {
   historyTotal: number
   historyList: HistoryBonusCoin[]
-  onGetHistoryBonusCoin: () => void
+  onGetHistoryBonusCoinList: () => void
 }
 
 const useStyle = makeStyles({
@@ -35,7 +35,7 @@ const useStyle = makeStyles({
   }
 })
 
-export default function HistoryBonusCoinList({ historyTotal, historyList, onGetHistoryBonusCoin }: Props) {
+export default function HistoryBonusCoinList({ historyTotal, historyList, onGetHistoryBonusCoinList }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const history = useHistory()
@@ -44,8 +44,8 @@ export default function HistoryBonusCoinList({ historyTotal, historyList, onGetH
   const { pagination, handlePageChange } = usePaging({ total: historyTotal })
 
   useEffect(() => {
-    onGetHistoryBonusCoin()
-  }, [onGetHistoryBonusCoin])
+    onGetHistoryBonusCoinList()
+  }, [onGetHistoryBonusCoinList])
 
   const breadcrumbList = useMemo(
     () =>

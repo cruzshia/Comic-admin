@@ -36,7 +36,7 @@ const handler: Record<string, (state: HistoryBonusCoinState, action: ActionType<
       historyBonusCoinTotal: action.payload.length
     }
   },
-  [HistoryBonusCoinActionType.GET_HISTORY_BONUS_CHARGE_SUCCESS]: updateCurrentHistoryHandler
+  [HistoryBonusCoinActionType.GET_HISTORY_BONUS_COIN_SUCCESS]: updateCurrentHistoryHandler
 }
 
 export default function historyBonusCoinReducer(state: HistoryBonusCoinState = initState, action: ActionType<any>) {

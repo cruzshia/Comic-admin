@@ -23,6 +23,11 @@ import {
   getHistoryBonusCoinListAction,
   resetHistoryBonusCoinAction
 } from '@src/reducers/user/user/historyBonusCoinActions'
+import {
+  getHistoryPayCoinListAction,
+  getHistoryPayCoinAction,
+  resetHistoryPayCoinAction
+} from '@src/reducers/user/user/historyPayCoinActions'
 import HistoryEpisodeList from './components/HistoryEpisodeList'
 import HistoryEpisodeDetail from './components/HistoryEpisodeDetail'
 import HistorySubscriptionList from './components/HistorySubscriptionList'
@@ -33,7 +38,6 @@ import HistoryBonusCoinList from './components/HistoryBonusCoinList'
 import HistoryBonusCoinDetail from './components/HistoryBonusCoinDetail'
 import HistoryPayCoinList from './components/HistoryPayCoinList'
 import HistoryPayCoinDetail from './components/HistoryPayCoinDetail'
-import { mockPayCoinList, mockPayCoinDetail } from './mockData/payCoinMockData'
 
 export default function History() {
   const dispatch = useDispatch()
@@ -41,12 +45,14 @@ export default function History() {
     historyEpisode: { historyEpisodeList, currentHistoryEpisode, historyEpisodeTotal },
     historySubscription: { historySubscriptionList, historySubscriptionTotal, currentHistorySubscription },
     historyMagazine: { historyMagazineList, historyMagazineTotal, currentHistoryMagazine },
-    historyBonusCoin: { historyBonusCoinList, historyBonusCoinTotal, currentHistoryBonusCoin }
+    historyBonusCoin: { historyBonusCoinList, historyBonusCoinTotal, currentHistoryBonusCoin },
+    historyPayCoin: { historyPayCoinList, historyPayCoinTotal, currentHistoryPayCoin }
   } = useSelector((state: StoreState) => ({
     historyEpisode: state.historyEpisode,
     historySubscription: state.historySubscription,
     historyMagazine: state.historyMagazine,
-    historyBonusCoin: state.historyBonusCoin
+    historyBonusCoin: state.historyBonusCoin,
+    historyPayCoin: state.historyPayCoin
   }))
   const handleGetHistoryListEpisode = useCallback(() => dispatch(getHistoryEpisodeListAction()), [dispatch])
   const handleGetHistoryEpisode = useCallback((id: string) => dispatch(getHistoryEpisodeAction(id)), [dispatch])
@@ -62,6 +68,9 @@ export default function History() {
   const handleGetHistoryBonusCoinList = useCallback(() => dispatch(getHistoryBonusCoinListAction()), [dispatch])
   const handleGetHistoryBonusCoin = useCallback((id: string) => dispatch(getHistoryBonusCoinAction(id)), [dispatch])
   const handleResetHistoryBonusCoin = useCallback(() => dispatch(resetHistoryBonusCoinAction()), [dispatch])
+  const handleGetHistoryPayCoinList = useCallback(() => dispatch(getHistoryPayCoinListAction()), [dispatch])
+  const handleGetHistoryPayCoin = useCallback((id: string) => dispatch(getHistoryPayCoinAction(id)), [dispatch])
+  const handleResetHistoryPayCoin = useCallback(() => dispatch(resetHistoryPayCoinAction()), [dispatch])
 
   return (
     <Switch>
@@ -136,7 +145,7 @@ export default function History() {
         path={routePath.user.historyBonusCoin}
         render={() => (
           <HistoryBonusCoinList
-            onGetHistoryBonusCoin={handleGetHistoryBonusCoinList}
+            onGetHistoryBonusCoinList={handleGetHistoryBonusCoinList}
             historyTotal={historyBonusCoinTotal}
             historyList={historyBonusCoinList}
           />
@@ -156,12 +165,24 @@ export default function History() {
       <Route
         exact
         path={routePath.user.historyPayCoin}
-        render={() => <HistoryPayCoinList historyTotal={mockPayCoinList.length} historyList={mockPayCoinList} />}
+        render={() => (
+          <HistoryPayCoinList
+            historyTotal={historyPayCoinTotal}
+            historyList={historyPayCoinList}
+            onGetHistoryPayCoinList={handleGetHistoryPayCoinList}
+          />
+        )}
       />
       <Route
         exact
         path={routePath.user.historyPayCoinDetail}
-        render={() => <HistoryPayCoinDetail currentHistory={mockPayCoinDetail} />}
+        render={() => (
+          <HistoryPayCoinDetail
+            currentHistory={currentHistoryPayCoin}
+            onGetHistoryPayCoin={handleGetHistoryPayCoin}
+            onResetHistoryPayCoin={handleResetHistoryPayCoin}
+          />
+        )}
       />
     </Switch>
   )

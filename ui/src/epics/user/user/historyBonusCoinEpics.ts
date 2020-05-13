@@ -27,13 +27,13 @@ export const getHistoryBonusCoinListEpic = (action$: ActionsObservable<AnyAction
 
 export const getHistoryBonusCoinEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
-    ofType(HistoryBonusCoinActionType.GET_HISTORY_BONUS_CHARGE),
+    ofType(HistoryBonusCoinActionType.GET_HISTORY_BONUS_COIN),
     switchMap(action =>
       historyBonusCoinServices.getHistoryBonusCoinAjax(action.payload).pipe(
         map(res => getHistoryBonusCoinSuccessAction(res.response)),
-        tap(() => successSubject.next({ type: HistoryBonusCoinActionType.GET_HISTORY_BONUS_CHARGE_SUCCESS })),
+        tap(() => successSubject.next({ type: HistoryBonusCoinActionType.GET_HISTORY_BONUS_COIN_SUCCESS })),
         catchError(() => {
-          errorSubject.next({ type: HistoryBonusCoinActionType.GET_HISTORY_BONUS_CHARGE_ERROR })
+          errorSubject.next({ type: HistoryBonusCoinActionType.GET_HISTORY_BONUS_COIN_ERROR })
           return emptyErrorReturn()
         })
       )
