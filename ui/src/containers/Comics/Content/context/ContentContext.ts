@@ -1,15 +1,19 @@
 import { createContext } from 'react'
-import Content from '@src/models/comics/content'
+import Content, { ContentImportLog } from '@src/models/comics/content'
 
 interface ContentContext {
-  contentList: any[]
-  currentContent?: any
+  contentList: Content[]
+  currentContent?: Content
   totalContent: number
+  importLogList: ContentImportLog[]
+  logTotal: number
 }
 
 export default createContext<ContentContext>({
   contentList: [],
-  totalContent: 0
+  totalContent: 0,
+  importLogList: [],
+  logTotal: 0
 })
 
 interface ActionContext {

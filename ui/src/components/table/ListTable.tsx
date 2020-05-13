@@ -33,7 +33,7 @@ export enum Padding {
   None = 'none'
 }
 
-interface Thead {
+export interface Thead {
   id: string
   label: string | JSX.Element
   onSort?: (id: any, order: SortOrder, e?: React.MouseEvent<unknown>) => void
@@ -53,7 +53,7 @@ interface RowData {
   classnames?: string
 }
 
-interface Props {
+export interface Props {
   classnames?: string
   theadList: Thead[]
   dataList: RowData[]

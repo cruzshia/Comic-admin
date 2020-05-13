@@ -98,6 +98,7 @@
   "comics.content.contents_id": "Contents (ID)",
   "comics.content.create": "Content Create",
   "comics.content.create_start": "Content Start Create",
+  "comics.content.csv_import_log": "Content CSV Import Logs",
   "comics.content.detail": "Content Detail",
   "comics.content.display_condition": "Display Condition",
   "comics.content.edit": "Content Edit",

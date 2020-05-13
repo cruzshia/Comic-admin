@@ -16,11 +16,12 @@ import ContentDetail from './components/ContentDetail'
 import ContentList from './components/ContentList'
 import ContentImportLogs from './components/ContentImportLogs'
 import ContentModel from '@src/models/comics/content'
+import mockImportLogs from '@src/epics/comics/content/mockData/mockImportLogs'
 import ContentContext, { ActionContext } from './context/ContentContext'
 
 export default function Content() {
   const dispatch = useDispatch()
-  const { contentList, currentContent } = useSelector((state: StoreState) => state.content)
+  const { contentList, currentContent, contentTotal } = useSelector((state: StoreState) => state.content)
   const handleGetContent = useCallback((contentId: string) => dispatch(getContentAction(contentId)), [dispatch])
   const handleGetContentList = useCallback(() => dispatch(getContentListAction()), [dispatch])
   const handleCreateContent = useCallback((content: ContentModel) => dispatch(createContentAction(content)), [dispatch])
@@ -37,7 +38,15 @@ export default function Content() {
         onResetContent: handleResetContent
       }}
     >
-      <ContentContext.Provider value={{ contentList, currentContent, totalContent: contentList.length }}>
+      <ContentContext.Provider
+        value={{
+          contentList,
+          currentContent,
+          totalContent: contentTotal,
+          importLogList: mockImportLogs,
+          logTotal: mockImportLogs.length
+        }}
+      >
         <Switch>
           <Route exact path={routePath.comics.contentCreation} component={ContentCreation} />
           <Route exact path={routePath.comics.contentEdit} component={ContentEdit} />

@@ -98,5 +98,9 @@ export default defineMessages({
   requestContentId: {
     id: PREFIX + 'request_content_id',
     defaultMessage: 'Request Content (ID)'
+  },
+  csvImportLog: {
+    id: PREFIX + 'csv_import_log',
+    defaultMessage: 'Content CSV Import Logs'
   }
 })

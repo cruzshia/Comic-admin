@@ -6,10 +6,12 @@ import { ActionType } from '../../types'
 export interface ContentState {
   contentList: Content[]
   currentContent?: Content
+  contentTotal: number
 }
 
 const initState: ContentState = {
-  contentList: []
+  contentList: [],
+  contentTotal: 0
 }
 
 export const emptyContent: Content = {

@@ -98,6 +98,7 @@
   "comics.content.contents_id": "コンテンツ（ID）",
   "comics.content.create": "コンテンツ登録",
   "comics.content.create_start": "コンテンツを登録",
+  "comics.content.csv_import_log": "コンテンツCSV登録ログ",
   "comics.content.detail": "コンテンツ詳細",
   "comics.content.display_condition": "表示条件",
   "comics.content.edit": "コンテンツを編集",

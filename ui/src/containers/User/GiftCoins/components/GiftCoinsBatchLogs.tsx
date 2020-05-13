@@ -1,24 +1,20 @@
-import React, { useMemo, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
-import { Grid, IconButton } from '@material-ui/core'
-import { ReactComponent as DownloadIcon } from '@src/assets/common/download_circle.svg'
-import { ReactComponent as AlertIcon } from '@src/assets/form/error_alert.svg'
 import { usePaging, useSort } from '@src/hooks'
 import ContentHeader from '@src/components/ContentHeader'
-import ListTable from '@src/components/table/ListTable'
+import { DownloadBlock, FailedMsg } from '@src/components/styled'
+import CsvImportLogTable from '@src/components/table/CsvImportLogTable'
 import GiftCoinsContext, { ActionContext } from '../context/GiftCoinsContext'
 import { BREADCRUMBS } from '../constants'
-import { useCsvLogsStyles } from '../../utils'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export default function GiftCoinsBatchLogs() {
   const { csvLogList, csvLogTotal } = useContext(GiftCoinsContext)
   const { onGetCsvLogList } = useContext(ActionContext)
-  const classes = useCsvLogsStyles()
   const { formatMessage } = useIntl()
   const { pagination, handlePageChange } = usePaging({ total: csvLogTotal })
-  const { sortBy, handleSort } = useSort('create_data_time')
+  const { sortBy, handleSort } = useSort('createAt')
 
   useEffect(() => {
     onGetCsvLogList()
@@ -30,59 +26,28 @@ export default function GiftCoinsBatchLogs() {
     route
   })).concat([{ title: titleText, route: undefined }])
 
-  const theadList = useMemo(
-    () => [
-      {
-        id: 'create_data_time',
-        label: formatMessage(commonMessages.createDateTime),
-        onSort: handleSort
-      },
-      { id: 'scheduled_date_time', label: formatMessage(commonMessages.scheduledDateTime) },
-      { id: 'start_date_time', label: formatMessage(commonMessages.startDateTime) },
-      { id: 'update_date_time', label: formatMessage(commonMessages.updateDateTime) },
-      { id: 'filename', label: formatMessage(commonMessages.filename) },
-      { id: 'status', label: formatMessage(commonMessages.status) },
-      { id: 'detail', label: formatMessage(commonMessages.detail) }
-    ],
-    [handleSort, formatMessage]
-  )
   const dataList = csvLogList
     .map(({ id, ...rest }) => ({
       id,
       data: {
         ...rest,
-        fileName: (
-          <Grid container alignItems='center' className={classes.fileName}>
-            {rest.fileName}
-            <IconButton size='small'>
-              <DownloadIcon />
-            </IconButton>
-          </Grid>
-        ),
+        filename: <DownloadBlock filename={rest.filename} />,
         detail:
-          rest.status === 'failure' ? (
-            <Grid container alignItems='center' className={classes.error}>
-              <AlertIcon />
-              {formatMessage(commonMessages.errorAsyncFailed)}
-            </Grid>
-          ) : (
-            rest.detail
-          )
+          rest.status === 'failure' ? <FailedMsg msg={formatMessage(commonMessages.errorAsyncFailed)} /> : rest.detail
       }
     }))
-    .sort((a, b) => (Date.parse(a.data.createDateTime) - Date.parse(b.data.createDateTime)) * sortBy.multiplier)
+    .sort((a, b) => (Date.parse(a.data[sortBy.key]) - Date.parse(b.data[sortBy.key])) * sortBy.multiplier)
 
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} />
-      <ListTable
-        theadList={theadList}
+      <CsvImportLogTable
         dataList={dataList}
         pagination={pagination}
         onPageChange={handlePageChange}
-        classnames={classes.listTable}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
+        onSort={handleSort}
       />
     </>
   )
