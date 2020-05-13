@@ -15,6 +15,7 @@ import ContentEdit from './components/ContentEdit'
 import ContentDetail from './components/ContentDetail'
 import ContentList from './components/ContentList'
 import ContentImportLogs from './components/ContentImportLogs'
+import ContentCsvImport from './components/ContentCsvImport'
 import ContentModel from '@src/models/comics/content'
 import mockImportLogs from '@src/epics/comics/content/mockData/mockImportLogs'
 import ContentContext, { ActionContext } from './context/ContentContext'
@@ -53,6 +54,7 @@ export default function Content() {
           <Route exact path={routePath.comics.contentDetail} component={ContentDetail} />
           <Route exact path={routePath.comics.content} component={ContentList} />
           <Route exact path={routePath.comics.contentImportLogs} component={ContentImportLogs} />
+          <Route exact path={routePath.comics.contentCsvImport} component={ContentCsvImport} />
         </Switch>
       </ContentContext.Provider>
     </ActionContext.Provider>

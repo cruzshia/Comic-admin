@@ -179,6 +179,10 @@ export default defineMessages({
     id: PREFIX + 'error.async_failed',
     defaultMessage: "Can't get async process information"
   },
+  errorFilenameDifferent: {
+    id: PREFIX + 'error.filename_different',
+    defaultMessage: 'Filename isn different'
+  },
   copy: {
     id: PREFIX + 'copy',
     defaultMessage: 'Copy'
@@ -290,5 +294,13 @@ export default defineMessages({
   scheduledDateTime: {
     id: PREFIX + 'scheduled_date_time',
     defaultMessage: 'Scheduled Date Time'
+  },
+  templateJIS: {
+    id: PREFIX + 'template_JIS',
+    defaultMessage: 'Template(Shift_JIS)'
+  },
+  templateUTF8: {
+    id: PREFIX + 'template_UTF8',
+    defaultMessage: 'Template(UTF-8)'
   }
 })

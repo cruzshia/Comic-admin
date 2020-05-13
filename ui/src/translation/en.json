@@ -98,6 +98,7 @@
   "comics.content.contents_id": "Contents (ID)",
   "comics.content.create": "Content Create",
   "comics.content.create_start": "Content Start Create",
+  "comics.content.csv_import": "Content CSV Import",
   "comics.content.csv_import_log": "Content CSV Import Logs",
   "comics.content.detail": "Content Detail",
   "comics.content.display_condition": "Display Condition",
@@ -233,6 +234,7 @@
   "common.enter_url": "Enter URL",
   "common.episode_info": "Episode Information",
   "common.error.async_failed": "Can't get async process information",
+  "common.error.filename_different": "Filename isn different",
   "common.filename": "Filename",
   "common.header.application_management": "Application management",
   "common.header.comics_management": "Comics management",
@@ -260,6 +262,8 @@
   "common.start_time": "Start Time",
   "common.status": "Status",
   "common.subscription_id": "Subscription ID",
+  "common.template_JIS": "Template(Shift_JIS)",
+  "common.template_UTF8": "Template(UTF-8)",
   "common.title": "Title",
   "common.update_date_time": "Update date time",
   "common.work_id": "Work ID",
@@ -441,7 +445,5 @@
   "user.questionnaire.start_edit": "Edit questionnaire",
   "user.questionnaire_management": "Questionnaire Management",
   "user.status": "Status",
-  "user.template_JIS": "Template (Shift_JIS)",
-  "user.template_UTF8": "Template (UTF-8)",
   "user.validity_period": "Validity Period"
 }

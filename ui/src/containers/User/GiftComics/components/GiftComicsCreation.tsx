@@ -9,7 +9,7 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import { TextInputAdapter } from '@src/components/finalForm'
 import { routePath } from '@src/common/appConfig'
-import UploadButton from '../../components/UploadButton'
+import UploadButton from '@src/components/form/UploadButton'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
@@ -23,7 +23,7 @@ export default function GiftComicsCreation() {
   const buttonList = useMemo(
     () => [
       <Button theme={Theme.DARK} buttonText={formatMessage(commonMessages.create)} />,
-      <Button buttonText={formatMessage(userMessages.templateJIS)} icon={IconDownload} normalCase />,
+      <Button buttonText={formatMessage(commonMessages.templateJIS)} icon={IconDownload} normalCase />,
       <Button
         buttonText={formatMessage(commonMessages.csvImportLogs)}
         onClick={() => history.push(routePath.user.giftComicsBatchLogs)}
@@ -47,7 +47,7 @@ export default function GiftComicsCreation() {
               dataSet={[
                 toDataSet(
                   formatMessage(commonMessages.csvFile),
-                  <UploadButton text={formatMessage(userMessages.csvFile)} name='csv_file' />
+                  <UploadButton text={formatMessage(userMessages.csvFile)} name='file' accept='.csv' />
                 ),
                 toDataSet(
                   formatMessage(commonMessages.schedule),

@@ -102,5 +102,9 @@ export default defineMessages({
   csvImportLog: {
     id: PREFIX + 'csv_import_log',
     defaultMessage: 'Content CSV Import Logs'
+  },
+  csvImport: {
+    id: PREFIX + 'csv_import',
+    defaultMessage: 'Content CSV Import'
   }
 })

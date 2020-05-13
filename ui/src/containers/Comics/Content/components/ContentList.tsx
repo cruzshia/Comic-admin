@@ -50,21 +50,17 @@ export default function ContentList() {
         theme={Theme.DARK_BORDER}
         icon={IconEdit}
         buttonText={formatMessage(messages.startCreate)}
-        onClick={() => {
-          history.push(routePath.comics.contentCreation)
-        }}
+        onClick={() => history.push(routePath.comics.contentCreation)}
       />,
       <Button
         theme={Theme.DARK_BORDER}
         icon={IconSave}
         buttonText={formatMessage(commonMessages.csvImport)}
-        onClick={() => {}}
+        onClick={() => history.push(routePath.comics.contentCsvImport)}
       />,
       <Button
         buttonText={formatMessage(commonMessages.csvImportLogs)}
-        onClick={() => {
-          history.push(routePath.comics.contentImportLogs)
-        }}
+        onClick={() => history.push(routePath.comics.contentImportLogs)}
       />
     ],
     [formatMessage, history]
