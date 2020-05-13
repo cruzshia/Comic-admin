@@ -63,15 +63,11 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
       const { value: dragValue, onChange: dragOnChange } = inputs[dragName]
       const { value: dropValue, onChange: dropOnChange } = inputs[dropName]
       if (dragName === dropName) {
-        const tmpA = dragValue[dragIndex]
-        dragValue[dragIndex] = dragValue[dropIndex]
-        dragValue[dropIndex] = tmpA
+        dragValue.splice(dropIndex, 0, dragValue.splice(dragIndex, 1)[0])
         dragOnChange([...dragValue])
         return
       }
-      const drag = dragValue[dragIndex]
-      dragValue.splice(dragIndex, 1)
-      dropValue.splice(dropIndex, 0, drag)
+      dropValue.splice(dropIndex, 0, dragValue.splice(dragIndex, 1)[0])
       dragOnChange([...dragValue])
       dropOnChange([...dropValue])
     },
