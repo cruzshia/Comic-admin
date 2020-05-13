@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect } from 'react'
+import React, { useContext, useCallback, useEffect, useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
@@ -30,10 +30,18 @@ export default function NotificationDetail() {
     title: formatMessage(title),
     route
   })).concat([{ title: titleText, route: undefined }])
-  const buttonList = [
-    <Button buttonText={formatMessage(messages.startEdit)} icon={IconEdit} theme={Theme.DARK_BORDER} />,
-    <Button buttonText={formatMessage(commonMessages.copy)} icon={IconCopy} />
-  ]
+  const buttonList = useMemo(
+    () => [
+      <Button
+        buttonText={formatMessage(messages.startEdit)}
+        icon={IconEdit}
+        theme={Theme.DARK_BORDER}
+        onClick={() => history.push(routePath.user.notificationEdit.replace(':id', id!))}
+      />,
+      <Button buttonText={formatMessage(commonMessages.copy)} icon={IconCopy} />
+    ],
+    [formatMessage, history, id]
+  )
 
   const handleRedirect = useCallback(
     (target?: ScrollAnchor) => {

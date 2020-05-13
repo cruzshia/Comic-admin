@@ -16,6 +16,7 @@ interface ActionContext {
   onGetNotificationList: () => void
   onGetNotification: (id: string) => void
   onCreateNotification: (data: Notification) => void
+  onUpdateNotification: (data: Notification) => void
   onResetNotification: () => void
 }
 
@@ -23,5 +24,6 @@ export const ActionContext = createContext<ActionContext>({
   onGetNotificationList: () => {},
   onGetNotification: (_: string) => {},
   onCreateNotification: (_: Notification) => {},
+  onUpdateNotification: (_: Notification) => {},
   onResetNotification: () => {}
 })

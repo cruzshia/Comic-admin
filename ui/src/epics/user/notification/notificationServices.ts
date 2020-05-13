@@ -32,3 +32,13 @@ export const createAjax = (data: Notification): Observable<{ status: number; res
     }
   ])
 }
+
+export const updateAjax = (data: Notification): Observable<{ status: number; response: Notification }> => {
+  authAjax.put('/notification', data)
+  return from([
+    {
+      status: 200,
+      response: mockNotification
+    }
+  ])
+}

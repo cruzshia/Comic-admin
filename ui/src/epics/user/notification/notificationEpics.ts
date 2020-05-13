@@ -5,7 +5,8 @@ import {
   NotificationActionType,
   getNotificationListSuccessAction,
   getNotificationSuccessAction,
-  createNotificationSuccessAction
+  createNotificationSuccessAction,
+  updateNotificationSuccessAction
 } from '@src/reducers/user/notification/notificationAction'
 import * as notificationServices from './notificationServices'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
@@ -56,4 +57,19 @@ export const createNotificationEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export default [getNotificationListEpic, getNotificationEpic, createNotificationEpic]
+export const updateNotificationEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(NotificationActionType.UPDATE),
+    exhaustMap(action =>
+      notificationServices.updateAjax(action.payload).pipe(
+        map(res => updateNotificationSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: NotificationActionType.UPDATE_SUCCUSS })),
+        catchError(err => {
+          errorSubject.next({ type: NotificationActionType.UPDATE_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export default [getNotificationListEpic, getNotificationEpic, createNotificationEpic, updateNotificationEpic]

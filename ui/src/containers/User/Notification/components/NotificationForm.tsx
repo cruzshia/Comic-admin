@@ -22,10 +22,11 @@ const useStyles = makeStyles({
 })
 
 interface Props {
+  currentNotification?: Notification
   formRef: React.RefObject<HTMLFormElement>
   onSubmit: (data: Notification) => void
 }
-export default function NotificationForm({ formRef, onSubmit }: Props) {
+export default function NotificationForm({ formRef, onSubmit, currentNotification }: Props) {
   const { formatMessage } = useIntl()
   const classes = useStyles()
 
@@ -41,7 +42,7 @@ export default function NotificationForm({ formRef, onSubmit }: Props) {
 
   return (
     <>
-      <Form onSubmit={onSubmit} initialValues={{ text: defaultText }}>
+      <Form onSubmit={onSubmit} initialValues={currentNotification ? currentNotification : { text: defaultText }}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
@@ -57,9 +58,9 @@ export default function NotificationForm({ formRef, onSubmit }: Props) {
             />
             <StartEndForm
               title={formatMessage(commonMessages.releaseDuration)}
-              startName='releaseStartTime'
+              startName='publicStartTime'
               startLabel={formatMessage(commonMessages.releaseStartTime)}
-              endName='releaseEndTime'
+              endName='publicEndTime'
               endLabel={formatMessage(commonMessages.releaseEndTime)}
               marginBottom
             />
@@ -68,7 +69,7 @@ export default function NotificationForm({ formRef, onSubmit }: Props) {
               dataSet={[
                 toDataSet(
                   formatMessage(messages.notificationType),
-                  <Field name='application' component={SelectAdapter} options={[]} isShort />
+                  <Field name='notificationType' component={SelectAdapter} options={[]} isShort />
                 ),
                 toDataSet(
                   formatMessage(messages.majorFlag),

@@ -7,6 +7,7 @@ import {
   getNotificationListAction,
   getNotificationAction,
   createNotificationAction,
+  updateNotificationAction,
   resetNotificationAction
 } from '@src/reducers/user/notification/notificationAction'
 import NotificationContext, { ActionContext } from './context/NotificationContext'
@@ -24,6 +25,7 @@ export default function Notification() {
   const handleGetNotificationList = useCallback(() => dispatch(getNotificationListAction()), [dispatch])
   const handleGetNotification = useCallback(id => dispatch(getNotificationAction(id)), [dispatch])
   const handleCreateNotification = useCallback(data => dispatch(createNotificationAction(data)), [dispatch])
+  const handleUpdatedNotification = useCallback(data => dispatch(updateNotificationAction(data)), [dispatch])
   const handleResetNotification = useCallback(() => dispatch(resetNotificationAction()), [dispatch])
   return (
     <>
@@ -32,6 +34,7 @@ export default function Notification() {
           onGetNotificationList: handleGetNotificationList,
           onGetNotification: handleGetNotification,
           onCreateNotification: handleCreateNotification,
+          onUpdateNotification: handleUpdatedNotification,
           onResetNotification: handleResetNotification
         }}
       >
