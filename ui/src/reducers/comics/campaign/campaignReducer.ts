@@ -4,16 +4,16 @@ import { ActionType } from '../../types'
 
 export interface CampaignState {
   campaignList: Campaign[]
-  subCampaignList: SubCampaign[]
   currentCampaign?: Campaign
   campaignTotal: number
+  subCampaignList: SubCampaign[]
   subCampaignTotal: number
 }
 
 const initState: CampaignState = {
   campaignList: [],
-  subCampaignList: [],
   campaignTotal: 0,
+  subCampaignList: [],
   subCampaignTotal: 0
 }
 
@@ -37,7 +37,17 @@ const handler: Record<string, (state: CampaignState, action: ActionType<any>) =>
   },
   [CampaignActionType.UPDATE_SUCCESS]: updateCurrentCampaignHandler,
   [CampaignActionType.GET_CAMPAIGN_SUCCESS]: updateCurrentCampaignHandler,
-  [CampaignActionType.CREATE_SUCCESS]: updateCurrentCampaignHandler
+  [CampaignActionType.CREATE_SUCCESS]: updateCurrentCampaignHandler,
+  [CampaignActionType.GET_SUB_LIST_SUCCESS]: (
+    state: CampaignState = initState,
+    action: ActionType<Campaign[]>
+  ): CampaignState => {
+    return {
+      ...state,
+      subCampaignList: action.payload,
+      subCampaignTotal: action.payload.length
+    }
+  }
 }
 
 export default function campaignReducer(state: CampaignState = initState, action: ActionType<any>) {

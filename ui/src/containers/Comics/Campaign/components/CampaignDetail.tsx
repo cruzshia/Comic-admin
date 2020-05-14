@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useCallback } from 'react'
+import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
@@ -8,7 +8,7 @@ import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import { routePath } from '@src/common/appConfig'
 import { useSort, usePaging } from '@src/hooks'
-import CampaignContext from '../context/CampaignContext'
+import CampaignContext, { ActionContext } from '../context/CampaignContext'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import comicMessages from '../../messages'
@@ -23,11 +23,16 @@ const ROUTE = {
 
 export default function CampaignDetail() {
   const { currentCampaign = {}, subCampaignList, subCampaignTotal } = useContext(CampaignContext)
+  const { onGetSubCampaignList } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { sortBy, handleSort } = useSort('startAt')
   const { pagination, handlePageChange } = usePaging({ total: subCampaignTotal })
   const { id } = useParams()
+
+  useEffect(() => {
+    onGetSubCampaignList()
+  }, [onGetSubCampaignList])
 
   const titleText = formatMessage(messages.detail)
   const breadcrumbList = useMemo(

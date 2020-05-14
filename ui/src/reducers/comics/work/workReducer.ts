@@ -1,4 +1,5 @@
-import Work, { CsvLog } from '@src/models/comics/work'
+import Work from '@src/models/comics/work'
+import ImportLog from '@src/models/importLog'
 import { WorkActionType } from './workActions'
 import { defaultContentAd, defaultOpeningAd } from '../constant'
 import { ActionType } from '../../types'
@@ -6,7 +7,7 @@ import { ActionType } from '../../types'
 export interface WorkState {
   workList: Work[]
   currentWork?: Work
-  importLogList: CsvLog[]
+  importLogList: ImportLog[]
 }
 
 const initState: WorkState = {
@@ -41,7 +42,7 @@ const handler: Record<string, (state: WorkState, action: ActionType<any>) => Wor
   [WorkActionType.CREATE_SUCCESS]: updateCurrentWorkHandler,
   [WorkActionType.GET_CSV_LOG_LIST_SUCCESS]: (
     state: WorkState = initState,
-    action: ActionType<CsvLog[]>
+    action: ActionType<ImportLog[]>
   ): WorkState => {
     return {
       ...state,

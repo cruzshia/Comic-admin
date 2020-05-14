@@ -1,9 +1,13 @@
-import Campaign from '@src/models/comics/campaign'
+import Campaign, { SubCampaign } from '@src/models/comics/campaign'
 
 export enum CampaignActionType {
   GET_LIST = '@ComicsCampaign/GET_LIST',
   GET_LIST_SUCCESS = '@ComicsCampaign/GET_LIST_SUCCESS',
   GET_LIST_ERROR = '@ComicsCampaign/GET_LIST_ERROR',
+
+  GET_SUB_LIST = '@ComicsCampaign/GET_SUB_LIST',
+  GET_SUB_LIST_SUCCESS = '@ComicsCampaign/GET_SUB_LIST_SUCCESS',
+  GET_SUB_LIST_ERROR = '@ComicsCampaign/GET_SUB_LIST_ERROR',
 
   GET_CAMPAIGN = '@ComicsCampaign/GET_CAMPAIGN',
   GET_CAMPAIGN_SUCCESS = '@ComicsCampaign/GET_CAMPAIGN_SUCCESS',
@@ -25,6 +29,15 @@ export const getCampaignListAction = () => ({
 
 export const getCampaignListSuccessAction = (payload: Campaign[]) => ({
   type: CampaignActionType.GET_LIST_SUCCESS,
+  payload
+})
+
+export const getSubCampaignListAction = () => ({
+  type: CampaignActionType.GET_SUB_LIST
+})
+
+export const getSubCampaignListSuccessAction = (payload: SubCampaign[]) => ({
+  type: CampaignActionType.GET_SUB_LIST_SUCCESS,
   payload
 })
 

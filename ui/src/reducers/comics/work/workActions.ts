@@ -1,4 +1,5 @@
-import Work, { CsvLog } from '@src/models/comics/work'
+import Work from '@src/models/comics/work'
+import ImportLog from '@src/models/importLog'
 
 export enum WorkActionType {
   GET_LIST = '@ComicsWork/GET_LIST',
@@ -74,7 +75,7 @@ export const getCsvLogListAction = () => ({
   type: WorkActionType.GET_CSV_LOG_LIST
 })
 
-export const getCsvLogListSuccessAction = (logList: CsvLog[]) => ({
+export const getCsvLogListSuccessAction = (logList: ImportLog[]) => ({
   type: WorkActionType.GET_CSV_LOG_LIST_SUCCESS,
   payload: logList
 })

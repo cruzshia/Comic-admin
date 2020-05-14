@@ -1,11 +1,12 @@
 import { createContext } from 'react'
-import Content, { ContentImportLog } from '@src/models/comics/content'
+import Content from '@src/models/comics/content'
+import ImportLog from '@src/models/importLog'
 
 interface ContentContext {
   contentList: Content[]
   currentContent?: Content
   totalContent: number
-  importLogList: ContentImportLog[]
+  importLogList: ImportLog[]
   logTotal: number
 }
 

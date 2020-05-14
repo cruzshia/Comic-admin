@@ -7,26 +7,31 @@ import CampaignDetail from './components/CampaignDetail'
 import CampaignEdit from './components/CampaignEdit'
 import CampaignCreation from './components/CampaignCreation'
 import CampaignContext, { ActionContext } from './context/CampaignContext'
-import { getCampaignListAction } from '@src/reducers/comics/campaign/campaignActions'
+import { getCampaignListAction, getSubCampaignListAction } from '@src/reducers/comics/campaign/campaignActions'
 import { StoreState } from '@src/reducers'
-import { mockCampaign, mockSubCampaignList } from './mockData/mockData'
+import { mockCampaign } from './mockData/mockData'
 import WorksCampaign from './WorksCampaign/WorksCampaign'
 import ContentsCampaign from './ContentsCampaign/ContentsCampaign'
 
 export default function Campaign() {
   const dispatch = useDispatch()
-  const { campaignList, campaignTotal } = useSelector((state: StoreState) => state.campaign)
+  const { campaignList, campaignTotal, subCampaignList, subCampaignTotal } = useSelector(
+    (state: StoreState) => state.campaign
+  )
   const handleGetCampaignList = useCallback(() => dispatch(getCampaignListAction()), [dispatch])
+  const handleGetSubCampaignList = useCallback(() => dispatch(getSubCampaignListAction()), [dispatch])
 
   return (
-    <ActionContext.Provider value={{ onGetCampaignList: handleGetCampaignList }}>
+    <ActionContext.Provider
+      value={{ onGetCampaignList: handleGetCampaignList, onGetSubCampaignList: handleGetSubCampaignList }}
+    >
       <CampaignContext.Provider
         value={{
           campaignList,
           campaignTotal,
           currentCampaign: mockCampaign,
-          subCampaignList: mockSubCampaignList,
-          subCampaignTotal: mockSubCampaignList.length
+          subCampaignList,
+          subCampaignTotal
         }}
       >
         <Switch>

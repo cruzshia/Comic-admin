@@ -18,8 +18,10 @@ export default createContext<CampaignContext>({
 
 interface ActionContext {
   onGetCampaignList: () => void
+  onGetSubCampaignList: () => void
 }
 
 export const ActionContext = createContext<ActionContext>({
-  onGetCampaignList: () => {}
+  onGetCampaignList: () => {},
+  onGetSubCampaignList: () => {}
 })

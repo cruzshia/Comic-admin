@@ -1,11 +1,12 @@
 import { createContext } from 'react'
-import Work, { CsvLog } from '@src/models/comics/work'
+import Work from '@src/models/comics/work'
+import ImportLog from '@src/models/importLog'
 
 interface WorkContext {
   workList: Work[]
   currentWork?: Work
   workTotal: number
-  importLogList: CsvLog[]
+  importLogList: ImportLog[]
   logTotal: number
 }
 
