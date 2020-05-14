@@ -15,7 +15,11 @@ export enum UserActionType {
 
   CREATE = '@User/CREATE',
   CREATE_SUCCESS = '@User/CREATE_SUCCESS',
-  CREATE_ERROR = '@User/CREATE_ERROR'
+  CREATE_ERROR = '@User/CREATE_ERROR',
+
+  IMPORT_USERS = '@User/IMPORT_USERS',
+  IMPORT_USERS_SUCCESS = '@User/IMPORT_USERS_SUCCESS',
+  IMPORT_USERS_ERROR = '@User/IMPORT_USERS_ERROR'
 }
 
 export const getUserListAction = () => ({
@@ -54,4 +58,14 @@ export const createUserAction = (user: User) => ({
 export const createUserSuccessAction = (user: User) => ({
   type: UserActionType.CREATE_SUCCESS,
   payload: user
+})
+
+export const importUsersAction = (payload: any) => ({
+  type: UserActionType.IMPORT_USERS,
+  payload
+})
+
+export const importUsersSuccessAction = (payload: any) => ({
+  type: UserActionType.IMPORT_USERS_SUCCESS,
+  payload
 })

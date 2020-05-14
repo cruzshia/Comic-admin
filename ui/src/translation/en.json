@@ -382,6 +382,7 @@
   "user.list.user_birth_date": "Birth Date",
   "user.list.user_coin_balance_android": "Coin Balance(Android)",
   "user.list.user_coin_balance_ios": "Coin Balance(iOS)",
+  "user.list.user_csv_registration": "User Csv Registration",
   "user.list.user_failed_login_times": "Failed Login Times",
   "user.list.user_favorite": "Favorite",
   "user.list.user_free_ad_coins": "Free Ad Coins",

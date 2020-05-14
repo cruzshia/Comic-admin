@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { map, exhaustMap, switchMap, catchError, tap } from 'rxjs/operators'
+import { map, exhaustMap, switchMap, catchError, tap, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   UserActionType,
@@ -71,4 +71,20 @@ export const createUserEpic = (action$: ActionsObservable<AnyAction>) =>
       )
     )
   )
-export default [getUserListEpic, getUserEpic, getUserExportLogListEpic, createUserEpic]
+
+export const importUsersEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(UserActionType.IMPORT_USERS),
+    exhaustMap(action =>
+      userServices.importUsersAjax(action.payload).pipe(
+        tap(() => successSubject.next({ type: UserActionType.IMPORT_USERS_SUCCESS })),
+        ignoreElements(),
+        catchError(() => {
+          errorSubject.next({ type: UserActionType.IMPORT_USERS_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export default [getUserListEpic, getUserEpic, getUserExportLogListEpic, createUserEpic, importUsersEpic]

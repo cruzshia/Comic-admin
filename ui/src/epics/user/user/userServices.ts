@@ -42,3 +42,13 @@ export const createUserAjax = (user: User): Observable<{ status: number; respons
     }
   ])
 }
+
+export const importUsersAjax = (data: any): Observable<{ status: number; response: any }> => {
+  authAjax.post('/user/import')
+  return from([
+    {
+      status: 200,
+      response: {}
+    }
+  ])
+}

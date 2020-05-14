@@ -77,6 +77,8 @@ export const routePath = {
     userDetail: `${RouteSection.User}/list/detail/:id`,
     userEdit: `${RouteSection.User}/list/edit/:id`,
     userExportLogs: `${RouteSection.User}/list/export_logs`,
+    userImportLogs: `${RouteSection.User}/list/import_logs`,
+    userCsvImport: `${RouteSection.User}/list/csv_import`,
     comment: `${RouteSection.User}/comment`,
     commentDetail: `${RouteSection.User}/comment/detail/:id`,
     commentEdit: `${RouteSection.User}/comment/edit/:id`,

@@ -21,11 +21,13 @@ interface ActionContext {
   onGetUser: (_: string) => void
   onGetUserExportLog: () => void
   onCreateUser: (_: User) => void
+  onImportUsers: (_: any) => void
 }
 
 export const ActionContext = createContext<ActionContext>({
   onGetUserList: () => {},
   onGetUser: (_: string) => {},
   onGetUserExportLog: () => {},
-  onCreateUser: (_: User) => {}
+  onCreateUser: (_: User) => {},
+  onImportUsers: (_: any) => {}
 })

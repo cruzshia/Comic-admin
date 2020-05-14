@@ -170,5 +170,9 @@ export default defineMessages({
   deleteDevice: {
     id: PREFIX + '.delete_device',
     defaultMessage: 'Delete Device'
+  },
+  userCsvRegistration: {
+    id: PREFIX + '.user_csv_registration',
+    defaultMessage: 'User Csv Registration'
   }
 })

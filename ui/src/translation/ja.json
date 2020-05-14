@@ -382,6 +382,7 @@
   "user.list.user_birth_date": "生年月",
   "user.list.user_coin_balance_android": "コイン残高（Android）",
   "user.list.user_coin_balance_ios": "コイン残高（iOS）",
+  "user.list.user_csv_registration": "ユーザーCSV登録",
   "user.list.user_failed_login_times": "ログイン失敗回数",
   "user.list.user_favorite": "お気に入り",
   "user.list.user_free_ad_coins": "無償広告コイン",

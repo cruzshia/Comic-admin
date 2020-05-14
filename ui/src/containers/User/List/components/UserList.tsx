@@ -53,10 +53,21 @@ export default function UserList() {
 
   const handleSearch = useCallback((data: any) => {}, [])
 
-  const buttonList = [
-    <Button buttonText={formatMessage(commonMessages.csvImport)} theme={Theme.DARK_BORDER} icon={SaveIcon} />,
-    <Button buttonText={formatMessage(commonMessages.csvImportLogs)} />
-  ]
+  const buttonList = useMemo(
+    () => [
+      <Button
+        buttonText={formatMessage(commonMessages.csvImport)}
+        theme={Theme.DARK_BORDER}
+        icon={SaveIcon}
+        onClick={() => history.push(routePath.user.userCsvImport)}
+      />,
+      <Button
+        buttonText={formatMessage(commonMessages.csvImportLogs)}
+        onClick={() => history.push(routePath.user.userImportLogs)}
+      />
+    ],
+    [formatMessage, history]
+  )
 
   const tableButtonList = [
     <Button
