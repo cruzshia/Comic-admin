@@ -29,7 +29,7 @@ export default function Capsule({ status }: { status: Status }) {
   const classes = useStyles()
   const { formatMessage } = useIntl()
   return (
-    <div className={clsx(classes.status, Status[status as keyof typeof Status])}>
+    <div data-testid='capsule' className={clsx(classes.status, Status[status as keyof typeof Status])}>
       {formatMessage(applicationMessages[status as keyof typeof applicationMessages])}
     </div>
   )

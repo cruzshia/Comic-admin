@@ -21,6 +21,7 @@ export default function StyledCheckBox({ value, checked, onCheck }: Props) {
   const handleStopBubble = useCallback((e: React.MouseEvent) => e.stopPropagation(), [])
   return (
     <Checkbox
+      data-testid='styled-checkbox'
       className={classes.checkbox}
       icon={<CheckboxIco />}
       color='primary'

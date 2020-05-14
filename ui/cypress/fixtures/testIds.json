@@ -22,9 +22,11 @@
   "listTable": {
     "id": "list-table",
     "pageInfo": "list-table-pagination",
+    "button": "list-table-button",
     "tableHead": "table-head-row",
     "tableRow": "list-table-row",
     "tableRowCell": "list-table-row-cell"
   },
-  "pager": "pagination"
+  "pager": "pagination",
+  "checkbox": "styled-checkbox"
 }
