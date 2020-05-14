@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 context('Display Setting List', () => {
-  const targetRoute = '#/application/display_setting'
+  const targetRoute = '/#/application/display_setting'
 
   beforeEach(() => {
     cy.visit(targetRoute)
@@ -13,7 +13,8 @@ context('Display Setting List', () => {
     cy.findAllByTestId('header-tab')
       .contains(this.headerTabs.application)
       .click()
-    cy.url().should('include', targetRoute)
+      .url()
+      .should('include', targetRoute)
   })
 
   it('Renders selected style when click user list tab in sidebar', () => {

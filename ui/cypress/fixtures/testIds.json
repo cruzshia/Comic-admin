@@ -1,0 +1,30 @@
+{
+  "headerTab": "header-tab",
+  "sidebarTab": "sidebar-tab",
+  "breadcrumbs": "breadcrumbs",
+  "contentHeaderTitle": "content-header-title",
+  "contentHeaderButtons": "content-header-buttons",
+  "searchFilter": {
+    "id": "search_filter",
+    "buttons": "search-filter-buttons",
+    "item": "search_filter_item",
+    "itemsLeft": "search-filter-items-left",
+    "itemsRight": "search-filter-items-right",
+    "itemLabel": "search-filter-item-label"
+  },
+  "inputs": {
+    "text": "text_input",
+    "dateTime": "date_time_input",
+    "select": "select",
+    "search": "search_input",
+    "timeSpan": "time_span_input"
+  },
+  "listTable": {
+    "id": "list-table",
+    "pageInfo": "list-table-pagination",
+    "tableHead": "table-head-row",
+    "tableRow": "list-table-row",
+    "tableRowCell": "list-table-row-cell"
+  },
+  "pager": "pagination"
+}

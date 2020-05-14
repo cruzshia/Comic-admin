@@ -27,35 +27,31 @@ export default function AuthorEditForm({ prefix, mutators }: { prefix?: string; 
   const handleAdd = useCallback(() => mutators.push(AUTHOR_FIELD, ''), [mutators])
 
   return (
-    <FieldArray name={prefix || AUTHOR_FIELD}>
-      {({ fields }) =>
-        fields.map((name, idx) => {
-          return (
-            <Field key={name} name={name}>
-              {({ input, meta }) => (
-                <>
-                  <Grid className={classes.margin} container alignItems='center'>
-                    <SearchInput {...input} error={checkError(meta)} />
-                    {idx === 0 && (
-                      <Button
-                        buttonText={formatMessage(comicMessages.addNewAuthor)}
-                        onClick={handleAdd}
-                        icon={AddIcon}
-                      />
-                    )}
-                  </Grid>
-                  <Button
-                    theme={Theme.DARK_BORDER}
-                    icon={AddCircleIcon}
-                    buttonText={formatMessage(comicMessages.addAuthor)}
-                    onClick={() => {}}
-                  />
-                </>
-              )}
-            </Field>
-          )
-        })
-      }
-    </FieldArray>
+    <>
+      <FieldArray name={prefix || AUTHOR_FIELD}>
+        {({ fields }) =>
+          fields.map((name, idx) => {
+            return (
+              <Field key={name} name={name}>
+                {({ input, meta }) => (
+                  <>
+                    <Grid className={classes.margin} container alignItems='center'>
+                      <SearchInput {...input} error={checkError(meta)} />
+                      {idx === 0 && <Button buttonText={formatMessage(comicMessages.addNewAuthor)} icon={AddIcon} />}
+                    </Grid>
+                  </>
+                )}
+              </Field>
+            )
+          })
+        }
+      </FieldArray>
+      <Button
+        theme={Theme.DARK_BORDER}
+        icon={AddCircleIcon}
+        buttonText={formatMessage(comicMessages.addAuthor)}
+        onClick={handleAdd}
+      />
+    </>
   )
 }
