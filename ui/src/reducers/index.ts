@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import workReducer, { WorkState, WorkPreloadState } from './comics/work/workReducer'
 import contentReducer, { ContentState, ContentPreloadState } from './comics/content/contentReducer'
 import authorReducer, { AuthorState, AuthorPreloadState } from './comics/author/authorReducer'
+import campaignReducer, { CampaignState, CampaignPreloadState } from './comics/campaign/campaignReducer'
 import worksCampaignReducer, {
   WorksCampaignState,
   WorksCampaignPreloadState
@@ -76,6 +77,7 @@ export interface StoreState {
   content: ContentState
   author: AuthorState
   subscription: SubscriptionState
+  campaign: CampaignState
   worksCampaign: WorksCampaignState
   contentsCampaign: ContentsCampaignState
 
@@ -106,6 +108,7 @@ export const storePreloadState: StoreState = {
   content: ContentPreloadState,
   author: AuthorPreloadState,
   subscription: SubscriptionPreloadState,
+  campaign: CampaignPreloadState,
   worksCampaign: WorksCampaignPreloadState,
   contentsCampaign: ContentsCampaignPreloadState,
 
@@ -136,6 +139,7 @@ export default combineReducers<StoreState>({
   content: contentReducer,
   author: authorReducer,
   subscription: subscriptionReducer,
+  campaign: campaignReducer,
   worksCampaign: worksCampaignReducer,
   contentsCampaign: contentsCampaignReducer,
 

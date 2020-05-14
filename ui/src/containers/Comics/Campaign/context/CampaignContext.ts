@@ -15,3 +15,11 @@ export default createContext<CampaignContext>({
   subCampaignList: [],
   subCampaignTotal: 0
 })
+
+interface ActionContext {
+  onGetCampaignList: () => void
+}
+
+export const ActionContext = createContext<ActionContext>({
+  onGetCampaignList: () => {}
+})

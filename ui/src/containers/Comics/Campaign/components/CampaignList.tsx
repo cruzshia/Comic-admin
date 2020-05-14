@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useCallback } from 'react'
+import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -8,7 +8,7 @@ import ListTable from '@src/components/table/ListTable'
 import { routePath } from '@src/common/appConfig'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import { useSort, usePaging } from '@src/hooks'
-import CampaignContext from '../context/CampaignContext'
+import CampaignContext, { ActionContext } from '../context/CampaignContext'
 import SearchBlock from './SearchBlock'
 import commonMessages from '@src/messages'
 import messages from '../messages'
@@ -27,11 +27,16 @@ const useStyle = makeStyles({
 
 export default function CampaignList() {
   const { campaignList, campaignTotal } = useContext(CampaignContext)
+  const { onGetCampaignList } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { sortBy, handleSort } = useSort('startAt')
   const { pagination, handlePageChange } = usePaging({ total: campaignTotal })
   const classes = useStyle()
+
+  useEffect(() => {
+    onGetCampaignList()
+  }, [onGetCampaignList])
 
   const breadcrumbList = useMemo(
     () =>
