@@ -15,7 +15,7 @@ const InitState = {
 
 export const QuestionnairePreloadState = InitState
 
-export const emptyQuestionnaire: Questionnaire = { questions: [] }
+export const emptyQuestionnaire: Questionnaire = { questions: [{}] }
 
 const updateQuestionnaireHandler = (
   state: QuestionnaireState = InitState,

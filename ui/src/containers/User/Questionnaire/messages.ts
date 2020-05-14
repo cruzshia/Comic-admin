@@ -11,6 +11,10 @@ export default defineMessages({
     id: PREFIX + 'start_create',
     defaultMessage: 'Create questionnaire'
   },
+  creation: {
+    id: PREFIX + 'creation',
+    defaultMessage: 'Questionnaire Creation'
+  },
   startEdit: {
     id: PREFIX + 'start_edit',
     defaultMessage: 'Edit questionnaire'
@@ -62,6 +66,10 @@ export default defineMessages({
   question: {
     id: PREFIX + 'question',
     defaultMessage: 'Question'
+  },
+  questionSetting: {
+    id: PREFIX + 'question_setting',
+    defaultMessage: 'Question Setting'
   },
   questionContent: {
     id: PREFIX + 'question_content',
@@ -126,5 +134,9 @@ export default defineMessages({
   contentId: {
     id: PREFIX + 'content_id',
     defaultMessage: 'Content (ID)'
+  },
+  addQuestion: {
+    id: PREFIX + 'add_question',
+    defaultMessage: 'Add question'
   }
 })
