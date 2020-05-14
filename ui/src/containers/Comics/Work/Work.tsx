@@ -8,6 +8,7 @@ import WorkEdit from './components/WorkEdit'
 import WorkDetail from './components/WorkDetail'
 import WorkExport from './components/WorkExport'
 import WorkImportLogs from './components/WorkImportLogs'
+import WorkImportCsv from './components/WorkImportCsv'
 import WorkModel from '@src/models/comics/work'
 import WorkContext, { ActionContext } from './context/WorkContext'
 import { StoreState } from '@src/reducers'
@@ -57,6 +58,7 @@ export default function Work() {
           <Route exact path={routePath.comics.workDetail} component={WorkDetail} />
           <Route exact path={routePath.comics.workExport} component={WorkExport} />
           <Route exact path={routePath.comics.workImportLogs} component={WorkImportLogs} />
+          <Route exact path={routePath.comics.workImportCsv} component={WorkImportCsv} />
           <Route exact path={routePath.comics.work} component={WorkList} />
         </Switch>
       </WorkContext.Provider>

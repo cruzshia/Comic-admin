@@ -90,5 +90,9 @@ export default defineMessages({
   worksCsvImportLog: {
     id: PREFIX + 'works_csv_import_log',
     defaultMessage: 'Works CSV Import Log'
+  },
+  csvImport: {
+    id: PREFIX + 'works_csv_import',
+    defaultMessage: 'Works CSV Import'
   }
 })

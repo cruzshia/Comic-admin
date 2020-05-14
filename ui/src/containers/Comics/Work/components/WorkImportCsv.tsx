@@ -5,7 +5,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import { CsvImportForm } from '@src/components/form'
 import { ReactComponent as IconDownload } from '@src/assets/common/download.svg'
 import { submitForm } from '@src/utils/validation'
-import { CONTENT_BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
@@ -15,7 +15,7 @@ export default function ContentCsvImport() {
   const titleText = formatMessage(messages.csvImport)
   const breadcrumbList = useMemo(
     () =>
-      CONTENT_BREADCRUMBS.map(({ title, route }) => ({
+      BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
       })).concat([{ title: titleText, route: undefined }]),

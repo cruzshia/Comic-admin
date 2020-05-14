@@ -55,7 +55,7 @@ export default function WorkList() {
       <Button
         theme={Theme.DARK_BORDER}
         buttonText={formatMessage(commonMessages.csvImport)}
-        onClick={() => {}}
+        onClick={() => history.push(routePath.comics.workImportCsv)}
         icon={IconSave}
       />,
       <Button
