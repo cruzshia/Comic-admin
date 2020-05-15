@@ -12,7 +12,7 @@ context('Display Setting List', () => {
 
   it('Click tab route correctly', function() {
     cy.visit('/')
-    cy.findAllByTestId('header-tab')
+    cy.findAllByTestId(this.testIds.headerTab)
       .contains(this.headerTabs.application)
       .click()
       .url()
@@ -53,8 +53,8 @@ context('Display Setting List', () => {
         expect($item.find(`[data-testid=${this.testIds.inputs.timeSpan}]`)).to.be.exist
       })
 
-    cy.findByTestId('search-filter-items-right')
-      .findByTestId('search_filter_item')
+    cy.findByTestId(this.testIds.searchFilter.itemsRight)
+      .findByTestId(this.testIds.searchFilter.item)
       .should($item => {
         expect($item.find(ITEM_LABEL_SELECTOR)).have.text('ステータス')
         expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
