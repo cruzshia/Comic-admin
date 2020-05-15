@@ -19,8 +19,8 @@ context('Display Setting List', () => {
       .should('include', targetRoute)
   })
 
-  it('Renders selected style when click user list tab in sidebar', () => {
-    cy.findAllByTestId('sidebar-tab')
+  it('Renders selected style when click display Setting List tab in sidebar', function() {
+    cy.findAllByTestId(this.testIds.sidebarTab)
       .contains('アプリ画面設定管理')
       .parent()
       .should('be.sideTabSelected')
