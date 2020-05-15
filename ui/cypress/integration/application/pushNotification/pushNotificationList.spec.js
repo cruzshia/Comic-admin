@@ -61,4 +61,47 @@ context('Push Notification List', () => {
         expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
       })
   })
+
+  it('Renders correct list table', function() {
+    const tableColNum = 7
+    cy.findByTestId(this.testIds.listTable.id)
+      .as('listTable')
+      .should('be.exist')
+      .findByTestId(this.testIds.listTable.pageInfo)
+      .should('be.exist')
+
+    cy.get('@listTable')
+      .findByTestId(this.testIds.listTable.tableHead)
+      .children('th')
+      .should('have.lengthOf', tableColNum)
+      .first()
+      .should($dom => {
+        const $checkbox = $dom.find('input[type=checkbox]')
+        expect($checkbox.click()).be.checked
+        expect($checkbox.click()).not.be.checked
+      })
+      .next()
+      .should('have.text', 'ステータス')
+      .next()
+      .should('have.text', 'メッセージ')
+      .next()
+      .should('have.text', 'アプリID')
+      .next()
+      .should('have.text', '送信数')
+      .next()
+      .should('have.text', '開始予定日時')
+      .and('be.sortableHeadCell', { sorting: true })
+      .next()
+      .should('have.text', '詳細')
+
+    cy.get('@listTable')
+      .findAllByTestId(this.testIds.listTable.tableRow)
+      .first()
+      .findAllByTestId(this.testIds.listTable.tableRowCell)
+      .should('have.lengthOf', tableColNum)
+  })
+
+  it('Renders pagination', function() {
+    cy.findByTestId(this.testIds.pager).should('be.exist')
+  })
 })
