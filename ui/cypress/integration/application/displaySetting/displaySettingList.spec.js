@@ -38,7 +38,7 @@ context('Display Setting List', () => {
   it('Renders correct search form', function() {
     const ITEM_LABEL_SELECTOR = `[data-testid=${this.testIds.searchFilter.itemLabel}]`
 
-    cy.findByTestId('search_filter').should('be.exist')
+    cy.findByTestId(this.testIds.searchFilter.id).should('be.exist')
 
     cy.findAllByTestId(this.testIds.searchFilter.itemsLeft)
       .findAllByTestId(this.testIds.searchFilter.item)
