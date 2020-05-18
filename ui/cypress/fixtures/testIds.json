@@ -32,5 +32,8 @@
   "ngWord": {
     "tab": "ng-word-tab",
     "form": "ng-word-form"
+  },
+  "button": {
+    "normal": "normal_button"
   }
 }
