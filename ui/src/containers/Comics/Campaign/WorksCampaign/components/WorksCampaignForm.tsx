@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
+import arrayMutators from 'final-form-arrays'
 import { makeStyles } from '@material-ui/core'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { TextInputAdapter, TextAreaAdapter, SelectAdapter } from '@src/components/finalForm'
@@ -48,6 +49,7 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
       <ScrollTo anchorRef={allAnchorRefs} withStickHeader />
       <Form
         onSubmit={onSubmit}
+        mutators={{ ...arrayMutators }}
         initialValues={worksCampaign || emptyWorksCampaign}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} ref={formRef}>

@@ -21,18 +21,34 @@ describe('WorkDetail test', () => {
     deliveryStartDateTime: '2019-12-25 00:03 +0900',
     deliveryEndDateTime: '2019-12-25 00:04 +0900',
     notifyType: 'デバイス共通',
-    advertisement: {
-      deviceCategory: 'common',
-      content: {
-        type: 'original',
-        image: '',
+    advertisement: [
+      {
+        adCategory: 'original',
+        imageUrl: '',
         link: 'https://shonenjumpplus.com/episode/10834108156758729535',
         buttonName: 'サンプルテキスト',
-        deliveryDuration: '2020-02-20 19:00:00　〜　2020-02-20 19:00:00'
+        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00',
+        type: 'opening'
       },
-      contents: [],
-      opening: []
-    }
+      {
+        adCategory: 'admob',
+        content: '表示位置情報のみ',
+        type: 'content'
+      },
+      {
+        adCategory: 'map',
+        content: '表示位置情報のみ',
+        type: 'content'
+      },
+      {
+        adCategory: 'original',
+        imageUrl: '',
+        link: 'https://shonenjumpplus.com/episode/10834108156758729535',
+        buttonName: 'サンプルテキスト',
+        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00',
+        type: 'content'
+      }
+    ]
   }
 
   it('Renders correctly', () => {

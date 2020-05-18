@@ -1,7 +1,7 @@
 import Work from '@src/models/comics/work'
 import ImportLog from '@src/models/importLog'
 import { WorkActionType } from './workActions'
-import { defaultContentAd, defaultOpeningAd } from '../constant'
+import { defaultAdTypes } from '../constant'
 import { ActionType } from '../../types'
 
 export interface WorkState {
@@ -17,10 +17,7 @@ const initState: WorkState = {
 
 export const emptyWork: Work = {
   author: [''],
-  advertisement: {
-    contents: defaultContentAd,
-    opening: defaultOpeningAd
-  }
+  advertisement: defaultAdTypes
 }
 
 export const WorkPreloadState = initState

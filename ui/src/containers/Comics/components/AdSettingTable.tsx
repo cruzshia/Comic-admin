@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
 import DataTable, { DataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
 import { backgroundColorGray } from '@src/common/styles'
+import Advertisement from '@src/models/comics/advertisement'
 
 interface Prop {
   hideSubtitle?: boolean
@@ -34,7 +35,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
     content: dataSource[id]
   })
 
-  const genAdvertisementData = (data: any) => {
+  const genAdvertisementData = (data: Advertisement) => {
     switch (data.adCategory) {
       case 'original':
         return {
@@ -73,6 +74,17 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
         }
       ]
 
+  const [openingAd, contentAd] = useMemo(
+    () =>
+      data.reduce(
+        (acc: Advertisement[], current: Advertisement) => {
+          acc[current.type === 'opening' ? 0 : 1].push(current)
+          return acc
+        },
+        [[], []]
+      ),
+    [data]
+  )
   return (
     <DataTable
       title={formatMessage(commonMessages.advertisementSetting)}
@@ -80,14 +92,14 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
       onEdit={onEdit}
       dataSet={[
         ...initialDataSet,
-        ...data.opening.map((ad: any) => genAdvertisementData(ad)),
+        ...openingAd.map((ad: Advertisement) => genAdvertisementData(ad)),
         {
           label: '',
           content: formatMessage(commonMessages.contents),
           isSubTitle: true,
           classes: `${classes.subTitle} gray`
         },
-        ...data.contents.map((ad: any) => genAdvertisementData(ad))
+        ...contentAd.map((ad: Advertisement) => genAdvertisementData(ad))
       ]}
     />
   )

@@ -25,33 +25,32 @@ export const mockWork = {
   images: [mockCover1, mockCover2, mockCover3, mockCover4, mockCover5, mockCover6, mockCover7],
   deliveryStartDateTime: '2019-12-25 00:00',
   deliveryEndDateTime: '2019-12-25 00:00',
-  advertisement: {
-    deviceCategory: 'common',
-    contents: [
-      {
-        adCategory: 'admob',
-        content: '表示位置情報のみ'
-      },
-      {
-        adCategory: 'map',
-        content: '表示位置情報のみ'
-      },
-      {
-        adCategory: 'original',
-        imageUrl: mockManga,
-        link: 'https://shonenjumpplus.com/episode/10834108156758729535',
-        buttonName: 'サンプルテキスト',
-        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00'
-      }
-    ],
-    opening: [
-      {
-        adCategory: 'original',
-        imageUrl: mockManga,
-        link: 'https://shonenjumpplus.com/episode/10834108156758729535',
-        buttonName: 'サンプルテキスト',
-        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00'
-      }
-    ]
-  }
+  advertisement: [
+    {
+      adCategory: 'original',
+      imageUrl: mockManga,
+      link: 'https://shonenjumpplus.com/episode/10834108156758729535',
+      buttonName: 'サンプルテキスト',
+      deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00',
+      type: 'opening'
+    },
+    {
+      adCategory: 'admob',
+      content: '表示位置情報のみ',
+      type: 'content'
+    },
+    {
+      adCategory: 'map',
+      content: '表示位置情報のみ',
+      type: 'content'
+    },
+    {
+      adCategory: 'original',
+      imageUrl: mockManga,
+      link: 'https://shonenjumpplus.com/episode/10834108156758729535',
+      buttonName: 'サンプルテキスト',
+      deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00',
+      type: 'content'
+    }
+  ]
 }

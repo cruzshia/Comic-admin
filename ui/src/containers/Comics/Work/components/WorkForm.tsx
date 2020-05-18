@@ -61,7 +61,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}
         subscription={{ pristine: true }}
-        initialValues={workData || emptyWork}
+        initialValues={workData || { ...emptyWork }}
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable

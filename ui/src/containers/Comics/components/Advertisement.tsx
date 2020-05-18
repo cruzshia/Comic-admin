@@ -8,16 +8,13 @@ import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
 import Button from '@src/components/Button/Button'
 import Condition from '@src/components/finalForm/Condition'
 import { AdCategory, AdType } from '@src/reducers/comics/constant'
-import useDnD, { DnDProp } from './useDnD'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
 interface Props {
-  dndIdx?: number
   type: AdCategory
   name: string
   onDelete?: () => void
-  onDrop?: (props: DnDProp) => void
 }
 
 const useStyle = makeStyles(() => ({
@@ -32,7 +29,7 @@ const useStyle = makeStyles(() => ({
   }
 }))
 
-export default function Advertisement({ dndIdx, type, name, onDelete, onDrop }: Props) {
+export default function Advertisement({ type, name, onDelete }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const [previewImage, setPreviewImage] = useState<string | undefined>()
@@ -65,15 +62,8 @@ export default function Advertisement({ dndIdx, type, name, onDelete, onDrop }: 
     setPreviewImage(image)
   }, [setPreviewImage, image])
 
-  const dndProp = useDnD({
-    type,
-    accept: Object.values(AdCategory),
-    index: dndIdx || 0,
-    onDrop
-  })
-
   return (
-    <InputBlock onDelete={onDelete} dndProp={dndProp} key={name + adType}>
+    <InputBlock onDelete={onDelete} key={name + adType}>
       <Grid className={classes.rowContainer} container direction='row'>
         <InputRow title={formatMessage(messages.adCategory)} classnames={!isOriginal ? classes.lastRow : ''}>
           <Field name={`${name}.adCategory`} component={SelectAdapter} options={AD_OPTIONS} />

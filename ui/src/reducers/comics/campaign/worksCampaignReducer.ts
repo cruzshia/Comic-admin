@@ -1,6 +1,6 @@
 import WorksCampaign from '@src/models/comics/worksCampaign'
 import { WorksCampaignActionType } from './worksCampaignActions'
-import { defaultContentAd, defaultOpeningAd } from '../constant'
+import { defaultAdTypes } from '../constant'
 import { ActionType } from '../../types'
 
 export interface WorksCampaignState {
@@ -8,10 +8,7 @@ export interface WorksCampaignState {
 }
 
 export const emptyWorksCampaign: WorksCampaign = {
-  advertisement: {
-    contents: defaultContentAd,
-    opening: defaultOpeningAd
-  }
+  advertisement: defaultAdTypes
 }
 
 const initState: WorksCampaignState = {}
