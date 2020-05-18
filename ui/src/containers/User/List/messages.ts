@@ -174,5 +174,9 @@ export default defineMessages({
   userCsvRegistration: {
     id: PREFIX + '.user_csv_registration',
     defaultMessage: 'User Csv Registration'
+  },
+  userCsvImportLogs: {
+    id: PREFIX + '.user_csv_import_logs',
+    defaultMessage: 'User Csv Import Logs'
   }
 })

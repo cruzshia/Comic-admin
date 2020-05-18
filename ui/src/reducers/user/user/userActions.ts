@@ -1,4 +1,5 @@
-import User, { UserExportLog } from '@src/models/user/user'
+import User from '@src/models/user/user'
+import ImportLog from '@src/models/importLog'
 
 export enum UserActionType {
   GET_LIST = '@User/GET_LIST',
@@ -12,6 +13,10 @@ export enum UserActionType {
   GET_EXPORT_LOG_LIST = '@User/GET_EXPORT_LOG_LIST',
   GET_EXPORT_LOG_LIST_SUCCESS = '@User/GET_EXPORT_LOG_LIST_SUCCESS',
   GET_EXPORT_LOG_LIST_ERROR = '@User/GET_EXPORT_LOG_LIST_ERROR',
+
+  GET_IMPORT_LOG_LIST = '@User/GET_IMPORT_LOG_LIST',
+  GET_IMPORT_LOG_LIST_SUCCESS = '@User/GET_IMPORT_LOG_LIST_SUCCESS',
+  GET_IMPORT_LOG_LIST_ERROR = '@User/GET_IMPORT_LOG_LIST_ERROR',
 
   CREATE = '@User/CREATE',
   CREATE_SUCCESS = '@User/CREATE_SUCCESS',
@@ -45,14 +50,23 @@ export const getUserExportLogListAction = () => ({
   type: UserActionType.GET_EXPORT_LOG_LIST
 })
 
-export const getUserExportLogListSuccessAction = (payload: UserExportLog[]) => ({
+export const getUserExportLogListSuccessAction = (payload: ImportLog[]) => ({
   type: UserActionType.GET_EXPORT_LOG_LIST_SUCCESS,
   payload
 })
 
-export const createUserAction = (user: User) => ({
+export const getUserImportLogListAction = () => ({
+  type: UserActionType.GET_IMPORT_LOG_LIST
+})
+
+export const getUserImportLogListSuccessAction = (payload: ImportLog[]) => ({
+  type: UserActionType.GET_IMPORT_LOG_LIST_SUCCESS,
+  payload
+})
+
+export const createUserAction = (payload: User) => ({
   type: UserActionType.CREATE,
-  payload: user
+  payload
 })
 
 export const createUserSuccessAction = (user: User) => ({

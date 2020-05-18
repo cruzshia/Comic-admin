@@ -6,20 +6,25 @@ interface UserContext {
   currentUser?: any
   userTotal: number
   csvExportLogs: any[]
-  csvLogsTotal: number
+  csvImportLogs: any[]
+  csvExportLogsTotal: number
+  csvImportLogsTotal: number
 }
 
 export default createContext<UserContext>({
   userList: [],
   userTotal: 0,
   csvExportLogs: [],
-  csvLogsTotal: 0
+  csvImportLogs: [],
+  csvExportLogsTotal: 0,
+  csvImportLogsTotal: 0
 })
 
 interface ActionContext {
   onGetUserList: () => void
   onGetUser: (_: string) => void
-  onGetUserExportLog: () => void
+  onGetUserExportLogList: () => void
+  onGetUserImportLogList: () => void
   onCreateUser: (_: User) => void
   onImportUsers: (_: any) => void
 }
@@ -27,7 +32,8 @@ interface ActionContext {
 export const ActionContext = createContext<ActionContext>({
   onGetUserList: () => {},
   onGetUser: (_: string) => {},
-  onGetUserExportLog: () => {},
+  onGetUserExportLogList: () => {},
+  onGetUserImportLogList: () => {},
   onCreateUser: (_: User) => {},
   onImportUsers: (_: any) => {}
 })

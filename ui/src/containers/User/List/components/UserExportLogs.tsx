@@ -45,15 +45,15 @@ const useStyles = makeStyles({
 export default function UserExportLogs() {
   const { formatMessage } = useIntl()
   const classes = useStyles()
-  const { csvExportLogs, csvLogsTotal } = useContext(UserContext)
-  const { onGetUserExportLog } = useContext(ActionContext)
+  const { csvExportLogs, csvExportLogsTotal } = useContext(UserContext)
+  const { onGetUserExportLogList } = useContext(ActionContext)
   const titleText = formatMessage(commonMessages.csvExportLogs)
-  const { pagination, handlePageChange } = usePaging({ total: csvLogsTotal })
+  const { pagination, handlePageChange } = usePaging({ total: csvExportLogsTotal })
   const { sortBy, handleSort } = useSort('createDateTime')
 
   useEffect(() => {
-    onGetUserExportLog()
-  }, [onGetUserExportLog])
+    onGetUserExportLogList()
+  }, [onGetUserExportLogList])
 
   const breadcrumbList = useMemo(
     () =>

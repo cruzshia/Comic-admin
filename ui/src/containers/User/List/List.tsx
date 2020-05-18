@@ -7,6 +7,7 @@ import {
   createUserAction,
   getUserAction,
   getUserExportLogListAction,
+  getUserImportLogListAction,
   importUsersAction
 } from '@src/reducers/user/user/userActions'
 import { routePath } from '@src/common/appConfig'
@@ -21,10 +22,13 @@ import History from './History/History'
 
 export default function List() {
   const dispatch = useDispatch()
-  const { userList, currentUser, csvExportLogs } = useSelector((state: StoreState) => state.user)
+  const { userList, currentUser, csvExportLogs, csvImportLogs, importLogsTotal, exportLogsTotal } = useSelector(
+    (state: StoreState) => state.user
+  )
   const handleGetUserList = useCallback(() => dispatch(getUserListAction()), [dispatch])
   const handleGetUser = useCallback(id => dispatch(getUserAction(id)), [dispatch])
   const handleGetExportLogList = useCallback(() => dispatch(getUserExportLogListAction()), [dispatch])
+  const handleGetImportLogList = useCallback(() => dispatch(getUserImportLogListAction()), [dispatch])
   const handleCreateUser = useCallback(data => dispatch(createUserAction(data)), [dispatch])
   const handleImportUsers = useCallback(data => dispatch(importUsersAction(data)), [dispatch])
 
@@ -34,7 +38,8 @@ export default function List() {
         onGetUserList: handleGetUserList,
         onCreateUser: handleCreateUser,
         onGetUser: handleGetUser,
-        onGetUserExportLog: handleGetExportLogList,
+        onGetUserExportLogList: handleGetExportLogList,
+        onGetUserImportLogList: handleGetImportLogList,
         onImportUsers: handleImportUsers
       }}
     >
@@ -44,7 +49,9 @@ export default function List() {
           userList,
           userTotal: userList.length,
           csvExportLogs: csvExportLogs,
-          csvLogsTotal: csvExportLogs.length
+          csvImportLogs: csvImportLogs,
+          csvExportLogsTotal: exportLogsTotal,
+          csvImportLogsTotal: importLogsTotal
         }}
       >
         <Switch>

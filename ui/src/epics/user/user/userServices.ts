@@ -1,7 +1,8 @@
 import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
-import User, { UserExportLog } from '@src/models/user/user'
-import { mockUserList, mockUser, mockCsvExportLogs } from './mockData/mockData'
+import User from '@src/models/user/user'
+import ImportLog from '@src/models/importLog'
+import { mockUserList, mockUser, mockCsvExportLogs, mockCsvImportList } from './mockData/mockData'
 
 export const getUserListAjax = (): Observable<{ status: number; response: User[] }> => {
   authAjax.get('/user/list')
@@ -23,12 +24,21 @@ export const getUserAjax = (id: string): Observable<{ status: number; response: 
   ])
 }
 
-export const getUserExportLogListAjax = (): Observable<{ status: number; response: UserExportLog[] }> => {
+export const getUserExportLogListAjax = (): Observable<{ status: number; response: ImportLog[] }> => {
   authAjax.get(`/user/list/exportLogs`)
   return from([
     {
       status: 200,
       response: mockCsvExportLogs
+    }
+  ])
+}
+export const getUserImportLogListAjax = (): Observable<{ status: number; response: ImportLog[] }> => {
+  authAjax.get(`/user/list/importLogs`)
+  return from([
+    {
+      status: 200,
+      response: mockCsvImportList
     }
   ])
 }

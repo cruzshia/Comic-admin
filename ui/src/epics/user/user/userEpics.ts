@@ -7,7 +7,8 @@ import {
   getUserListSuccessAction,
   createUserSuccessAction,
   getUserSuccessAction,
-  getUserExportLogListSuccessAction
+  getUserExportLogListSuccessAction,
+  getUserImportLogListSuccessAction
 } from '@src/reducers/user/user/userActions'
 import * as userServices from './userServices'
 import { emptyErrorReturn } from '../../utils'
@@ -56,6 +57,20 @@ export const getUserExportLogListEpic = (action$: ActionsObservable<AnyAction>) 
       )
     )
   )
+export const getUserImportLogListEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(UserActionType.GET_IMPORT_LOG_LIST),
+    switchMap(() =>
+      userServices.getUserImportLogListAjax().pipe(
+        map(res => getUserImportLogListSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: UserActionType.GET_IMPORT_LOG_LIST_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: UserActionType.GET_IMPORT_LOG_LIST_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
 
 export const createUserEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -87,4 +102,11 @@ export const importUsersEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export default [getUserListEpic, getUserEpic, getUserExportLogListEpic, createUserEpic, importUsersEpic]
+export default [
+  getUserListEpic,
+  getUserEpic,
+  getUserExportLogListEpic,
+  getUserImportLogListEpic,
+  createUserEpic,
+  importUsersEpic
+]
