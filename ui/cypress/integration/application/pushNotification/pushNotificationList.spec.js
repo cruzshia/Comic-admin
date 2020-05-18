@@ -38,6 +38,12 @@ context('Push Notification List', () => {
     cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', 'プッシュ通知ログを登録')
   })
 
+  it('Renders correct search button', function() {
+    cy.findByTestId(this.testIds.searchFilter.buttons)
+      .children('button')
+      .should('be.rightSearchBtn')
+  })
+
   it('Renders correct search form', function() {
     const ITEM_LABEL_SELECTOR = `[data-testid=${this.testIds.searchFilter.itemLabel}]`
     cy.findByTestId(this.testIds.searchFilter.id).should('be.exist')
@@ -67,19 +73,19 @@ context('Push Notification List', () => {
     cy.findByTestId(this.testIds.listTable.id)
       .as('listTable')
       .should('be.exist')
-      .findByTestId(this.testIds.listTable.pageInfo)
-      .should('be.exist')
+      .within(() => {
+        cy.findByTestId(this.testIds.listTable.pageInfo).should('be.exist')
+        cy.findByTestId(this.testIds.listTable.button)
+          .find('button')
+          .should('have.text', '削除する')
+      })
 
     cy.get('@listTable')
       .findByTestId(this.testIds.listTable.tableHead)
       .children('th')
       .should('have.lengthOf', tableColNum)
       .first()
-      .should($dom => {
-        const $checkbox = $dom.find('input[type=checkbox]')
-        expect($checkbox.click()).be.checked
-        expect($checkbox.click()).not.be.checked
-      })
+      .should('be.clickableCheckbox')
       .next()
       .should('have.text', 'ステータス')
       .next()
