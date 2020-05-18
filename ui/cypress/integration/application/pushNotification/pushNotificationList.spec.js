@@ -101,6 +101,33 @@ context('Push Notification List', () => {
       .should('have.lengthOf', tableColNum)
   })
 
+  it('List table checkbox should have correct behaviour', function() {
+    cy.findByTestId(this.testIds.listTable.id)
+      .as('listTable')
+      .findByTestId(this.testIds.listTable.tableHead)
+      .findByTestId(this.testIds.checkbox)
+      .as('clickAll')
+      .click()
+
+    cy.get('@listTable')
+      .findAllByTestId(this.testIds.checkbox)
+      .as('AllCheckbox')
+      .should('be.clickableCheckbox', { isClicked: true })
+
+    cy.get('@clickAll')
+      .click()
+      .should('be.clickableCheckbox', { isClicked: true })
+
+    cy.get('@AllCheckbox').should('be.clickableCheckbox', { isClicked: true })
+
+    cy.get('@AllCheckbox')
+      .eq(1)
+      .click()
+      .should('be.clickableCheckbox', { isClicked: true })
+      .click()
+      .should('be.clickableCheckbox')
+  })
+
   it('Renders pagination', function() {
     cy.findByTestId(this.testIds.pager).should('be.exist')
   })

@@ -46,10 +46,6 @@ context('Application Info List', () => {
       .should('be.exist')
 
     cy.get('@listTable')
-      .findByTestId(this.testIds.listTable.pageInfo)
-      .should('be.exist')
-
-    cy.get('@listTable')
       .findAllByTestId(this.testIds.listTable.tableHead)
       .children('th')
       .should('have.lengthOf', tableColNum)
@@ -65,5 +61,11 @@ context('Application Info List', () => {
       .first()
       .findAllByTestId(this.testIds.listTable.tableRowCell)
       .should('have.lengthOf', tableColNum)
+  })
+
+  it('Renders pagination', function() {
+    cy.findByTestId(this.testIds.listTable.pageInfo).should('be.exist')
+
+    cy.findByTestId(this.testIds.pager).should('be.exist')
   })
 })
