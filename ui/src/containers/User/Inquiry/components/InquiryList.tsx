@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
 import ContentHeader from '@src/components/ContentHeader/ContentHeader'
 import ListTable from '@src/components/table/ListTable'
-import { useSort, usePaging } from '@src/hooks'
+import { usePaging } from '@src/hooks'
 import { routePath } from '@src/common/appConfig'
 import { BREADCRUMBS } from '../utils'
 import SearchBlock from './SearchBlock'
@@ -28,8 +28,8 @@ const useStyle = makeStyles({
     '& .ListTable-col-3': {
       width: 140
     },
-    '& .ListTable-col-6': {
-      width: '5%'
+    '& .ListTable-col-4': {
+      width: 360
     }
   }
 })
@@ -38,7 +38,6 @@ export default function InquiryList({ inquiryList, inquiryTotal, onGetInquiryLis
   const history = useHistory()
   const classes = useStyle()
   const { formatMessage } = useIntl()
-  const { sortBy, handleSort } = useSort('inquiryAt')
   const { pagination, handlePageChange } = usePaging({ total: inquiryTotal })
 
   useEffect(() => {
@@ -53,26 +52,23 @@ export default function InquiryList({ inquiryList, inquiryTotal, onGetInquiryLis
     [formatMessage]
   )
 
-  const dataList = inquiryList
-    .map(inquiry => ({
-      id: inquiry.id,
-      data: {
-        ...inquiry,
-        spacer: ''
-      }
-    }))
-    .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
+  const dataList = inquiryList.map(inquiry => ({
+    id: inquiry.id,
+    data: {
+      ...inquiry
+    }
+  }))
 
   const theadList = useMemo(
     () => [
-      { id: 'inquiryAt', label: formatMessage(messages.inquiryTime), onSort: handleSort },
+      { id: 'inquiryAt', label: formatMessage(messages.inquiryTime) },
       { id: 'id', label: formatMessage(commonMessages.id) },
       { id: 'inquiryType', label: formatMessage(messages.questionType) },
       { id: 'message', label: formatMessage(messages.message) },
-      { id: 'appVersion', label: formatMessage(messages.appVersion) },
-      { id: 'spacer', label: '' }
+      { id: 'appId', label: formatMessage(commonMessages.appId) },
+      { id: 'appVersion', label: formatMessage(messages.appVersion) }
     ],
-    [handleSort, formatMessage]
+    [formatMessage]
   )
 
   return (
@@ -85,8 +81,6 @@ export default function InquiryList({ inquiryList, inquiryTotal, onGetInquiryLis
         dataList={dataList}
         pagination={pagination}
         onPageChange={handlePageChange}
-        sortBy={sortBy.key}
-        sortOrder={sortBy.order}
         onRowClick={useCallback((id: string) => history.push(routePath.user.inquiryDetail.replace(':id', id)), [
           history
         ])}

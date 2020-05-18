@@ -5,6 +5,7 @@ export const mockInquiryList = _range(0, 5).map(num => ({
   id: `WORK_SHUNKAN1000000${num}`,
   type: 'サンプル',
   message: '12月の請求が12月1日と12月31日と2回来ているのはなぜですか？ 定期購読は少年ジャンプしかしていないです。',
+  appId: '少年ジャンプ+ for iOS',
   appVersion: '2.6.1'
 }))
 
