@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import { routePath } from '@src/common/appConfig'
-import useSort from '@src/hooks/useSort'
 import usePaging from '@src/hooks/usePaging'
 import ListTable from '@src/components/table/ListTable'
 import HeadBlock from './HeadBlock'
@@ -31,7 +30,6 @@ export default function QuestionnaireList() {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const history = useHistory()
-  const { sortBy, handleSort } = useSort('deliverStart')
   const { pagination, handlePageChange } = usePaging({ total: questionnaireTotal })
 
   useEffect(() => {
@@ -54,25 +52,23 @@ export default function QuestionnaireList() {
 
   const theadList = useMemo(
     () => [
-      { id: 'id', label: formatMessage(messages.id) },
+      { id: 'id', label: formatMessage(messages.questionId) },
       { id: 'name', label: formatMessage(messages.name) },
-      { id: 'deliverStart', label: formatMessage(commonMessages.deliveryStartDateTime), onSort: handleSort },
+      { id: 'deliverStart', label: formatMessage(commonMessages.deliveryStartDateTime) },
       { id: 'deliverEnd', label: formatMessage(commonMessages.deliveryEndStartTime) },
       { id: 'answerReward', label: formatMessage(messages.answerReward) },
       { id: 'spacer', label: '' }
     ],
-    [formatMessage, handleSort]
+    [formatMessage]
   )
 
-  const dataList = questionnaireList
-    .map(questionnaire => ({
-      id: questionnaire.id,
-      data: {
-        ...questionnaire,
-        spacer: ''
-      }
-    }))
-    .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
+  const dataList = questionnaireList.map(questionnaire => ({
+    id: questionnaire.id,
+    data: {
+      ...questionnaire,
+      spacer: ''
+    }
+  }))
 
   return (
     <div>
@@ -84,8 +80,6 @@ export default function QuestionnaireList() {
         dataList={dataList}
         pagination={pagination}
         onPageChange={handlePageChange}
-        sortBy={sortBy.key}
-        sortOrder={sortBy.order}
         onRowClick={useCallback((id: string) => history.push(routePath.user.questionnaireDetail.replace(':id', id!)), [
           history
         ])}
