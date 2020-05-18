@@ -40,7 +40,7 @@ export default function NGWordForm({ ngWord, onSubmit }: { ngWord: string; onSub
   const handleClick = () => onSubmit(currentWord)
 
   return (
-    <Grid className={classes.box} container direction='column'>
+    <Grid data-testId='ng-word-form' className={classes.box} container direction='column'>
       <TextField
         multiline
         variant='outlined'

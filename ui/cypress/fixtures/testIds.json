@@ -28,5 +28,9 @@
     "tableRowCell": "list-table-row-cell"
   },
   "pager": "pagination",
-  "checkbox": "styled-checkbox"
+  "checkbox": "styled-checkbox",
+  "ngWord": {
+    "tab": "ng-word-tab",
+    "form": "ng-word-form"
+  }
 }

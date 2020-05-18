@@ -87,7 +87,12 @@ export default function NGWordManage({ ngWords, onGetNGWord, onUpdateNGWord }: P
       <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.userNGWordManagement)} />
       <Grid container className={classes.tabs} wrap='nowrap'>
         {tabList.map(({ id, label }) => (
-          <Grid key={id} className={clsx({ selected: tab === id })} onClick={createTabClickHandler(id)}>
+          <Grid
+            data-testId='ng-word-tab'
+            key={id}
+            className={clsx({ selected: tab === id })}
+            onClick={createTabClickHandler(id)}
+          >
             {label}
           </Grid>
         ))}
