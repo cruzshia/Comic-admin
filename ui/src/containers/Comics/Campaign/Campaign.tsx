@@ -7,29 +7,48 @@ import CampaignDetail from './components/CampaignDetail'
 import CampaignEdit from './components/CampaignEdit'
 import CampaignCreation from './components/CampaignCreation'
 import CampaignContext, { ActionContext } from './context/CampaignContext'
-import { getCampaignListAction, getSubCampaignListAction } from '@src/reducers/comics/campaign/campaignActions'
+import {
+  getCampaignListAction,
+  getSubCampaignListAction,
+  getCampaignAction,
+  createCampaignAction,
+  updateCampaignAction
+} from '@src/reducers/comics/campaign/campaignActions'
 import { StoreState } from '@src/reducers'
-import { mockCampaign } from './mockData/mockData'
+import CampaignModel from '@src/models/comics/campaign'
 import WorksCampaign from './WorksCampaign/WorksCampaign'
 import ContentsCampaign from './ContentsCampaign/ContentsCampaign'
 
 export default function Campaign() {
   const dispatch = useDispatch()
-  const { campaignList, campaignTotal, subCampaignList, subCampaignTotal } = useSelector(
+  const { campaignList, campaignTotal, subCampaignList, subCampaignTotal, currentCampaign } = useSelector(
     (state: StoreState) => state.campaign
   )
   const handleGetCampaignList = useCallback(() => dispatch(getCampaignListAction()), [dispatch])
   const handleGetSubCampaignList = useCallback(() => dispatch(getSubCampaignListAction()), [dispatch])
+  const handleGetCampaign = useCallback((campaignId: string) => dispatch(getCampaignAction(campaignId)), [dispatch])
+  const handleCreateCampaign = useCallback((campaign: CampaignModel) => dispatch(createCampaignAction(campaign)), [
+    dispatch
+  ])
+  const handleUpdateCampaign = useCallback((campaign: CampaignModel) => dispatch(updateCampaignAction(campaign)), [
+    dispatch
+  ])
 
   return (
     <ActionContext.Provider
-      value={{ onGetCampaignList: handleGetCampaignList, onGetSubCampaignList: handleGetSubCampaignList }}
+      value={{
+        onGetCampaignList: handleGetCampaignList,
+        onGetSubCampaignList: handleGetSubCampaignList,
+        onGetCampaign: handleGetCampaign,
+        onUpdateCampaign: handleUpdateCampaign,
+        onCreateCampaign: handleCreateCampaign
+      }}
     >
       <CampaignContext.Provider
         value={{
           campaignList,
           campaignTotal,
-          currentCampaign: mockCampaign,
+          currentCampaign,
           subCampaignList,
           subCampaignTotal
         }}

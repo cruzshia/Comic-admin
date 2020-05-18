@@ -23,7 +23,7 @@ const ROUTE = {
 
 export default function CampaignDetail() {
   const { currentCampaign = {}, subCampaignList, subCampaignTotal } = useContext(CampaignContext)
-  const { onGetSubCampaignList } = useContext(ActionContext)
+  const { onGetSubCampaignList, onGetCampaign } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { sortBy, handleSort } = useSort('startAt')
@@ -32,7 +32,8 @@ export default function CampaignDetail() {
 
   useEffect(() => {
     onGetSubCampaignList()
-  }, [onGetSubCampaignList])
+    onGetCampaign(id!)
+  }, [onGetSubCampaignList, onGetCampaign, id])
 
   const titleText = formatMessage(messages.detail)
   const breadcrumbList = useMemo(

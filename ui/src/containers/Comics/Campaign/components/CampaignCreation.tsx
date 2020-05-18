@@ -1,14 +1,16 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useRef, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import { submitForm } from '@src/utils/validation'
+import { ActionContext } from '../context/CampaignContext'
 import CampaignForm from './CampaignForm'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export default function CampaignCreation() {
+  const { onCreateCampaign } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -35,7 +37,7 @@ export default function CampaignCreation() {
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
-      <CampaignForm formRef={formRef} onSubmit={console.log} />
+      <CampaignForm formRef={formRef} onSubmit={onCreateCampaign} />
     </>
   )
 }

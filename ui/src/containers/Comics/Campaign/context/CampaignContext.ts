@@ -19,9 +19,15 @@ export default createContext<CampaignContext>({
 interface ActionContext {
   onGetCampaignList: () => void
   onGetSubCampaignList: () => void
+  onGetCampaign: (campaignId: string) => void
+  onCreateCampaign: (campaignId: Campaign) => void
+  onUpdateCampaign: (campaignId: Campaign) => void
 }
 
 export const ActionContext = createContext<ActionContext>({
   onGetCampaignList: () => {},
-  onGetSubCampaignList: () => {}
+  onGetSubCampaignList: () => {},
+  onGetCampaign: () => {},
+  onCreateCampaign: () => {},
+  onUpdateCampaign: () => {}
 })

@@ -71,8 +71,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 {
                   label: formatMessage(comicsMessages.workId),
                   classes: workData ? 'display' : undefined,
-                  content: workData ? workData.id : 'WORK_SHUNKAN10000006'
-                  //<Field name='id' component={TextInputAdapter} validate={required} />
+                  content: workData ? workData.id : ''
                 },
                 {
                   label: formatMessage(commonMessages.title),
