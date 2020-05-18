@@ -36,7 +36,6 @@ export default function useDnd({ accept, index, onDrop }: Props) {
           dragIndex,
           dropIndex
         })
-      lastTarget.index = dropIndex
     }
   })
 

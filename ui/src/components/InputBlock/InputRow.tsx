@@ -23,7 +23,8 @@ const useStyle = makeStyles({
   label: {
     width: 65,
     fontSize: 12,
-    fontWeight: fontWeightBold
+    fontWeight: fontWeightBold,
+    whiteSpace: 'pre-wrap'
   }
 })
 

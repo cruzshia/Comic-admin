@@ -138,5 +138,57 @@ export default defineMessages({
   addQuestion: {
     id: PREFIX + 'add_question',
     defaultMessage: 'Add question'
+  },
+  multipleDropdown: {
+    id: PREFIX + 'multiple_dropdown',
+    defaultMessage: 'Multiple Dropdown'
+  },
+  dropDown: {
+    id: PREFIX + 'dropdown',
+    defaultMessage: 'Dropdown'
+  },
+  textBoxSingleLine: {
+    id: PREFIX + 'text_box_single_line',
+    defaultMessage: ' Single Line Text Box'
+  },
+  textBoxMultipleLine: {
+    id: PREFIX + 'text_box_multiple_line',
+    defaultMessage: 'Multiple Line Text Box '
+  },
+  multipleTextBox: {
+    id: PREFIX + 'multiple-text_box',
+    defaultMessage: 'Multiple Text Box'
+  },
+  radioButton: {
+    id: PREFIX + 'radio_button',
+    defaultMessage: 'Radio Button'
+  },
+  answerLimit: {
+    id: PREFIX + 'answer_limit',
+    defaultMessage: 'Answer Limit'
+  },
+  selectQuestion: {
+    id: PREFIX + 'select_question',
+    defaultMessage: 'Select question'
+  },
+  inputQuestion: {
+    id: PREFIX + 'input_question',
+    defaultMessage: 'Input question'
+  },
+  inputAnswer: {
+    id: PREFIX + 'input_answer',
+    defaultMessage: 'Input answer'
+  },
+  inputCondition: {
+    id: PREFIX + 'input_condition',
+    defaultMessage: 'Input condition'
+  },
+  inputCount: {
+    id: PREFIX + 'input_count',
+    defaultMessage: 'Input count'
+  },
+  addLine: {
+    id: PREFIX + 'add_line',
+    defaultMessage: 'Add line'
   }
 })

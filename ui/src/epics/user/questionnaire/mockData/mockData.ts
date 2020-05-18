@@ -32,7 +32,7 @@ export const mockQuestionnaire = {
     {
       content: '週刊少年ジャンプ 2020年14号の中で面白かったもの3つを、面白かった順に選択ください',
       required: '必須',
-      type: '複数のドロップダウン',
+      type: 'multipleDropdown',
       line: `•1番目に面白かったもの
 •2番目に面白かったもの
 •3番目に面白かったもの`,
@@ -61,7 +61,7 @@ export const mockQuestionnaire = {
     {
       content: 'デジタル版「週刊少年ジャンプ」で何作品読んでいますか？',
       required: '必須',
-      type: 'ドロップダウン',
+      type: 'dropdown',
       option: `•1作品
 •2作品
 •3作品
@@ -75,7 +75,7 @@ export const mockQuestionnaire = {
     {
       content: 'デジタル版を購読するにあたり、紙版の少年ジャンプを買わなくなりましたか？',
       required: '必須',
-      type: 'ラジオボタン',
+      type: 'radioButton',
       line: `•紙版を買わなくなった
 •もともと紙版を買っていなかった
 •買うのをやめていたが電子版で再び買いはじめた
@@ -86,7 +86,7 @@ export const mockQuestionnaire = {
     {
       content: 'その他、ご意見・ご感想あれば入力ください（500文字まで）',
       required: '必須ではない',
-      type: 'テキストボックス',
+      type: 'textBoxMultipleLine',
       inputRange: '文字数 範囲 0 から 500'
     }
   ]

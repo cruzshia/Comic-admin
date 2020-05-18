@@ -20,9 +20,10 @@ const useStyles = makeStyles(() => ({
 
 interface Props extends InputProps {
   short?: boolean
+  className?: string
 }
 
-export default function TextInput({ name, onChange, onBlur, error, placeholder, value, short }: Props) {
+export default function TextInput({ name, onChange, onBlur, error, placeholder, value, short, className }: Props) {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   return (
@@ -32,7 +33,7 @@ export default function TextInput({ name, onChange, onBlur, error, placeholder, 
         color='secondary'
         data-testid='text_input'
         name={name}
-        className={clsx(classes.root, { error: !!error, 'vearth-input-small': !!short })}
+        className={clsx(classes.root, { error: !!error, 'vearth-input-small': !!short }, className)}
         onChange={onChange}
         onBlur={onBlur}
         value={value}
