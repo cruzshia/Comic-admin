@@ -16,6 +16,8 @@ context('Work import log page', () => {
     cy.findAllByTestId(this.testIds.sidebarTab)
       .contains('作品管理')
       .click()
+      .parent()
+      .should('be.sideTabSelected')
     cy.findAllByTestId(this.testIds.button.normal)
       .contains('CSV登録ログ')
       .click()
@@ -25,9 +27,9 @@ context('Work import log page', () => {
 
   it('Shows correct page title and breadcrumb', function() {
     const pageTitle = '作品CSV登録ログ'
-    cy.findByTestId('content-header-title').should('contain', pageTitle)
-    cy.findByTestId('breadcrumbs').should('contain', `${this.headerTabs.comic}>作品一覧>${pageTitle}`)
-    cy.findByTestId('breadcrumbs-link').should('have.attr', 'href', '#/comics/work')
+    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
+    cy.findByTestId(this.testIds.breadcrumbs).should('contain', `${this.headerTabs.comic}>作品一覧>${pageTitle}`)
+    cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/comics/work')
   })
 
   it('Renders correct log list table', function() {

@@ -55,7 +55,7 @@ context('Campaign List', () => {
           .should('be.exist')
       })
 
-    cy.findByTestId('search-filter-items-right')
+    cy.findByTestId(this.testIds.searchFilter.itemsRight)
       .findAllByTestId(this.testIds.searchFilter.item)
       .first()
       .should($item => {

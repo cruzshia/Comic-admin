@@ -2,6 +2,7 @@
   "headerTab": "header-tab",
   "sidebarTab": "sidebar-tab",
   "breadcrumbs": "breadcrumbs",
+  "breadcrumbLink": "breadcrumbs-link",
   "contentHeaderTitle": "content-header-title",
   "contentHeaderButtons": "content-header-buttons",
   "searchFilter": {
@@ -10,7 +11,8 @@
     "item": "search_filter_item",
     "itemsLeft": "search-filter-items-left",
     "itemsRight": "search-filter-items-right",
-    "itemLabel": "search-filter-item-label"
+    "itemLabel": "search-filter-item-label",
+    "expand": "search_filter_expand"
   },
   "inputs": {
     "text": "text_input",
