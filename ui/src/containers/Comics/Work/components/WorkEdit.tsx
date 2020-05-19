@@ -27,13 +27,14 @@ export default function WorkEdit() {
   const handleClickSubmit = useCallback(() => submitForm(formRef), [formRef])
   const handleSubmitUpdate = useCallback(data => onUpdateWork(data), [onUpdateWork])
 
+  const title = formatMessage(messages.edit)
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
-      })).concat({ title: formatMessage(messages.createWork), route: undefined }),
-    [formatMessage]
+      })).concat({ title, route: undefined }),
+    [formatMessage, title]
   )
 
   const UpdateButton = useMemo(
@@ -46,7 +47,7 @@ export default function WorkEdit() {
 
   return currentWork.id ? (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={currentWork?.title} buttonList={buttonList} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={title} buttonList={buttonList} />
       <StickyHeader title={formatMessage(messages.createWork)} button={UpdateButton} />
       <WorkForm workData={currentWork} onSubmit={handleSubmitUpdate} formRef={formRef} withStickHeader />
     </>

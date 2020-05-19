@@ -47,6 +47,10 @@ export default defineMessages({
     id: PREFIX + 'edit',
     defaultMessage: 'Edit work'
   },
+  editStart: {
+    id: PREFIX + 'edit_start',
+    defaultMessage: 'Edit work'
+  },
   comicsWork: {
     id: 'comics.work',
     defaultMessage: 'Comics work'
