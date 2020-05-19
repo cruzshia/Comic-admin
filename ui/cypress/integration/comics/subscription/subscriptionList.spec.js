@@ -4,55 +4,57 @@ context('Subscription List', () => {
   beforeEach(() => {
     cy.visit(targetRoute)
     cy.fixture('headerTabs.json').as('headerTabs')
+    cy.fixture('testIds.json').as('testIds')
   })
 
   it('Click tab route correctly', function() {
     cy.visit('/')
-    cy.findAllByTestId('header-tab')
+    cy.findAllByTestId(this.testIds.headerTab)
       .contains(this.headerTabs.comic)
       .click()
-      .then(() => {
-        cy.findAllByTestId('sidebar-tab')
-          .contains('定期購読管理')
-          .click()
-        cy.url().should('include', targetRoute)
-      })
+    cy.findAllByTestId(this.testIds.sidebarTab)
+      .contains(this.headerTabs.subscription.management)
+      .click()
+      .url()
+      .should('include', targetRoute)
   })
 
   it('Renders selected style when click campaign tab in sidebar', function() {
-    cy.findAllByTestId('sidebar-tab')
-      .contains('定期購読管理')
+    cy.findAllByTestId(this.testIds.sidebarTab)
+      .contains(this.headerTabs.subscription.management)
       .parent()
       .should('be.sideTabSelected')
   })
 
   it('Shows correct page title and breadcrumb', function() {
-    const pageTitle = '定期購読一覧'
-    cy.findByTestId('content-header-title').should('contain', pageTitle)
-    cy.findByTestId('breadcrumbs').should('contain', `${this.headerTabs.comic}>${pageTitle}`)
+    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', this.headerTabs.subscription.list)
+    cy.findByTestId(this.testIds.breadcrumbs).should(
+      'contain',
+      `${this.headerTabs.comic}>${this.headerTabs.subscription.list}`
+    )
   })
 
-  it('Shows correct content header button', () => {
-    cy.findByTestId('content-header-buttons').should('contain', '定期購読を登録')
+  it('Shows correct content header button', function() {
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '定期購読を登録')
   })
 
-  it('Renders pagination', () => {
-    cy.findByTestId('pagination').should('be.exist')
+  it('Renders pagination', function() {
+    cy.findByTestId(this.testIds.pager).should('be.exist')
   })
 
-  it('Renders correct list table', () => {
+  it('Renders correct list table', function() {
     const tableColNum = 6
 
-    cy.findByTestId('list-table')
+    cy.findByTestId(this.testIds.listTable.id)
       .as('listTable')
       .should('be.exist')
 
     cy.get('@listTable')
-      .findByTestId('list-table-pagination')
+      .findByTestId(this.testIds.listTable.pageInfo)
       .should('be.exist')
 
     cy.get('@listTable')
-      .findByTestId('table-head-row')
+      .findByTestId(this.testIds.listTable.tableHead)
       .children('th')
       .should('have.lengthOf', tableColNum)
       .first()
@@ -74,9 +76,9 @@ context('Subscription List', () => {
       .and('be.sortableHeadCell')
 
     cy.get('@listTable')
-      .findAllByTestId('list-table-row')
+      .findAllByTestId(this.testIds.listTable.tableRow)
       .first()
-      .findAllByTestId('list-table-row-cell')
+      .findAllByTestId(this.testIds.listTable.tableRowCell)
       .should('have.lengthOf', tableColNum)
   })
 })

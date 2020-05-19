@@ -14,7 +14,11 @@
     "list": "ユーザー一覧"
   },
   "campaign": {
-    "management": "キャンペーン管理",
-    "list": "キャンペーン一覧"
+    "list": "キャンペーン一覧",
+    "management": "キャンペーン管理"
+  },
+  "subscription": {
+    "list": "定期購読一覧",
+    "management": "定期購読管理"
   }
 }
