@@ -12,7 +12,7 @@ import WorksCampaignForm from './WorksCampaignForm'
 
 export default function WorksCampaignEdit() {
   const { formatMessage } = useIntl()
-  const { id } = useParams()
+  const { id, campaignId } = useParams()
   const formRef = useRef<HTMLFormElement>(null)
   const { currentCampaign } = useContext(WorksCampaignContext)
   const { onGetWorksCampaign, onUpdateWorksCampaign, onResetWorksCampaign } = useContext(ActionContext)
@@ -22,14 +22,14 @@ export default function WorksCampaignEdit() {
     return () => onResetWorksCampaign()
   }, [id, onGetWorksCampaign, onResetWorksCampaign])
 
-  const titleText = formatMessage(messages.creation)
+  const titleText = formatMessage(messages.edit)
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
-        route
+        route: route?.replace(':id', campaignId!)
       })).concat([{ title: titleText, route: undefined }]),
-    [formatMessage, titleText]
+    [formatMessage, titleText, campaignId]
   )
 
   const buttonList = useMemo(

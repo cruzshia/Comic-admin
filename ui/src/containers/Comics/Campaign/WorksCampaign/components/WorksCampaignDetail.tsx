@@ -61,7 +61,12 @@ export default function WorksCampaignDetail() {
 
   const buttonList = useMemo(
     () => [
-      <Button theme={Theme.DARK_BORDER} buttonText={formatMessage(messages.edit)} onClick={handleEdit} icon={penIcon} />
+      <Button
+        theme={Theme.DARK_BORDER}
+        buttonText={formatMessage(messages.editStart)}
+        onClick={handleEdit}
+        icon={penIcon}
+      />
     ],
     [formatMessage, handleEdit]
   )
