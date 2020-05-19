@@ -2,6 +2,14 @@
   "comic": "マンガ管理",
   "application": "アプリ管理",
   "user": "ユーザー管理",
+  "author": {
+    "list": "著者一覧",
+    "management": "著者管理"
+  },
+  "work": {
+    "list": "作品一覧",
+    "management": "作品管理"
+  },
   "userList": {
     "list": "ユーザー一覧"
   },

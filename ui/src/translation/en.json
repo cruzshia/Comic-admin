@@ -76,6 +76,7 @@
   "comics.author.create": "Author Create",
   "comics.author.detail": "Author Detail",
   "comics.author.edit": "Author Edit",
+  "comics.author.edit_start": "Author Edit",
   "comics.author.list": "Author List",
   "comics.author_add": "Add Author",
   "comics.author_management": "Comics author",

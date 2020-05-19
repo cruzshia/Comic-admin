@@ -34,7 +34,12 @@ export default function AuthorDetail() {
   const handleEdit = useCallback(() => history.push(routePath.comics.authorEdit.replace(':id', id!)), [history, id])
   const buttonList = useMemo(
     () => [
-      <Button icon={penIcon} buttonText={formatMessage(messages.edit)} theme={Theme.DARK_BORDER} onClick={handleEdit} />
+      <Button
+        icon={penIcon}
+        buttonText={formatMessage(messages.editStart)}
+        theme={Theme.DARK_BORDER}
+        onClick={handleEdit}
+      />
     ],
     [formatMessage, handleEdit]
   )

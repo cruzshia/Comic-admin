@@ -1,11 +1,9 @@
 /// <reference types="cypress" />
 
-context('Work Edit', () => {
-  before(() => {
-    cy.wrap('/#/').as('targetRoute')
-  })
+context('Author Creation', () => {
+  const targetRoute = '#/comics/author/creation'
   beforeEach(function() {
-    cy.visit(this.targetRoute)
+    cy.visit(targetRoute)
     cy.fixture('headerTabs.json').as('headerTabs')
     cy.fixture('testIds.json').as('testIds')
   })
@@ -16,42 +14,32 @@ context('Work Edit', () => {
       .contains(this.headerTabs.comic)
       .click()
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains(this.headerTabs.work.management)
+      .contains(this.headerTabs.author.management)
       .click()
 
-    cy.findAllByTestId(this.testIds.listTable.tableRow)
-      .first()
-      .children('td')
-      .eq(1)
-      .click()
-      .invoke('text')
-      .as('workId')
     cy.findByTestId(this.testIds.contentHeaderButtons)
       .children('button')
-      .contains('作品を編集')
+      .contains('著者を登録')
       .click()
-      .then(() => {
-        cy.url()
-          .as('targetRoute')
-          .should('contain', `/#/comics/work/edit/${this.workId}`)
-      })
+      .url()
+      .should('contain', '/#/comics/author/creation')
   })
 
   it('Renders selected style when click campaign tab in sidebar', function() {
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains(this.headerTabs.work.management)
+      .contains(this.headerTabs.author.management)
       .parent()
       .should('be.sideTabSelected')
   })
 
   it('Shows correct page title and breadcrumb', function() {
-    const pageTitle = '作品編集'
+    const pageTitle = '著者登録'
     cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
     cy.findByTestId(this.testIds.breadcrumbs).should(
       'contain',
-      `${this.headerTabs.comic}>${this.headerTabs.work.list}>${pageTitle}`
+      `${this.headerTabs.comic}>${this.headerTabs.author.list}>${pageTitle}`
     )
-    cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/comics/work')
+    cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/comics/author')
   })
 
   it('Shows correct content header button', function() {

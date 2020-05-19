@@ -14,7 +14,7 @@ context('Work Creation', () => {
       .contains(this.headerTabs.comic)
       .click()
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains('作品管理')
+      .contains(this.headerTabs.work.management)
       .click()
 
     cy.findByTestId(this.testIds.contentHeaderButtons)

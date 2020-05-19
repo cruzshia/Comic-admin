@@ -1,6 +1,5 @@
 context('Author List', () => {
   const targetRoute = '/#/comics/author'
-  const targetTab = '著者管理'
 
   beforeEach(() => {
     cy.visit(targetRoute)
@@ -14,23 +13,19 @@ context('Author List', () => {
       .click()
 
     cy.findAllByTestId('sidebar-tab')
-      .contains(targetTab)
+      .contains(this.headerTabs.author.management)
       .click()
       .url()
       .should('include', targetRoute)
   })
 
-  it('Renders selected style when click author tab in sidebar', () => {
+  it('Renders selected style when click author tab in sidebar', function() {
     cy.findAllByTestId('sidebar-tab')
-      .contains(targetTab)
+      .contains(this.headerTabs.author.management)
       .parent()
       .should('be.sideTabSelected')
-  })
-
-  it('Show correct page title and breadcrumb', function() {
-    const pageTitle = '著者一覧'
-    cy.findByTestId('content-header-title').should('contain', pageTitle)
-    cy.findByTestId('breadcrumbs').should('contain', `${this.headerTabs.comic}>${pageTitle}`)
+    cy.findByTestId('content-header-title').should('contain', this.headerTabs.author.list)
+    cy.findByTestId('breadcrumbs').should('contain', `${this.headerTabs.comic}>${this.headerTabs.author.list}`)
   })
 
   it('Show correct buttons', () => {

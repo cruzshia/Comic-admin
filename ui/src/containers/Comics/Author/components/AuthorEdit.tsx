@@ -24,7 +24,7 @@ export default function AuthorEdit() {
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
-        { title: formatMessage(messages.create), route: undefined }
+        { title: formatMessage(messages.edit), route: undefined }
       ]),
     [formatMessage]
   )
@@ -41,11 +41,7 @@ export default function AuthorEdit() {
 
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.create)}
-        buttonList={buttonList}
-      />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.edit)} buttonList={buttonList} />
       <AuthorForm formRef={formRef} onSubmit={onUpdateAuthor} author={currentAuthor} />
     </>
   )
