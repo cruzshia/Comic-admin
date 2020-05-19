@@ -6,18 +6,25 @@ import { InputRow } from '@src/components/InputBlock'
 import { ReactComponent as AddIcon } from '@src/assets/common/add_circle.svg'
 import Button, { Theme } from '@src/components/Button/Button'
 import { TextInputAdapter, SelectAdapter, TextAreaAdapter } from '@src/components/finalForm'
-import messages from '../../messages'
-import { QuestionType } from '../../utils'
+import messages from '../messages'
+import { QuestionType } from '../utils'
 
-export function InputAnswerLimit({ name, limitType }: { name: string; limitType: 'answerLimit' | 'inputLimit' }) {
+export enum InputLimit {
+  Answer = 'answerLimit',
+  Input = 'inputLimit'
+}
+
+export function InputAnswerLimit({ name, limitType }: { name: string; limitType: InputLimit }) {
   const { formatMessage } = useIntl()
-  const title =
-    limitType === 'inputLimit' ? formatMessage(messages.inputLimitation) : formatMessage(messages.answerLimit)
   return (
-    <InputRow title={title}>
-      <Field name={`${name}.answerLimit.action`} component={SelectAdapter} isShort options={[]} />
+    <InputRow
+      title={
+        limitType === InputLimit.Input ? formatMessage(messages.inputLimitation) : formatMessage(messages.answerLimit)
+      }
+    >
+      <Field name={`${name}.${InputLimit.Answer}.action`} component={SelectAdapter} isShort options={[]} />
       <Field
-        name={`${name}.answerLimit.count`}
+        name={`${name}.${InputLimit.Answer}.count`}
         component={TextInputAdapter}
         short
         placeholder={formatMessage(messages.inputCount)}
@@ -55,29 +62,25 @@ export function InputLine({ name }: { name: string }) {
       onChange(['', ''])
     }
   }, [onChange, value, typeValue])
-
-  function genFieldArray(lineArr: any) {
-    if (Array.isArray(lineArr)) {
-      return lineArr.map((_: string, idx: number) => (
-        <Field
-          key={idx}
-          name={`${lineName}[${idx}]`}
-          component={TextInputAdapter}
-          className='long lineField'
-          placeholder={formatMessage(messages.inputAnswer)}
-        />
-      ))
-    }
-    return <></>
-  }
-
   const handleAdd = useCallback(() => onChange([...value, '']), [onChange, value])
 
   return (
     <InputRow title={formatMessage(messages.line)} alignItems='flex-start'>
       <Grid container direction='column'>
         <Field name={lineName} subscription={{ value: true }}>
-          {({ input: { value } }: { input: { value: any } }) => genFieldArray(value)}
+          {({ input: { value } }: { input: { value: any } }) =>
+            Array.isArray(value)
+              ? value.map((_: string, idx: number) => (
+                  <Field
+                    key={idx}
+                    name={`${lineName}[${idx}]`}
+                    component={TextInputAdapter}
+                    className='long lineField'
+                    placeholder={formatMessage(messages.inputAnswer)}
+                  />
+                ))
+              : null
+          }
         </Field>
         <Button
           classnames='addLineButton'

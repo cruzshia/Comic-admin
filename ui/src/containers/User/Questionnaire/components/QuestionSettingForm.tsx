@@ -1,15 +1,15 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
-import { useField } from 'react-final-form'
+import { useFieldArray } from 'react-final-form-arrays'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { Box, makeStyles } from '@material-ui/core'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as ArrowIcon } from '@src/assets/common/arrow_forward.svg'
 import { ReactComponent as AddIcon } from '@src/assets/common/add_circle.svg'
 import DataTable from '@src/components/table/DataTable'
 import { Question as QuestionModel } from '@src/models/user/questionnaire'
-import { DnDProp } from './useDnD'
 import messages from '../messages'
-import Question from './Question/Question'
+import Question from './Question'
 
 const useStyle = makeStyles({
   button: {
@@ -26,31 +26,15 @@ const Arrow = (
 export default function QuestionSettingForm({ name }: { name: string }) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
-  const { value: questionArr, onChange: questionOnChange } = useField(name).input
+  const { fields } = useFieldArray<QuestionModel>(name)
 
-  const createDeleteHandler = (idx: number) => () => {
-    questionArr.splice(idx, 1)
-    questionOnChange([...questionArr])
+  const createDeleteHandler = (idx: number) => () => fields.remove(idx)
+  const handleDragEnd = (result: any) => {
+    if (!result.destination) return
+    fields.swap(result.source.index, result.destination.index)
   }
 
-  const handleDrop = useCallback(
-    ({ dragIndex, dropIndex }: DnDProp) => {
-      questionArr.splice(dropIndex, 0, questionArr.splice(dragIndex, 1)[0])
-      questionOnChange([...questionArr])
-    },
-    [questionArr, questionOnChange]
-  )
-
-  function genFieldArray(questionArr: QuestionModel[]) {
-    return questionArr.map((question: QuestionModel, idx: number) => (
-      <React.Fragment key={`${idx}${question?.type}`}>
-        <Question dndIdx={idx} name={`${name}[${idx}]`} onDelete={createDeleteHandler(idx)} onDrop={handleDrop} />
-        {idx !== questionArr.length - 1 && Arrow}
-      </React.Fragment>
-    ))
-  }
-
-  const handleAdd = useCallback(() => questionOnChange(questionArr.concat([{}])), [questionArr, questionOnChange])
+  const handleAdd = () => fields.push({})
 
   return (
     <DataTable
@@ -60,7 +44,36 @@ export default function QuestionSettingForm({ name }: { name: string }) {
           label: formatMessage(messages.question),
           content: (
             <Box>
-              {genFieldArray(questionArr)}
+              <DragDropContext onDragEnd={handleDragEnd}>
+                <Droppable droppableId='questions'>
+                  {provided => (
+                    <div ref={provided.innerRef}>
+                      {fields.map((name, index) => {
+                        return (
+                          <React.Fragment key={name}>
+                            <>
+                              <Draggable draggableId={name} index={index}>
+                                {provided => (
+                                  <div
+                                    key={name}
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                  >
+                                    <Question name={name} onDelete={createDeleteHandler(index)} />
+                                  </div>
+                                )}
+                              </Draggable>
+                              {index !== fields.value.length - 1 && Arrow}
+                            </>
+                          </React.Fragment>
+                        )
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
               <Button
                 classnames={classes.button}
                 theme={Theme.DARK_BORDER}

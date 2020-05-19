@@ -5,16 +5,13 @@ import { makeStyles, Grid } from '@material-ui/core'
 import { TextInputAdapter, SelectAdapter } from '@src/components/finalForm'
 import InputBlock, { InputRow } from '@src/components/InputBlock'
 import Condition from '@src/components/finalForm/Condition'
-import useDnD, { DnDProp } from '../useDnD'
-import messages from '../../messages'
-import { QuestionType } from '../../utils'
-import { InputAnswerLimit, InputOptions, InputLine } from './QuestionInputs'
+import messages from '../messages'
+import { QuestionType } from '../utils'
+import { InputAnswerLimit, InputOptions, InputLine, InputLimit } from './QuestionInputs'
 
 export interface QuestionProps {
-  dndIdx?: number
   name: string
   onDelete?: () => void
-  onDrop?: (props: DnDProp) => void
 }
 
 const useStyle = makeStyles({
@@ -35,22 +32,18 @@ const useStyle = makeStyles({
   }
 })
 
-export default function Question({ dndIdx, name, onDelete, onDrop }: QuestionProps) {
+export default function Question({ name, onDelete }: QuestionProps) {
+  const TYPE_NAME = `${name}.type`
   const { formatMessage } = useIntl()
   const classes = useStyle()
-  const { value } = useField(`${name}.type`).input
-  const { onChange: lineOnChange } = useField(`${name}.line`).input
-  const dndProp = useDnD({
-    accept: 'question',
-    index: dndIdx || 0,
-    onDrop
-  })
+  const { value: typeValue = '' } = useField(TYPE_NAME).input
+  const { onChange: onLineChange } = useField(`${name}.line`).input
 
   useEffect(() => {
-    if (new RegExp(`^((?!(${QuestionType.MultipleTextBox}|${QuestionType.MultipleDropdown})).)*$`).test(value)) {
-      lineOnChange(undefined)
+    if (new RegExp(`^((?!(${QuestionType.MultipleTextBox}|${QuestionType.MultipleDropdown})).)*$`).test(typeValue)) {
+      onLineChange(undefined)
     }
-  }, [lineOnChange, value])
+  }, [onLineChange, typeValue])
 
   const TYPE_OPTIONS = useMemo(
     () => [
@@ -83,7 +76,7 @@ export default function Question({ dndIdx, name, onDelete, onDrop }: QuestionPro
   )
 
   return (
-    <InputBlock onDelete={onDelete} dndProp={dndProp} key={name}>
+    <InputBlock onDelete={onDelete} key={name}>
       <Grid container direction='row' className={classes.rowContainer}>
         <InputRow title={formatMessage(messages.questionContent)}>
           <Field
@@ -97,25 +90,25 @@ export default function Question({ dndIdx, name, onDelete, onDrop }: QuestionPro
           <Field name={`${name}.required`} component={SelectAdapter} options={[]} isShort />
         </InputRow>
         <InputRow title={formatMessage(messages.questionType)}>
-          <Field name={`${name}.type`} component={SelectAdapter} options={TYPE_OPTIONS} />
+          <Field name={TYPE_NAME} component={SelectAdapter} options={TYPE_OPTIONS} />
         </InputRow>
 
-        <Condition when={`${name}.type`} is={QuestionType.MultipleDropdown}>
-          <InputLine name={`${name}`} />
+        <Condition when={TYPE_NAME} is={QuestionType.MultipleDropdown}>
+          <InputLine name={name} />
           <InputOptions name={name} />
-          <InputAnswerLimit name={name} limitType='answerLimit' />
+          <InputAnswerLimit name={name} limitType={InputLimit.Answer} />
         </Condition>
 
-        <Condition when={`${name}.type`} is={QuestionType.DropDown}>
+        <Condition when={TYPE_NAME} is={QuestionType.DropDown}>
           <InputOptions name={name} />
-          <InputAnswerLimit name={name} limitType='answerLimit' />
+          <InputAnswerLimit name={name} limitType={InputLimit.Answer} />
         </Condition>
 
-        <Condition when={`${name}.type`} is={QuestionType.TextBoxSingleLine}>
-          <InputAnswerLimit name={name} limitType='inputLimit' />
+        <Condition when={TYPE_NAME} is={QuestionType.TextBoxSingleLine}>
+          <InputAnswerLimit name={name} limitType={InputLimit.Input} />
         </Condition>
 
-        <Condition when={`${name}.type`} is={QuestionType.MultipleTextBox}>
+        <Condition when={TYPE_NAME} is={QuestionType.MultipleTextBox}>
           <InputRow title={formatMessage(messages.optionShuffle)}>
             <Field name={`${name}.optionShuffle`} component={SelectAdapter} isShort options={[]} />
           </InputRow>
@@ -123,18 +116,18 @@ export default function Question({ dndIdx, name, onDelete, onDrop }: QuestionPro
           <InputRow title={formatMessage(messages.answerLimit)}>
             <Field name={`${name}.actionLimit`} component={SelectAdapter} isShort options={[]} />
           </InputRow>
-          <InputAnswerLimit name={name} limitType='inputLimit' />
+          <InputAnswerLimit name={name} limitType={InputLimit.Input} />
         </Condition>
 
-        <Condition when={`${name}.type`} is={QuestionType.RadioButton}>
+        <Condition when={TYPE_NAME} is={QuestionType.RadioButton}>
           <InputOptions name={name} />
         </Condition>
 
-        <Condition when={`${name}.type`} is={QuestionType.TextBoxMultipleLine}>
-          <InputAnswerLimit name={name} limitType='inputLimit' />
+        <Condition when={TYPE_NAME} is={QuestionType.TextBoxMultipleLine}>
+          <InputAnswerLimit name={name} limitType={InputLimit.Input} />
         </Condition>
 
-        {Object.values(QuestionType).includes(value) && (
+        {typeValue !== '' && (
           <InputRow title={formatMessage(messages.answerRequirement)}>
             <Field
               name={`${name}.answerRequirement`}

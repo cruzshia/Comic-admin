@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
+import arrayMutators from 'final-form-arrays'
 import { Questionnaire } from '@src/models/user/questionnaire'
 import { emptyQuestionnaire } from '@src/reducers/user/questionnaire/questionnaireReducer'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
@@ -21,7 +22,12 @@ export default function QuestionnaireForm({ formRef, onSubmit, currentQuestionna
   const { formatMessage } = useIntl()
 
   return (
-    <Form onSubmit={onSubmit} initialValues={currentQuestionnaire || emptyQuestionnaire}>
+    <Form
+      onSubmit={onSubmit}
+      mutators={{ ...arrayMutators }}
+      initialValues={currentQuestionnaire || emptyQuestionnaire}
+      subscription={{ pristine: true }}
+    >
       {({ handleSubmit }) => (
         <form ref={formRef} onSubmit={handleSubmit}>
           <DataTable

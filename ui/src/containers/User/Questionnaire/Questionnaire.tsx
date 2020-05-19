@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { DndProvider } from 'react-dnd'
-import Backend from 'react-dnd-html5-backend'
 import { routePath } from '@src/common/appConfig'
 import { StoreState } from '@src/reducers'
 import {
@@ -45,14 +43,12 @@ export default function Questionnaire() {
           currentQuestionnaire
         }}
       >
-        <DndProvider backend={Backend}>
-          <Switch>
-            <Route exact path={routePath.user.questionnaire} component={QuestionnaireList} />
-            <Route exact path={routePath.user.questionnaireDetail} component={QuestionnaireDetail} />
-            <Route exact path={routePath.user.questionnaireEdit} component={QuestionnaireEdit} />
-            <Route exact path={routePath.user.questionnaireCreation} component={QuestionnaireCreation} />
-          </Switch>
-        </DndProvider>
+        <Switch>
+          <Route exact path={routePath.user.questionnaire} component={QuestionnaireList} />
+          <Route exact path={routePath.user.questionnaireDetail} component={QuestionnaireDetail} />
+          <Route exact path={routePath.user.questionnaireEdit} component={QuestionnaireEdit} />
+          <Route exact path={routePath.user.questionnaireCreation} component={QuestionnaireCreation} />
+        </Switch>
       </QuestionnaireContext.Provider>
     </ActionContext.Provider>
   )

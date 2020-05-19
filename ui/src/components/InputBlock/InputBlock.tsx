@@ -1,18 +1,11 @@
 import React, { PropsWithChildren } from 'react'
-import { DragElementWrapper, DragSourceOptions, DragPreviewOptions } from 'react-dnd'
 import { Grid, makeStyles } from '@material-ui/core'
 import { backgroundColorLightGray, disableColorDark, textColor } from '@src/common/styles'
 import menuIcon from '@src/assets/common/menu.svg'
 import { ReactComponent as CloseIcon } from '@src/assets/common/close.svg'
-import clsx from 'clsx'
 
 interface Prop {
   onDelete?: () => void
-  dndProp?: {
-    drag: DragElementWrapper<DragSourceOptions>
-    drop: DragElementWrapper<any>
-    preview: DragElementWrapper<DragPreviewOptions>
-  }
 }
 
 const useStyle = makeStyles({
@@ -45,23 +38,16 @@ const useStyle = makeStyles({
   }
 })
 
-export default function InputBlock({ dndProp, onDelete, children }: PropsWithChildren<Prop>) {
+export default function InputBlock({ onDelete, children }: PropsWithChildren<Prop>) {
   const classes = useStyle()
-  const { drag, drop, preview } = dndProp || {
-    drag: undefined,
-    drop: undefined,
-    preview: undefined
-  }
 
   return (
-    <div ref={drop}>
-      <div className={clsx(classes.root)} ref={preview}>
-        <Grid container>
-          <img className={clsx(classes.menu, { [classes.cursor]: !!dndProp })} src={menuIcon} ref={drag} alt='menu' />
-          <CloseIcon className={classes.delete} onClick={onDelete} data-testid='del-ico' />
-          {children}
-        </Grid>
-      </div>
+    <div className={classes.root}>
+      <Grid container>
+        <img className={classes.menu} src={menuIcon} alt='menu' />
+        <CloseIcon className={classes.delete} onClick={onDelete} data-testid='del-ico' />
+        {children}
+      </Grid>
     </div>
   )
 }

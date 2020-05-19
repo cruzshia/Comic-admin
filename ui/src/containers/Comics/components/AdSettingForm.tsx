@@ -40,7 +40,7 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
   const { formatMessage } = useIntl()
   const { fields } = useFieldArray<AdsModel>(adKey)
 
-  const makeOnDragEndFunction = (fields: any) => (result: any) => {
+  const handleDragEnd = (result: any) => {
     if (!result.destination) return
     fields.update(result.source.index, {
       ...fields.value[result.source.index],
@@ -51,8 +51,8 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
     fields.move(result.source.index, targetIdx)
   }
 
-  const createDelete = (fields: any, idx: number) => () => fields.remove(idx)
-  const createAdd = (fields: any) => () => fields.push({ type: AdType.Content })
+  const createDelete = (idx: number) => () => fields.remove(idx)
+  const handleAdd = () => fields.push({ type: AdType.Content })
 
   const LabelWithArrow = () => (
     <>
@@ -79,7 +79,7 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <Advertisement type={value[index].type} name={name} onDelete={createDelete(fields, index)} />
+                          <Advertisement type={value[index].type} name={name} onDelete={createDelete(index)} />
                         </div>
                       )}
                     </Draggable>
@@ -113,7 +113,7 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
       label: tableTitle,
       content: (
         <Box paddingBottom='30px'>
-          <DragDropContext onDragEnd={makeOnDragEndFunction(fields)}>
+          <DragDropContext onDragEnd={handleDragEnd}>
             {genDroppableBlock(AdType.Opening)}
             <LabelWithArrow />
             {genDroppableBlock(AdType.Content)}
@@ -122,7 +122,7 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
               theme={Theme.DARK_BORDER}
               icon={AddIcon}
               buttonText={formatMessage(comicMessages.addAds)}
-              onClick={createAdd(fields)}
+              onClick={handleAdd}
             />
           </DragDropContext>
         </Box>
