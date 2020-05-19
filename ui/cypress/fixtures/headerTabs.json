@@ -4,5 +4,9 @@
   "user": "ユーザー管理",
   "userList": {
     "list": "ユーザー一覧"
+  },
+  "campaign": {
+    "management": "キャンペーン管理",
+    "list": "キャンペーン一覧"
   }
 }

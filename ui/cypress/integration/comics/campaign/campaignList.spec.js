@@ -5,18 +5,18 @@ context('Campaign List', () => {
 
   beforeEach(() => {
     cy.visit(targetRoute)
-    cy.fixture('headerTabs.json').as('headerTabs')
+    cy.fixture('headerTabs.json').as('tabs')
     cy.fixture('testIds.json').as('testIds')
   })
 
   it('Click tab route correctly', function() {
     cy.visit('/')
     cy.findAllByTestId(this.testIds.headerTab)
-      .contains(this.headerTabs.comic)
+      .contains(this.tabs.comic)
       .click()
       .then(() => {
         cy.findAllByTestId(this.testIds.sidebarTab)
-          .contains('キャンペーン管理')
+          .contains(this.tabs.campaign.management)
           .click()
           .url()
           .should('include', targetRoute)
@@ -25,15 +25,14 @@ context('Campaign List', () => {
 
   it('Renders selected style when click campaign tab in sidebar', function() {
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains('キャンペーン管理')
+      .contains(this.tabs.campaign.management)
       .parent()
       .should('be.sideTabSelected')
   })
 
   it('Shows correct page title and breadcrumb', function() {
-    const pageTitle = 'キャンペーン一覧'
-    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
-    cy.findByTestId(this.testIds.breadcrumbs).should('contain', `${this.headerTabs.comic}>${pageTitle}`)
+    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', this.tabs.campaign.list)
+    cy.findByTestId(this.testIds.breadcrumbs).should('contain', `${this.tabs.comic}>${this.tabs.campaign.list}`)
   })
 
   it('Shows correct content header button', function() {
