@@ -2,8 +2,7 @@ defmodule RaiseServer.Migrations.AddAppsTable do
   use Ecto.Migration
 
   def up do
-    create table(:apps, primary_key: false) do
-      add :id,                   :serial, primary_key: true
+    create table(:apps) do
       add :app_id_token,         :string, null: false
       add :name,                 :string, null: false
       add :common_key,           :bytea,  null: false

@@ -2,27 +2,29 @@ defmodule RaiseServer.Plug.FetchAppByAidTest do
   use RaiseServer.RepoCase
 
   alias Antikythera.Test.ConnHelper
-  alias RaiseServer.AppFactory
   alias RaiseServer.Helper.ErrorJson
   alias RaiseServer.Error.BadRequest
   alias RaiseServer.Plug.FetchAppByAid
 
-  @header %{
-    "x-raise-aid" => "dummy_aid",
-  }
-  @app    AppFactory.app_factory()
-
-  setup do
-    AppFactory.insert(:app)
-    :ok
-  end
+  alias RaiseServer.AppsFactory
 
   describe "fetch/1" do
-    test "assigns app if x-raise-aid header matches the app" do
-      conn = ConnHelper.make_conn(headers: @header)
-      conn2 = FetchAppByAid.fetch(conn, [])
+    setup do
+      app = AppsFactory.insert(:app)
+      %{
+        header: %{"x-raise-aid" => app.app_id_token},
+        app: app
+      }
+    end
 
-      assert schema_to_map(conn2.assigns[:app]) == schema_to_map(@app)
+    test "assigns app if x-raise-aid header matches the app", ctx do
+      %{header: header, app: app} = ctx
+
+      conn =
+        ConnHelper.make_conn(headers: header)
+        |> FetchAppByAid.fetch()
+
+      assert schema_to_map(conn.assigns[:app]) == schema_to_map(app)
     end
 
     test "returns BadRequest if x-raise-aid header is nothing" do

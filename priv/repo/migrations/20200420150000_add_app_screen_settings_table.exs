@@ -2,8 +2,7 @@ defmodule RaiseServer.Migrations.AddAppScreenSettingsTable do
   use Ecto.Migration
 
   def up do
-    create table(:app_screen_settings, primary_key: false) do
-      add :id,               :serial,                           primary_key: true
+    create table(:app_screen_settings) do
       add :app_id,           references("apps", type: :serial), null: false
       add :screen,           :integer,                          null: false
       add :publish_begin_at, :utc_datetime,                     null: false

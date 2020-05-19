@@ -10,7 +10,7 @@ defmodule RaiseServer.Controller.Api do
 
       alias Antikythera.Request
 
-      plug RaiseServer.Plug.ParepareRepo, :prepare, []
+      plug RaiseServer.Plug.PrepareRepo, :prepare, []
     end
   end
 

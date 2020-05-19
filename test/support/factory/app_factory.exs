@@ -1,6 +1,6 @@
 defmodule RaiseServer.AppFactory do
   alias AntikytheraAcs.Ecto.PostgresRepo, as: Repo
-  alias RaiseServer.App
+  alias RaiseServer.Apps.App
 
   def app_factory() do
     %App{

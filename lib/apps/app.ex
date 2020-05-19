@@ -1,15 +1,13 @@
 use Croma
 
-defmodule RaiseServer.App do
+defmodule RaiseServer.Apps.App do
   use Ecto.Schema
 
   import Ecto.Changeset
   alias Ecto.{Changeset, Schema}
-  alias AntikytheraAcs.Ecto.PostgresRepo, as: Repo
 
   @type t :: %__MODULE__{}
 
-  @primary_key     {:id, :integer, []}
   @timestamps_opts [type: :utc_datetime]
 
   schema "apps" do
@@ -31,7 +29,6 @@ defmodule RaiseServer.App do
     |> cast(
       attrs,
       [
-        :id,
         :app_id_token,
         :name,
         :common_key,
@@ -50,9 +47,5 @@ defmodule RaiseServer.App do
       :common_key,
     ])
     |> unique_constraint(:app_id_token)
-  end
-
-  defun get_by_id(id :: v[integer]) :: t | nil do
-    Repo.get_by(__MODULE__, id: id)
   end
 end

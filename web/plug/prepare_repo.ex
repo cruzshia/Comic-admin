@@ -1,6 +1,6 @@
 use Croma
 
-defmodule RaiseServer.Plug.ParepareRepo do
+defmodule RaiseServer.Plug.PrepareRepo do
   alias Antikythera.Conn
 
   defun prepare(conn :: v[Conn.t], _opts :: any) :: v[Conn.t] do

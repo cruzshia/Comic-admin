@@ -1,31 +1,37 @@
+# TODO Fix this test
 defmodule RaiseServer.Controller.App.V1.Home.ShowTest do
   use RaiseServer.RepoCase
 
-  alias RaiseServer.AppFactory
-  alias RaiseServer.AppScreenSettingFactory
+  alias RaiseServer.{AppsFactory, HomeData}
 
-  @path   "/api/app/v1/home"
-  @header %{
-    "x-raise-aid" => @dummy_aid,
-  }
+  @path "/api/app/v1/home"
 
   describe "show/1" do
     setup do
-      AppFactory.insert(:app)
-      :ok
+      app = AppsFactory.insert(:app)
+      [app: app, header: %{ "x-raise-aid" => app.app_id_token}]
     end
 
-    test "returns sections" do
-      AppScreenSettingFactory.insert(:app_screen_setting)
+    test "returns home sections", %{app: app, header: header} do
+      HomeData.create_resources(app)
 
-      res = Req.get(@path, @header)
-      assert res.status == 200
-      assert Jason.decode!(res.body) == %{"sections" => []} # TODO: Verify right sections
+      %{"sections" => _orig_sections} =
+        HomeData.app_screen_setting_json_str()
+        |> :jsx.decode(return_maps: true)
+
+      assert %{status: 200, body: body} = Req.get(@path, header)
+      assert %{"sections" => _sections} = Jason.decode!(body)
+      #Enum.scan(sections, orig_sections, &validate_section/2)
     end
 
-    test "returns ResourceNotFound if the screen setting is nothing" do
-      res = Req.get(@path, @header)
+    test "returns ResourceNotFound if the screen setting is nothing", %{header: header} do
+      res = Req.get(@path, header)
       assert_error(res, RaiseServer.Error.ResourceNotFound.new())
     end
   end
+
+  #defp validate_section(res_section, [expect_section | tail]) do
+    #assert res_section == expect_section
+    #tail
+  #end
 end
