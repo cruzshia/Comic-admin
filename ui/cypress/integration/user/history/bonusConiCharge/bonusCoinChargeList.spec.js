@@ -19,7 +19,7 @@ context('Bonus coin charge list', () => {
       .contains(this.headerTabs.user)
       .click()
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains('ユーザー一覧')
+      .contains(this.headerTabs.userList.list)
       .click()
     cy.findAllByTestId(this.testIds.listTable.tableRow)
       .first()
@@ -29,7 +29,7 @@ context('Bonus coin charge list', () => {
       .invoke('text')
       .as('userId')
       .then(() => {
-        cy.findAllByTestId('data-table')
+        cy.findAllByTestId(this.testIds.dataTable.id)
           .contains('ボーナスコインチャージ履歴')
           .siblings()
           .children('a')
@@ -38,7 +38,7 @@ context('Bonus coin charge list', () => {
           .should('include', `user/list/history/${this.userId}/bonus_coin_charge`)
           .as('targetRoute')
         cy.findAllByTestId(this.testIds.sidebarTab)
-          .contains('ユーザー一覧')
+          .contains(this.headerTabs.userList.list)
           .parent()
           .should('be.sideTabSelected')
       })
@@ -46,7 +46,7 @@ context('Bonus coin charge list', () => {
 
   it('Renders correct breadcrumbs , pageTitle ', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
-      .should('contain', `ユーザー管理>ユーザー一覧>ユーザー詳細>${pageTitle}`)
+      .should('contain', `${this.headerTabs.user}>${this.headerTabs.userList.list}>ユーザー詳細>${pageTitle}`)
       .findAllByTestId(this.testIds.breadcrumbLink)
       .should('have.length', 2)
       .should($links => {

@@ -1,5 +1,8 @@
 {
   "comic": "マンガ管理",
   "application": "アプリ管理",
-  "user": "ユーザー管理"
+  "user": "ユーザー管理",
+  "userList": {
+    "list": "ユーザー一覧"
+  }
 }
