@@ -16,9 +16,10 @@ export default function UserCsvImport() {
   const formRef = useRef<HTMLFormElement>(null)
 
   const titleText = formatMessage(messages.userCsvRegistration)
-  const breadcrumbList: Breadcrumb[] = BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })).concat([
-    { title: titleText }
-  ])
+  const breadcrumbList: Breadcrumb[] = BREADCRUMBS.map(({ title, route }) => ({
+    title: formatMessage(title),
+    route
+  })).concat([{ title: titleText, route: undefined }])
   const buttonList = [
     <Button buttonText={formatMessage(commonMessages.create)} theme={Theme.DARK} onClick={() => submitForm(formRef)} />,
     <Button buttonText={formatMessage(commonMessages.templateJIS)} icon={IconDownload} />
