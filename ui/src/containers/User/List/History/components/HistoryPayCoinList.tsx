@@ -55,7 +55,7 @@ export default function HistoryPayCoinList({ historyTotal, historyList, onGetHis
       })).concat([
         { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
-          title: formatMessage(messages.payCoinList),
+          title: formatMessage(messages.payCoin),
           route: undefined
         }
       ]),
