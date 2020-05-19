@@ -27,6 +27,10 @@ export default defineMessages({
     id: PREFIX + 'edit',
     defaultMessage: 'Content Edit'
   },
+  startEdit: {
+    id: PREFIX + 'edit_start',
+    defaultMessage: 'Content Start Edit'
+  },
   category: {
     id: PREFIX + 'category',
     defaultMessage: 'Content Category'

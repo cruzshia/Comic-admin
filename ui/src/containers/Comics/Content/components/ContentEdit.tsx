@@ -19,7 +19,7 @@ export default function ContentEdit() {
     onGetContent(id!)
   }, [onGetContent, id])
 
-  const titleText = formatMessage(messages.create)
+  const titleText = formatMessage(messages.edit)
   const formRef = useRef<HTMLFormElement>(null)
   const breadcrumbList = useMemo(
     () =>

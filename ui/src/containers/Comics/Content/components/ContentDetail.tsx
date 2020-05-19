@@ -60,7 +60,7 @@ export default function ContentDetail() {
       <Button
         theme={Theme.DARK_BORDER}
         icon={IconEdit}
-        buttonText={formatMessage(messages.edit)}
+        buttonText={formatMessage(messages.startEdit)}
         onClick={handleEdit}
       />
     ],
