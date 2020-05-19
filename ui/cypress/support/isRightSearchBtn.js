@@ -1,6 +1,11 @@
 const isRightSearchBtn = (_chai, _) => {
   function assertIsRightSearchBtn(_) {
     this.assert(
+      this._obj.length === 2,
+      'expected #{this} child buttons should have length of 2',
+      'expected #{this} child buttons should not have length of 2'
+    )
+    this.assert(
       this._obj.eq(0).text() === '検索',
       'expected #{this} child button 0 should have text content "検索"',
       'expected #{this} child button 0 should not have text content "検索"',
