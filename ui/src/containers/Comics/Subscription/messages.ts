@@ -55,6 +55,10 @@ export default defineMessages({
     id: PREFIX + 'edit',
     defaultMessage: 'Edit'
   },
+  editStart: {
+    id: PREFIX + 'edit_start',
+    defaultMessage: 'Edit subscription'
+  },
   jumpSubscription: {
     id: PREFIX + 'jump_subscription',
     defaultMessage: 'Weekly Shonen Jump Subscription'

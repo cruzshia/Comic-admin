@@ -26,7 +26,7 @@ export default function SubscriptionEdit() {
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
-      })).concat([{ title: formatMessage(messages.creation), route: undefined }]),
+      })).concat([{ title: formatMessage(messages.edit), route: undefined }]),
     [formatMessage]
   )
 
@@ -44,11 +44,7 @@ export default function SubscriptionEdit() {
   )
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.creation)}
-        buttonList={buttonList}
-      />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.edit)} buttonList={buttonList} />
       <SubscriptionForm onSubmit={onUpdateSubscription} currentSubscription={currentSubscription} formRef={formRef} />
     </>
   )

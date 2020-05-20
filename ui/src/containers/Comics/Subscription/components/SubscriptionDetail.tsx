@@ -42,7 +42,7 @@ export default function SubscriptionDetail() {
       <Button
         theme={Theme.DARK_BORDER}
         icon={IconEdit}
-        buttonText={formatMessage(messages.edit)}
+        buttonText={formatMessage(messages.editStart)}
         onClick={handleEdit}
       />
     ],
