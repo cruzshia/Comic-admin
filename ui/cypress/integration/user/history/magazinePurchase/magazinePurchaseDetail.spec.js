@@ -1,8 +1,6 @@
 /// <reference types="cypress" />
 
-context('Episode detail', () => {
-  const pageTitle = '話購入履歴'
-
+context('Magazine Purchase detail', () => {
   before(() => {
     cy.wrap('/#/').as('targetRoute')
   })
@@ -29,7 +27,7 @@ context('Episode detail', () => {
       .as('userId')
       .then(() => {
         cy.findAllByTestId(this.testIds.dataTable.id)
-          .contains(pageTitle)
+          .contains('ストア購入履歴')
           .siblings()
           .children('a')
           .click()
@@ -37,28 +35,29 @@ context('Episode detail', () => {
           .first()
           .click()
           .url()
-          .should('match', new RegExp(`user/list/history/${this.userId}/episode/\\w+`))
+          .should('match', new RegExp(`user/list/history/${this.userId}/magazine_purchase/\\w+`))
           .as('targetRoute')
-        cy.findAllByTestId(this.testIds.sidebarTab)
-          .contains(this.headerTabs.userList.list)
-          .parent()
-          .should('be.sideTabSelected')
       })
   })
-
+  it('Renders selected style in sidebar', function() {
+    cy.findAllByTestId(this.testIds.sidebarTab)
+      .contains(this.headerTabs.userList.list)
+      .parent()
+      .should('be.sideTabSelected')
+  })
   it('Renders correct breadcrumbs , pageTitle ', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
       .should(
         'have.text',
-        `${this.headerTabs.user}>${this.headerTabs.userList.list}>${this.headerTabs.userList.detail}>話購入履歴一覧>話購入履歴詳細`
+        `${this.headerTabs.user}>${this.headerTabs.userList.list}>${this.headerTabs.userList.detail}>雑誌/コミックス購入履歴一覧>雑誌/コミックス購入履歴詳細`
       )
       .findAllByTestId(this.testIds.breadcrumbLink)
       .should('have.length', 3)
       .should($links => {
         expect($links.eq(0)).have.attr('href', '#/user/list')
         expect($links.eq(1)).have.attr('href', `#/user/list/detail/${this.userId}`)
-        expect($links.eq(2)).have.attr('href', `#/user/list/history/${this.userId}/episode`)
+        expect($links.eq(2)).have.attr('href', `#/user/list/history/${this.userId}/magazine_purchase`)
       })
-    cy.findAllByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
+    cy.findAllByTestId(this.testIds.contentHeaderTitle).should('contain', '雑誌/コミックス購入履歴')
   })
 })

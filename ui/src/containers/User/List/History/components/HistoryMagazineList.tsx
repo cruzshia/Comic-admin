@@ -55,7 +55,7 @@ export default function HistoryMagazineList({ historyTotal, historyList, onGetMa
       })).concat([
         { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
-          title: formatMessage(messages.magazinePurchaseList),
+          title: formatMessage(messages.magazinePurchase),
           route: undefined
         }
       ]),

@@ -47,7 +47,7 @@ context('Bonus coin charge detail', () => {
   it('Renders correct breadcrumbs , pageTitle ', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
       .should(
-        'contain',
+        'have.text',
         `${this.headerTabs.user}>${this.headerTabs.userList.list}>ユーザー詳細>ボーナスコインチャージ履歴一覧>ボーナスコインチャージ履歴詳細`
       )
       .findAllByTestId(this.testIds.breadcrumbLink)

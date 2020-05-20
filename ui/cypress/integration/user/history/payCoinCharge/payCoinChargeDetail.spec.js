@@ -47,7 +47,7 @@ context('Pay coin charge detail', () => {
   it('Renders correct breadcrumbs , pageTitle ', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
       .should(
-        'contain',
+        'have.text',
         `${this.headerTabs.user}>${this.headerTabs.userList.list}>${this.headerTabs.userList.detail}>有償コインチャージ履歴一覧>有償コインチャージ履歴詳細`
       )
       .findAllByTestId(this.testIds.breadcrumbLink)

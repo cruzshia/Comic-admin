@@ -50,7 +50,7 @@ context('Subscription detail', () => {
   it('Renders correct breadcrumbs , pageTitle ', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
       .should(
-        'contain',
+        'have.text',
         `${this.headerTabs.user}>${this.headerTabs.userList.list}>${this.headerTabs.userList.detail}>定期購読履歴一覽>定期購読履歴詳細`
       )
       .findAllByTestId(this.testIds.breadcrumbLink)

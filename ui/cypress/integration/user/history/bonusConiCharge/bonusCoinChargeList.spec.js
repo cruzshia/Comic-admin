@@ -46,7 +46,7 @@ context('Bonus coin charge list', () => {
 
   it('Renders correct breadcrumbs , pageTitle ', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
-      .should('contain', `${this.headerTabs.user}>${this.headerTabs.userList.list}>ユーザー詳細>${pageTitle}`)
+      .should('have.text', `${this.headerTabs.user}>${this.headerTabs.userList.list}>ユーザー詳細>${pageTitle}`)
       .findAllByTestId(this.testIds.breadcrumbLink)
       .should('have.length', 2)
       .should($links => {

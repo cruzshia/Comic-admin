@@ -46,7 +46,7 @@ context('Subscription list', () => {
   it('Renders correct breadcrumbs , pageTitle', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
       .should(
-        'contain',
+        'have.text',
         `${this.headerTabs.user}>${this.headerTabs.userList.list}>${this.headerTabs.userList.detail}>${pageTitle}`
       )
       .findAllByTestId(this.testIds.breadcrumbLink)

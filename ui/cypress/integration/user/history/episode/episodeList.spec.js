@@ -45,7 +45,7 @@ context('Episode list', () => {
   it('Renders correct breadcrumbs , pageTitle,buttons', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
       .should(
-        'contain',
+        'have.text',
         `${this.headerTabs.user}>${this.headerTabs.userList.list}>${this.headerTabs.userList.detail}>話購入履歴一覧`
       )
       .findAllByTestId(this.testIds.breadcrumbLink)
