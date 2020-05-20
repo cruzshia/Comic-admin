@@ -58,7 +58,7 @@ export default function HistorySubscriptionList({ historyTotal, historyList, onG
       })).concat([
         { title: formatMessage(userMessages.detail), route: routePath.user.userDetail.replace(':id', userId!) },
         {
-          title: formatMessage(messages.subscriptionList),
+          title: formatMessage(messages.subscription),
           route: undefined
         }
       ]),
