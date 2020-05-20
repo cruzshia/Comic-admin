@@ -1,6 +1,5 @@
 context('User Notification List', () => {
   const targetRoute = '/#/user/notification'
-  const pageTitle = 'お知らせ一覧'
   const tableColNum = 6
 
   beforeEach(() => {
@@ -15,7 +14,7 @@ context('User Notification List', () => {
       .contains(this.headerTabs.user)
       .click()
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains('お知らせ管理')
+      .contains(this.headerTabs.notification.management)
       .click()
       .parent()
       .should('be.sideTabSelected')
@@ -24,8 +23,11 @@ context('User Notification List', () => {
   })
 
   it('Renders correct breadcrumbs , title ,header-buttons', function() {
-    cy.findAllByTestId(this.testIds.breadcrumbs).should('contain', `${this.headerTabs.user}>${pageTitle}`)
-    cy.findAllByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
+    cy.findAllByTestId(this.testIds.breadcrumbs).should(
+      'contain',
+      `${this.headerTabs.user}>${this.headerTabs.notification.list}`
+    )
+    cy.findAllByTestId(this.testIds.contentHeaderTitle).should('contain', this.headerTabs.notification.list)
     cy.findAllByTestId(this.testIds.contentHeaderButtons)
       .children('button')
       .should('contain', 'お知らせを登録')
