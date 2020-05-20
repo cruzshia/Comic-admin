@@ -27,6 +27,7 @@ interface Props {
   conditions: Conditions
   formRef?: React.RefObject<HTMLFormElement>
   disableExpand?: boolean
+  disableReset?: boolean
 }
 
 const useStyles = makeStyles(() => ({
@@ -80,7 +81,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function SearchFilter({ onSubmit, conditions, formRef, disableExpand }: Props) {
+export default function SearchFilter({ onSubmit, conditions, formRef, disableExpand, disableReset }: Props) {
   const { formatMessage } = useIntl()
   const [isExpand, setIsExpand] = useState<boolean>(!!disableExpand)
   const classes = useStyles()
@@ -159,12 +160,14 @@ export default function SearchFilter({ onSubmit, conditions, formRef, disableExp
                 type='submit'
                 disabled={!!error}
               />
-              <Button
-                theme={ButtonTheme.LIGHT}
-                buttonText={formatMessage(messages.reset)}
-                onClick={reset}
-                disabled={!!error}
-              />
+              {!disableReset && (
+                <Button
+                  theme={ButtonTheme.LIGHT}
+                  buttonText={formatMessage(messages.reset)}
+                  onClick={reset}
+                  disabled={!!error}
+                />
+              )}
             </Grid>
           </form>
         )}

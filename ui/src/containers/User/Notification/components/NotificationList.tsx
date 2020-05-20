@@ -68,8 +68,8 @@ export default function NotificationList() {
 
   const theadList = [
     { id: 'createDateTime', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
-    { id: 'title', label: formatMessage(commonMessages.title) },
     { id: 'id', label: formatMessage(commonMessages.id) },
+    { id: 'title', label: formatMessage(commonMessages.title) },
     { id: 'application', label: formatMessage(commonMessages.application) },
     { id: 'releaseStartDate', label: formatMessage(messages.releaseStartDate), onSort: handleSort },
     { id: 'releaseEndDate', label: formatMessage(messages.releaseEndDate) }

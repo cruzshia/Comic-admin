@@ -29,7 +29,7 @@ export default function SearchBlock({ onSubmit, formRef }: Props) {
       right: [
         {
           label: formatMessage(applicationMessages.applicationId),
-          input: <Field name='display' component={SelectAdapter} options={[]} />
+          input: <Field name='appId' component={SelectAdapter} options={[]} />
         }
       ]
     }),

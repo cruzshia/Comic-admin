@@ -1,5 +1,5 @@
 const isRightCapsuleColor = (_chai, _) => {
-  function assertIsRightCapsuleColor(props) {
+  function assertIsRightCapsuleColor() {
     const capsuleStatus = ['公開中', '公開終了', '予約中']
     const rowColors = ['rgba(0, 0, 0, 0)', 'rgb(237, 237, 237)', 'rgb(248, 255, 236)']
     const capsuleColors = ['rgb(237, 54, 50)', 'rgb(117, 117, 117)', 'rgb(162, 205, 90)']

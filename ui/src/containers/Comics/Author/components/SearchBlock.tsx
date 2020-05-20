@@ -20,5 +20,5 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     [formatMessage]
   )
 
-  return <SearchFilter conditions={conditions} onSubmit={onSubmit} />
+  return <SearchFilter conditions={conditions} onSubmit={onSubmit} disableReset />
 }

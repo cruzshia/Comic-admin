@@ -124,6 +124,7 @@ export const theme = createMuiTheme({
           alignItems: 'center',
           '&::before': {
             content: `url(${errorAlertImg})`,
+            height: 20,
             marginRight: 7
           }
         }

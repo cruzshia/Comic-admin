@@ -37,7 +37,7 @@ context('Author List', () => {
 
     cy.findByTestId('search-filter-buttons')
       .children('button')
-      .should('be.rightSearchBtn')
+      .should('be.rightSearchBtn', { disabledReset: true })
   })
 
   it('Show Search Form correctly', () => {

@@ -37,16 +37,11 @@ context('User Notification List', () => {
     cy.findAllByTestId(this.testIds.searchFilter.id).within(() => {
       cy.findAllByTestId(this.testIds.searchFilter.itemsLeft)
         .children(`[data-testid=${this.testIds.searchFilter.item}]`)
-        .should('have.length', 2)
+        .should('have.length', 1)
         .first()
         .should($item => {
-          expect($item.find(ITEM_LABEL_SELECTOR)).contain('ID')
+          expect($item.find(ITEM_LABEL_SELECTOR)).contain('タイトル（ID）')
           expect($item.find(`[data-testid=${this.testIds.inputs.search}]`)).to.be.exist
-        })
-        .next()
-        .should($item => {
-          expect($item.find(ITEM_LABEL_SELECTOR)).contain('タイトル')
-          expect($item.find(`[data-testid=${this.testIds.inputs.text}]`)).have.exist
         })
 
       cy.findAllByTestId(this.testIds.searchFilter.itemsRight)
@@ -54,7 +49,7 @@ context('User Notification List', () => {
         .should('have.length', 2)
         .first()
         .should($item => {
-          expect($item.find(ITEM_LABEL_SELECTOR)).contain('アプリ')
+          expect($item.find(ITEM_LABEL_SELECTOR)).contain('アプリID')
           expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
         })
         .next()
@@ -77,9 +72,9 @@ context('User Notification List', () => {
         .should('be.sortableHeadCell', { sorting: true })
         .and('contain', '作成日時')
         .next()
-        .should('contain', 'タイトル')
-        .next()
         .should('contain', 'ID')
+        .next()
+        .should('contain', 'タイトル')
         .next()
         .should('contain', 'アプリ')
         .next()

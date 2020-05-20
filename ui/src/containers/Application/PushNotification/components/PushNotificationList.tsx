@@ -106,6 +106,7 @@ export default function PushNotificationList() {
             checkbox: <StyledCheckBox value={id} checked={isChecked(id)} onCheck={handleCheck} />,
             status: <Capsule status={status} />,
             ...rest,
+            timesPushed: status === 'reserved' ? '' : rest.timesPushed,
             detail: detail && <FormHelperText className='error'>{detail}</FormHelperText>
           }
         }))
@@ -135,7 +136,7 @@ export default function PushNotificationList() {
       { id: 'timesPushed', label: formatMessage(messages.pushedTimes) },
       {
         id: 'scheduledStartTime',
-        label: formatMessage(messages.scheduledStartTime),
+        label: formatMessage(commonMessages.deliveryDateTime),
         onSort: handleSort
       },
       { id: 'detail', label: formatMessage(commonMessages.detail) }

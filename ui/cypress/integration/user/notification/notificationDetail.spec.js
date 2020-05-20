@@ -22,7 +22,7 @@ context('Notification Detail', () => {
     cy.findAllByTestId(this.testIds.listTable.tableRow)
       .first()
       .children('td')
-      .eq(2)
+      .eq(1)
       .click()
       .invoke('text')
       .as('notificationId')

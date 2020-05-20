@@ -33,7 +33,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     right: [
       {
         label: formatMessage(commonMessages.appId),
-        input: <Field name='app' component={SelectAdapter} options={[]} />
+        input: <Field name='appId' component={SelectAdapter} options={[]} />
       },
       {
         label: formatMessage(messages.questionType),

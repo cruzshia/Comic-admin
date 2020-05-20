@@ -17,7 +17,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         },
         {
           label: formatMessage(messages.contentId),
-          input: <Field name='name' component={SearchInputAdapter} />
+          input: <Field name='contentId' component={SearchInputAdapter} />
         }
       ],
       right: [
