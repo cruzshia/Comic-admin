@@ -52,7 +52,7 @@ export default function CampaignDetail() {
     () => [
       <Button
         theme={Theme.DARK_BORDER}
-        buttonText={formatMessage(messages.edit)}
+        buttonText={formatMessage(messages.editStart)}
         onClick={handleRedirectEdit}
         icon={penIcon}
       />

@@ -15,7 +15,7 @@ export default function CampaignEdit() {
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
 
-  const titleText = formatMessage(messages.creation)
+  const titleText = formatMessage(messages.edit)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
