@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('Work Campaign Detail', () => {
+context('Work Campaign Edit', () => {
   before(() => {
     cy.wrap('/#/').as('targetRoute')
   })
@@ -22,16 +22,18 @@ context('Work Campaign Detail', () => {
     cy.findAllByTestId(this.testIds.listTable.tableRow)
       .first()
       .click()
-
     cy.findAllByTestId(this.testIds.listTable.tableRow)
       .contains('作品キャンペーン')
       .click()
+
+    cy.findAllByTestId(this.testIds.contentHeaderButtons)
+      .click()
       .url()
       .as('targetRoute')
-      .should('match', new RegExp(`#/comics/campaign/[\\w|\-]+/work/detail/[\\w|\-]+`))
+      .should('match', new RegExp(`#/comics/campaign/[\\w|\-]+/work/edit/[\\w|\-]+`))
   })
 
-  it('Renders selected sidebar tab style in work campaign detail page', function() {
+  it('Renders selected style when click campaign tab in sidebar', function() {
     cy.findAllByTestId(this.testIds.sidebarTab)
       .contains(this.tabs.campaign.management)
       .parent()
@@ -39,11 +41,11 @@ context('Work Campaign Detail', () => {
   })
 
   it('Shows correct page title and breadcrumb', function() {
-    const pageTitle = '作品キャンペーン詳細'
+    const pageTitle = '作品キャンペーン編集'
 
-    cy.findByTestId(this.testIds.contentHeaderTitle).should('have.text', pageTitle)
+    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
     cy.findByTestId(this.testIds.breadcrumbs).should(
-      'have.text',
+      'contain',
       `${this.tabs.comic}>${this.tabs.campaign.list}>キャンペーン詳細>${pageTitle}`
     )
     cy.findAllByTestId(this.testIds.breadcrumbLink)
@@ -57,6 +59,6 @@ context('Work Campaign Detail', () => {
   })
 
   it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '作品キャンペーンを編集')
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
   })
 })
