@@ -10,10 +10,6 @@
     "list": "作品一覧",
     "management": "作品管理"
   },
-  "userList": {
-    "list": "ユーザー一覧",
-    "detail": "ユーザー詳細"
-  },
   "campaign": {
     "list": "キャンペーン一覧",
     "management": "キャンペーン管理"
@@ -21,6 +17,13 @@
   "subscription": {
     "list": "定期購読一覧",
     "management": "定期購読管理"
+  },
+  "coinProduct": {
+    "list": "コインプロダクト一覧"
+  },
+  "userList": {
+    "list": "ユーザー一覧",
+    "detail": "ユーザー詳細"
   },
   "notification": {
     "list": "お知らせ一覧",
