@@ -45,7 +45,8 @@ $ docker stop <docker_container_name>
     "password": "****************",
     "database": "raise_server_dev",
     "ssl": false
-  }
+  },
+  "api_token_key": "****************"
 }
 ```
 
@@ -55,6 +56,7 @@ $ docker stop <docker_container_name>
   - `password`: The password of the PostgreSQL user.
   - `database`: The name of the database. Use `raise_server_dev` on local environment.
   - `ssl`: Whether to use SSL/TLS for connection. Use `false` when in the case of the local environment. Use `true` in case of connecting AWS Aurora with SSL/TLS.
+- `api_token_key`: The AES256 key for api token.
 
 ### Create gear_test_config.json
 

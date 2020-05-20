@@ -4,7 +4,7 @@ defmodule RaiseServer.RepoCase do
   use ExUnit.CaseTemplate
 
   alias AntikytheraAcs.Ecto.PostgresRepo, as: Repo
-  alias RaiseServer.{Apps, Depot}
+  alias RaiseServer.{Apps, Depot, Account}
 
   setup do
     RaiseServer.Ecto.prepare_repo()
@@ -19,6 +19,8 @@ defmodule RaiseServer.RepoCase do
     Repo.delete_all(Depot.Subscription)
     Repo.delete_all(Apps.AppScreenSetting)
     Repo.delete_all(Apps.App)
+    Repo.delete_all(Account.Device)
+    Repo.delete_all(Account.User)
     :ok
   end
 
