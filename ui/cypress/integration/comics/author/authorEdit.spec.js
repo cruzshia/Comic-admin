@@ -46,9 +46,9 @@ context('Author Edit', () => {
 
   it('Shows correct page title and breadcrumb', function() {
     const pageTitle = '著者編集'
-    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
+    cy.findByTestId(this.testIds.contentHeaderTitle).should('have.text', pageTitle)
     cy.findByTestId(this.testIds.breadcrumbs).should(
-      'contain',
+      'have.text',
       `${this.headerTabs.comic}>${this.headerTabs.author.list}>${pageTitle}`
     )
     cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/comics/author')

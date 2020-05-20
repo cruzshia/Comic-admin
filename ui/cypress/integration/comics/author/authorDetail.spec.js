@@ -1,9 +1,10 @@
 /// <reference types="cypress" />
 
-context('Author Creation', () => {
-  const targetRoute = '#/comics/author/creation'
+context('Author Detail', () => {
+  before(() => cy.wrap('/#/').as('targetRoute'))
+
   beforeEach(function() {
-    cy.visit(targetRoute)
+    cy.visit(this.targetRoute)
     cy.fixture('headerTabs.json').as('headerTabs')
     cy.fixture('testIds.json').as('testIds')
   })
@@ -17,15 +18,21 @@ context('Author Creation', () => {
       .contains(this.headerTabs.author.management)
       .click()
 
-    cy.findByTestId(this.testIds.contentHeaderButtons)
-      .children('button')
-      .contains('著者を登録')
+    cy.findAllByTestId(this.testIds.listTable.tableRow)
+      .first()
+      .children('td')
+      .eq(1)
       .click()
-      .url()
-      .should('contain', '/#/comics/author/creation')
+      .invoke('text')
+      .as('authorId')
+      .then(() => {
+        cy.url()
+          .as('targetRoute')
+          .should('contain', `/#/comics/author/detail/${this.authorId}`)
+      })
   })
 
-  it('Renders selected style when click campaign tab in sidebar', function() {
+  it('Renders selected sidebar tab style', function() {
     cy.findAllByTestId(this.testIds.sidebarTab)
       .contains(this.headerTabs.author.management)
       .parent()
@@ -33,7 +40,7 @@ context('Author Creation', () => {
   })
 
   it('Shows correct page title and breadcrumb', function() {
-    const pageTitle = '著者登録'
+    const pageTitle = '著者詳細'
     cy.findByTestId(this.testIds.contentHeaderTitle).should('have.text', pageTitle)
     cy.findByTestId(this.testIds.breadcrumbs).should(
       'have.text',
@@ -43,6 +50,6 @@ context('Author Creation', () => {
   })
 
   it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', '著者を編集')
   })
 })
