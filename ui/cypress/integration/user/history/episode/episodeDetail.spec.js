@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 
-context('Pay coin charge detail', () => {
+context('Episode detail', () => {
+  const pageTitle = '話購入履歴'
+
   before(() => {
     cy.wrap('/#/').as('targetRoute')
   })
@@ -27,7 +29,7 @@ context('Pay coin charge detail', () => {
       .as('userId')
       .then(() => {
         cy.findAllByTestId(this.testIds.dataTable.id)
-          .contains('有償コインチャージ履歴')
+          .contains(pageTitle)
           .siblings()
           .children('a')
           .click()
@@ -35,7 +37,7 @@ context('Pay coin charge detail', () => {
           .first()
           .click()
           .url()
-          .should('match', new RegExp(`user/list/history/${this.userId}/pay_coin_charge/\\w+`))
+          .should('match', new RegExp(`user/list/history/${this.userId}/episode/\\w+`))
           .as('targetRoute')
         cy.findAllByTestId(this.testIds.sidebarTab)
           .contains(this.headerTabs.userList.list)
@@ -48,15 +50,15 @@ context('Pay coin charge detail', () => {
     cy.findAllByTestId(this.testIds.breadcrumbs)
       .should(
         'contain',
-        `${this.headerTabs.user}>${this.headerTabs.userList.list}>${this.headerTabs.userList.detail}>有償コインチャージ履歴一覧>有償コインチャージ履歴詳細`
+        `${this.headerTabs.user}>${this.headerTabs.userList.list}>${this.headerTabs.userList.detail}>話購入履歴一覧>話購入履歴詳細`
       )
       .findAllByTestId(this.testIds.breadcrumbLink)
       .should('have.length', 3)
       .should($links => {
         expect($links.eq(0)).have.attr('href', '#/user/list')
         expect($links.eq(1)).have.attr('href', `#/user/list/detail/${this.userId}`)
-        expect($links.eq(2)).have.attr('href', `#/user/list/history/${this.userId}/pay_coin_charge`)
+        expect($links.eq(2)).have.attr('href', `#/user/list/history/${this.userId}/episode`)
       })
-    cy.findAllByTestId(this.testIds.contentHeaderTitle).should('contain', '購入コインチャージ履歴')
+    cy.findAllByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
   })
 })

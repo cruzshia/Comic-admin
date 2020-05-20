@@ -45,7 +45,10 @@ context('Pay coin charge list', () => {
 
   it('Renders correct breadcrumbs , pageTitle ', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
-      .should('contain', `${this.headerTabs.user}>${this.headerTabs.userList.list}>ユーザー詳細>${pageTitle}`)
+      .should(
+        'contain',
+        `${this.headerTabs.user}>${this.headerTabs.userList.list}>${this.headerTabs.userList.detail}>${pageTitle}`
+      )
       .findAllByTestId(this.testIds.breadcrumbLink)
       .should('have.length', 2)
       .should($links => {

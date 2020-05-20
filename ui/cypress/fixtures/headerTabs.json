@@ -11,7 +11,8 @@
     "management": "作品管理"
   },
   "userList": {
-    "list": "ユーザー一覧"
+    "list": "ユーザー一覧",
+    "detail": "ユーザー詳細"
   },
   "campaign": {
     "list": "キャンペーン一覧",
