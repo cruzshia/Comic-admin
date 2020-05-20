@@ -1,5 +1,6 @@
 import React, { useMemo, useCallback, useRef } from 'react'
 import { useIntl } from 'react-intl'
+import { useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import { BREADCRUMBS } from '../constants'
@@ -10,14 +11,15 @@ import messages from '../messages'
 export default function ContentCampaignCreation() {
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
+  const { campaignId } = useParams()
   const titleText = formatMessage(messages.create)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
-        route
+        route: route?.replace(':id', campaignId!)
       })).concat([{ title: titleText, route: undefined }]),
-    [formatMessage, titleText]
+    [formatMessage, titleText, campaignId]
   )
   const buttonList = useMemo(
     () => [

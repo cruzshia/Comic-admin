@@ -14,21 +14,21 @@ export default function ContentsCampaignEdit() {
   const { currentContentCampaign = {} } = useContext(ContentsCampaignContext)
   const { onGetContentCampaign, onResetContentCampaign } = useContext(ActionContext)
   const formRef = useRef<HTMLFormElement>(null)
-  const { id } = useParams()
+  const { id, campaignId } = useParams()
 
   useEffect(() => {
     onGetContentCampaign(id!)
     return () => onResetContentCampaign()
   }, [onResetContentCampaign, onGetContentCampaign, id])
 
-  const titleText = formatMessage(messages.create)
+  const titleText = formatMessage(messages.edit)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
-        route
+        route: route?.replace(':id', campaignId!)
       })).concat([{ title: titleText, route: undefined }]),
-    [formatMessage, titleText]
+    [formatMessage, titleText, campaignId]
   )
   const buttonList = useMemo(
     () => [

@@ -17,6 +17,10 @@ export default defineMessages({
     id: PREFIX + 'detail',
     defaultMessage: 'Content Campaign Detail'
   },
+  editStart: {
+    id: PREFIX + 'edit_start',
+    defaultMessage: 'Content Campaign Edit'
+  },
   edit: {
     id: PREFIX + 'edit',
     defaultMessage: 'Content Campaign Edit'

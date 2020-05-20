@@ -50,7 +50,7 @@ export default function ContentCampaignDetail() {
       <Button
         theme={Theme.DARK_BORDER}
         icon={IconEdit}
-        buttonText={formatMessage(messages.edit)}
+        buttonText={formatMessage(messages.editStart)}
         onClick={handleEdit}
       />
     ],
