@@ -45,7 +45,7 @@ export default function CoinDeliveryEventDetail() {
       <Button
         theme={Theme.DARK_BORDER}
         icon={EditIcon}
-        buttonText={formatMessage(messages.edit)}
+        buttonText={formatMessage(messages.editStart)}
         onClick={handleEdit}
       />,
       <Button buttonText={formatMessage(commonMessages.copy)} icon={CopyIcon} />

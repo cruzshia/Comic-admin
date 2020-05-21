@@ -26,7 +26,7 @@ export default function CoinDeliveryEventEdit() {
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
         {
-          title: formatMessage(messages.creation),
+          title: formatMessage(messages.edit),
           route: undefined
         }
       ]),
@@ -48,11 +48,7 @@ export default function CoinDeliveryEventEdit() {
 
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.creation)}
-        buttonList={buttonList}
-      />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.edit)} buttonList={buttonList} />
       <CoinDeliveryEventForm onSubmit={onUpdateCoinDeliveryEvent} coinDeliveryEvent={currentEvent} formRef={formRef} />
     </>
   )
