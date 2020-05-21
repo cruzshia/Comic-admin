@@ -25,6 +25,9 @@
   "coinProduct": {
     "list": "コインプロダクト一覧"
   },
+  "applicationInfo": {
+    "list": "アプリ情報一覧"
+  },
   "userList": {
     "list": "ユーザー一覧",
     "detail": "ユーザー詳細"

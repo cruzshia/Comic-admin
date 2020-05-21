@@ -14,9 +14,13 @@ export default defineMessages({
     id: PREFIX + 'creation',
     defaultMessage: 'Application Info Creation'
   },
+  editStart: {
+    id: PREFIX + 'edit_start',
+    defaultMessage: 'Edit Application Info'
+  },
   edit: {
     id: PREFIX + 'edit',
-    defaultMessage: 'Edit Coin Application Info'
+    defaultMessage: 'Application Info Edit'
   },
   detail: {
     id: PREFIX + 'application_info_detail',

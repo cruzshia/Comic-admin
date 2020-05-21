@@ -26,7 +26,7 @@ export default function ApplicationInfoEdit() {
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
         {
-          title: formatMessage(messages.creation),
+          title: formatMessage(messages.edit),
           route: undefined
         }
       ]),
@@ -46,11 +46,7 @@ export default function ApplicationInfoEdit() {
 
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.creation)}
-        buttonList={buttonList}
-      />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.edit)} buttonList={buttonList} />
       <ApplicationInfoForm onSubmit={onUpdateApplicationInfo} currentInfo={currentInfo} formRef={formRef} />
     </>
   )
