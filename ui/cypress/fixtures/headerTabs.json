@@ -39,5 +39,9 @@
   "inquiry": {
     "list": "お問い合わせ一覧",
     "management": "お問い合わせ管理"
+  },
+  "comment": {
+    "list": "コメント一覧",
+    "detail": "コメント詳細"
   }
 }

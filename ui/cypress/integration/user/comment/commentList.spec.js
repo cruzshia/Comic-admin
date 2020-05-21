@@ -1,6 +1,5 @@
 context('Comment List', () => {
   const targetRoute = '/#/user/comment'
-  const pageTitle = 'コメント一覧'
 
   beforeEach(() => {
     cy.visit(targetRoute)
@@ -16,7 +15,7 @@ context('Comment List', () => {
       .click()
 
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains(pageTitle)
+      .contains(this.headerTabs.comment.list)
       .click()
       .url()
       .should('include', targetRoute)
@@ -24,14 +23,17 @@ context('Comment List', () => {
 
   it('Renders selected style when click comment list tab in sidebar', function() {
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains(pageTitle)
+      .contains(this.headerTabs.comment.list)
       .parent()
       .should('be.sideTabSelected')
   })
 
   it('Shows correct page title and breadcrumb', function() {
-    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
-    cy.findByTestId(this.testIds.breadcrumbs).should('contain', `${this.headerTabs.user}>${pageTitle}`)
+    cy.findByTestId(this.testIds.contentHeaderTitle).should('have.text', this.headerTabs.comment.list)
+    cy.findByTestId(this.testIds.breadcrumbs).should(
+      'have.text',
+      `${this.headerTabs.user}>${this.headerTabs.comment.list}`
+    )
   })
 
   it('Renders correct search form', function() {
@@ -110,24 +112,19 @@ context('Comment List', () => {
       .first()
       .should('be.clickableCheckbox')
       .next()
-      .should('contain', '作成日時')
-      .and('be.sortableHeadCell')
+      .should('have.text', '作成日時')
       .next()
-      .should('contain', 'ユーザーID')
-      .and('be.sortableHeadCell')
+      .should('have.text', 'ユーザーID')
       .next()
-      .should('contain', 'コンテンツ')
-      .and('be.sortableHeadCell')
+      .should('have.text', 'コンテンツ')
       .next()
-      .should('contain', 'メッセージ')
+      .should('have.text', 'メッセージ')
       .next()
-      .should('contain', 'いいね数')
-      .and('be.sortableHeadCell')
+      .should('have.text', 'いいね数')
       .next()
-      .should('contain', '通報')
-      .and('be.sortableHeadCell', { sorting: true })
+      .should('have.text', '通報')
       .next()
-      .should('contain', 'ステータス')
+      .should('have.text', 'ステータス')
 
     cy.get('@listTable')
       .findAllByTestId(this.testIds.listTable.tableRow)
