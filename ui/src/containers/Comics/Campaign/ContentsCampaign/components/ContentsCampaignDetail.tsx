@@ -30,9 +30,9 @@ export default function ContentCampaignDetail() {
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
-        route
+        route: route?.replace(':id', campaignId!)
       })).concat([{ title: titleText, route: undefined }]),
-    [formatMessage, titleText]
+    [formatMessage, titleText, campaignId]
   )
 
   const handleRedirect = useCallback(
