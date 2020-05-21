@@ -1,8 +1,7 @@
 /// <reference types="cypress" />
 
-context('UserList', () => {
+context('User List', () => {
   const targetRoute = '/#/user/list'
-  const pageTitle = 'ユーザー一覧'
 
   beforeEach(() => {
     cy.visit(targetRoute)
@@ -18,7 +17,7 @@ context('UserList', () => {
       .url()
       .should('include', targetRoute)
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains('ユーザー一覧')
+      .contains(this.headerTabs.userList.list)
       .click()
       .url()
       .should('include', targetRoute)
@@ -26,21 +25,24 @@ context('UserList', () => {
 
   it('Renders selected style when click user list tab in sidebar', function() {
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains('ユーザー一覧')
+      .contains(this.headerTabs.userList.list)
       .parent()
       .should('be.sideTabSelected')
   })
 
-  it('Renders correct breadcrumbs , title ,header-buttons', function() {
-    cy.findAllByTestId(this.testIds.breadcrumbs).should('contain', `${this.headerTabs.user}>${pageTitle}`)
-    cy.findAllByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
+  it('Renders correct breadcrumbs , title and header-buttons', function() {
+    cy.findAllByTestId(this.testIds.breadcrumbs).should(
+      'have.text',
+      `${this.headerTabs.user}>${this.headerTabs.userList.list}`
+    )
+    cy.findAllByTestId(this.testIds.contentHeaderTitle).should('have.text', this.headerTabs.userList.list)
     cy.findAllByTestId(this.testIds.contentHeaderButtons)
       .children('button')
       .should('have.length', 2)
       .first()
-      .should('contain', 'CSV登録')
+      .should('have.text', 'CSV登録')
       .next()
-      .should('contain', 'CSV登録ログ')
+      .should('have.text', 'CSV登録ログ')
   })
   it('Renders correct searchForm ', function() {
     const ITEM_LABEL_SELECTOR = `[data-testid=${this.testIds.searchFilter.itemLabel}]`
@@ -103,18 +105,18 @@ context('UserList', () => {
         .children('th')
         .first()
         .should('be.sortableHeadCell', { sorting: true })
-        .should('contain', '作成日時')
+        .should('have.text', '作成日時')
         .next()
         .should('be.sortableHeadCell')
-        .should('contain', '最終ログイン日時')
+        .should('have.text', '最終ログイン日時')
         .next()
-        .should('contain', 'メールアドレス')
+        .should('have.text', 'メールアドレス')
         .next()
-        .should('contain', 'ニックネーム')
+        .should('have.text', 'ニックネーム')
         .next()
-        .should('contain', 'ユーザーID')
+        .should('have.text', 'ユーザーID')
         .next()
-        .should('contain', 'ステータス')
+        .should('have.text', 'ステータス')
       cy.findAllByTestId(this.testIds.listTable.tableRow).each(($item, idx) => {
         if ($item.find('td:nth-child(6)').text() === '退会済み') {
           cy.wrap($item).should('have.css', 'background-color', 'rgb(224, 224, 224)')
@@ -129,9 +131,9 @@ context('UserList', () => {
         .children('button')
         .should('have.length', 2)
         .first()
-        .should('contain', 'CSV出力ログ')
+        .should('have.text', 'CSV出力ログ')
         .next()
-        .should('contain', 'CSV出力')
+        .should('have.text', 'CSV出力')
     })
   })
 })

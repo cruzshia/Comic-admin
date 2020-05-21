@@ -30,7 +30,8 @@
   },
   "userList": {
     "list": "ユーザー一覧",
-    "detail": "ユーザー詳細"
+    "detail": "ユーザー詳細",
+    "management": "ユーザー一覧"
   },
   "notification": {
     "list": "お知らせ一覧",
