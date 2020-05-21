@@ -2,8 +2,6 @@
 
 context('Questionnaire List', () => {
   const targetRoute = '/#/user/questionnaire'
-  const sidebarTab = 'アンケート管理'
-  const pageTitle = 'アンケート一覧'
 
   beforeEach(() => {
     cy.visit(targetRoute)
@@ -17,7 +15,7 @@ context('Questionnaire List', () => {
       .click()
 
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains(sidebarTab)
+      .contains(this.headerTabs.questionnaire.management)
       .click()
       .url()
       .should('include', targetRoute)
@@ -25,18 +23,21 @@ context('Questionnaire List', () => {
 
   it('Renders selected style when click questionnaire list tab in sidebar', function() {
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains(sidebarTab)
+      .contains(this.headerTabs.questionnaire.management)
       .parent()
       .should('be.sideTabSelected')
   })
 
   it('Shows correct page title and breadcrumb', function() {
-    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
-    cy.findByTestId(this.testIds.breadcrumbs).should('contain', `${this.headerTabs.user}>${pageTitle}`)
+    cy.findByTestId(this.testIds.contentHeaderTitle).should('have.text', this.headerTabs.questionnaire.list)
+    cy.findByTestId(this.testIds.breadcrumbs).should(
+      'have.text',
+      `${this.headerTabs.user}>${this.headerTabs.questionnaire.list}`
+    )
   })
 
   it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', 'アンケートを登録')
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', 'アンケートを登録')
   })
 
   it('Renders correct search form', function() {
@@ -91,15 +92,15 @@ context('Questionnaire List', () => {
       .children('th')
       .should('have.lengthOf', tableColNum)
       .first()
-      .should('contain', 'アンケートID')
+      .should('have.text', 'アンケートID')
       .next()
-      .should('contain', 'アンケート名')
+      .should('have.text', 'アンケート名')
       .next()
-      .should('contain', '配信開始日')
+      .should('have.text', '配信開始日時')
       .next()
-      .should('contain', '配信終了開始日')
+      .should('have.text', '配信終了開始日')
       .next()
-      .should('contain', '回答後に付与されるコインの枚数')
+      .should('have.text', '回答後に付与されるコインの枚数')
 
     cy.get('@listTable')
       .findAllByTestId(this.testIds.listTable.tableRow)

@@ -41,6 +41,10 @@
     "list": "お問い合わせ一覧",
     "management": "お問い合わせ管理"
   },
+  "questionnaire": {
+    "list": "アンケート一覧",
+    "management": "アンケート管理"
+  },
   "comment": {
     "list": "コメント一覧",
     "detail": "コメント詳細"
