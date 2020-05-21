@@ -2,7 +2,6 @@
 
 context('Coin Delivery Event List', () => {
   const targetRoute = '/#/application/coin_delivery_event'
-  const tab = 'コイン付与イベント管理'
 
   beforeEach(() => {
     cy.visit(targetRoute)
@@ -17,7 +16,7 @@ context('Coin Delivery Event List', () => {
       .click()
       .then(() => {
         cy.findAllByTestId(this.testIds.sidebarTab)
-          .contains(tab)
+          .contains(this.headerTabs.coinDeliveryEvent.management)
           .click()
           .url()
           .should('include', targetRoute)
@@ -26,15 +25,17 @@ context('Coin Delivery Event List', () => {
 
   it('Renders selected style when coin delivery event tab in sidebar', function() {
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains(tab)
+      .contains(this.headerTabs.coinDeliveryEvent.management)
       .parent()
       .should('be.sideTabSelected')
   })
 
   it('Shows correct page title and breadcrumb', function() {
-    const pageTitle = 'コイン付与イベント一覧'
-    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
-    cy.findByTestId(this.testIds.breadcrumbs).should('contain', `${this.headerTabs.application}>${pageTitle}`)
+    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', this.headerTabs.coinDeliveryEvent.list)
+    cy.findByTestId(this.testIds.breadcrumbs).should(
+      'contain',
+      `${this.headerTabs.application}>${this.headerTabs.coinDeliveryEvent.list}`
+    )
   })
 
   it('Shows correct content header button', function() {

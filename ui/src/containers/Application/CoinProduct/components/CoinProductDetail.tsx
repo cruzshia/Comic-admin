@@ -40,7 +40,7 @@ export default function CoinProductDetail() {
       <Button
         theme={Theme.DARK_BORDER}
         icon={EditIcon}
-        buttonText={formatMessage(messages.edit)}
+        buttonText={formatMessage(messages.editStart)}
         onClick={() => {
           history.push(routePath.application.coinProductEdit.replace(':id', id!))
         }}

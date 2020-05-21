@@ -37,7 +37,7 @@ export default function CoinProductEdit() {
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
         {
-          title: formatMessage(messages.edition),
+          title: formatMessage(messages.edit),
           route: undefined
         }
       ]),
@@ -56,11 +56,7 @@ export default function CoinProductEdit() {
 
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.edition)}
-        buttonList={buttonList}
-      />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.edit)} buttonList={buttonList} />
       <CoinProductForm onSubmit={onUpdateCoinProduct} currentProduct={currentProduct} formRef={formRef} />
     </>
   )
