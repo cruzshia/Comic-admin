@@ -18,7 +18,6 @@
     "list": "定期購読一覧",
     "management": "定期購読管理"
   },
-
   "coinDeliveryEvent": {
     "list": "コイン付与イベント一覧",
     "management": "コイン付与イベント管理"
@@ -33,5 +32,9 @@
   "notification": {
     "list": "お知らせ一覧",
     "management": "お知らせ管理"
+  },
+  "inquiry": {
+    "list": "お問い合わせ一覧",
+    "management": "お問い合わせ管理"
   }
 }

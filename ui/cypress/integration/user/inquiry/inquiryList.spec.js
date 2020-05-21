@@ -1,21 +1,19 @@
 context('Inquiry List', () => {
   const targetRoute = '/#/user/inquiry'
-  const sidebarTab = 'お問い合わせ管理'
-  const pageTitle = 'お問い合わせ一覧'
 
   beforeEach(() => {
     cy.visit(targetRoute)
-    cy.fixture('headerTabs.json').as('headerTabs')
+    cy.fixture('headerTabs.json').as('tabs')
     cy.fixture('testIds.json').as('testIds')
   })
 
   it('Click tab route correctly', function() {
     cy.visit('/')
     cy.findAllByTestId(this.testIds.headerTab)
-      .contains(this.headerTabs.user)
+      .contains(this.tabs.user)
       .click()
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains(sidebarTab)
+      .contains(this.tabs.inquiry.management)
       .click()
       .url()
       .should('include', targetRoute)
@@ -23,14 +21,14 @@ context('Inquiry List', () => {
 
   it('Renders selected style when click inquiry list tab in sidebar', function() {
     cy.findAllByTestId(this.testIds.sidebarTab)
-      .contains(sidebarTab)
+      .contains(this.tabs.inquiry.management)
       .parent()
       .should('be.sideTabSelected')
   })
 
   it('Shows correct page title and breadcrumb', function() {
-    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
-    cy.findByTestId(this.testIds.breadcrumbs).should('contain', `${this.headerTabs.user}>${pageTitle}`)
+    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', this.tabs.inquiry.list)
+    cy.findByTestId(this.testIds.breadcrumbs).should('contain', `${this.tabs.user}>${this.tabs.inquiry.list}`)
   })
 
   it('Renders correct search form', function() {
