@@ -56,7 +56,7 @@ context('Push Notification List', () => {
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('配信開始日時')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('配信日時')
         expect($item.find(`[data-testid=${this.testIds.inputs.dateTime}]`)).to.have.length(2)
       })
 

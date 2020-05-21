@@ -22,7 +22,7 @@ export default function SearchBlock({ onSubmit, formRef }: Props) {
           input: <Field name='message' component={TextInputAdapter} />
         },
         {
-          label: formatMessage(commonMessages.deliveryStartDateTime),
+          label: formatMessage(commonMessages.deliveryDateTime),
           input: <TimeSpanInput name='deliveryTime' />
         }
       ],
