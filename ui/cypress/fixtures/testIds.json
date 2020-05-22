@@ -34,6 +34,14 @@
     "tableRow": "list-table-row",
     "tableRowCell": "list-table-row-cell"
   },
+  "dataTable": {
+    "container": "data-table-container",
+    "title": "data-table-title",
+    "button": "data-table-button",
+    "row": "table-row-container",
+    "label": "data-table-label",
+    "content": "data-table-content"
+  },
   "pager": "pagination",
   "checkbox": "styled-checkbox",
   "ngWord": {

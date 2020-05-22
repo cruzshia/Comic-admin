@@ -99,7 +99,7 @@ export default function DataTable({
   const classes = useStyle(!!innerTable)
 
   return dataSet.length ? (
-    <div className={marginBottom ? classes.marginBottom : ''} ref={innerRef}>
+    <div className={marginBottom ? classes.marginBottom : ''} ref={innerRef} data-testid='data-table-container'>
       {(title || onEdit) && (
         <Box
           display='flex'

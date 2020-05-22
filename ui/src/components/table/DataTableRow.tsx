@@ -40,10 +40,10 @@ export default function DataTableRow({ title, content, classnames }: Props) {
   const classes = useStyles()
   return (
     <Grid container spacing={3} className={clsx(classes.root, classnames)} data-testid='table-row-container'>
-      <Grid item xs={3} className={classes.title}>
+      <Grid item xs={3} className={classes.title} data-testid='data-table-label'>
         {title}
       </Grid>
-      <Grid item className={classes.content}>
+      <Grid item className={classes.content} data-testid='data-table-content'>
         {content}
       </Grid>
     </Grid>
