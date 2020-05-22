@@ -41,6 +41,7 @@ context('Coin Product Creation', () => {
     cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
     cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
   })
+
   it('Renders correct creation form', function() {
     const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
     const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
@@ -53,7 +54,7 @@ context('Coin Product Creation', () => {
           .first()
           .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('プロダクトID')
-            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.not.exist
           })
           .next()
           .should(function($item) {

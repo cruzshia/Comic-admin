@@ -38,10 +38,7 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
               dataSet={[
-                toDataSet(
-                  formatMessage(messages.productId),
-                  currentProduct ? currentProduct.productId : <Field name='productId' component={TextInputAdapter} />
-                ),
+                toDataSet(formatMessage(messages.productId), currentProduct ? currentProduct.productId : ''),
                 toDataSet(
                   formatMessage(applicationMessages.applicationId),
                   <Field name='applicationId' component={SelectAdapter} options={[]} />

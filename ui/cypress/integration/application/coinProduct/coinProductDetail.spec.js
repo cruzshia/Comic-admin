@@ -47,4 +47,69 @@ context('Coin Product Detail', () => {
     cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
     cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', 'コインプロダクトを編集')
   })
+
+  it('Renders correct detail table', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .as('dataTable')
+      .first()
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('プロダクトID')
+            expect($item.find(`${CONTENT_SELECTOR}`)).to.have.text(this.productId)
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('アプリID')
+            expect($item.find(`${CONTENT_SELECTOR}`).text()).to.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('有償コイン')
+            expect($item.find(`${CONTENT_SELECTOR}`).text()).to.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('有償お得コイン')
+            expect($item.find(`${CONTENT_SELECTOR}`).text()).to.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('ステータス')
+            expect($item.find(`${CONTENT_SELECTOR}`).text()).to.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('作成日時')
+            expect($item.find(`${CONTENT_SELECTOR}`).text()).to.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('更新日時')
+            expect($item.find(`${CONTENT_SELECTOR}`).text()).to.not.empty
+          })
+      })
+
+    cy.get('@dataTable')
+      .eq(1)
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '公開期間')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('公開開始日時')
+            expect($item.find(`${CONTENT_SELECTOR}`).text()).to.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('公開終了日時')
+            expect($item.find(`${CONTENT_SELECTOR}`).text()).to.not.empty
+          })
+      })
+  })
 })
