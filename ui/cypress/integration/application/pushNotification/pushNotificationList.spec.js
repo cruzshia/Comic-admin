@@ -35,7 +35,7 @@ context('Push Notification List', () => {
   })
 
   it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', 'プッシュ通知ログを登録')
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', 'プッシュ通知を登録')
   })
 
   it('Renders correct search button', function() {

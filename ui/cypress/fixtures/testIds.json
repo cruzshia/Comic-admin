@@ -21,11 +21,6 @@
     "search": "search_input",
     "timeSpan": "time_span_input"
   },
-  "dataTable": {
-    "id": "data-table",
-    "title": "data-table-title",
-    "row": "table-row-container"
-  },
   "listTable": {
     "id": "list-table",
     "pageInfo": "list-table-pagination",
@@ -35,6 +30,7 @@
     "tableRowCell": "list-table-row-cell"
   },
   "dataTable": {
+    "id": "data-table",
     "container": "data-table-container",
     "title": "data-table-title",
     "button": "data-table-button",
