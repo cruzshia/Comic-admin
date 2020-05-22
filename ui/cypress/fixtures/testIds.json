@@ -19,7 +19,9 @@
     "dateTime": "date_time_input",
     "select": "select",
     "search": "search_input",
-    "timeSpan": "time_span_input"
+    "timeSpan": "time_span_input",
+    "textArea": "text-area",
+    "drop": "drop"
   },
   "listTable": {
     "id": "list-table",
@@ -38,8 +40,15 @@
     "label": "data-table-label",
     "content": "data-table-content"
   },
+  "inputBlock": {
+    "block": "input-block",
+    "row": "input-row",
+    "label": "input-row-label"
+  },
   "pager": "pagination",
   "checkbox": "styled-checkbox",
+  "imagePreview": "image-preview",
+  "contentLabel": "content-label",
   "ngWord": {
     "tab": "ng-word-tab",
     "form": "ng-word-form"

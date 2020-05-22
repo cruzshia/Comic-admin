@@ -47,7 +47,7 @@ export default function DropZoneAdapter({
   const { formatMessage } = useIntl()
 
   return (
-    <div className={classes.previewBox}>
+    <div className={classes.previewBox} data-testid='drop'>
       <DropZone
         name={name}
         preview={

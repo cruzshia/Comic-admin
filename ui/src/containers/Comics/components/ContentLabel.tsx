@@ -25,7 +25,7 @@ export default function ContentLabel() {
   const { formatMessage } = useIntl()
 
   return (
-    <Label>
+    <Label data-testid='content-label'>
       <PhotoLibraryIcon />
       {formatMessage(commonMessages.contents)}
     </Label>

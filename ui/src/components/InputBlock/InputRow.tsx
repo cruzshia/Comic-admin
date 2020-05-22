@@ -31,8 +31,14 @@ const useStyle = makeStyles({
 export default function InputRow({ title, classnames, alignItems, children }: Prop) {
   const classes = useStyle()
   return (
-    <Grid className={clsx(classes.row, classnames)} container direction='row' alignItems={alignItems || 'center'}>
-      <Typography className={classes.label} variant='body1'>
+    <Grid
+      className={clsx(classes.row, classnames)}
+      container
+      direction='row'
+      alignItems={alignItems || 'center'}
+      data-testid='input-row'
+    >
+      <Typography className={classes.label} variant='body1' data-testid='input-row-label'>
         {title}
       </Typography>
       <Box fontWeight='normal' display='flex' flexGrow={1}>

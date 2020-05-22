@@ -33,7 +33,7 @@ export default function ImagePreview({
   const classes = useStyle(style)
 
   return (
-    <div className={clsx(classes.root, { no_border: !!imageUrl })}>
+    <div className={clsx(classes.root, { no_border: !!imageUrl })} data-testid='image-preview'>
       {imageUrl && <img src={imageUrl} alt='preview' />}
     </div>
   )

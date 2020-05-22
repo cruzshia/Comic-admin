@@ -42,7 +42,7 @@ export default function InputBlock({ onDelete, children }: PropsWithChildren<Pro
   const classes = useStyle()
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid='input-block'>
       <Grid container>
         <img className={classes.menu} src={menuIcon} alt='menu' />
         <CloseIcon className={classes.delete} onClick={onDelete} data-testid='del-ico' />
