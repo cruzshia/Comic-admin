@@ -15,6 +15,10 @@ export default defineMessages({
     id: PREFIX + 'edit',
     defaultMessage: 'Application Setting Edit'
   },
+  creation: {
+    id: PREFIX + 'creation',
+    defaultMessage: 'Application Setting Creation'
+  },
   home: {
     id: PREFIX + 'home',
     defaultMessage: 'Home'

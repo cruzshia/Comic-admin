@@ -49,6 +49,7 @@
   "application.display_setting": "Application Display Setting",
   "application.display_setting.batch": "Batch",
   "application.display_setting.create": "Create application setting",
+  "application.display_setting.creation": "Application Setting Creation",
   "application.display_setting.edit": "Application Setting Edit",
   "application.display_setting.home": "Home",
   "application.display_setting.list": "Application Setting List",

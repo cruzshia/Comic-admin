@@ -49,6 +49,7 @@
   "application.display_setting": "アプリ画面設定管理",
   "application.display_setting.batch": "一括",
   "application.display_setting.create": "アプリ画面を登録",
+  "application.display_setting.creation": "アプリ画面設定登録",
   "application.display_setting.edit": "アプリ画面設定編集",
   "application.display_setting.home": "ホーム",
   "application.display_setting.list": "アプリ画面設定一覧",

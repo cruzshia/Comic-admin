@@ -37,6 +37,10 @@
     "list": "お知らせ一覧",
     "management": "お知らせ管理"
   },
+  "displaySetting": {
+    "list": "アプリ画面設定一覧",
+    "management": "アプリ画面設定管理"
+  },
   "inquiry": {
     "list": "お問い合わせ一覧",
     "management": "お問い合わせ管理"

@@ -19,7 +19,7 @@ export default function DisplaySettingCreation() {
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat({
-        title: formatMessage(messages.edit),
+        title: formatMessage(messages.creation),
         route: undefined
       }),
     [formatMessage]
@@ -46,7 +46,11 @@ export default function DisplaySettingCreation() {
 
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.home)} buttonList={buttonList} />
+      <ContentHeader
+        breadcrumbList={breadcrumbList}
+        titleText={formatMessage(messages.creation)}
+        buttonList={buttonList}
+      />
       <DisplaySettingForm onSubmit={handleSubmit} formRef={formRef} />
     </>
   )
