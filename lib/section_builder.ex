@@ -3,7 +3,7 @@ use Croma
 defmodule RaiseServer.SectionBuilder do
 
   alias RaiseServer.{Apps, Depot, SectionBuilder}
-  alias SectionBuilder.Template
+  alias SectionBuilder.Utils
 
   @seven_days_in_seconds 604_800
 
@@ -72,7 +72,7 @@ defmodule RaiseServer.SectionBuilder do
       )
       |> Enum.map(fn %{free_range_display_string: free_range_display_string, end_at: end_at, work: work} ->
         %{
-          action_url: "jumpplus://works/#{Template.add_resource_prefix(work)}",
+          action_url: "jumpplus://works/#{Utils.add_resource_prefix(work)}",
           image: work.images.image1,
           title: work.title,
           free_range_display_string: free_range_display_string,
@@ -162,10 +162,10 @@ defmodule RaiseServer.SectionBuilder do
 
   def process_section(%{"type" => "works", "work_ids" => work_ids, "title" => title}, app_id, now, _page) do
     new_work_ids = ids_to_int(work_ids)
-    works = Depot.get_works(app_id, new_work_ids)
+    works = Depot.get_works(app_id, new_work_ids, [time: now])
     |> Enum.map(fn %{images: images, title: title, publish_begin_at: publish_begin_at} = work ->
       %{
-        action_url: "jumpplus://works/#{Template.add_resource_prefix(work)}",
+        action_url: "jumpplus://works/#{Utils.add_resource_prefix(work)}",
         image: images.image1,
         title: title,
         new_episode_badge: DateTime.diff(now, publish_begin_at) < @seven_days_in_seconds
@@ -228,15 +228,15 @@ defmodule RaiseServer.SectionBuilder do
     Map.put(section, "works", works)
   end
 
-  def process_section(%{"type" => "books", "content_ids" => content_ids} = section, app_id, _now, _page) do
+  def process_section(%{"type" => "books", "content_ids" => content_ids} = section, app_id, now, _page) do
     int_content_ids = ids_to_int(content_ids)
     contents =
-      Depot.get_contents(app_id, int_content_ids, [select: [:id, :name, :content_type, :thumbnail_image]])
+      Depot.get_contents(app_id, int_content_ids, [select: [:id, :name, :content_type, :thumbnail_image], time: now])
       |> Enum.map(fn %{name: name, thumbnail_image: thumbnail_image} = content ->
         %{
-          id: Template.add_resource_prefix(content),
+          id: Utils.add_resource_prefix(content),
           name: name,
-          content_type: content.content_type,
+          content_type: content.content_type |> Utils.translate_english_to_japanese(),
           image: thumbnail_image,
         }
       end)
@@ -245,14 +245,18 @@ defmodule RaiseServer.SectionBuilder do
     |> Map.delete("content_ids")
   end
 
-  def process_section(%{"type" => "subscription"} = section, app_id, _, _) do
+  def process_section(%{"type" => "subscription"} = section, app_id, now, _) do
     %{"subscription_id" => <<_ :: binary-size(2)>> <> sub_id_str} = section
     sub_id = String.to_integer(sub_id_str)
 
-    %{contents: [content]} = Depot.get_work(app_id, [subscription_id: sub_id], preload: [:newest_content])
+    %{contents: [content]} = Depot.get_work(
+      app_id,
+      [subscription_id: sub_id, is_main_work_of_subscription: true, time: now],
+      preload: [:newest_content]
+    )
 
     Map.put_new(section, "latest_content", %{
-      "id" => Template.add_resource_prefix(content),
+      "id" => Utils.add_resource_prefix(content),
       "image" => content.thumbnail_image |> Map.delete(:__struct__)
     })
   end

@@ -32,7 +32,7 @@ defmodule RaiseServer.SectionBuilderTest do
 
       sub_id = sub_id_str |> String.to_integer
       sub = DepotFactory.insert(:subscription, %{id: sub_id})
-      work = DepotFactory.insert(:magazine_work, %{ subscription_id: sub.id })
+      work = DepotFactory.insert(:magazine_work, %{subscription_id: sub.id, is_main_work_of_subscription: true})
 
       DepotFactory.insert(:work_app, %{work_id: work.id, app_id: app.id})
       %{id: content_id, thumbnail_image: image} = DepotFactory.insert(:magazine_content, %{
@@ -41,7 +41,7 @@ defmodule RaiseServer.SectionBuilderTest do
 
       response_image = image |> Map.delete(:__struct__) |> :jsx.encode |> :jsx.decode(return_maps: true)
 
-      assert SectionBuilder.process_section(section, app.id, nil, nil) |> :jsx.encode ==
+      assert SectionBuilder.process_section(section, app.id, DateTime.utc_now(), nil) |> :jsx.encode ==
         section
         |> Map.put_new("latest_content", %{
           "id" => "mc#{content_id}",

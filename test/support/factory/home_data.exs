@@ -15,9 +15,9 @@ defmodule RaiseServer.HomeData do
     # free_only_now section
     fon_campaign = DepotFactory.insert(:campaign)
     fon_work = DepotFactory.insert(:work)
-    fon_work_campaign = DepotFactory.insert(:work_campaign, %{ work_id: fon_work.id, campaign_id: fon_campaign.id })
+    fon_work_campaign = DepotFactory.insert(:work_campaign, %{work_id: fon_work.id, campaign_id: fon_campaign.id})
     DepotFactory.insert(:work_app, %{work_id: fon_work.id, app_id: app.id})
-    DepotFactory.insert(:work_campaign_app, %{ work_campaign_id: fon_work_campaign.id, app_id: app.id})
+    DepotFactory.insert(:work_campaign_app, %{work_campaign_id: fon_work_campaign.id, app_id: app.id})
 
     # works section
     %{"work_ids" => prefixed_ids} = find_section(setting_str, "works")
@@ -30,9 +30,9 @@ defmodule RaiseServer.HomeData do
     %{"subscription_id" => "sb" <> sub_id_str} = find_section(setting_str, "subscription")
     sub_id = sub_id_str |> String.to_integer
     sub = DepotFactory.insert(:subscription, %{id: sub_id})
-    sub_work = DepotFactory.insert(:magazine_work, %{ subscription_id: sub.id })
+    sub_work = DepotFactory.insert(:magazine_work, %{subscription_id: sub.id, is_main_work_of_subscription: true})
     DepotFactory.insert(:work_app, %{work_id: sub_work.id, app_id: app.id})
-    DepotFactory.insert(:magazine_content, %{ work_id: sub_work.id })
+    DepotFactory.insert(:magazine_content, %{work_id: sub_work.id})
 
     app
   end
