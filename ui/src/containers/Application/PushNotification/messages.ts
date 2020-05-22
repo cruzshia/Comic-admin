@@ -33,5 +33,9 @@ export default defineMessages({
   scheduledStartTime: {
     id: PREFIX + 'scheduled_start_time',
     defaultMessage: 'Scheduled Start Time'
+  },
+  pushNotificationEdit: {
+    id: PREFIX + 'push_notification_edit',
+    defaultMessage: 'Push Notification Edit'
   }
 })

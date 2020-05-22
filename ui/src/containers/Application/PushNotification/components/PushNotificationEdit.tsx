@@ -13,7 +13,7 @@ export default function PushNotificationEdit() {
   const { formatMessage } = useIntl()
   const { currentNotification } = useContext(PushNotificationContext)
   const formRef = useRef<HTMLFormElement>(null)
-  const title = useMemo(() => formatMessage(messages.creation), [formatMessage])
+  const title = useMemo(() => formatMessage(messages.pushNotificationEdit), [formatMessage])
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([

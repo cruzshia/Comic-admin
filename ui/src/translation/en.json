@@ -65,6 +65,7 @@
   "application.push_notification.deep_link_url": "Deep Link URL",
   "application.push_notification.input_url": "Input URL",
   "application.push_notification.list": "Push Notification List",
+  "application.push_notification.push_notification_edit": "Push Notification Edit",
   "application.push_notification.pushed_times": "Pushed Times",
   "application.push_notification.scheduled_start_time": "Scheduled Start Time",
   "application.reserved": "Reserved",

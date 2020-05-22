@@ -48,5 +48,8 @@
   "comment": {
     "list": "コメント一覧",
     "detail": "コメント詳細"
+  },
+  "pushNotification": {
+    "list": "プッシュ通知ログ一覧"
   }
 }
