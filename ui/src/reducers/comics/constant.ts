@@ -9,10 +9,16 @@ export enum AdType {
   Admob = 'admob'
 }
 
-export const defaultAdTypes = [
-  { adCategory: AdType.Original, type: 'opening' },
-  { adCategory: AdType.Admob, type: 'content' },
-  { adCategory: AdType.Map, type: 'content' },
-  { adCategory: AdType.Original, type: 'content' },
-  { type: 'content' }
+export const defaultFrontAds = [{ adCategory: AdType.Original }]
+export const defaultBackAds = [
+  { adCategory: AdType.Admob },
+  { adCategory: AdType.Map },
+  { adCategory: AdType.Original },
+  {}
 ]
+
+export const defaultAdTypes = {
+  device: '',
+  front: defaultFrontAds,
+  back: defaultBackAds
+}

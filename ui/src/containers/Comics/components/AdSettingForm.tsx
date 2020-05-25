@@ -38,30 +38,31 @@ const DEFAULT_ADS_KEY = 'advertisement'
 export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, marginBottom }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
-  const { fields } = useFieldArray<AdsModel>(adKey)
+  const { fields: fieldsFront } = useFieldArray<AdsModel>(`${adKey}.front`)
+  const { fields: fieldsBack } = useFieldArray<AdsModel>(`${adKey}.back`)
+  const ads = {
+    [AdType.Opening]: fieldsFront,
+    [AdType.Content]: fieldsBack
+  }
 
   const handleDragEnd = (result: any) => {
     if (!result.destination) return
-    fields.update(result.source.index, {
-      ...fields.value[result.source.index],
-      type: result.destination.droppableId
-    })
-    const targetIdx = (result.destination.index -=
-      result.destination.droppableId === AdType.Content && result.source.droppableId === AdType.Opening ? 1 : 0)
-    fields.move(result.source.index, targetIdx)
+    const { index: sourceIndex, droppableId: sourceDragId } = result.source
+    const { index: targetIndex, droppableId: targetDragId } = result.destination
+    const [sourceFields, targetFields] = [ads[sourceDragId as AdType], ads[targetDragId as AdType]]
+    if (sourceDragId !== targetDragId) {
+      targetFields.insert(targetIndex, sourceFields.value[sourceIndex])
+      sourceFields.remove(sourceIndex)
+      return
+    }
+    sourceFields.swap(sourceIndex, targetIndex)
   }
 
-  const createDelete = (idx: number) => () => fields.remove(idx)
-  const handleAdd = () => fields.push({ type: AdType.Content })
-
-  const LabelWithArrow = () => (
-    <>
-      <ContentLabel />
-      {Arrow}
-    </>
-  )
+  const createDelete = (type: AdType, idx: number) => () => ads[type].remove(idx)
+  const handleAdd = () => fieldsBack.push({})
 
   const genDroppableBlock = (type: AdType) => {
+    const fields = ads[type]
     return (
       <Droppable droppableId={type}>
         {provided => {
@@ -69,23 +70,27 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
           return (
             <div ref={provided.innerRef}>
               {fields.map((name, index) => {
-                return value[index].type === type ? (
+                return (
                   <React.Fragment key={name}>
                     <Draggable draggableId={name} index={index}>
                       {provided => (
                         <div
-                          key={name}
+                          key={value[index].adCategory}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <Advertisement type={value[index].type} name={name} onDelete={createDelete(index)} />
+                          <Advertisement
+                            type={value[index].adCategory}
+                            name={name}
+                            onDelete={createDelete(type, index)}
+                          />
                         </div>
                       )}
                     </Draggable>
-                    {index < value.length - 1 && Arrow}
+                    {index <= value.length - (type === AdType.Opening ? 1 : 2) && Arrow}
                   </React.Fragment>
-                ) : null
+                )
               })}
               {provided.placeholder}
             </div>
@@ -101,9 +106,12 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
       label: formatMessage(commonMessages.deviceCategory),
       content: (
         <Field
-          name='device'
+          name={`${DEFAULT_ADS_KEY}.device`}
           component={SelectAdapter}
-          options={[{ label: 1, value: 1 }]}
+          options={[
+            { label: 1, value: 1 },
+            { label: 'iOS', value: 'ios' }
+          ]}
           isShort
           placeholder={formatMessage(commonMessages.common)}
         />
@@ -115,7 +123,8 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
         <Box paddingBottom='30px'>
           <DragDropContext onDragEnd={handleDragEnd}>
             {genDroppableBlock(AdType.Opening)}
-            <LabelWithArrow />
+            <ContentLabel />
+            {fieldsBack.value.length > 0 && Arrow}
             {genDroppableBlock(AdType.Content)}
             <Button
               classnames={classes.button}

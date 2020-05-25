@@ -74,17 +74,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
         }
       ]
 
-  const [openingAd, contentAd] = useMemo(
-    () =>
-      data.reduce(
-        (acc: Advertisement[], current: Advertisement) => {
-          acc[current.type === 'opening' ? 0 : 1].push(current)
-          return acc
-        },
-        [[], []]
-      ),
-    [data]
-  )
+  const [openingAd, contentAd] = useMemo(() => [data.front, data.back], [data])
   return (
     <DataTable
       title={formatMessage(commonMessages.advertisementSetting)}
