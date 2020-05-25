@@ -66,7 +66,7 @@ export default function RewardForm({ mutators, name }: { mutators: Mutators; nam
     <>
       <table className={classes.table}>
         <thead className={classes.thead}>
-          <tr>
+          <tr data-testid='reward-header-row'>
             <th>{formatMessage(messages.resultCode)}</th>
             <th>{formatMessage(messages.coinReward)}</th>
             <th>{formatMessage(messages.coinRewardNum)}</th>
@@ -77,7 +77,7 @@ export default function RewardForm({ mutators, name }: { mutators: Mutators; nam
           <FieldArray name={fieldName}>
             {({ fields }) =>
               fields.map(name => (
-                <tr key={name}>
+                <tr key={name} data-testid='reward-content-row'>
                   <td>
                     <Field
                       name={`${name}.resultCode`}

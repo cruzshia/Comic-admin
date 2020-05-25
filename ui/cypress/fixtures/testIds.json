@@ -55,5 +55,9 @@
   },
   "button": {
     "normal": "normal_button"
+  },
+  "rewardTable": {
+    "headerRow": "reward-header-row",
+    "contentRow": "reward-content-row"
   }
 }
