@@ -13,4 +13,19 @@ defmodule RaiseServer.SectionBuilder.Utils do
   def translate_english_to_japanese(:novel), do: "ノベル"
   def translate_english_to_japanese(:magazine), do: "雑誌"
   def translate_english_to_japanese(:bonus), do: "壁紙"
+
+  def format_image(image) do
+    RaiseServer.get_env("cdn_host")
+    |> format_image(image)
+  end
+
+  defp format_image(_, nil), do: nil
+  defp format_image(nil, image), do: format_image("", image)
+  defp format_image(host, image) do
+    %{
+      url:    host <> image.path,
+      width:  image.width,
+      height: image.height,
+    }
+  end
 end

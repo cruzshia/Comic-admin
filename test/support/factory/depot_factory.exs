@@ -19,7 +19,7 @@ defmodule RaiseServer.DepotFactory do
 
   def img_factory() do
     %Image{
-      url: "https://delivery.demo.raise.access-dpe.com/production/image/works/121/image4s/original/8e92de9bdf91e4f2929a3afc8a1518f7.jpg",
+      path: "production/image/works/121/image4s/original/8e92de9bdf91e4f2929a3afc8a1518f7.jpg",
       height: 240,
       width: 240
     }

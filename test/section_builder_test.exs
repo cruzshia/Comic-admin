@@ -39,7 +39,11 @@ defmodule RaiseServer.SectionBuilderTest do
         work_id: work.id
       })
 
-      response_image = image |> Map.delete(:__struct__) |> :jsx.encode |> :jsx.decode(return_maps: true)
+      response_image =
+        image
+        |> SectionBuilder.Utils.format_image()
+        |> :jsx.encode
+        |> :jsx.decode(return_maps: true)
 
       assert SectionBuilder.process_section(section, app.id, DateTime.utc_now(), nil) |> :jsx.encode ==
         section

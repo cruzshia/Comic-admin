@@ -4,7 +4,7 @@ defmodule RaiseServer.Depot.Image do
   @derive Jason.Encoder
   @primary_key false
   embedded_schema do
-    field :url,    :string
+    field :path,   :string
     field :height, :integer
     field :width,  :integer
   end

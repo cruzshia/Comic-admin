@@ -73,7 +73,7 @@ defmodule RaiseServer.SectionBuilder do
       |> Enum.map(fn %{free_range_display_string: free_range_display_string, end_at: end_at, work: work} ->
         %{
           action_url: "jumpplus://works/#{Utils.add_resource_prefix(work)}",
-          image: work.images.image1,
+          image: Utils.format_image(work.images.image1),
           title: work.title,
           free_range_display_string: free_range_display_string,
           end_date: end_at,
@@ -166,7 +166,7 @@ defmodule RaiseServer.SectionBuilder do
     |> Enum.map(fn %{images: images, title: title, publish_begin_at: publish_begin_at} = work ->
       %{
         action_url: "jumpplus://works/#{Utils.add_resource_prefix(work)}",
-        image: images.image1,
+        image: Utils.format_image(images.image1),
         title: title,
         new_episode_badge: DateTime.diff(now, publish_begin_at) < @seven_days_in_seconds
       }
@@ -237,7 +237,7 @@ defmodule RaiseServer.SectionBuilder do
           id: Utils.add_resource_prefix(content),
           name: name,
           content_type: content.content_type |> Utils.translate_english_to_japanese(),
-          image: thumbnail_image,
+          image: Utils.format_image(thumbnail_image),
         }
       end)
     section
@@ -257,7 +257,7 @@ defmodule RaiseServer.SectionBuilder do
 
     Map.put_new(section, "latest_content", %{
       "id" => Utils.add_resource_prefix(content),
-      "image" => content.thumbnail_image |> Map.delete(:__struct__)
+      "image" => Utils.format_image(content.thumbnail_image)
     })
   end
 
