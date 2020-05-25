@@ -33,15 +33,51 @@ context('Campaign Creation', () => {
   it('Shows correct page title and breadcrumb', function() {
     const pageTitle = 'キャンペーン登録'
 
-    cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
+    cy.findByTestId(this.testIds.contentHeaderTitle).should('have.text', pageTitle)
     cy.findByTestId(this.testIds.breadcrumbs).should(
-      'contain',
+      'have.text',
       `${this.tabs.comic}>${this.tabs.campaign.list}>${pageTitle}`
     )
     cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/comics/campaign')
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', '登録')
   })
 
-  it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
+  it('Renders correct creation form', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findByTestId(this.testIds.dataTable.container).within(function() {
+      cy.findByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+      cy.findAllByTestId(this.testIds.dataTable.row)
+        .first()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('キャンペーンID')
+          expect($item.find(`${CONTENT_SELECTOR}`)).to.be.empty
+        })
+        .next()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('キャンペーン名')
+          expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
+        })
+        .next()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('管理用コメント')
+          expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.textArea}]`)).to.be.exist
+        })
+        .next()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('開始日時（管理用）')
+          expect(
+            $item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)
+          ).to.be.exist.have.timePlaceholder()
+        })
+        .next()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('終了日時（管理用）')
+          expect(
+            $item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)
+          ).to.be.exist.and.have.timePlaceholder()
+        })
+    })
   })
 })

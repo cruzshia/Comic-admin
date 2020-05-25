@@ -7,7 +7,7 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import { routePath } from '@src/common/appConfig'
-import { useSort, usePaging } from '@src/hooks'
+import { usePaging } from '@src/hooks'
 import CampaignContext, { ActionContext } from '../context/CampaignContext'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
@@ -26,7 +26,6 @@ export default function CampaignDetail() {
   const { onGetSubCampaignList, onGetCampaign } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
-  const { sortBy, handleSort } = useSort('startAt')
   const { pagination, handlePageChange } = usePaging({ total: subCampaignTotal })
   const { id } = useParams()
 
@@ -65,10 +64,11 @@ export default function CampaignDetail() {
       { id: 'category', label: formatMessage(messages.category) },
       { id: 'name', label: formatMessage(messages.name) },
       { id: 'target', label: formatMessage(messages.target) },
-      { id: 'startAt', label: formatMessage(commonMessages.deliveryStartDateTime), onSort: handleSort },
-      { id: 'endAt', label: formatMessage(commonMessages.deliveryEndDateTime) }
+      { id: 'startAt', label: formatMessage(commonMessages.deliveryStartDateTime) },
+      { id: 'endAt', label: formatMessage(commonMessages.deliveryEndDateTime) },
+      { id: 'spacer', label: '' }
     ],
-    [formatMessage, handleSort]
+    [formatMessage]
   )
 
   const listButtonList = useMemo(
@@ -89,15 +89,14 @@ export default function CampaignDetail() {
     [formatMessage, history, id]
   )
 
-  const dataList = subCampaignList
-    .map(({ id, ...data }) => ({
-      id,
-      data: {
-        ...data,
-        type: formatMessage(comicMessages[`${data.type}Campaign` as keyof typeof comicMessages])
-      }
-    }))
-    .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
+  const dataList = subCampaignList.map(({ id, ...data }) => ({
+    id,
+    data: {
+      ...data,
+      type: formatMessage(comicMessages[`${data.type}Campaign` as keyof typeof comicMessages]),
+      spacer: ''
+    }
+  }))
 
   const handleRowClick = useCallback(
     (rowId: string) =>
@@ -137,8 +136,6 @@ export default function CampaignDetail() {
         dataList={dataList}
         pagination={pagination}
         onPageChange={handlePageChange}
-        sortBy={sortBy.key}
-        sortOrder={sortBy.order}
         onRowClick={handleRowClick}
       />
     </>

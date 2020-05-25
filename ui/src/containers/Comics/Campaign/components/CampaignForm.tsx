@@ -27,9 +27,7 @@ export default function CampaignForm({ onSubmit, formRef, campaign }: Props) {
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
               dataSet={[
-                ...(campaign?.campaignId
-                  ? [toDataSet(formatMessage(comicMessages.campaignId), campaign.campaignId)]
-                  : []),
+                toDataSet(formatMessage(comicMessages.campaignId), campaign?.campaignId),
                 toDataSet(formatMessage(messages.name), <Field name='name' component={TextInputAdapter} />),
                 toDataSet(formatMessage(messages.adminComment), <Field name='comment' component={TextAreaAdapter} />),
                 toDataSet(

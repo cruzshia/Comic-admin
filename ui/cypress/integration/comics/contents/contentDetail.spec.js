@@ -41,13 +41,13 @@ context('Content Detail Page ', () => {
   it('Shows correct page title and breadcrumb', function() {
     cy.findByTestId(this.testIds.contentHeaderTitle).should('be.exist')
     cy.findByTestId(this.testIds.breadcrumbs).should(
-      'contain',
+      'have.text',
       `${this.headerTabs.comic}>コンテンツ一覧>コンテンツ詳細`
     )
     cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/comics/content')
   })
 
   it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', 'コンテンツを編集')
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', 'コンテンツを編集')
   })
 })

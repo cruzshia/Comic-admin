@@ -86,12 +86,16 @@ context('Coin Product Creation', () => {
           .first()
           .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('公開開始日時')
-            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
+            expect(
+              $item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)
+            ).to.be.exist.and.have.timePlaceholder()
           })
           .next()
           .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('公開終了日時')
-            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
+            expect(
+              $item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)
+            ).to.be.exist.have.timePlaceholder()
           })
       })
   })

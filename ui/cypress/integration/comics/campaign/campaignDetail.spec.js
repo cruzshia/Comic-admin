@@ -46,9 +46,87 @@ context('Campaign Detail', () => {
       `${this.tabs.comic}>${this.tabs.campaign.list}>${pageTitle}`
     )
     cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/comics/campaign')
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', 'キャンペーンを編集')
   })
 
-  it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', 'キャンペーンを編集')
+  it('Renders correct detail table', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findByTestId(this.testIds.dataTable.container).within(function() {
+      cy.findByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+      cy.findAllByTestId(this.testIds.dataTable.row)
+        .first()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('キャンペーンID')
+          expect($item.find(`${CONTENT_SELECTOR}`)).be.not.empty
+        })
+        .next()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('キャンペーン名')
+          expect($item.find(`${CONTENT_SELECTOR}`)).be.not.empty
+        })
+        .next()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('管理用コメント')
+          expect($item.find(`${CONTENT_SELECTOR}`)).be.not.empty
+        })
+        .next()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('開始日時（管理用）')
+          expect($item.find(`${CONTENT_SELECTOR}`)).to.have.dateTimeFormat()
+        })
+        .next()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('終了日時（管理用）')
+          expect($item.find(`${CONTENT_SELECTOR}`)).to.have.dateTimeFormat()
+        })
+        .next()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('作成日時')
+          expect($item.find(`${CONTENT_SELECTOR}`)).to.have.dateTimeFormat()
+        })
+        .next()
+        .should(function($item) {
+          expect($item.find(LABEL_SELECTOR)).have.text('更新日時')
+          expect($item.find(`${CONTENT_SELECTOR}`)).to.have.dateTimeFormat()
+        })
+    })
+  })
+
+  it('Renders correct bottom list table', function() {
+    const tableColNum = 6
+    cy.findByTestId(this.testIds.listTable.id)
+      .as('listTable')
+      .should('be.exist')
+
+    cy.get('@listTable')
+      .findByTestId(this.testIds.listTable.pageInfo)
+      .should('be.exist')
+
+    cy.get('@listTable')
+      .findByTestId(this.testIds.listTable.tableHead)
+      .children('th')
+      .should('have.lengthOf', tableColNum)
+      .first()
+      .should('have.text', 'キャンペーン種別')
+      .next()
+      .should('have.text', 'キャンペーン名')
+      .next()
+      .should('have.text', 'キャンペーン対象')
+      .next()
+      .should('have.text', '配信開始日時')
+      .next()
+      .should('have.text', '配信終了日時')
+      .next()
+      .should('be.empty')
+
+    cy.findByTestId(this.testIds.listTable.button)
+      .children('button')
+      .first()
+      .should('have.text', '作品キャンペーンを登録')
+      .next()
+      .should('have.text', 'コンテンツキャンペーン登録')
+    cy.findByTestId(this.testIds.listTable.pageInfo).should('be.exist')
   })
 })
