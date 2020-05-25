@@ -78,7 +78,7 @@ export default function RewardForm({ mutators, name }: { mutators: Mutators; nam
             {({ fields }) =>
               fields.map(name => (
                 <tr key={name} data-testid='reward-content-row'>
-                  <td>
+                  <td data-testid='reward-content-cell'>
                     <Field
                       name={`${name}.resultCode`}
                       component={TextInputAdapter}
@@ -86,10 +86,10 @@ export default function RewardForm({ mutators, name }: { mutators: Mutators; nam
                       short
                     />
                   </td>
-                  <td>
+                  <td data-testid='reward-content-cell'>
                     <Field name={`${name}.coinReward`} component={SelectAdapter} options={[]} isShort />
                   </td>
-                  <td>
+                  <td data-testid='reward-content-cell'>
                     <Field
                       name={`${name}.coinRewardNum`}
                       component={TextInputAdapter}
@@ -97,7 +97,7 @@ export default function RewardForm({ mutators, name }: { mutators: Mutators; nam
                       short
                     />
                   </td>
-                  <td>
+                  <td data-testid='reward-content-cell'>
                     <Field name={`${name}.rewardLimitation`} component={SelectAdapter} options={[]} isShort />
                   </td>
                 </tr>

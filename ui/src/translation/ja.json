@@ -282,7 +282,7 @@
   "common.work_id": "作品（ID）",
   "form.search": "フリーワードで検索",
   "form.select": "項目を選択",
-  "form.textInput": "テキストを入力",
+  "form.text_input": "テキストを入力",
   "header.menu.report": "レポート",
   "header.menu.system_setting": "システム",
   "header.system_menu.account": "アカウント",

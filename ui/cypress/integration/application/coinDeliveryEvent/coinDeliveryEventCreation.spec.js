@@ -57,13 +57,8 @@ context('Coin Delivery Event Creation', () => {
         cy.findAllByTestId(this.testIds.dataTable.row)
           .first()
           .should($row => {
-            expect($row.find(LABEL_SELECTOR)).have.text('ID')
-            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).be.exist
-          })
-          .next()
-          .should($row => {
-            expect($row.find(LABEL_SELECTOR)).have.text('アプリID')
-            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).be.exist
+            expect($row.find(LABEL_SELECTOR)).have.text('イベントID')
+            expect($row.find(CONTENT_SELECTOR)).to.have.text('')
           })
           .next()
           .should($row => {

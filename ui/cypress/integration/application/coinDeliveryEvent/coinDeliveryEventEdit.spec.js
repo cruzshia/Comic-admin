@@ -48,4 +48,93 @@ context('CoinDeliveryEventEdit', () => {
   it('Shows correct content header button', function() {
     cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', '登録')
   })
+
+  it('Show correctly creation form', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .as('dataTable')
+      .first()
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('イベントID')
+            expect($row.find(CONTENT_SELECTOR).text()).not.be.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('イベント名')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}] input`).val()).not.be.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('イベント種別')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).be.exist
+          })
+      })
+
+    cy.get('@dataTable')
+      .eq(1)
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', 'イベント報酬設定')
+        cy.findByTestId(this.testIds.dataTable.label).should('have.text', 'イベント報酬')
+        const initRowNum = 3
+        cy.findByTestId(this.testIds.dataTable.content)
+          .children('table')
+          .within(() => {
+            cy.findByTestId(this.testIds.rewardTable.headerRow)
+              .children('th')
+              .first()
+              .should('have.text', 'リザルトコード')
+              .next()
+              .should('have.text', '報酬で付与されるコイン')
+              .next()
+              .should('have.text', '報酬で付与されるコインの枚数')
+              .next()
+              .should('have.text', '報酬受け取り制限')
+
+            cy.findAllByTestId(this.testIds.rewardTable.contentRow)
+              .should('have.length', initRowNum)
+              .each($tr => {
+                cy.wrap($tr).within(() => {
+                  cy.findAllByTestId(this.testIds.rewardTable.contentCell)
+                    .first()
+                    .should('have.descendants', `div[data-testid=${this.testIds.inputs.text}]`)
+                    .next()
+                    .should('have.descendants', `div[data-testid=${this.testIds.inputs.select}]`)
+                    .next()
+                    .should('have.descendants', `div[data-testid=${this.testIds.inputs.text}]`)
+                    .next()
+                    .should('have.descendants', `div[data-testid=${this.testIds.inputs.select}]`)
+                })
+              })
+          })
+          .then(() => {
+            cy.findByTestId(this.testIds.button.normal)
+              .should('have.text', 'イベント報酬を追加する')
+              .click()
+              .findAllByTestId(this.testIds.rewardTable.contentRow)
+              .should('have.length', initRowNum + 1)
+          })
+      })
+    cy.get('@dataTable')
+      .eq(2)
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '公開期間')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('公開開始日時')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}] input`).val()).not.be.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('公開終了日時')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}] input`).val()).not.be.empty
+          })
+      })
+  })
 })

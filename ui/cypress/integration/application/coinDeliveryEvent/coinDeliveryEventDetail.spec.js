@@ -52,4 +52,68 @@ context('Coin Delivery Event Detail', () => {
       .next()
       .should('have.text', '複製する')
   })
+
+  it('Show correctly creation Info', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .as('dataTable')
+      .first()
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('ID')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('イベントID')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('イベント名')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('イベント種別')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('イベント報酬設定')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('作成日時')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('更新日時')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+      })
+
+    cy.get('@dataTable')
+      .eq(1)
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '公開期間')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('公開開始日時')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('公開終了日時')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+      })
+  })
 })

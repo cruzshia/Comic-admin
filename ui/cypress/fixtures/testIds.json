@@ -58,6 +58,7 @@
   },
   "rewardTable": {
     "headerRow": "reward-header-row",
-    "contentRow": "reward-content-row"
+    "contentRow": "reward-content-row",
+    "contentCell": "reward-content-cell"
   }
 }

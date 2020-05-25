@@ -6,5 +6,5 @@ export default defineMessages({
     defaultMessage: 'search'
   },
   select: { id: 'form.select', defaultMessage: 'select' },
-  textInput: { id: 'form.textInput', defaultMessage: 'text input' }
+  textInput: { id: 'form.text_input', defaultMessage: 'text input' }
 })

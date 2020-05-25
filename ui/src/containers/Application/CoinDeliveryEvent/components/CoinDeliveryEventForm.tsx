@@ -8,6 +8,7 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { emptyCoinDeliveryEvent } from '@src/reducers/application/coinDeliveryEvent/coinDeliveryEventReducer'
 import RewardForm from './RewardForm'
 import commonMessages from '@src/messages'
+import formMessages from '@src/components/form/messages'
 import messages from '../messages'
 
 interface Props {
@@ -29,22 +30,17 @@ export default function CoinDeliveryEventForm({ coinDeliveryEvent, onSubmit, for
           <DataTable
             title={formatMessage(commonMessages.basicInfo)}
             dataSet={[
-              toDataSet(
-                formatMessage(commonMessages.id),
-                coinDeliveryEvent ? coinDeliveryEvent.id : <Field name='id' component={TextInputAdapter} />
-              ),
-              toDataSet(
-                formatMessage(commonMessages.appId),
-                coinDeliveryEvent ? (
-                  coinDeliveryEvent.applicationId
-                ) : (
-                  <Field name='applicationId' component={TextInputAdapter} />
-                )
-              ),
+              toDataSet(formatMessage(messages.eventId), coinDeliveryEvent ? coinDeliveryEvent.id : ''),
               toDataSet(formatMessage(messages.eventName), <Field name='eventName' component={TextInputAdapter} />),
               toDataSet(
                 formatMessage(messages.eventType),
-                <Field name='eventType' component={SelectAdapter} options={[]} isShort />
+                <Field
+                  name='eventType'
+                  component={SelectAdapter}
+                  options={[]}
+                  isShort
+                  placeholder={formatMessage(formMessages.textInput)}
+                />
               )
             ]}
             marginBottom
