@@ -92,6 +92,11 @@ context('Campaign Detail', () => {
           expect($item.find(`${CONTENT_SELECTOR}`)).to.have.dateTimeFormat()
         })
     })
+
+    cy.findByTestId(this.testIds.dataTable.button)
+      .click()
+      .url()
+      .should('match', new RegExp(`#/comics/campaign/edit/[\\w|\-]+`))
   })
 
   it('Renders correct bottom list table', function() {

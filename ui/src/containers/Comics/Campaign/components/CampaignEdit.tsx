@@ -1,5 +1,6 @@
-import React, { useMemo, useRef, useContext } from 'react'
+import React, { useMemo, useRef, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
+import { useParams } from 'react-router-dom'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import { submitForm } from '@src/utils/validation'
@@ -11,9 +12,14 @@ import messages from '../messages'
 
 export default function CampaignEdit() {
   const { currentCampaign } = useContext(CampaignContext)
-  const { onUpdateCampaign } = useContext(ActionContext)
+  const { onUpdateCampaign, onGetCampaign } = useContext(ActionContext)
+  const { id } = useParams()
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
+
+  useEffect(() => {
+    onGetCampaign(id!)
+  }, [onGetCampaign, id])
 
   const titleText = formatMessage(messages.edit)
   const breadcrumbList = useMemo(
