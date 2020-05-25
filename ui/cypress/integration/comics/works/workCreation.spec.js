@@ -39,7 +39,6 @@ context('Work Creation', () => {
   it('Renders correct creation form', function() {
     const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
     const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
-    const INPUT_BLOCK_LABEL_SELECTOR = `[data-testid=${this.testIds.inputBlock.label}]`
 
     cy.findAllByTestId(this.testIds.dataTable.container)
       .as('dataTable')
@@ -167,6 +166,7 @@ context('Work Creation', () => {
     cy.get('@dataTable')
       .eq(3)
       .within(function() {
+        const url = 'https://dosbg3xlm0x1t.cloudfront.net/images/items/9784088822525/1200/9784088822525.jpg'
         cy.findByTestId(this.testIds.dataTable.title).should('have.text', '広告設定')
         cy.findAllByTestId(this.testIds.dataTable.row)
           .first()
@@ -179,95 +179,36 @@ context('Work Creation', () => {
             expect($item.find(LABEL_SELECTOR)).have.text('広告設定')
           })
           .findAllByTestId(this.testIds.inputBlock.block)
+          .as('blocks')
+          .should(function($blocks) {
+            expect($blocks).to.have.length(5)
+            expect($blocks.eq(0)).to.be.advertisement({ isOriginal: true })
+            expect($blocks.eq(1)).to.be.advertisement()
+            expect($blocks.eq(2)).to.be.advertisement()
+            expect($blocks.eq(3)).to.be.advertisement({ isOriginal: true })
+            expect($blocks.eq(4)).to.be.advertisement()
+          })
+          .findAllByTestId('arrow-icon')
           .should('have.length', 5)
-          .as('inputBlock')
-      })
+          .findByTestId(this.testIds.contentLabel)
+          .should('have.text', 'コンテンツ')
+          .findAllByTestId(this.testIds.button.normal)
+          .last()
+          .should('have.text', '広告設定を追加する')
 
-    cy.get('@inputBlock')
-      .first()
-      .within(function() {
-        cy.findAllByTestId(this.testIds.inputBlock.row)
+        cy.get('@blocks')
+          .eq(0)
+          .findAllByTestId(this.testIds.inputs.text)
+          .children('input')
           .first()
-          .should(function($block) {
-            expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('広告の種類')
-            expect($block.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
-          })
-          .next()
-          .should(function($block) {
-            expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('画像URL')
-            expect($block.find(`[data-testid=${this.testIds.inputs.text}]`)).to.be.exist
-            expect($block.find(`[data-testid=${this.testIds.button.normal}]`)).have.text('プレビュー')
-          })
-          .next()
-          .should(function($block) {
-            expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('リンクURL')
-            expect($block.find(`[data-testid=${this.testIds.inputs.text}]`)).to.be.exist
-          })
-          .next()
-          .should(function($block) {
-            expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('ボタン名称')
-            expect($block.find(`[data-testid=${this.testIds.inputs.text}]`)).to.be.exist
-          })
-          .next()
-          .should(function($block) {
-            expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('配信期間')
-            expect($block.find(`[data-testid=${this.testIds.inputs.timeSpan}]`)).to.be.exist
-          })
-        cy.findByTestId(this.testIds.imagePreview).should('be.exist')
-      })
-
-    cy.get('@inputBlock')
-      .eq(1)
-      .findByTestId(this.testIds.inputBlock.row)
-      .should(function($block) {
-        expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('広告の種類')
-        expect($block.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
-      })
-
-    cy.get('@inputBlock')
-      .eq(2)
-      .findByTestId(this.testIds.inputBlock.row)
-      .should(function($block) {
-        expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('広告の種類')
-        expect($block.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
-      })
-
-    cy.get('@inputBlock')
-      .eq(3)
-      .within(function() {
-        cy.findAllByTestId(this.testIds.inputBlock.row)
+          .type(url)
+          .findAllByTestId(this.testIds.button.normal)
+          .contains('プレビュー')
+          .click()
+          .findAllByTestId(this.testIds.imagePreview)
           .first()
-          .should(function($block) {
-            expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('広告の種類')
-            expect($block.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
-          })
-          .next()
-          .should(function($block) {
-            expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('画像URL')
-            expect($block.find(`[data-testid=${this.testIds.inputs.text}]`)).to.be.exist
-            expect($block.find(`[data-testid=${this.testIds.button.normal}]`)).have.text('プレビュー')
-          })
-          .next()
-          .should(function($block) {
-            expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('リンクURL')
-            expect($block.find(`[data-testid=${this.testIds.inputs.text}]`)).to.be.exist
-          })
-          .next()
-          .should(function($block) {
-            expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('ボタン名称')
-            expect($block.find(`[data-testid=${this.testIds.inputs.text}]`)).to.be.exist
-          })
-          .next()
-          .should(function($block) {
-            expect($block.find(INPUT_BLOCK_LABEL_SELECTOR)).have.text('配信期間')
-            expect($block.find(`[data-testid=${this.testIds.inputs.timeSpan}]`)).to.be.exist
-          })
-        cy.findByTestId(this.testIds.imagePreview).should('be.exist')
+          .children('img')
+          .should('have.attr', 'src', url)
       })
-
-    cy.findByTestId(this.testIds.contentLabel).should('have.text', 'コンテンツ')
-    cy.findAllByTestId(this.testIds.button.normal)
-      .last()
-      .should('have.text', '広告設定を追加する')
   })
 })

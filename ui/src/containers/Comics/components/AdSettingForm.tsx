@@ -22,7 +22,7 @@ interface Props {
 }
 
 const Arrow = (
-  <Box height={20} margin='10px 0 10px 85px'>
+  <Box height={20} margin='10px 0 10px 85px' data-testid='arrow-icon'>
     <ArrowIcon />
   </Box>
 )
