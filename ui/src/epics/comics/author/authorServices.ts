@@ -18,7 +18,7 @@ export const getAuthorAjax = (authorId: string): Observable<{ status: number; re
   return from([
     {
       status: 200,
-      response: mockAuthor
+      response: mockAuthor(authorId)
     }
   ])
 }

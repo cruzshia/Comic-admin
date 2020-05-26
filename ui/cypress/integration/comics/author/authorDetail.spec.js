@@ -52,4 +52,40 @@ context('Author Detail', () => {
   it('Shows correct content header button', function() {
     cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', '著者を編集')
   })
+
+  it('Show correctly info', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .first()
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('ID')
+            expect($row.find(CONTENT_SELECTOR).text()).to.be.equal(this.authorId)
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('著者名')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('著者名（カナ）')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('作成日時')
+            expect($row.find(CONTENT_SELECTOR)).to.be.dateTimeFormat()
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('更新日時')
+            expect($row.find(CONTENT_SELECTOR)).to.be.dateTimeFormat()
+          })
+      })
+  })
 })

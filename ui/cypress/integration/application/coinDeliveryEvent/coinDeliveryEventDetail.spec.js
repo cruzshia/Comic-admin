@@ -53,7 +53,7 @@ context('Coin Delivery Event Detail', () => {
       .should('have.text', '複製する')
   })
 
-  it('Show correctly creation Info', function() {
+  it('Show correctly info', function() {
     const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
     const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
     cy.findAllByTestId(this.testIds.dataTable.container)

@@ -23,10 +23,7 @@ export default function AuthorForm({ author, onSubmit, formRef }: Props) {
           <DataTable
             title={formatMessage(commonMessages.basicInfo)}
             dataSet={[
-              toDataSet(
-                formatMessage(commonMessages.id),
-                author ? author.id : <Field name='id' component={TextInputAdapter} />
-              ),
+              toDataSet(formatMessage(commonMessages.id), author ? author.id : 'WORK_SHUNKAN10000006'),
               toDataSet(formatMessage(commonMessages.authorName), <Field name='name' component={TextInputAdapter} />),
               toDataSet(
                 formatMessage(commonMessages.authorNameKana),

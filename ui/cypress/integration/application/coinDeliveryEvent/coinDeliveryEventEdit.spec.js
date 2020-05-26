@@ -49,7 +49,7 @@ context('CoinDeliveryEventEdit', () => {
     cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', '登録')
   })
 
-  it('Show correctly creation form', function() {
+  it('Show correct edit form', function() {
     const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
     const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
 
