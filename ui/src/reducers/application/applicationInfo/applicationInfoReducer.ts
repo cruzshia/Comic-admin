@@ -19,7 +19,7 @@ export const ApplicationInfoPreloadState = initState
 
 const updateCurrentInfoHandler = (
   state: ApplicationInfoState,
-  action: ActionType<ApplicationInfo[]>
+  action: ActionType<ApplicationInfo | undefined>
 ): ApplicationInfoState => {
   return {
     ...state,
@@ -38,12 +38,7 @@ const handler: Record<string, (state: ApplicationInfoState, action: ActionType<a
       infoTotal: action.payload.length
     }
   },
-  [ApplicationInfoActionType.RESET_CURRENT]: (state: ApplicationInfoState): ApplicationInfoState => {
-    return {
-      ...state,
-      currentInfo: undefined
-    }
-  },
+  [ApplicationInfoActionType.RESET_CURRENT]: updateCurrentInfoHandler,
   [ApplicationInfoActionType.CREATE_SUCCESS]: updateCurrentInfoHandler,
   [ApplicationInfoActionType.GET_SUCCESS]: updateCurrentInfoHandler,
   [ApplicationInfoActionType.UPDATE_SUCCESS]: updateCurrentInfoHandler

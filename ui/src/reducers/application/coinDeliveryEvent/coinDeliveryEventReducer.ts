@@ -19,7 +19,7 @@ export const CoinDeliveryEventPreloadState = initState
 
 const updateCurrentEventHandler = (
   state: CoinDeliveryEventState,
-  action: ActionType<CoinDeliveryEvent[]>
+  action: ActionType<CoinDeliveryEvent | undefined>
 ): CoinDeliveryEventState => {
   return {
     ...state,
@@ -38,18 +38,7 @@ const handler: Record<string, (state: CoinDeliveryEventState, action: ActionType
       eventTotal: action.payload.length
     }
   },
-  [CoinDeliveryEventActionType.RESET_CURRENT]: (state: CoinDeliveryEventState): CoinDeliveryEventState => {
-    return {
-      ...state,
-      currentEvent: undefined
-    }
-  },
-  [CoinDeliveryEventActionType.RESET_CURRENT]: (state: CoinDeliveryEventState): CoinDeliveryEventState => {
-    return {
-      ...state,
-      currentEvent: undefined
-    }
-  },
+  [CoinDeliveryEventActionType.RESET_CURRENT]: updateCurrentEventHandler,
   [CoinDeliveryEventActionType.CREATE_SUCCESS]: updateCurrentEventHandler,
   [CoinDeliveryEventActionType.GET_SUCCESS]: updateCurrentEventHandler,
   [CoinDeliveryEventActionType.UPDATE_SUCCESS]: updateCurrentEventHandler

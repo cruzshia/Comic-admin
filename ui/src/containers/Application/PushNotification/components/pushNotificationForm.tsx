@@ -12,7 +12,7 @@ import IconPreview from './IconPreview'
 
 interface Props {
   currentNotification?: PushNotification
-  onSubmit?: (data: any) => void
+  onSubmit?: (data: PushNotification) => void
   formRef?: React.RefObject<HTMLFormElement> | null
 }
 

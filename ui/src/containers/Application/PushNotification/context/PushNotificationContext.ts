@@ -15,11 +15,15 @@ export default createContext<PushNotificationContext>({
 interface PushNotificationActionContext {
   onGetPushNotificationList: () => void
   onDeletePushNotification: (_: string[]) => void
-  onCreatePushNotification: (_: PushNotification) => void
+  onCreatePushNotification: (_: Omit<PushNotification, 'id'>) => void
+  onGetPushNotification: (_: string) => void
+  onUpdatePushNotification: (_: PushNotification) => void
 }
 
 export const ActionContext = createContext<PushNotificationActionContext>({
   onGetPushNotificationList: () => {},
-  onDeletePushNotification: (_: string[]) => {},
-  onCreatePushNotification: (_: PushNotification) => {}
+  onDeletePushNotification: () => {},
+  onCreatePushNotification: () => {},
+  onGetPushNotification: () => {},
+  onUpdatePushNotification: () => {}
 })

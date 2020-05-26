@@ -42,9 +42,72 @@ context('PushNotification Edit', () => {
       `${this.headerTabs.application}>${this.headerTabs.pushNotification.list}>${pageTitle}`
     )
     cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/application/push_notification')
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
   })
 
-  it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
+  it('Renders correct edit form', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .as('dataTable')
+      .first()
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('ID')
+            expect($item.find(`${CONTENT_SELECTOR}`).text()).be.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('タイトル')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}] input`)).to.not.have.value(
+              ''
+            )
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('メッセージ')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.textArea}] textarea`)).be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('アプリ')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('ディープリンクURL')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}] input`)).be.exist
+          })
+          .next()
+          .within(function() {
+            cy.findByTestId(this.testIds.dataTable.label).should('have.text', '大アイコン URL')
+
+            cy.findAllByTestId(this.testIds.button.normal)
+              .should('have.text', 'プレビュー')
+              .click()
+
+            cy.findAllByTestId(this.testIds.inputs.text)
+              .find('input')
+              .invoke('val')
+              .as('url')
+              .then(function() {
+                cy.get('img').should('have.attr', 'src', this.url)
+              })
+          })
+
+        cy.get('@dataTable')
+          .eq(1)
+          .within(function() {
+            cy.findByTestId(this.testIds.dataTable.title).should('have.text', 'スケジュール')
+            cy.findByTestId(this.testIds.dataTable.row).should(function($item) {
+              expect($item.find(LABEL_SELECTOR)).have.text('配信日時')
+              expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).be.exist
+            })
+          })
+      })
   })
 })

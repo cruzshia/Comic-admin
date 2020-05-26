@@ -13,6 +13,18 @@ export const getPushNotificationListAjax = (): Observable<{ status: number; resp
   ])
 }
 
+export const getPushNotificationAjax = (
+  notificationId: string
+): Observable<{ status: number; response: PushNotification }> => {
+  authAjax.get('/application/push_notification' + notificationId)
+  return from([
+    {
+      status: 200,
+      response: mockNotification
+    }
+  ])
+}
+
 export const deletePushNotificationAjax = (list: string[]): Observable<{ status: number }> => {
   authAjax.delete('/application/push_notification/list/delete', { list })
   return from([
@@ -26,6 +38,18 @@ export const createPushNotificationAjax = (
   pushNotification: PushNotification
 ): Observable<{ status: number; response: PushNotification }> => {
   authAjax.post('/application/push_notification/', pushNotification)
+  return from([
+    {
+      status: 200,
+      response: mockNotification
+    }
+  ])
+}
+
+export const updatePushNotificationAjax = (
+  pushNotification: PushNotification
+): Observable<{ status: number; response: PushNotification }> => {
+  authAjax.put('/application/push_notification', pushNotification)
   return from([
     {
       status: 200,

@@ -5,7 +5,9 @@ import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   PushNotificationActionType,
   getPushNotificationListSuccessAction,
-  createPushNotificationSuccessAction
+  getPushNotificationSuccessAction,
+  createPushNotificationSuccessAction,
+  updatePushNotificationSuccessAction
 } from '@src/reducers/application/pushNotification/pushNotificationActions'
 import * as pushNotificationServices from './pushNotificationServices'
 import { emptyErrorReturn } from '@src/epics/utils'
@@ -19,6 +21,21 @@ export const getPushNotificationListEpic = (action$: ActionsObservable<AnyAction
         tap(() => successSubject.next({ type: PushNotificationActionType.GET_LIST_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: PushNotificationActionType.GET_LIST_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export const getPushNotificationEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(PushNotificationActionType.GET_NOTIFICATION),
+    switchMap(action =>
+      pushNotificationServices.getPushNotificationAjax(action.payload).pipe(
+        map(res => getPushNotificationSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: PushNotificationActionType.GET_NOTIFICATION_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: PushNotificationActionType.GET_NOTIFICATION_ERROR })
           return emptyErrorReturn()
         })
       )
@@ -55,4 +72,25 @@ export const createPushNotificationEpic = (action$: ActionsObservable<AnyAction>
     )
   )
 
-export default [getPushNotificationListEpic, deletePushNotificationEpic, createPushNotificationEpic]
+export const updatePushNotificationEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(PushNotificationActionType.UPDATE),
+    exhaustMap(action =>
+      pushNotificationServices.updatePushNotificationAjax(action.payload).pipe(
+        map(res => updatePushNotificationSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: PushNotificationActionType.UPDATE_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: PushNotificationActionType.UPDATE_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export default [
+  getPushNotificationListEpic,
+  deletePushNotificationEpic,
+  createPushNotificationEpic,
+  getPushNotificationEpic,
+  updatePushNotificationEpic
+]

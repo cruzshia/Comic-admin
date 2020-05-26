@@ -1,13 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
+import { useParams } from 'react-router-dom'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
-import PushNotificationContext from '../context/PushNotificationContext'
+import PushNotificationContext, { ActionContext } from '../context/PushNotificationContext'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export default function PushNotificationDetail() {
   const { formatMessage } = useIntl()
-  const { currentNotification } = useContext(PushNotificationContext)
+  const { currentNotification = {} } = useContext(PushNotificationContext)
+  const { onGetPushNotification } = useContext(ActionContext)
+  const { id } = useParams()
+
+  useEffect(() => {
+    onGetPushNotification(id!)
+  }, [onGetPushNotification, id])
+
   return (
     <>
       <DataTable

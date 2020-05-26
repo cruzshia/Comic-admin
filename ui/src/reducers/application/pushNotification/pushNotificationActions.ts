@@ -5,6 +5,10 @@ export enum PushNotificationActionType {
   GET_LIST_SUCCESS = '@AppPushNotification/GET_LIST_SUCCESS',
   GET_LIST_ERROR = '@AppPushNotification/GET_LIST_ERROR',
 
+  GET_NOTIFICATION = '@AppPushNotification/GET_NOTIFICATION',
+  GET_NOTIFICATION_SUCCESS = '@AppPushNotification/GET_NOTIFICATION_SUCCESS',
+  GET_NOTIFICATION_ERROR = '@AppPushNotification/GET_NOTIFICATION_ERROR',
+
   CREATE = '@AppPushNotification/CREATE',
   CREATE_SUCCESS = '@AppPushNotification/CREATE_SUCCESS',
   CREATE_ERROR = '@AppPushNotification/CREATE_ERROR',
@@ -26,6 +30,16 @@ export const getPushNotificationListAction = () => ({
 
 export const getPushNotificationListSuccessAction = (payload: PushNotification[]) => ({
   type: PushNotificationActionType.GET_LIST_SUCCESS,
+  payload
+})
+
+export const getPushNotificationAction = (notificationId: string) => ({
+  type: PushNotificationActionType.GET_NOTIFICATION,
+  payload: notificationId
+})
+
+export const getPushNotificationSuccessAction = (payload: PushNotification) => ({
+  type: PushNotificationActionType.GET_NOTIFICATION_SUCCESS,
   payload
 })
 

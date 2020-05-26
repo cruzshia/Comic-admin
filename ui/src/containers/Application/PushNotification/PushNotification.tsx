@@ -6,7 +6,9 @@ import { StoreState } from '@src/reducers'
 import {
   getPushNotificationListAction,
   deletePushNotificationAction,
-  createPushNotificationAction
+  createPushNotificationAction,
+  getPushNotificationAction,
+  updatePushNotificationAction
 } from '@src/reducers/application/pushNotification/pushNotificationActions'
 import { PushNotification as PushNotificationModel } from '@src/models/application/pushNotification'
 import PushNotificationList from './components/PushNotificationList'
@@ -14,30 +16,39 @@ import PushNotificationEdit from './components/PushNotificationEdit'
 import PushNotificationDetail from './components/PushNotificationDetail'
 import PushNotificationCreation from './components/PushNotificationCreation'
 import PushNotificationContext, { ActionContext } from './context/PushNotificationContext'
-import { mockNotification } from '../../../epics/application/pushNotification/mockData/mockNotification'
 
 export default function PushNotification() {
   const dispatch = useDispatch()
-  const { notificationList, notificationTotal } = useSelector((store: StoreState) => store.pushNotification)
+  const { notificationList, notificationTotal, currentNotification } = useSelector(
+    (store: StoreState) => store.pushNotification
+  )
   const handleGetList = useCallback(() => dispatch(getPushNotificationListAction()), [dispatch])
   const handleDelete = useCallback((list: string[]) => dispatch(deletePushNotificationAction(list)), [dispatch])
   const handleCreate = useCallback((data: PushNotificationModel) => dispatch(createPushNotificationAction(data)), [
     dispatch
   ])
+  const handleGetNotification = useCallback((id: string) => dispatch(getPushNotificationAction(id)), [dispatch])
+  const handleUpdateNotification = useCallback(
+    (data: PushNotificationModel) => dispatch(updatePushNotificationAction(data)),
+    [dispatch]
+  )
+
   return (
     <Switch>
       <ActionContext.Provider
         value={{
           onGetPushNotificationList: handleGetList,
           onDeletePushNotification: handleDelete,
-          onCreatePushNotification: handleCreate
+          onCreatePushNotification: handleCreate,
+          onGetPushNotification: handleGetNotification,
+          onUpdatePushNotification: handleUpdateNotification
         }}
       >
         <PushNotificationContext.Provider
           value={{
             notificationList,
             notificationTotal,
-            currentNotification: mockNotification
+            currentNotification
           }}
         >
           <Route exact path={routePath.application.pushNotification} component={PushNotificationList} />

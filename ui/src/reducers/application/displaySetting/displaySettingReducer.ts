@@ -17,6 +17,16 @@ export const emptyDisplaySetting: DisplaySetting = {}
 
 export const DisplaySettingPreloadState = initState
 
+const updateCurrentSettingHandler = (
+  state: DisplaySettingState,
+  action: ActionType<DisplaySetting | undefined>
+): DisplaySettingState => {
+  return {
+    ...state,
+    currentSetting: action.payload
+  }
+}
+
 const handler: Record<string, (state: DisplaySettingState, action: ActionType<any>) => DisplaySettingState> = {
   [DisplaySettingActionType.GET_LIST_SUCCESS]: (
     state: DisplaySettingState,
@@ -28,21 +38,8 @@ const handler: Record<string, (state: DisplaySettingState, action: ActionType<an
       settingTotal: action.payload.length
     }
   },
-  [DisplaySettingActionType.RESET_CURRENT]: (state: DisplaySettingState): DisplaySettingState => {
-    return {
-      ...state,
-      currentSetting: undefined
-    }
-  },
-  [DisplaySettingActionType.CREATE_SUCCESS]: (
-    state: DisplaySettingState,
-    action: ActionType<DisplaySetting[]>
-  ): DisplaySettingState => {
-    return {
-      ...state,
-      currentSetting: action.payload
-    }
-  }
+  [DisplaySettingActionType.RESET_CURRENT]: updateCurrentSettingHandler,
+  [DisplaySettingActionType.CREATE_SUCCESS]: updateCurrentSettingHandler
 }
 
 export default function displaySettingReducer(state: DisplaySettingState = initState, action: ActionType<any>) {
