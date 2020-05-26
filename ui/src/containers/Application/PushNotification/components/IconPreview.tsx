@@ -17,6 +17,10 @@ const useStyles = makeStyles({
   },
   button: {
     marginLeft: '10px'
+  },
+  img: {
+    marginTop: '15px',
+    maxWidth: 126
   }
 })
 
@@ -36,8 +40,7 @@ export default function IconPreview() {
         <Field name='bigIconUrl' component={TextFieldAdapter} placeholder={formatMessage(messages.inputUrl)} />
         <Button classnames={classes.button} buttonText={formatMessage(commonMessages.preview)} onClick={handleClick} />
       </Grid>
-
-      <div className={classes.iconPreview}>{!!url && <img alt='iconPreview' src={url} />}</div>
+      {url ? <img className={classes.img} alt='iconPreview' src={url} /> : <div className={classes.iconPreview} />}
     </div>
   )
 }

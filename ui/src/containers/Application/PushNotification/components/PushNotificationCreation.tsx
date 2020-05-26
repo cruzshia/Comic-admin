@@ -4,7 +4,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import commonMessages from '@src/messages'
 import { submitForm } from '@src/utils/validation'
-import PushNotificationTable from './pushNotificationTable'
+import PushNotificationForm from './pushNotificationForm'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import { ActionContext } from '../context/PushNotificationContext'
@@ -36,7 +36,7 @@ export default function PushNotificationCreation() {
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={title} buttonList={buttonList} />
-      <PushNotificationTable onSubmit={onCreatePushNotification} formRef={formRef} />
+      <PushNotificationForm onSubmit={onCreatePushNotification} formRef={formRef} />
     </>
   )
 }

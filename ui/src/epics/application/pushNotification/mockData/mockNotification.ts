@@ -1,35 +1,24 @@
+import { _range } from '@src/utils/functions'
+
 export const mockNotification = {
   id: '0',
+  title: 'タイトル',
   status: 'reserved',
   message: '2020年新年ログインボーナスログインボー',
   applicationId: 'SHJP01',
   timesPushed: 1000,
   scheduledStartTime: `2019-12-20 00:00`,
-  detail: ''
+  detail: '',
+  deepLinkUrl: 'http://raise-server.atl.access-company.com/',
+  bigIconUrl: 'http://raise-server.atl.access-company.com/'
 }
 
-export const mockNotificationDetail = {
-  id: '0',
-  title: 'title',
-  status: 'reserved',
-  message: '2020年新年ログインボーナスログインボー',
+export const mockNotificationList = _range(1, 7).map(idx => ({
+  status: idx < 3 ? 'reserved' : 'closed',
+  id: `${idx}`,
+  message: '2020年新年ログインボーナス',
   applicationId: 'SHJP01',
   timesPushed: 1000,
-  deliveryStartTime: `2019-12-20 00:00`,
-  detail: ''
-}
-
-export const mockNotificationList = (data => {
-  let arr = [mockNotification]
-  for (let i = 1; i < 7; i++) {
-    arr.push({
-      ...data,
-      id: `${i}`,
-      message: '2020年新年ログインボーナス	',
-      status: i < 3 ? 'reserved' : 'closed',
-      scheduledStartTime: `2019-12-2${i} 00:0${i}`,
-      detail: i === 1 ? '情報の取得に失敗しました' : ''
-    })
-  }
-  return arr
-})(mockNotification)
+  scheduledStartTime: `2019-12-2${idx} 00:0${idx}`,
+  detail: idx === 1 ? '情報の取得に失敗しました' : ''
+}))

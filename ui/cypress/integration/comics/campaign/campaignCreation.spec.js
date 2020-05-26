@@ -69,7 +69,7 @@ context('Campaign Creation', () => {
           expect($item.find(LABEL_SELECTOR)).have.text('開始日時（管理用）')
           expect(
             $item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)
-          ).to.be.exist.have.timePlaceholder()
+          ).to.be.exist.and.have.timePlaceholder()
         })
         .next()
         .should(function($item) {

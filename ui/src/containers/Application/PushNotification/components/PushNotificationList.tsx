@@ -160,7 +160,7 @@ export default function PushNotificationList() {
         sortOrder={sortBy.order}
         onRowClick={useCallback(
           id => {
-            history.push(routePath.application.pushNotificationEdit.replace(':id', id))
+            history.push(routePath.application.pushNotificationDetail.replace(':id', id))
           },
           [history]
         )}

@@ -14,7 +14,7 @@ import PushNotificationEdit from './components/PushNotificationEdit'
 import PushNotificationDetail from './components/PushNotificationDetail'
 import PushNotificationCreation from './components/PushNotificationCreation'
 import PushNotificationContext, { ActionContext } from './context/PushNotificationContext'
-import { mockNotificationDetail } from '../../../epics/application/pushNotification/mockData/mockNotification'
+import { mockNotification } from '../../../epics/application/pushNotification/mockData/mockNotification'
 
 export default function PushNotification() {
   const dispatch = useDispatch()
@@ -37,7 +37,7 @@ export default function PushNotification() {
           value={{
             notificationList,
             notificationTotal,
-            currentNotification: mockNotificationDetail
+            currentNotification: mockNotification
           }}
         >
           <Route exact path={routePath.application.pushNotification} component={PushNotificationList} />
