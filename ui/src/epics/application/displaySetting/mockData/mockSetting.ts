@@ -12,7 +12,9 @@ export const mockSettingDetail = {
   screen: 'home',
   applicationId: 'SHST01_CATEGORY_TOP_IOS',
   deliveryStartTime: '2019-12-20 00:00',
+  deliveryEndTime: '2019-12-20 00:00',
   creationTime: '2019-12-20 00:00',
+  supplement: 'SHST01_CATEGORY_TOP_IOS',
   setting: `"navigation": {
     "#comment": [],
     "section": [
