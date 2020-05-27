@@ -32,7 +32,10 @@ export default function SubscriptionForm({ onSubmit, currentSubscription, formRe
           <DataTable
             title={formatMessage(commonMessages.basicInfo)}
             dataSet={[
-              toDataSet(formatMessage(commonMessages.id), <Field name='id' component={TextFieldAdapter} />),
+              toDataSet(
+                formatMessage(commonMessages.id),
+                currentSubscription ? currentSubscription.id : 'SHSA_JP01WJ029931M001_57'
+              ),
               toDataSet(formatMessage(messages.name), <Field name='magazineName' component={TextFieldAdapter} />),
               toDataSet(
                 formatMessage(messages.deviceType),

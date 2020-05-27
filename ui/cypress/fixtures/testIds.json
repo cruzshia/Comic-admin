@@ -61,5 +61,8 @@
     "headerRow": "reward-header-row",
     "contentRow": "reward-content-row",
     "contentCell": "reward-content-cell"
+  },
+  "select": {
+    "option": "select-option"
   }
 }

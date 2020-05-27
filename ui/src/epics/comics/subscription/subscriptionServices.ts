@@ -18,7 +18,7 @@ export const getSubscriptionAjax = (subscriptionId: string): Observable<{ status
   return from([
     {
       status: 200,
-      response: mockSubscriptionDetail
+      response: mockSubscriptionDetail(subscriptionId)
     }
   ])
 }

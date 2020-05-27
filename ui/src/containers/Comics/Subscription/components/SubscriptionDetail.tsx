@@ -61,7 +61,7 @@ export default function SubscriptionDetail() {
         onEdit={handleEdit}
         dataSet={[
           toDataSet(formatMessage(commonMessages.id), currentSubscription.id),
-          toDataSet(formatMessage(messages.name), currentSubscription.magazine),
+          toDataSet(formatMessage(messages.name), currentSubscription.magazineName),
           toPreWrapDataSet(formatMessage(messages.monthlyFee), currentSubscription.monthlyFee),
           toDataSet(formatMessage(messages.subscriptionImage), <img src={currentSubscription.image} alt='' />),
           toDataSet(formatMessage(commonMessages.createDateTime), currentSubscription.createAt),

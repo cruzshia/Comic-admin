@@ -50,4 +50,61 @@ context('Subscription Detail', () => {
   it('Shows correct content header button', function() {
     cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '定期購読を編集')
   })
+  it('Show correctly info', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .as('dataTable')
+      .first()
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('ID')
+            expect($row.find(CONTENT_SELECTOR).text()).to.be.equal(this.subscriptionId)
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('定期購読名')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('月額料金')
+            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('定期購読画像')
+            expect($row.find(CONTENT_SELECTOR).find('img')).to.have.attr('src')
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('作成日時')
+            expect($row.find(CONTENT_SELECTOR)).to.be.dateTimeFormat()
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('更新日時')
+            expect($row.find(CONTENT_SELECTOR)).to.be.dateTimeFormat()
+          })
+      })
+    cy.get('@dataTable')
+      .eq(1)
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '配信期間')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('配信開始日時')
+            expect($row.find(CONTENT_SELECTOR)).to.be.dateTimeFormat()
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('配信終了日時')
+            expect($row.find(CONTENT_SELECTOR)).to.be.dateTimeFormat()
+          })
+      })
+  })
 })

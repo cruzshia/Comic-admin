@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-
 context('Subscription Edit', () => {
   before(() => cy.wrap('/#/').as('targetRoute'))
 
@@ -53,5 +52,112 @@ context('Subscription Edit', () => {
 
   it('Shows correct content header button', function() {
     cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
+  })
+  it('Show correct edit form', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .as('dataTable')
+      .first()
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('ID')
+            expect($row.find(CONTENT_SELECTOR).text()).to.be.equal(this.subscriptionId)
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('定期購読名')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}] input`).val()).not.be.empty
+          })
+          .next()
+          .as('deviceTypeRow')
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('料金デバイス種別')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}] input`).val()).not.be
+              .empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('月額料金（共通）')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}] input`).val()).not.be.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('定期購読画像')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}] img`).attr('src')).not.be
+              .empty
+          })
+      })
+
+    cy.get('@deviceTypeRow')
+      .find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)
+      .click()
+      .get(`[data-testid=${this.testIds.select.option}]`)
+      .contains('デバイス別')
+      .click()
+      .get('@dataTable')
+      .first()
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('ID')
+            expect($row.find(CONTENT_SELECTOR).text()).to.be.equal(this.subscriptionId)
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('定期購読名')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}] input`).val()).not.be.empty
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('料金デバイス種別')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}] input`).val()).be.equal(
+              'different'
+            )
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('月額料金（iOS）')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).be.exist
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('月額料金（Android）')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).be.exist
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('月額料金（ブラウザ）')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).be.exist
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('定期購読画像')
+            expect($row.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}] img`).attr('src')).not.be
+              .empty
+          })
+      })
+    cy.get('@dataTable')
+      .eq(1)
+      .within(() => {
+        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '配信期間')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('配信開始日時')
+            expect($row.find(`${CONTENT_SELECTOR} input`).val()).to.be.dateTimeFormat({ asText: true })
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('配信終了日時')
+            expect($row.find(`${CONTENT_SELECTOR} input`).val()).to.be.dateTimeFormat({ asText: true })
+          })
+      })
   })
 })

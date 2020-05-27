@@ -51,7 +51,9 @@ export default function SelectMenu({
     setValue(e.target.value)
     onChange && onChange(e)
   }
-
+  if (value === '' && !!defaultValue) {
+    setValue(defaultValue)
+  }
   return (
     <>
       <Select
@@ -75,7 +77,7 @@ export default function SelectMenu({
         }}
       >
         {options.map((option, idx) => (
-          <MenuItem value={option.value} key={`option-${idx}`}>
+          <MenuItem value={option.value} key={`option-${idx}`} data-testid='select-option'>
             {option.label}
           </MenuItem>
         ))}
