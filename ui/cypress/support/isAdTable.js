@@ -12,8 +12,7 @@ const isAdTable = (_chai, _) => {
 
     if (adType === AdCategory.Admob) {
       this.assert(
-        this._obj.find(LABEL_SELECTOR).text() === 'Admob (FAN)' &&
-          this._obj.find(CONTENT_SELECTOR).text() !== undefined,
+        this._obj.find(LABEL_SELECTOR).text() === 'Admob (FAN)' && !!this._obj.find(CONTENT_SELECTOR).text(),
         'expected #{this} input row label should be Admob (FAN) and content should empty',
         'expected #{this} input row label should not be Admob (FAN) and content should not empty'
       )
@@ -21,7 +20,7 @@ const isAdTable = (_chai, _) => {
 
     if (adType === AdCategory.Map) {
       this.assert(
-        this._obj.find(LABEL_SELECTOR).text() === 'MAP' && this._obj.find(CONTENT_SELECTOR).text() !== undefined,
+        this._obj.find(LABEL_SELECTOR).text() === 'MAP' && !!this._obj.find(CONTENT_SELECTOR).text(),
         'expected #{this} input row label should be MAP and content should empty',
         'expected #{this} input row label should not be MAP and content should not empty'
       )
@@ -41,7 +40,7 @@ const isAdTable = (_chai, _) => {
         $tableRow
           .eq(0)
           .find(LABEL_SELECTOR)
-          .text() === '画像' && $tableRow.find(`${CONTENT_SELECTOR}`).text() !== undefined,
+          .text() === '画像' && !!$tableRow.find(`${CONTENT_SELECTOR} img`).attr('src'),
         'expected #{this} 1st input row label should be 画像 and content should empty',
         'expected #{this} 1st input row label should not be 画像 and content should not empty'
       )
@@ -50,7 +49,7 @@ const isAdTable = (_chai, _) => {
         $tableRow
           .eq(1)
           .find(LABEL_SELECTOR)
-          .text() === 'リンクURL' && $tableRow.find(CONTENT_SELECTOR).text() !== undefined,
+          .text() === 'リンクURL' && !!$tableRow.find(CONTENT_SELECTOR).text(),
         'expected #{this} 2st input row label should be リンクURL and content should empty',
         'expected #{this} 2st input row label should not be リンクURL and content should not empty'
       )
@@ -59,7 +58,7 @@ const isAdTable = (_chai, _) => {
         $tableRow
           .eq(2)
           .find(LABEL_SELECTOR)
-          .text() === 'ボタン名称' && $tableRow.find(CONTENT_SELECTOR).text() !== undefined,
+          .text() === 'ボタン名称' && !!$tableRow.find(CONTENT_SELECTOR).text(),
         'expected #{this} 3rd input row label should be ボタン名称 and content should empty',
         'expected #{this} 3rd input row label should not be ボタン名称 and content should not empty'
       )
@@ -68,7 +67,7 @@ const isAdTable = (_chai, _) => {
         $tableRow
           .eq(3)
           .find(LABEL_SELECTOR)
-          .text() === '配信期間' && $tableRow.find(CONTENT_SELECTOR).text() !== undefined,
+          .text() === '配信期間' && !!$tableRow.find(CONTENT_SELECTOR).text(),
         'expected #{this} 4th input row label should be 配信期間 and content should empty',
         'expected #{this} 4th input row label should not be 配信期間 and content should not empty'
       )

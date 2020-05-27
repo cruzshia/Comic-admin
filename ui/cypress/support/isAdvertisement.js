@@ -7,6 +7,7 @@ const isAdvertisement = (_chai, _) => {
     const LABEL_SELECTOR = `[data-testid=${testIds.inputBlock.label}]`
     const SELECT_SELECTOR = `[data-testid=${testIds.inputs.select}]`
     const TEXT_SELECTOR = `[data-testid=${testIds.inputs.text}]`
+    const DATE_TIME_SELECTOR = `[data-testid=${testIds.inputs.dateTime}]`
     const BTN_SELECTOR = `[data-testid=${testIds.button.normal}]`
     const IMG_PREVIEW_SELECTOR = `[data-testid=${testIds.imagePreview}]`
 
@@ -14,7 +15,7 @@ const isAdvertisement = (_chai, _) => {
       $inputRow
         .eq(0)
         .find(LABEL_SELECTOR)
-        .text() === '広告の種類' && $inputRow.eq(0).find(SELECT_SELECTOR) !== undefined,
+        .text() === '広告の種類' && $inputRow.eq(0).find(SELECT_SELECTOR).length !== 0,
       'expected #{this} 1st input row label should be 広告の種類 and input field should be select',
       'expected #{this} 1st input row label should not be 広告の種類 and input field should not be select'
     )
@@ -25,7 +26,7 @@ const isAdvertisement = (_chai, _) => {
           .eq(1)
           .find(LABEL_SELECTOR)
           .text() === '画像URL' &&
-          $inputRow.eq(1).find(TEXT_SELECTOR) !== undefined &&
+          $inputRow.eq(1).find(TEXT_SELECTOR).length !== 0 &&
           $inputRow
             .eq(1)
             .find(BTN_SELECTOR)
@@ -39,7 +40,7 @@ const isAdvertisement = (_chai, _) => {
         $inputRow
           .eq(2)
           .find(LABEL_SELECTOR)
-          .text() === 'リンクURL' && $inputRow.eq(2).find(TEXT_SELECTOR) !== undefined,
+          .text() === 'リンクURL' && $inputRow.eq(2).find(TEXT_SELECTOR).length !== 0,
         'expected #{this} 3rd input row label should be リンクURL and input field should be text',
         'expected #{this} 3rd input row label should not be リンクURL and input field should not be text',
         this._obj
@@ -49,7 +50,7 @@ const isAdvertisement = (_chai, _) => {
         $inputRow
           .eq(3)
           .find(LABEL_SELECTOR)
-          .text() === 'ボタン名称' && $inputRow.eq(3).find(TEXT_SELECTOR) !== undefined,
+          .text() === 'ボタン名称' && $inputRow.eq(3).find(TEXT_SELECTOR).length !== 0,
         'expected #{this} 4th input row label should be ボタン名称 and input field should be text',
         'expected #{this} 4th input row label should not be ボタン名称 and input field should not be text',
         this._obj
@@ -59,14 +60,21 @@ const isAdvertisement = (_chai, _) => {
         $inputRow
           .eq(4)
           .find(LABEL_SELECTOR)
-          .text() === '配信期間' && $inputRow.eq(4).find(TEXT_SELECTOR) !== undefined,
+          .text() === '配信期間' &&
+          $inputRow.eq(4).find(`${DATE_TIME_SELECTOR} input`).length === 2 &&
+          $inputRow
+            .eq(4)
+            .find(`${DATE_TIME_SELECTOR} input`)
+            .each(function() {
+              Cypress.$(this).attr('placeholder') === 'YYYY-MM-DD hh:mm'
+            }),
         'expected #{this} 5th input row label should be 配信期間 and input field should be text',
         'expected #{this} 5th input row label should not be 配信期間 and input field should not be text',
         this._obj
       )
 
       this.assert(
-        this._obj.find(IMG_PREVIEW_SELECTOR) !== undefined,
+        this._obj.find(IMG_PREVIEW_SELECTOR).length !== 0,
         'expected #{this} 6th input row label should be image preview',
         'expected #{this} 6th input row label should not be image preview',
         this._obj
