@@ -5,6 +5,10 @@ export enum DisplaySettingActionType {
   GET_LIST_SUCCESS = '@AppDisplaySetting/GET_LIST_SUCCESS',
   GET_LIST_ERROR = '@AppDisplaySetting/GET_LIST_ERROR',
 
+  GET_SETTING = '@AppDisplaySetting/GET_SETTING',
+  GET_SETTING_SUCCESS = '@AppDisplaySetting/GET_SETTING_SUCCESS',
+  GET_SETTING_ERROR = '@AppDisplaySetting/GET_SETTING_ERROR',
+
   CREATE = '@AppDisplaySetting/CREATE',
   CREATE_SUCCESS = '@AppDisplaySetting/CREATE_SUCCESS',
   CREATE_ERROR = '@AppDisplaySetting/CREATE_ERROR',
@@ -26,6 +30,16 @@ export const getDisplaySettingListAction = () => ({
 
 export const getDisplaySettingListSuccessAction = (payload: DisplaySetting[]) => ({
   type: DisplaySettingActionType.GET_LIST_SUCCESS,
+  payload
+})
+
+export const getDisplaySettingAction = (settingId: string) => ({
+  type: DisplaySettingActionType.GET_SETTING,
+  payload: settingId
+})
+
+export const getDisplaySettingSuccessAction = (payload: DisplaySetting) => ({
+  type: DisplaySettingActionType.GET_SETTING_SUCCESS,
   payload
 })
 

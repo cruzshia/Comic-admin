@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react'
+import { useField } from 'react-final-form'
 import { makeStyles } from '@material-ui/core'
 import { TreeView, TreeItem } from '@material-ui/lab'
 import { TextArea } from '@src/components/form'
 import { backgroundColorLightGray } from '@src/common/styles'
 import { ReactComponent as ExpandIcon } from '@src/assets/common/arrow_drop_down_filled.svg'
-import { mockSettingData } from '../../../../epics/application/displaySetting/mockData/mockSetting'
+import { toTreeData } from '../utils'
 import clsx from 'clsx'
 
 const useStyles = makeStyles({
@@ -71,10 +72,12 @@ interface RenderTree {
   children?: RenderTree[]
 }
 
-const toTreeData = (data: any) => data
-
 export default function SectionTree() {
   const classes = useStyles()
+  const {
+    input: { value }
+  } = useField('setting')
+
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
     e.preventDefault()
@@ -84,6 +87,7 @@ export default function SectionTree() {
     <TreeItem
       key={nodes.id}
       nodeId={nodes.id}
+      data-testid='tree-item'
       label={<TextArea classnames={classes.textarea} value={nodes.value} autoSize onClick={handleClick} />}
     >
       {Array.isArray(nodes.children) ? nodes.children.map(node => renderTree(node)) : null}
@@ -91,15 +95,13 @@ export default function SectionTree() {
   )
 
   return (
-    <>
-      <TreeView
-        className={classes.root}
-        defaultCollapseIcon={<ExpandIcon className={classes.icon} />}
-        defaultExpandIcon={<ExpandIcon className={clsx(classes.icon, 'collapse')} />}
-        defaultExpanded={['1', '3', '8', '9', '10']}
-      >
-        {toTreeData(mockSettingData).map((item: any) => renderTree(item))}
-      </TreeView>
-    </>
+    <TreeView
+      className={classes.root}
+      defaultCollapseIcon={<ExpandIcon className={classes.icon} />}
+      defaultExpandIcon={<ExpandIcon className={clsx(classes.icon, 'collapse')} />}
+      defaultExpanded={['1', '3', '8', '9', '10']}
+    >
+      {toTreeData(value).map((item: any) => renderTree(item))}
+    </TreeView>
   )
 }

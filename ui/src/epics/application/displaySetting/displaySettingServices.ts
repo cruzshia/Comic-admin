@@ -13,6 +13,28 @@ export const getDisplaySettingListAjax = (): Observable<{ status: number; respon
   ])
 }
 
+export const getDisplaySettingAjax = (settingId: string): Observable<{ status: number; response: DisplaySetting }> => {
+  authAjax.get('/application/display_setting/' + settingId)
+  return from([
+    {
+      status: 200,
+      response: mockSettingDetail
+    }
+  ])
+}
+
+export const updateDisplaySettingAjax = (
+  setting: DisplaySetting
+): Observable<{ status: number; response: DisplaySetting }> => {
+  authAjax.put('/application/display_setting/', setting)
+  return from([
+    {
+      status: 200,
+      response: mockSettingDetail
+    }
+  ])
+}
+
 export const deleteDisplaySettingAjax = (list: string[]): Observable<{ status: number }> => {
   authAjax.delete('/application/display_setting/list/delete', { list })
   return from([

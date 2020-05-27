@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core'
 import Button, { Theme } from '@src/components/Button/Button'
 import { routePath } from '@src/common/appConfig'
 import ContentHeader from '@src/components/ContentHeader'
-import ListTable, { SortOrder, Padding } from '@src/components/table/ListTable'
+import ListTable, { Padding } from '@src/components/table/ListTable'
 import { StyledCheckBox } from '@src/components/form'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import { ReactComponent as DeleteIcon } from '@src/assets/common/delete.svg'
@@ -17,7 +17,7 @@ import DisplaySettingContext, { ActionContext } from '../context/DisplaySettingC
 import Capsule from '../../components/Capsule'
 import { Status } from '../../constants'
 import applicationMessages from '../../messages'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import messages from '../messages'
 import SearchBlock from './SearchBlock'
 
@@ -97,13 +97,11 @@ export default function DisplaySettingList() {
             spacer: ''
           }
         }))
-        .sort((a: any, b: any) => {
-          return (
-            (new Date(a.data[sortBy.key]).getTime() - new Date(b.data[sortBy.key]).getTime()) *
-            (sortBy.order === SortOrder.Asc ? 1 : -1)
-          )
-        }),
-    [sortBy.key, sortBy.order, handleCheck, formatMessage, isChecked, settingList]
+        .sort(
+          (a: any, b: any) =>
+            (new Date(a.data[sortBy.key]).getTime() - new Date(b.data[sortBy.key]).getTime()) * sortBy.multiplier
+        ),
+    [sortBy, handleCheck, formatMessage, isChecked, settingList]
   )
 
   const handleCheckAll = useCallback(() => {
@@ -165,12 +163,9 @@ export default function DisplaySettingList() {
         buttonList={tableButtonList}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
-        onRowClick={useCallback(
-          id => {
-            history.push(routePath.application.displaySettingEdit.replace(':id', id))
-          },
-          [history]
-        )}
+        onRowClick={useCallback(id => history.push(routePath.application.displaySettingEdit.replace(':id', id)), [
+          history
+        ])}
       />
     </>
   )

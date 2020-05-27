@@ -5,7 +5,9 @@ import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   DisplaySettingActionType,
   getDisplaySettingListSuccessAction,
-  createDisplaySettingSuccessAction
+  createDisplaySettingSuccessAction,
+  getDisplaySettingSuccessAction,
+  updateDisplaySettingSuccessAction
 } from '@src/reducers/application/displaySetting/displaySettingActions'
 import * as displaySettingServices from './displaySettingServices'
 import { emptyErrorReturn } from '@src/epics/utils'
@@ -19,6 +21,36 @@ export const getDisplaySettingListEpic = (action$: ActionsObservable<AnyAction>)
         tap(() => successSubject.next({ type: DisplaySettingActionType.GET_LIST_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: DisplaySettingActionType.GET_LIST_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export const getDisplaySettingEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(DisplaySettingActionType.GET_SETTING),
+    switchMap(action =>
+      displaySettingServices.getDisplaySettingAjax(action.payload).pipe(
+        map(res => getDisplaySettingSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: DisplaySettingActionType.GET_SETTING_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: DisplaySettingActionType.GET_SETTING_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export const updateDisplaySettingEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(DisplaySettingActionType.UPDATE),
+    exhaustMap(action =>
+      displaySettingServices.updateDisplaySettingAjax(action.payload).pipe(
+        map(res => updateDisplaySettingSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: DisplaySettingActionType.UPDATE_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: DisplaySettingActionType.UPDATE_ERROR })
           return emptyErrorReturn()
         })
       )
@@ -54,4 +86,10 @@ export const createDisplaySettingEpic = (action$: ActionsObservable<AnyAction>) 
       )
     )
   )
-export default [getDisplaySettingListEpic, deleteDisplaySettingEpic, createDisplaySettingEpic]
+export default [
+  getDisplaySettingListEpic,
+  deleteDisplaySettingEpic,
+  createDisplaySettingEpic,
+  getDisplaySettingEpic,
+  updateDisplaySettingEpic
+]

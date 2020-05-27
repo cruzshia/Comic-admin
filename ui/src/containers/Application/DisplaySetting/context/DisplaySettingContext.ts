@@ -1,8 +1,9 @@
 import { createContext } from 'react'
+import { DisplaySetting } from '@src/models/application/displaySetting'
 
 interface DisplaySettingContext {
-  settingList: any[]
-  currentSetting?: any
+  settingList: DisplaySetting[]
+  currentSetting?: DisplaySetting
   settingTotal: number
 }
 
@@ -14,11 +15,15 @@ export default createContext<DisplaySettingContext>({
 interface DisplaySettingActionContext {
   onGetDisplaySettingList: () => void
   onDeleteDisplaySetting: (_: string[]) => void
-  onCreateDisplaySetting: (_: any) => void
+  onCreateDisplaySetting: (_: DisplaySetting) => void
+  onGetDisplaySetting: (_: string) => void
+  onUpdateDisplaySetting: (_: DisplaySetting) => void
 }
 
 export const ActionContext = createContext<DisplaySettingActionContext>({
   onGetDisplaySettingList: () => {},
-  onDeleteDisplaySetting: (_: string[]) => {},
-  onCreateDisplaySetting: (_: any) => {}
+  onDeleteDisplaySetting: () => {},
+  onCreateDisplaySetting: () => {},
+  onGetDisplaySetting: () => {},
+  onUpdateDisplaySetting: () => {}
 })

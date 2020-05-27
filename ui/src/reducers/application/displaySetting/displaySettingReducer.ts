@@ -39,7 +39,9 @@ const handler: Record<string, (state: DisplaySettingState, action: ActionType<an
     }
   },
   [DisplaySettingActionType.RESET_CURRENT]: updateCurrentSettingHandler,
-  [DisplaySettingActionType.CREATE_SUCCESS]: updateCurrentSettingHandler
+  [DisplaySettingActionType.CREATE_SUCCESS]: updateCurrentSettingHandler,
+  [DisplaySettingActionType.GET_SETTING_SUCCESS]: updateCurrentSettingHandler,
+  [DisplaySettingActionType.UPDATE_SUCCESS]: updateCurrentSettingHandler
 }
 
 export default function displaySettingReducer(state: DisplaySettingState = initState, action: ActionType<any>) {

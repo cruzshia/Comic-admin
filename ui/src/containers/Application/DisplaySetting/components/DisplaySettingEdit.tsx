@@ -1,20 +1,27 @@
-import React, { useMemo, useContext, useCallback, useRef } from 'react'
+import React, { useMemo, useContext, useCallback, useRef, useEffect } from 'react'
 import { useIntl } from 'react-intl'
+import { useParams } from 'react-router-dom'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import commonMessages from '@src/messages'
 import { ReactComponent as PhoneIcon } from '@src/assets/header/phone.svg'
 import { ReactComponent as CopyIcon } from '@src/assets/header/copy.svg'
 import { submitForm } from '@src/utils/validation'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import messages from '../messages'
-import DisplaySettingContext from '../context/DisplaySettingContext'
+import DisplaySettingContext, { ActionContext } from '../context/DisplaySettingContext'
 import DisplaySettingForm from './DisplaySettingForm'
 
 export default function DisplaySettingEdit() {
   const { formatMessage } = useIntl()
   const { currentSetting } = useContext(DisplaySettingContext)
+  const { onGetDisplaySetting, onUpdateDisplaySetting } = useContext(ActionContext)
   const formRef = useRef<HTMLFormElement>(null)
+  const { id } = useParams()
+
+  useEffect(() => {
+    onGetDisplaySetting(id!)
+  }, [onGetDisplaySetting, id])
 
   const breadcrumbList = useMemo(
     () =>
@@ -42,7 +49,7 @@ export default function DisplaySettingEdit() {
     [formatMessage, formRef]
   )
 
-  const handleSubmit = useCallback(data => console.log(data), [])
+  const handleSubmit = useCallback(data => onUpdateDisplaySetting(data), [onUpdateDisplaySetting])
 
   return (
     <>

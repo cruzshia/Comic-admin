@@ -4,10 +4,9 @@ import { Form, Field } from 'react-final-form'
 import { makeStyles, ButtonGroup, Button as MuiButton } from '@material-ui/core'
 import commonMessages from '@src/messages'
 import { fontWeightBold, borderColorLight, textColor } from '@src/common/styles'
-import { checkError } from '@src/utils/validation'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { TextAreaAdapter, SelectAdapter } from '@src/components/finalForm'
-import { StartEndForm, TextArea } from '@src/components/form'
+import { StartEndForm } from '@src/components/form'
 import { emptyDisplaySetting } from '@src/reducers/application/displaySetting/displaySettingReducer'
 import applicationMessages from '../../messages'
 import messages from '../messages'
@@ -98,7 +97,12 @@ export default function DisplaySettingForm({ onSubmit, formRef, currentSetting }
           <DataTable
             title={formatMessage(commonMessages.setting)}
             buttons={
-              <ButtonGroup size='small' aria-label='outlined button group' className={classes.buttons}>
+              <ButtonGroup
+                size='small'
+                aria-label='outlined button group'
+                className={classes.buttons}
+                data-testid='data-table-buttons'
+              >
                 <MuiButton className={mode === Mode.Batch ? 'selected' : ''} onClick={handleModeChange(Mode.Batch)}>
                   {formatMessage(messages.batch)}
                 </MuiButton>
@@ -110,15 +114,11 @@ export default function DisplaySettingForm({ onSubmit, formRef, currentSetting }
             dataSet={[
               toDataSet(
                 formatMessage(commonMessages.setting),
-                <Field name='setting'>
-                  {({ input, meta }) =>
-                    mode === Mode.Batch ? (
-                      <TextArea rows={40} {...input} error={checkError(meta)} classnames={classes.setting} />
-                    ) : (
-                      <Section />
-                    )
-                  }
-                </Field>
+                mode === Mode.Batch ? (
+                  <Field name='setting' component={TextAreaAdapter} rows={40} classnames={classes.setting} />
+                ) : (
+                  <Section />
+                )
               )
             ]}
           />
