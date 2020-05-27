@@ -7,12 +7,12 @@ import { TimeSpanInput, ImagePreview } from '@src/components/form'
 import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
 import Button from '@src/components/Button/Button'
 import Condition from '@src/components/finalForm/Condition'
-import { AdCategory, AdType } from '@src/reducers/comics/constant'
+import { AdType } from '@src/models/comics/advertisement'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
 interface Props {
-  type: AdCategory
+  type: AdType
   name: string
   onDelete?: () => void
 }
@@ -41,20 +41,11 @@ export default function Advertisement({ type, name, onDelete }: Props) {
   const isOriginal = adType === AdType.Original
 
   const AD_OPTIONS = useMemo(
-    () => [
-      {
-        label: formatMessage(messages.adOriginal),
-        value: AdType.Original
-      },
-      {
-        label: formatMessage(messages.adAdmob),
-        value: AdType.Admob
-      },
-      {
-        label: formatMessage(messages.adMap),
-        value: AdType.Map
-      }
-    ],
+    () =>
+      Object.values(AdType).map(type => ({
+        label: formatMessage(messages[type]),
+        value: type
+      })),
     [formatMessage]
   )
 

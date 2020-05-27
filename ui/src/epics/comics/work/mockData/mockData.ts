@@ -1,3 +1,5 @@
+import { _range } from '@src/utils/functions'
+import { WorkKeys, Work, WorkType, EpisodeWorkType } from '@src/models/comics/work'
 import mockImg from './mockListImg.png'
 
 export const mockDatum = {
@@ -18,12 +20,14 @@ export const mockData = (mockDatum => {
   return arr
 })(mockDatum)
 
-export const mockListData = (mockDatum => {
-  const arr = []
-  for (let i = 0; i <= 3; i++) {
-    arr.push({ ...mockDatum, workID: `WORK_ROOKIE00001475${i}`, releaseDate: `2020-01-21 16:3${i}` })
-  }
-  return arr
-})(mockDatum)
+export const mockListData: Work[] = _range(0, 4).map(i => ({
+  [WorkKeys.Images]: [mockImg],
+  [WorkKeys.ID]: `WORK_ROOKIE00001475${i}`,
+  [WorkKeys.Title]: 'クラスメイトの田中さんはすごく怖い',
+  [WorkKeys.CreateAt]: '2020-01-21 16:34',
+  [WorkKeys.WorkType]: WorkType.Comic,
+  [WorkKeys.EpisodeWorkType]: EpisodeWorkType.Original,
+  [WorkKeys.UpdateFrequency]: '毎週月月金曜日に更新'
+}))
 
 export const mockWorkTotal = 1000

@@ -37,7 +37,7 @@ export const mockCampaign = {
     ],
     back: [
       {
-        adCategory: 'admob',
+        adCategory: 'fan',
         content: '表示位置情報のみ',
         type: 'content'
       },

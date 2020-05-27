@@ -5,7 +5,7 @@ import DataTable, { DataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
 import comicMessages from '../messages'
 import { backgroundColorGray } from '@src/common/styles'
-import Advertisement from '@src/models/comics/advertisement'
+import Advertisement, { AdType } from '@src/models/comics/advertisement'
 
 interface Prop {
   hideSubtitle?: boolean
@@ -58,7 +58,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
         }
       default:
         return {
-          label: formatMessage(comicMessages[data.adCategory === 'admob' ? 'adAdmob' : 'adMap']),
+          label: formatMessage(comicMessages[data.adCategory === AdType.Fan ? AdType.Fan : AdType.Map]),
           content: data.content
         }
     }

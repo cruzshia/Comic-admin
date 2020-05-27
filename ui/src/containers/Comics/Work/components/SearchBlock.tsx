@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
 import { TimeSpanInput } from '@src/components/form'
+import { WorkSearchKeys } from '@src/models/comics/work'
 import commonMessages from '@src/messages'
 import comicMessages from '../../messages'
 import messages from '../messages'
@@ -16,27 +17,27 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
       left: [
         {
           label: formatMessage(commonMessages.workId),
-          input: <Field name='workId' component={SearchInputAdapter} />
+          input: <Field name={WorkSearchKeys.ID} component={SearchInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.author),
-          input: <Field name='author' component={SearchInputAdapter} />
+          input: <Field name={WorkSearchKeys.Author} component={SearchInputAdapter} />
         },
         {
           label: formatMessage(messages.category),
-          input: <Field name='category' component={SelectAdapter} options={[]} />
+          input: <Field name={WorkSearchKeys.WorkType} component={SelectAdapter} options={[]} />
         },
         {
           label: formatMessage(commonMessages.deliveryStartDateTime),
-          input: <TimeSpanInput name='releaseStart' />
+          input: <TimeSpanInput name={WorkSearchKeys.PublishBeginAt} />
         },
         {
           label: formatMessage(commonMessages.deliveryEndDateTime),
-          input: <TimeSpanInput name='releaseEnd' />
+          input: <TimeSpanInput name={WorkSearchKeys.PublishEndAt} />
         },
         {
           label: formatMessage(comicMessages.adUnit),
-          input: <Field name='adUnit' component={SelectAdapter} options={[]} isShort />
+          input: <Field name={WorkSearchKeys.AdSetting} component={SelectAdapter} options={[]} isShort />
         }
       ],
       right: [

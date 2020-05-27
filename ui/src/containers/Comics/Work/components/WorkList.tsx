@@ -9,7 +9,7 @@ import { ReactComponent as IconDownload } from '@src/assets/common/download.svg'
 import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
-import useSort from '@src/hooks/useSort'
+import { WorkKeys } from '@src/models/comics/work'
 import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
 import SearchBlock from './SearchBlock'
@@ -32,13 +32,11 @@ export default function WorkList() {
   const history = useHistory()
   const { onGetWorkList } = useContext(ActionContext)
   const { workList, workTotal } = useContext(WorkContext)
-  const { sortBy, handleSort } = useSort<string>('releaseDate')
   const { page, pagination, handlePageChange } = usePaging({ total: workTotal })
 
   useEffect(() => {
-    // dispatch getAction(sortBy.key, sortBy.order, page)
     onGetWorkList()
-  }, [sortBy, page, onGetWorkList])
+  }, [page, onGetWorkList])
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
@@ -68,16 +66,18 @@ export default function WorkList() {
 
   const handleSearch = useCallback(() => {}, [])
 
-  const workDataList = workList
-    .map(item => ({
-      id: item.workID,
-      data: {
-        ...item,
-        image: <img src={item.image} alt='work-img' />,
-        spacer: ''
-      }
-    }))
-    .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
+  const workDataList = workList.map(({ images, ...item }) => ({
+    id: item.id,
+    data: {
+      [WorkKeys.Images]: images ? <img src={images[0]} alt='work-img' /> : '',
+      ...item,
+      [WorkKeys.WorkType]: formatMessage(messages[item[WorkKeys.WorkType]]),
+      [WorkKeys.EpisodeWorkType]: item[WorkKeys.EpisodeWorkType]
+        ? formatMessage(messages[item[WorkKeys.EpisodeWorkType]!])
+        : '',
+      spacer: ''
+    }
+  }))
 
   const tableButtonList = useMemo(
     () => [
@@ -92,20 +92,19 @@ export default function WorkList() {
   )
   const theadList = useMemo(
     () => [
-      { id: 'image', label: formatMessage(commonMessages.photo) },
-      { id: 'workID', label: formatMessage(comicMessages.workId) },
-      { id: 'title', label: formatMessage(messages.workTitle) },
+      { id: WorkKeys.Images, label: formatMessage(commonMessages.photo) },
+      { id: WorkKeys.ID, label: formatMessage(comicMessages.workId) },
+      { id: WorkKeys.Title, label: formatMessage(messages.workTitle) },
       {
-        id: 'releaseDate',
-        label: formatMessage(commonMessages.createDateTime),
-        onSort: handleSort
+        id: WorkKeys.CreateAt,
+        label: formatMessage(commonMessages.createDateTime)
       },
-      { id: 'category', label: formatMessage(messages.category) },
-      { id: 'episodeCategory', label: formatMessage(messages.episodeCategory) },
-      { id: 'updateFrequency', label: formatMessage(messages.updateFrequency) },
-      { id: 'space', label: '' }
+      { id: WorkKeys.WorkType, label: formatMessage(messages.category) },
+      { id: WorkKeys.EpisodeWorkType, label: formatMessage(messages.episodeCategory) },
+      { id: WorkKeys.UpdateFrequency, label: formatMessage(messages.updateFrequency) },
+      { id: 'spacer', label: '' }
     ],
-    [handleSort, formatMessage]
+    [formatMessage]
   )
   const handleRowClick = useCallback(id => history.push(routePath.comics.workDetail.replace(':id', id)), [history])
 
@@ -120,8 +119,6 @@ export default function WorkList() {
         pagination={pagination}
         onPageChange={handlePageChange}
         buttonList={tableButtonList}
-        sortBy={sortBy.key}
-        sortOrder={sortBy.order}
         onRowClick={handleRowClick}
       />
     </>

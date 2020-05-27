@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl'
+import { WorkType, EpisodeWorkType } from '@src/models/comics/work'
 
 const PREFIX = 'comics.work.'
 
@@ -98,5 +99,53 @@ export default defineMessages({
   csvImport: {
     id: PREFIX + 'works_csv_import',
     defaultMessage: 'Works CSV Import'
+  },
+  episode: {
+    id: PREFIX + 'type_episode',
+    defaultMessage: 'Episode'
+  },
+  [WorkType.Comic]: {
+    id: PREFIX + 'type_comic',
+    defaultMessage: 'Comic'
+  },
+  [WorkType.Novel]: {
+    id: PREFIX + 'type_novel',
+    defaultMessage: 'Novel'
+  },
+  [WorkType.Magazine]: {
+    id: PREFIX + 'type_magazine',
+    defaultMessage: 'Magazine'
+  },
+  [WorkType.Bonus]: {
+    id: PREFIX + 'type_bonus',
+    defaultMessage: 'Bonus'
+  },
+  [EpisodeWorkType.Original]: {
+    id: PREFIX + 'episode_original',
+    defaultMessage: 'Original Rensai'
+  },
+  [EpisodeWorkType.OneShot]: {
+    id: PREFIX + 'episode_one_shot',
+    defaultMessage: 'Read All'
+  },
+  [EpisodeWorkType.Reprint]: {
+    id: PREFIX + 'episode_reprint',
+    defaultMessage: 'Reprint'
+  },
+  [EpisodeWorkType.Trial]: {
+    id: PREFIX + 'episode_look_inside',
+    defaultMessage: 'Trial'
+  },
+  [EpisodeWorkType.Campaign]: {
+    id: PREFIX + 'episode_campaign',
+    defaultMessage: 'Campaign'
+  },
+  [EpisodeWorkType.Rookie]: {
+    id: PREFIX + 'episode_rookie',
+    defaultMessage: 'First Rensai'
+  },
+  [EpisodeWorkType.Other]: {
+    id: PREFIX + 'episode_other',
+    defaultMessage: 'Other'
   }
 })

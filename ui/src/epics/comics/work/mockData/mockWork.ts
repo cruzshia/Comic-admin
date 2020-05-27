@@ -14,7 +14,7 @@ export const mockWork = {
   introduction:
     '【２０２０年 秋アニメ化決定！】モンスターに育てられた、勇者に憧れる少年・ダイ。師や仲間とともに、世界を救う冒険が今始まる——！',
   author: ['イナダコウジ'],
-  category: 'コミックス',
+  category: 'original',
   updateFrequency: '毎週月月金曜日に更新',
   rensai: 'ジャンプ本誌',
   reduction: '還元あり',
@@ -39,7 +39,7 @@ export const mockWork = {
     ],
     back: [
       {
-        adCategory: 'admob',
+        adCategory: 'fan',
         content: '表示位置情報のみ',
         type: 'content'
       },

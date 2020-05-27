@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl'
+import { AdType } from '@src/models/comics/advertisement'
 
 const PREFIX = 'comics.'
 
@@ -19,15 +20,15 @@ export default defineMessages({
     id: PREFIX + 'button_name',
     defaultMessage: 'Button Name'
   },
-  adOriginal: {
+  [AdType.Original]: {
     id: PREFIX + 'ad.original',
     defaultMessage: 'Original'
   },
-  adAdmob: {
+  [AdType.Fan]: {
     id: PREFIX + 'ad.admob',
     defaultMessage: 'Admob (FAN)'
   },
-  adMap: {
+  [AdType.Map]: {
     id: PREFIX + 'ad.map',
     defaultMessage: 'Map'
   },

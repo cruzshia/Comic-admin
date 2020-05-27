@@ -1,6 +1,4 @@
 import React from 'react'
-import { DndProvider } from 'react-dnd'
-import Backend from 'react-dnd-html5-backend'
 import { render } from '@testing-library/react'
 import { withAllProvider } from '@src/utils/__test__/providers'
 // import { defaultOpeningAd, defaultContentAd } from '@src/reducers/comics/constant'
@@ -8,24 +6,12 @@ import WorkForm from '../components/WorkForm'
 
 describe('WorkForm component test', () => {
   it('Renders correctly', () => {
-    const { container } = render(
-      withAllProvider(
-        <DndProvider backend={Backend}>
-          <WorkForm onSubmit={() => {}} />
-        </DndProvider>
-      )
-    )
+    const { container } = render(withAllProvider(<WorkForm onSubmit={() => {}} />))
     expect(container).toBeInTheDocument()
   })
 
   it('Render 2 data tables', () => {
-    const { getAllByTestId } = render(
-      withAllProvider(
-        <DndProvider backend={Backend}>
-          <WorkForm onSubmit={() => {}} />
-        </DndProvider>
-      )
-    )
+    const { getAllByTestId } = render(withAllProvider(<WorkForm onSubmit={() => {}} />))
     expect(getAllByTestId('data-table')).toHaveLength(4)
   })
 

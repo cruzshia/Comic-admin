@@ -9,7 +9,7 @@ import DataTable from '@src/components/table/DataTable'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as ArrowIcon } from '@src/assets/common/arrow_forward.svg'
 import { ReactComponent as AddIcon } from '@src/assets/common/add_circle.svg'
-import AdsModel, { AdType } from '@src/models/comics/advertisement'
+import AdsModel, { AdPosition } from '@src/models/comics/advertisement'
 import commonMessages from '@src/messages'
 import comicMessages from '../messages'
 import Advertisement from './Advertisement'
@@ -41,15 +41,15 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
   const { fields: fieldsFront } = useFieldArray<AdsModel>(`${adKey}.front`)
   const { fields: fieldsBack } = useFieldArray<AdsModel>(`${adKey}.back`)
   const ads = {
-    [AdType.Opening]: fieldsFront,
-    [AdType.Content]: fieldsBack
+    [AdPosition.Front]: fieldsFront,
+    [AdPosition.Back]: fieldsBack
   }
 
   const handleDragEnd = (result: any) => {
     if (!result.destination) return
     const { index: sourceIndex, droppableId: sourceDragId } = result.source
     const { index: targetIndex, droppableId: targetDragId } = result.destination
-    const [sourceFields, targetFields] = [ads[sourceDragId as AdType], ads[targetDragId as AdType]]
+    const [sourceFields, targetFields] = [ads[sourceDragId as AdPosition], ads[targetDragId as AdPosition]]
     if (sourceDragId !== targetDragId) {
       targetFields.insert(targetIndex, sourceFields.value[sourceIndex])
       sourceFields.remove(sourceIndex)
@@ -58,10 +58,10 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
     sourceFields.swap(sourceIndex, targetIndex)
   }
 
-  const createDelete = (type: AdType, idx: number) => () => ads[type].remove(idx)
+  const createDelete = (type: AdPosition, idx: number) => () => ads[type].remove(idx)
   const handleAdd = () => fieldsBack.push({})
 
-  const genDroppableBlock = (type: AdType) => {
+  const genDroppableBlock = (type: AdPosition) => {
     const fields = ads[type]
     return (
       <Droppable droppableId={type}>
@@ -88,7 +88,7 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
                         </div>
                       )}
                     </Draggable>
-                    {index <= value.length - (type === AdType.Opening ? 1 : 2) && Arrow}
+                    {index <= value.length - (type === AdPosition.Front ? 1 : 2) && Arrow}
                   </React.Fragment>
                 )
               })}
@@ -122,10 +122,10 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
       content: (
         <Box paddingBottom='30px'>
           <DragDropContext onDragEnd={handleDragEnd}>
-            {genDroppableBlock(AdType.Opening)}
+            {genDroppableBlock(AdPosition.Front)}
             <ContentLabel />
             {fieldsBack.value.length > 0 && Arrow}
-            {genDroppableBlock(AdType.Content)}
+            {genDroppableBlock(AdPosition.Back)}
             <Button
               classnames={classes.button}
               theme={Theme.DARK_BORDER}

@@ -1,17 +1,8 @@
-export enum AdCategory {
-  Opening = 'opening',
-  Content = 'contents'
-}
-
-export enum AdType {
-  Original = 'original',
-  Map = 'map',
-  Admob = 'admob'
-}
+import { AdType } from '@src/models/comics/advertisement'
 
 export const defaultFrontAds = [{ adCategory: AdType.Original }]
 export const defaultBackAds = [
-  { adCategory: AdType.Admob },
+  { adCategory: AdType.Fan },
   { adCategory: AdType.Map },
   { adCategory: AdType.Original },
   {}
