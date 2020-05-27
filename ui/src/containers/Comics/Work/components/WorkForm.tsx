@@ -104,13 +104,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   classes: workData ? 'display' : undefined,
                   content: (
                     <Field name='category'>
-                      {({ input, meta }) =>
-                        workData ? (
-                          workData.category
-                        ) : (
-                          <Select {...input} error={checkError(meta)} options={[]} isShort />
-                        )
-                      }
+                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
                     </Field>
                   )
                 },
@@ -119,13 +113,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   classes: workData ? 'display' : undefined,
                   content: (
                     <Field name='reduction'>
-                      {({ input, meta }) =>
-                        workData ? (
-                          workData.reduction
-                        ) : (
-                          <Select {...input} error={checkError(meta)} options={[]} isShort />
-                        )
-                      }
+                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
                     </Field>
                   )
                 },

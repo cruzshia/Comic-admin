@@ -57,4 +57,186 @@ context('Work Edit', () => {
   it('Shows correct content header button', function() {
     cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
   })
+
+  it('Renders correct edit form', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .as('dataTable')
+      .first()
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('作品ID')
+            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('タイトル')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('タイトル（カナ）')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('説明')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.textArea}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('著者')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.search}]`)).to.be.exist
+            expect($item.find(`[data-testid=${this.testIds.button.normal}]`).eq(0)).have.text('著者新規登録')
+            expect($item.find(`[data-testid=${this.testIds.button.normal}]`).eq(1)).have.text('著者を追加')
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('作品種別')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('還元の有無')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('定期購読ID')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+      })
+
+    cy.get('@dataTable')
+      .eq(1)
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '配信期間')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('配信開始日時')
+            expect(
+              $item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)
+            ).to.be.exist.and.have.timePlaceholder()
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('配信終了日時')
+            expect(
+              $item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)
+            ).to.be.exist.and.have.timePlaceholder()
+          })
+      })
+
+    cy.get('@dataTable')
+      .eq(2)
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '話作品情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('話作品種別')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('更新頻度')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('連載誌')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('話作品画像1')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('話作品画像2')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('話作品画像3')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('話作品画像4')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('話作品画像5')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('話作品画像6')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('話作品画像7')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
+          })
+      })
+
+    cy.get('@dataTable')
+      .eq(3)
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '広告設定')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('デバイス種別')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('広告設定')
+          })
+          .findAllByTestId(this.testIds.inputBlock.block)
+          .as('blocks')
+          .should(function($blocks) {
+            expect($blocks).to.have.length(4)
+            expect($blocks.eq(0)).to.be.advertisement({ isOriginal: true })
+            expect($blocks.eq(1)).to.be.advertisement()
+            expect($blocks.eq(2)).to.be.advertisement()
+            expect($blocks.eq(3)).to.be.advertisement({ isOriginal: true })
+          })
+          .findAllByTestId('arrow-icon')
+          .should('have.length', 4)
+          .findByTestId(this.testIds.contentLabel)
+          .should('have.text', 'コンテンツ')
+          .findAllByTestId(this.testIds.button.normal)
+          .last()
+          .should('have.text', '広告設定を追加する')
+
+        cy.get('@blocks')
+          .eq(0)
+          .findAllByTestId(this.testIds.inputs.text)
+          .first()
+          .children('input')
+          .invoke('val')
+          .as('imgURL')
+          .findAllByTestId(this.testIds.button.normal)
+          .contains('プレビュー')
+          .click()
+          .then(() => {
+            cy.findAllByTestId(this.testIds.imagePreview)
+              .first()
+              .children('img')
+              .should('have.attr', 'src', this.imgURL)
+          })
+      })
+  })
 })

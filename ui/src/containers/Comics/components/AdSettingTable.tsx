@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
 import DataTable, { DataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
+import comicMessages from '../messages'
 import { backgroundColorGray } from '@src/common/styles'
 import Advertisement from '@src/models/comics/advertisement'
 
@@ -57,7 +58,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
         }
       default:
         return {
-          label: data.adCategory,
+          label: formatMessage(comicMessages[data.adCategory === 'admob' ? 'adAdmob' : 'adMap']),
           content: data.content
         }
     }

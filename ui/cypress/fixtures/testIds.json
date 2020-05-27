@@ -35,6 +35,7 @@
     "id": "data-table",
     "container": "data-table-container",
     "title": "data-table-title",
+    "subtitle": "data-table-subtitle",
     "button": "data-table-button",
     "row": "table-row-container",
     "label": "data-table-label",
