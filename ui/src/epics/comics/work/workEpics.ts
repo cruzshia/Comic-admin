@@ -16,8 +16,8 @@ import { emptyErrorReturn } from '../../utils'
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(WorkActionType.GET_LIST),
-    switchMap(() =>
-      workServices.getWorkListAjax().pipe(
+    switchMap(action =>
+      workServices.getWorkListAjax(action.payload).pipe(
         map(res => getWorkListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: WorkActionType.GET_LIST_SUCCESS })),
         catchError(() => {

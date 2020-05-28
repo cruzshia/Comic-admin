@@ -9,11 +9,11 @@ import { ReactComponent as IconDownload } from '@src/assets/common/download.svg'
 import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
-import { WorkKeys } from '@src/models/comics/work'
+import { WorkKeys, WorkSearchKeys } from '@src/models/comics/work'
 import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
 import SearchBlock from './SearchBlock'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import comicMessages from '../../messages'
 import messages from '../messages'
 import WorkContext, { ActionContext } from '../context/WorkContext'
@@ -64,7 +64,9 @@ export default function WorkList() {
     [formatMessage, history]
   )
 
-  const handleSearch = useCallback(() => {}, [])
+  const handleSearch = useCallback((searchParams: { [key in WorkSearchKeys]?: any }) => onGetWorkList(searchParams), [
+    onGetWorkList
+  ])
 
   const workDataList = workList.map(({ images, ...item }) => ({
     id: item.id,

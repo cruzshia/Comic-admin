@@ -1,4 +1,4 @@
-import Work from '@src/models/comics/work'
+import WorkDetail, { Work } from '@src/models/comics/work'
 import ImportLog from '@src/models/importLog'
 
 export enum WorkActionType {
@@ -28,11 +28,16 @@ export enum WorkActionType {
   IMPORT_WORKS_ERROR = '@ComicsWork/IMPORT_WORKS_ERROR'
 }
 
-export const getWorkListAction = () => ({
-  type: WorkActionType.GET_LIST
+export const getWorkListAction = (searchParams?: Object) => ({
+  type: WorkActionType.GET_LIST,
+  payload: searchParams
 })
 
-export const getWorkListSuccessAction = (payload: Work[]) => ({
+export interface ListParams {
+  total: number
+  works: Work[]
+}
+export const getWorkListSuccessAction = (payload: ListParams) => ({
   type: WorkActionType.GET_LIST_SUCCESS,
   payload
 })
@@ -42,7 +47,7 @@ export const getWorkAction = (workId: string) => ({
   payload: workId
 })
 
-export const getWorkSuccessAction = (work: Work) => ({
+export const getWorkSuccessAction = (work: WorkDetail) => ({
   type: WorkActionType.GET_WORK_SUCCESS,
   payload: work
 })
@@ -51,22 +56,22 @@ export const resetWorkAction = () => ({
   type: WorkActionType.RESET_WORK
 })
 
-export const createWorkAction = (work: Work) => ({
+export const createWorkAction = (work: WorkDetail) => ({
   type: WorkActionType.CREATE,
   payload: work
 })
 
-export const createWorkSuccessAction = (work: Work) => ({
+export const createWorkSuccessAction = (work: WorkDetail) => ({
   type: WorkActionType.CREATE_SUCCESS,
   payload: work
 })
 
-export const updateWorkAction = (work: Work) => ({
+export const updateWorkAction = (work: WorkDetail) => ({
   type: WorkActionType.UPDATE,
   payload: work
 })
 
-export const updateWorkSuccessAction = (work: Work) => ({
+export const updateWorkSuccessAction = (work: WorkDetail) => ({
   type: WorkActionType.UPDATE_SUCCESS,
   payload: work
 })

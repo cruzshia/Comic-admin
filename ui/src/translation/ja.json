@@ -259,6 +259,7 @@
   "common.enter_url": "URLを入力",
   "common.episode_info": "話作品情報",
   "common.error.async_failed": "非同期処理情報の取得に失敗しました",
+  "common.error.empty_input": "項目が入力されていません",
   "common.error.filename_different": "ファイル名が違います。",
   "common.filename": "ファイル名",
   "common.header.application_management": "アプリ管理",

@@ -6,7 +6,7 @@ import { DownloadBlock, FailedMsg } from '@src/components/styled'
 import { usePaging } from '@src/hooks'
 import commonMessages from '@src/messages'
 import messages from '../messages'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import WorkContext, { ActionContext } from '../context/WorkContext'
 
 export default function WorkImportLogs() {

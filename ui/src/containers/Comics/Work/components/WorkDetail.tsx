@@ -15,7 +15,7 @@ import { ScrollAnchor, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
 import commonMessages from '@src/messages'
 import comicMessages from '../../messages'
 import messages from '../messages'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import AdSettingTable from '../../components/AdSettingTable'
 
 const useStyle = makeStyles({

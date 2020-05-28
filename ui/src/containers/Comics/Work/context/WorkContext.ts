@@ -18,7 +18,7 @@ export default createContext<WorkContext>({
 })
 
 interface ActionContext {
-  onGetWorkList: () => void
+  onGetWorkList: (params?: Object) => void
   onGetCsvLogList: () => void
   onGetWork: (workId: string) => void
   onCreateWork: (work: WorkDetail) => void

@@ -40,7 +40,7 @@ storiesOf('Common components', module)
       onSubmit={() => {}}
       render={() => (
         <form>
-          <TimeSpanInput isRequired />
+          <TimeSpanInput />
         </form>
       )}
     />

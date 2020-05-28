@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, useField } from 'react-final-form'
 import { OutlinedInput, makeStyles, FormHelperText } from '@material-ui/core'
-import { checkError, required } from '@src/utils/validation'
+import { checkError } from '@src/utils/validation'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import clsx from 'clsx'
 
@@ -25,17 +25,23 @@ const useStyles = makeStyles({
   }
 })
 
-export default function TimeSpanInput({ name = '', isRequired }: { name?: string; isRequired?: boolean }) {
+interface Props {
+  name?: string
+  nameStart?: string
+  nameEnd?: string
+}
+
+export default function TimeSpanInput({ name = '', nameStart, nameEnd }: Props) {
   const classes = useStyles()
 
-  const nameStart = `${name}Start`
-  const nameEnd = `${name}End`
-  const errorStart = checkError(useField(nameStart).meta)
-  const errorEnd = checkError(useField(nameEnd).meta)
+  const start = nameStart || `${name}Start`
+  const end = nameEnd || `${name}End`
+  const errorStart = checkError(useField(start).meta)
+  const errorEnd = checkError(useField(end).meta)
 
   return (
     <div data-testid='time_span_input' className={classes.root}>
-      <Field name={nameStart} validate={isRequired ? required : undefined}>
+      <Field name={start}>
         {({ input }) => (
           <OutlinedInput
             {...input}
@@ -47,7 +53,7 @@ export default function TimeSpanInput({ name = '', isRequired }: { name?: string
         )}
       </Field>
       <span className={classes.separator}>～</span>
-      <Field name={nameEnd} validate={isRequired ? required : undefined}>
+      <Field name={end}>
         {({ input }) => (
           <OutlinedInput
             {...input}

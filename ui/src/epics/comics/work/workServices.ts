@@ -1,23 +1,35 @@
-import { from, Observable } from 'rxjs'
+import { from } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
-import Work from '@src/models/comics/work'
+import WorkDetail from '@src/models/comics/work'
+import { ListParams } from '@src/reducers/comics/work/workActions'
 import ImportLog from '@src/models/importLog'
+import { Response } from '../../utils'
 import { mockListData } from './mockData/mockData'
 import { mockWork } from './mockData/mockWork'
 import { mockLogList } from './mockData/mockImportLogs'
 
-export const getWorkListAjax = (): Observable<{ status: number; response: Work[] }> => {
-  authAjax.get('/work/list')
+const WORK_API_PATH = '/v1/works'
+
+export const getWorkListAjax = (params?: Object): Response<ListParams> => {
+  authAjax.get(
+    WORK_API_PATH +
+      Object.keys(params || {})
+        .map(key => `${key}=${params![key as keyof typeof params]}`)
+        .join('&')
+  )
   return from([
     {
       status: 200,
-      response: mockListData
+      response: {
+        total: mockListData.length,
+        works: mockListData
+      }
     }
   ])
 }
 
-export const getWorkAjax = (workId: string): Observable<{ status: number; response: Work }> => {
-  authAjax.get('/work/' + workId)
+export const getWorkAjax = (workId: string): Response<WorkDetail> => {
+  authAjax.get(`${WORK_API_PATH}/${workId}`)
   return from([
     {
       status: 200,
@@ -26,8 +38,8 @@ export const getWorkAjax = (workId: string): Observable<{ status: number; respon
   ])
 }
 
-export const createWorkAjax = (work: Work): Observable<{ status: number; response: Work }> => {
-  authAjax.post('/work/', work)
+export const createWorkAjax = (work: WorkDetail): Response<WorkDetail> => {
+  authAjax.post(WORK_API_PATH, work)
   return from([
     {
       status: 200,
@@ -36,8 +48,8 @@ export const createWorkAjax = (work: Work): Observable<{ status: number; respons
   ])
 }
 
-export const updateWorkAjax = (work: Work): Observable<{ status: number; response: Work }> => {
-  authAjax.put('/work/', work)
+export const updateWorkAjax = (work: Omit<WorkDetail, 'id'>): Response<WorkDetail> => {
+  authAjax.put(`${WORK_API_PATH}/${work.id}`)
   return from([
     {
       status: 200,
@@ -46,8 +58,8 @@ export const updateWorkAjax = (work: Work): Observable<{ status: number; respons
   ])
 }
 
-export const getCsvLogListAjax = (): Observable<{ status: number; response: ImportLog[] }> => {
-  authAjax.get('/work/csv_logs')
+export const getCsvLogListAjax = (): Response<ImportLog[]> => {
+  authAjax.get(`${WORK_API_PATH}/csv_logs`)
   return from([
     {
       status: 200,
@@ -56,8 +68,8 @@ export const getCsvLogListAjax = (): Observable<{ status: number; response: Impo
   ])
 }
 
-export const importWorksAjax = (): Observable<{ status: number; response: any }> => {
-  authAjax.post('/work/import')
+export const importWorksAjax = (): Response<any> => {
+  authAjax.post(`${WORK_API_PATH}/import`)
   return from([
     {
       status: 200,

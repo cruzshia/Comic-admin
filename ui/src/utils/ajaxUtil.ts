@@ -1,7 +1,8 @@
 import { ajax } from 'rxjs/ajax'
 
-let hostUrl = '/'
+let hostUrl = '/api/console'
 let commonHeaders: { [key: string]: any } = {}
+const TOKEN_KEY = 'x-raise-api-token'
 
 const urlWithHost = (url: string) => hostUrl + url
 const authAjax = {
@@ -15,11 +16,14 @@ const authAjax = {
     ajax.patch(urlWithHost(url), body, { ...commonHeaders, ...headers })
 }
 
-export const setHostUrl = (url: string) => (hostUrl = url)
-export const setAuthHeader = (token: string) => (commonHeaders.Authorization = token)
+export const setHostUrl = (url: string) => (hostUrl = url + '/api/console')
+export const setAuthHeader = (token: string) => (commonHeaders[TOKEN_KEY] = token)
 
 export const removeAuthHeader = () => {
-  delete commonHeaders.Authorization
+  delete commonHeaders[TOKEN_KEY]
 }
+
+const defaultToken = localStorage.getItem(TOKEN_KEY)
+defaultToken && setAuthHeader(defaultToken)
 
 export default authAjax

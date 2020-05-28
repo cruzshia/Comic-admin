@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 
 export default function WorkExport() {

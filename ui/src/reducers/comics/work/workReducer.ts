@@ -1,18 +1,22 @@
 import Work from '@src/models/comics/work'
 import ImportLog from '@src/models/importLog'
-import { WorkActionType } from './workActions'
+import { WorkActionType, ListParams } from './workActions'
 import { defaultAdTypes } from '../constant'
 import { ActionType } from '../../types'
 
 export interface WorkState {
   workList: Work[]
+  workTotal: number
   currentWork?: Work
   importLogList: ImportLog[]
+  logTotal: number
 }
 
 const initState: WorkState = {
   workList: [],
-  importLogList: []
+  workTotal: 0,
+  importLogList: [],
+  logTotal: 0
 }
 
 export const emptyWork: Work = {
@@ -28,10 +32,11 @@ const updateCurrentWorkHandler = (state: WorkState, action: ActionType<any>): Wo
 })
 
 const handler: Record<string, (state: WorkState, action: ActionType<any>) => WorkState> = {
-  [WorkActionType.GET_LIST_SUCCESS]: (state: WorkState = initState, action: ActionType<Work[]>): WorkState => {
+  [WorkActionType.GET_LIST_SUCCESS]: (state: WorkState = initState, action: ActionType<ListParams>): WorkState => {
     return {
       ...state,
-      workList: action.payload
+      workList: action.payload.works,
+      workTotal: action.payload.total
     }
   },
   [WorkActionType.UPDATE_SUCCESS]: updateCurrentWorkHandler,
@@ -43,7 +48,8 @@ const handler: Record<string, (state: WorkState, action: ActionType<any>) => Wor
   ): WorkState => {
     return {
       ...state,
-      importLogList: action.payload
+      importLogList: action.payload,
+      logTotal: action.payload.length
     }
   }
 }

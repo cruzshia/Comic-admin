@@ -183,6 +183,10 @@ export default defineMessages({
     id: PREFIX + 'error.filename_different',
     defaultMessage: 'Filename isn different'
   },
+  errorEmptyInput: {
+    id: PREFIX + 'error.empty_input',
+    defaultMessage: 'Empty input'
+  },
   copy: {
     id: PREFIX + 'copy',
     defaultMessage: 'Copy'

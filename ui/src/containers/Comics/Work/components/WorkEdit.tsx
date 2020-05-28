@@ -8,7 +8,7 @@ import commonMessages from '@src/messages'
 import { submitForm } from '@src/utils/validation'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import WorkForm from './WorkForm'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import messages from '../messages'
 import WorkContext, { ActionContext } from '../context/WorkContext'
 

@@ -259,6 +259,7 @@
   "common.enter_url": "Enter URL",
   "common.episode_info": "Episode Information",
   "common.error.async_failed": "Can't get async process information",
+  "common.error.empty_input": "Empty input",
   "common.error.filename_different": "Filename isn different",
   "common.filename": "Filename",
   "common.header.application_management": "Application management",

@@ -5,7 +5,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import { CsvImportForm } from '@src/components/form'
 import { ReactComponent as IconDownload } from '@src/assets/common/download.svg'
 import { submitForm } from '@src/utils/validation'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 

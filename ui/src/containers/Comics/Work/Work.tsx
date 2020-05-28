@@ -23,9 +23,9 @@ import {
 
 export default function Work() {
   const dispatch = useDispatch()
-  const { workList, currentWork, importLogList } = useSelector((state: StoreState) => state.work)
+  const { workList, workTotal, currentWork, importLogList, logTotal } = useSelector((state: StoreState) => state.work)
 
-  const handleGetWorkList = useCallback(() => dispatch(getWorkListAction()), [dispatch])
+  const handleGetWorkList = useCallback((params?: Object) => dispatch(getWorkListAction(params)), [dispatch])
   const handleGetWork = useCallback((workId: string) => dispatch(getWorkAction(workId)), [dispatch])
   const handleCreateWork = useCallback((work: WorkModel) => dispatch(createWorkAction(work)), [dispatch])
   const handleUpdateWork = useCallback((work: WorkModel) => dispatch(updateWorkAction(work)), [dispatch])
@@ -47,9 +47,9 @@ export default function Work() {
         value={{
           workList,
           currentWork,
-          workTotal: workList.length,
+          workTotal,
           importLogList,
-          logTotal: importLogList.length
+          logTotal
         }}
       >
         <Switch>

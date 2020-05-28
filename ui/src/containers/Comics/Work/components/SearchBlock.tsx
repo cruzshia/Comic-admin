@@ -3,13 +3,14 @@ import { useIntl } from 'react-intl'
 import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
 import { TimeSpanInput } from '@src/components/form'
-import { WorkSearchKeys } from '@src/models/comics/work'
+import { WorkSearchKeys, WorkType } from '@src/models/comics/work'
+import { SearchInputAdapter, SelectAdapter } from '@src/components/finalForm'
+import { searchParamsValidator } from '../utils'
 import commonMessages from '@src/messages'
 import comicMessages from '../../messages'
 import messages from '../messages'
-import { SearchInputAdapter, SelectAdapter } from '@src/components/finalForm'
 
-export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => void }) {
+export default function SearchBlock({ onSubmit }: { onSubmit: (data: { [key in WorkSearchKeys]: any }) => void }) {
   const { formatMessage } = useIntl()
 
   const conditions: Conditions = useMemo(
@@ -25,15 +26,26 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         },
         {
           label: formatMessage(messages.category),
-          input: <Field name={WorkSearchKeys.WorkType} component={SelectAdapter} options={[]} />
+          input: (
+            <Field
+              name={WorkSearchKeys.WorkType}
+              component={SelectAdapter}
+              options={Object.values(WorkType).map(type => ({
+                label: formatMessage(messages[type]),
+                value: type
+              }))}
+            />
+          )
         },
         {
           label: formatMessage(commonMessages.deliveryStartDateTime),
-          input: <TimeSpanInput name={WorkSearchKeys.PublishBeginAt} />
+          input: (
+            <TimeSpanInput nameStart={WorkSearchKeys.PublishBeginAtFrom} nameEnd={WorkSearchKeys.PublishBeginAtTo} />
+          )
         },
         {
           label: formatMessage(commonMessages.deliveryEndDateTime),
-          input: <TimeSpanInput name={WorkSearchKeys.PublishEndAt} />
+          input: <TimeSpanInput nameStart={WorkSearchKeys.PublishEndAtFrom} nameEnd={WorkSearchKeys.PublishEndAtTo} />
         },
         {
           label: formatMessage(comicMessages.adUnit),
@@ -43,27 +55,27 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
       right: [
         {
           label: formatMessage(messages.rensaiStatus),
-          input: <Field name='rensaiStatus' component={SelectAdapter} options={[]} isShort />
+          input: <Field name={WorkSearchKeys.SerializedState} component={SelectAdapter} options={[]} isShort />
         },
         {
           label: formatMessage(messages.rensaiMagazine),
-          input: <Field name='rensaiMagazine' component={SelectAdapter} options={[]} />
+          input: <Field name={WorkSearchKeys.MagazineName} component={SelectAdapter} options={[]} />
         },
         {
           label: formatMessage(messages.rensaiFrequency),
-          input: <Field name='rensaiFrequency' component={SelectAdapter} options={[]} isShort />
+          input: <Field name={WorkSearchKeys.UpdateFrequency} component={SelectAdapter} options={[]} isShort />
         },
         {
           label: formatMessage(messages.rensaiDay),
-          input: <Field name='rensaiDay' component={SelectAdapter} options={[]} isShort />
+          input: <Field name={WorkSearchKeys.PeriodicalDay} component={SelectAdapter} options={[]} isShort />
         },
         {
           label: formatMessage(commonMessages.subscriptionId),
-          input: <Field name='subscriptionId' component={SelectAdapter} options={[]} />
+          input: <Field name={WorkSearchKeys.SubscriptionId} component={SelectAdapter} options={[]} />
         }
       ]
     }),
     [formatMessage]
   )
-  return <SearchFilter conditions={conditions} onSubmit={onSubmit} />
+  return <SearchFilter validate={searchParamsValidator} conditions={conditions} onSubmit={onSubmit} />
 }

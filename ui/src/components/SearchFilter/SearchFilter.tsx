@@ -9,6 +9,7 @@ import ActionButton from '@src/components/Button/ActionButton'
 import Button from '@src/components/Button/Button'
 import useBreakpoint from '@src/hooks/useBreakpoint'
 import { ButtonTheme } from '../Button/buttonTheme'
+import commonMessages from '@src/messages'
 import messages from './messages'
 import clsx from 'clsx'
 
@@ -28,6 +29,7 @@ interface Props {
   formRef?: React.RefObject<HTMLFormElement>
   disableExpand?: boolean
   disableReset?: boolean
+  validate?: (data: any) => object | undefined
 }
 
 const useStyles = makeStyles(() => ({
@@ -81,7 +83,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function SearchFilter({ onSubmit, conditions, formRef, disableExpand, disableReset }: Props) {
+export default function SearchFilter({ onSubmit, conditions, formRef, disableExpand, disableReset, validate }: Props) {
   const { formatMessage } = useIntl()
   const [isExpand, setIsExpand] = useState<boolean>(!!disableExpand)
   const classes = useStyles()
@@ -110,11 +112,15 @@ export default function SearchFilter({ onSubmit, conditions, formRef, disableExp
     [isExpand, classes.item]
   )
   const handleExpand = useCallback(() => setIsExpand(isExpand => !isExpand), [setIsExpand])
-  const formValidation = (values: object) => ({
-    [FORM_ERROR]: !Object.values(values).some((val: string | number) => String(val).trim() !== '')
-      ? 'Empty input'
-      : undefined
-  })
+  const formValidation = (values: object) => {
+    const customCheckError = validate ? validate(values) : {}
+    return {
+      [FORM_ERROR]: !Object.values(values).some((val: string | number) => String(val).trim() !== '')
+        ? formatMessage(commonMessages.errorEmptyInput)
+        : undefined,
+      ...(customCheckError || {})
+    }
+  }
 
   return (
     <div data-testid='search_filter'>
