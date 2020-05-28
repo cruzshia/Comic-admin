@@ -33,7 +33,7 @@ export default function QuestionnaireForm({ formRef, onSubmit, currentQuestionna
           <DataTable
             title={formatMessage(commonMessages.basicInfo)}
             dataSet={[
-              toDataSet(formatMessage(messages.id), <Field name='id' component={TextFieldAdapter} />),
+              toDataSet(formatMessage(messages.id), currentQuestionnaire ? currentQuestionnaire.id : ''),
               toDataSet(formatMessage(messages.name), <Field name='name' component={TextFieldAdapter} />),
               toDataSet(formatMessage(messages.category), <Field name='category' component={TextFieldAdapter} />),
               toDataSet(

@@ -48,7 +48,7 @@ export default function NotificationForm({ formRef, onSubmit, currentNotificatio
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
               dataSet={[
-                toDataSet(formatMessage(commonMessages.id), 'WORK_SHUNKAN10000006'),
+                toDataSet(formatMessage(commonMessages.id), currentNotification ? currentNotification.id : ''),
                 toDataSet(
                   formatMessage(commonMessages.application),
                   <Field name='application' component={SelectAdapter} options={[]} />

@@ -194,5 +194,9 @@ export default defineMessages({
   addLine: {
     id: PREFIX + 'add_line',
     defaultMessage: 'Add line'
+  },
+  edit: {
+    id: PREFIX + 'edit',
+    defaultMessage: 'Questionnaire Edit'
   }
 })

@@ -26,7 +26,7 @@ export default function QuestionnaireEdit() {
     return () => onResetQuestionnaire()
   }, [onResetQuestionnaire, onGetQuestionnaire, id])
 
-  const titleText = formatMessage(messages.creation)
+  const titleText = formatMessage(messages.edit)
 
   const breadcrumbList = useMemo(
     () =>

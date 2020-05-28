@@ -58,5 +58,9 @@ export default defineMessages({
   enterTitle: {
     id: PREFIX + '.enter_title',
     defaultMessage: 'Enter Title'
+  },
+  edit: {
+    id: PREFIX + '.edit',
+    defaultMessage: 'Notification Edit'
   }
 })

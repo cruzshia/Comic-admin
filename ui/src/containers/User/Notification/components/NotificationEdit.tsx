@@ -24,7 +24,7 @@ export default function NotificationEdit() {
     return () => onResetNotification()
   }, [id, onGetNotification, onResetNotification])
 
-  const titleText = formatMessage(messages.creation)
+  const titleText = formatMessage(messages.edit)
   const breadcrumbList = BREADCRUMBS.map(({ title, route }) => ({
     title: formatMessage(title),
     route
