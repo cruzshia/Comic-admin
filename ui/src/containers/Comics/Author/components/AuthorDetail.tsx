@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import commonMessages from '@src/messages'
@@ -23,36 +24,33 @@ export default function AuthorDetail() {
     return () => onResetAuthor()
   }, [onGetAuthor, onResetAuthor, id])
 
+  const titleText = formatMessage(messages.detail)
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
-        { title: formatMessage(messages.detail), route: undefined }
+        { title: titleText, route: undefined }
       ]),
-    [formatMessage]
+    [formatMessage, titleText]
   )
 
   const handleEdit = useCallback(() => history.push(routePath.comics.authorEdit.replace(':id', id!)), [history, id])
-  const buttonList = useMemo(
-    () => [
+  const EditButton = useMemo(
+    () => (
       <Button
         icon={penIcon}
         buttonText={formatMessage(messages.editStart)}
         theme={Theme.DARK_BORDER}
         onClick={handleEdit}
       />
-    ],
+    ),
     [formatMessage, handleEdit]
   )
-
-  if (!currentAuthor.id) return null
+  const buttonList = useMemo(() => [EditButton], [EditButton])
 
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.detail)}
-        buttonList={buttonList}
-      />
+      <StickyHeader title={titleText} button={EditButton} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[

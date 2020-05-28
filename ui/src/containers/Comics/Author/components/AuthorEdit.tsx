@@ -5,6 +5,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import commonMessages from '@src/messages'
 import { submitForm } from '@src/utils/validation'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import AuthorContext, { ActionContext } from '../context/AuthorContext'
 import AuthorForm from './AuthorForm'
 import { BREADCRUMBS } from '../utils'
@@ -21,27 +22,30 @@ export default function AuthorEdit() {
     onGetAuthor(id!)
   }, [onGetAuthor, id])
 
+  const titleText = formatMessage(messages.edit)
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
-        { title: formatMessage(messages.edit), route: undefined }
+        { title: titleText, route: undefined }
       ]),
-    [formatMessage]
+    [formatMessage, titleText]
   )
-  const buttonList = useMemo(
-    () => [
+  const UpdateButton = useMemo(
+    () => (
       <Button
-        buttonText={formatMessage(commonMessages.create)}
         theme={Theme.DARK}
+        buttonText={formatMessage(commonMessages.create)}
         onClick={() => submitForm(formRef)}
       />
-    ],
+    ),
     [formatMessage]
   )
+  const buttonList = useMemo(() => [UpdateButton], [UpdateButton])
 
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.edit)} buttonList={buttonList} />
+      <StickyHeader title={titleText} button={UpdateButton} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <AuthorForm formRef={formRef} onSubmit={onUpdateAuthor} author={currentAuthor} />
     </>
   )

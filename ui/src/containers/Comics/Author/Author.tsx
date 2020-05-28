@@ -2,11 +2,6 @@ import React, { useCallback } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { routePath } from '@src/common/appConfig'
-import AuthorList from './components/AuthorList'
-import AuthorCreation from './components/AuthorCreation'
-import AuthorEdit from './components/AuthorEdit'
-import AuthorDetail from './components/AuthorDetail'
-import AuthorContext, { ActionContext } from './context/AuthorContext'
 import { StoreState } from '@src/reducers'
 import AuthorModel from '@src/models/comics/author'
 import {
@@ -16,6 +11,11 @@ import {
   createAuthorAction,
   updateAuthorAction
 } from '@src/reducers/comics/author/authorActions'
+import AuthorList from './components/AuthorList'
+import AuthorCreation from './components/AuthorCreation'
+import AuthorEdit from './components/AuthorEdit'
+import AuthorDetail from './components/AuthorDetail'
+import AuthorContext, { ActionContext } from './context/AuthorContext'
 
 export default function Author() {
   const dispatch = useDispatch()
