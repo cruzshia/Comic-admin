@@ -9,8 +9,9 @@ import { submitForm } from '@src/utils/validation'
 import { emptyQuestionnaire } from '@src/reducers/user/questionnaire/questionnaireReducer'
 import commonMessages from '@src/messages'
 import messages from '../messages'
-import { BREADCRUMBS } from '../utils'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import QuestionnaireContext, { ActionContext } from '../context/QuestionnaireContext'
+import { BREADCRUMBS } from '../utils'
 import QuestionnaireForm from './QuestionnaireForm'
 
 export default function QuestionnaireEdit() {
@@ -51,6 +52,7 @@ export default function QuestionnaireEdit() {
 
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <QuestionnaireForm
         formRef={formRef}

@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import { routePath } from '@src/common/appConfig'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import CommentContext, { ActionContext } from '../context/CommentContext'
 import messages from '../messages'
 import CommonHeader from './CommonHeader'
@@ -37,6 +38,7 @@ export default function CommentDetail() {
   }
   return (
     <>
+      <StickyHeader title={formatMessage(messages.detail)} button={buttonList} />
       <CommonHeader buttonList={buttonList} />
       <CommentTable comment={currentComment} />
     </>

@@ -9,6 +9,7 @@ import { ReactComponent as IconCopy } from '@src/assets/header/copy.svg'
 import commonMessages from '@src/messages'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import NotificationContext, { ActionContext } from '../context/NotificationContext'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { ScrollAnchor } from '../../utils'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
@@ -60,6 +61,7 @@ export default function NotificationDetail() {
 
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}

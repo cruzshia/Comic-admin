@@ -7,6 +7,7 @@ import { ReactComponent as IconPC } from '@src/assets/common/pc.svg'
 import { submitForm } from '@src/utils/validation'
 import { ActionContext } from '../context/QuestionnaireContext'
 import QuestionnaireForm from './QuestionnaireForm'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import messages from '../messages'
@@ -30,6 +31,7 @@ export default function QuestionnaireCreation() {
 
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <QuestionnaireForm formRef={formRef} onSubmit={onCreateQuestionnaire} />
     </>

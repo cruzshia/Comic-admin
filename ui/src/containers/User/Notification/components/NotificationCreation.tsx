@@ -5,6 +5,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconPhone } from '@src/assets/common/phone.svg'
 import { ActionContext } from '../context/NotificationContext'
 import NotificationForm from './NotificationForm'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { submitForm } from '@src/utils/validation'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
@@ -27,6 +28,7 @@ export default function NotificationCreation() {
 
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <NotificationForm formRef={formRef} onSubmit={onCreateNotification} />
     </>

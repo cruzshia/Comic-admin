@@ -11,6 +11,7 @@ import { emptyQuestionnaire } from '@src/reducers/user/questionnaire/questionnai
 import commonMessages from '@src/messages'
 import QuestionTable from './QuestionTable'
 import QuestionnaireContext, { ActionContext } from '../context/QuestionnaireContext'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import HeadBlock from './HeadBlock'
 import messages from '../messages'
 
@@ -58,6 +59,7 @@ export default function QuestionnaireDetail() {
 
   return (
     <>
+      <StickyHeader title={title} button={buttonList} />
       <HeadBlock breadcrumb={title} title={title} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}

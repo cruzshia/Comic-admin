@@ -6,6 +6,7 @@ import ActionButton, { Theme } from '@src/components/Button/ActionButton'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { submitForm } from '@src/utils/validation'
 import commonMessages from '@src/messages'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import CommentContext, { ActionContext } from '../context/CommentContext'
 import CommentTable from './CommentTable'
 import { COMMENT_BREADCRUMBS } from '../utils'
@@ -45,6 +46,7 @@ export default function CommentEdit() {
   }
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} buttonList={buttonList} titleText={titleText} />
       <Form
         onSubmit={values => {
