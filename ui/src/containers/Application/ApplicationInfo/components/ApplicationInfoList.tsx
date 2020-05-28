@@ -49,29 +49,18 @@ export default function ApplicationInfoList() {
     [formatMessage]
   )
 
-  const listTableData = useMemo(
-    () =>
-      infoList.map(data => ({
-        id: data.applicationId,
-        data
-      })),
-    [infoList]
-  )
-
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.list)} buttonList={buttonList} />
       <ListTable
         theadList={theadList}
-        dataList={listTableData}
+        dataList={infoList}
         pagination={pagination}
         onPageChange={handlePageChange}
-        onRowClick={useCallback(
-          id => {
-            history.push(routePath.application.applicationInfoDetail.replace(':id', id))
-          },
-          [history]
-        )}
+        rowIdKey='applicationId'
+        onRowClick={useCallback(id => history.push(routePath.application.applicationInfoDetail.replace(':id', id)), [
+          history
+        ])}
       />
     </>
   )

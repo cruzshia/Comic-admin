@@ -86,21 +86,14 @@ export default function DisplaySettingList() {
   const settingDataList = useMemo(
     () =>
       settingList
-        .map(({ id, status, screen, ...rest }) => ({
-          id: id,
+        .map(({ status, screen, ...rest }) => ({
+          ...rest,
           classnames: `${Status[status as keyof typeof Status]}Row`,
-          data: {
-            checkbox: <StyledCheckBox value={id} checked={isChecked(id)} onCheck={handleCheck} />,
-            status: <Capsule status={status} />,
-            display: formatMessage(messages[screen as keyof typeof messages]),
-            ...rest,
-            spacer: ''
-          }
+          checkbox: <StyledCheckBox value={rest.id} checked={isChecked(rest.id)} onCheck={handleCheck} />,
+          status: <Capsule status={status} />,
+          display: formatMessage(messages[screen as keyof typeof messages])
         }))
-        .sort(
-          (a: any, b: any) =>
-            (new Date(a.data[sortBy.key]).getTime() - new Date(b.data[sortBy.key]).getTime()) * sortBy.multiplier
-        ),
+        .sort((a: any, b: any) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier),
     [sortBy, handleCheck, formatMessage, isChecked, settingList]
   )
 

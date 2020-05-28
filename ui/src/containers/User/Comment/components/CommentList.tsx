@@ -13,7 +13,6 @@ import { ReactComponent as UserIco } from '@src/assets/common/user.svg'
 import { usePaging, useCheckbox } from '@src/hooks'
 import Context, { ActionContext } from '../context/CommentContext'
 import { COMMENT_BREADCRUMBS, ListTableProp } from '../utils'
-import { toListTableData } from '../../utils'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
@@ -68,11 +67,8 @@ export default function CommentList() {
   const displayData = useMemo(
     () =>
       commentList.map(comment => ({
-        id: comment.id,
-        data: {
-          checkbox: <StyledCheckBox value={comment.id} checked={isChecked(comment.id)} onCheck={handleCheck} />,
-          ...toListTableData(comment, ListTableProp)
-        }
+        ...comment,
+        checkbox: <StyledCheckBox value={comment.id} checked={isChecked(comment.id)} onCheck={handleCheck} />
       })),
     [commentList, isChecked, handleCheck]
   )

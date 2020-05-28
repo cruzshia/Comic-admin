@@ -89,13 +89,9 @@ export default function CampaignDetail() {
     [formatMessage, history, id]
   )
 
-  const dataList = subCampaignList.map(({ id, ...data }) => ({
-    id,
-    data: {
-      ...data,
-      type: formatMessage(comicMessages[`${data.type}Campaign` as keyof typeof comicMessages]),
-      spacer: ''
-    }
+  const dataList = subCampaignList.map(data => ({
+    ...data,
+    category: formatMessage(comicMessages[`${data.type}Campaign` as keyof typeof comicMessages])
   }))
 
   const handleRowClick = useCallback(

@@ -1,10 +1,10 @@
 import React, { useMemo, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
-import { Grid, makeStyles, IconButton } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 import ContentHeader from '@src/components/ContentHeader'
+import { DownloadBlock } from '@src/components/styled'
 import ListTable from '@src/components/table/ListTable'
-import { ReactComponent as DownloadIcon } from '@src/assets/common/download_circle.svg'
-import { ReactComponent as AlertIcon } from '@src/assets/form/error_alert.svg'
+import { DetailText } from '@src/components/table/CsvImportLogTable'
 import usePaging from '@src/hooks/usePaging'
 import useSort from '@src/hooks/useSort'
 import { errorColor, fontWeightBold } from '@src/common/styles'
@@ -75,31 +75,12 @@ export default function UserExportLogs() {
   ]
 
   const displayData = csvExportLogs
-    .map(({ id, fileName, status, detail, ...res }) => ({
-      id,
-      data: {
-        ...res,
-        fileName: (
-          <Grid container alignItems='center' className={classes.fileName}>
-            {fileName}
-            <IconButton size='small'>
-              <DownloadIcon />
-            </IconButton>
-          </Grid>
-        ),
-        status,
-        detail:
-          status === 'failure' ? (
-            <Grid container alignItems='center' className={classes.error}>
-              <AlertIcon />
-              {formatMessage(commonMessages.errorAsyncFailed)}
-            </Grid>
-          ) : (
-            detail
-          )
-      }
+    .map(({ fileName, detail, ...item }) => ({
+      ...item,
+      fileName: <DownloadBlock filename={fileName} />,
+      detail: <DetailText status={item.status} detail={detail} />
     }))
-    .sort((a, b) => (Date.parse(a.data.createDateTime) - Date.parse(b.data.createDateTime)) * sortBy.multiplier)
+    .sort((a, b) => (Date.parse(a.createDateTime) - Date.parse(b.createDateTime)) * sortBy.multiplier)
 
   return (
     <>

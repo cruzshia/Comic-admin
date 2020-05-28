@@ -64,19 +64,6 @@ export default function AuthorList() {
     [formatMessage]
   )
 
-  const displayData = useMemo(
-    () =>
-      authorList.map(author => ({
-        id: author.id,
-        data: {
-          createAt: author.createAt,
-          id: author.id,
-          name: author.name,
-          spacer: ''
-        }
-      })),
-    [authorList]
-  )
   const handleRowClick = useCallback((id: string) => history.push(routePath.comics.authorDetail.replace(':id', id)), [
     history
   ])
@@ -88,7 +75,7 @@ export default function AuthorList() {
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
-        dataList={displayData}
+        dataList={authorList}
         pagination={pagination}
         onPageChange={handlePageChange}
         onRowClick={handleRowClick}

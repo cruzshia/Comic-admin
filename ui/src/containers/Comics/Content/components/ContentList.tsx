@@ -83,18 +83,13 @@ export default function ContentList() {
 
   const dataList = contentList
     .map(content => ({
-      id: content.contentId,
-      data: {
-        ...content,
-        image: <img src={content.image} alt='content img' />,
-        spacer: ''
-      }
+      ...content,
+      image: <img src={content.image} alt='content img' />
     }))
     .sort(
       (a: any, b: any) =>
-        (sortBy.key === 'sort'
-          ? a.data[sortBy.key] - b.data[sortBy.key]
-          : a.data[sortBy.key].localeCompare(b.data[sortBy.key])) * sortBy.multiplier
+        (sortBy.key === 'sort' ? a[sortBy.key] - b[sortBy.key] : a[sortBy.key].localeCompare(b[sortBy.key])) *
+        sortBy.multiplier
     )
 
   const tableButtonList = useMemo(
@@ -122,6 +117,7 @@ export default function ContentList() {
         buttonList={tableButtonList}
         sortBy={sortBy.key}
         sortOrder={sortBy.order}
+        rowIdKey='contentId'
         onRowClick={useCallback((id: string) => history.push(routePath.comics.contentDetail.replace(':id', id!)), [
           history
         ])}

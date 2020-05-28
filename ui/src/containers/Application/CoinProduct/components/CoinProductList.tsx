@@ -72,16 +72,11 @@ export default function CoinProductList() {
     [formatMessage, handleSort]
   )
 
-  const dataList = productList
-    .map(product => ({
-      id: product.productId,
-      data: product
-    }))
-    .sort((a: any, b: any) => {
-      return typeof a.data[sortBy.key] === 'string'
-        ? a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier
-        : (a.data[sortBy.key] - b.data[sortBy.key]) * sortBy.multiplier
-    })
+  const dataList = productList.sort((a: any, b: any) =>
+    typeof a[sortBy.key] === 'string'
+      ? a[sortBy.key].localeCompare(b[sortBy.key]) * sortBy.multiplier
+      : (a[sortBy.key] - b[sortBy.key]) * sortBy.multiplier
+  )
 
   return (
     <>
@@ -91,6 +86,7 @@ export default function CoinProductList() {
         tableClass={classes.table}
         theadList={theadList}
         dataList={dataList}
+        rowIdKey='productId'
         pagination={pagination}
         onPageChange={handlePageChange}
         sortBy={sortBy.key}

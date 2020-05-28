@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { backgroundColor } from '@src/common/styles'
 
 interface Props {
+  headerKeys: string[]
   items: { [key: string]: any }
   onClick?: () => void
   classnames?: string
@@ -34,11 +35,11 @@ const useStyles = makeStyles({
   }
 })
 
-export default function ListTableRow({ items, onClick, classnames }: Props) {
+export default function ListTableRow({ items, onClick, classnames, headerKeys }: Props) {
   const classes = useStyles({ pointer: !!onClick })
   return (
     <TableRow hover className={clsx(classes.root, classnames)} data-testid='list-table-row' onClick={onClick}>
-      {Object.keys(items).map(key => (
+      {headerKeys.map(key => (
         <TableCell data-testid='list-table-row-cell' key={key}>
           {items[key]}
         </TableCell>

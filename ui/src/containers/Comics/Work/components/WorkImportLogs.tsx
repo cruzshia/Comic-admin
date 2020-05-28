@@ -28,13 +28,10 @@ export default function WorkImportLogs() {
     [formatMessage]
   )
 
-  const displayList = importLogList.map(({ id, ...log }) => ({
-    id,
-    data: {
-      ...log,
-      filename: <DownloadBlock filename={log.filename} />,
-      detail: log.status === 'failure' ? <FailedMsg msg={formatMessage(commonMessages.errorAsyncFailed)} /> : log.detail
-    }
+  const displayList = importLogList.map(log => ({
+    ...log,
+    filename: <DownloadBlock filename={log.filename} />,
+    detail: log.status === 'failure' ? <FailedMsg msg={formatMessage(commonMessages.errorAsyncFailed)} /> : log.detail
   }))
 
   return (

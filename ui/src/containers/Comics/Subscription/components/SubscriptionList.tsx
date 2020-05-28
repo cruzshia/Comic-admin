@@ -58,21 +58,13 @@ export default function SubscriptionList() {
     />
   ]
 
-  const dataList = subscriptionList.map(subscription => ({
-    id: subscription.id,
-    data: {
-      ...subscription,
-      spacer: ''
-    }
-  }))
-
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.list)} buttonList={buttonList} />
       <ListTable
         classnames={classes.table}
         theadList={theadList}
-        dataList={dataList}
+        dataList={subscriptionList}
         pagination={pagination}
         onPageChange={handlePageChange}
         onRowClick={useCallback((id: string) => history.push(routePath.comics.subscriptionDetail.replace(':id', id!)), [

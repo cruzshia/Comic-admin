@@ -97,16 +97,13 @@ export default function PushNotificationList() {
 
   const listTableData = useMemo(
     () =>
-      notificationList.map(({ id, status, detail, ...rest }) => ({
-        id: id,
+      notificationList.map(({ status, detail, ...rest }) => ({
+        ...rest,
         classnames: detail ? '' : `${Status[status as keyof typeof Status]}Row`,
-        data: {
-          checkbox: <StyledCheckBox value={id} checked={isChecked(id)} onCheck={handleCheck} />,
-          status: <Capsule status={status} />,
-          ...rest,
-          timesPushed: status === 'reserved' ? '' : rest.timesPushed,
-          detail: detail && <FormHelperText className='error'>{detail}</FormHelperText>
-        }
+        checkbox: <StyledCheckBox value={rest.id} checked={isChecked(rest.id)} onCheck={handleCheck} />,
+        status: <Capsule status={status} />,
+        timesPushed: status === 'reserved' ? '' : rest.timesPushed,
+        detail: detail && <FormHelperText className='error'>{detail}</FormHelperText>
       })),
     [notificationList, handleCheck, isChecked]
   )

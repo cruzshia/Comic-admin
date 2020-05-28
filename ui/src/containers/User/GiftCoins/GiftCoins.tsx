@@ -6,7 +6,7 @@ import { StoreState } from '@src/reducers'
 import { getCSVLogListAction } from '@src/reducers/user/giftCoins/giftCoinsAction'
 import GiftCoinsContext, { ActionContext } from './context/GiftCoinsContext'
 import GiftCoinsCreation from './components/GiftCoinsCreation'
-import GiftCoinsBatchLogs from './components/GiftCoinsBatchLogs'
+import GiftCoinsImportLogs from './components/GiftCoinsImportLogs'
 
 export default function GiftCoins() {
   const dispatch = useDispatch()
@@ -18,7 +18,7 @@ export default function GiftCoins() {
       <GiftCoinsContext.Provider value={{ csvLogList, csvLogTotal }}>
         <Switch>
           <Route exact path={routePath.user.giftCoinsCreation} component={GiftCoinsCreation}></Route>
-          <Route exact path={routePath.user.giftCoinsBatchLogs} component={GiftCoinsBatchLogs}></Route>
+          <Route exact path={routePath.user.giftCoinsBatchLogs} component={GiftCoinsImportLogs}></Route>
         </Switch>
       </GiftCoinsContext.Provider>
     </ActionContext.Provider>

@@ -67,15 +67,7 @@ export default function CampaignList() {
     [formatMessage, handleSort]
   )
 
-  const dataList = campaignList
-    .map(({ campaignId, ...campaign }) => ({
-      id: campaignId,
-      data: {
-        ...campaign,
-        spacer: ''
-      }
-    }))
-    .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
+  const dataList = campaignList.sort((a: any, b: any) => a[sortBy.key].localeCompare(b[sortBy.key]) * sortBy.multiplier)
 
   return (
     <>
@@ -85,6 +77,7 @@ export default function CampaignList() {
         tableClass={classes.table}
         theadList={theadList}
         dataList={dataList}
+        rowIdKey='campaignId'
         pagination={pagination}
         onPageChange={handlePageChange}
         sortBy={sortBy.key}

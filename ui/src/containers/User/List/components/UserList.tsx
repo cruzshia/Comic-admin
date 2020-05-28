@@ -13,7 +13,6 @@ import { backgroundColorGray } from '@src/common/styles'
 import UserContext, { ActionContext } from '../context/UserContext'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS, ListTableProp } from '../constants'
-import { toListTableData } from '../../utils'
 import commonMessages from '@src/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
@@ -101,11 +100,10 @@ export default function UserList() {
     () =>
       userList
         .map(user => ({
-          id: user.id,
-          classnames: user.status === '退会済み' ? classes.dark : undefined,
-          data: toListTableData(user, ListTableProp)
+          ...user,
+          classnames: user.status === '退会済み' ? classes.dark : undefined
         }))
-        .sort((a, b) => (Date.parse(a.data[sortBy.key]) - Date.parse(b.data[sortBy.key])) * sortBy.multiplier),
+        .sort((a, b) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier),
     [sortBy, userList, classes.dark]
   )
 

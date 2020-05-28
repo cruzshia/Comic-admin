@@ -69,16 +69,12 @@ export default function WorkList() {
   ])
 
   const workDataList = workList.map(({ images, ...item }) => ({
-    id: item.id,
-    data: {
-      [WorkKeys.Images]: images ? <img src={images[0]} alt='work-img' /> : '',
-      ...item,
-      [WorkKeys.WorkType]: formatMessage(messages[item[WorkKeys.WorkType]]),
-      [WorkKeys.EpisodeWorkType]: item[WorkKeys.EpisodeWorkType]
-        ? formatMessage(messages[item[WorkKeys.EpisodeWorkType]!])
-        : '',
-      spacer: ''
-    }
+    ...item,
+    [WorkKeys.Images]: images ? <img src={images[0]} alt='work-img' /> : '',
+    [WorkKeys.WorkType]: formatMessage(messages[item[WorkKeys.WorkType]]),
+    [WorkKeys.EpisodeWorkType]: item[WorkKeys.EpisodeWorkType]
+      ? formatMessage(messages[item[WorkKeys.EpisodeWorkType]!])
+      : ''
   }))
 
   const tableButtonList = useMemo(

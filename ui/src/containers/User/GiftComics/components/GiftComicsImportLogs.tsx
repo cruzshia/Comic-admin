@@ -1,18 +1,17 @@
 import React, { useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
-import { usePaging, useSort } from '@src/hooks'
 import ContentHeader from '@src/components/ContentHeader'
-import { DownloadBlock, FailedMsg } from '@src/components/styled'
-import CsvImportLogTable from '@src/components/table/CsvImportLogTable'
-import GiftCoinsContext, { ActionContext } from '../context/GiftCoinsContext'
+import CsvImportLogTable, { DetailText } from '@src/components/table/CsvImportLogTable'
+import { DownloadBlock } from '@src/components/styled'
+import { usePaging, useSort } from '@src/hooks'
+import GiftComicsContext, { ActionContext } from '../context/GiftComicsContext'
 import { BREADCRUMBS } from '../constants'
-import commonMessages from '@src/messages'
 import messages from '../messages'
 
-export default function GiftCoinsBatchLogs() {
-  const { csvLogList, csvLogTotal } = useContext(GiftCoinsContext)
-  const { onGetCsvLogList } = useContext(ActionContext)
+export default function GiftComicsImportLogs() {
   const { formatMessage } = useIntl()
+  const { csvLogList, csvLogTotal } = useContext(GiftComicsContext)
+  const { onGetCsvLogList } = useContext(ActionContext)
   const { pagination, handlePageChange } = usePaging({ total: csvLogTotal })
   const { sortBy, handleSort } = useSort('createAt')
 
@@ -27,17 +26,12 @@ export default function GiftCoinsBatchLogs() {
   })).concat([{ title: titleText, route: undefined }])
 
   const dataList = csvLogList
-    .map(({ id, ...rest }) => ({
-      id,
-      data: {
-        ...rest,
-        filename: <DownloadBlock filename={rest.filename} />,
-        detail:
-          rest.status === 'failure' ? <FailedMsg msg={formatMessage(commonMessages.errorAsyncFailed)} /> : rest.detail
-      }
+    .map(log => ({
+      ...log,
+      filename: <DownloadBlock filename={log.filename} />,
+      detail: <DetailText status={log.status} detail={log.detail} />
     }))
-    .sort((a, b) => (Date.parse(a.data[sortBy.key]) - Date.parse(b.data[sortBy.key])) * sortBy.multiplier)
-
+    .sort((a, b) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier)
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} />

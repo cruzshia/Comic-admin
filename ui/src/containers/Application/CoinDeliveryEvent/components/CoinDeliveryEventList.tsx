@@ -67,15 +67,9 @@ export default function CoinDeliveryEventList() {
     [formatMessage, handleSort]
   )
   const handleSearch = useCallback(data => console.log(data), [])
-  const dataList = eventList
-    .map(event => ({
-      id: event.eventId,
-      data: {
-        ...event,
-        spacer: ''
-      }
-    }))
-    .sort((a: any, b: any) => (Date.parse(a.data[sortBy.key]) - Date.parse(b.data[sortBy.key])) * sortBy.multiplier)
+  const dataList = eventList.sort(
+    (a: any, b: any) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier
+  )
 
   return (
     <>
@@ -85,6 +79,7 @@ export default function CoinDeliveryEventList() {
         tableClass={classes.table}
         theadList={theadList}
         dataList={dataList}
+        rowIdKey='eventId'
         pagination={pagination}
         onPageChange={handlePageChange}
         sortBy={sortBy.key}

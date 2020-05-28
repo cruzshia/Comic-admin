@@ -62,14 +62,6 @@ export default function QuestionnaireList() {
     [formatMessage]
   )
 
-  const dataList = questionnaireList.map(questionnaire => ({
-    id: questionnaire.id,
-    data: {
-      ...questionnaire,
-      spacer: ''
-    }
-  }))
-
   return (
     <div>
       <HeadBlock title={formatMessage(messages.questionnaireList)} buttonList={buttonList} />
@@ -77,7 +69,7 @@ export default function QuestionnaireList() {
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
-        dataList={dataList}
+        dataList={questionnaireList}
         pagination={pagination}
         onPageChange={handlePageChange}
         onRowClick={useCallback((id: string) => history.push(routePath.user.questionnaireDetail.replace(':id', id!)), [

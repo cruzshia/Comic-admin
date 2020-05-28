@@ -58,7 +58,7 @@ context('Author Creation', () => {
           .first()
           .should($row => {
             expect($row.find(LABEL_SELECTOR)).have.text('ID')
-            expect($row.find(CONTENT_SELECTOR).text()).not.be.empty
+            expect($row.find(CONTENT_SELECTOR).text()).be.empty
           })
           .next()
           .should($row => {

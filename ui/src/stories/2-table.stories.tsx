@@ -65,7 +65,11 @@ storiesOf('Table components', module)
     return (
       <table>
         <thead>
-          <ListTableRow items={mockDatum} onClick={action('list-table-row-click')} />
+          <ListTableRow
+            items={mockDatum}
+            onClick={action('list-table-row-click')}
+            headerKeys={Object.keys(mockDatum)}
+          />
         </thead>
       </table>
     )
@@ -83,15 +87,13 @@ storiesOf('Table components', module)
 
     const mockData = new Array(3).fill({}).map((_, idx) => ({
       id: `WORK_ROOKIE00001475${idx}`,
-      data: {
-        image: <img src='/mockListImg.png' alt='' />,
-        workID: 'WORK_ROOKIE000014751',
-        title: 'クラスメイトの田中さんはすごく怖い',
-        releaseDate: '2020-01-21 16:34',
-        category: 'コミックス',
-        episodeCategory: 'オリジナル連載',
-        updateFrequency: '毎週月月金曜日に更新'
-      }
+      image: <img src='/mockListImg.png' alt='' />,
+      workID: 'WORK_ROOKIE000014751',
+      title: 'クラスメイトの田中さんはすごく怖い',
+      releaseDate: '2020-01-21 16:34',
+      category: 'コミックス',
+      episodeCategory: 'オリジナル連載',
+      updateFrequency: '毎週月月金曜日に更新'
     }))
 
     return (

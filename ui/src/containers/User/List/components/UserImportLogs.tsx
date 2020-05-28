@@ -3,10 +3,9 @@ import { useIntl } from 'react-intl'
 import ContentHeader from '@src/components/ContentHeader'
 import UserContext, { ActionContext } from '../context/UserContext'
 import { BREADCRUMBS } from '../constants'
-import { DownloadBlock, FailedMsg } from '@src/components/styled'
-import CsvImportLogTable from '@src/components/table/CsvImportLogTable'
+import { DownloadBlock } from '@src/components/styled'
+import CsvImportLogTable, { DetailText } from '@src/components/table/CsvImportLogTable'
 import { usePaging, useSort } from '@src/hooks'
-import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export default function UserImportLogs() {
@@ -32,16 +31,12 @@ export default function UserImportLogs() {
     [formatMessage, titleText]
   )
   const dataList = csvImportLogs
-    .map(({ id, ...res }) => ({
-      id,
-      data: {
-        ...res,
-        filename: <DownloadBlock filename={res.filename} />,
-        detail:
-          res.status === 'failure' ? <FailedMsg msg={formatMessage(commonMessages.errorAsyncFailed)} /> : res.detail
-      } as any
+    .map(item => ({
+      ...item,
+      filename: <DownloadBlock filename={item.filename} />,
+      detail: <DetailText status={item.status} detail={item.detail} />
     }))
-    .sort((a, b) => (Date.parse(a.data[sortBy.key]) - Date.parse(b.data[sortBy.key])) * sortBy.multiplier)
+    .sort((a, b) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier)
 
   return (
     <>

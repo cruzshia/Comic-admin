@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, FormHelperText } from '@material-ui/core'
 import ListTable, { Props as ListTableProps, SortOrder, Thead } from './ListTable'
 import commonMessages from '@src/messages'
 
@@ -21,6 +21,15 @@ const useStyle = makeStyles(() => ({
     }
   }
 }))
+
+export const DetailText = ({ status, detail }: { status: string; detail: any }) => {
+  const { formatMessage } = useIntl()
+  return status === 'failure' ? (
+    <FormHelperText className='error'>{formatMessage(commonMessages.errorAsyncFailed)}</FormHelperText>
+  ) : (
+    <>{detail}</>
+  )
+}
 
 interface Props extends Omit<ListTableProps, 'theadList'> {
   theadList?: Thead[]

@@ -52,13 +52,6 @@ export default function InquiryList({ inquiryList, inquiryTotal, onGetInquiryLis
     [formatMessage]
   )
 
-  const dataList = inquiryList.map(inquiry => ({
-    id: inquiry.id,
-    data: {
-      ...inquiry
-    }
-  }))
-
   const theadList = useMemo(
     () => [
       { id: 'inquiryAt', label: formatMessage(messages.inquiryTime) },
@@ -78,7 +71,7 @@ export default function InquiryList({ inquiryList, inquiryTotal, onGetInquiryLis
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
-        dataList={dataList}
+        dataList={inquiryList}
         pagination={pagination}
         onPageChange={handlePageChange}
         onRowClick={useCallback((id: string) => history.push(routePath.user.inquiryDetail.replace(':id', id)), [

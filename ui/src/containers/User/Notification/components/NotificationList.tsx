@@ -74,12 +74,9 @@ export default function NotificationList() {
     { id: 'releaseStartDate', label: formatMessage(messages.releaseStartDate), onSort: handleSort },
     { id: 'releaseEndDate', label: formatMessage(messages.releaseEndDate) }
   ]
-  const displayData = notificationList
-    .map((data, idx) => ({
-      id: `WORK_SHUNKAN10000006${idx}`,
-      data
-    }))
-    .sort((a, b) => (Date.parse(a.data[sortBy.key]) - Date.parse(b.data[sortBy.key])) * sortBy.multiplier)
+  const displayData = notificationList.sort(
+    (a, b) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier
+  )
   return (
     <>
       <ContentHeader

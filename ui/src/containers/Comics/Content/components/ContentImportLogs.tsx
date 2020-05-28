@@ -26,18 +26,12 @@ export default function ContentImportLogs() {
   )
 
   const dataList = importLogList
-    .map(({ id, ...log }) => ({
-      id,
-      data: {
-        ...log,
-        filename: <DownloadBlock filename={log.filename} />,
-        detail:
-          log.status === 'failure' ? <FailedMsg msg={formatMessage(commonMessages.errorAsyncFailed)} /> : log.detail
-      }
+    .map(log => ({
+      ...log,
+      filename: <DownloadBlock filename={log.filename} />,
+      detail: log.status === 'failure' ? <FailedMsg msg={formatMessage(commonMessages.errorAsyncFailed)} /> : log.detail
     }))
-    .sort(
-      (a, b) => (new Date(a.data[sortBy.key]).getTime() - new Date(b.data[sortBy.key]).getTime()) * sortBy.multiplier
-    )
+    .sort((a, b) => (new Date(a[sortBy.key]).getTime() - new Date(b[sortBy.key]).getTime()) * sortBy.multiplier)
 
   return (
     <>

@@ -48,8 +48,8 @@ interface Pagination {
 }
 
 interface RowData {
+  [key: string]: any
   id: string
-  data: { [key: string]: any }
   classnames?: string
 }
 
@@ -66,6 +66,7 @@ export interface Props {
   sortOrder?: SortOrder
   sortBy?: string
   noMarginTop?: boolean
+  rowIdKey?: string
 }
 
 const Container = styled(Paper)({
@@ -151,7 +152,8 @@ export default function ListTable({
   onRowClick,
   sortOrder = SortOrder.Desc,
   sortBy,
-  noMarginTop
+  noMarginTop,
+  rowIdKey = 'id'
 }: Props) {
   const classes = useStyles({ noMarginTop })
   const { formatMessage } = useIntl()
@@ -164,6 +166,7 @@ export default function ListTable({
     []
   )
   const handleRowClick = useCallback((id: string) => () => onRowClick!(id), [onRowClick])
+  const headerKeys = useMemo(() => theadList.map(thead => thead.id), [theadList])
 
   return (
     <div className={classnames} data-testid='list-table'>
@@ -218,12 +221,13 @@ export default function ListTable({
             </TableRow>
           </TableHead>
           <TableBody className={tbodyClass}>
-            {dataList.map(data => (
+            {dataList.map(rowData => (
               <ListTableRow
-                classnames={data.classnames}
-                items={data.data}
-                key={data.id}
-                onClick={onRowClick && handleRowClick(data.id)}
+                classnames={rowData.classnames}
+                headerKeys={headerKeys}
+                items={rowData}
+                key={rowData[rowIdKey]}
+                onClick={onRowClick && handleRowClick(rowData[rowIdKey])}
               />
             ))}
           </TableBody>

@@ -6,7 +6,7 @@ import { routePath } from '@src/common/appConfig'
 import { getCSVLogListAction } from '@src/reducers/user/giftComics/giftComicsAction'
 import GiftComicsContext, { ActionContext } from './context/GiftComicsContext'
 import GiftComicsCreation from './components/GiftComicsCreation'
-import GiftComicsBatchLogs from './components/GiftComicsBatchLogs'
+import GiftComicsImportLogs from './components/GiftComicsImportLogs'
 
 export default function GiftComics() {
   const dispatch = useDispatch()
@@ -19,7 +19,7 @@ export default function GiftComics() {
       <GiftComicsContext.Provider value={{ csvLogList: csvLogList, csvLogTotal }}>
         <Switch>
           <Route exact path={routePath.user.giftComicsCreation} component={GiftComicsCreation}></Route>
-          <Route exact path={routePath.user.giftComicsBatchLogs} component={GiftComicsBatchLogs}></Route>
+          <Route exact path={routePath.user.giftComicsBatchLogs} component={GiftComicsImportLogs}></Route>
         </Switch>
       </GiftComicsContext.Provider>
     </ActionContext.Provider>
