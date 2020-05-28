@@ -6,7 +6,7 @@ import ListTable from '@src/components/table/ListTable'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader/ContentHeader'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
-import { useSort, usePaging } from '@src/hooks'
+import { usePaging } from '@src/hooks'
 import { routePath } from '@src/common/appConfig'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
@@ -27,7 +27,6 @@ export default function SubscriptionList() {
   const history = useHistory()
   const { subscriptionList, subscriptionTotal } = useContext(SubscriptionContext)
   const { onGetSubscriptionList } = useContext(ActionContext)
-  const { sortBy, handleSort } = useSort('createAt')
   const { pagination, handlePageChange } = usePaging({ total: subscriptionTotal })
 
   useEffect(() => {
@@ -40,14 +39,14 @@ export default function SubscriptionList() {
 
   const theadList = useMemo(
     () => [
-      { id: 'createAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
+      { id: 'createAt', label: formatMessage(commonMessages.createDateTime) },
       { id: 'id', label: formatMessage(commonMessages.id) },
       { id: 'name', label: formatMessage(messages.name) },
-      { id: 'publicStart', label: formatMessage(commonMessages.publicStartTime), onSort: handleSort },
-      { id: 'publicEnd', label: formatMessage(commonMessages.publicEndTime), onSort: handleSort },
+      { id: 'publicStart', label: formatMessage(commonMessages.publicStartTime) },
+      { id: 'publicEnd', label: formatMessage(commonMessages.publicEndTime) },
       { id: 'spacer', label: '' }
     ],
-    [formatMessage, handleSort]
+    [formatMessage]
   )
 
   const buttonList = [
@@ -59,15 +58,13 @@ export default function SubscriptionList() {
     />
   ]
 
-  const dataList = subscriptionList
-    .map(subscription => ({
-      id: subscription.id,
-      data: {
-        ...subscription,
-        spacer: ''
-      }
-    }))
-    .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
+  const dataList = subscriptionList.map(subscription => ({
+    id: subscription.id,
+    data: {
+      ...subscription,
+      spacer: ''
+    }
+  }))
 
   return (
     <>
@@ -78,8 +75,6 @@ export default function SubscriptionList() {
         dataList={dataList}
         pagination={pagination}
         onPageChange={handlePageChange}
-        sortBy={sortBy.key}
-        sortOrder={sortBy.order}
         onRowClick={useCallback((id: string) => history.push(routePath.comics.subscriptionDetail.replace(':id', id!)), [
           history
         ])}

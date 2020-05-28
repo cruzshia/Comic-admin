@@ -74,7 +74,7 @@ export default function ContentList() {
       { id: 'category', label: formatMessage(messages.category) },
       { id: 'price', label: formatMessage(comicMessages.contentPrice) },
       { id: 'campaignPrice', label: formatMessage(comicMessages.campaignPrice) },
-      { id: 'sort', label: formatMessage(messages.sort) },
+      { id: 'sort', label: formatMessage(messages.sort), onSort: handleSort },
       { id: 'createAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
       { id: 'spacer', label: '' }
     ],
@@ -90,7 +90,12 @@ export default function ContentList() {
         spacer: ''
       }
     }))
-    .sort((a: any, b: any) => a.data[sortBy.key].localeCompare(b.data[sortBy.key]) * sortBy.multiplier)
+    .sort(
+      (a: any, b: any) =>
+        (sortBy.key === 'sort'
+          ? a.data[sortBy.key] - b.data[sortBy.key]
+          : a.data[sortBy.key].localeCompare(b.data[sortBy.key])) * sortBy.multiplier
+    )
 
   const tableButtonList = useMemo(
     () => [
