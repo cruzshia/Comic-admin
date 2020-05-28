@@ -96,7 +96,6 @@ context('Push Notification List', () => {
       .should('have.text', '送信数')
       .next()
       .should('have.text', '配信日時')
-      .and('be.sortableHeadCell', { sorting: true })
       .next()
       .should('have.text', '詳細')
 

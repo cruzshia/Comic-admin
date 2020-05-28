@@ -7,9 +7,9 @@ import { routePath } from '@src/common/appConfig'
 import ContentHeader from '@src/components/ContentHeader'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import { ReactComponent as DeleteIcon } from '@src/assets/common/delete.svg'
-import ListTable, { Padding, SortOrder } from '@src/components/table/ListTable'
+import ListTable, { Padding } from '@src/components/table/ListTable'
 import { StyledCheckBox } from '@src/components/form'
-import { usePaging, useSort, useCheckbox } from '@src/hooks'
+import { usePaging, useCheckbox } from '@src/hooks'
 import commonMessages from '@src/messages'
 import { successSubject } from '@src/utils/responseSubject'
 import { PushNotificationActionType } from '@src/reducers/application/pushNotification/pushNotificationActions'
@@ -55,7 +55,6 @@ export default function PushNotificationList() {
   const classes = useStyles()
   const { notificationList, notificationTotal } = useContext(PushNotificationContext)
   const { onGetPushNotificationList, onDeletePushNotification } = useContext(ActionContext)
-  const { sortBy, handleSort } = useSort<string>('scheduledStartTime')
   const { pagination, handlePageChange } = usePaging({ total: notificationTotal })
   const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll, onResetCheck } = useCheckbox()
 
@@ -98,25 +97,18 @@ export default function PushNotificationList() {
 
   const listTableData = useMemo(
     () =>
-      notificationList
-        .map(({ id, status, detail, ...rest }) => ({
-          id: id,
-          classnames: detail ? '' : `${Status[status as keyof typeof Status]}Row`,
-          data: {
-            checkbox: <StyledCheckBox value={id} checked={isChecked(id)} onCheck={handleCheck} />,
-            status: <Capsule status={status} />,
-            ...rest,
-            timesPushed: status === 'reserved' ? '' : rest.timesPushed,
-            detail: detail && <FormHelperText className='error'>{detail}</FormHelperText>
-          }
-        }))
-        .sort((a: any, b: any) => {
-          return (
-            (new Date(a.data[sortBy.key]).getTime() - new Date(b.data[sortBy.key]).getTime()) *
-            (sortBy.order === SortOrder.Asc ? 1 : -1)
-          )
-        }),
-    [notificationList, handleCheck, sortBy.key, sortBy.order, isChecked]
+      notificationList.map(({ id, status, detail, ...rest }) => ({
+        id: id,
+        classnames: detail ? '' : `${Status[status as keyof typeof Status]}Row`,
+        data: {
+          checkbox: <StyledCheckBox value={id} checked={isChecked(id)} onCheck={handleCheck} />,
+          status: <Capsule status={status} />,
+          ...rest,
+          timesPushed: status === 'reserved' ? '' : rest.timesPushed,
+          detail: detail && <FormHelperText className='error'>{detail}</FormHelperText>
+        }
+      })),
+    [notificationList, handleCheck, isChecked]
   )
 
   const handleCheckAll = useCallback(() => {
@@ -136,12 +128,11 @@ export default function PushNotificationList() {
       { id: 'timesPushed', label: formatMessage(messages.pushedTimes) },
       {
         id: 'scheduledStartTime',
-        label: formatMessage(commonMessages.deliveryDateTime),
-        onSort: handleSort
+        label: formatMessage(commonMessages.deliveryDateTime)
       },
       { id: 'detail', label: formatMessage(commonMessages.detail) }
     ],
-    [handleSort, formatMessage, handleCheckAll, isCheckAll]
+    [formatMessage, handleCheckAll, isCheckAll]
   )
 
   return (
@@ -156,8 +147,6 @@ export default function PushNotificationList() {
         pagination={pagination}
         onPageChange={handlePageChange}
         buttonList={tableButtonList}
-        sortBy={sortBy.key}
-        sortOrder={sortBy.order}
         onRowClick={useCallback(id => history.push(routePath.application.pushNotificationEdit.replace(':id', id)), [
           history
         ])}
