@@ -1,3 +1,4 @@
+import { AdPosition, AdSettingKeys, AdType } from '@src/models/comics/advertisement'
 import mockCover1 from './mockCover1.png'
 import mockCover2 from './mockCover2.png'
 import mockCover3 from './mockCover3.png'
@@ -25,34 +26,28 @@ export const mockCampaign = {
   images: [mockCover1, mockCover2, mockCover3, mockCover4, mockCover5, mockCover6, mockCover7],
   advertisement: {
     device: 'ios',
-    front: [
+    [AdPosition.Front]: [
       {
-        adCategory: 'original',
-        imageUrl: mockManga,
-        link: 'https://shonenjumpplus.com/episode/10834108156758729535',
-        buttonName: 'サンプルテキスト',
-        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00',
-        type: 'opening'
+        [AdSettingKeys.Type]: AdType.Original,
+        [AdSettingKeys.ImageUrl]: mockManga,
+        [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
+        [AdSettingKeys.Button]: 'サンプルテキスト',
+        [AdSettingKeys.BeginAt]: '2020-02-20 19:00　〜　2020-02-20 19:00'
       }
     ],
-    back: [
+    [AdPosition.Back]: [
       {
-        adCategory: 'fan',
-        content: '表示位置情報のみ',
-        type: 'content'
+        [AdSettingKeys.Type]: AdType.Fan
       },
       {
-        adCategory: 'map',
-        content: '表示位置情報のみ',
-        type: 'content'
+        [AdSettingKeys.Type]: AdType.Map
       },
       {
-        adCategory: 'original',
-        imageUrl: mockManga,
-        link: 'https://shonenjumpplus.com/episode/10834108156758729535',
-        buttonName: 'サンプルテキスト',
-        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00',
-        type: 'content'
+        [AdSettingKeys.Type]: AdType.Original,
+        [AdSettingKeys.ImageUrl]: mockManga,
+        [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
+        [AdSettingKeys.Button]: 'サンプルテキスト',
+        [AdSettingKeys.BeginAt]: '2020-02-20 19:00　〜　2020-02-20 19:00'
       }
     ]
   }

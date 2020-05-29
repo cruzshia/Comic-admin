@@ -306,5 +306,13 @@ export default defineMessages({
   templateUTF8: {
     id: PREFIX + 'template_UTF8',
     defaultMessage: 'Template(UTF-8)'
+  },
+  have: {
+    id: PREFIX + 'have',
+    defaultMessage: 'Have'
+  },
+  no: {
+    id: PREFIX + 'no',
+    defaultMessage: 'No'
   }
 })

@@ -1,3 +1,4 @@
+import { AdPosition, AdSettingKeys, AdType } from '@src/models/comics/advertisement'
 import { _range } from '@src/utils/functions'
 import mockManga from './manga.png'
 import mockListImage from './mockListImg.png'
@@ -11,7 +12,7 @@ export const mockContent = {
   category: '連載',
   description:
     '【２０２０年 秋アニメ化決定！】モンスターに育てられた、勇者に憧れる少年・ダイ。師や仲間とともに、世界を救う冒険が今始まる——！',
-  author: '稲田浩司',
+  authors: ['稲田浩司'],
   appId: 'サンプルテキスト',
   workId: 'WORK_SHUNKAN10000006',
   price: 100,
@@ -35,34 +36,28 @@ export const mockContent = {
   freePPVEnd2: '2019-12-25 00:00',
   advertisement: {
     device: 'ios',
-    front: [
+    [AdPosition.Front]: [
       {
-        adCategory: 'original',
-        imageUrl: mockManga,
-        link: 'https://shonenjumpplus.com/episode/10834108156758729535',
-        buttonName: 'サンプルテキスト',
-        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00',
-        type: 'opening'
+        [AdSettingKeys.Type]: AdType.Original,
+        [AdSettingKeys.ImageUrl]: mockManga,
+        [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
+        [AdSettingKeys.Button]: 'サンプルテキスト',
+        [AdSettingKeys.BeginAt]: '2020-02-20 19:00　〜　2020-02-20 19:00'
       }
     ],
-    back: [
+    [AdPosition.Back]: [
       {
-        adCategory: 'fan',
-        content: '表示位置情報のみ',
-        type: 'content'
+        [AdSettingKeys.Type]: AdType.Fan
       },
       {
-        adCategory: 'map',
-        content: '表示位置情報のみ',
-        type: 'content'
+        [AdSettingKeys.Type]: AdType.Map
       },
       {
-        adCategory: 'original',
-        imageUrl: mockManga,
-        link: 'https://shonenjumpplus.com/episode/10834108156758729535',
-        buttonName: 'サンプルテキスト',
-        deliveryDuration: '2020-02-20 19:00　〜　2020-02-20 19:00',
-        type: 'content'
+        [AdSettingKeys.Type]: AdType.Original,
+        [AdSettingKeys.ImageUrl]: mockManga,
+        [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
+        [AdSettingKeys.Button]: 'サンプルテキスト',
+        [AdSettingKeys.BeginAt]: '2020-02-20 19:00　〜　2020-02-20 19:00'
       }
     ]
   },

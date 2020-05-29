@@ -15,7 +15,7 @@ const initState: ContentState = {
 }
 
 export const emptyContent: Content = {
-  author: [''],
+  authors: [''],
   advertisement: defaultAdTypes
 }
 

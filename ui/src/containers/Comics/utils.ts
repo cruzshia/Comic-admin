@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-export const IMAGE_NUM = 7
+export const IMAGE_NUM = 4
 export const IMAGE_MAX_WIDTH = '40%'
 
 export enum ScrollAnchor {

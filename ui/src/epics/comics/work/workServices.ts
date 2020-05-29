@@ -43,12 +43,12 @@ export const createWorkAjax = (work: WorkDetail): Response<WorkDetail> => {
   return from([
     {
       status: 200,
-      response: mockListData[0]
+      response: mockWork
     }
   ])
 }
 
-export const updateWorkAjax = (work: Omit<WorkDetail, 'id'>): Response<WorkDetail> => {
+export const updateWorkAjax = (work: WorkDetail): Response<WorkDetail> => {
   authAjax.put(`${WORK_API_PATH}/${work.id}`)
   return from([
     {

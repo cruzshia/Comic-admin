@@ -7,7 +7,7 @@ import { TimeSpanInput, ImagePreview } from '@src/components/form'
 import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
 import Button from '@src/components/Button/Button'
 import Condition from '@src/components/finalForm/Condition'
-import { AdType } from '@src/models/comics/advertisement'
+import { AdType, AdSettingKeys } from '@src/models/comics/advertisement'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
@@ -35,9 +35,9 @@ export default function Advertisement({ type, name, onDelete }: Props) {
   const [previewImage, setPreviewImage] = useState<string | undefined>()
   const { preview, enterUrl, enterButtonName, deliveryDuration } = commonMessages
   const urlPlaceholder = formatMessage(enterUrl)
-  const image = useField(`${name}.imageUrl`).input.value
+  const image = useField(`${name}.${AdSettingKeys.ImageUrl}`).input.value
 
-  const adType = useField(`${name}.adCategory`).input.value
+  const adType = useField(`${name}.${AdSettingKeys.Type}`).input.value
   const isOriginal = adType === AdType.Original
 
   const AD_OPTIONS = useMemo(
@@ -57,19 +57,27 @@ export default function Advertisement({ type, name, onDelete }: Props) {
     <InputBlock onDelete={onDelete} key={name + adType}>
       <Grid className={classes.rowContainer} container direction='row'>
         <InputRow title={formatMessage(messages.adCategory)} classnames={!isOriginal ? classes.lastRow : ''}>
-          <Field name={`${name}.adCategory`} component={SelectAdapter} options={AD_OPTIONS} />
+          <Field name={`${name}.${AdSettingKeys.Type}`} component={SelectAdapter} options={AD_OPTIONS} />
         </InputRow>
-        <Condition when={`${name}.adCategory`} is={AdType.Original}>
+        <Condition when={`${name}.${AdSettingKeys.Type}`} is={AdType.Original}>
           <InputRow title={formatMessage(messages.imageUrl)}>
-            <Field name={`${name}.imageUrl`} component={TextInputAdapter} placeholder={urlPlaceholder} />
+            <Field
+              name={`${name}.${AdSettingKeys.ImageUrl}`}
+              component={TextInputAdapter}
+              placeholder={urlPlaceholder}
+            />
             <Button buttonText={formatMessage(preview)} classnames={classes.button} onClick={handleClick} />
           </InputRow>
           <InputRow title={formatMessage(messages.link)}>
-            <Field name={`${name}.link`} component={TextInputAdapter} placeholder={urlPlaceholder} />
+            <Field
+              name={`${name}.${AdSettingKeys.ActionUrl}`}
+              component={TextInputAdapter}
+              placeholder={urlPlaceholder}
+            />
           </InputRow>
           <InputRow title={formatMessage(messages.buttonName)}>
             <Field
-              name={`${name}.buttonName`}
+              name={`${name}.${AdSettingKeys.Button}`}
               component={TextInputAdapter}
               placeholder={formatMessage(enterButtonName)}
             />

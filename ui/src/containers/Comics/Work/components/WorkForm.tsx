@@ -3,17 +3,18 @@ import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
 import { makeStyles } from '@material-ui/core'
-import DataTable from '@src/components/table/DataTable'
-import { TextInput, TextArea, Select, StartEndForm } from '@src/components/form'
-import { DropZoneAdapter, SelectAdapter } from '@src/components/finalForm'
+import DataTable, { toDataSet } from '@src/components/table/DataTable'
+import { Select, StartEndForm } from '@src/components/form'
+import { DropZoneAdapter, SelectAdapter, TextInputAdapter, TextAreaAdapter } from '@src/components/finalForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { checkError } from '@src/utils/validation'
 import { emptyWork } from '@src/reducers/comics/work/workReducer'
-import commonMessages from '@src/messages'
-import comicsMessages from '../../messages'
+import { WorkKeys, WorkType } from '@src/models/comics/work'
 import AuthorEditForm from '../../components/AuthorEditForm'
 import AdSettingForm from '../../components/AdSettingForm'
 import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
+import commonMessages from '@src/messages'
+import comicsMessages from '../../messages'
 import messages from '../messages'
 import clsx from 'clsx'
 
@@ -42,6 +43,29 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const { allAnchorRefs, deliveryRef, adSettingRef, episodeInfoRef } = useComicsRef()
+
+  const workTypeOptions = useMemo(
+    () =>
+      Object.values(WorkType).map(type => ({
+        label: formatMessage(messages[type]),
+        value: type
+      })),
+    [formatMessage]
+  )
+
+  const returnOptions = useMemo(
+    () => [
+      {
+        label: formatMessage(commonMessages.have),
+        value: true
+      },
+      {
+        label: formatMessage(commonMessages.no),
+        value: false
+      }
+    ],
+    [formatMessage]
+  )
 
   const imageDataSet = useMemo(() => {
     const dataSet = []
@@ -73,48 +97,31 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   classes: workData ? 'display' : undefined,
                   content: workData ? workData.id : ''
                 },
-                {
-                  label: formatMessage(commonMessages.title),
-                  content: (
-                    <Field name='title'>{({ input, meta }) => <TextInput {...input} error={checkError(meta)} />}</Field>
-                  )
-                },
-                {
-                  label: formatMessage(messages.titleKana),
-                  content: (
-                    <Field name='titleKana'>
-                      {({ input, meta }) => <TextInput {...input} error={checkError(meta)} />}
-                    </Field>
-                  )
-                },
-                {
-                  label: formatMessage(messages.introduction),
-                  content: (
-                    <Field name='introduction'>
-                      {({ input, meta }) => <TextArea {...input} error={checkError(meta)} />}
-                    </Field>
-                  )
-                },
-                {
-                  label: formatMessage(commonMessages.author),
-                  content: <AuthorEditForm mutators={form.mutators as any} />
-                },
+                toDataSet(
+                  formatMessage(commonMessages.title),
+                  <Field name={WorkKeys.Title} component={TextInputAdapter} />
+                ),
+                toDataSet(
+                  formatMessage(messages.titleKana),
+                  <Field name={WorkKeys.TitleKana} component={TextInputAdapter} />
+                ),
+                toDataSet(
+                  formatMessage(messages.introduction),
+                  <Field name={WorkKeys.Description} component={TextAreaAdapter} />
+                ),
+                toDataSet(formatMessage(commonMessages.author), <AuthorEditForm authorKey={WorkKeys.AuthorIds} />),
                 {
                   label: formatMessage(messages.category),
                   classes: workData ? 'display' : undefined,
                   content: (
-                    <Field name='category'>
-                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
-                    </Field>
+                    <Field name={WorkKeys.WorkType} component={SelectAdapter} options={workTypeOptions} isShort />
                   )
                 },
                 {
                   label: formatMessage(messages.reduction),
                   classes: workData ? 'display' : undefined,
                   content: (
-                    <Field name='reduction'>
-                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
-                    </Field>
+                    <Field name={WorkKeys.ReturnAdRevenue} component={SelectAdapter} options={returnOptions} isShort />
                   )
                 },
                 {
@@ -164,7 +171,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 ...imageDataSet
               ]}
             />
-            <AdSettingForm adSettingRef={adSettingRef} />
+            <AdSettingForm adSettingRef={adSettingRef} adKey={WorkKeys.AdSetting} />
           </form>
         )}
       />

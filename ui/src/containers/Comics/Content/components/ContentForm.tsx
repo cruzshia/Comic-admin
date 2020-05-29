@@ -72,7 +72,7 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
                   formatMessage(commonMessages.introduction),
                   <Field name='description' component={TextAreaAdapter} options={[]} isShort />
                 ),
-                toDataSet(formatMessage(commonMessages.author), <AuthorEditForm mutators={form.mutators as any} />),
+                toDataSet(formatMessage(commonMessages.author), <AuthorEditForm />),
                 toDataSet(
                   formatMessage(commonMessages.appId),
                   <Field name='appId' component={SelectAdapter} options={[]} />

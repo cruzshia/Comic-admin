@@ -85,7 +85,7 @@ export default function ContentDetail() {
           toDataSet(formatMessage(commonMessages.introduction), currentContent.description),
           toDataSet(
             formatMessage(commonMessages.author),
-            <span className={classes.author}>{currentContent.author}</span>
+            <span className={classes.author}>{currentContent.authors[0]}</span>
           ),
           toDataSet(formatMessage(commonMessages.appId), currentContent.appId),
           toDataSet(formatMessage(comicMessages.workId), currentContent.workId),

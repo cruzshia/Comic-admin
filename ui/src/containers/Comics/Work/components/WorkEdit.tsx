@@ -13,7 +13,7 @@ import messages from '../messages'
 import WorkContext, { ActionContext } from '../context/WorkContext'
 
 export default function WorkEdit() {
-  const { currentWork = {} } = useContext(WorkContext)
+  const { currentWork } = useContext(WorkContext)
   const { onGetWork, onUpdateWork, onResetWork } = useContext(ActionContext)
   const { id } = useParams()
   const formRef = useRef<HTMLFormElement>(null)
@@ -45,7 +45,7 @@ export default function WorkEdit() {
   )
   const buttonList = useMemo(() => [UpdateButton], [UpdateButton])
 
-  return currentWork.id ? (
+  return currentWork?.id ? (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={title} buttonList={buttonList} />
       <StickyHeader title={formatMessage(messages.createWork)} button={UpdateButton} />

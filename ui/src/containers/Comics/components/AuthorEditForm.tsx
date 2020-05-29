@@ -1,8 +1,7 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
 import { Field } from 'react-final-form'
-import { FieldArray } from 'react-final-form-arrays'
-import { Mutators } from 'final-form-arrays'
+import { useFieldArray } from 'react-final-form-arrays'
 import { Grid, makeStyles } from '@material-ui/core'
 import SearchInput from '@src/components/form/SearchInput'
 import Button, { Theme } from '@src/components/Button/Button'
@@ -20,32 +19,26 @@ const useStyle = makeStyles({
   }
 })
 
-const AUTHOR_FIELD = 'author'
-export default function AuthorEditForm({ prefix, mutators }: { prefix?: string; mutators: Mutators }) {
+const AUTHOR_FIELD = 'authors'
+
+export default function AuthorEditForm({ authorKey }: { authorKey?: string }) {
   const classes = useStyle()
+  const { fields } = useFieldArray<any>(authorKey || AUTHOR_FIELD)
   const { formatMessage } = useIntl()
-  const handleAdd = useCallback(() => mutators.push(AUTHOR_FIELD, ''), [mutators])
+  const handleAdd = () => fields.push('')
 
   return (
     <>
-      <FieldArray name={prefix || AUTHOR_FIELD}>
-        {({ fields }) =>
-          fields.map((name, idx) => {
-            return (
-              <Field key={name} name={name}>
-                {({ input, meta }) => (
-                  <>
-                    <Grid className={classes.margin} container alignItems='center'>
-                      <SearchInput {...input} error={checkError(meta)} />
-                      {idx === 0 && <Button buttonText={formatMessage(comicMessages.addNewAuthor)} icon={AddIcon} />}
-                    </Grid>
-                  </>
-                )}
-              </Field>
-            )
-          })
-        }
-      </FieldArray>
+      {fields.map((name, idx) => (
+        <Field key={name} name={name}>
+          {({ input, meta }) => (
+            <Grid className={classes.margin} container alignItems='center'>
+              <SearchInput {...input} error={checkError(meta)} />
+              {idx === 0 && <Button buttonText={formatMessage(comicMessages.addNewAuthor)} icon={AddIcon} />}
+            </Grid>
+          )}
+        </Field>
+      ))}
       <Button
         theme={Theme.DARK_BORDER}
         icon={AddCircleIcon}

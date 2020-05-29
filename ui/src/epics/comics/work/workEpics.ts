@@ -2,6 +2,7 @@ import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
 import { map, switchMap, exhaustMap, catchError, tap, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
+import WorkDetail, { WorkKeys } from '@src/models/comics/work'
 import {
   WorkActionType,
   getWorkListSuccessAction,
@@ -12,6 +13,11 @@ import {
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
 import { emptyErrorReturn } from '../../utils'
+
+const toAuthorIds = (work: WorkDetail) => {
+  work[WorkKeys.AuthorIds] = work[WorkKeys.Authors].map(author => author.id)
+  return work
+}
 
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -33,7 +39,7 @@ export const getWorkEpic = (action$: ActionsObservable<AnyAction>) =>
     ofType(WorkActionType.GET_WORK),
     switchMap(action =>
       workServices.getWorkAjax(action.payload).pipe(
-        map(res => getWorkSuccessAction(res.response)),
+        map(res => getWorkSuccessAction(toAuthorIds(res.response))),
         tap(() => successSubject.next({ type: WorkActionType.GET_WORK_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: WorkActionType.GET_WORK_ERROR })
@@ -47,7 +53,7 @@ export const createWorkEpic = (action$: ActionsObservable<AnyAction>) =>
     ofType(WorkActionType.CREATE),
     exhaustMap(action =>
       workServices.createWorkAjax(action.payload).pipe(
-        map(res => createWorkSuccessAction(res.response)),
+        map(res => createWorkSuccessAction(toAuthorIds(res.response))),
         tap(() => successSubject.next({ type: WorkActionType.CREATE_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: WorkActionType.CREATE_ERROR })
@@ -62,7 +68,7 @@ export const updateWorkEpic = (action$: ActionsObservable<AnyAction>) =>
     ofType(WorkActionType.UPDATE),
     exhaustMap(action =>
       workServices.updateWorkAjax(action.payload).pipe(
-        map(res => updateWorkSuccessAction(res.response)),
+        map(res => updateWorkSuccessAction(toAuthorIds(res.response))),
         tap(() => successSubject.next({ type: WorkActionType.UPDATE_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: WorkActionType.UPDATE_ERROR })

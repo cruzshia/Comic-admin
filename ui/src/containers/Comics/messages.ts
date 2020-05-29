@@ -20,6 +20,10 @@ export default defineMessages({
     id: PREFIX + 'button_name',
     defaultMessage: 'Button Name'
   },
+  adPositionInfo: {
+    id: PREFIX + 'ad.position_info',
+    defaultMessage: 'Position Info'
+  },
   [AdType.Original]: {
     id: PREFIX + 'ad.original',
     defaultMessage: 'Original'

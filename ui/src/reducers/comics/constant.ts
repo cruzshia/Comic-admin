@@ -1,15 +1,15 @@
-import { AdType } from '@src/models/comics/advertisement'
+import { AdType, AdPosition, AdSettingKeys } from '@src/models/comics/advertisement'
 
-export const defaultFrontAds = [{ adCategory: AdType.Original }]
+export const defaultFrontAds = [{ [AdSettingKeys.Type]: AdType.Original }]
 export const defaultBackAds = [
-  { adCategory: AdType.Fan },
-  { adCategory: AdType.Map },
-  { adCategory: AdType.Original },
+  { [AdSettingKeys.Type]: AdType.Fan },
+  { [AdSettingKeys.Type]: AdType.Map },
+  { [AdSettingKeys.Type]: AdType.Original },
   {}
 ]
 
 export const defaultAdTypes = {
   device: '',
-  front: defaultFrontAds,
-  back: defaultBackAds
+  [AdPosition.Front]: defaultFrontAds,
+  [AdPosition.Back]: defaultBackAds
 }

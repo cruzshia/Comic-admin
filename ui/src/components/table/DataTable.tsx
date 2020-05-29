@@ -62,15 +62,15 @@ export interface DataSet {
   classes?: string
 }
 
-export const toDataSet = (label: string, content: string | JSX.Element, isSubTitle?: boolean) => ({
+export const toDataSet = (label: string, content?: string | JSX.Element, isSubTitle?: boolean) => ({
   label,
-  content,
+  content: content || '',
   isSubTitle
 })
 
-export const toPreWrapDataSet = (label: string, content: string | JSX.Element) => ({
+export const toPreWrapDataSet = (label: string, content?: string | JSX.Element) => ({
   label,
-  content: <Box whiteSpace='pre-wrap'>{content}</Box>
+  content: <Box whiteSpace='pre-wrap'>{content || ''}</Box>
 })
 
 interface Props {

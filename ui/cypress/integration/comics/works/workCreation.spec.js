@@ -146,21 +146,6 @@ context('Work Creation', () => {
             expect($item.find(LABEL_SELECTOR)).have.text('話作品画像4')
             expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
           })
-          .next()
-          .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('話作品画像5')
-            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
-          })
-          .next()
-          .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('話作品画像6')
-            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
-          })
-          .next()
-          .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('話作品画像7')
-            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.drop}]`)).to.be.exist
-          })
       })
 
     cy.get('@dataTable')

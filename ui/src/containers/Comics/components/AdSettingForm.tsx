@@ -9,7 +9,7 @@ import DataTable from '@src/components/table/DataTable'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as ArrowIcon } from '@src/assets/common/arrow_forward.svg'
 import { ReactComponent as AddIcon } from '@src/assets/common/add_circle.svg'
-import AdsModel, { AdPosition } from '@src/models/comics/advertisement'
+import AdsModel, { AdPosition, AdSettingKeys } from '@src/models/comics/advertisement'
 import commonMessages from '@src/messages'
 import comicMessages from '../messages'
 import Advertisement from './Advertisement'
@@ -38,8 +38,8 @@ const DEFAULT_ADS_KEY = 'advertisement'
 export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, marginBottom }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
-  const { fields: fieldsFront } = useFieldArray<AdsModel>(`${adKey}.front`)
-  const { fields: fieldsBack } = useFieldArray<AdsModel>(`${adKey}.back`)
+  const { fields: fieldsFront } = useFieldArray<AdsModel>(`${adKey}.${AdPosition.Front}`)
+  const { fields: fieldsBack } = useFieldArray<AdsModel>(`${adKey}.${AdPosition.Back}`)
   const ads = {
     [AdPosition.Front]: fieldsFront,
     [AdPosition.Back]: fieldsBack
@@ -59,7 +59,7 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
   }
 
   const createDelete = (type: AdPosition, idx: number) => () => ads[type].remove(idx)
-  const handleAdd = () => fieldsBack.push({})
+  const handleAdd = () => fieldsBack.push({} as any)
 
   const genDroppableBlock = (type: AdPosition) => {
     const fields = ads[type]
@@ -75,13 +75,13 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
                     <Draggable draggableId={name} index={index}>
                       {provided => (
                         <div
-                          key={value[index].adCategory}
+                          key={value[index][AdSettingKeys.Type]}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
                           <Advertisement
-                            type={value[index].adCategory}
+                            type={value[index][AdSettingKeys.Type]}
                             name={name}
                             onDelete={createDelete(type, index)}
                           />

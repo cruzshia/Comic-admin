@@ -33,5 +33,4 @@ export interface AdSetting {
   [AdPosition.Back]?: Advertisement[]
 }
 
-type Ad = any
-export default Ad
+export default Advertisement

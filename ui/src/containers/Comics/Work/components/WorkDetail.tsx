@@ -10,6 +10,7 @@ import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { _range } from '@src/utils/functions'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
+import { WorkKeys } from '@src/models/comics/work'
 import workContext, { ActionContext } from '../context/WorkContext'
 import { ScrollAnchor, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
 import commonMessages from '@src/messages'
@@ -42,14 +43,14 @@ const useStyle = makeStyles({
 })
 
 export default function WorkDetail() {
-  const { currentWork = {} } = useContext(workContext)
+  const { currentWork } = useContext(workContext)
   const { onGetWork, onResetWork } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const { id } = useParams()
   const classes = useStyle()
   const history = useHistory()
 
-  const titleText = currentWork.title
+  const titleText: string = currentWork?.[WorkKeys.Title] || ''
   const breadcrumbList: Breadcrumb[] = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
@@ -86,7 +87,7 @@ export default function WorkDetail() {
     [formatMessage, handleEdit]
   )
 
-  if (!currentWork.id) return null
+  if (!currentWork) return null
 
   return (
     <>
@@ -97,19 +98,25 @@ export default function WorkDetail() {
         tableClass={classes.table}
         onEdit={handleEdit}
         dataSet={[
-          toDataSet(formatMessage(comicMessages.workId), currentWork.id),
-          toDataSet(formatMessage(commonMessages.title), currentWork.title),
-          toDataSet(formatMessage(messages.titleKana), currentWork.titleKana),
-          toDataSet(formatMessage(messages.introduction), currentWork.introduction),
+          toDataSet(formatMessage(comicMessages.workId), currentWork[WorkKeys.ID]),
+          toDataSet(formatMessage(commonMessages.title), currentWork[WorkKeys.Title]),
+          toDataSet(formatMessage(messages.titleKana), currentWork[WorkKeys.TitleKana]),
+          toDataSet(formatMessage(messages.introduction), currentWork[WorkKeys.Description]),
           toDataSet(
             formatMessage(commonMessages.author),
-            <span className={classes.blueText}>{currentWork.author[0]}</span>
+            <>
+              {currentWork[WorkKeys.Authors].map(author => (
+                <div key={author.id} className={classes.blueText}>
+                  {author.name}
+                </div>
+              ))}
+            </>
           ),
-          toDataSet(formatMessage(messages.category), currentWork.category),
-          toDataSet(formatMessage(messages.reduction), currentWork.reduction),
-          toDataSet(formatMessage(commonMessages.subscriptionId), currentWork.subscriptionId),
-          toDataSet(formatMessage(commonMessages.createDateTime), currentWork.createDateTime),
-          toDataSet(formatMessage(commonMessages.updateDateTime), currentWork.updateDateTime)
+          toDataSet(formatMessage(messages.category), currentWork[WorkKeys.WorkType]),
+          toDataSet(formatMessage(messages.reduction), currentWork[WorkKeys.ReturnAdRevenue]),
+          toDataSet(formatMessage(commonMessages.subscriptionId), currentWork[WorkKeys.Subscription]?.id),
+          toDataSet(formatMessage(commonMessages.createDateTime), currentWork[WorkKeys.CreateAt]),
+          toDataSet(formatMessage(commonMessages.updateDateTime), currentWork[WorkKeys.UpdateAt])
         ]}
       />
       <DataTable
@@ -117,8 +124,8 @@ export default function WorkDetail() {
         tableClass={classes.table}
         onEdit={handleEditDelivery}
         dataSet={[
-          toDataSet(formatMessage(commonMessages.deliveryStartDateTime), currentWork.deliveryStartDateTime),
-          toDataSet(formatMessage(commonMessages.deliveryEndDateTime), currentWork.deliveryEndDateTime)
+          toDataSet(formatMessage(commonMessages.deliveryStartDateTime), currentWork[WorkKeys.PublishBeginAt]),
+          toDataSet(formatMessage(commonMessages.deliveryEndDateTime), currentWork[WorkKeys.PublishEndAt])
         ]}
       />
       <DataTable
@@ -126,11 +133,11 @@ export default function WorkDetail() {
         tableClass={classes.table}
         onEdit={handleEditEpisode}
         dataSet={[
-          toDataSet(formatMessage(messages.episodeCategory), currentWork.episodeCategory),
-          toDataSet(formatMessage(messages.updateFrequency), currentWork.updateFrequency),
-          toDataSet(formatMessage(messages.rensai), currentWork.rensai),
+          toDataSet(formatMessage(messages.episodeCategory), currentWork[WorkKeys.EpisodeWorkType]),
+          toDataSet(formatMessage(messages.updateFrequency), currentWork[WorkKeys.UpdateFrequency]),
+          toDataSet(formatMessage(messages.rensai), currentWork[WorkKeys.MagazineName]),
           ..._range(0, IMAGE_NUM).map(i => {
-            const img = currentWork.images[i]
+            const img = currentWork[WorkKeys.Images]?.[i]
             return toDataSet(
               `${formatMessage(comicMessages.episodeImage)}${i + 1}`,
               img ? <img key={`image-${i}`} className={classes.image} src={img} alt={img} /> : ''
@@ -138,7 +145,7 @@ export default function WorkDetail() {
           })
         ]}
       />
-      <AdSettingTable onEdit={handleEditAd} data={currentWork.advertisement} />
+      <AdSettingTable onEdit={handleEditAd} data={currentWork[WorkKeys.AdSetting]} />
     </>
   )
 }

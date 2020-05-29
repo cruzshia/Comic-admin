@@ -2,7 +2,7 @@ import { AdSetting } from './advertisement'
 
 export enum WorkSearchKeys {
   ID = 'id',
-  Author = 'author_name',
+  Author = 'author_keyword',
   WorkType = 'work_type',
   PublishBeginAtFrom = 'publish_begin_at_from',
   PublishBeginAtTo = 'publish_begin_at_to',
@@ -22,6 +22,7 @@ export enum WorkKeys {
   TitleKana = 'title_kana',
   Description = 'description',
   Authors = 'authors',
+  AuthorIds = 'author_ids',
   Subscription = 'subscription',
   WorkType = 'work_type',
   CreateAt = 'inserted_at',
@@ -75,6 +76,7 @@ export interface WorkDetail extends Work {
   [WorkKeys.TitleKana]?: string
   [WorkKeys.Description]: string
   [WorkKeys.Authors]: Author[]
+  [WorkKeys.AuthorIds]?: string[]
   [WorkKeys.Subscription]?: Subscription
   [WorkKeys.UpdateAt]: string
   [WorkKeys.PublishBeginAt]: string
@@ -100,5 +102,4 @@ export interface Subscription {
   name: string
 }
 
-type w = any
-export default w
+export default WorkDetail

@@ -1,4 +1,4 @@
-import Work from '@src/models/comics/work'
+import WorkDetail, { Work, WorkKeys } from '@src/models/comics/work'
 import ImportLog from '@src/models/importLog'
 import { WorkActionType, ListParams } from './workActions'
 import { defaultAdTypes } from '../constant'
@@ -7,7 +7,7 @@ import { ActionType } from '../../types'
 export interface WorkState {
   workList: Work[]
   workTotal: number
-  currentWork?: Work
+  currentWork?: WorkDetail
   importLogList: ImportLog[]
   logTotal: number
 }
@@ -19,9 +19,9 @@ const initState: WorkState = {
   logTotal: 0
 }
 
-export const emptyWork: Work = {
-  author: [''],
-  advertisement: defaultAdTypes
+export const emptyWork = {
+  [WorkKeys.AuthorIds]: [''],
+  [WorkKeys.AdSetting]: defaultAdTypes
 }
 
 export const WorkPreloadState = initState

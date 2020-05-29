@@ -1,15 +1,15 @@
 import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
-import DataTable, { DataSet } from '@src/components/table/DataTable'
+import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
 import comicMessages from '../messages'
 import { backgroundColorGray } from '@src/common/styles'
-import Advertisement, { AdType } from '@src/models/comics/advertisement'
+import Advertisement, { AdType, AdSetting, AdSettingKeys, AdPosition } from '@src/models/comics/advertisement'
 
 interface Prop {
   hideSubtitle?: boolean
-  data: { [key: string]: any }
+  data?: AdSetting
   onEdit: () => void
 }
 
@@ -31,14 +31,9 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
   const { formatMessage } = useIntl()
   const classes = useStyles()
 
-  const genTableData = (id: any, dataSource: any): DataSet => ({
-    label: formatMessage(commonMessages[id as keyof typeof commonMessages]),
-    content: dataSource[id]
-  })
-
   const genAdvertisementData = (data: Advertisement) => {
-    switch (data.adCategory) {
-      case 'original':
+    switch (data[AdSettingKeys.Type]) {
+      case AdType.Original:
         return {
           label: formatMessage(commonMessages.original),
           content: (
@@ -46,11 +41,11 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
               dataSet={[
                 {
                   label: formatMessage(commonMessages.photo),
-                  content: <img src={data.imageUrl} alt={data.imageUrl} />
+                  content: <img src={data[AdSettingKeys.ImageUrl]} alt={data[AdSettingKeys.ImageUrl]} />
                 },
-                genTableData('link', data),
-                genTableData('buttonName', data),
-                genTableData('deliveryDuration', data)
+                toDataSet(formatMessage(commonMessages.link), data[AdSettingKeys.ActionUrl]),
+                toDataSet(formatMessage(commonMessages.buttonName), data[AdSettingKeys.Button]),
+                toDataSet(formatMessage(commonMessages.deliveryDuration), data[AdSettingKeys.BeginAt])
               ]}
               innerTable
             />
@@ -58,8 +53,8 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
         }
       default:
         return {
-          label: formatMessage(comicMessages[data.adCategory === AdType.Fan ? AdType.Fan : AdType.Map]),
-          content: data.content
+          label: formatMessage(comicMessages[data[AdSettingKeys.Type] === AdType.Fan ? AdType.Fan : AdType.Map]),
+          content: formatMessage(comicMessages.adPositionInfo)
         }
     }
   }
@@ -69,14 +64,16 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
     : [
         {
           label: '',
-          content: formatMessage(commonMessages[data.deviceCategory === 'common' ? 'deviceCommon' : 'deviceCategory']),
+          content: formatMessage(
+            commonMessages[data?.[AdSettingKeys.AdDevice] === 'common' ? 'deviceCommon' : 'deviceCategory']
+          ),
           isSubTitle: true,
           classes: classes.subTitle
         }
       ]
 
-  const [openingAd, contentAd] = useMemo(() => [data.front, data.back], [data])
-  return (
+  const [openingAd = [], contentAd = []] = useMemo(() => [data?.[AdPosition.Front], data?.[AdPosition.Back]], [data])
+  return data ? (
     <DataTable
       title={formatMessage(commonMessages.advertisementSetting)}
       tableClass={classes.table}
@@ -93,5 +90,5 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
         ...contentAd.map((ad: Advertisement) => genAdvertisementData(ad))
       ]}
     />
-  )
+  ) : null
 }
