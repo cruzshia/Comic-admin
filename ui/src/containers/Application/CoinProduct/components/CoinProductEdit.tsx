@@ -6,6 +6,7 @@ import { routePath } from '@src/common/appConfig'
 import { CoinProductActionType } from '@src/reducers/application/coinProduct/coinProductActions'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { submitForm } from '@src/utils/validation'
 import CoinProductForm from './CoinProductForm'
 import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
@@ -33,15 +34,16 @@ export default function CoinProductEdit() {
     return () => subscription.unsubscribe()
   }, [history, id])
 
+  const titleText = formatMessage(messages.edit)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
         {
-          title: formatMessage(messages.edit),
+          title: titleText,
           route: undefined
         }
       ]),
-    [formatMessage]
+    [formatMessage, titleText]
   )
   const buttonList = useMemo(
     () => [
@@ -56,7 +58,8 @@ export default function CoinProductEdit() {
 
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.edit)} buttonList={buttonList} />
+      <StickyHeader title={titleText} button={buttonList} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <CoinProductForm onSubmit={onUpdateCoinProduct} currentProduct={currentProduct} formRef={formRef} />
     </>
   )

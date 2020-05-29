@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import { submitForm } from '@src/utils/validation'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { BREADCRUMBS } from '../constants'
 import CoinDeliveryEventForm from './CoinDeliveryEventForm'
 import CoinEventContext, { ActionContext } from '../context/CoinDeliveryEventContext'
@@ -22,15 +23,16 @@ export default function CoinDeliveryEventEdit() {
     return () => onResetCoinDeliveryEvent()
   }, [onGetCoinDeliveryEvent, id, onResetCoinDeliveryEvent])
 
+  const titleText = formatMessage(messages.edit)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
         {
-          title: formatMessage(messages.edit),
+          title: titleText,
           route: undefined
         }
       ]),
-    [formatMessage]
+    [formatMessage, titleText]
   )
 
   const buttonList = useMemo(
@@ -48,7 +50,8 @@ export default function CoinDeliveryEventEdit() {
 
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.edit)} buttonList={buttonList} />
+      <StickyHeader title={titleText} button={buttonList} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <CoinDeliveryEventForm onSubmit={onUpdateCoinDeliveryEvent} coinDeliveryEvent={currentEvent} formRef={formRef} />
     </>
   )

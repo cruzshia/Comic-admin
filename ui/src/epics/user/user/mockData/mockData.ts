@@ -80,10 +80,10 @@ export const mockUser = {
 
 export const mockCsvExportLogs = _range(0, 7).map(idx => ({
   id: `log-${idx}`,
-  createDateTime: `2020-01-21 16:3${idx}`,
+  createDateTime: `2020-01-21 16:3${7 - idx}`,
   updateDateTime: '2020-01-21 16:34',
   fileName: 'works_master_202003310015.zip',
-  status: idx === 6 ? 'failure' : 'success'
+  status: idx === 0 ? 'failure' : 'success'
 }))
 
 export const mockCsvImportList = _range(0, 7).map((el, idx) => {

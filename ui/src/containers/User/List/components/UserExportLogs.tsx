@@ -6,7 +6,6 @@ import { DownloadBlock } from '@src/components/styled'
 import ListTable from '@src/components/table/ListTable'
 import { DetailText } from '@src/components/table/CsvImportLogTable'
 import usePaging from '@src/hooks/usePaging'
-import useSort from '@src/hooks/useSort'
 import { errorColor, fontWeightBold } from '@src/common/styles'
 import commonMessages from '@src/messages'
 import { BREADCRUMBS } from '../constants'
@@ -49,7 +48,6 @@ export default function UserExportLogs() {
   const { onGetUserExportLogList } = useContext(ActionContext)
   const titleText = formatMessage(commonMessages.csvExportLogs)
   const { pagination, handlePageChange } = usePaging({ total: csvExportLogsTotal })
-  const { sortBy, handleSort } = useSort('createDateTime')
 
   useEffect(() => {
     onGetUserExportLogList()
@@ -67,20 +65,18 @@ export default function UserExportLogs() {
   )
 
   const theadList = [
-    { id: 'createDateTime', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
+    { id: 'createDateTime', label: formatMessage(commonMessages.createDateTime) },
     { id: 'updateDateTime', label: formatMessage(commonMessages.updateDateTime) },
     { id: 'fileName', label: formatMessage(commonMessages.filename) },
     { id: 'status', label: formatMessage(commonMessages.status) },
     { id: 'detail', label: formatMessage(commonMessages.detail) }
   ]
 
-  const displayData = csvExportLogs
-    .map(({ fileName, detail, ...item }) => ({
-      ...item,
-      fileName: <DownloadBlock filename={fileName} />,
-      detail: <DetailText status={item.status} detail={detail} />
-    }))
-    .sort((a, b) => (Date.parse(a.createDateTime) - Date.parse(b.createDateTime)) * sortBy.multiplier)
+  const displayData = csvExportLogs.map(({ fileName, detail, ...item }) => ({
+    ...item,
+    fileName: <DownloadBlock filename={fileName} />,
+    detail: <DetailText status={item.status} detail={detail} />
+  }))
 
   return (
     <>
@@ -91,8 +87,6 @@ export default function UserExportLogs() {
         dataList={displayData}
         pagination={pagination}
         onPageChange={handlePageChange}
-        sortOrder={sortBy.order}
-        sortBy={sortBy.key}
       />
     </>
   )

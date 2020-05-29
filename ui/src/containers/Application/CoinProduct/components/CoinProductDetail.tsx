@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import Button, { Theme } from '@src/components/Button/Button'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
@@ -25,15 +26,16 @@ export default function CoinProductDetail() {
     return () => onResetCoinProduct()
   }, [onGetCoinProduct, id, onResetCoinProduct])
 
+  const titleText = formatMessage(messages.coinProductDetail)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
         {
-          title: formatMessage(messages.coinProductDetail),
+          title: titleText,
           route: undefined
         }
       ]),
-    [formatMessage]
+    [formatMessage, titleText]
   )
   const buttonList = useMemo(
     () => [
@@ -61,11 +63,8 @@ export default function CoinProductDetail() {
 
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.coinProductDetail)}
-        buttonList={buttonList}
-      />
+      <StickyHeader title={titleText} button={buttonList} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[

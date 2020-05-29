@@ -7,6 +7,7 @@ import { ReactComponent as CopyIcon } from '@src/assets/header/copy.svg'
 import Button, { Theme } from '@src/components/Button/Button'
 import { routePath } from '@src/common/appConfig'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import commonMessages from '@src/messages'
 import CoinDeliveryEventContext, { ActionContext } from '../context/CoinDeliveryEventContext'
 import { BREADCRUMBS } from '../constants'
@@ -24,15 +25,16 @@ export default function CoinDeliveryEventDetail() {
     return () => onResetCoinDeliveryEvent()
   }, [onGetCoinDeliveryEvent, id, onResetCoinDeliveryEvent])
 
+  const titleText = formatMessage(messages.detail)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
         {
-          title: formatMessage(messages.detail),
+          title: titleText,
           route: undefined
         }
       ]),
-    [formatMessage]
+    [formatMessage, titleText]
   )
 
   const handleEdit = useCallback(() => history.push(routePath.application.coinDeliveryEventEdit.replace(':id', id!)), [
@@ -57,11 +59,8 @@ export default function CoinDeliveryEventDetail() {
 
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.detail)}
-        buttonList={buttonList}
-      />
+      <StickyHeader title={titleText} button={buttonList} />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
