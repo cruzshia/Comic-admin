@@ -10,10 +10,18 @@ export default function usePaging({ perPage, total }: { perPage?: number; total:
     total,
     pageItemNum
   ])
+  const query = useMemo(
+    () => ({
+      offset: pagination.start - 1,
+      limit: pagination.perPage
+    }),
+    [pagination]
+  )
 
   return {
     page,
     pagination,
-    handlePageChange
+    handlePageChange,
+    query
   }
 }

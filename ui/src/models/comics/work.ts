@@ -1,7 +1,7 @@
 import { AdSetting } from './advertisement'
 
 export enum WorkSearchKeys {
-  ID = 'id',
+  WorkKey = 'work_keyword',
   Author = 'author_keyword',
   WorkType = 'work_type',
   PublishBeginAtFrom = 'publish_begin_at_from',
@@ -12,8 +12,12 @@ export enum WorkSearchKeys {
   SerializedState = 'serialized_state',
   MagazineName = 'magazine_name',
   UpdateFrequency = 'update_frequency',
-  PeriodicalDay = 'periodical_day_of_the_week',
+  FreePeriodicalDay = 'free_periodical_day_of_the_week',
   SubscriptionId = 'subscription_id'
+}
+
+export type SearchParam = {
+  [key in WorkSearchKeys]: any
 }
 
 export enum WorkKeys {
@@ -54,6 +58,12 @@ export enum EpisodeWorkType {
   Reprint = 'reprint',
   Rookie = 'rookie',
   Other = 'other'
+}
+
+export enum RensaiStatus {
+  Ongoing = 'ongoing',
+  End = 'end',
+  Rest = 'rest'
 }
 
 export interface Work {

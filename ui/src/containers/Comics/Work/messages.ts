@@ -1,5 +1,5 @@
 import { defineMessages } from 'react-intl'
-import { WorkType, EpisodeWorkType } from '@src/models/comics/work'
+import { WorkType, EpisodeWorkType, RensaiStatus } from '@src/models/comics/work'
 
 const PREFIX = 'comics.work.'
 
@@ -147,5 +147,17 @@ export default defineMessages({
   [EpisodeWorkType.Other]: {
     id: PREFIX + 'episode_other',
     defaultMessage: 'Other'
+  },
+  [RensaiStatus.Ongoing]: {
+    id: PREFIX + 'rensai_ongoing',
+    defaultMessage: 'Rensai Ongoing'
+  },
+  [RensaiStatus.End]: {
+    id: PREFIX + 'rensai_end',
+    defaultMessage: 'Rensai End'
+  },
+  [RensaiStatus.Rest]: {
+    id: PREFIX + 'rensai_rest',
+    defaultMessage: 'Rensai Rest'
   }
 })

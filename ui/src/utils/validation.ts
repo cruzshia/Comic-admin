@@ -7,9 +7,10 @@ export const required = (value: any) => (value && (value.length > 1 || !isNaN(va
 
 export const submitForm = (formRef: React.RefObject<HTMLFormElement>) =>
   formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
-export const checkError = (meta: FieldMetaState<any>) => {
-  return meta.error && meta.touched ? meta.error : undefined
-}
+
+export const checkError = (meta: FieldMetaState<any>) => (meta.error && meta.touched ? meta.error : undefined)
 
 export const validDateTime = (dateTime: string) =>
   new RegExp('^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$', 'i').test(dateTime)
+
+export const isValidDuration = (start: string, end: string) => new Date(end).getTime() >= new Date(start).getTime()

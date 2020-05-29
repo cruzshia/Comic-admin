@@ -14,7 +14,7 @@ const coinDetails = [
 export const mockMagazineList = _range(0, 6).map(num => ({
   id: num,
   createdAt: `2020-01-21 16:3${num}`,
-  contents: `WORK_SHUNKAN1000000${num}`,
+  contentId: `WORK_SHUNKAN1000000${num}`,
   applicationId: '少年ジャンプ+ for iOS',
   coinChangeTotal: -100,
   coinChangeDetail: coinDetails[num]

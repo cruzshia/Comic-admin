@@ -3,4 +3,9 @@ export const _range = (start: number, end: number) => {
   return new Array(Math.abs(end - start)).fill(start).map((num, idx) => num + idx * stepper)
 }
 
+export const objToQueryStr = (params: object) =>
+  Object.keys(params || {})
+    .map(key => `${key}=${params![key as keyof typeof params]}`)
+    .join('&')
 export const toDataUri = (src: string | object) => (typeof src === 'string' ? src : URL.createObjectURL(src))
+export const toISO8601 = (data: string) => new Date(data).toISOString()

@@ -3,6 +3,7 @@ import authAjax from '@src/utils/ajaxUtil'
 import WorkDetail from '@src/models/comics/work'
 import { ListParams } from '@src/reducers/comics/work/workActions'
 import ImportLog from '@src/models/importLog'
+import { objToQueryStr } from '@src/utils/functions'
 import { Response } from '../../utils'
 import { mockListData } from './mockData/mockData'
 import { mockWork } from './mockData/mockWork'
@@ -11,12 +12,7 @@ import { mockLogList } from './mockData/mockImportLogs'
 const WORK_API_PATH = '/v1/works'
 
 export const getWorkListAjax = (params?: Object): Response<ListParams> => {
-  authAjax.get(
-    WORK_API_PATH +
-      Object.keys(params || {})
-        .map(key => `${key}=${params![key as keyof typeof params]}`)
-        .join('&')
-  )
+  authAjax.get(WORK_API_PATH + (params ? '?' + objToQueryStr(params) : ''))
   return from([
     {
       status: 200,

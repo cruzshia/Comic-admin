@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useCallback, useEffect } from 'react'
+import React, { useContext, useMemo, useCallback, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -10,10 +10,11 @@ import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import { WorkKeys, WorkSearchKeys } from '@src/models/comics/work'
+import Paging from '@src/models/paging'
 import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
 import SearchBlock from './SearchBlock'
-import { BREADCRUMBS } from '../utils'
+import { BREADCRUMBS, convertDateFormat } from '../utils'
 import comicMessages from '../../messages'
 import messages from '../messages'
 import WorkContext, { ActionContext } from '../context/WorkContext'
@@ -26,17 +27,22 @@ const useStyle = makeStyles({
   }
 })
 
+type SearchParam = {
+  [key in WorkSearchKeys]: any
+}
+
 export default function WorkList() {
   const { formatMessage } = useIntl()
   const classes = useStyle()
   const history = useHistory()
   const { onGetWorkList } = useContext(ActionContext)
   const { workList, workTotal } = useContext(WorkContext)
-  const { page, pagination, handlePageChange } = usePaging({ total: workTotal })
+  const { page, pagination, handlePageChange, query } = usePaging({ total: workTotal })
+  const [search, setSearch] = useState<Partial<SearchParam & Paging>>({})
 
   useEffect(() => {
-    onGetWorkList()
-  }, [page, onGetWorkList])
+    onGetWorkList({ ...query, ...convertDateFormat(search) })
+  }, [page, onGetWorkList, query, search])
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
@@ -64,9 +70,7 @@ export default function WorkList() {
     [formatMessage, history]
   )
 
-  const handleSearch = useCallback((searchParams: { [key in WorkSearchKeys]?: any }) => onGetWorkList(searchParams), [
-    onGetWorkList
-  ])
+  const handleSearch = useCallback((searchParams: Partial<SearchParam>) => setSearch(searchParams), [setSearch])
 
   const workDataList = workList.map(({ images, ...item }) => ({
     ...item,

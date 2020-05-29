@@ -3,22 +3,47 @@ import { useIntl } from 'react-intl'
 import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
 import { TimeSpanInput } from '@src/components/form'
-import { WorkSearchKeys, WorkType } from '@src/models/comics/work'
+import { WorkSearchKeys, WorkType, RensaiStatus } from '@src/models/comics/work'
 import { SearchInputAdapter, SelectAdapter } from '@src/components/finalForm'
 import { searchParamsValidator } from '../utils'
 import commonMessages from '@src/messages'
 import comicMessages from '../../messages'
 import messages from '../messages'
 
-export default function SearchBlock({ onSubmit }: { onSubmit: (data: { [key in WorkSearchKeys]: any }) => void }) {
+const days = ['日', '月', '水', '火', '木', '金', '土']
+const dayOfWeekOptions = days.map(day => ({ label: `${day}曜日`, value: day }))
+
+export default function SearchBlock({
+  onSubmit
+}: {
+  onSubmit: (data: Partial<{ [key in WorkSearchKeys]: any }>) => void
+}) {
   const { formatMessage } = useIntl()
+
+  const typeOptions = useMemo(
+    () =>
+      Object.values(WorkType).map(type => ({
+        label: formatMessage(messages[type]),
+        value: type
+      })),
+    [formatMessage]
+  )
+
+  const statusOptions = useMemo(
+    () =>
+      Object.values(RensaiStatus).map((status, idx) => ({
+        label: formatMessage(messages[status]),
+        value: idx
+      })),
+    [formatMessage]
+  )
 
   const conditions: Conditions = useMemo(
     () => ({
       left: [
         {
           label: formatMessage(commonMessages.workId),
-          input: <Field name={WorkSearchKeys.ID} component={SearchInputAdapter} />
+          input: <Field name={WorkSearchKeys.WorkKey} component={SearchInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.author),
@@ -26,16 +51,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: { [key in W
         },
         {
           label: formatMessage(messages.category),
-          input: (
-            <Field
-              name={WorkSearchKeys.WorkType}
-              component={SelectAdapter}
-              options={Object.values(WorkType).map(type => ({
-                label: formatMessage(messages[type]),
-                value: type
-              }))}
-            />
-          )
+          input: <Field name={WorkSearchKeys.WorkType} component={SelectAdapter} options={typeOptions} />
         },
         {
           label: formatMessage(commonMessages.deliveryStartDateTime),
@@ -55,7 +71,9 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: { [key in W
       right: [
         {
           label: formatMessage(messages.rensaiStatus),
-          input: <Field name={WorkSearchKeys.SerializedState} component={SelectAdapter} options={[]} isShort />
+          input: (
+            <Field name={WorkSearchKeys.SerializedState} component={SelectAdapter} options={statusOptions} isShort />
+          )
         },
         {
           label: formatMessage(messages.rensaiMagazine),
@@ -67,7 +85,14 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: { [key in W
         },
         {
           label: formatMessage(messages.rensaiDay),
-          input: <Field name={WorkSearchKeys.PeriodicalDay} component={SelectAdapter} options={[]} isShort />
+          input: (
+            <Field
+              name={WorkSearchKeys.FreePeriodicalDay}
+              component={SelectAdapter}
+              options={dayOfWeekOptions}
+              isShort
+            />
+          )
         },
         {
           label: formatMessage(commonMessages.subscriptionId),
@@ -75,7 +100,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: { [key in W
         }
       ]
     }),
-    [formatMessage]
+    [formatMessage, typeOptions, statusOptions]
   )
   return <SearchFilter validate={searchParamsValidator} conditions={conditions} onSubmit={onSubmit} />
 }

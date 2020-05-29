@@ -79,12 +79,9 @@ export default function HistorySubscriptionList({ historyTotal, historyList, onG
     [formatMessage, handleSort]
   )
 
-  const dataList = historyList
-    .map(({ id, ...rest }) => ({
-      id: id,
-      data: rest
-    }))
-    .sort((a: any, b: any) => (Date.parse(a.data[sortBy.key]) - Date.parse(b.data[sortBy.key])) * sortBy.multiplier)
+  const dataList = historyList.sort(
+    (a: any, b: any) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier
+  )
 
   return (
     <>

@@ -68,7 +68,7 @@ export default function Pagination({ total, onChange }: Props) {
       count={total}
       variant='outlined'
       shape='rounded'
-      boundaryCount={10}
+      boundaryCount={3}
       onChange={onChange}
       renderItem={(item: any) => (
         <PaginationItem
