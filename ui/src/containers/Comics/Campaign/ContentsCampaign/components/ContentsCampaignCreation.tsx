@@ -2,6 +2,7 @@ import React, { useMemo, useCallback, useRef } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import { BREADCRUMBS } from '../constants'
 import ContentsCampaignForm from './ContentsCampaignForm'
@@ -36,6 +37,7 @@ export default function ContentCampaignCreation() {
 
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <ContentsCampaignForm onSubmit={handleSubmit} formRef={formRef} />
     </>

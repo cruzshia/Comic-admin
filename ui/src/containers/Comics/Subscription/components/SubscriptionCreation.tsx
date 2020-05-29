@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import ContentHeader from '@src/components/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import SubscriptionForm from './SubscriptionForm'
 import { BREADCRUMBS } from '../utils'
@@ -12,13 +13,15 @@ export default function SubscriptionCreation() {
   const { onCreateSubscription } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
+
+  const titleText = formatMessage(messages.creation)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
-      })).concat([{ title: formatMessage(messages.creation), route: undefined }]),
-    [formatMessage]
+      })).concat([{ title: titleText, route: undefined }]),
+    [formatMessage, titleText]
   )
 
   const buttonList = useMemo(
@@ -35,6 +38,7 @@ export default function SubscriptionCreation() {
   )
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader
         breadcrumbList={breadcrumbList}
         titleText={formatMessage(messages.creation)}

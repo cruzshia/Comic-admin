@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
@@ -73,6 +74,7 @@ export default function WorksCampaignDetail() {
 
   return campaign.campaignId ? (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}

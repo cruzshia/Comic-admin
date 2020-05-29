@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
 import ContentHeader from '@src/components/ContentHeader'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
@@ -40,12 +41,13 @@ export default function ContentDetail() {
     return () => onResetContent()
   }, [onResetContent, onGetContent, id])
 
+  const titleText = formatMessage(messages.detail)
   const breadcrumbList = useMemo(
     () =>
       CONTENT_BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
-        { title: formatMessage(messages.detail), route: undefined }
+        { title: titleText, route: undefined }
       ]),
-    [formatMessage]
+    [formatMessage, titleText]
   )
 
   const handleRedirect = useCallback(
@@ -70,6 +72,7 @@ export default function ContentDetail() {
   if (!currentContent.id) return null
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={currentContent.title} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}

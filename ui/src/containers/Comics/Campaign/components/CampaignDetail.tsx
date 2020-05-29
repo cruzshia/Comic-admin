@@ -5,6 +5,7 @@ import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import ListTable from '@src/components/table/ListTable'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import { routePath } from '@src/common/appConfig'
 import { usePaging } from '@src/hooks'
@@ -106,6 +107,7 @@ export default function CampaignDetail() {
 
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
         onEdit={handleRedirectEdit}

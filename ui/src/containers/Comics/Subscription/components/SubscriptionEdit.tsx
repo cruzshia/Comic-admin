@@ -2,6 +2,7 @@ import React, { useContext, useMemo, useRef, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import SubscriptionForm from './SubscriptionForm'
 import SubscriptionContext, { ActionContext } from '../context/SubscriptionContext'
@@ -21,13 +22,14 @@ export default function SubscriptionEdit() {
     return () => onResetSubscription()
   }, [id, onGetSubscription, onResetSubscription])
 
+  const titleText = formatMessage(messages.edit)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
-      })).concat([{ title: formatMessage(messages.edit), route: undefined }]),
-    [formatMessage]
+      })).concat([{ title: titleText, route: undefined }]),
+    [formatMessage, titleText]
   )
 
   const buttonList = useMemo(
@@ -44,6 +46,7 @@ export default function SubscriptionEdit() {
   )
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.edit)} buttonList={buttonList} />
       <SubscriptionForm onSubmit={onUpdateSubscription} currentSubscription={currentSubscription} formRef={formRef} />
     </>

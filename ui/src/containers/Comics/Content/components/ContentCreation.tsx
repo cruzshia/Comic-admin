@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import { submitForm } from '@src/utils/validation'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import ContentForm from './ContentForm'
 import commonMessages from '@src/messages'
 import { CONTENT_BREADCRUMBS } from '../constants'
@@ -35,6 +36,7 @@ export default function ContentCreation() {
 
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <ContentForm onFormSubmit={onCreateContent} formRef={formRef} />
     </>

@@ -5,6 +5,7 @@ import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import commonMessages from '@src/messages'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import { ScrollAnchor } from '@src/containers/Comics/utils'
@@ -59,6 +60,7 @@ export default function ContentCampaignDetail() {
 
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}

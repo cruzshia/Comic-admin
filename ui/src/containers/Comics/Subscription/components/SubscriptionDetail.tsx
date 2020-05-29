@@ -2,6 +2,7 @@ import React, { useMemo, useContext, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { toDataSet, toPreWrapDataSet } from '@src/components/table/DataTable'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
@@ -23,13 +24,14 @@ export default function SubscriptionDetail() {
     return () => onResetSubscription()
   }, [onGetSubscription, onResetSubscription, id])
 
+  const titleText = formatMessage(messages.subscriptionDetail)
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route
-      })).concat([{ title: formatMessage(messages.subscriptionDetail), route: undefined }]),
-    [formatMessage]
+      })).concat([{ title: titleText, route: undefined }]),
+    [formatMessage, titleText]
   )
 
   const handleEdit = useCallback(() => history.push(routePath.comics.subscriptionEdit.replace(':id', id!)), [
@@ -51,6 +53,7 @@ export default function SubscriptionDetail() {
 
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader
         breadcrumbList={breadcrumbList}
         titleText={formatMessage(messages.jumpSubscription)}

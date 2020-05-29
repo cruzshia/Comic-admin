@@ -2,6 +2,7 @@ import React, { useMemo, useRef, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { submitForm } from '@src/utils/validation'
 import { ActionContext } from '../context/CampaignContext'
 import CampaignForm from './CampaignForm'
@@ -36,6 +37,7 @@ export default function CampaignCreation() {
 
   return (
     <>
+      <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <CampaignForm formRef={formRef} onSubmit={onCreateCampaign} />
     </>
