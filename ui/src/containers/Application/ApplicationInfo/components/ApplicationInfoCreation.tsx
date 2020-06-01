@@ -2,6 +2,7 @@ import React, { useMemo, useRef, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { submitForm } from '@src/utils/validation'
 import { BREADCRUMBS } from '../constants'
 import ApplicationInfoForm from './ApplicationInfoForm'
@@ -14,15 +15,17 @@ export default function ApplicationInfoCreation() {
   const formRef = useRef<HTMLFormElement>(null)
   const { onCreateApplicationInfo } = useContext(ActionContext)
 
+  const title = useMemo(() => formatMessage(messages.creation), [formatMessage])
+
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
         {
-          title: formatMessage(messages.creation),
+          title: title,
           route: undefined
         }
       ]),
-    [formatMessage]
+    [formatMessage, title]
   )
 
   const buttonList = useMemo(
@@ -38,11 +41,8 @@ export default function ApplicationInfoCreation() {
 
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.creation)}
-        buttonList={buttonList}
-      />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={title} buttonList={buttonList} />
+      <StickyHeader title={title} button={buttonList} />
       <ApplicationInfoForm onSubmit={onCreateApplicationInfo} formRef={formRef} />
     </>
   )

@@ -2,6 +2,7 @@ import React, { useMemo, useCallback, useRef, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import commonMessages from '@src/messages'
 import { ReactComponent as PhoneIcon } from '@src/assets/header/phone.svg'
 import { ReactComponent as CopyIcon } from '@src/assets/header/copy.svg'
@@ -51,6 +52,7 @@ export default function DisplaySettingCreation() {
         titleText={formatMessage(messages.creation)}
         buttonList={buttonList}
       />
+      <StickyHeader title={formatMessage(messages.creation)} button={buttonList} />
       <DisplaySettingForm onSubmit={handleSubmit} formRef={formRef} />
     </>
   )

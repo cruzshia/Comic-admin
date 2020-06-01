@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import commonMessages from '@src/messages'
 import { ReactComponent as PhoneIcon } from '@src/assets/header/phone.svg'
 import { ReactComponent as CopyIcon } from '@src/assets/header/copy.svg'
@@ -54,6 +55,7 @@ export default function DisplaySettingEdit() {
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.home)} buttonList={buttonList} />
+      <StickyHeader title={formatMessage(messages.home)} button={buttonList} />
       <DisplaySettingForm formRef={formRef} onSubmit={handleSubmit} currentSetting={currentSetting} />
     </>
   )

@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import commonMessages from '@src/messages'
 import { PushNotification } from '@src/models/application/pushNotification'
 import { submitForm } from '@src/utils/validation'
@@ -23,6 +24,7 @@ export default function PushNotificationEdit() {
   }, [onGetPushNotification, id])
 
   const title = useMemo(() => formatMessage(messages.pushNotificationEdit), [formatMessage])
+
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
@@ -47,6 +49,7 @@ export default function PushNotificationEdit() {
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={title} buttonList={buttonList} />
+      <StickyHeader title={title} button={buttonList} />
       <PushNotificationForm onSubmit={handleSubmit} currentNotification={currentNotification} formRef={formRef} />
     </>
   )

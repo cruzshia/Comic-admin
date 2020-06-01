@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import Button, { Theme } from '@src/components/Button/Button'
+import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { routePath } from '@src/common/appConfig'
 import DataTable, { toDataSet, toPreWrapDataSet } from '@src/components/table/DataTable'
 import commonMessages from '@src/messages'
@@ -24,15 +25,17 @@ export default function ApplicationInfoDetail() {
     return () => onResetApplicationInfo()
   }, [onResetApplicationInfo, onGetApplicationInfo, id])
 
+  const title = useMemo(() => formatMessage(messages.detail), [formatMessage])
+
   const breadcrumbList = useMemo(
     () =>
       BREADCRUMBS.map(({ title, route }) => ({ title: formatMessage(title), route })).concat([
         {
-          title: formatMessage(messages.detail),
+          title: title,
           route: undefined
         }
       ]),
-    [formatMessage]
+    [formatMessage, title]
   )
 
   const handleEdit = useCallback(() => history.push(routePath.application.applicationInfoEdit.replace(':id', id!)), [
@@ -54,11 +57,8 @@ export default function ApplicationInfoDetail() {
   if (!currentInfo.applicationId) return null
   return (
     <>
-      <ContentHeader
-        breadcrumbList={breadcrumbList}
-        titleText={formatMessage(messages.detail)}
-        buttonList={buttonList}
-      />
+      <ContentHeader breadcrumbList={breadcrumbList} titleText={title} buttonList={buttonList} />
+      <StickyHeader title={title} button={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
