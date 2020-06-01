@@ -13,6 +13,8 @@ defmodule RaiseServer.RepoCase do
     Repo.delete_all(Depot.WorkApp)
     Repo.delete_all(Depot.WorkCampaignApp)
     Repo.delete_all(Depot.WorkCampaign)
+    Repo.delete_all(Depot.WorkAuthor)
+    Repo.delete_all(Depot.Author)
     Repo.delete_all(Depot.Campaign)
     Repo.delete_all(Depot.Content)
     Repo.delete_all(Depot.Work)

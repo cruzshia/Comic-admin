@@ -3,6 +3,7 @@ defmodule RaiseServer.DepotFactory do
 
   alias RaiseServer.Depot
   alias Depot.{Campaign, Content, ContentApp, Work, WorkApp, WorkCampaign, WorkCampaignApp, Image, Subscription}
+  alias Depot.{Author, WorkAuthor}
 
   def work_app_factory() do
     %WorkApp{}
@@ -118,6 +119,16 @@ defmodule RaiseServer.DepotFactory do
 
   def content_app_factory() do
     %ContentApp{}
+  end
+
+  def author_factory() do
+    %Author{
+      name: "Qoo"
+    }
+  end
+
+  def work_author_factory() do
+    %WorkAuthor{}
   end
 
   def insert(schema_name, attrs \\ %{}) do

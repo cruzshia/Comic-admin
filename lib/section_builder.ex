@@ -3,16 +3,18 @@ use Croma
 defmodule RaiseServer.SectionBuilder do
 
   alias RaiseServer.{Apps, Depot, SectionBuilder}
-  alias SectionBuilder.Utils
+  alias SectionBuilder.{Utils, FreePeriodical}
 
   @seven_days_in_seconds 604_800
 
-  def generate(app_id, now, page) do
-    case Apps.get_page_setting(app_id, page) do
-      %{"sections" => sections} ->
-        %{"sections" => Enum.map(sections, &process_section(&1, app_id, now, page))}
-      nil ->
+  defun generate(app_id :: v[integer], now :: DateTime.t, page :: v[atom]) :: v[map | nil] do
+    case {Apps.get_page_setting(app_id, page), page} do
+      {nil, _} ->
         nil
+      {%{"sections" => sections}, :home} ->
+        %{"sections" => Enum.map(sections, &process_section(&1, app_id, now, page))}
+      {%{} = recommended_setting, :free_periodical} ->
+        FreePeriodical.process(app_id, now, recommended_setting)
     end
   end
 
@@ -65,7 +67,7 @@ defmodule RaiseServer.SectionBuilder do
 
   def process_section(%{"type" => "free_only_now"} = section, app_id, now, _page) do
     works =
-      Depot.get_work_campaigns(app_id, now,
+      Depot.get_work_campaigns(app_id, [campaign_period: now],
         order_by: [asc: :end_at, asc: :id],
         limit: 6,
         preload: [:work]
@@ -162,7 +164,7 @@ defmodule RaiseServer.SectionBuilder do
 
   def process_section(%{"type" => "works", "work_ids" => work_ids, "title" => title}, app_id, now, _page) do
     new_work_ids = ids_to_int(work_ids)
-    works = Depot.get_works(app_id, new_work_ids, [time: now])
+    works = Depot.get_works(app_id, [id: new_work_ids, published_period: now])
     |> Enum.map(fn %{images: images, title: title, publish_begin_at: publish_begin_at} = work ->
       %{
         action_url: "jumpplus://works/#{Utils.add_resource_prefix(work)}",
@@ -231,7 +233,7 @@ defmodule RaiseServer.SectionBuilder do
   def process_section(%{"type" => "books", "content_ids" => content_ids} = section, app_id, now, _page) do
     int_content_ids = ids_to_int(content_ids)
     contents =
-      Depot.get_contents(app_id, int_content_ids, [select: [:id, :name, :content_type, :thumbnail_image], time: now])
+      Depot.get_contents(app_id, [id: int_content_ids, published_period: now], [select: [:id, :name, :content_type, :thumbnail_image]])
       |> Enum.map(fn %{name: name, thumbnail_image: thumbnail_image} = content ->
         %{
           id: Utils.add_resource_prefix(content),
@@ -251,8 +253,8 @@ defmodule RaiseServer.SectionBuilder do
 
     %{contents: [content]} = Depot.get_work(
       app_id,
-      [subscription_id: sub_id, is_main_work_of_subscription: true, time: now],
-      preload: [:newest_content]
+      [subscription_id: sub_id, is_main_work_of_subscription: true, published_period: now],
+      [preload: [newest_content: {app_id, now}]]
     )
 
     Map.put_new(section, "latest_content", %{
@@ -267,10 +269,9 @@ defmodule RaiseServer.SectionBuilder do
 
   defunp ids_to_int(ids :: v[[String.t]]) :: [integer] do
     Enum.reduce(ids, [], fn id, acc ->
-      <<_prefix :: binary-size(2), str_id :: binary>> = id
-      case Integer.parse(str_id) do
-        {id, _} -> [id | acc]
-        _       -> acc
+      case Utils.parse_resource_prefix(id) do
+        nil -> acc
+        id  -> [id | acc]
       end
     end)
     |> Enum.reverse()

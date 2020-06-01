@@ -37,4 +37,12 @@ defmodule RaiseServer.Error do
       message: "",
     }
   end
+
+  defmodule ObsoleteAPIToken do
+    use ErrorBase, %{
+      type:    "ObsoleteAPIToken",
+      status:  401,
+      message: "",
+    }
+  end
 end

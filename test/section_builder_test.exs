@@ -38,6 +38,7 @@ defmodule RaiseServer.SectionBuilderTest do
       %{id: content_id, thumbnail_image: image} = DepotFactory.insert(:magazine_content, %{
         work_id: work.id
       })
+      DepotFactory.insert(:content_app, %{content_id: content_id, app_id: app.id})
 
       response_image =
         image

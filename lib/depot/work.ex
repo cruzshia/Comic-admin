@@ -37,6 +37,8 @@ defmodule RaiseServer.Depot.Work do
 
     has_one :work_app, Depot.WorkApp
     has_many :contents, Depot.Content
+    has_many :work_authors, Depot.WorkAuthor
+    has_many :authors, through: [:work_authors, :author]
 
     timestamps()
   end

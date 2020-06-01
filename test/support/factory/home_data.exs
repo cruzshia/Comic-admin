@@ -32,7 +32,8 @@ defmodule RaiseServer.HomeData do
     sub = DepotFactory.insert(:subscription, %{id: sub_id})
     sub_work = DepotFactory.insert(:magazine_work, %{subscription_id: sub.id, is_main_work_of_subscription: true})
     DepotFactory.insert(:work_app, %{work_id: sub_work.id, app_id: app.id})
-    DepotFactory.insert(:magazine_content, %{work_id: sub_work.id})
+    %{id: magazine_content_id} = DepotFactory.insert(:magazine_content, %{work_id: sub_work.id})
+    DepotFactory.insert(:content_app, %{content_id: magazine_content_id, app_id: app.id})
 
     app
   end
