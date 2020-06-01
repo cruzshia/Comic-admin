@@ -19,6 +19,7 @@ export const mockWork: WorkDetail = {
   [WorkKeys.WorkType]: WorkType.Comic,
   [WorkKeys.UpdateFrequency]: '毎週月月金曜日に更新',
   [WorkKeys.ReturnAdRevenue]: '還元あり',
+  [WorkKeys.FreePeriodicalDay]: '月',
   [WorkKeys.MagazineName]: 'ジャンプ本誌',
   [WorkKeys.Subscription]: { id: '2', name: '週刊少年ジャンプ定期購読' },
   [WorkKeys.CreateAt]: '2019-12-25 00:00',

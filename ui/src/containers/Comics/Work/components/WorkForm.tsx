@@ -4,10 +4,9 @@ import { Form, Field } from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
 import { makeStyles } from '@material-ui/core'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
-import { Select, StartEndForm } from '@src/components/form'
+import { StartEndForm } from '@src/components/form'
 import { DropZoneAdapter, SelectAdapter, TextInputAdapter, TextAreaAdapter } from '@src/components/finalForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
-import { checkError } from '@src/utils/validation'
 import { emptyWork } from '@src/reducers/comics/work/workReducer'
 import { WorkKeys, WorkType } from '@src/models/comics/work'
 import AuthorEditForm from '../../components/AuthorEditForm'
@@ -146,27 +145,19 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
               dataSet={[
                 {
                   label: formatMessage(messages.episodeCategory),
-                  content: (
-                    <Field name='episodeCategory'>
-                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
-                    </Field>
-                  )
+                  content: <Field name='episodeCategory' component={SelectAdapter} options={[]} isShort />
                 },
                 {
                   label: formatMessage(messages.episodeFrequency),
-                  content: (
-                    <Field name='episodeFrequency'>
-                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
-                    </Field>
-                  )
+                  content: <Field name='episodeFrequency' component={SelectAdapter} options={[]} isShort />
+                },
+                {
+                  label: formatMessage(messages.freePeriodicalDay),
+                  content: <Field name='freePeriodicalDay' component={SelectAdapter} options={[]} isShort />
                 },
                 {
                   label: formatMessage(messages.rensai),
-                  content: (
-                    <Field name='workSerial'>
-                      {({ input, meta }) => <Select {...input} error={checkError(meta)} options={[]} isShort />}
-                    </Field>
-                  )
+                  content: <Field name='workSerial' component={SelectAdapter} options={[]} isShort />
                 },
                 ...imageDataSet
               ]}

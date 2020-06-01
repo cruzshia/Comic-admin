@@ -123,6 +123,11 @@ context('Work Creation', () => {
           })
           .next()
           .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('無料連載掲載曜日')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('連載誌')
             expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
           })

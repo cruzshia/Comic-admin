@@ -37,6 +37,7 @@ export enum WorkKeys {
   UpdateFrequency = 'update_frequency',
   Images = 'images',
   MagazineName = 'magazine_name',
+  FreePeriodicalDay = 'free_periodical_day_of_the_week',
   ReturnAdRevenue = 'return_ad_revenue',
   AdSetting = 'ads_in_viewer_setting',
   S3Uploads = 's3_uploads'
@@ -92,6 +93,7 @@ export interface WorkDetail extends Work {
   [WorkKeys.PublishBeginAt]: string
   [WorkKeys.PublishEndAt]: string
   [WorkKeys.MagazineName]?: string
+  [WorkKeys.FreePeriodicalDay]?: string
   [WorkKeys.ReturnAdRevenue]?: string
   [WorkKeys.AdSetting]?: AdSetting
   [WorkKeys.S3Uploads]?: {

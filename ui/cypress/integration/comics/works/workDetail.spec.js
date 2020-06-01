@@ -135,6 +135,11 @@ context('Work Detail', () => {
           })
           .next()
           .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('無料連載掲載曜日')
+            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+          })
+          .next()
+          .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('連載誌')
             expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
           })

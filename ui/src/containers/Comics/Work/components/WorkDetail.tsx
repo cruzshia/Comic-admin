@@ -135,6 +135,7 @@ export default function WorkDetail() {
         dataSet={[
           toDataSet(formatMessage(messages.episodeCategory), currentWork[WorkKeys.EpisodeWorkType]),
           toDataSet(formatMessage(messages.updateFrequency), currentWork[WorkKeys.UpdateFrequency]),
+          toDataSet(formatMessage(messages.freePeriodicalDay), currentWork[WorkKeys.FreePeriodicalDay]),
           toDataSet(formatMessage(messages.rensai), currentWork[WorkKeys.MagazineName]),
           ..._range(0, IMAGE_NUM).map(i => {
             const img = currentWork[WorkKeys.Images]?.[i]

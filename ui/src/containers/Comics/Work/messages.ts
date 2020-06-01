@@ -20,6 +20,10 @@ export default defineMessages({
     id: PREFIX + 'update_frequency',
     defaultMessage: 'Update frequency'
   },
+  freePeriodicalDay: {
+    id: PREFIX + 'free_periodical_day_of_the_week',
+    defaultMessage: 'Free periodical day of the week'
+  },
   rensai: {
     id: PREFIX + 'rensai',
     defaultMessage: 'rensai'
