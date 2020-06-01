@@ -11,9 +11,19 @@ import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import ApplicationInfoContext, { ActionContext } from '../context/ApplicationInfoContext'
 import applicationMessages from '../../messages'
+import { makeStyles } from '@material-ui/core'
+
+const useStyle = makeStyles({
+  table: {
+    '& .ListTable-col-1': {
+      width: 200
+    }
+  }
+})
 
 export default function ApplicationInfoList() {
   const history = useHistory()
+  const classes = useStyle()
   const { formatMessage } = useIntl()
   const { infoList, infoTotal } = useContext(ApplicationInfoContext)
   const { onGetApplicationInfoList } = useContext(ActionContext)
@@ -43,8 +53,7 @@ export default function ApplicationInfoList() {
   const theadList = useMemo(
     () => [
       { id: 'applicationId', label: formatMessage(applicationMessages.applicationId) },
-      { id: 'applicationName', label: formatMessage(messages.applicationName) },
-      { id: 'commonKey', label: formatMessage(messages.commonKey) }
+      { id: 'applicationName', label: formatMessage(messages.applicationName) }
     ],
     [formatMessage]
   )
@@ -57,6 +66,7 @@ export default function ApplicationInfoList() {
         dataList={infoList}
         pagination={pagination}
         onPageChange={handlePageChange}
+        tableClass={classes.table}
         rowIdKey='applicationId'
         onRowClick={useCallback(id => history.push(routePath.application.applicationInfoDetail.replace(':id', id)), [
           history

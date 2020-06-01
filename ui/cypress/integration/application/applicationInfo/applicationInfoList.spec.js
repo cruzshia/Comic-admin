@@ -39,7 +39,7 @@ context('Application Info List', () => {
   })
 
   it('Renders correct list table', function() {
-    const tableColNum = 3
+    const tableColNum = 2
 
     cy.findByTestId(this.testIds.listTable.id)
       .as('listTable')
@@ -53,8 +53,6 @@ context('Application Info List', () => {
       .should('have.text', 'アプリID')
       .next()
       .should('contain', 'アプリ名')
-      .next()
-      .should('contain', '共通鍵')
 
     cy.get('@listTable')
       .findAllByTestId(this.testIds.listTable.tableRow)
@@ -65,7 +63,6 @@ context('Application Info List', () => {
 
   it('Renders pagination', function() {
     cy.findByTestId(this.testIds.listTable.pageInfo).should('be.exist')
-
     cy.findByTestId(this.testIds.pager).should('be.exist')
   })
 })

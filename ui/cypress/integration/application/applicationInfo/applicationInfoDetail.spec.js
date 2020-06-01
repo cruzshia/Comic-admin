@@ -47,4 +47,73 @@ context('Application Info Detail', () => {
     cy.findByTestId(this.testIds.contentHeaderTitle).should('have.text', pageTitle)
     cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', 'アプリ情報を編集')
   })
+
+  it('Renders correct detail form', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findByTestId(this.testIds.dataTable.id)
+      .findAllByTestId(this.testIds.dataTable.row)
+      .should('have.length', 12)
+      .first()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('アプリID')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('アプリ名')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('共通鍵')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('APNs認証キー')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('APNs Team ID')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('APNs Key ID')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('FCM APIキー')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('Android公開鍵')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('iTunes共有秘密鍵')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('アプリ追加設定')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('作成日時')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+      .next()
+      .should($item => {
+        expect($item.find(LABEL_SELECTOR)).have.text('更新日時')
+        expect($item.find(`${CONTENT_SELECTOR}`)).to.be.not.empty
+      })
+  })
 })

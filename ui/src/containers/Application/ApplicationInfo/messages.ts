@@ -34,13 +34,17 @@ export default defineMessages({
     id: PREFIX + 'common_key',
     defaultMessage: 'Common Key'
   },
-  apnsValidityPeriod: {
-    id: PREFIX + 'apns_validity_period',
-    defaultMessage: 'APNs Validity Period'
+  apnsTeamId: {
+    id: PREFIX + 'apns_team_id',
+    defaultMessage: 'APNs Team ID'
   },
-  apnsCertificate: {
-    id: PREFIX + 'apns_certificate',
-    defaultMessage: ' APNs Certificate'
+  apnsKeyId: {
+    id: PREFIX + 'apns_key_id',
+    defaultMessage: 'APNs Key ID'
+  },
+  apnsAuthKey: {
+    id: PREFIX + 'apns_authentication_key',
+    defaultMessage: ' APNs authentication key'
   },
   fcnmApiKey: {
     id: PREFIX + 'fcm_api_key',

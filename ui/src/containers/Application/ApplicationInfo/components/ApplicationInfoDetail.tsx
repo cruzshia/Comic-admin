@@ -65,13 +65,15 @@ export default function ApplicationInfoDetail() {
           toDataSet(formatMessage(applicationMessages.applicationId), currentInfo.applicationId),
           toDataSet(formatMessage(messages.applicationName), currentInfo.applicationName),
           toDataSet(formatMessage(messages.commonKey), currentInfo.commonKey),
-          toDataSet(formatMessage(messages.apnsValidityPeriod), currentInfo.apnsValidityPeriod),
-          toDataSet(formatMessage(messages.apnsCertificate), currentInfo.apnsCertificate),
+          toDataSet(formatMessage(messages.apnsAuthKey), currentInfo.apnAuthKey),
+          toDataSet(formatMessage(messages.apnsTeamId), currentInfo.apnsTeamId),
+          toDataSet(formatMessage(messages.apnsKeyId), currentInfo.apnsKeyId),
           toDataSet(formatMessage(messages.fcnmApiKey), currentInfo.fcnmApiKey),
           toDataSet(formatMessage(messages.androidPublicKey), currentInfo.androidPublicKey),
           toDataSet(formatMessage(messages.iTunesPublicKey), currentInfo.iTunesPublicKey),
           toPreWrapDataSet(formatMessage(messages.supplementSetting), currentInfo.supplementSetting),
-          toDataSet(formatMessage(commonMessages.createDateTime), currentInfo.createdAt)
+          toDataSet(formatMessage(commonMessages.createDateTime), currentInfo.createdAt),
+          toDataSet(formatMessage(commonMessages.updateDateTime), currentInfo.updatedAt)
         ]}
       />
     </>

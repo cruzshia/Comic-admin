@@ -7,6 +7,7 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { emptyApplicationInfo } from '@src/reducers/application/applicationInfo/applicationInfoReducer'
 import applicationMessages from '../../messages'
 import messages from '../messages'
+import UploadButton from '@src/components/form/UploadButton'
 
 interface Props {
   onSubmit: (data: any) => void
@@ -25,27 +26,21 @@ export default function ApplicationInfoForm({ onSubmit, currentInfo, formRef }: 
         <form onSubmit={handleSubmit} ref={formRef}>
           <DataTable
             dataSet={[
-              toDataSet(
-                formatMessage(applicationMessages.applicationId),
-                currentInfo ? currentInfo.applicationId : <Field name='id' component={TextInputAdapter} />
-              ),
+              toDataSet(formatMessage(applicationMessages.applicationId), currentInfo ? currentInfo.applicationId : ''),
               toDataSet(
                 formatMessage(messages.applicationName),
                 <Field name='applciationName' component={TextInputAdapter} />
               ),
-              toDataSet(formatMessage(messages.commonKey), <Field name='commonKey' component={TextInputAdapter} />),
               toDataSet(
-                formatMessage(messages.apnsCertificate),
-                <Field name='apnsCertificate' component={TextAreaAdapter} />
+                formatMessage(messages.commonKey),
+                <UploadButton text={formatMessage(commonMessages.selectFile)} name='commonKey' />
               ),
               toDataSet(
-                formatMessage(messages.apnsValidityPeriod),
-                currentInfo ? (
-                  currentInfo.apnsValidityPeriod
-                ) : (
-                  <Field name='apnsValidityPeriod' component={TextInputAdapter} />
-                )
+                formatMessage(messages.apnsAuthKey),
+                <UploadButton text={formatMessage(commonMessages.selectFile)} name='apnsAuthKey' />
               ),
+              toDataSet(formatMessage(messages.apnsTeamId), <Field name='apnsTeamId' component={TextInputAdapter} />),
+              toDataSet(formatMessage(messages.apnsKeyId), <Field name='apnsKeyId' component={TextInputAdapter} />),
               toDataSet(formatMessage(messages.fcnmApiKey), <Field name='fcnmApiKey' component={TextInputAdapter} />),
               toDataSet(
                 formatMessage(messages.androidPublicKey),

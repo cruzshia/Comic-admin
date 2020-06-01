@@ -6,8 +6,9 @@ export const mockInfoDetail = {
   applicationId: 'SHJP01I',
   applicationName: '少年ジャンプ+ for iOS',
   commonKey: '8f0943d888fddd4098fae24c090707a3',
-  apnsValidityPeriod: ' 2020-03-18 13:58:51 〜 2021-04-17 13:58:51',
-  apnsCertificate: '8f0943d888fddd4098...',
+  apnAuthKey: '8f0943d888fddd4098...',
+  apnsTeamId: '8f0943d888fddd4098fae24c090707a3',
+  apnsKeyId: '8f0943d888fddd4098fae24c090707a3',
   fcnmApiKey: '8f0943d888fddd4098fae24c090707a3',
   androidPublicKey: '8f0943d888fddd4098fae24c090707a3',
   iTunesPublicKey: '8f0943d888fddd4098fae24c090707a3',
@@ -30,11 +31,11 @@ export const mockInfoDetail = {
       }
     ]
   }`,
-  createdAt: '2019-12-25 00:00 '
+  createdAt: '2019-12-25 00:00 ',
+  updatedAt: '2019-12-25 00:00'
 }
 
 export const mockInfoList = _range(0, 2).map(num => ({
   applicationId: `SHJP01I${num}`,
-  applicationName: '少年ジャンプ+ for iOS	',
-  commonKey: '8f0943d888fddd4098fae24c090707a3	'
+  applicationName: '少年ジャンプ+ for iOS	'
 }))
