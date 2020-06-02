@@ -1,0 +1,104 @@
+{
+  "commonSettings": {
+    "standardFontFamily": "OTF Shin Go Pr6N",
+    "serifFontFamily": "OTF Ryumin Pr6N",
+    "sansSerifFontFamily": "OTF Shin Go Pr6N",
+    "minimumFontSize": 0,
+    "minimumLogicalFontSize": 0
+  },
+  "deviceConfigurations": {
+    "SVGA": {
+      "width": 768,
+      "height": 1024,
+      "ppi": 132,
+      "format": "JPEG",
+      "jpegCompressionFactor": 0.90,
+      "settings": {
+        "small": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 1.03,
+          "marginsCustom": {
+            "marginTop": 25,
+            "marginRight": 25,
+            "marginBottom": 25,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 987,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 12,
+            "fontSize": 12
+          }
+        },
+        "normal": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 1.38,
+          "marginsCustom": {
+            "marginTop": 25,
+            "marginRight": 25,
+            "marginBottom": 25,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 987,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 12,
+            "fontSize": 12
+          }
+        },
+        "large": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 2.236,
+          "marginsCustom": {
+            "marginTop": 25,
+            "marginRight": 25,
+            "marginBottom": 25,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 987,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 12,
+            "fontSize": 12
+          }
+        },
+        "x-large": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 3.3,
+          "marginsCustom": {
+            "marginTop": 25,
+            "marginRight": 25,
+            "marginBottom": 25,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 987,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 12,
+            "fontSize": 12
+          }
+        }
+      }
+    }
+  }
+}

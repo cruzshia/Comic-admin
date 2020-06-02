@@ -1,0 +1,33 @@
+#!/bin/sh
+set -e
+
+JARDIR=`dirname "$0"`
+RUNFILE="$JARDIR/run"
+
+# Execute jar/run. It displays stdout and stderr to display and sets stderr to $err variable.
+# FIXME: This code is too difficult, and stdout will be displayed with a bit delay.
+temp=$(mktemp -u "acs.XXXXXXXX")
+mkfifo -m 600 "$temp"
+cat <"$temp" &
+err=`/bin/sh "$RUNFILE" "$@" 3>&2 2>&1 1>&3 >"$temp" | tee /dev/stderr`
+rm "$temp"
+
+if echo "$err" | grep -q "Failed to get page count."; then
+    printf "Retry with -force-writing-mode option\n"
+    mkfifo -m 600 "$temp"
+    cat <"$temp" &
+    err=`/bin/sh "$RUNFILE" -force-writing-mode "$@" 3>&2 2>&1 1>&3 >"$temp" | tee /dev/stderr`
+    rm "$temp"
+    if echo "$err" | grep -q "Failed to get page count."; then
+        printf "Retry with -force-writing-mode option and -expand-page-height option\n"
+        mkfifo -m 600 "$temp"
+        cat <"$temp" &
+        err=`/bin/sh "$RUNFILE" -force-writing-mode -expand-page-height "$@" 3>&2 2>&1 1>&3 >"$temp" | tee /dev/stderr`
+        rm "$temp"
+        if echo "$err" | grep -q "Failed to get page count."; then
+            printf "Failed to convert\n"
+            exit 1
+        fi
+    fi
+fi
+exit 0

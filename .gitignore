@@ -7,4 +7,5 @@ erl_crash.dump
 /node_modules
 /gear_config.json
 /gear_test_config.json
+/gear_docker_config.json
 .iex.exs

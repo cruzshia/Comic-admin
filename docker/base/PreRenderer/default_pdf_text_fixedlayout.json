@@ -1,0 +1,383 @@
+{
+  "commonSettings": {
+    "standardFontFamily": "OTF Shin Go Pr6N",
+    "serifFontFamily": "OTF Ryumin Pr6N",
+    "sansSerifFontFamily": "OTF Shin Go Pr6N",
+    "minimumFontSize": 0,
+    "minimumLogicalFontSize": 0
+  },
+  "deviceConfigurations": {
+    "UXGA": {
+      "width": 1536,
+      "height": 2048,
+      "ppi": 264,
+      "format": "PDF",
+      "jpegCompressionFactor": 0.97,
+      "settings": {
+        "small": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 2.06,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 50,
+            "marginBottom": 50,
+            "marginLeft": 50
+          },
+          "nombre": {
+            "x": 0,
+            "y": 1973,
+            "fontSize": 18
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 18
+          }
+        },
+        "normal": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 2.76,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 50,
+            "marginBottom": 50,
+            "marginLeft": 50
+          },
+          "nombre": {
+            "x": 0,
+            "y": 1973,
+            "fontSize": 18
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 18
+          }
+        },
+        "large": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 3.44,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 50,
+            "marginBottom": 50,
+            "marginLeft": 50
+          },
+          "nombre": {
+            "x": 0,
+            "y": 1973,
+            "fontSize": 18
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 18
+          }
+        },
+        "x-large": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 5.5,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 50,
+            "marginBottom": 50,
+            "marginLeft": 50
+          },
+          "nombre": {
+            "x": 0,
+            "y": 1973,
+            "fontSize": 18
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 18
+          }
+        }
+      }
+    },
+    "SVGA": {
+      "width": 768,
+      "height": 1024,
+      "ppi": 132,
+      "format": "PDF",
+      "jpegCompressionFactor": 0.97,
+      "settings": {
+        "small": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 1.03,
+          "marginsCustom": {
+            "marginTop": 25,
+            "marginRight": 25,
+            "marginBottom": 25,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 987,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 12,
+            "fontSize": 12
+          }
+        },
+        "normal": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 1.38,
+          "marginsCustom": {
+            "marginTop": 25,
+            "marginRight": 25,
+            "marginBottom": 25,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 987,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 12,
+            "fontSize": 12
+          }
+        },
+        "large": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 1.72,
+          "marginsCustom": {
+            "marginTop": 25,
+            "marginRight": 25,
+            "marginBottom": 25,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 987,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 12,
+            "fontSize": 12
+          }
+        },
+        "x-large": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 2.75,
+          "marginsCustom": {
+            "marginTop": 25,
+            "marginRight": 25,
+            "marginBottom": 25,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 987,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 12,
+            "fontSize": 12
+          }
+        }
+      }
+    },
+    "WDVGA": {
+      "width": 640,
+      "height": 1136,
+      "ppi": 326,
+      "format": "PDF",
+      "jpegCompressionFactor": 0.97,
+      "settings": {
+        "small": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 1.46,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 25,
+            "marginBottom": 12,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 1080,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 12
+          }
+        },
+        "normal": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 1.88,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 25,
+            "marginBottom": 12,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 1080,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 12
+          }
+        },
+        "large": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 2.23,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 25,
+            "marginBottom": 12,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 1080,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 12
+          }
+        },
+        "x-large": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 1.01,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 25,
+            "marginBottom": 12,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 1080,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 12
+          }
+        }
+      }
+    },
+    "HVGA": {
+      "width": 640,
+      "height": 960,
+      "ppi": 326,
+      "format": "PDF",
+      "jpegCompressionFactor": 0.97,
+      "settings": {
+        "small": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 1.46,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 25,
+            "marginBottom": 12,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 904,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 12
+          }
+        },
+        "normal": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 1.88,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 25,
+            "marginBottom": 12,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 904,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 12
+          }
+        },
+        "large": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 2.23,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 25,
+            "marginBottom": 12,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 904,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 12
+          }
+        },
+        "x-large": {
+          "defaultFixedFontSize": 16,
+          "defaultFontSize": 16,
+          "textSize": 2.7,
+          "marginsCustom": {
+            "marginTop": 50,
+            "marginRight": 25,
+            "marginBottom": 12,
+            "marginLeft": 25
+          },
+          "nombre": {
+            "x": 0,
+            "y": 904,
+            "fontSize": 12
+          },
+          "title": {
+            "x": 0,
+            "y": 25,
+            "fontSize": 12
+          }
+        }
+      }
+    }
+  }
+}

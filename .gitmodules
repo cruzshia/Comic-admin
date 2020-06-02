@@ -1,0 +1,3 @@
+[submodule "docker/base/EPUB_Converter"]
+	path = docker/base/EPUB_Converter
+	url = https://aPublisServerTeam:dah%60F%3aoo8Y@github.com/access-company/EPUB_Converter.git

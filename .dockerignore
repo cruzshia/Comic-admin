@@ -1,0 +1,12 @@
+*
+
+!.git
+!lib
+!priv
+!script
+!test
+!web
+!.tool-versions
+!Dockerfile
+!mix.exs
+!mix.lock
