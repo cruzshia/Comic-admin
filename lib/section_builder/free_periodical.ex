@@ -63,8 +63,6 @@ defmodule RaiseServer.SectionBuilder.FreePeriodical do
     get_begin_at_diff(update_at, now)
   end
 
-  defp get_begin_at_diff(nil, _now), do: {-1, nil}
-
   defp get_begin_at_diff(datetime, now) do
     {DateTime.diff(now, datetime), datetime}
   end

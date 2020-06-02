@@ -40,6 +40,8 @@ defmodule RaiseServer.Depot.Work do
     has_many :work_authors, Depot.WorkAuthor
     has_many :authors, through: [:work_authors, :author]
 
+    has_one :work_campaign, Depot.WorkCampaign
+
     timestamps()
   end
 end

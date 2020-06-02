@@ -3,7 +3,7 @@ use Croma
 defmodule RaiseServer.SectionBuilder do
 
   alias RaiseServer.{Apps, Depot, SectionBuilder}
-  alias SectionBuilder.{Utils, FreePeriodical}
+  alias SectionBuilder.{Utils, FreeOnlyNow, FreePeriodical}
 
   @seven_days_in_seconds 604_800
 
@@ -13,6 +13,8 @@ defmodule RaiseServer.SectionBuilder do
         nil
       {%{"sections" => sections}, :home} ->
         %{"sections" => Enum.map(sections, &process_section(&1, app_id, now, page))}
+      {only_now_setting, :free_only_now} ->
+        FreeOnlyNow.process_sections(app_id, now, only_now_setting)
       {%{} = recommended_setting, :free_periodical} ->
         FreePeriodical.process(app_id, now, recommended_setting)
     end
@@ -163,7 +165,7 @@ defmodule RaiseServer.SectionBuilder do
   end
 
   def process_section(%{"type" => "works", "work_ids" => work_ids, "title" => title}, app_id, now, _page) do
-    new_work_ids = ids_to_int(work_ids)
+    new_work_ids = Utils.ids_to_int(work_ids)
     works = Depot.get_works(app_id, [id: new_work_ids, published_period: now])
     |> Enum.map(fn %{images: images, title: title, publish_begin_at: publish_begin_at} = work ->
       %{
@@ -231,7 +233,7 @@ defmodule RaiseServer.SectionBuilder do
   end
 
   def process_section(%{"type" => "books", "content_ids" => content_ids} = section, app_id, now, _page) do
-    int_content_ids = ids_to_int(content_ids)
+    int_content_ids = Utils.ids_to_int(content_ids)
     contents =
       Depot.get_contents(app_id, [id: int_content_ids, published_period: now], [select: [:id, :name, :content_type, :thumbnail_image]])
       |> Enum.map(fn %{name: name, thumbnail_image: thumbnail_image} = content ->
@@ -265,15 +267,5 @@ defmodule RaiseServer.SectionBuilder do
 
   def process_section(section, _app_id, _now, _page) do
     section
-  end
-
-  defunp ids_to_int(ids :: v[[String.t]]) :: [integer] do
-    Enum.reduce(ids, [], fn id, acc ->
-      case Utils.parse_resource_prefix(id) do
-        nil -> acc
-        id  -> [id | acc]
-      end
-    end)
-    |> Enum.reverse()
   end
 end

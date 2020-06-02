@@ -16,6 +16,7 @@ defmodule RaiseServer.RepoCase do
     Repo.delete_all(Depot.WorkAuthor)
     Repo.delete_all(Depot.Author)
     Repo.delete_all(Depot.Campaign)
+    Repo.delete_all(Depot.ContentAssessment)
     Repo.delete_all(Depot.Content)
     Repo.delete_all(Depot.Work)
     Repo.delete_all(Depot.Subscription)

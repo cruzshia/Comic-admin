@@ -21,8 +21,16 @@ defmodule RaiseServer.SectionBuilder.Utils do
     end
   end
 
-  def parse_resource_prefix(_) do
-    nil
+  def parse_resource_prefix(_), do: nil
+
+  def ids_to_int(ids) do
+    Enum.reduce(ids, [], fn id, acc ->
+      case parse_resource_prefix(id) do
+        nil -> acc
+        id  -> [id | acc]
+      end
+    end)
+    |> Enum.reverse()
   end
 
   def format_image(image) do

@@ -12,6 +12,6 @@ defenum RaiseServer.GenderEnum, male: 0, female: 1, other: 2
 
 defenum RaiseServer.StatusEnum, active: 0, withdraw: 1
 
-defenum RaiseServer.CommentContributorTypeEnum, normal: 0, offical: 1
+defenum RaiseServer.CommentContributorTypeEnum, normal: 0, official: 1
 
 defenum RaiseServer.CommentStatusEnum, enable: 0, contributor_only: 1, disable: 2

@@ -20,6 +20,16 @@ defmodule RaiseServer.Depot.WorkQuery do
     order_by(query, ^sort_by)
   end
 
+  def apply_option({:work_campaign, {app_id, now}}, query) do
+    from(
+      w in query,
+      inner_join: wc in assoc(w, :work_campaign),
+      inner_join: wcp in assoc(wc, :work_campaign_app),
+      on: w.id == wc.work_id and wcp.app_id == ^app_id and wcp.work_campaign_id == wc.id and wc.begin_at <= ^now and wc.end_at > ^now,
+      preload: [:work_campaign]
+    )
+  end
+
   def apply_option(_, query), do: query
 
   @impl true
