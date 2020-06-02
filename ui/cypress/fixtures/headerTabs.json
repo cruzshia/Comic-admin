@@ -55,5 +55,13 @@
   },
   "pushNotification": {
     "list": "プッシュ通知ログ一覧"
+  },
+  "giftCoins": {
+    "id": "贈答（コイン）",
+    "creation": "CSV一括贈答（コイン）"
+  },
+  "giftComics": {
+    "id": "贈答（マンガ）",
+    "creation": "CSV一括贈答（マンガ）"
   }
 }
