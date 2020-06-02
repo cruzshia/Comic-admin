@@ -41,4 +41,68 @@ context('Comment Detail', () => {
     cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/user/comment')
     cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', 'コメントを編集')
   })
+
+  it('Renders correct detail table', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+    cy.findAllByTestId(this.testIds.dataTable.row)
+      .should('have.length', 11)
+      .first()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('ID')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+      .next()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('ユーザーID')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+      .next()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('アプリID')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+      .next()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('コンテンツID')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+      .next()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('コンテンツ名')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+      .next()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('メッセージ')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+      .next()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('ステータス')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+      .next()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('いいね数')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+      .next()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('通報数')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+      .next()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('作成日時')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+      .next()
+      .should(function($item) {
+        expect($item.find(LABEL_SELECTOR)).to.have.text('更新日時')
+        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+      })
+  })
 })

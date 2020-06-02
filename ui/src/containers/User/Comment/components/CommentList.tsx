@@ -86,7 +86,7 @@ export default function CommentList() {
       { id: ListTableProp.Content, label: formatMessage(messages.content) },
       { id: ListTableProp.Message, label: formatMessage(commonMessages.message) },
       { id: ListTableProp.Likes, label: formatMessage(messages.likes) },
-      { id: ListTableProp.Report, label: formatMessage(messages.reportCount) },
+      { id: ListTableProp.Report, label: formatMessage(messages.report) },
       { id: ListTableProp.Status, label: formatMessage(userMessages.status) }
     ],
     [formatMessage, handleCheckAll, isCheckAll]
