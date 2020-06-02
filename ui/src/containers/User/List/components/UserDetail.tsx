@@ -227,7 +227,7 @@ export default function UserDetail() {
                   formatMessage(userMessages.amountOfCoins, { num: currentUser.android.freeAdCoin })
                 ),
                 toDataSet(
-                  formatMessage(messages.freeVideoAdCoin),
+                  formatMessage(messages.freeVideoAdCoinCount),
                   formatMessage(userMessages.amountOfCoins, { num: currentUser.android.freeVideoAdCoin })
                 )
               ]}
@@ -235,15 +235,7 @@ export default function UserDetail() {
             <DataTable
               title={formatMessage(messages.comment)}
               dataSet={[
-                toDataSet(
-                  formatMessage(messages.commentAuthorType),
-                  <Field
-                    name='commentAuthorType'
-                    component={SelectAdapter}
-                    defaultValue={currentUser.commentAuthorType}
-                    options={[{ label: currentUser.commentAuthorType, value: currentUser.commentAuthorType }]}
-                  />
-                ),
+                toDataSet(formatMessage(messages.commentAuthorType), genSelectContent('commentAuthorType')),
                 toDataSet(
                   formatMessage(messages.amountOfComment),
                   <Link to='#'>{formatMessage(messages.amountOfItems, { num: currentUser.comments })}</Link>
@@ -257,7 +249,9 @@ export default function UserDetail() {
                       component={TextInputAdapter}
                       placeholder={DATE_TIME_PLACEHOLDER}
                     />
-                    <div className={classes.margin}>{formatMessage(messages.commentLimitedDescription)}</div>
+                    <div className={classes.margin} data-testid='input-description'>
+                      {formatMessage(messages.commentLimitedDescription)}
+                    </div>
                   </>
                 )
               ]}
@@ -305,6 +299,7 @@ export default function UserDetail() {
                   <div className={classes.device}>
                     <div>{currentUser.device1.name}</div>
                     <ListIcon
+                      data-testid='icon-list'
                       onClick={() => {
                         setOpen(true)
                         setSelectedDevice(currentUser.device1)
@@ -317,6 +312,7 @@ export default function UserDetail() {
                   <div className={classes.device}>
                     <div>{currentUser.device2.name}</div>
                     <ListIcon
+                      data-testid='icon-list'
                       onClick={() => {
                         setOpen(true)
                         setSelectedDevice(currentUser.device2)

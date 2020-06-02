@@ -422,6 +422,7 @@
   "user.list.user_free_ad_coins": "Free Ad Coins",
   "user.list.user_free_bonus_coins": "Free Bonus Coins",
   "user.list.user_free_video_ad_coins": "Free Video Ad Coins",
+  "user.list.user_free_video_ad_coins_count": "Free Video Ad Coins Count",
   "user.list.user_gender": "Gender",
   "user.list.user_hash_password": "Hash Password",
   "user.list.user_login_locked_time": "Login Locked Time",

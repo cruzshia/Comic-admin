@@ -21,7 +21,9 @@
     "search": "search_input",
     "timeSpan": "time_span_input",
     "textArea": "text-area",
-    "drop": "drop"
+    "drop": "drop",
+    "amount": "amount_input",
+    "description": "input-description"
   },
   "listTable": {
     "id": "list-table",

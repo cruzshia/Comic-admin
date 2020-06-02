@@ -13,7 +13,7 @@ export default function DownloadBlock({ filename, onClick }: { filename: string;
     <Grid container alignItems='center'>
       {filename}
       <IconButton className={useStyle().icon} size='small' onClick={onClick}>
-        <DownloadIcon />
+        <DownloadIcon data-testid='download-icon' />
       </IconButton>
     </Grid>
   )

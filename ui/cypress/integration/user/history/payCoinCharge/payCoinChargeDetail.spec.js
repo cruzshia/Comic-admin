@@ -27,7 +27,7 @@ context('Pay coin charge detail', () => {
       .as('userId')
       .then(() => {
         cy.findAllByTestId(this.testIds.dataTable.id)
-          .contains('有償コインチャージ履歴')
+          .contains('購入コインチャージ履歴')
           .siblings()
           .children('a')
           .click()

@@ -79,6 +79,10 @@ export default defineMessages({
     id: PREFIX + '.user_free_video_ad_coins',
     defaultMessage: 'Free Video Ad Coins'
   },
+  freeVideoAdCoinCount: {
+    id: PREFIX + '.user_free_video_ad_coins_count',
+    defaultMessage: 'Free Video Ad Coins Count'
+  },
   amountToGift: {
     id: PREFIX + '.amount_of_coins_to_gift',
     defaultMessage: 'Amount of Coins to Gift'

@@ -27,7 +27,7 @@ context('Magazine Purchase detail', () => {
       .as('userId')
       .then(() => {
         cy.findAllByTestId(this.testIds.dataTable.id)
-          .contains('ストア購入履歴')
+          .contains('雑誌/コミックス購入履歴')
           .siblings()
           .children('a')
           .click()
