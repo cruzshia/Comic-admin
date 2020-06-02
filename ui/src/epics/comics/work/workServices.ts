@@ -1,7 +1,7 @@
 import { from } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
 import WorkDetail from '@src/models/comics/work'
-import { ListParams } from '@src/reducers/comics/work/workActions'
+import { ListParams, UploadImagePayload, NotifyImageUpload } from '@src/reducers/comics/work/workActions'
 import ImportLog from '@src/models/importLog'
 import { objToQueryStr } from '@src/utils/functions'
 import { Response } from '../../utils'
@@ -72,4 +72,17 @@ export const importWorksAjax = (): Response<any> => {
       response: {}
     }
   ])
+}
+
+export const uploadImageAjax = (payload: UploadImagePayload): Response<any> => {
+  return authAjax.put(payload.s3Info.url, payload.image, {
+    'Content-Type': 'image/png'
+  })
+}
+
+export const notifyImageUploadedAjax = (payload: {
+  id: string
+  imageMeta: Partial<NotifyImageUpload>
+}): Response<any> => {
+  return authAjax.post(`${WORK_API_PATH}/${payload.id}/upload_finished`, payload.imageMeta)
 }

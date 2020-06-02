@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 import { FieldRenderProps } from 'react-final-form'
 import { makeStyles } from '@material-ui/core'
 import DropZone from '@src/components/DropZone'
-import { toDataUri } from '@src/utils/functions'
+import { toDataUri, getImgMeta } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import { fontWeightBold } from '@src/common/styles'
 
@@ -60,7 +60,12 @@ export default function DropZoneAdapter({
             </div>
           )
         }
-        onDropAccepted={files => onChange(files[0])}
+        onDropAccepted={files => {
+          getImgMeta({
+            image: files[0],
+            cbk: onChange
+          })
+        }}
       />
     </div>
   )

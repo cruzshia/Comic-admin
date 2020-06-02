@@ -3,8 +3,7 @@ import { FieldMetaState } from 'react-final-form'
 export const composeValidators = (...validators: ((data: any) => any)[]) => (value: any) =>
   validators.reduce((error, validator) => error || validator(value), undefined)
 
-export const required = (value: any) => (value && (value.length > 1 || !isNaN(value)) ? undefined : 'Required')
-
+export const required = (value: any) => (!value || !/.+/.test(value) ? 'Required' : undefined)
 export const submitForm = (formRef: React.RefObject<HTMLFormElement>) =>
   formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
 

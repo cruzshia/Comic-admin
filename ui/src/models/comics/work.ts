@@ -1,4 +1,5 @@
 import { AdSetting } from './advertisement'
+import S3Info from '../s3Info'
 
 export enum WorkSearchKeys {
   WorkKey = 'work_keyword',
@@ -22,6 +23,7 @@ export type SearchParam = {
 
 export enum WorkKeys {
   ID = 'id',
+  App = 'app',
   Title = 'title',
   TitleKana = 'title_kana',
   Description = 'description',
@@ -74,7 +76,12 @@ export interface Work {
   [WorkKeys.CreateAt]: string
   [WorkKeys.EpisodeWorkType]?: EpisodeWorkType
   [WorkKeys.UpdateFrequency]?: string
-  [WorkKeys.Images]?: string[]
+  [WorkKeys.Images]?: {
+    image1_url: string
+    image2_url: string
+    image3_url: string
+    image4_url: string
+  }
 }
 
 export interface WorkImageMeta {
@@ -86,6 +93,7 @@ export interface WorkImageMeta {
 export interface WorkDetail extends Work {
   [WorkKeys.TitleKana]?: string
   [WorkKeys.Description]: string
+  [WorkKeys.App]: string
   [WorkKeys.Authors]: Author[]
   [WorkKeys.AuthorIds]?: string[]
   [WorkKeys.Subscription]?: Subscription
@@ -93,14 +101,14 @@ export interface WorkDetail extends Work {
   [WorkKeys.PublishBeginAt]: string
   [WorkKeys.PublishEndAt]: string
   [WorkKeys.MagazineName]?: string
+  [WorkKeys.ReturnAdRevenue]?: boolean
   [WorkKeys.FreePeriodicalDay]?: string
-  [WorkKeys.ReturnAdRevenue]?: string
   [WorkKeys.AdSetting]?: AdSetting
   [WorkKeys.S3Uploads]?: {
-    image1: WorkImageMeta
-    image2: WorkImageMeta
-    image3: WorkImageMeta
-    image4: WorkImageMeta
+    image1: S3Info
+    image2: S3Info
+    image3: S3Info
+    image4: S3Info
   }
 }
 

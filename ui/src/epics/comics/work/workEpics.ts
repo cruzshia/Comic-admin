@@ -1,6 +1,7 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { map, switchMap, exhaustMap, catchError, tap, ignoreElements } from 'rxjs/operators'
+import { of } from 'rxjs'
+import { map, switchMap, exhaustMap, mergeMap, catchError, tap, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import WorkDetail, { WorkKeys } from '@src/models/comics/work'
 import {
@@ -9,7 +10,9 @@ import {
   getWorkSuccessAction,
   createWorkSuccessAction,
   updateWorkSuccessAction,
-  getCsvLogListSuccessAction
+  getCsvLogListSuccessAction,
+  uploadImageAction,
+  notifyImgUploadedAction
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
 import { emptyErrorReturn } from '../../utils'
@@ -17,6 +20,26 @@ import { emptyErrorReturn } from '../../utils'
 const toAuthorIds = (work: WorkDetail) => {
   work[WorkKeys.AuthorIds] = work[WorkKeys.Authors].map(author => author.id)
   return work
+}
+
+const genImgUploadActions = (work: WorkDetail, payload: WorkDetail): AnyAction[] => {
+  const images = payload[WorkKeys.Images] || {}
+  const uploadActions: any[] = []
+  Object.keys(images).forEach(imgKey => {
+    const image = payload[WorkKeys.Images]?.[imgKey as keyof typeof payload[WorkKeys.Images]] as any
+    if (work.s3_uploads && image instanceof File) {
+      const key = imgKey.replace('_url', '')
+      uploadActions.push(
+        uploadImageAction({
+          id: work.id,
+          imageKey: key,
+          image,
+          s3Info: work.s3_uploads[key as keyof typeof work.s3_uploads]
+        })
+      )
+    }
+  })
+  return uploadActions
 }
 
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
@@ -53,8 +76,11 @@ export const createWorkEpic = (action$: ActionsObservable<AnyAction>) =>
     ofType(WorkActionType.CREATE),
     exhaustMap(action =>
       workServices.createWorkAjax(action.payload).pipe(
-        map(res => createWorkSuccessAction(toAuthorIds(res.response))),
-        tap(() => successSubject.next({ type: WorkActionType.CREATE_SUCCESS })),
+        mergeMap(res => {
+          const resDetail = toAuthorIds(res.response)
+          successSubject.next({ type: WorkActionType.CREATE_SUCCESS })
+          return of(createWorkSuccessAction(resDetail), ...genImgUploadActions(resDetail, action.payload as WorkDetail))
+        }),
         catchError(() => {
           errorSubject.next({ type: WorkActionType.CREATE_ERROR })
           return emptyErrorReturn()
@@ -108,4 +134,53 @@ export const importWorksEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export default [getWorkListEpic, getWorkEpic, createWorkEpic, updateWorkEpic, getCsvLogListEpic, importWorksEpic]
+export const uploadImageEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(WorkActionType.IMAGE_UPLOAD),
+    exhaustMap(action =>
+      workServices.uploadImageAjax(action.payload).pipe(
+        map(() =>
+          notifyImgUploadedAction({
+            id: action.payload.id,
+            imageMeta: {
+              [action.payload.imageKey]: {
+                path: action.payload.s3Info.path,
+                width: action.payload.image.width,
+                height: action.payload.image.height
+              }
+            }
+          })
+        ),
+        tap(() => successSubject.next({ type: WorkActionType.IMAGE_UPLOAD_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: WorkActionType.IMAGE_UPLOAD_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export const notifyImgUploadedEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(WorkActionType.NOTIFY_IMG_UPLOADED),
+    exhaustMap(action =>
+      workServices.notifyImageUploadedAjax(action.payload).pipe(
+        ignoreElements(),
+        catchError(() => {
+          errorSubject.next({ type: WorkActionType.NOTIFY_IMG_UPLOADED_FAILED })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export default [
+  getWorkListEpic,
+  getWorkEpic,
+  createWorkEpic,
+  updateWorkEpic,
+  getCsvLogListEpic,
+  importWorksEpic,
+  uploadImageEpic,
+  notifyImgUploadedEpic
+]

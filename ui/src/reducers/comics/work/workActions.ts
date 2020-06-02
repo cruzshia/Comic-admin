@@ -1,5 +1,7 @@
-import WorkDetail, { Work } from '@src/models/comics/work'
+import WorkDetail, { Work, WorkImageMeta } from '@src/models/comics/work'
+import S3Info from '@src/models/s3Info'
 import ImportLog from '@src/models/importLog'
+import { FileWithMeta } from '@src/utils/functions'
 
 export enum WorkActionType {
   GET_LIST = '@ComicsWork/GET_LIST',
@@ -25,7 +27,14 @@ export enum WorkActionType {
 
   IMPORT_WORKS = '@ComicsWork/IMPORT_WORKS',
   IMPORT_WORKS_SUCCESS = '@ComicsWork/IMPORT_WORKS_SUCCESS',
-  IMPORT_WORKS_ERROR = '@ComicsWork/IMPORT_WORKS_ERROR'
+  IMPORT_WORKS_ERROR = '@ComicsWork/IMPORT_WORKS_ERROR',
+
+  IMAGE_UPLOAD = '@ComicsWork/IMAGE_UPLOAD',
+  IMAGE_UPLOAD_SUCCESS = '@ComicsWork/IMAGE_UPLOAD_SUCCESS',
+  IMAGE_UPLOAD_ERROR = '@ComicsWork/IMAGE_UPLOAD_ERROR',
+
+  NOTIFY_IMG_UPLOADED = '@ComicsWork/NOTIFY_IMG_UPLOADED',
+  NOTIFY_IMG_UPLOADED_FAILED = '@ComicsWork/NOTIFY_IMG_UPLOADED_FAILED'
 }
 
 export const getWorkListAction = (searchParams?: Object) => ({
@@ -87,5 +96,27 @@ export const getCsvLogListSuccessAction = (logList: ImportLog[]) => ({
 
 export const importWorksAction = (payload: any) => ({
   type: WorkActionType.IMPORT_WORKS,
+  payload
+})
+
+export interface UploadImagePayload {
+  id: string
+  imageKey: string
+  image: FileWithMeta
+  s3Info: S3Info
+}
+export const uploadImageAction = (payload: UploadImagePayload) => ({
+  type: WorkActionType.IMAGE_UPLOAD,
+  payload
+})
+
+export interface NotifyImageUpload {
+  image1: WorkImageMeta
+  image2: WorkImageMeta
+  image3: WorkImageMeta
+  image4: WorkImageMeta
+}
+export const notifyImgUploadedAction = (payload: { id: string; imageMeta: Partial<NotifyImageUpload> }) => ({
+  type: WorkActionType.NOTIFY_IMG_UPLOADED,
   payload
 })

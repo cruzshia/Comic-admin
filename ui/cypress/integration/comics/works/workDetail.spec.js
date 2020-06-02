@@ -86,6 +86,11 @@ context('Work Detail', () => {
           })
           .next()
           .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('アプリID')
+            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+          })
+          .next()
+          .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('作品種別')
             expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
           })

@@ -1,7 +1,9 @@
 import { ajax } from 'rxjs/ajax'
 
 let hostUrl = '/api/console'
-let commonHeaders: { [key: string]: any } = {}
+let commonHeaders: { [key: string]: any } = {
+  'Content-Type': 'application/json'
+}
 const TOKEN_KEY = 'x-raise-api-token'
 
 const urlWithHost = (url: string) => hostUrl + url

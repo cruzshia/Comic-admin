@@ -112,8 +112,12 @@ export default function WorkDetail() {
               ))}
             </>
           ),
+          toDataSet(formatMessage(commonMessages.appId), currentWork[WorkKeys.App]),
           toDataSet(formatMessage(messages.category), currentWork[WorkKeys.WorkType]),
-          toDataSet(formatMessage(messages.reduction), currentWork[WorkKeys.ReturnAdRevenue]),
+          toDataSet(
+            formatMessage(messages.reduction),
+            formatMessage(commonMessages[currentWork[WorkKeys.ReturnAdRevenue] ? 'have' : 'no'])
+          ),
           toDataSet(formatMessage(commonMessages.subscriptionId), currentWork[WorkKeys.Subscription]?.id),
           toDataSet(formatMessage(commonMessages.createDateTime), currentWork[WorkKeys.CreateAt]),
           toDataSet(formatMessage(commonMessages.updateDateTime), currentWork[WorkKeys.UpdateAt])
@@ -138,7 +142,7 @@ export default function WorkDetail() {
           toDataSet(formatMessage(messages.freePeriodicalDay), currentWork[WorkKeys.FreePeriodicalDay]),
           toDataSet(formatMessage(messages.rensai), currentWork[WorkKeys.MagazineName]),
           ..._range(0, IMAGE_NUM).map(i => {
-            const img = currentWork[WorkKeys.Images]?.[i]
+            const img = currentWork[WorkKeys.Images]?.[`image${i + 1}_url` as keyof typeof currentWork[WorkKeys.Images]]
             return toDataSet(
               `${formatMessage(comicMessages.episodeImage)}${i + 1}`,
               img ? <img key={`image-${i}`} className={classes.image} src={img} alt={img} /> : ''

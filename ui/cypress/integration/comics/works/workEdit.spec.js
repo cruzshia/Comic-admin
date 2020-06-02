@@ -97,6 +97,11 @@ context('Work Edit', () => {
           })
           .next()
           .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('アプリID')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('作品種別')
             expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
           })

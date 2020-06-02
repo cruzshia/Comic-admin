@@ -7,11 +7,13 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { StartEndForm } from '@src/components/form'
 import { DropZoneAdapter, SelectAdapter, TextInputAdapter, TextAreaAdapter } from '@src/components/finalForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
+import { _range } from '@src/utils/functions'
 import { emptyWork } from '@src/reducers/comics/work/workReducer'
-import { WorkKeys, WorkType } from '@src/models/comics/work'
+import { WorkKeys, WorkType, EpisodeWorkType } from '@src/models/comics/work'
 import AuthorEditForm from '../../components/AuthorEditForm'
 import AdSettingForm from '../../components/AdSettingForm'
-import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
+import { validateWork } from '../utils'
+import { useComicsRef, daysOfWeekOptions, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
 import commonMessages from '@src/messages'
 import comicsMessages from '../../messages'
 import messages from '../messages'
@@ -52,6 +54,15 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
     [formatMessage]
   )
 
+  const episodeTypeOptions = useMemo(
+    () =>
+      Object.values(EpisodeWorkType).map(type => ({
+        label: formatMessage(messages[type]),
+        value: type
+      })),
+    [formatMessage]
+  )
+
   const returnOptions = useMemo(
     () => [
       {
@@ -66,17 +77,6 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
     [formatMessage]
   )
 
-  const imageDataSet = useMemo(() => {
-    const dataSet = []
-    for (let i = 0; i < IMAGE_NUM; i++) {
-      dataSet.push({
-        label: `${formatMessage(comicsMessages.episodeImage)}${i + 1}`,
-        content: <Field name={`images[${i}]`} className={classes.photo} component={DropZoneAdapter} />
-      })
-    }
-    return dataSet
-  }, [formatMessage, classes.photo])
-
   return (
     <>
       <ScrollTo anchorRef={allAnchorRefs} withStickHeader />
@@ -84,8 +84,9 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}
         subscription={{ pristine: true }}
+        validate={validateWork}
         initialValues={workData || { ...emptyWork }}
-        render={({ handleSubmit, form }) => (
+        render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
@@ -109,6 +110,10 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   <Field name={WorkKeys.Description} component={TextAreaAdapter} />
                 ),
                 toDataSet(formatMessage(commonMessages.author), <AuthorEditForm authorKey={WorkKeys.AuthorIds} />),
+                toDataSet(
+                  formatMessage(commonMessages.appId),
+                  <Field name={WorkKeys.App} component={SelectAdapter} options={[]} />
+                ),
                 {
                   label: formatMessage(messages.category),
                   classes: workData ? 'display' : undefined,
@@ -123,10 +128,10 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                     <Field name={WorkKeys.ReturnAdRevenue} component={SelectAdapter} options={returnOptions} isShort />
                   )
                 },
-                {
-                  label: formatMessage(commonMessages.subscriptionId),
-                  content: <Field name='subscriptionId' component={SelectAdapter} options={[]} />
-                }
+                toDataSet(
+                  formatMessage(commonMessages.subscriptionId),
+                  <Field name={WorkKeys.Subscription} component={SelectAdapter} options={[]} />
+                )
               ]}
             />
             <StartEndForm
@@ -134,32 +139,51 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
               title={formatMessage(commonMessages.deliveryDuration)}
               classnames={clsx(classes.tableClass, classes.tableMargin)}
               startLabel={formatMessage(commonMessages.deliveryStartDateTime)}
-              startName='deliveryStartDateTime'
+              startName={WorkKeys.PublishBeginAt}
               endLabel={formatMessage(commonMessages.deliveryEndDateTime)}
-              endName='deliveryEndDateTime'
+              endName={WorkKeys.PublishEndAt}
             />
             <DataTable
               innerRef={episodeInfoRef}
               title={formatMessage(comicsMessages.episodeInfo)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
               dataSet={[
-                {
-                  label: formatMessage(messages.episodeCategory),
-                  content: <Field name='episodeCategory' component={SelectAdapter} options={[]} isShort />
-                },
-                {
-                  label: formatMessage(messages.episodeFrequency),
-                  content: <Field name='episodeFrequency' component={SelectAdapter} options={[]} isShort />
-                },
-                {
-                  label: formatMessage(messages.freePeriodicalDay),
-                  content: <Field name='freePeriodicalDay' component={SelectAdapter} options={[]} isShort />
-                },
-                {
-                  label: formatMessage(messages.rensai),
-                  content: <Field name='workSerial' component={SelectAdapter} options={[]} isShort />
-                },
-                ...imageDataSet
+                toDataSet(
+                  formatMessage(messages.episodeCategory),
+                  <Field
+                    name={WorkKeys.EpisodeWorkType}
+                    component={SelectAdapter}
+                    options={episodeTypeOptions}
+                    isShort
+                  />
+                ),
+                toDataSet(
+                  formatMessage(messages.episodeFrequency),
+                  <Field name={WorkKeys.UpdateFrequency} component={SelectAdapter} options={[]} isShort />
+                ),
+                toDataSet(
+                  formatMessage(messages.freePeriodicalDay),
+                  <Field
+                    name={WorkKeys.FreePeriodicalDay}
+                    component={SelectAdapter}
+                    options={daysOfWeekOptions}
+                    isShort
+                  />
+                ),
+                toDataSet(
+                  formatMessage(messages.rensai),
+                  <Field name={WorkKeys.MagazineName} component={SelectAdapter} options={[]} isShort />
+                ),
+                ..._range(1, IMAGE_NUM + 1).map(index =>
+                  toDataSet(
+                    `${formatMessage(comicsMessages.episodeImage)}${index}`,
+                    <Field
+                      name={`${WorkKeys.Images}.image${index}_url`}
+                      className={classes.photo}
+                      component={DropZoneAdapter}
+                    />
+                  )
+                )
               ]}
             />
             <AdSettingForm adSettingRef={adSettingRef} adKey={WorkKeys.AdSetting} />

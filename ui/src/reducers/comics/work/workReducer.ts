@@ -20,6 +20,7 @@ const initState: WorkState = {
 }
 
 export const emptyWork = {
+  [WorkKeys.ReturnAdRevenue]: false,
   [WorkKeys.AuthorIds]: [''],
   [WorkKeys.AdSetting]: defaultAdTypes
 }

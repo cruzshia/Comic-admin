@@ -17,17 +17,41 @@ export const mockWork: WorkDetail = {
     { id: '2', name: 'pon yu uen' }
   ],
   [WorkKeys.WorkType]: WorkType.Comic,
+  [WorkKeys.App]: 'アプリ',
   [WorkKeys.UpdateFrequency]: '毎週月月金曜日に更新',
-  [WorkKeys.ReturnAdRevenue]: '還元あり',
+  [WorkKeys.ReturnAdRevenue]: true,
   [WorkKeys.FreePeriodicalDay]: '月',
   [WorkKeys.MagazineName]: 'ジャンプ本誌',
   [WorkKeys.Subscription]: { id: '2', name: '週刊少年ジャンプ定期購読' },
   [WorkKeys.CreateAt]: '2019-12-25 00:00',
   [WorkKeys.UpdateAt]: '2019-12-25 00:00',
   [WorkKeys.EpisodeWorkType]: EpisodeWorkType.Original,
-  images: [mockCover1, mockCover2, mockCover3, mockCover4],
+  [WorkKeys.Images]: {
+    image1_url: mockCover1,
+    image2_url: mockCover2,
+    image3_url: mockCover3,
+    image4_url: mockCover4
+  },
   [WorkKeys.PublishBeginAt]: '2019-12-25 00:00',
   [WorkKeys.PublishEndAt]: '2019-12-25 00:00',
+  [WorkKeys.S3Uploads]: {
+    image1: {
+      url: 'http://image.upload.com/1',
+      path: 'http://work/image/1'
+    },
+    image2: {
+      url: 'http://image.upload.com/2',
+      path: 'http://work/image/2'
+    },
+    image3: {
+      url: 'http://image.upload.com/3',
+      path: 'http://work/image/3'
+    },
+    image4: {
+      url: 'http://image.upload.com/4',
+      path: 'http://work/image/4'
+    }
+  },
   [WorkKeys.AdSetting]: {
     device: 'ios',
     [AdPosition.Front]: [

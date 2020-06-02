@@ -21,7 +21,12 @@ export const mockData = (mockDatum => {
 })(mockDatum)
 
 export const mockListData: Work[] = _range(0, 4).map(i => ({
-  [WorkKeys.Images]: [mockImg],
+  [WorkKeys.Images]: {
+    image1_url: mockImg,
+    image2_url: mockImg,
+    image3_url: mockImg,
+    image4_url: mockImg
+  },
   [WorkKeys.ID]: `WORK_ROOKIE00001475${i}`,
   [WorkKeys.Title]: 'クラスメイトの田中さんはすごく怖い',
   [WorkKeys.CreateAt]: '2020-01-21 16:34',

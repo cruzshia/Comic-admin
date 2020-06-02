@@ -31,9 +31,13 @@ describe('TimeSpanInput component test', () => {
       withAllProvider(
         <Form
           onSubmit={mockFn}
+          validate={values => ({
+            start: !!values.start ? undefined : 'Required',
+            end: !!values.end ? undefined : 'Required'
+          })}
           render={() => (
             <form>
-              <TimeSpanInput isRequired />
+              <TimeSpanInput nameStart='start' nameEnd='end' />
             </form>
           )}
         />
@@ -103,9 +107,13 @@ describe('TimeSpanInput component test', () => {
       withAllProvider(
         <Form
           onSubmit={mockSubmit}
+          validate={values => ({
+            Start: !!values.Start ? undefined : 'Required',
+            End: !!values.End ? undefined : 'Required'
+          })}
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} ref={formRef}>
-              <TimeSpanInput isRequired />
+              <TimeSpanInput />
             </form>
           )}
         />

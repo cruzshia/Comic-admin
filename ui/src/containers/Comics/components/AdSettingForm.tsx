@@ -106,7 +106,7 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
       label: formatMessage(commonMessages.deviceCategory),
       content: (
         <Field
-          name={`${DEFAULT_ADS_KEY}.device`}
+          name={`${adKey}.${AdSettingKeys.AdDevice}`}
           component={SelectAdapter}
           options={[
             { label: 1, value: 1 },

@@ -1,8 +1,8 @@
 import messages from './messages'
 import commonMessages from '@src/messages'
 import { routePath } from '@src/common/appConfig'
-import { WorkSearchKeys, SearchParam } from '@src/models/comics/work'
-import { validDateTime, isValidDuration } from '@src/utils/validation'
+import Work, { WorkSearchKeys, SearchParam, WorkKeys } from '@src/models/comics/work'
+import { validDateTime, isValidDuration, required } from '@src/utils/validation'
 import { toISO8601 } from '@src/utils/functions'
 
 export const BREADCRUMBS = [
@@ -28,8 +28,8 @@ export function convertDateFormat(params: Partial<SearchParam> = {}) {
   return convertedParams
 }
 
+const dateFormatError = 'Wrong format'
 export function searchParamsValidator(values: Partial<SearchParam>) {
-  const dateFormatError = 'Wrong format'
   const [publishStartFrom, publishStartTo, publishEndFrom, publishEndTo] = [
     values[WorkSearchKeys.PublishBeginAtFrom],
     values[WorkSearchKeys.PublishBeginAtTo],
@@ -51,5 +51,14 @@ export function searchParamsValidator(values: Partial<SearchParam>) {
       (!validDateTime(publishEndTo) || (publishEndFrom && !isValidDuration(publishEndFrom, publishEndTo)))
         ? dateFormatError
         : undefined
+  }
+}
+
+export function validateWork(values: Partial<Work>) {
+  return {
+    [WorkKeys.Title]: required(values[WorkKeys.Title]),
+    [WorkKeys.TitleKana]: required(values[WorkKeys.TitleKana]),
+    [WorkKeys.PublishBeginAt]: !validDateTime(values[WorkKeys.PublishBeginAt] || '') ? dateFormatError : undefined,
+    [WorkKeys.PublishEndAt]: !validDateTime(values[WorkKeys.PublishEndAt] || '') ? dateFormatError : undefined
   }
 }

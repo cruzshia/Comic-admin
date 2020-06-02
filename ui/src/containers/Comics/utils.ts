@@ -30,3 +30,5 @@ export const useComicsRef = () => {
     campaignTimeRef
   }
 }
+
+export const daysOfWeekOptions = ['日', '月', '水', '火', '木', '金', '土'].map(day => ({ label: day, value: day }))
