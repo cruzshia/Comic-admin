@@ -128,7 +128,7 @@
   "comics.content.request_id": "要求コンテンツID",
   "comics.content.sort": "並換コード",
   "comics.content.thumbnail_image": "サムネイル画像",
-  "comics.content.title_kana": "タイトル（カナ）",
+  "comics.content.title_kana": "コンテンツ名（カナ）",
   "comics.content.transition_url": "遷移先URL",
   "comics.content_campaign": "コンテンツキャンペーン",
   "comics.content_price": "コイン価格",

@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-import { borderColorLight, contentWidth, minWidth, lightColorHover } from '@src/common/styles'
+import { borderColorLight, contentWidth, minWidth, lightColorHover, backgroundColorLightGray } from '@src/common/styles'
 import { ReactComponent as PenIcon } from '@src/assets/common/pen.svg'
 import DataTableRow, { LABEL_WIDTH } from './DataTableRow'
 import clsx from 'clsx'
@@ -18,7 +18,8 @@ const useStyle = makeStyles({
     marginBottom: '30px'
   },
   subTitle: {
-    padding: '20px',
+    padding: '15px 20px',
+    backgroundColor: backgroundColorLightGray,
     borderBottom: `2px solid ${borderColorLight}`
   },
   rowItem: {

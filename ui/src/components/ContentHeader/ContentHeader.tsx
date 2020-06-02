@@ -44,21 +44,20 @@ export default function ContentHeader({ breadcrumbList, titleText, buttonList: B
   return (
     <>
       <Breadcrumbs separator={BREADCRUMB_SEPARATOR} className={classes.breadcrumb} data-testid='breadcrumbs'>
-        {breadcrumbList &&
-          breadcrumbList.map(({ title, route }) => {
-            if (route) {
-              return (
-                <Link key={route} to={route} data-testid='breadcrumbs-link'>
-                  {title}
-                </Link>
-              )
-            }
+        {breadcrumbList?.map(({ title, route }) => {
+          if (route) {
             return (
-              <span key={title} data-testid='breadcrumbs-text'>
+              <Link key={route} to={route} data-testid='breadcrumbs-link'>
                 {title}
-              </span>
+              </Link>
             )
-          })}
+          }
+          return (
+            <span key={title} data-testid='breadcrumbs-text'>
+              {title}
+            </span>
+          )
+        })}
       </Breadcrumbs>
       <Grid className={classes.header} container justify='space-between'>
         <Grid item>
@@ -67,7 +66,9 @@ export default function ContentHeader({ breadcrumbList, titleText, buttonList: B
           </Typography>
         </Grid>
         <Grid item container direction='row-reverse' data-testid='content-header-buttons'>
-          {ButtonList && ButtonList.map((btn, idx) => <React.Fragment key={idx}>{btn}</React.Fragment>)}
+          {ButtonList?.map((btn, idx) => (
+            <React.Fragment key={`btn-${idx}`}>{btn}</React.Fragment>
+          ))}
         </Grid>
       </Grid>
     </>

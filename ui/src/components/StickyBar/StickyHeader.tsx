@@ -26,7 +26,11 @@ export default function StickyHeader({ title, button, contentOffset = 100 }: Pro
     <StickBar top={0} contentOffset={contentOffset}>
       <Grid container justify='space-between' alignItems='center'>
         <Typography variant='h6'>{title}</Typography>
-        <div className={classes.buttons}>{button}</div>
+        <div className={classes.buttons}>
+          {Array.isArray(button)
+            ? button.map((btn, idx) => <React.Fragment key={`btn-${idx}`}>{btn}</React.Fragment>)
+            : button}
+        </div>
       </Grid>
     </StickBar>
   )

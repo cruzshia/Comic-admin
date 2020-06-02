@@ -62,7 +62,7 @@ export const mockContent = {
     ]
   },
   magazineBanner: {
-    deviceCategory: '',
+    deviceCategory: 'デバイス共通',
     contents: [
       [
         {

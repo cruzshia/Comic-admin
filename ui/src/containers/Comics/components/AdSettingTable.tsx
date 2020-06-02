@@ -18,12 +18,8 @@ const useStyles = makeStyles({
     marginBottom: '36px',
     lineHeight: '14px'
   },
-  subTitle: {
-    padding: '15px 20px',
-    backgroundColor: '#FFFFFF',
-    '&.gray': {
-      backgroundColor: backgroundColorGray
-    }
+  grayBg: {
+    backgroundColor: backgroundColorGray
   }
 })
 
@@ -67,8 +63,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
           content: formatMessage(
             commonMessages[data?.[AdSettingKeys.AdDevice] === 'common' ? 'deviceCommon' : 'deviceCategory']
           ),
-          isSubTitle: true,
-          classes: classes.subTitle
+          isSubTitle: true
         }
       ]
 
@@ -85,7 +80,7 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
           label: '',
           content: formatMessage(commonMessages.contents),
           isSubTitle: true,
-          classes: `${classes.subTitle} gray`
+          classes: classes.grayBg
         },
         ...contentAd.map((ad: Advertisement) => genAdvertisementData(ad))
       ]}

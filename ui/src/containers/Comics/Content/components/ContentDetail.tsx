@@ -79,7 +79,7 @@ export default function ContentDetail() {
         onEdit={handleRedirect()}
         dataSet={[
           toDataSet(formatMessage(commonMessages.contentId), currentContent.id),
-          toDataSet(formatMessage(commonMessages.title), currentContent.title),
+          toDataSet(formatMessage(commonMessages.contentName), currentContent.title),
           toDataSet(formatMessage(messages.titleKana), currentContent.titleKana),
           toDataSet(formatMessage(messages.category), currentContent.category),
           toDataSet(formatMessage(commonMessages.introduction), currentContent.description),
@@ -130,7 +130,11 @@ export default function ContentDetail() {
         onEdit={handleRedirect(ContentAnchor.Magazine)}
         title={formatMessage(messages.magazineBannerSetting)}
         dataSet={[
-          toDataSet('', currentContent.magazineBanner.deviceCategory, true),
+          {
+            label: '',
+            content: currentContent.magazineBanner.deviceCategory,
+            isSubTitle: true
+          },
           ..._range(0, MAGAZINE_BANNER_NUM).map(num =>
             toDataSet(
               `${formatMessage(messages.magazineBannerSetting)}${num + 1}`,
