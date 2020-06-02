@@ -34,7 +34,7 @@ defmodule RaiseServer.SectionBuilder.Utils do
   defp format_image(nil, image), do: format_image("", image)
   defp format_image(host, image) do
     %{
-      url:    host <> image.path,
+      url:    "https://" <> host <> "/" <> image.path,
       width:  image.width,
       height: image.height,
     }

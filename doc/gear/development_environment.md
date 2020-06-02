@@ -47,7 +47,7 @@ $ docker stop <docker_container_name>
     "ssl": false
   },
   "api_token_key": "****************",
-  "cdn_host": "https://**************.com/"
+  "cdn_host": "**************.com"
 }
 ```
 
