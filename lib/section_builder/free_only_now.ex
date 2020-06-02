@@ -95,7 +95,7 @@ defmodule RaiseServer.SectionBuilder.FreeOnlyNow do
         %{
           "id" => Utils.add_resource_prefix(content),
           "name" => name,
-          "thumbnail_image" => thumbnail_image,
+          "thumbnail_image" => Utils.format_image(thumbnail_image),
           "end_at" => publish_end_at,
         }
       end)
@@ -113,7 +113,7 @@ defmodule RaiseServer.SectionBuilder.FreeOnlyNow do
     response = %{
       "id" => Utils.add_resource_prefix(work),
       "title"  => title,
-      "image" => images.image1,
+      "image" => Utils.format_image(images.image1),
       "end_at" => end_at,
       "new_rensai_badge" => DateTime.diff(now, publish_begin_at) < @seven_days_in_seconds,
       "is_recommended" => recommended_work_id == id,

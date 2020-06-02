@@ -1,11 +1,11 @@
 defmodule RaiseServer.HomeData do
-  import RaiseServer.ScreenSettingUtils
 
-  alias RaiseServer.{AppsFactory, DepotFactory}
+  alias RaiseServer.{AppsFactory, DepotFactory, ScreenSettingUtils}
 
   def create_resources(app) do
 
     %{setting: setting_str} = AppsFactory.insert(:home_screen, %{app_id: app.id})
+    setting = :jsx.decode(setting_str, return_maps: true)
 
     work = DepotFactory.insert(:work)
     content = DepotFactory.insert(:content, %{work_id: work.id})
@@ -20,14 +20,14 @@ defmodule RaiseServer.HomeData do
     DepotFactory.insert(:work_campaign_app, %{work_campaign_id: fon_work_campaign.id, app_id: app.id})
 
     # works section
-    %{"work_ids" => prefixed_ids} = find_section(setting_str, "works")
+    %{"work_ids" => prefixed_ids} = ScreenSettingUtils.find_section(setting, "works")
     for <<_::binary-size(2), _id_str::binary>> <- prefixed_ids do
       %{id: work_id} = DepotFactory.insert(:episode_work)
       DepotFactory.insert(:work_app, %{work_id: work_id, app_id: app.id})
     end
 
     # subscription section
-    %{"subscription_id" => "sb" <> sub_id_str} = find_section(setting_str, "subscription")
+    %{"subscription_id" => "sb" <> sub_id_str} = ScreenSettingUtils.find_section(setting, "subscription")
     sub_id = sub_id_str |> String.to_integer
     sub = DepotFactory.insert(:subscription, %{id: sub_id})
     sub_work = DepotFactory.insert(:magazine_work, %{subscription_id: sub.id, is_main_work_of_subscription: true})

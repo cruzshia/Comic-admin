@@ -19,7 +19,7 @@ defmodule RaiseServer.Depot.Work do
     field :ngramed_search_text, :string
     embeds_one :images,         Depot.Images
 
-    field :episode_work_type,               :integer
+    field :episode_work_type,               RaiseServer.EpisodeTypeEnum
     field :update_frequency,                :string
     field :free_periodical_day_of_the_week, :string
     field :comic_appeal_work_id,            :integer

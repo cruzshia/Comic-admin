@@ -30,7 +30,6 @@ defmodule RaiseServer.RepoCase do
   using do
     quote do
       use RaiseServer.CommonCase
-      import RaiseServer.ScreenSettingUtils
 
       defp mock_verify_app_api_token() do
         # TODO: Mock RaiseServer.Plug.VerifyAppApiToken
