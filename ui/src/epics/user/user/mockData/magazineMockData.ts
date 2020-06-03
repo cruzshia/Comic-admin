@@ -14,7 +14,7 @@ const coinDetails = [
 export const mockMagazineList = _range(0, 6).map(num => ({
   id: num,
   createdAt: `2020-01-21 16:3${num}`,
-  contentId: `WORK_SHUNKAN1000000${num}`,
+  content: 'ハイキュー!! 38',
   applicationId: '少年ジャンプ+ for iOS',
   coinChangeTotal: -100,
   coinChangeDetail: coinDetails[num]
@@ -25,7 +25,9 @@ export const mockMagazineDetail = {
   updatedAt: '2020-04-02 14:00',
   userId: 'WORK_SHUNKAN10000006',
   contentsId: 'WORK_SHUNKAN10000006',
+  contentName: '週刊少年ジャンプ11号',
   subscriptionId: 'WORK_SHUNKAN10000006',
+  subscriptionName: '週刊少年ジャンプ定期購読',
   applicationId: '少年ジャンプ+ for iOS',
   paidCoinCount: 100,
   paidGivenCoinCount: 100,

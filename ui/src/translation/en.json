@@ -166,7 +166,6 @@
   "comics.subscription.monthly_fee_browser": "Monthly Fee (Browser)",
   "comics.subscription.monthly_fee_common": "Monthly Fee (Common)",
   "comics.subscription.monthly_fee_ios": "Monthly Fee (iOS)",
-  "comics.subscription.name": "Subscription Name",
   "comics.subscription.product_create_start": "Subscription Product Create",
   "comics.subscription.product_id": "Subscription Product ID",
   "comics.subscription.subscription_detail": "SubscriptionDetail",
@@ -299,6 +298,7 @@
   "common.start_time": "Start Time",
   "common.status": "Status",
   "common.subscription_id": "Subscription ID",
+  "common.subscription_name": "Subscription Name",
   "common.template_JIS": "Template(Shift_JIS)",
   "common.template_UTF8": "Template(UTF-8)",
   "common.title": "Title",
@@ -413,7 +413,6 @@
   "user.list.paid_coins_charge_logs": "Paid Coins Charge Logs",
   "user.list.purchase_logs": "Purchase Logs",
   "user.list.storePurchase_logs": "StorePurchaseLogs",
-  "user.list.subscription": "Subscription",
   "user.list.subscription_gift": "Subscription Gift",
   "user.list.subscription_logs": "Subscription Logs",
   "user.list.user_birth_date": "Birth Date",
@@ -505,5 +504,6 @@
   "user.questionnaire.text_box_single_line": " Single Line Text Box",
   "user.questionnaire_management": "Questionnaire Management",
   "user.status": "Status",
+  "user.subscription": "Subscription",
   "user.validity_period": "Validity Period"
 }

@@ -363,7 +363,7 @@ export default function UserDetail() {
                         <Field name='subscriptionGift.application' component={SelectAdapter} options={[]} />
                       ),
                       toDataSet(
-                        formatMessage(messages.subscription),
+                        formatMessage(userMessages.subscription),
                         <Field name='subscriptionGift.subscription' component={SelectAdapter} options={[]} />
                       ),
                       toDataSet(

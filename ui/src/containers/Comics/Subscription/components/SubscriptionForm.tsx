@@ -35,7 +35,10 @@ export default function SubscriptionForm({ onSubmit, currentSubscription, formRe
             title={formatMessage(commonMessages.basicInfo)}
             dataSet={[
               toDataSet(formatMessage(commonMessages.id), currentSubscription ? currentSubscription.id : ''),
-              toDataSet(formatMessage(messages.name), <Field name='name' component={TextFieldAdapter} />),
+              toDataSet(
+                formatMessage(commonMessages.subscriptionName),
+                <Field name='name' component={TextFieldAdapter} />
+              ),
               toDataSet(formatMessage(messages.subscriptionImage), <Field name='image' component={DropZoneAdapter} />),
               toDataSet(
                 formatMessage(commonMessages.publicStartTime),

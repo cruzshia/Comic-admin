@@ -41,7 +41,7 @@ export default function SubscriptionList() {
     () => [
       { id: 'createAt', label: formatMessage(commonMessages.createDateTime) },
       { id: 'id', label: formatMessage(commonMessages.id) },
-      { id: 'name', label: formatMessage(messages.name) },
+      { id: 'name', label: formatMessage(commonMessages.subscriptionName) },
       { id: 'publicStart', label: formatMessage(commonMessages.publicStartTime) },
       { id: 'publicEnd', label: formatMessage(commonMessages.publicEndTime) },
       { id: 'spacer', label: '' }

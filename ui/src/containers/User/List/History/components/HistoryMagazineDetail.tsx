@@ -57,14 +57,14 @@ export default function HistoryMagazineDetail({
           toDataSet(formatMessage(commonMessages.updateDateTime), currentHistory.updatedAt),
           toDataSet(formatMessage(userMessages.userId), currentHistory.userId),
           toDataSet(formatMessage(commonMessages.contentId), currentHistory.contentsId),
+          toDataSet(formatMessage(commonMessages.contentName), currentHistory.contentName),
           toDataSet(formatMessage(commonMessages.subscriptionId), currentHistory.subscriptionId),
+          toDataSet(formatMessage(commonMessages.subscriptionName), currentHistory.subscriptionName),
           toDataSet(formatMessage(commonMessages.appId), currentHistory.applicationId),
           toDataSet(formatMessage(messages.paidCoinCount), currentHistory.paidCoinCount),
           toDataSet(formatMessage(messages.paidGivenCoinCount), currentHistory.paidGivenCoinCount),
           toDataSet(formatMessage(messages.paidGiftCoinCount), currentHistory.paidGiftCoinCount),
-          toDataSet(formatMessage(messages.supplementInfo), currentHistory.supplementInfo),
-          toDataSet(formatMessage(messages.price), currentHistory.price),
-          toDataSet(formatMessage(messages.currency), currentHistory.currency)
+          toDataSet(formatMessage(messages.supplementInfo), currentHistory.supplementInfo)
         ]}
       />
     </>

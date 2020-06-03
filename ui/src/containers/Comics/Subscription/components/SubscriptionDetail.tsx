@@ -90,7 +90,7 @@ export default function SubscriptionDetail() {
         onEdit={handleEdit}
         dataSet={[
           toDataSet(formatMessage(commonMessages.id), currentSubscription.id),
-          toDataSet(formatMessage(messages.name), currentSubscription.name),
+          toDataSet(formatMessage(commonMessages.subscriptionName), currentSubscription.name),
           toDataSet(formatMessage(messages.subscriptionImage), <img src={currentSubscription.image} alt='' />),
           toDataSet(formatMessage(commonMessages.publicStartTime), currentSubscription.publicStartTime),
           toDataSet(formatMessage(commonMessages.publicEndTime), currentSubscription.publicEndTime),

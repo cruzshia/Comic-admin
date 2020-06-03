@@ -34,5 +34,9 @@ export default defineMessages({
   csvFile: {
     id: PREFIX + 'csv_file',
     defaultMessage: 'Csv File'
+  },
+  subscription: {
+    id: PREFIX + 'subscription',
+    defaultMessage: 'Subscription'
   }
 })

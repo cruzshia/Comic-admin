@@ -7,10 +7,6 @@ export default defineMessages({
     id: PREFIX + 'list',
     defaultMessage: 'Subscription List'
   },
-  name: {
-    id: PREFIX + 'name',
-    defaultMessage: 'Subscription Name'
-  },
   createStart: {
     id: PREFIX + 'create_start',
     defaultMessage: 'Create subscription'

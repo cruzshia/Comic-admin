@@ -24,6 +24,7 @@ export const mockEpisodePurchaseDetail = {
   updatedAt: '2020-04-02 14:00',
   userId: 'WORK_SHUNKAN10000006',
   contentsId: 'WORK_SHUNKAN10000006',
+  contentName: 'ハイキュー!! 38',
   applicationId: '少年ジャンプ+ for iOS',
   coinCount: -60,
   paidCoinCount: -10,

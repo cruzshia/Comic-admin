@@ -318,5 +318,9 @@ export default defineMessages({
   no: {
     id: PREFIX + 'no',
     defaultMessage: 'No'
+  },
+  subscriptionName: {
+    id: PREFIX + 'subscription_name',
+    defaultMessage: 'Subscription Name'
   }
 })

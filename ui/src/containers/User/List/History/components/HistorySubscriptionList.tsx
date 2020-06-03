@@ -6,7 +6,7 @@ import ContentHeader from '@src/components/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import HistorySubscription from '@src/models/user/historySubscription'
 import ListTable from '@src/components/table/ListTable'
-import { useSort, usePaging } from '@src/hooks'
+import { usePaging } from '@src/hooks'
 import { BREADCRUMBS } from '../utils'
 import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
@@ -43,7 +43,6 @@ export default function HistorySubscriptionList({ historyTotal, historyList, onG
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { userId } = useParams()
-  const { sortBy, handleSort } = useSort('createdAt')
   const { pagination, handlePageChange } = usePaging({ total: historyTotal })
 
   useEffect(() => {
@@ -67,8 +66,8 @@ export default function HistorySubscriptionList({ historyTotal, historyList, onG
 
   const theadList = useMemo(
     () => [
-      { id: 'createdAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
-      { id: 'subscriptionId', label: formatMessage(commonMessages.subscriptionId) },
+      { id: 'createdAt', label: formatMessage(commonMessages.createDateTime) },
+      { id: 'subscription', label: formatMessage(userMessages.subscription) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
       { id: 'price', label: formatMessage(messages.price) },
       { id: 'currency', label: formatMessage(messages.currency) },
@@ -76,11 +75,7 @@ export default function HistorySubscriptionList({ historyTotal, historyList, onG
       { id: 'updateAt', label: formatMessage(commonMessages.updateDateTime) },
       { id: 'validityPeriod', label: formatMessage(userMessages.validityPeriod) }
     ],
-    [formatMessage, handleSort]
-  )
-
-  const dataList = historyList.sort(
-    (a: any, b: any) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier
+    [formatMessage]
   )
 
   return (
@@ -89,11 +84,9 @@ export default function HistorySubscriptionList({ historyTotal, historyList, onG
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
-        dataList={dataList}
+        dataList={historyList}
         pagination={pagination}
         onPageChange={handlePageChange}
-        sortBy={sortBy.key}
-        sortOrder={sortBy.order}
         onRowClick={useCallback(
           (id: string) =>
             history.push(routePath.user.historySubscriptionDetail.replace(':id', id).replace(':userId', userId!)),

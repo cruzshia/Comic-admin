@@ -6,7 +6,7 @@ import HistoryMagazine from '@src/models/user/historyMagazine'
 import ContentHeader from '@src/components/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import ListTable from '@src/components/table/ListTable'
-import { useSort, usePaging } from '@src/hooks'
+import { usePaging } from '@src/hooks'
 import { BREADCRUMBS } from '../utils'
 import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
@@ -40,7 +40,6 @@ export default function HistoryMagazineList({ historyTotal, historyList, onGetMa
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { userId } = useParams()
-  const { sortBy, handleSort } = useSort('createdAt')
   const { pagination, handlePageChange } = usePaging({ total: historyTotal })
 
   useEffect(() => {
@@ -64,21 +63,19 @@ export default function HistoryMagazineList({ historyTotal, historyList, onGetMa
 
   const theadList = useMemo(
     () => [
-      { id: 'createdAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
-      { id: 'contentId', label: formatMessage(commonMessages.contentId) },
+      { id: 'createdAt', label: formatMessage(commonMessages.createDateTime) },
+      { id: 'content', label: formatMessage(commonMessages.contents) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
       { id: 'coinChangeTotal', label: formatMessage(messages.coinChangeTotal) },
       { id: 'coinChangeDetail', label: formatMessage(messages.coinChangeDetail) }
     ],
-    [formatMessage, handleSort]
+    [formatMessage]
   )
 
-  const dataList = historyList
-    .map(({ coinChangeDetail, ...data }) => ({
-      ...data,
-      coinChangeDetail: <Box whiteSpace='pre-wrap'>{coinChangeDetail}</Box>
-    }))
-    .sort((a: any, b: any) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier)
+  const dataList = historyList.map(({ coinChangeDetail, ...data }) => ({
+    ...data,
+    coinChangeDetail: <Box whiteSpace='pre-wrap'>{coinChangeDetail}</Box>
+  }))
 
   return (
     <>
@@ -89,8 +86,6 @@ export default function HistoryMagazineList({ historyTotal, historyList, onGetMa
         dataList={dataList}
         pagination={pagination}
         onPageChange={handlePageChange}
-        sortBy={sortBy.key}
-        sortOrder={sortBy.order}
         onRowClick={useCallback(
           (id: string) =>
             history.push(routePath.user.historyMagazineDetail.replace(':id', id).replace(':userId', userId!)),

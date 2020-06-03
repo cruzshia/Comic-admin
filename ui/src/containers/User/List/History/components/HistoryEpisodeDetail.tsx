@@ -58,6 +58,7 @@ export default function HistoryEpisodeDetail({
           toDataSet(formatMessage(commonMessages.updateDateTime), currentHistory.updatedAt),
           toDataSet(formatMessage(userMessages.userId), currentHistory.userId),
           toDataSet(formatMessage(commonMessages.contentId), currentHistory.contentsId),
+          toDataSet(formatMessage(commonMessages.contentName), currentHistory.contentName),
           toDataSet(formatMessage(commonMessages.appId), currentHistory.applicationId),
           toDataSet(formatMessage(messages.coinCount), formatCoinCount(currentHistory.coinCount)),
           toDataSet(formatMessage(messages.payCoinCount), formatCoinCount(currentHistory.paidCoinCount)),

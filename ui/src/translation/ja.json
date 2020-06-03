@@ -166,7 +166,6 @@
   "comics.subscription.monthly_fee_browser": "月額料金（ブラウザ）",
   "comics.subscription.monthly_fee_common": "月額料金（共通）",
   "comics.subscription.monthly_fee_ios": "月額料金（iOS）",
-  "comics.subscription.name": "定期購読名",
   "comics.subscription.product_create_start": "定期購読プロダクトを登録",
   "comics.subscription.product_id": "定期購読プロダクトID",
   "comics.subscription.subscription_detail": "定期購読詳細",
@@ -299,6 +298,7 @@
   "common.start_time": "開始時刻",
   "common.status": "状態",
   "common.subscription_id": "定期購読ID",
+  "common.subscription_name": "定期購読名",
   "common.template_JIS": "テンプレート（Shift_JIS）",
   "common.template_UTF8": "テンプレート（UTF-8）",
   "common.title": "タイトル",
@@ -413,7 +413,6 @@
   "user.list.paid_coins_charge_logs": "購入コインチャージ履歴",
   "user.list.purchase_logs": "購入履歴",
   "user.list.storePurchase_logs": "雑誌/コミックス購入履歴",
-  "user.list.subscription": "定期購読",
   "user.list.subscription_gift": "定期購読贈答",
   "user.list.subscription_logs": "定期購読履歴",
   "user.list.user_birth_date": "生年月",
@@ -505,5 +504,6 @@
   "user.questionnaire.text_box_single_line": "テキストボックス（一行）",
   "user.questionnaire_management": "アンケート管理",
   "user.status": "ステータス",
+  "user.subscription": "定期購読",
   "user.validity_period": "有効期限"
 }

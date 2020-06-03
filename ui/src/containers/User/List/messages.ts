@@ -151,10 +151,6 @@ export default defineMessages({
     id: PREFIX + '.subscription_gift',
     defaultMessage: 'Subscription Gift'
   },
-  subscription: {
-    id: PREFIX + '.subscription',
-    defaultMessage: 'Subscription'
-  },
   gift: {
     id: PREFIX + '.gift',
     defaultMessage: 'Gift'
