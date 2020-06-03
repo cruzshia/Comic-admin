@@ -36,10 +36,7 @@ export default function QuestionnaireForm({ formRef, onSubmit, currentQuestionna
               toDataSet(formatMessage(messages.id), currentQuestionnaire ? currentQuestionnaire.id : ''),
               toDataSet(formatMessage(messages.name), <Field name='name' component={TextFieldAdapter} />),
               toDataSet(formatMessage(messages.category), <Field name='category' component={TextFieldAdapter} />),
-              toDataSet(
-                formatMessage(commonMessages.contentId),
-                <Field name='contentId' component={SearchInputAdapter} />
-              ),
+              toDataSet(formatMessage(messages.contentId), <Field name='contentId' component={SearchInputAdapter} />),
               toDataSet(
                 formatMessage(messages.answerReward),
                 <Field name='answerReward' component={TextFieldAdapter} short />
