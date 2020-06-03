@@ -279,6 +279,10 @@ export default defineMessages({
     id: PREFIX + 'work_id',
     defaultMessage: 'Work ID'
   },
+  workName: {
+    id: PREFIX + 'work_name',
+    defaultMessage: 'Work Name (ID)'
+  },
   email: {
     id: PREFIX + 'email_address',
     defaultMessage: 'Email Address'

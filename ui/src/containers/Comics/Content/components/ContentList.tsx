@@ -70,7 +70,7 @@ export default function ContentList() {
     () => [
       { id: 'image', label: formatMessage(commonMessages.photo) },
       { id: 'contentId', label: formatMessage(commonMessages.contentId) },
-      { id: 'title', label: formatMessage(commonMessages.title) },
+      { id: 'title', label: formatMessage(commonMessages.contentName) },
       { id: 'category', label: formatMessage(messages.category) },
       { id: 'price', label: formatMessage(comicMessages.contentPrice) },
       { id: 'campaignPrice', label: formatMessage(comicMessages.campaignPrice) },

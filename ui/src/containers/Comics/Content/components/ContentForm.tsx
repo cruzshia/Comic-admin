@@ -7,7 +7,8 @@ import {
   SelectAdapter,
   TextAreaAdapter,
   DropZoneAdapter,
-  SearchInputAdapter
+  SearchInputAdapter,
+  CheckboxInputAdapter
 } from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import ScrollTo from '@src/components/scroll/ScrollTo'
@@ -62,7 +63,10 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
               title={formatMessage(commonMessages.basicInfo)}
               dataSet={[
                 toDataSet(formatMessage(commonMessages.contentId), content?.id),
-                toDataSet(formatMessage(commonMessages.title), <Field name='title' component={TextInputAdapter} />),
+                toDataSet(
+                  formatMessage(commonMessages.contentName),
+                  <Field name='title' component={TextInputAdapter} />
+                ),
                 toDataSet(formatMessage(messages.titleKana), <Field name='titleKana' component={TextInputAdapter} />),
                 toDataSet(
                   formatMessage(messages.category),
@@ -89,7 +93,7 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
                 toDataSet(formatMessage(messages.sort), <Field name='sort' component={TextInputAdapter} short />),
                 toDataSet(
                   formatMessage(messages.limitedTimeFree),
-                  <Field name='limitedTimeFree' component={SelectAdapter} options={[]} isShort />
+                  <Field name='limitedTimeFree' type='checkbox' component={CheckboxInputAdapter} />
                 ),
                 toDataSet(
                   formatMessage(comicMessages.episodeNumber),

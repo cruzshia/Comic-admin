@@ -303,6 +303,7 @@
   "common.title": "Title",
   "common.update_date_time": "Update date time",
   "common.work_id": "Work ID",
+  "common.work_name": "Work Name (ID)",
   "form.search": "search",
   "form.select": "select",
   "form.text_input": "text input",

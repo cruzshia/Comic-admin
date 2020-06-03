@@ -60,12 +60,12 @@ context('Content Creation page', () => {
           })
           .next()
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('タイトル')
+            expect($item.find(LABEL_SELECTOR)).have.text('コンテンツ名')
             expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
           })
           .next()
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('タイトル（カナ）')
+            expect($item.find(LABEL_SELECTOR)).have.text('コンテンツ名（カナ）')
             expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
           })
           .next()
@@ -113,7 +113,7 @@ context('Content Creation page', () => {
           .next()
           .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('期間限定無料')
-            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.shortInput()
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.checkbox}]`)).to.be.exist
           })
           .next()
           .should(function($item) {

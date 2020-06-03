@@ -97,15 +97,5 @@ context('comment Edit', () => {
         expect($item.find(LABEL_SELECTOR)).to.have.text('通報数')
         expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
       })
-      .next()
-      .should(function($item) {
-        expect($item.find(LABEL_SELECTOR)).to.have.text('作成日時')
-        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
-      })
-      .next()
-      .should(function($item) {
-        expect($item.find(LABEL_SELECTOR)).to.have.text('更新日時')
-        expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
-      })
   })
 })
