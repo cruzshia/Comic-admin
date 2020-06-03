@@ -70,7 +70,13 @@ export default function WorkList() {
     [formatMessage, history]
   )
 
-  const handleSearch = useCallback((searchParams: Partial<SearchParam>) => setSearch(searchParams), [setSearch])
+  const handleSearch = useCallback(
+    (searchParams: Partial<SearchParam>) => {
+      handlePageChange(null, 1)
+      setSearch(searchParams)
+    },
+    [setSearch, handlePageChange]
+  )
 
   const workDataList = workList.map(({ images, ...item }) => ({
     ...item,

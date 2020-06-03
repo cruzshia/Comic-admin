@@ -25,6 +25,7 @@ export type SearchParam = {
 export enum WorkKeys {
   ID = 'id',
   App = 'app',
+  AppId = 'app_id',
   Title = 'title',
   TitleKana = 'title_kana',
   Description = 'description',
@@ -41,6 +42,7 @@ export enum WorkKeys {
   Images = 'images',
   MagazineName = 'magazine_name',
   FreePeriodicalDay = 'free_periodical_day_of_the_week',
+  Filename = 'file_name',
   ReturnAdRevenue = 'return_ad_revenue',
   AdSetting = 'ads_in_viewer_setting',
   S3Uploads = 's3_uploads'
@@ -94,25 +96,33 @@ export interface WorkImageMeta {
 export interface WorkDetail extends Work {
   [WorkKeys.TitleKana]?: string
   [WorkKeys.Description]: string
-  [WorkKeys.App]: string
+  [WorkKeys.App]: App
+  [WorkKeys.AppId]: number
   [WorkKeys.Authors]: Author[]
   [WorkKeys.AuthorIds]?: string[]
   [WorkKeys.Subscription]?: Subscription
   [WorkKeys.UpdateAt]: string
   [WorkKeys.PublishBeginAt]: string
   [WorkKeys.PublishEndAt]: string
+  [WorkKeys.Filename]?: Image<string>
   [WorkKeys.MagazineName]?: string
   [WorkKeys.ReturnAdRevenue]?: boolean
   [WorkKeys.FreePeriodicalDay]?: string
   [WorkKeys.AdSetting]?: AdSetting
-  [WorkKeys.S3Uploads]?: {
-    image1: S3Info
-    image2: S3Info
-    image3: S3Info
-    image4: S3Info
-  }
+  [WorkKeys.S3Uploads]?: Image<S3Info>
 }
 
+export interface Image<T> {
+  image1: T
+  image2: T
+  image3: T
+  image4: T
+}
+
+export interface App {
+  id: number
+  name: string
+}
 export interface Author {
   id: string
   name: string

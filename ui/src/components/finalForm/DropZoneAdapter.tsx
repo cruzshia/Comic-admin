@@ -6,6 +6,7 @@ import DropZone from '@src/components/DropZone'
 import { toDataUri, getImgMeta } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import { fontWeightBold } from '@src/common/styles'
+import { checkError } from '@src/utils/validation'
 
 const useStyle = makeStyles(() => ({
   previewBox: {
@@ -40,6 +41,7 @@ const useStyle = makeStyles(() => ({
 
 export default function DropZoneAdapter({
   input: { name, value, onChange },
+  meta,
   maxWidth,
   disableHover
 }: FieldRenderProps<string>) {
@@ -50,6 +52,7 @@ export default function DropZoneAdapter({
     <div className={classes.previewBox} data-testid='drop'>
       <DropZone
         name={name}
+        error={checkError(meta)}
         preview={
           value && (
             <div

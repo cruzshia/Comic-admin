@@ -3,7 +3,7 @@ import { AnyAction } from 'redux'
 import { of } from 'rxjs'
 import { map, switchMap, exhaustMap, mergeMap, catchError, tap, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
-import WorkDetail, { WorkKeys } from '@src/models/comics/work'
+import WorkDetail from '@src/models/comics/work'
 import {
   WorkActionType,
   getWorkListSuccessAction,
@@ -11,36 +11,11 @@ import {
   createWorkSuccessAction,
   updateWorkSuccessAction,
   getCsvLogListSuccessAction,
-  uploadImageAction,
   notifyImgUploadedAction
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
+import { toEditableModel, genImgUploadActions, toRequestWork } from './transform'
 import { emptyErrorReturn } from '../../utils'
-
-const toAuthorIds = (work: WorkDetail) => {
-  work[WorkKeys.AuthorIds] = work[WorkKeys.Authors].map(author => author.id)
-  return work
-}
-
-const genImgUploadActions = (work: WorkDetail, payload: WorkDetail): AnyAction[] => {
-  const images = payload[WorkKeys.Images] || {}
-  const uploadActions: any[] = []
-  Object.keys(images).forEach(imgKey => {
-    const image = payload[WorkKeys.Images]?.[imgKey as keyof typeof payload[WorkKeys.Images]] as any
-    if (work.s3_uploads && image instanceof File) {
-      const key = imgKey.replace('_url', '')
-      uploadActions.push(
-        uploadImageAction({
-          id: work.id,
-          imageKey: key,
-          image,
-          s3Info: work.s3_uploads[key as keyof typeof work.s3_uploads]
-        })
-      )
-    }
-  })
-  return uploadActions
-}
 
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -62,7 +37,7 @@ export const getWorkEpic = (action$: ActionsObservable<AnyAction>) =>
     ofType(WorkActionType.GET_WORK),
     switchMap(action =>
       workServices.getWorkAjax(action.payload).pipe(
-        map(res => getWorkSuccessAction(toAuthorIds(res.response))),
+        map(res => getWorkSuccessAction(toEditableModel(res.response))),
         tap(() => successSubject.next({ type: WorkActionType.GET_WORK_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: WorkActionType.GET_WORK_ERROR })
@@ -75,9 +50,9 @@ export const createWorkEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(WorkActionType.CREATE),
     exhaustMap(action =>
-      workServices.createWorkAjax(action.payload).pipe(
+      workServices.createWorkAjax(toRequestWork(action.payload)).pipe(
         mergeMap(res => {
-          const resDetail = toAuthorIds(res.response)
+          const resDetail = toEditableModel(res.response)
           successSubject.next({ type: WorkActionType.CREATE_SUCCESS })
           return of(createWorkSuccessAction(resDetail), ...genImgUploadActions(resDetail, action.payload as WorkDetail))
         }),
@@ -93,9 +68,12 @@ export const updateWorkEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(WorkActionType.UPDATE),
     exhaustMap(action =>
-      workServices.updateWorkAjax(action.payload).pipe(
-        map(res => updateWorkSuccessAction(toAuthorIds(res.response))),
-        tap(() => successSubject.next({ type: WorkActionType.UPDATE_SUCCESS })),
+      workServices.updateWorkAjax(toRequestWork(action.payload)).pipe(
+        mergeMap(res => {
+          const resDetail = toEditableModel(res.response)
+          successSubject.next({ type: WorkActionType.UPDATE_SUCCESS })
+          return of(updateWorkSuccessAction(resDetail), ...genImgUploadActions(resDetail, action.payload as WorkDetail))
+        }),
         catchError(() => {
           errorSubject.next({ type: WorkActionType.UPDATE_ERROR })
           return emptyErrorReturn()

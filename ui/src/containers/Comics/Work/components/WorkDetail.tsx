@@ -112,7 +112,7 @@ export default function WorkDetail() {
               ))}
             </>
           ),
-          toDataSet(formatMessage(commonMessages.appId), currentWork[WorkKeys.App]),
+          toDataSet(formatMessage(commonMessages.appId), String(currentWork[WorkKeys.AppId])),
           toDataSet(formatMessage(messages.category), currentWork[WorkKeys.WorkType]),
           toDataSet(
             formatMessage(messages.reduction),

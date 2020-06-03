@@ -17,7 +17,8 @@ export const mockWork: WorkDetail = {
     { id: '2', name: 'pon yu uen' }
   ],
   [WorkKeys.WorkType]: WorkType.Comic,
-  [WorkKeys.App]: 'アプリ',
+  [WorkKeys.App]: { id: 1, name: 'アプリ' },
+  [WorkKeys.AppId]: 1,
   [WorkKeys.UpdateFrequency]: '毎週月月金曜日に更新',
   [WorkKeys.ReturnAdRevenue]: true,
   [WorkKeys.FreePeriodicalDay]: '月',
@@ -60,7 +61,8 @@ export const mockWork: WorkDetail = {
         [AdSettingKeys.ImageUrl]: mockManga,
         [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
         [AdSettingKeys.Button]: 'サンプルテキスト',
-        [AdSettingKeys.BeginAt]: '2020-02-20 19:00　〜　2020-02-20 19:00'
+        [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
+        [AdSettingKeys.EndAt]: '2020-02-20 19:00'
       }
     ],
     [AdPosition.Back]: [
@@ -75,7 +77,8 @@ export const mockWork: WorkDetail = {
         [AdSettingKeys.ImageUrl]: mockManga,
         [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
         [AdSettingKeys.Button]: 'サンプルテキスト',
-        [AdSettingKeys.BeginAt]: '2020-02-20 19:00　〜　2020-02-20 19:00'
+        [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
+        [AdSettingKeys.EndAt]: '2020-02-20 19:00'
       }
     ]
   }

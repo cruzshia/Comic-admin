@@ -7,7 +7,14 @@ import { TimeSpanInput, ImagePreview } from '@src/components/form'
 import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
 import Button from '@src/components/Button/Button'
 import Condition from '@src/components/finalForm/Condition'
-import { AdType, AdSettingKeys } from '@src/models/comics/advertisement'
+import {
+  AdType,
+  AdSetting,
+  AdSettingKeys,
+  AdPosition,
+  Advertisement as AdModel
+} from '@src/models/comics/advertisement'
+import { required, validDateTime, INVALID_FORMAT } from '@src/utils/validation'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
@@ -28,6 +35,25 @@ const useStyle = makeStyles(() => ({
     marginBottom: 0
   }
 }))
+function validateAdTime(ads?: AdModel[]) {
+  return ads?.map(setting => {
+    const isOriginal = setting[AdSettingKeys.Type] === AdType.Original
+    const [begin, end] = [setting[AdSettingKeys.BeginAt], setting[AdSettingKeys.EndAt]]
+    return {
+      type: required(setting[AdSettingKeys.Type]),
+      [AdSettingKeys.BeginAt]: !isOriginal || (begin && validDateTime(begin!)) ? undefined : INVALID_FORMAT,
+      [AdSettingKeys.EndAt]: !isOriginal || (end && validDateTime(end!)) ? undefined : INVALID_FORMAT
+    }
+  })
+}
+
+export function validateAd(adSetting: AdSetting) {
+  return {
+    [AdSettingKeys.AdDevice]: required(adSetting[AdSettingKeys.AdDevice]),
+    [AdPosition.Front]: validateAdTime(adSetting[AdPosition.Front]),
+    [AdPosition.Back]: validateAdTime(adSetting[AdPosition.Back])
+  }
+}
 
 export default function Advertisement({ type, name, onDelete }: Props) {
   const classes = useStyle()
@@ -82,7 +108,15 @@ export default function Advertisement({ type, name, onDelete }: Props) {
               placeholder={formatMessage(enterButtonName)}
             />
           </InputRow>
-          <InputRow title={formatMessage(deliveryDuration)} children={<TimeSpanInput />} />
+          <InputRow
+            title={formatMessage(deliveryDuration)}
+            children={
+              <TimeSpanInput
+                nameStart={`${name}.${AdSettingKeys.BeginAt}`}
+                nameEnd={`${name}.${AdSettingKeys.EndAt}`}
+              />
+            }
+          />
         </Condition>
       </Grid>
       {isOriginal && <ImagePreview imageUrl={previewImage} />}

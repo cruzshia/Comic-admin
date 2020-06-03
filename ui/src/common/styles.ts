@@ -110,7 +110,10 @@ export const theme = createMuiTheme({
           opacity: 1
         },
         '&.error': {
-          backgroundColor: errorBackgroundColor
+          backgroundColor: errorBackgroundColor,
+          '& .MuiSelect-select': {
+            backgroundColor: errorBackgroundColor
+          }
         }
       }
     },

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDropzone, DropEvent } from 'react-dropzone'
-import { styled, makeStyles, Box, Button, Typography } from '@material-ui/core'
+import { styled, makeStyles, Box, Button, Typography, FormHelperText } from '@material-ui/core'
 import clsx from 'clsx'
 import { backgroundColor, borderColor } from '@src/common/styles'
 import { ReactComponent as PhotoIcon } from '@src/assets/form/photo.svg'
@@ -13,6 +13,7 @@ interface Props {
   textContent?: string
   accept?: string
   preview?: string | JSX.Element
+  error?: string
   onDropAccepted: (files: File[], name?: string) => void
   onDropRejected?: (error: any, name?: string) => void
 }
@@ -56,6 +57,7 @@ export default function DropZone({
   accept,
   textContent,
   name,
+  error,
   onDropAccepted,
   onDropRejected
 }: Props) {
@@ -92,31 +94,39 @@ export default function DropZone({
   }
 
   return (
-    <Box
-      display='flex'
-      justifyContent='center'
-      flexDirection='column'
-      width={410}
-      height={ZONE_HEIGHT}
-      border={`1px dashed ${borderColor}`}
-      borderRadius={4}
-      color={DROP_COLOR}
-      bgcolor={backgroundColor}
-    >
-      <Typography variant='subtitle2'>
-        <div className={classes.inputZone} {...getRootProps()}>
-          <input {...getInputProps()} />
-          <Box display='flex' height={ZONE_HEIGHT} flexDirection='column' justifyContent='center' alignItems='center'>
-            <Box display='flex' alignItems='center'>
-              <PhotoIcon className={classes.icon} />
-              {content}
+    <>
+      <Box
+        display='flex'
+        justifyContent='center'
+        flexDirection='column'
+        width={410}
+        height={ZONE_HEIGHT}
+        marginBottom={error ? '5px' : '0'}
+        border={`1px dashed ${borderColor}`}
+        borderRadius={4}
+        color={DROP_COLOR}
+        bgcolor={backgroundColor}
+      >
+        <Typography variant='subtitle2'>
+          <div className={classes.inputZone} {...getRootProps()}>
+            <input {...getInputProps()} />
+            <Box display='flex' height={ZONE_HEIGHT} flexDirection='column' justifyContent='center' alignItems='center'>
+              <Box display='flex' alignItems='center'>
+                <PhotoIcon className={classes.icon} />
+                {content}
+              </Box>
+              <UploadButton>
+                <FormattedMessage {...messages.selectFile} />
+              </UploadButton>
             </Box>
-            <UploadButton>
-              <FormattedMessage {...messages.selectFile} />
-            </UploadButton>
-          </Box>
-        </div>
-      </Typography>
-    </Box>
+          </div>
+        </Typography>
+      </Box>
+      {error && (
+        <FormHelperText className='error' data-testid='error'>
+          {error}
+        </FormHelperText>
+      )}
+    </>
   )
 }
