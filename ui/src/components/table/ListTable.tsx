@@ -49,7 +49,7 @@ interface Pagination {
 
 interface RowData {
   [key: string]: any
-  id: string
+  id?: string
   classnames?: string
 }
 

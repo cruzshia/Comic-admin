@@ -167,6 +167,8 @@
   "comics.subscription.monthly_fee_common": "月額料金（共通）",
   "comics.subscription.monthly_fee_ios": "月額料金（iOS）",
   "comics.subscription.name": "定期購読名",
+  "comics.subscription.product_create_start": "定期購読プロダクトを登録",
+  "comics.subscription.product_id": "定期購読プロダクトID",
   "comics.subscription.subscription_detail": "定期購読詳細",
   "comics.subscription.subscription_image": "定期購読画像",
   "comics.work": "作品管理",

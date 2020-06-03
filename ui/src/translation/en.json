@@ -167,6 +167,8 @@
   "comics.subscription.monthly_fee_common": "Monthly Fee (Common)",
   "comics.subscription.monthly_fee_ios": "Monthly Fee (iOS)",
   "comics.subscription.name": "Subscription Name",
+  "comics.subscription.product_create_start": "Subscription Product Create",
+  "comics.subscription.product_id": "Subscription Product ID",
   "comics.subscription.subscription_detail": "SubscriptionDetail",
   "comics.subscription.subscription_image": "SubscriptionImage",
   "comics.work": "Comics work",

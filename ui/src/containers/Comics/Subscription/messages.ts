@@ -78,5 +78,13 @@ export default defineMessages({
   deviceDifferent: {
     id: PREFIX + 'device_different',
     defaultMessage: 'Device Different'
+  },
+  productId: {
+    id: PREFIX + 'product_id',
+    defaultMessage: 'Subscription Product ID'
+  },
+  productCreateStart: {
+    id: PREFIX + 'product_create_start',
+    defaultMessage: 'Subscription Product Create'
   }
 })

@@ -11,14 +11,10 @@ export const mockSubscriptionList = _range(0, 3).map(num => ({
 
 export const mockSubscriptionDetail = (subscriptionId: string) => ({
   id: subscriptionId,
-  magazineName: '週刊少年ジャンプ定期購読	',
-  deviceType: 'common',
-  monthlyFee: `[SHJP01A] 891円, 税込 980円
-[browser] 891円, 税込 980円
-[SHJP01A_EN] 891円, 税込 980円`,
+  name: '週刊少年ジャンプ定期購読	',
   image: mockImg,
   createAt: '2019-12-25 00:00',
   updateAt: '2019-12-25 00:00',
-  deliverStart: '2019-12-25 00:00',
-  deliverEnd: '2019-12-25 00:00'
+  publicStartTime: '2019-12-25 00:00',
+  publicEndTime: '2019-12-25 00:00'
 })
