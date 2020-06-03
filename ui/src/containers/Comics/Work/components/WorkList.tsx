@@ -96,7 +96,7 @@ export default function WorkList() {
     () => [
       { id: WorkKeys.Images, label: formatMessage(commonMessages.photo) },
       { id: WorkKeys.ID, label: formatMessage(comicMessages.workId) },
-      { id: WorkKeys.Title, label: formatMessage(messages.workTitle) },
+      { id: WorkKeys.Title, label: formatMessage(comicMessages.workName) },
       {
         id: WorkKeys.CreateAt,
         label: formatMessage(commonMessages.createDateTime)

@@ -108,6 +108,10 @@ export default defineMessages({
     id: PREFIX + 'type_episode',
     defaultMessage: 'Episode'
   },
+  nameBrackets: {
+    id: PREFIX + 'name_brackets',
+    defaultMessage: 'Work Name (ID)'
+  },
   [WorkType.Comic]: {
     id: PREFIX + 'type_comic',
     defaultMessage: 'Comic'

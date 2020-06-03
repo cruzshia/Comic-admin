@@ -98,7 +98,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   content: workData ? workData.id : ''
                 },
                 toDataSet(
-                  formatMessage(commonMessages.title),
+                  formatMessage(comicsMessages.workName),
                   <Field name={WorkKeys.Title} component={TextInputAdapter} />
                 ),
                 toDataSet(

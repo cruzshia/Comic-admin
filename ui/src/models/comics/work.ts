@@ -14,7 +14,8 @@ export enum WorkSearchKeys {
   MagazineName = 'magazine_name',
   UpdateFrequency = 'update_frequency',
   FreePeriodicalDay = 'free_periodical_day_of_the_week',
-  SubscriptionId = 'subscription_id'
+  SubscriptionId = 'subscription_id',
+  AppId = 'app_id'
 }
 
 export type SearchParam = {

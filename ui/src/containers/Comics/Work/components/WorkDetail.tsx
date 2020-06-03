@@ -99,7 +99,7 @@ export default function WorkDetail() {
         onEdit={handleEdit}
         dataSet={[
           toDataSet(formatMessage(comicMessages.workId), currentWork[WorkKeys.ID]),
-          toDataSet(formatMessage(commonMessages.title), currentWork[WorkKeys.Title]),
+          toDataSet(formatMessage(comicMessages.workName), currentWork[WorkKeys.Title]),
           toDataSet(formatMessage(messages.titleKana), currentWork[WorkKeys.TitleKana]),
           toDataSet(formatMessage(messages.introduction), currentWork[WorkKeys.Description]),
           toDataSet(
