@@ -2,23 +2,54 @@ defmodule RaiseServer.SectionBuilder.HomeTest do
   use RaiseServer.RepoCase
 
   alias RaiseServer.TimeZoneDatabase
-  alias RaiseServer.{AppsFactory, DepotFactory, HomeData, ScreenSettingUtils}
+  alias RaiseServer.{AppsFactory, CurationFactory, DepotFactory, ScreenSettingUtils}
   alias RaiseServer.SectionBuilder
   alias SectionBuilder.Home
-
 
   describe "process/3" do
     setup do
       app = AppsFactory.insert(:app)
       screen_setting = AppsFactory.insert(:home_screen, %{app_id: app.id})
-      [app: app, app_screen_setting: screen_setting]
+      now = DateTime.utc_now() |> DateTime.truncate(:second)
+      [app: app, app_screen_setting: screen_setting, now: now]
+    end
+
+    test "process section when 'type' is 'ranking'", context do
+      %{app: app, app_screen_setting: %{setting: setting_str}} = context
+
+      ranking_section = ScreenSettingUtils.find_section(setting_str, "ranking")
+      tag = CurationFactory.insert(:tag)
+      work = DepotFactory.insert(:work)
+      DepotFactory.insert(:work_app, %{app_id: app.id, work_id: work.id})
+      work_assessment = DepotFactory.insert(:work_assessment, %{work_id: work.id})
+      CurationFactory.insert(:work_tag, %{tag_id: tag.id, work_id: work.id})
+
+      target_rankings = Enum.map(ranking_section["rankings"], fn %{"ranking_type" => ranking_type} = ranking ->
+        case ranking_type do
+          "overall" ->
+            Map.put(ranking, "works", [%{
+              "action_url"        => "jumpplus://works/ew#{work.id}",
+              "comment_count"     => work_assessment.comment_count,
+              "description"       => work.description,
+              "image"             => work.images.image1,
+              "new_episode_badge" => false,
+              "title"             => work.title,
+              "view_count"        => work_assessment.view_count,
+            }])
+          _ ->
+            Map.put(ranking, "works", [])
+        end
+      end)
+      target_section = ranking_section |> Map.put("rankings", target_rankings) |> :jsx.encode
+
+      assert %{"sections" => [resp_section]} = Home.process(app.id, DateTime.utc_now(), %{"sections" => [ranking_section]})
+      assert resp_section |> :jsx.encode == target_section
     end
 
     test "process only section when 'type' is 'daily_ranking'", ctx do
-      %{app: app, app_screen_setting: %{setting: setting_str}} = ctx
+      %{app: app, app_screen_setting: %{setting: setting_str}, now: now} = ctx
       section = ScreenSettingUtils.find_section(setting_str, "daily_ranking")
 
-      now = DateTime.utc_now |> DateTime.truncate(:second)
       random_offset = -1..-6
       |> Enum.shuffle()
 
@@ -44,11 +75,11 @@ defmodule RaiseServer.SectionBuilder.HomeTest do
 
       assert %{"type" => _, "color" => _, "title_image" => _, "title" => _, "daily_rankings" => d_ranking} = section_result
 
-      assert Enum.map(d_ranking, & &1["day_of_week"]) == ~w/monday tuesday wednesday thursday friday saturday sunday/
+      assert Enum.flat_map(d_ranking, & Map.keys(&1) |> List.flatten) == ~w/monday tuesday wednesday thursday friday saturday sunday/
 
-      assert day_works = d_ranking |> Enum.map(& &1["works"])
+      assert day_works = d_ranking |> Enum.flat_map(& &1 |> Enum.into([]) |> List.first() |> elem(1) |> Map.get("works"))
 
-      day_works |> List.flatten() |> Enum.each(&
+      day_works |> Enum.each(&
         assert Map.keys(&1) == ~w/action_url badge comment_count landscape_image rookie_badge square_image title view_count/
       )
     end
@@ -77,7 +108,7 @@ defmodule RaiseServer.SectionBuilder.HomeTest do
       work = DepotFactory.insert(:magazine_work, %{subscription_id: sub.id, is_main_work_of_subscription: true})
 
       DepotFactory.insert(:work_app, %{work_id: work.id, app_id: app.id})
-      %{id: content_id, thumbnail_image: image} = DepotFactory.insert(:magazine_content, %{
+        %{id: content_id, thumbnail_image: image} = DepotFactory.insert(:magazine_content, %{
         work_id: work.id
       })
       DepotFactory.insert(:content_app, content_id: content_id, app: app)
@@ -95,7 +126,6 @@ defmodule RaiseServer.SectionBuilder.HomeTest do
           }
         end).()
 
-
       assert %{"sections" => [resp_section]} =
         Home.process(app.id, DateTime.utc_now(), %{"sections" => [section]})
       assert resp_section |> :jsx.encode ==
@@ -106,24 +136,14 @@ defmodule RaiseServer.SectionBuilder.HomeTest do
         })
         |> :jsx.encode
     end
-  end
 
-  describe "process_section/3" do
-    setup do
-      app = AppsFactory.insert(:app)
-      setting_str = HomeData.app_screen_setting_json_str()
-      setting = :jsx.decode(setting_str, return_maps: true)
-      now = DateTime.utc_now() |> DateTime.truncate(:second)
-      [app: app, setting: setting, now: now]
-    end
-
-    test "section type is top_banners", %{app: app, setting: setting, now: now} do
-      top_banners_setting = ScreenSettingUtils.find_section(setting, "top_banners")
+    test "section type is top_banners", %{app: app, app_screen_setting: %{setting: setting_str}, now: now} do
+      top_banners_setting = ScreenSettingUtils.find_section(setting_str, "top_banners")
       assert ^top_banners_setting = Home.process_section(top_banners_setting, app.id, now)
     end
 
-    test "section type is free_only_now", %{app: app, setting: setting, now: now} do
-      free_only_now_setting = ScreenSettingUtils.find_section(setting, "free_only_now")
+    test "section type is free_only_now", %{app: app, app_screen_setting: %{setting: setting_str}, now: now} do
+      free_only_now_setting = ScreenSettingUtils.find_section(setting_str, "free_only_now")
       end_at1 = DateTime.add(now, 3600)
       end_at2 = DateTime.add(now, 7200)
 

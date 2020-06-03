@@ -53,4 +53,12 @@ defmodule RaiseServer.SectionBuilder.Utils do
       height: image.height,
     }
   end
+
+  def calculate_new_episode_badge(%{contents: [], publish_begin_at: publish_begin_at} = _work, now) do
+    DateTime.diff(now, DateTime.from_naive!(publish_begin_at, "Etc/UTC")) < @seven_days_in_seconds
+  end
+
+  def calculate_new_episode_badge(%{contents: [content]} = _work, now) do
+    DateTime.diff(now, DateTime.from_naive!(content.update_at, "Etc/UTC")) < @seven_days_in_seconds
+  end
 end

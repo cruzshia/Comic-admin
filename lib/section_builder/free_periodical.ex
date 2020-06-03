@@ -27,7 +27,7 @@ defmodule RaiseServer.SectionBuilder.FreePeriodical do
     recommended_work_id = Utils.parse_resource_prefix(prefix_recommended_work_id)
 
     filters = [published_period: now, like: {:free_periodical_day_of_the_week, "%#{day_of_week}%"}]
-    opts = [preload: [:authors, {:free_content_period, {app_id, now}}]]
+    opts = [preload: [:authors, {:latest_content_update_at, {app_id, now}}]]
     Depot.get_works(app_id, filters, opts)
     |> Enum.map(fn %{title: title, title_kana: title_kana, authors: authors, images: images, publish_begin_at: publish_begin_at, contents: contents} = work ->
       is_recommended_work = is_recommended(work, recommended_work_id)
@@ -70,10 +70,10 @@ defmodule RaiseServer.SectionBuilder.FreePeriodical do
   defp is_recommended(%{id: recommended_id}, recommended_id), do: true
   defp is_recommended(%{id: _id}, _recommended_id), do: false
 
-  defp work_sorter({updated_at1, tilte1}, {updated_at2, tilte2}) do
+  defp work_sorter({updated_at1, title1}, {updated_at2, title2}) do
     cond do
       DateTime.compare(updated_at2, updated_at1) == :gt -> false
-      tilte2 <= tilte1 -> false
+      title2 <= title1 -> false
       true -> true
     end
   end

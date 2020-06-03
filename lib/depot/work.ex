@@ -30,14 +30,15 @@ defmodule RaiseServer.Depot.Work do
 
     field :magazine_name, :string
 
-    field :is_color,                     :boolean
-    belongs_to :subscription,            Depot.Subscription
-    field :is_main_work_of_subscription, :boolean
-    field :magazine_banner_ads_setting,  :map
+    field      :is_color,                     :boolean
+    belongs_to :subscription,                 Depot.Subscription
+    field      :is_main_work_of_subscription, :boolean
+    field      :magazine_banner_ads_setting,  :map
 
-    has_one :work_app, Depot.WorkApp
-    has_many :contents, Depot.Content
-    has_many :work_authors, Depot.WorkAuthor
+    has_one  :work_app,         Depot.WorkApp
+    has_one  :work_assessment,  Depot.WorkAssessment
+    has_many :contents,         Depot.Content
+    has_many :work_authors,     Depot.WorkAuthor
     has_many :authors, through: [:work_authors, :author]
 
     has_one :work_campaign, Depot.WorkCampaign

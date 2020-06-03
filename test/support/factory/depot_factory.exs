@@ -3,7 +3,7 @@ defmodule RaiseServer.DepotFactory do
 
   alias RaiseServer.Depot
   alias Depot.{Campaign, Content, ContentApp, Work, WorkApp, WorkCampaign, WorkCampaignApp, Image, Subscription}
-  alias Depot.{Author, WorkAuthor, ContentAssessment}
+  alias Depot.{Author, WorkAuthor, WorkAssessment, ContentAssessment}
 
   def work_app_factory() do
     %WorkApp{}
@@ -127,6 +127,14 @@ defmodule RaiseServer.DepotFactory do
 
   def content_app_factory() do
     %ContentApp{}
+  end
+
+  def work_assessment_factory() do
+    %WorkAssessment{
+      comment_count: 100,
+      like_count: 100,
+      view_count: 100,
+    }
   end
 
   def content_assessment_factory() do

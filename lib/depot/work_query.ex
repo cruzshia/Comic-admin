@@ -45,7 +45,7 @@ defmodule RaiseServer.Depot.WorkQuery do
     {:contents, query}
   end
 
-  def apply_preload({:free_content_period, {app_id, now}}) do
+  def apply_preload({:latest_content_update_at, {app_id, now}}) do
     {preload, query} = apply_preload({:newest_content, {app_id, now}})
     subquery =
       query

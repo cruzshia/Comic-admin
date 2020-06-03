@@ -2,7 +2,7 @@ use Croma
 defmodule RaiseServer.SectionBuilder.Home do
 
   alias RaiseServer.TimeZoneDatabase
-  alias RaiseServer.{Depot, SectionBuilder}
+  alias RaiseServer.{Curation, Depot, SectionBuilder}
   alias SectionBuilder.Utils
 
   @default_daily_ranking_works for(n <- 1..7, do: {n, []}) |> Enum.into(%{})
@@ -17,7 +17,7 @@ defmodule RaiseServer.SectionBuilder.Home do
     7 => "sunday"
   }
 
-  defun process(app_id :: integer, now :: DateTime.t, settings :: map) :: map do
+  defun process(app_id :: v[integer], now :: DateTime.t, settings :: v[map]) :: map do
     {_, response} = Map.get_and_update(settings, "sections", fn current ->
       {current, Enum.map(current, &process_section(&1, app_id, now))}
     end)
@@ -25,7 +25,7 @@ defmodule RaiseServer.SectionBuilder.Home do
     response
   end
 
-  defunpt process_section(section :: map, app_id :: integer, now :: DateTime.t) :: map do
+  defunpt process_section(section :: v[map], app_id :: v[integer], now :: DateTime.t) :: map do
     do_process_section(section, app_id, now)
   end
 
@@ -63,7 +63,7 @@ defmodule RaiseServer.SectionBuilder.Home do
       |> Enum.map(fn %{free_range_display_string: free_range_display_string, end_at: end_at, work: work} ->
         %{
           action_url: "jumpplus://works/#{Utils.add_resource_prefix(work)}",
-          image: work.images.image1 |> Utils.format_image(),
+          image: Utils.format_image(work.images.image1),
           title: work.title,
           free_range_display_string: free_range_display_string,
           end_date: end_at,
@@ -74,93 +74,46 @@ defmodule RaiseServer.SectionBuilder.Home do
     |> Map.put("works", works)
   end
 
-  defp do_process_section(%{"type" => "ranking", "rankings" => rankings} = section, _app_id, _now) do
-    # TODO: Call api for real data
+  defp do_process_section(%{"type" => "ranking", "rankings" => rankings} = section, app_id, now) do
     processed_rankings =
-      Enum.map(rankings, fn %{"ranking_type" => _ranking_type} = ranking ->
-        works = [
-          %{
-            "action_url" => "jumpplus://works/ew1",
-            "comment_count" => 500,
-            "description" => "そこはありふれた生徒会。美しい生徒会長と、会長を支える補佐の青年。 そしてもう一人、会長を狙う野獣がいたが…何と女!?百合ギャグの名手による新作コメディ！",
-            "image" => %{
-              "url" => "https://delivery.demo.raise.access-dpe.com/production/image/works/356/image4s/original/852103b7b8296663fc2fe849e21d2224.jpg",
-              "width" => 240,
-              "height" => 240
-            },
-            "new_episode_badge" => true,
-            "title" => "あぁ我が青春よ！",
-            "view_count" => 586_774
-          },
-          %{
-            "action_url" => "jumpplus://works/ew2",
-            "comment_count" => 400,
-            "description" => "そこはありふれた生徒会。美しい生徒会長と、会長を支える補佐の青年。 そしてもう一人、会長を狙う野獣がいたが…何と女!?百合ギャグの名手による新作コメディ！",
-            "image" => %{
-              "url" => "https://delivery.demo.raise.access-dpe.com/production/image/works/356/image4s/original/852103b7b8296663fc2fe849e21d2224.jpg",
-              "width" => 240,
-              "height" => 240
-            },
-            "new_episode_badge" => true,
-            "title" => "あぁ我が青春よ！",
-            "view_count" => 586_773
-          },
-          %{
-            "action_url" => "jumpplus://works/ew3",
-            "comment_count" => 300,
-            "description" => "そこはありふれた生徒会。美しい生徒会長と、会長を支える補佐の青年。 そしてもう一人、会長を狙う野獣がいたが…何と女!?百合ギャグの名手による新作コメディ！",
-            "image" => %{
-              "url" => "https://delivery.demo.raise.access-dpe.com/production/image/works/356/image4s/original/852103b7b8296663fc2fe849e21d2224.jpg",
-              "width" => 240,
-              "height" => 240
-            },
-            "new_episode_badge" => true,
-            "title" => "あぁ我が青春よ！",
-            "view_count" => 586_772
-          },
-          %{
-            "action_url" => "jumpplus://works/ew4",
-            "comment_count" => 200,
-            "description" => "そこはありふれた生徒会。美しい生徒会長と、会長を支える補佐の青年。 そしてもう一人、会長を狙う野獣がいたが…何と女!?百合ギャグの名手による新作コメディ！",
-            "image" => %{
-              "url" => "https://delivery.demo.raise.access-dpe.com/production/image/works/356/image4s/original/852103b7b8296663fc2fe849e21d2224.jpg",
-              "width" => 240,
-              "height" => 240
-            },
-            "new_episode_badge" => true,
-            "title" => "あぁ我が青春よ！",
-            "view_count" => 586_771
-          },
-          %{
-            "action_url" => "jumpplus://works/ew5",
-            "comment_count" => 100,
-            "description" => "そこはありふれた生徒会。美しい生徒会長と、会長を支える補佐の青年。 そしてもう一人、会長を狙う野獣がいたが…何と女!?百合ギャグの名手による新作コメディ！",
-            "image" => %{
-              "url" => "https://delivery.demo.raise.access-dpe.com/production/image/works/356/image4s/original/852103b7b8296663fc2fe849e21d2224.jpg",
-              "width" => 240,
-              "height" => 240
-            },
-            "new_episode_badge" => true,
-            "title" => "あぁ我が青春よ！",
-            "view_count" => 586_770
-          },
-          ]
-        Map.put(ranking, "works", works)
+      Enum.map(rankings, fn %{"ranking_type" => ranking_type} = ranking ->
+        work_ids = Curation.get_ranking_work_ids(ranking_type)
+        works = Depot.get_works(
+          app_id,
+          [id: work_ids, published_period: now],
+          [preload: [:work_assessment, {:latest_content_update_at, {app_id, now}}]]
+        )
+
+        sorted_works =
+          Enum.map(work_ids, fn id ->
+            %{work_assessment: work_assessment} = work = Enum.find(works, &(&1.id == id))
+            wa_or_default = work_assessment || %Depot.WorkAssessment{}
+            %{
+              action_url: "jumpplus://works/#{Utils.add_resource_prefix(work)}",
+              description: work.description,
+              title: work.title,
+              image: work.images.image1,
+              new_episode_badge: Utils.calculate_new_episode_badge(work, now),
+              comment_count: wa_or_default.comment_count,
+              view_count: wa_or_default.view_count,
+            }
+          end)
+        Map.put(ranking, "works", sorted_works)
       end)
     Map.put(section, "rankings", processed_rankings)
   end
 
   defp do_process_section(%{"type" => "works", "work_ids" => work_ids, "title" => title}, app_id, now) do
     new_work_ids = ids_to_int(work_ids)
-    works = Depot.get_works(app_id, [id: new_work_ids])
-            |> Enum.map(fn %{images: images, title: title, publish_begin_at: publish_begin_at} = work ->
-              %{
-                action_url: "jumpplus://works/#{Utils.add_resource_prefix(work)}",
-                image: images.image1 |> Utils.format_image(),
-                title: title,
-                new_episode_badge: Utils.is_new_material(publish_begin_at, now)
-              }
-            end)
+    works = Depot.get_works(app_id, [id: new_work_ids, published_period: now], [preload: [{:latest_content_update_at, {app_id, now}}]])
+    |> Enum.map(fn %{images: images, title: title} = work ->
+      %{
+        action_url: "jumpplus://works/#{Utils.add_resource_prefix(work)}",
+        image: Utils.format_image(images.image1),
+        title: title,
+        new_episode_badge: Utils.calculate_new_episode_badge(work, now)
+      }
+    end)
     %{
       type: "works",
       title: title,
@@ -221,12 +174,12 @@ defmodule RaiseServer.SectionBuilder.Home do
   defp do_process_section(%{"type" => "books", "content_ids" => content_ids} = section, app_id, now) do
     int_content_ids = ids_to_int(content_ids)
     contents =
-      Depot.get_contents(app_id, [id: int_content_ids, published_period: now], select: [:id, :name, :content_type, :thumbnail_image])
+      Depot.get_contents(app_id, [id: int_content_ids, published_period: now], [select: [:id, :name, :content_type, :thumbnail_image]])
       |> Enum.map(fn %{name: name, thumbnail_image: thumbnail_image} = content ->
         %{
           id: Utils.add_resource_prefix(content),
           name: name,
-          content_type: content.content_type |> Utils.translate_english_to_japanese,
+          content_type: content.content_type |> Utils.translate_english_to_japanese(),
           image: Utils.format_image(thumbnail_image),
         }
       end)
@@ -247,7 +200,7 @@ defmodule RaiseServer.SectionBuilder.Home do
 
     Map.put_new(section, "latest_content", %{
       "id" => Utils.add_resource_prefix(content),
-      "image" => content.thumbnail_image |> Utils.format_image()
+      "image" => Utils.format_image(content.thumbnail_image)
     })
   end
 
@@ -321,7 +274,7 @@ defmodule RaiseServer.SectionBuilder.Home do
 
     day_of_week = @str_day_of_week[day]
 
-    Map.merge(settings[day_of_week], %{"day_of_week" => day_of_week, "works" => works})
+    %{day_of_week => Map.put(settings[day_of_week], "works", works)}
   end
 
   defp calc_badge(work, pov_dt) do
