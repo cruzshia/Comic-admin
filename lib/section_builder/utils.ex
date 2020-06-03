@@ -1,5 +1,7 @@
 defmodule RaiseServer.SectionBuilder.Utils do
 
+  @seven_days_in_seconds 3600 * 24 * 7
+
   def add_resource_prefix(%{work_type: type} = work) do
     "#{type |> to_string() |> String.first()}w#{work.id}"
   end
@@ -36,6 +38,10 @@ defmodule RaiseServer.SectionBuilder.Utils do
   def format_image(image) do
     RaiseServer.get_env("cdn_host")
     |> format_image(image)
+  end
+
+  def is_new_material(material_dt, pov_dt) do
+    DateTime.diff(material_dt, pov_dt) <= @seven_days_in_seconds
   end
 
   defp format_image(_, nil), do: nil

@@ -12,6 +12,19 @@ defmodule RaiseServer.HomeData do
     DepotFactory.insert(:work_app, %{work_id: work.id, app_id: app.id})
     DepotFactory.insert(:content_app, %{content_id: content.id, app_id: app.id})
 
+    # daily_ranking section
+    Date.range(~D[2020-05-11], ~D[2020-05-17])
+    |> Enum.each(fn date ->
+      {:ok, utc_datetime, _} = date |> Date.to_iso8601() |> Kernel.<>("T00:00:00Z") |> DateTime.from_iso8601()
+      for n <- 100..103 do
+        work = DepotFactory.insert(:episode_work)
+        DepotFactory.insert(:work_app, %{work_id: work.id, app_id: app.id})
+        content = DepotFactory.insert(:episode_content, %{work_id: work.id, publish_begin_at: utc_datetime})
+        DepotFactory.insert(:content_app, %{content_id: content.id, app_id: app.id})
+        DepotFactory.insert(:content_assessment, %{content_id: content.id, view_count: n, like_count: n, comment_count: n})
+      end
+    end)
+
     # free_only_now section
     fon_campaign = DepotFactory.insert(:campaign)
     fon_work = DepotFactory.insert(:work)

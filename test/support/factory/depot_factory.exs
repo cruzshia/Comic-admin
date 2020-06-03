@@ -3,7 +3,7 @@ defmodule RaiseServer.DepotFactory do
 
   alias RaiseServer.Depot
   alias Depot.{Campaign, Content, ContentApp, Work, WorkApp, WorkCampaign, WorkCampaignApp, Image, Subscription}
-  alias Depot.{Author, WorkAuthor}
+  alias Depot.{Author, WorkAuthor, ContentAssessment}
 
   def work_app_factory() do
     %WorkApp{}
@@ -54,7 +54,10 @@ defmodule RaiseServer.DepotFactory do
 
   def episode_work_factory do
     work_factory()
-    |> struct!(%{work_type: :episode})
+    |> struct!(%{
+      work_type: :episode,
+      episode_work_type: :original
+    })
   end
 
   def content_factory() do
@@ -91,6 +94,11 @@ defmodule RaiseServer.DepotFactory do
     |> struct!(%{content_type: :magazine})
   end
 
+  def episode_content_factory do
+    content_factory()
+    |> struct!(%{content_type: :episode, excluded_in_todays_ranking: false})
+  end
+
   def campaign_factory() do
     {start_at, end_at} = publish_range()
     %Campaign{
@@ -119,6 +127,10 @@ defmodule RaiseServer.DepotFactory do
 
   def content_app_factory() do
     %ContentApp{}
+  end
+
+  def content_assessment_factory() do
+    %ContentAssessment{}
   end
 
   def author_factory() do

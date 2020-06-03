@@ -12,11 +12,7 @@ defmodule RaiseServer.Controller.App.V1.Home.Show do
     now = DateTime.utc_now()
     case SectionBuilder.generate(app_id, now, :home) do
       sections = %{} ->
-        %Conn{conn |
-          status:       200,
-          resp_headers: %{"content-type" => "application/json"},
-          resp_body:    Jason.encode!(sections),
-        }
+        Conn.json(conn, 200, sections)
       nil ->
         RaiseServer.Helper.ErrorJson.json_by_error(conn, RaiseServer.Error.ResourceNotFound.new())
     end

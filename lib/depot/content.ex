@@ -45,6 +45,7 @@ defmodule RaiseServer.Depot.Content do
     field :magazine_banner_ads_setting, :map
 
     has_one :content_app, Depot.ContentApp
+    has_one :content_assessment, Depot.ContentAssessment
 
     timestamps()
   end
