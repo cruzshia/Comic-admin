@@ -52,7 +52,7 @@ context('Coin Product List', () => {
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('配信開始日時')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('公開開始日時')
         expect($item.find(`[data-testid=${this.testIds.inputs.text}]`)).to.be.exist
       })
 
@@ -92,10 +92,10 @@ context('Coin Product List', () => {
       .next()
       .should('contain', 'アプリID')
       .next()
-      .should('contain', '有償コイン')
+      .should('contain', '購入コイン')
       .and('be.sortableHeadCell')
       .next()
-      .should('contain', '有償お得コイン')
+      .should('contain', '購入お得コイン')
       .and('be.sortableHeadCell')
       .next()
       .should('contain', 'ステータス')

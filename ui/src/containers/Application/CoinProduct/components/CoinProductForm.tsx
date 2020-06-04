@@ -7,6 +7,7 @@ import StartEndForm from '@src/components/form/StartEndForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { emptyCoinProduct } from '@src/reducers/application/coinProduct/coinProductReducer'
 import commonMessages from '@src/messages'
+import userMessages from '@src/containers/User/List/messages'
 import applicationMessages from '../../messages'
 import messages from '../messages'
 
@@ -44,7 +45,7 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
                   <Field name='applicationId' component={SelectAdapter} options={[]} />
                 ),
                 toDataSet(
-                  formatMessage(messages.paidCoin),
+                  formatMessage(userMessages.paidCoins),
                   <Field
                     name='paidCoin'
                     component={TextInputAdapter}
@@ -53,7 +54,7 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
                   />
                 ),
                 toDataSet(
-                  formatMessage(messages.givenCoin),
+                  formatMessage(userMessages.paidBonusCoins),
                   <Field
                     name='givenCoin'
                     component={TextInputAdapter}

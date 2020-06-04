@@ -70,12 +70,12 @@ context('Coin Product Detail', () => {
           })
           .next()
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('有償コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('購入コイン')
             expect($item.find(`${CONTENT_SELECTOR}`).text()).to.not.empty
           })
           .next()
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('有償お得コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('購入お得コイン')
             expect($item.find(`${CONTENT_SELECTOR}`).text()).to.not.empty
           })
           .next()

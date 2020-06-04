@@ -11,6 +11,7 @@ import useSort from '@src/hooks/useSort'
 import usePaging from '@src/hooks/usePaging'
 import CoinEventContext, { ActionContext } from '../context/CoinDeliveryEventContext'
 import { BREADCRUMBS } from '../constants'
+import commonMessages from '@src/messages'
 import messages from '../messages'
 import SearchBlock from './SearchBlock'
 
@@ -60,8 +61,8 @@ export default function CoinDeliveryEventList() {
       { id: 'eventId', label: formatMessage(messages.eventId) },
       { id: 'eventName', label: formatMessage(messages.eventName) },
       { id: 'eventType', label: formatMessage(messages.eventType) },
-      { id: 'releaseStartAt', label: formatMessage(messages.eventStartAt), onSort: handleSort },
-      { id: 'releaseEndAt', label: formatMessage(messages.eventEndAt), onSort: handleSort },
+      { id: 'releaseStartAt', label: formatMessage(commonMessages.publicStartTime), onSort: handleSort },
+      { id: 'releaseEndAt', label: formatMessage(commonMessages.publicEndTime), onSort: handleSort },
       { id: 'spacer', label: '' }
     ],
     [formatMessage, handleSort]

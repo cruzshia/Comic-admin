@@ -75,7 +75,7 @@ context('Coin Product Edit', () => {
           .next()
           .should(function($item) {
             const inputBox = `${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`
-            expect($item.find(LABEL_SELECTOR)).have.text('有償コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('購入コイン')
             expect($item.find(inputBox)).to.be.exist
             expect(
               $item
@@ -87,7 +87,7 @@ context('Coin Product Edit', () => {
           .next()
           .should(function($item) {
             const inputBox = `${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`
-            expect($item.find(LABEL_SELECTOR)).have.text('有償お得コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('購入お得コイン')
             expect($item.find(inputBox)).to.be.exist
             expect(
               $item

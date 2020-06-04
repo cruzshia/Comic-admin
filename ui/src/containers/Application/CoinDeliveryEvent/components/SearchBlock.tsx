@@ -21,7 +21,7 @@ export default function SearchBlock({ onSubmit }: Props) {
           input: <Field name='eventName' component={TextInputAdapter} />
         },
         {
-          label: formatMessage(commonMessages.deliveryStartDateTime),
+          label: formatMessage(commonMessages.publicStartTime),
           input: <Field name='deliveryStartTime' component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
         }
       ],

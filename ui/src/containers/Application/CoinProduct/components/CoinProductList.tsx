@@ -12,6 +12,7 @@ import useSort from '@src/hooks/useSort'
 import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
+import userMessages from '@src/containers/User/List/messages'
 import messages from '../messages'
 import applicationMessages from '../../messages'
 import SearchBlock from './SearchBlock'
@@ -65,8 +66,8 @@ export default function CoinProductList() {
       { id: 'releaseStartTime', label: formatMessage(commonMessages.publicStartTime), onSort: handleSort },
       { id: 'productId', label: formatMessage(messages.productId) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
-      { id: 'paidCoin', label: formatMessage(messages.paidCoin), onSort: handleSort },
-      { id: 'givenCoin', label: formatMessage(messages.givenCoin), onSort: handleSort },
+      { id: 'paidCoin', label: formatMessage(userMessages.paidCoins), onSort: handleSort },
+      { id: 'givenCoin', label: formatMessage(userMessages.paidBonusCoins), onSort: handleSort },
       { id: 'status', label: formatMessage(applicationMessages.status) }
     ],
     [formatMessage, handleSort]

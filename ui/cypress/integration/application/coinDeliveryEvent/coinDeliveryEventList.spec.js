@@ -54,7 +54,7 @@ context('Coin Delivery Event List', () => {
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('配信開始日時')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('公開開始日時')
         expect($item.find(`[data-testid=${this.testIds.inputs.text}]`)).to.be.exist
       })
 
@@ -93,10 +93,10 @@ context('Coin Delivery Event List', () => {
       .next()
       .should('have.text', 'イベント種別')
       .next()
-      .should('have.text', 'イベント開始日時')
+      .should('have.text', '公開開始日時')
       .and('be.sortableHeadCell', { sorting: true })
       .next()
-      .should('have.text', 'イベント終了日時')
+      .should('have.text', '公開終了日時')
       .and('be.sortableHeadCell')
       .click()
       .should('be.sortableHeadCell', { sorting: true })

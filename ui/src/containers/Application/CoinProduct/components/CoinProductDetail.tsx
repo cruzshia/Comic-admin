@@ -7,11 +7,12 @@ import Button, { Theme } from '@src/components/Button/Button'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
-import commonMessages from '@src/messages'
 import { ScrollAnchor } from './CoinProductForm'
-import applicationMessages from '../../messages'
 import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
 import { BREADCRUMBS } from '../constants'
+import commonMessages from '@src/messages'
+import userMessages from '@src/containers/User/List/messages'
+import applicationMessages from '../../messages'
 import messages from '../messages'
 
 export default function CoinProductDetail() {
@@ -70,8 +71,8 @@ export default function CoinProductDetail() {
         dataSet={[
           toDataSet(formatMessage(messages.productId), currentProduct.productId),
           toDataSet(formatMessage(applicationMessages.applicationId), currentProduct.applicationId),
-          toDataSet(formatMessage(messages.paidCoin), currentProduct.paidCoin),
-          toDataSet(formatMessage(messages.givenCoin), currentProduct.givenCoin),
+          toDataSet(formatMessage(userMessages.paidCoins), currentProduct.paidCoin),
+          toDataSet(formatMessage(userMessages.paidBonusCoins), currentProduct.givenCoin),
           toDataSet(formatMessage(applicationMessages.status), currentProduct.status),
           toDataSet(formatMessage(commonMessages.createDateTime), currentProduct.createdAt),
           toDataSet(formatMessage(commonMessages.updateDateTime), currentProduct.updatedAt)
