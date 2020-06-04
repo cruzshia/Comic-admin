@@ -2,8 +2,8 @@ defmodule RaiseServer.DepotFactory do
   use RaiseServer.Factory
 
   alias RaiseServer.Depot
-  alias Depot.{Campaign, Content, ContentApp, Work, WorkApp, WorkCampaign, WorkCampaignApp, Image, Subscription}
-  alias Depot.{Author, WorkAuthor, WorkAssessment, ContentAssessment}
+  alias Depot.{Campaign, Content, ContentApp, ContentAssessment, Work, WorkAuthor, WorkCampaign, WorkCampaignApp, Image, Subscription}
+  alias Depot.{Author, WorkApp, WorkAssessment}
 
   def work_app_factory() do
     %WorkApp{}
@@ -117,7 +117,8 @@ defmodule RaiseServer.DepotFactory do
       priority: 0,
       description: nil,
       images: [],
-      free_range_display_string: "dummy_free_range_display_string",
+      free_range: nil,
+      free_range_display_string: nil,
       begin_at: start_at,
       end_at: end_at
     }

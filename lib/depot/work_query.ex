@@ -3,7 +3,7 @@ defmodule RaiseServer.Depot.WorkQuery do
   import Ecto.Query
 
   alias RaiseServer.Depot
-  alias Depot.Content
+  alias RaiseServer.Depot.{Content, ContentAssessment}
 
   @impl true
   def apply_filter({:published_period, now}, query) do
@@ -54,6 +54,20 @@ defmodule RaiseServer.Depot.WorkQuery do
       inner_join: wcp in assoc(wc, :work_campaign_app),
       on: w.id == wc.work_id and wcp.app_id == ^app_id and wcp.work_campaign_id == wc.id and wc.begin_at <= ^now and wc.end_at > ^now,
       preload: [:work_campaign]
+    )
+  end
+
+  @impl true
+  def apply_option({:free_ppv_begin_date, {jst_today_start, jst_tomorrow_start}}, query) do
+    from(
+      q in query,
+      inner_join: c in Content,
+      inner_join: ca in ContentAssessment,
+      on: q.id == c.work_id and c.id == ca.content_id,
+      where: (^jst_today_start <= c.free_ppv_period1_begin_at and c.free_ppv_period1_begin_at < ^jst_tomorrow_start)
+      or (^jst_today_start <= c.free_ppv_period2_begin_at and c.free_ppv_period2_begin_at < ^jst_tomorrow_start),
+      order_by: [desc: ca.view_count, asc: q.title_kana],
+      select_merge: %{contents: c}
     )
   end
 

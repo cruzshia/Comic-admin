@@ -12,7 +12,7 @@ defmodule RaiseServer.Controller.App.V1.Free.OnlyNowTest do
       [app: app, header: %{"x-raise-aid" => app.app_id_token}]
     end
 
-    test "returns only_now sections", %{app: app, header: header} do
+    test "returns free_only_now sections", %{app: app, header: header} do
       OnlyNowData.create_resources(app)
 
       assert %{status: 200, body: body} = Req.get(@path, header)
