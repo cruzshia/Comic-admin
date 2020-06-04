@@ -321,7 +321,6 @@
   "user.comment": "Comment List",
   "user.comment.comment_edit": "Comment Edit",
   "user.comment.content": "Content",
-  "user.comment.content_id": "Content(ID)",
   "user.comment.detail": "Comment Detail",
   "user.comment.edit": "Comment Edit",
   "user.comment.is_reported": "Reported Or Not",

@@ -54,7 +54,7 @@ context('User Notification List', () => {
         })
         .next()
         .should($item => {
-          expect($item.find(ITEM_LABEL_SELECTOR)).contain('開始日時')
+          expect($item.find(ITEM_LABEL_SELECTOR)).contain('配信開始日時')
           expect($item.find(`[data-testid=${this.testIds.inputs.dateTime}]`)).have.exist
         })
 
@@ -79,9 +79,9 @@ context('User Notification List', () => {
         .should('contain', 'アプリ')
         .next()
         .should('be.sortableHeadCell')
-        .and('contain', '公開開始日')
+        .and('contain', '配信開始日時')
         .next()
-        .should('contain', '公開終了日')
+        .should('contain', '配信終了日時')
       cy.findAllByTestId(this.testIds.listTable.tableRow)
         .first()
         .children('td')

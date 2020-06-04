@@ -75,10 +75,10 @@ export default function NotificationDetail() {
         onEdit={handleRedirect}
       />
       <DataTable
-        title={formatMessage(commonMessages.releaseDuration)}
+        title={formatMessage(commonMessages.deliveryDuration)}
         dataSet={[
-          toDataSet(formatMessage(commonMessages.publicStartTime), currentNotification.publicStartTime),
-          toDataSet(formatMessage(commonMessages.publicEndTime), currentNotification.publicEndTime)
+          toDataSet(formatMessage(commonMessages.deliveryStartDateTime), currentNotification.publicStartTime),
+          toDataSet(formatMessage(commonMessages.deliveryEndDateTime), currentNotification.publicEndTime)
         ]}
         marginBottom
         onEdit={handleEditRelease}

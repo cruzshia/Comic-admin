@@ -21,7 +21,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         label: formatMessage(commonMessage.appId),
         input: <Field name='appId' component={SelectAdapter} options={[]} />
       },
-      { label: formatMessage(commonMessage.startDateTime), input: <TimeSpanInput /> }
+      { label: formatMessage(commonMessage.deliveryStartDateTime), input: <TimeSpanInput /> }
     ]
   }
 

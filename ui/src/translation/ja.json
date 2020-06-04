@@ -321,7 +321,6 @@
   "user.comment": "コメント一覧",
   "user.comment.comment_edit": "コメント編集",
   "user.comment.content": "コンテンツ",
-  "user.comment.content_id": "コンテンツ（ID）",
   "user.comment.detail": "コメント詳細",
   "user.comment.edit": "コメントを編集",
   "user.comment.is_reported": "通報の有無",

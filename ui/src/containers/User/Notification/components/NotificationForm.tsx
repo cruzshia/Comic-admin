@@ -57,11 +57,11 @@ export default function NotificationForm({ formRef, onSubmit, currentNotificatio
               marginBottom
             />
             <StartEndForm
-              title={formatMessage(commonMessages.releaseDuration)}
+              title={formatMessage(commonMessages.deliveryDuration)}
               startName='publicStartTime'
-              startLabel={formatMessage(commonMessages.releaseStartTime)}
+              startLabel={formatMessage(commonMessages.deliveryStartDateTime)}
               endName='publicEndTime'
-              endLabel={formatMessage(commonMessages.releaseEndTime)}
+              endLabel={formatMessage(commonMessages.deliveryEndDateTime)}
               marginBottom
             />
             <DataTable

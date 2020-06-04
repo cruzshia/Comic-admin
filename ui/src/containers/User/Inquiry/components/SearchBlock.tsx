@@ -36,11 +36,11 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         input: <Field name='appId' component={SelectAdapter} options={[]} />
       },
       {
-        label: formatMessage(messages.questionType),
+        label: formatMessage(messages.inquiryType),
         input: <Field name='questionType' component={SelectAdapter} options={[]} isShort />
       },
       {
-        label: formatMessage(messages.period),
+        label: formatMessage(messages.inquiryTime),
         input: <TimeSpanInput />
       }
     ]

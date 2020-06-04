@@ -5,6 +5,7 @@ import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFil
 import { SelectAdapter, SearchInputAdapter } from '@src/components/finalForm'
 import { TimeSpanInput } from '@src/components/form'
 import commonMessages from '@src/messages'
+import contentMessages from '@src/containers/Comics/Content/messages'
 import userMessages from '../../messages'
 import messages from '../messages'
 
@@ -13,11 +14,11 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
   const conditions: Conditions = {
     left: [
       {
-        label: formatMessage(messages.contentId),
+        label: formatMessage(contentMessages.contentsId),
         input: <Field name='contentId' component={SearchInputAdapter} />
       },
       {
-        label: formatMessage(commonMessages.workId),
+        label: formatMessage(commonMessages.workName),
         input: <Field name='workId' component={SearchInputAdapter} />
       },
       {
@@ -51,7 +52,7 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
         input: <Field name='appId' component={SelectAdapter} options={[]} />
       },
       {
-        label: formatMessage(messages.period),
+        label: formatMessage(commonMessages.createDateTime),
         input: <TimeSpanInput name='period' />
       }
     ]

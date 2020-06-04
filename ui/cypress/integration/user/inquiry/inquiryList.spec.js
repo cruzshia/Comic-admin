@@ -70,12 +70,12 @@ context('Inquiry List', () => {
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('問い合わせ種別')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('お問い合わせ種別')
         expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('期間')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('お問い合わせ日時')
         expect($item.find(`[data-testid=${this.testIds.inputs.timeSpan}]`)).to.be.exist
       })
   })

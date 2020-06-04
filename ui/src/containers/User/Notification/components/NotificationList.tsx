@@ -71,8 +71,8 @@ export default function NotificationList() {
     { id: 'id', label: formatMessage(commonMessages.id) },
     { id: 'title', label: formatMessage(commonMessages.title) },
     { id: 'application', label: formatMessage(commonMessages.application) },
-    { id: 'releaseStartDate', label: formatMessage(messages.releaseStartDate), onSort: handleSort },
-    { id: 'releaseEndDate', label: formatMessage(messages.releaseEndDate) }
+    { id: 'releaseStartDate', label: formatMessage(commonMessages.deliveryStartDateTime), onSort: handleSort },
+    { id: 'releaseEndDate', label: formatMessage(commonMessages.deliveryEndDateTime) }
   ]
   const displayData = notificationList.sort(
     (a, b) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier

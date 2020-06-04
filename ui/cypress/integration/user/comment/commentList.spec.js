@@ -45,12 +45,12 @@ context('Comment List', () => {
       .findAllByTestId(this.testIds.searchFilter.item)
       .first()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('コンテンツ（ID）')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('コンテンツ名（ID）')
         expect($item.find(`[data-testid=${this.testIds.inputs.search}]`)).to.be.exist
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('作品（ID）')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('作品名（ID）')
         expect($item.find(`[data-testid=${this.testIds.inputs.search}]`)).to.be.exist
       })
       .next()
@@ -83,7 +83,7 @@ context('Comment List', () => {
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('期間')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('作成日時')
         expect($item.find(`[data-testid=${this.testIds.inputs.timeSpan}]`)).to.be.exist
       })
   })
