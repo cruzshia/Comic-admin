@@ -1,7 +1,8 @@
 import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
 import Subscription from '@src/models/comics/subscription'
-import { mockSubscriptionList, mockSubscriptionDetail } from './mockData/mockData'
+import { mockSubscriptionList, mockSubscriptionDetail, mockSubscriptionProductList } from './mockData/mockData'
+import { ProductListParams } from '@src/reducers/comics/subscription/subscriptionAction'
 
 export const getSubscriptionListAjax = (): Observable<{ status: number; response: Subscription[] }> => {
   authAjax.get('/subscription/list')
@@ -43,6 +44,21 @@ export const updateSubscriptionAjax = (
     {
       status: 200,
       response: mockSubscriptionDetail
+    }
+  ])
+}
+
+export const getSubscriptionProductListAjax = (
+  subscriptionId: string
+): Observable<{ status: number; response: ProductListParams }> => {
+  authAjax.get('/subscription/list' + subscriptionId)
+  return from([
+    {
+      status: 200,
+      response: {
+        products: mockSubscriptionProductList,
+        total: mockSubscriptionProductList.length
+      }
     }
   ])
 }

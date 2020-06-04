@@ -14,13 +14,18 @@ import {
   getSubscriptionAction,
   createSubscriptionAction,
   updateSubscriptionAction,
-  resetSubscriptionAction
+  resetSubscriptionAction,
+  getSubscriptionProductListAction
 } from '@src/reducers/comics/subscription/subscriptionAction'
 
 export default function Subscription() {
-  const { subscriptionList, subscriptionTotal, currentSubscription } = useSelector(
-    (state: StoreState) => state.subscription
-  )
+  const {
+    subscriptionList,
+    subscriptionTotal,
+    currentSubscription,
+    subscriptionProductList,
+    subscriptionProductTotal
+  } = useSelector((state: StoreState) => state.subscription)
   const dispatch = useDispatch()
   const handleGetSubscriptionList = useCallback(() => dispatch(getSubscriptionListAction()), [dispatch])
   const handleGetSubscription = useCallback((id: string) => dispatch(getSubscriptionAction(id)), [dispatch])
@@ -31,6 +36,9 @@ export default function Subscription() {
   const handleUpdateSubscription = useCallback((data: SubscriptionModel) => dispatch(updateSubscriptionAction(data)), [
     dispatch
   ])
+  const handleGetSubscriptionProductList = useCallback((id: string) => dispatch(getSubscriptionProductListAction(id)), [
+    dispatch
+  ])
 
   return (
     <ActionContext.Provider
@@ -39,14 +47,17 @@ export default function Subscription() {
         onGetSubscriptionList: handleGetSubscriptionList,
         onCreateSubscription: handleCreateSubscription,
         onUpdateSubscription: handleUpdateSubscription,
-        onResetSubscription: handleResetSubscription
+        onResetSubscription: handleResetSubscription,
+        onGetSubscriptionProductList: handleGetSubscriptionProductList
       }}
     >
       <SubscriptionContext.Provider
         value={{
           subscriptionList,
           subscriptionTotal,
-          currentSubscription
+          currentSubscription,
+          subscriptionProductList,
+          subscriptionProductTotal
         }}
       >
         <Switch>

@@ -18,3 +18,10 @@ export const mockSubscriptionDetail = (subscriptionId: string) => ({
   publicStartTime: '2019-12-25 00:00',
   publicEndTime: '2019-12-25 00:00'
 })
+
+export const mockSubscriptionProductList = _range(0, 3).map(num => ({
+  appId: `少年ジャンプ+ for iOS ${num}`,
+  productId: 'SHSA_JP01WJ029931M001_57',
+  publicStartTime: `2020-04-02 14:0${num}`,
+  publicEndTime: `2020-04-02 14:0${7 - num}`
+}))

@@ -1,16 +1,20 @@
-import Subscription from '@src/models/comics/subscription'
-import { SubscriptionActionType } from './subscriptionAction'
+import Subscription, { SubscriptionProduct } from '@src/models/comics/subscription'
+import { SubscriptionActionType, ProductListParams } from './subscriptionAction'
 import { ActionType } from '../../types'
 
 export interface SubscriptionState {
   subscriptionList: Subscription[]
   subscriptionTotal: number
   currentSubscription?: Subscription
+  subscriptionProductList: SubscriptionProduct[]
+  subscriptionProductTotal: number
 }
 
 const initState: SubscriptionState = {
   subscriptionList: [],
-  subscriptionTotal: 0
+  subscriptionTotal: 0,
+  subscriptionProductList: [],
+  subscriptionProductTotal: 0
 }
 
 export const SubscriptionPreloadState = initState
@@ -34,7 +38,17 @@ const handler: Record<string, (state: SubscriptionState, action: ActionType<any>
   [SubscriptionActionType.RESET_SUBSCRIPTION]: updateCurrentSubscriptionHandler,
   [SubscriptionActionType.GET_SUBSCRIPTION_SUCCESS]: updateCurrentSubscriptionHandler,
   [SubscriptionActionType.CREATE_SUCCESS]: updateCurrentSubscriptionHandler,
-  [SubscriptionActionType.UPDATE_SUCCESS]: updateCurrentSubscriptionHandler
+  [SubscriptionActionType.UPDATE_SUCCESS]: updateCurrentSubscriptionHandler,
+  [SubscriptionActionType.GET_PRODUCT_LIST_SUCCESS]: (
+    state: SubscriptionState = initState,
+    action: ActionType<ProductListParams>
+  ): SubscriptionState => {
+    return {
+      ...state,
+      subscriptionProductList: action.payload.products,
+      subscriptionProductTotal: action.payload.total
+    }
+  }
 }
 
 export default function subscriptionReducer(state: SubscriptionState = initState, action: ActionType<any>) {

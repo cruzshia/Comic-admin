@@ -1,13 +1,21 @@
 import { createContext } from 'react'
-import Subscription from '@src/models/comics/subscription'
+import Subscription, { SubscriptionProduct } from '@src/models/comics/subscription'
 
 interface Context {
-  subscriptionList: any[]
+  subscriptionList: Subscription[]
   subscriptionTotal: number
   currentSubscription?: any
+  subscriptionProductList: SubscriptionProduct[]
+  subscriptionProductTotal: number
 }
 
-export default createContext<Context>({ subscriptionList: [], subscriptionTotal: 0, currentSubscription: {} })
+export default createContext<Context>({
+  subscriptionList: [],
+  subscriptionTotal: 0,
+  currentSubscription: {},
+  subscriptionProductList: [],
+  subscriptionProductTotal: 0
+})
 
 interface ActionContext {
   onGetSubscriptionList: () => void
@@ -15,6 +23,7 @@ interface ActionContext {
   onCreateSubscription: (data: Subscription) => void
   onUpdateSubscription: (data: Subscription) => void
   onResetSubscription: () => void
+  onGetSubscriptionProductList: (id: string) => void
 }
 
 export const ActionContext = createContext<ActionContext>({
@@ -22,5 +31,6 @@ export const ActionContext = createContext<ActionContext>({
   onGetSubscription: () => {},
   onCreateSubscription: () => {},
   onUpdateSubscription: () => {},
-  onResetSubscription: () => {}
+  onResetSubscription: () => {},
+  onGetSubscriptionProductList: () => {}
 })

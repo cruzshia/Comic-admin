@@ -15,17 +15,20 @@ import messages from '../messages'
 import { BREADCRUMBS } from '../utils'
 
 export default function SubscriptionDetail() {
-  const { onGetSubscription, onResetSubscription } = useContext(ActionContext)
-  const { currentSubscription = {} } = useContext(SubscriptionContext)
-  const { pagination, handlePageChange } = usePaging({ total: 1 })
+  const { onGetSubscription, onResetSubscription, onGetSubscriptionProductList } = useContext(ActionContext)
+  const { currentSubscription = {}, subscriptionProductList, subscriptionProductTotal } = useContext(
+    SubscriptionContext
+  )
+  const { pagination, handlePageChange } = usePaging({ total: subscriptionProductTotal })
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
 
   useEffect(() => {
     onGetSubscription(id!)
+    onGetSubscriptionProductList(id!)
     return () => onResetSubscription()
-  }, [onGetSubscription, onResetSubscription, id])
+  }, [onGetSubscription, onResetSubscription, onGetSubscriptionProductList, id])
 
   const titleText = formatMessage(messages.subscriptionDetail)
   const breadcrumbList = useMemo(
@@ -103,14 +106,7 @@ export default function SubscriptionDetail() {
         theadList={theadList}
         buttonList={tableButtons}
         rowIdKey='appId'
-        dataList={[
-          {
-            appId: '少年ジャンプ+ for iOS',
-            productId: 'SHSA_JP01WJ029931M001_57',
-            publicStartTime: '2019-12-20 22:00',
-            publicEndTime: '2019-12-20 22:00'
-          }
-        ]}
+        dataList={subscriptionProductList}
         pagination={pagination}
         onPageChange={handlePageChange}
       />
