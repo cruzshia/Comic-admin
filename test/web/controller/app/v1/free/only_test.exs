@@ -1,12 +1,12 @@
 # TODO Fix this test
-defmodule RaiseServer.Controller.App.V1.Free.OnlyNow.ShowTest do
+defmodule RaiseServer.Controller.App.V1.Free.OnlyNowTest do
   use RaiseServer.RepoCase
 
   alias RaiseServer.{AppsFactory, OnlyNowData}
 
   @path "/api/app/v1/free/only_now"
 
-  describe "show/1" do
+  describe "get/1" do
     setup do
       app = AppsFactory.insert(:app)
       [app: app, header: %{"x-raise-aid" => app.app_id_token}]

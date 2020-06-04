@@ -54,6 +54,10 @@ defmodule RaiseServer.SectionBuilder.Utils do
     }
   end
 
+  def is_new_arrival(material_dt, current_dt) do
+    DateTime.diff(current_dt, material_dt) <= @seven_days_in_seconds
+  end
+
   def calculate_new_episode_badge(%{contents: [], publish_begin_at: publish_begin_at} = _work, now) do
     DateTime.diff(now, DateTime.from_naive!(publish_begin_at, "Etc/UTC")) < @seven_days_in_seconds
   end

@@ -4,13 +4,13 @@ defmodule RaiseServer.HomeData do
 
   def create_resources(app) do
 
-    %{setting: setting_str} = AppsFactory.insert(:home_screen, %{app_id: app.id})
+    %{setting: setting_str} = AppsFactory.insert(:home_screen, %{app: app})
     setting = :jsx.decode(setting_str, return_maps: true)
 
     work = DepotFactory.insert(:work)
-    content = DepotFactory.insert(:content, %{work_id: work.id})
-    DepotFactory.insert(:work_app, %{work_id: work.id, app_id: app.id})
-    DepotFactory.insert(:content_app, %{content_id: content.id, app_id: app.id})
+    content = DepotFactory.insert(:content, %{work: work})
+    DepotFactory.insert(:work_app, %{work: work, app: app})
+    DepotFactory.insert(:content_app, %{content_id: content.id, app: app})
 
     # daily_ranking section
     Date.range(~D[2020-05-11], ~D[2020-05-17])
@@ -19,7 +19,7 @@ defmodule RaiseServer.HomeData do
       for n <- 100..103 do
         work = DepotFactory.insert(:episode_work)
         DepotFactory.insert(:work_app, %{work_id: work.id, app_id: app.id})
-        content = DepotFactory.insert(:episode_content, %{work_id: work.id, publish_begin_at: utc_datetime})
+        content = DepotFactory.insert(:episode_content, %{work: work, publish_begin_at: utc_datetime})
         DepotFactory.insert(:content_app, %{content_id: content.id, app_id: app.id})
         DepotFactory.insert(:content_assessment, %{content_id: content.id, view_count: n, like_count: n, comment_count: n})
       end
@@ -28,15 +28,15 @@ defmodule RaiseServer.HomeData do
     # free_only_now section
     fon_campaign = DepotFactory.insert(:campaign)
     fon_work = DepotFactory.insert(:work)
-    fon_work_campaign = DepotFactory.insert(:work_campaign, %{work_id: fon_work.id, campaign_id: fon_campaign.id})
-    DepotFactory.insert(:work_app, %{work_id: fon_work.id, app_id: app.id})
-    DepotFactory.insert(:work_campaign_app, %{work_campaign_id: fon_work_campaign.id, app_id: app.id})
+    fon_work_campaign = DepotFactory.insert(:work_campaign, %{work: fon_work, campaign_id: fon_campaign.id})
+    DepotFactory.insert(:work_app, %{work: fon_work, app: app})
+    DepotFactory.insert(:work_campaign_app, %{work_campaign_id: fon_work_campaign.id, app: app})
 
     # works section
     %{"work_ids" => prefixed_ids} = ScreenSettingUtils.find_section(setting, "works")
     for <<_::binary-size(2), _id_str::binary>> <- prefixed_ids do
-      %{id: work_id} = DepotFactory.insert(:episode_work)
-      DepotFactory.insert(:work_app, %{work_id: work_id, app_id: app.id})
+      work = DepotFactory.insert(:episode_work)
+      DepotFactory.insert(:work_app, %{work: work, app: app})
     end
 
     # subscription section
@@ -44,9 +44,9 @@ defmodule RaiseServer.HomeData do
     sub_id = sub_id_str |> String.to_integer
     sub = DepotFactory.insert(:subscription, %{id: sub_id})
     sub_work = DepotFactory.insert(:magazine_work, %{subscription_id: sub.id, is_main_work_of_subscription: true})
-    DepotFactory.insert(:work_app, %{work_id: sub_work.id, app_id: app.id})
-    %{id: magazine_content_id} = DepotFactory.insert(:magazine_content, %{work_id: sub_work.id})
-    DepotFactory.insert(:content_app, %{content_id: magazine_content_id, app_id: app.id})
+    DepotFactory.insert(:work_app, %{work: sub_work, app: app})
+    %{id: magazine_content_id} = DepotFactory.insert(:magazine_content, %{work: sub_work})
+    DepotFactory.insert(:content_app, %{content_id: magazine_content_id, app: app})
 
     app
   end

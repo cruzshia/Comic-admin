@@ -6,20 +6,22 @@ defmodule RaiseServer.SectionBuilder.HomeTest do
   alias RaiseServer.SectionBuilder
   alias SectionBuilder.Home
 
+  @dummy_cdn_host ""
+
   describe "process/3" do
     setup do
       app = AppsFactory.insert(:app)
-      screen_setting = AppsFactory.insert(:home_screen, %{app_id: app.id})
+      screen_setting = AppsFactory.insert(:home_screen, %{app: app})
       now = DateTime.utc_now() |> DateTime.truncate(:second)
       [app: app, app_screen_setting: screen_setting, now: now]
     end
 
     test "process section when 'type' is 'ranking'", context do
-      %{app: app, app_screen_setting: %{setting: setting_str}} = context
+      %{app: app, app_screen_setting: %{setting: setting_str}, now: now} = context
 
       ranking_section = ScreenSettingUtils.find_section(setting_str, "ranking")
       tag = CurationFactory.insert(:tag)
-      work = DepotFactory.insert(:work)
+      %{images: %{image1: image1}} = work = DepotFactory.insert(:work, publish_begin_at: DateTime.add(now, -3600 * 24 * 8, :second))
       DepotFactory.insert(:work_app, %{app_id: app.id, work_id: work.id})
       work_assessment = DepotFactory.insert(:work_assessment, %{work_id: work.id})
       CurationFactory.insert(:work_tag, %{tag_id: tag.id, work_id: work.id})
@@ -31,7 +33,7 @@ defmodule RaiseServer.SectionBuilder.HomeTest do
               "action_url"        => "jumpplus://works/ew#{work.id}",
               "comment_count"     => work_assessment.comment_count,
               "description"       => work.description,
-              "image"             => work.images.image1,
+              "image"             => %{url: "https://#{@dummy_cdn_host}/#{image1.path}", width: image1.width, height: image1.height},
               "new_episode_badge" => false,
               "title"             => work.title,
               "view_count"        => work_assessment.view_count,
@@ -106,11 +108,9 @@ defmodule RaiseServer.SectionBuilder.HomeTest do
       sub_id = sub_id_str |> String.to_integer
       sub = DepotFactory.insert(:subscription, %{id: sub_id})
       work = DepotFactory.insert(:magazine_work, %{subscription_id: sub.id, is_main_work_of_subscription: true})
-
       DepotFactory.insert(:work_app, %{work_id: work.id, app_id: app.id})
-        %{id: content_id, thumbnail_image: image} = DepotFactory.insert(:magazine_content, %{
-        work_id: work.id
-      })
+
+      %{id: content_id, thumbnail_image: image} = DepotFactory.insert(:magazine_content, %{work: work})
       DepotFactory.insert(:content_app, content_id: content_id, app: app)
 
       response_image =
@@ -120,7 +120,7 @@ defmodule RaiseServer.SectionBuilder.HomeTest do
         |> :jsx.decode(return_maps: true)
         |> (fn image ->
           %{
-            url:    "https://" <> "" <> "/" <> image["path"],
+            url:    "https://#{@dummy_cdn_host}/#{image["path"]}",
             width:  image["width"],
             height: image["height"],
           }

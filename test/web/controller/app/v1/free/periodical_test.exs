@@ -1,4 +1,4 @@
-defmodule RaiseServer.Controller.App.V1.Free.Periodical.ShowTest do
+defmodule RaiseServer.Controller.App.V1.Free.PeriodicalTest do
   use RaiseServer.RepoCase
   import RaiseServer.FreePeriodicalData
 
@@ -6,7 +6,7 @@ defmodule RaiseServer.Controller.App.V1.Free.Periodical.ShowTest do
 
   @path "/api/app/v1/free/periodical"
 
-  describe "show/1" do
+  describe "get/1" do
     setup do
       app = AppsFactory.insert(:app)
       %{id: user_id} = AccountFactory.insert(:user)
@@ -19,25 +19,26 @@ defmodule RaiseServer.Controller.App.V1.Free.Periodical.ShowTest do
     test "returns free_periodical", ctx do
       %{app: app, header: header} = ctx
       utc_now = DateTime.utc_now() |> DateTime.truncate(:second)
+      seven_day_ago = DateTime.add(utc_now, -3600 * 24 * 7, :second)
 
       author1 = DepotFactory.insert(:author, %{name: "Qoo"})
       author2 = DepotFactory.insert(:author, %{name: "Zoo"})
 
       work1 = DepotFactory.insert(:work, %{free_periodical_day_of_the_week: "月|水", publish_begin_at: utc_now})
-      work2 = DepotFactory.insert(:work, %{free_periodical_day_of_the_week: "火"})
+      work2 = DepotFactory.insert(:work, %{free_periodical_day_of_the_week: "火", publish_begin_at: seven_day_ago})
 
-      content1 = DepotFactory.insert(:content, %{work_id: work1.id, publish_begin_at: utc_now})
+      content1 = DepotFactory.insert(:content, %{work: work1, publish_begin_at: utc_now})
 
       DepotFactory.insert(:content_app, %{content_id: content1.id, app_id: app.id})
 
-      DepotFactory.insert(:work_app, %{work_id: work1.id, app_id: app.id})
-      DepotFactory.insert(:work_app, %{work_id: work2.id, app_id: app.id})
+      DepotFactory.insert(:work_app, %{work: work1, app_id: app.id})
+      DepotFactory.insert(:work_app, %{work: work2, app_id: app.id})
 
-      DepotFactory.insert(:work_author, %{work_id: work1.id, author_id: author1.id})
-      DepotFactory.insert(:work_author, %{work_id: work2.id, author_id: author2.id})
+      DepotFactory.insert(:work_author, %{work: work1, author_id: author1.id})
+      DepotFactory.insert(:work_author, %{work: work2, author_id: author2.id})
 
       AppsFactory.insert(:app_screen_setting, %{
-        app_id: app.id,
+        app: app,
         screen: :free_periodical,
         setting: app_screen_setting_json_str(work1.id)
       })

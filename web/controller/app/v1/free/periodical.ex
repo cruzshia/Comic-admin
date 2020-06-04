@@ -1,6 +1,6 @@
 use Croma
 
-defmodule RaiseServer.Controller.App.V1.Free.Periodical.Show do
+defmodule RaiseServer.Controller.App.V1.Free.Periodical do
   use RaiseServer.Controller.Api
 
   alias RaiseServer.Plug
@@ -9,7 +9,7 @@ defmodule RaiseServer.Controller.App.V1.Free.Periodical.Show do
   plug Plug.FetchAppByAid, :fetch, []
   plug Plug.VerifyAppApiToken, :verify, []
 
-  defun show(%Conn{assigns: %{app: %{id: app_id}}} = conn) :: v[Conn.t] do
+  defun get(%Conn{assigns: %{app: %{id: app_id}}} = conn) :: Conn.t do
     now = DateTime.utc_now()
     case SectionBuilder.generate(app_id, now, :free_periodical) do
       free_periodical = %{} ->

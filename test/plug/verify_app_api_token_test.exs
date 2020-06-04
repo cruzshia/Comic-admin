@@ -34,7 +34,7 @@ defmodule RaiseServer.Plug.VerifyAppApiTokenTest do
     test "returns BadRequest if x-raise-api-token header can't find the device" do
       device =
         AccountFactory.device_factory()
-       |> Map.put(:id, 0)
+        |> Map.put(:id, 0)
 
       now = DateTime.utc_now()
       api_token = Utils.create_api_token(device, now)

@@ -15,6 +15,8 @@ defmodule RaiseServer.RepoCase do
     Repo.delete_all(Depot.WorkCampaign)
     Repo.delete_all(Depot.ContentAssessment)
     Repo.delete_all(Depot.WorkAuthor)
+    Repo.delete_all(Apps.AppScreenSetting)
+    Repo.delete_all(Apps.App)
     Repo.delete_all(Depot.Author)
     Repo.delete_all(Depot.Campaign)
     Repo.delete_all(Depot.Content)
@@ -23,8 +25,6 @@ defmodule RaiseServer.RepoCase do
     Repo.delete_all(Depot.Work)
     Repo.delete_all(Depot.Subscription)
     Repo.delete_all(Curation.Tag)
-    Repo.delete_all(Apps.AppScreenSetting)
-    Repo.delete_all(Apps.App)
     Repo.delete_all(Account.Device)
     Repo.delete_all(Account.User)
     :ok
@@ -33,7 +33,6 @@ defmodule RaiseServer.RepoCase do
   using do
     quote do
       use RaiseServer.CommonCase
-
       alias AntikytheraAcs.Ecto.PostgresRepo, as: Repo
 
       defp mock_verify_app_api_token() do

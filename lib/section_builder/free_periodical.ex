@@ -7,7 +7,7 @@ defmodule RaiseServer.SectionBuilder.FreePeriodical do
 
   @seven_days_in_seconds 604_800
 
-  defun process(app_id :: integer, now :: DateTime.t, recommended_setting :: map) :: map do
+  defun process(app_id :: v[integer], now :: DateTime.t, recommended_setting :: v[map]) :: map do
     [
       {"monday", "月"},
       {"tuesday", "火"},

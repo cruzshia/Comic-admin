@@ -16,7 +16,7 @@ defmodule RaiseServer.Apps do
   @doc """
   return page setting
   """
-  defun get_page_setting(app_id :: v[integer], screen_type :: v[atom], opts :: list \\ []) :: v[map | nil] do
+  defun get_page_setting(app_id :: v[integer], screen_type :: v[atom], opts :: v[list] \\ []) :: map | nil do
     datetime = Keyword.get(opts, :at, DateTime.utc_now)
 
     case get_screen_setting_query(app_id, screen_type, datetime) |> Repo.one() do

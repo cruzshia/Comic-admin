@@ -18,6 +18,7 @@ defmodule RaiseServer.Depot.Work do
     field :search_text,         :string
     field :ngramed_search_text, :string
     embeds_one :images,         Depot.Images
+    field :last_content_published_at, :utc_datetime, virtual: true
 
     field :episode_work_type,               RaiseServer.EpisodeTypeEnum
     field :update_frequency,                :string

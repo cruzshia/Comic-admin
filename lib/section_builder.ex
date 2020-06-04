@@ -3,9 +3,9 @@ use Croma
 defmodule RaiseServer.SectionBuilder do
 
   alias RaiseServer.{Apps, SectionBuilder}
-  alias SectionBuilder.{Home, FreeOnlyNow, FreePeriodical, SearchTop}
+  alias SectionBuilder.{Home, FreeOnlyNow, FreePeriodical, FreeOneShot, SearchTop}
 
-  defun generate(app_id :: v[integer], now :: DateTime.t, page :: v[atom]) :: map | nil do
+  defun generate(app_id :: v[integer], now :: DateTime.t, page :: v[atom], opts :: v[list] \\ []) :: map | nil do
     screen_type = get_screen_type(page)
     case {Apps.get_page_setting(app_id, screen_type), page} do
       {nil, _} ->
@@ -16,6 +16,8 @@ defmodule RaiseServer.SectionBuilder do
         FreeOnlyNow.process_sections(app_id, now, only_now_setting)
       {%{} = recommended_setting, :free_periodical} ->
         FreePeriodical.process(app_id, now, recommended_setting)
+      {settings, :free_one_shot} ->
+        FreeOneShot.process(app_id, now, settings, opts)
       {settings, :search_top} ->
         SearchTop.process(app_id, now, settings)
     end

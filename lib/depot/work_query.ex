@@ -1,8 +1,9 @@
 defmodule RaiseServer.Depot.WorkQuery do
   @behaviour RaiseServer.EctoQueryMaker
-
   import Ecto.Query
-  alias RaiseServer.Depot.Content
+
+  alias RaiseServer.Depot
+  alias Depot.Content
 
   @impl true
   def apply_filter({:published_period, now}, query) do
@@ -18,6 +19,32 @@ defmodule RaiseServer.Depot.WorkQuery do
   @impl true
   def apply_option({:order_by, sort_by}, query) do
     order_by(query, ^sort_by)
+  end
+
+  def apply_option({:limit, limit}, query) do
+    limit(query, ^limit)
+  end
+
+  def apply_option({:offset, offset}, query) do
+    offset(query, ^offset)
+  end
+
+  def apply_option({:join_latest_content_order_by_publish_begin_at, app_id}, query) do
+    join_query =
+      Content
+      |> Depot.filter_by_app_id(:content_app, app_id)
+      |> order_by(desc: :publish_begin_at)
+      |> select([:work_id, :publish_begin_at])
+      |> distinct([:work_id])
+
+    query
+    |> join(:left, [w], c in subquery(join_query), on: w.id == c.work_id)
+    |> order_by([..., c], desc: c.publish_begin_at)
+    |> select_merge([..., c], %{last_content_published_at: c.publish_begin_at})
+  end
+
+  def apply_option({:recommended_work_first, recommended_id}, query) do
+    order_by(query, [w, ...], desc: w.id == ^recommended_id)
   end
 
   def apply_option({:work_campaign, {app_id, now}}, query) do

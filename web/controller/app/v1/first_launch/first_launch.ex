@@ -1,6 +1,6 @@
 use Croma
 
-defmodule RaiseServer.Controller.App.V1.FirstLaunch.Create do
+defmodule RaiseServer.Controller.App.V1.FirstLaunch do
   use RaiseServer.Controller.Api
 
   alias Croma.Result
@@ -11,7 +11,7 @@ defmodule RaiseServer.Controller.App.V1.FirstLaunch.Create do
 
   plug Plug.FetchAppByAid, :fetch, []
 
-  defun create(%Conn{request: %{body: body}} = conn) :: v[Conn.t] do
+  defun post(%Conn{request: %{body: body}} = conn) :: Conn.t do
     now = DateTime.utc_now()
     case get_device(body["v2_device_id_token"]) do
       {:ok, device} ->

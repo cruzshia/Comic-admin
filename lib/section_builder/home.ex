@@ -89,13 +89,13 @@ defmodule RaiseServer.SectionBuilder.Home do
             %{work_assessment: work_assessment} = work = Enum.find(works, &(&1.id == id))
             wa_or_default = work_assessment || %Depot.WorkAssessment{}
             %{
-              action_url: "jumpplus://works/#{Utils.add_resource_prefix(work)}",
-              description: work.description,
-              title: work.title,
-              image: work.images.image1,
+              action_url:        "jumpplus://works/#{Utils.add_resource_prefix(work)}",
+              description:       work.description,
+              title:             work.title,
+              image:             Utils.format_image(work.images.image1),
               new_episode_badge: Utils.calculate_new_episode_badge(work, now),
-              comment_count: wa_or_default.comment_count,
-              view_count: wa_or_default.view_count,
+              comment_count:     wa_or_default.comment_count,
+              view_count:        wa_or_default.view_count,
             }
           end)
         Map.put(ranking, "works", sorted_works)

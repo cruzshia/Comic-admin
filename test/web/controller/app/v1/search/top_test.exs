@@ -1,18 +1,18 @@
-defmodule RaiseServer.Controller.App.V1.Search.Top.ShowTest do
+defmodule RaiseServer.Controller.App.V1.Search.TopTest do
   use RaiseServer.RepoCase
 
   alias RaiseServer.{AppsFactory, DepotFactory, ScreenSettingUtils}
 
   @path "/api/app/v1/search/top"
 
-  describe "show/1" do
+  describe "get/1" do
     setup do
       app = AppsFactory.insert(:app)
       [app: app, header: %{ "x-raise-aid" => app.app_id_token}]
     end
 
     test "returns show top sections", %{app: app, header: header} do
-      %{setting: setting_str} = AppsFactory.insert(:home_screen, %{app_id: app.id})
+      %{setting: setting_str} = AppsFactory.insert(:home_screen, %{app: app})
       setting = :jsx.decode(setting_str, return_maps: true)
       top_banners_setting = ScreenSettingUtils.find_section(setting, "top_banners")
       free_only_now_setting = ScreenSettingUtils.find_section(setting, "free_only_now")

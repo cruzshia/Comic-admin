@@ -7,7 +7,7 @@ defmodule RaiseServer.SectionBuilder.FreeOnlyNow do
 
   @seven_days_in_seconds 604_800
 
-  def process_sections(app_id, now, %{"sections" => sections} = only_now_setting) do
+  defun process_sections(app_id :: v[integer], now :: DateTime.t, %{"sections" => sections} = only_now_setting :: v[map]) :: map do
     %{only_now_setting |
       "sections" => Enum.map(sections, &process(&1, app_id, now))
     }

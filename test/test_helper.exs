@@ -25,12 +25,11 @@ defmodule Socket do
 end
 
 [
+  "test/support/util/*.exs",
   "test/support/*.exs",
   "test/support/factory/*.exs",
 ]
-|> Enum.each(fn path ->
-  path
-  |> Path.wildcard()
-  |> Enum.sort()
-  |> Enum.each(&Code.load_file/1)
-end)
+|> Enum.flat_map(&Path.wildcard/1)
+|> Enum.each(&Code.load_file/1)
+
+{:ok, _} = Application.ensure_all_started(:ex_machina)

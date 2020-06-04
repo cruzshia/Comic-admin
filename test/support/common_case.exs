@@ -11,7 +11,6 @@ defmodule RaiseServer.CommonCase do
   using do
     quote do
       @dummy_app_api_token "dummy_app_api_token"
-      @dummy_aid           "dummy_token0"
 
       # todo: recursive
       defp schema_to_map(schema) do

@@ -5,7 +5,7 @@ defmodule RaiseServer.Depot do
 
   alias AntikytheraAcs.Ecto.PostgresRepo, as: Repo
   alias RaiseServer.{Depot, EctoQueryMaker}
-  alias Depot.{WorkQuery, WorkCampaignQuery, ContentQuery, WorkCampaign, Work, Content}
+  alias Depot.{WorkCampaign, Work, Content, WorkQuery, ContentQuery, WorkCampaignQuery}
 
   @doc """
   get Work records from db
@@ -15,6 +15,14 @@ defmodule RaiseServer.Depot do
     |> filter_by_app_id(:work_app, app_id)
     |> EctoQueryMaker.apply(WorkQuery, filters, opts)
     |> Repo.all()
+  end
+
+  defun count_works(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: integer do
+    Work
+    |> filter_by_app_id(:work_app, app_id)
+    |> EctoQueryMaker.apply(WorkQuery, filters, opts)
+    |> select(count())
+    |> Repo.one()
   end
 
   defun get_contents(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: [Content.t] do
@@ -38,11 +46,12 @@ defmodule RaiseServer.Depot do
     Work
     |> filter_by_app_id(:work_app, app_id)
     |> EctoQueryMaker.apply(WorkQuery, filters, opts)
+    |> limit(1)
     |> Repo.one()
   end
 
-  defp filter_by_app_id(module, assoc_app, app_id) do
-    module
+  defun filter_by_app_id(query :: Ecto.Queryable.t, assoc_app :: v[atom], app_id :: v[integer]) :: Ecto.Queryable.t do
+    query
     |> join(:inner, [r], ra in assoc(r, ^assoc_app))
     |> where([_, ra], ra.app_id == ^app_id)
   end

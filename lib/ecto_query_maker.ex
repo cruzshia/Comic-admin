@@ -5,10 +5,10 @@ defmodule RaiseServer.EctoQueryMaker do
 
   alias Ecto.Query
 
-  @callback apply_filter(filter :: atom | {atom, any}, query :: Query.t) :: Query.t
-  @callback apply_option(opt :: atom | {atom, any}, query :: Query.t) :: Query.t
-  @callback apply_join(join :: atom | {atom, any}, query :: Query.t) :: Query.t
-  @callback apply_preload(preload :: atom | {atom, any}) :: atom | {atom, any}
+  @callback apply_filter(filter :: atom | {atom, any}, query :: Query.t()) :: Query.t()
+  @callback apply_option(opt :: atom | {atom, any}, query :: Query.t()) :: Query.t()
+  @callback apply_join(join :: atom | {atom, any}, query :: Query.t()) :: Query.t()
+  @callback apply_preload(preload :: atom | {atom, any}) :: list
   @optional_callbacks apply_filter: 2, apply_option: 2, apply_join: 2, apply_preload: 1
 
   defun apply(query :: Ecto.Queryable.t, filters :: v[list], opts :: v[list]) :: Query.t do
@@ -17,6 +17,7 @@ defmodule RaiseServer.EctoQueryMaker do
 
   defun apply(query :: Ecto.Queryable.t, module :: v[module], filters :: v[list], opts :: v[list]) :: Query.t  do
     Code.ensure_loaded(module)
+
     query
     |> apply_filters(filters, {function_exported?(module, :apply_filter, 2), module})
     |> apply_options(opts, {function_exported?(module, :apply_option, 2), module})
@@ -55,6 +56,7 @@ defmodule RaiseServer.EctoQueryMaker do
 
   defp apply_options(query, [{:preload, preloads} | tail], {_, module} = module_info) do
     preloads = apply_preloads([], preloads, {function_exported?(module, :apply_preload, 1), module})
+
     query
     |> preload(^preloads)
     |> apply_options(tail, module_info)

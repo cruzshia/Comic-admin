@@ -1,5 +1,5 @@
 defmodule RaiseServer.DepotFactory do
-  alias AntikytheraAcs.Ecto.PostgresRepo, as: Repo
+  use RaiseServer.Factory
 
   alias RaiseServer.Depot
   alias Depot.{Campaign, Content, ContentApp, Work, WorkApp, WorkCampaign, WorkCampaignApp, Image, Subscription}
@@ -18,9 +18,9 @@ defmodule RaiseServer.DepotFactory do
     }
   end
 
-  def img_factory() do
+  def image_factory do
     %Image{
-      path: "production/image/works/121/image4s/original/8e92de9bdf91e4f2929a3afc8a1518f7.jpg",
+      path: "/production/image/works/121/image4s/original/8e92de9bdf91e4f2929a3afc8a1518f7.jpg",
       height: 240,
       width: 240
     }
@@ -36,7 +36,7 @@ defmodule RaiseServer.DepotFactory do
       description:                     "パンダパンダ",
       publish_begin_at:                p_start,
       publish_end_at:                  p_end,
-      images:                          %Depot.Images{image1: img_factory()},
+      images:                          %Depot.Images{image1: build(:image)},
       episode_work_type:               1,
       update_frequency:                "毎週月水金曜日",
       free_periodical_day_of_the_week: nil,
@@ -62,6 +62,7 @@ defmodule RaiseServer.DepotFactory do
 
   def content_factory() do
     {p_start, p_end} = publish_range()
+
     %Content{
       content_type:               :episode,
       name:                       "終わりのパンダ 01",
@@ -71,7 +72,7 @@ defmodule RaiseServer.DepotFactory do
       free_for_limited_time:      false,
       price_in_coin:              125,
       sort_code:                  0,
-      thumbnail_image:            img_factory(),
+      thumbnail_image:            build(:image),
       volume_number:              1,
       subtitle:                   "パンダ",
       episode_number:             1,
@@ -86,6 +87,7 @@ defmodule RaiseServer.DepotFactory do
       launch_external_browser:    false,
       excluded_in_todays_ranking: true,
       ads_in_viewer_setting:      %{},
+      work: build(:work)
     }
   end
 
@@ -149,18 +151,5 @@ defmodule RaiseServer.DepotFactory do
 
   def work_author_factory() do
     %WorkAuthor{}
-  end
-
-  def insert(schema_name, attrs \\ %{}) do
-    schema_function = "#{schema_name}_factory" |> String.to_existing_atom
-
-    apply(__MODULE__, schema_function, [])
-    |> struct!(attrs)
-    |> Repo.insert!
-  end
-
-  defp publish_range() do
-    utc_now = DateTime.utc_now |> DateTime.truncate(:second)
-    {DateTime.add(utc_now, -3600 * 24 * 7, :second), DateTime.add(utc_now, 3600 * 24 * 7, :second)}
   end
 end

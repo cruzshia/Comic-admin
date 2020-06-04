@@ -47,15 +47,15 @@ defmodule RaiseServer.SectionBuilder.FreePeriodicalTest do
 
       content1 = DepotFactory.insert(
         :content,
-        %{work_id: work1.id, free_ppv_period1_begin_at: content_begin_at}
+        %{work: work1, publish_begin_at: seven_day_ago, free_ppv_period1_begin_at: content_begin_at}
       )
       content2 = DepotFactory.insert(
         :content,
-        %{work_id: work2.id, free_ppv_period2_begin_at: content_begin_at}
+        %{work: work2, publish_begin_at: seven_day_ago, free_ppv_period2_begin_at: content_begin_at}
       )
       content3 = DepotFactory.insert(
         :content,
-        %{work_id: work3.id, publish_begin_at: seven_day_ago, free_ppv_period1_begin_at: future_begin_at}
+        %{work: work3, publish_begin_at: seven_day_ago, free_ppv_period1_begin_at: future_begin_at}
       )
 
       DepotFactory.insert(:content_app, %{content_id: content1.id, app_id: app.id})
