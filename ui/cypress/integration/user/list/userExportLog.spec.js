@@ -69,5 +69,6 @@ context('User Export Logs', () => {
           .eq(2)
           .should('be.downloadBlock')
       })
+    cy.findByTestId(this.testIds.pager).should('be.exist')
   })
 })

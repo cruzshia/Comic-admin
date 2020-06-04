@@ -50,6 +50,7 @@ export default function NotificationDetail() {
     },
     [history, id]
   )
+  const handleEdit = useCallback(() => handleRedirect(), [handleRedirect])
   const handleEditRelease = useCallback(() => {
     handleRedirect(ScrollAnchor.ReleaseDuration)
   }, [handleRedirect])
@@ -72,7 +73,7 @@ export default function NotificationDetail() {
           toDataSet(formatMessage(commonMessages.updateDateTime), currentNotification.updateDateTime)
         ]}
         marginBottom
-        onEdit={handleRedirect}
+        onEdit={handleEdit}
       />
       <DataTable
         title={formatMessage(commonMessages.deliveryDuration)}

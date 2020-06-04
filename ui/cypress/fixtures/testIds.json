@@ -23,7 +23,8 @@
     "textArea": "text-area",
     "drop": "drop",
     "amount": "amount_input",
-    "description": "input-description"
+    "description": "input-description",
+    "checkbox": "styled-checkbox"
   },
   "listTable": {
     "id": "list-table",
