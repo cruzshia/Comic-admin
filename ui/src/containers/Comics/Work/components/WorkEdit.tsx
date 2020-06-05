@@ -1,14 +1,18 @@
 import React, { useRef, useMemo, useCallback, useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useIntl } from 'react-intl'
+import { Subscription } from 'rxjs'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import Button from '@src/components/Button/Button'
 import { ButtonTheme } from '@src/components/Button/buttonTheme'
-import commonMessages from '@src/messages'
+import { successSubject, errorSubject } from '@src/utils/responseSubject'
+import { WorkActionType } from '@src/reducers/comics/work/workActions'
 import { submitForm } from '@src/utils/validation'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
+import { ErrorKey } from '@src/epics/utils'
 import WorkForm from './WorkForm'
 import { BREADCRUMBS } from '../utils'
+import commonMessages from '@src/messages'
 import messages from '../messages'
 import WorkContext, { ActionContext } from '../context/WorkContext'
 
@@ -25,7 +29,29 @@ export default function WorkEdit() {
   }, [onGetWork, id, onResetWork])
 
   const handleClickSubmit = useCallback(() => submitForm(formRef), [formRef])
-  const handleSubmitUpdate = useCallback(data => onUpdateWork(data), [onUpdateWork])
+  const handleSubmitUpdate = useCallback(
+    data => {
+      const subs: Subscription[] = []
+      const unsubscribeAll = () => subs.forEach(sub => sub.unsubscribe())
+      const resPromise = new Promise(resolve => {
+        subs.push(
+          successSubject.subscribe([WorkActionType.UPDATE_SUCCESS], () => {
+            unsubscribeAll()
+            resolve()
+          })
+        )
+        subs.push(
+          errorSubject.subscribe([WorkActionType.UPDATE_ERROR], ({ error }) => {
+            unsubscribeAll()
+            resolve(error?.[ErrorKey.FieldError])
+          })
+        )
+      })
+      onUpdateWork(data)
+      return resPromise
+    },
+    [onUpdateWork]
+  )
 
   const title = formatMessage(messages.edit)
   const breadcrumbList: Breadcrumb[] = useMemo(

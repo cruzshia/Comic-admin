@@ -10,13 +10,16 @@ export const tooLongError = (length: number) => `${length}文字以内で入力�
 
 export const required = (value: any) =>
   value === undefined || value === null || !/.+/.test(value) ? '項目が入力されていません' : undefined
+
 export const submitForm = (formRef: React.RefObject<HTMLFormElement>) =>
   formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
 
-export const checkError = (meta: FieldMetaState<any>) => (meta.error && meta.touched ? meta.error : undefined)
+export const checkError = (meta: FieldMetaState<any>) => {
+  const error = meta.error || meta.submitError
+  return error && meta.touched ? error : undefined
+}
 
-export const validDateTime = (dateTime: string) =>
-  new RegExp('^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$', 'i').test(dateTime)
+export const validDateTime = (dateTime: string) => /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/i.test(dateTime)
 
 export const isValidDuration = (start: string, end: string) => new Date(end).getTime() >= new Date(start).getTime()
 export const isValidLength = (length: number, data: string | number) =>

@@ -15,7 +15,7 @@ import {
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
 import { toEditableModel, genImgUploadActions, toRequestWork } from './transform'
-import { emptyErrorReturn } from '../../utils'
+import { emptyErrorReturn, extractFormErrors, ErrorResponse } from '../../utils'
 
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -56,8 +56,8 @@ export const createWorkEpic = (action$: ActionsObservable<AnyAction>) =>
           successSubject.next({ type: WorkActionType.CREATE_SUCCESS })
           return of(createWorkSuccessAction(resDetail), ...genImgUploadActions(resDetail, action.payload as WorkDetail))
         }),
-        catchError(() => {
-          errorSubject.next({ type: WorkActionType.CREATE_ERROR })
+        catchError((error: ErrorResponse) => {
+          errorSubject.next({ type: WorkActionType.CREATE_ERROR, error: extractFormErrors(error).response })
           return emptyErrorReturn()
         })
       )
@@ -74,8 +74,8 @@ export const updateWorkEpic = (action$: ActionsObservable<AnyAction>) =>
           successSubject.next({ type: WorkActionType.UPDATE_SUCCESS })
           return of(updateWorkSuccessAction(resDetail), ...genImgUploadActions(resDetail, action.payload as WorkDetail))
         }),
-        catchError(() => {
-          errorSubject.next({ type: WorkActionType.UPDATE_ERROR })
+        catchError((error: ErrorResponse) => {
+          errorSubject.next({ type: WorkActionType.UPDATE_ERROR, error: extractFormErrors(error).response })
           return emptyErrorReturn()
         })
       )
