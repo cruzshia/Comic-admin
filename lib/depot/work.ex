@@ -25,10 +25,9 @@ defmodule RaiseServer.Depot.Work do
     field :free_periodical_day_of_the_week, :string
     field :comic_appeal_work_id,            :integer
     field :catchphrase,                     :string
-    field :return_ad_revenue,               :boolean
+    field :ads_in_viewer_setting,           :map
     field :show_list_from_1st,              :boolean
     field :page_alignment_direction,        :integer
-    embeds_many :ads_in_viewer_setting,     Depot.AdsInViewerSettings
 
     field :magazine_name, :string
 
@@ -37,8 +36,7 @@ defmodule RaiseServer.Depot.Work do
     field      :is_main_work_of_subscription, :boolean
     field      :magazine_banner_ads_setting,  :map
 
-    has_many :work_app,         Depot.WorkApp
-    has_many :apps, through: [:work_app, :app]
+    has_one  :work_app,         Depot.WorkApp
     has_one  :work_assessment,  Depot.WorkAssessment
     has_many :contents,         Depot.Content
     has_many :work_authors,     Depot.WorkAuthor

@@ -3,7 +3,7 @@ defmodule RaiseServer.DepotFactory do
 
   alias RaiseServer.Depot
   alias Depot.{Campaign, Content, ContentApp, ContentAssessment, Work, WorkAuthor, WorkCampaign, WorkCampaignApp, Image, Subscription}
-  alias Depot.{Author, WorkApp, WorkAssessment, AdsInViewerSetting}
+  alias Depot.{Author, WorkApp, WorkAssessment}
 
   def work_app_factory() do
     %WorkApp{}
@@ -26,58 +26,8 @@ defmodule RaiseServer.DepotFactory do
     }
   end
 
-  def ads_in_viewer_settings_factory() do
-    %Depot.AdsInViewerSettings{
-      device: "ios",
-      front_ads: [
-        %AdsInViewerSetting{
-          action_url: "http://~~~",
-          begin_at: ~U[2020-01-10 09:10:32Z],
-          button_wording: "購入はこちら",
-          end_at: ~U[2020-01-11 09:10:32Z],
-          image_url: "http://~~~",
-          type: "original",
-        },
-        %AdsInViewerSetting{
-          action_url: "http://~~~",
-          begin_at: ~U[2020-01-10 09:10:32Z],
-          button_wording: "購入はこちら",
-          end_at: ~U[2020-01-11 09:10:32Z],
-          image_url: "http://~~~",
-          type: "original",
-        },
-      ],
-      back_ads: [
-        %AdsInViewerSetting{
-          action_url: nil,
-          begin_at: nil,
-          button_wording: nil,
-          end_at: nil,
-          image_url: nil,
-          type: "admob",
-        },
-        %AdsInViewerSetting{
-          action_url: nil,
-          begin_at: nil,
-          button_wording: nil,
-          end_at: nil,
-          image_url: nil,
-          type: "map",
-        },
-        %AdsInViewerSetting{
-          action_url: "http://~~~",
-          begin_at: ~U[2020-01-10 09:10:32Z],
-          button_wording: "購入はこちら",
-          end_at: ~U[2020-01-11 09:10:32Z],
-          image_url: "http://~~~",
-          type: "original",
-        },
-      ],
-    }
-  end
   def work_factory do
     {p_start, p_end} = publish_range()
-    images = %Depot.Images{image1: image_factory(), image2: image_factory(), image3: image_factory(), image4: image_factory()}
     %Work{
       work_type:                       0,
       title:                           "終わりのパンダ",
@@ -86,15 +36,14 @@ defmodule RaiseServer.DepotFactory do
       description:                     "パンダパンダ",
       publish_begin_at:                p_start,
       publish_end_at:                  p_end,
-      images:                          images,
+      images:                          %Depot.Images{image1: build(:image)},
       episode_work_type:               1,
       update_frequency:                "毎週月水金曜日",
       free_periodical_day_of_the_week: nil,
       comic_appeal_work_id:            1,
       catchphrase:                     "買って",
-      return_ad_revenue:               false,
-      ads_in_viewer_setting:           [ads_in_viewer_settings_factory()],
-      show_list_from_1st:              true,
+      ads_in_viewer_setting:           nil,
+      show_list_from_1st: true
     }
   end
 

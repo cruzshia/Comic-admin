@@ -11,5 +11,4 @@ defmodule RaiseServer.Router do
 
   post "/api/app/v1/first_launch", App.V1.FirstLaunch, :post
 
-  get "/api/console/v1/works/:id", Console.V1.Works.Detail, :get
 end
