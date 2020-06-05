@@ -65,8 +65,8 @@ export default function CampaignDetail() {
       { id: 'category', label: formatMessage(messages.category) },
       { id: 'name', label: formatMessage(messages.name) },
       { id: 'target', label: formatMessage(messages.target) },
-      { id: 'startAt', label: formatMessage(commonMessages.deliveryStartDateTime) },
-      { id: 'endAt', label: formatMessage(commonMessages.deliveryEndDateTime) },
+      { id: 'startAt', label: formatMessage(commonMessages.startDateTime) },
+      { id: 'endAt', label: formatMessage(commonMessages.endDateTime) },
       { id: 'spacer', label: '' }
     ],
     [formatMessage]

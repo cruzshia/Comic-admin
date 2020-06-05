@@ -71,13 +71,18 @@ context('Subscription Detail', () => {
           })
           .next()
           .should($row => {
-            expect($row.find(LABEL_SELECTOR)).have.text('月額料金')
-            expect($row.find(CONTENT_SELECTOR).text()).to.not.empty
+            expect($row.find(LABEL_SELECTOR)).have.text('定期購読画像')
+            expect($row.find(CONTENT_SELECTOR).find('img')).to.have.attr('src')
           })
           .next()
           .should($row => {
-            expect($row.find(LABEL_SELECTOR)).have.text('定期購読画像')
-            expect($row.find(CONTENT_SELECTOR).find('img')).to.have.attr('src')
+            expect($row.find(LABEL_SELECTOR)).have.text('公開開始日時')
+            expect($row.find(CONTENT_SELECTOR)).to.be.dateTimeFormat()
+          })
+          .next()
+          .should($row => {
+            expect($row.find(LABEL_SELECTOR)).have.text('公開終了日時')
+            expect($row.find(CONTENT_SELECTOR)).be.dateTimeFormat()
           })
           .next()
           .should($row => {
@@ -87,22 +92,6 @@ context('Subscription Detail', () => {
           .next()
           .should($row => {
             expect($row.find(LABEL_SELECTOR)).have.text('更新日時')
-            expect($row.find(CONTENT_SELECTOR)).to.be.dateTimeFormat()
-          })
-      })
-    cy.get('@dataTable')
-      .eq(1)
-      .within(() => {
-        cy.findAllByTestId(this.testIds.dataTable.title).should('have.text', '配信期間')
-        cy.findAllByTestId(this.testIds.dataTable.row)
-          .first()
-          .should($row => {
-            expect($row.find(LABEL_SELECTOR)).have.text('配信開始日時')
-            expect($row.find(CONTENT_SELECTOR)).to.be.dateTimeFormat()
-          })
-          .next()
-          .should($row => {
-            expect($row.find(LABEL_SELECTOR)).have.text('配信終了日時')
             expect($row.find(CONTENT_SELECTOR)).to.be.dateTimeFormat()
           })
       })

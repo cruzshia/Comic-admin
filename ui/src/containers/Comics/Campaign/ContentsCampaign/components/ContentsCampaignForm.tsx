@@ -59,10 +59,10 @@ export default function ContentsCampaignForm({ contentCampaign, onSubmit, formRe
             <StartEndForm
               innerRef={deliveryRef}
               title={formatMessage(commonMessages.deliveryDuration)}
-              startLabel={formatMessage(commonMessages.deliveryStartDateTime)}
-              startName='deliverStart'
-              endLabel={formatMessage(commonMessages.deliveryEndDateTime)}
-              endName='deliverEnd'
+              startLabel={formatMessage(commonMessages.startDateTime)}
+              startName='startDateTime'
+              endLabel={formatMessage(commonMessages.endDateTime)}
+              endName='endDateTime'
               marginBottom
             />
             <StartEndForm

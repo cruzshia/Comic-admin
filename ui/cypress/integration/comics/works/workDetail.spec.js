@@ -66,12 +66,12 @@ context('Work Detail', () => {
           })
           .next()
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('タイトル')
+            expect($item.find(LABEL_SELECTOR)).have.text('作品名')
             expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
           })
           .next()
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('タイトル（カナ）')
+            expect($item.find(LABEL_SELECTOR)).have.text('作品名（カナ）')
             expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
           })
           .next()

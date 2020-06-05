@@ -45,7 +45,7 @@ context('Author List', () => {
       .children('form')
       .within(() => {
         cy.findAllByTestId('search_filter_item').should('have.length', 1)
-        cy.findByTestId('search-filter-item-label').should('contain', '著者（ID）')
+        cy.findByTestId('search-filter-item-label').should('contain', '著者名（ID）')
         cy.findByTestId('search_input').within($input => {
           cy.findByTestId('search_icon').should('be.exist')
           cy.wrap($input)

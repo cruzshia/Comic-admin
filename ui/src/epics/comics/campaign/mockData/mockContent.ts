@@ -9,8 +9,8 @@ export const mockCampaign = {
   completeBonus: 'サンプルテキスト',
   createAt: '2019-12-25 00:00',
   updateAt: '2019-12-25 00:00',
-  deliverStart: '2019-12-25 00:00',
-  deliverEnd: '2019-12-25 00:00',
+  startDateTime: '2019-12-25 00:00',
+  endDateTime: '2019-12-25 00:00',
   campaignStart: '00:00',
   campaignEnd: '00:00'
 }

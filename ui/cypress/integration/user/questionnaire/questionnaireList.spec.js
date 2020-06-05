@@ -53,12 +53,12 @@ context('Questionnaire List', () => {
       .should('have.length', 2)
       .first()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).contain('アンケート（ID）')
+        expect($item.find(ITEM_LABEL_SELECTOR)).contain('アンケート名（ID）')
         expect($item.find(`[data-testid=${this.testIds.inputs.search}]`)).to.be.exist
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).contain('コンテンツ（ID）')
+        expect($item.find(ITEM_LABEL_SELECTOR)).contain('コンテンツ名（ID）')
         expect($item.find(`[data-testid=${this.testIds.inputs.search}]`)).to.be.exist
       })
 
@@ -96,9 +96,9 @@ context('Questionnaire List', () => {
       .next()
       .should('have.text', 'アンケート名')
       .next()
-      .should('have.text', '配信開始日時')
+      .should('have.text', '回答期間開始日時')
       .next()
-      .should('have.text', '配信終了開始日')
+      .should('have.text', '回答期間終了日時')
       .next()
       .should('have.text', '回答後に付与されるコインの枚数')
 

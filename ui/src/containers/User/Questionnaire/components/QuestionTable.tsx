@@ -17,7 +17,8 @@ export default function QuestionTable({ question }: { question: any }) {
         ...(question.shuffle ? [toDataSet(formatMessage(messages.optionShuffle), question.shuffle)] : []),
         ...(question.limitation
           ? [toPreWrapDataSet(formatMessage(messages.answerLimitation), question.limitation)]
-          : [])
+          : []),
+        ...(question.inputRange ? [toDataSet(formatMessage(messages.inputRange), question.inputRange)] : [])
       ]}
       innerTable
     />

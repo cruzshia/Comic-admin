@@ -198,5 +198,13 @@ export default defineMessages({
   edit: {
     id: PREFIX + 'edit',
     defaultMessage: 'Questionnaire Edit'
+  },
+  nameId: {
+    id: PREFIX + 'name_id',
+    defaultMessage: 'Questionnaire Name Id'
+  },
+  contentNameID: {
+    id: PREFIX + 'content_name_id',
+    defaultMessage: 'Content Name Id'
   }
 })

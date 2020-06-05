@@ -49,12 +49,12 @@ context('WorkList', () => {
       .findAllByTestId(this.testIds.searchFilter.item)
       .first()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('作品（ID）')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('作品名（ID）')
         expect($item.find(`[data-testid=${this.testIds.inputs.search}]`)).to.be.exist
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('著者')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('著者名')
         expect($item.find(`[data-testid=${this.testIds.inputs.search}]`)).to.be.exist
       })
       .next()
@@ -68,17 +68,17 @@ context('WorkList', () => {
       .findAllByTestId(this.testIds.searchFilter.item)
       .first()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('連載状態')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('連載誌')
         expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('連載誌名')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('更新頻度')
         expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
       })
       .next()
       .should($item => {
-        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('連載頻度')
+        expect($item.find(ITEM_LABEL_SELECTOR)).have.text('無料連載掲載曜日')
         expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
       })
 
@@ -89,17 +89,22 @@ context('WorkList', () => {
           .findAllByTestId(this.testIds.searchFilter.item)
           .first()
           .should($item => {
-            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('作品（ID）')
+            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('作品名（ID）')
             expect($item.find(`[data-testid=${this.testIds.inputs.search}]`)).to.be.exist
           })
           .next()
           .should($item => {
-            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('著者')
+            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('著者名')
             expect($item.find(`[data-testid=${this.testIds.inputs.search}]`)).to.be.exist
           })
           .next()
           .should($item => {
             expect($item.find(ITEM_LABEL_SELECTOR)).have.text('作品種別')
+            expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+          .next()
+          .should($item => {
+            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('アプリID')
             expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
           })
           .next()
@@ -112,37 +117,32 @@ context('WorkList', () => {
             expect($item.find(ITEM_LABEL_SELECTOR)).have.text('配信終了日時')
             expect($item.find(`[data-testid=${this.testIds.inputs.timeSpan}]`)).to.be.exist
           })
-          .next()
-          .should($item => {
-            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('広告ユニット')
-            expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
-          })
 
         cy.get('@filterRight')
           .findAllByTestId('search_filter_item')
           .first()
           .should($item => {
-            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('連載状態')
+            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('連載誌')
             expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
           })
           .next()
           .should($item => {
-            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('連載誌名')
+            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('更新頻度')
             expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
           })
           .next()
           .should($item => {
-            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('連載頻度')
-            expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
-          })
-          .next()
-          .should($item => {
-            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('連載曜日')
+            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('無料連載掲載曜日')
             expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
           })
           .next()
           .should($item => {
             expect($item.find(ITEM_LABEL_SELECTOR)).have.text('定期購読ID')
+            expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+          })
+          .next()
+          .should($item => {
+            expect($item.find(ITEM_LABEL_SELECTOR)).have.text('広告ユニット')
             expect($item.find(`[data-testid=${this.testIds.inputs.select}]`)).to.be.exist
           })
       })
@@ -189,7 +189,7 @@ context('WorkList', () => {
       .next()
       .should('have.text', '作品ID')
       .next()
-      .should('have.text', '作品タイトル')
+      .should('have.text', '作品名')
       .next()
       .should('have.text', '作成日時')
       .and('be.sortableHeadCell', true)

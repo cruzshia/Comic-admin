@@ -30,6 +30,7 @@ interface Props {
   disableExpand?: boolean
   disableReset?: boolean
   validate?: (data: any) => object | undefined
+  width?: string | number
 }
 
 const useStyles = makeStyles(() => ({
@@ -57,7 +58,7 @@ const useStyles = makeStyles(() => ({
     '& .title': {
       fontSize: 12,
       fontWeight: 600,
-      width: 120
+      width: ({ width }: { width?: string | number }) => (width ? width : 120)
     },
     '& .MuiGrid-item:not(.title)': {
       maxWidth: 'calc(100% - 120px)',
@@ -83,10 +84,18 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function SearchFilter({ onSubmit, conditions, formRef, disableExpand, disableReset, validate }: Props) {
+export default function SearchFilter({
+  onSubmit,
+  conditions,
+  formRef,
+  disableExpand,
+  disableReset,
+  validate,
+  width
+}: Props) {
   const { formatMessage } = useIntl()
   const [isExpand, setIsExpand] = useState<boolean>(!!disableExpand)
-  const classes = useStyles()
+  const classes = useStyles({ width })
   const { isSearchResponsive } = useBreakpoint()
   const gridSize = isSearchResponsive ? 12 : 6
   const generateItem = useCallback(

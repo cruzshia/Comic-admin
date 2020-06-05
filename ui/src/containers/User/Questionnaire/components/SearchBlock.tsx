@@ -12,12 +12,12 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     () => ({
       left: [
         {
-          label: formatMessage(messages.id),
-          input: <Field name='id' component={SearchInputAdapter} />
+          label: formatMessage(messages.nameId),
+          input: <Field name='nameId' component={SearchInputAdapter} />
         },
         {
-          label: formatMessage(messages.contentId),
-          input: <Field name='contentId' component={SearchInputAdapter} />
+          label: formatMessage(messages.contentNameID),
+          input: <Field name='contentNameId' component={SearchInputAdapter} />
         }
       ],
       right: [
@@ -29,5 +29,5 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     }),
     [formatMessage]
   )
-  return <SearchFilter conditions={conditions} onSubmit={onSubmit} />
+  return <SearchFilter conditions={conditions} onSubmit={onSubmit} width={100} />
 }

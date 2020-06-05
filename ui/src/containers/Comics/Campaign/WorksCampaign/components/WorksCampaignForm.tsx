@@ -4,11 +4,10 @@ import { Form, Field } from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
 import { makeStyles } from '@material-ui/core'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
-import { TextInputAdapter, TextAreaAdapter, SelectAdapter } from '@src/components/finalForm'
+import { TextInputAdapter, TextAreaAdapter, SelectAdapter, DropZoneAdapter } from '@src/components/finalForm'
 import StartEndForm from '@src/components/form/StartEndForm'
-import DropZone from '@src/components/DropZone'
 import ScrollTo from '@src/components/scroll/ScrollTo'
-import { _range, toDataUri } from '@src/utils/functions'
+import { _range } from '@src/utils/functions'
 import worksCampaign from '@src/models/comics/worksCampaign'
 import commonMessages from '@src/messages'
 import comicMessages from '@src/containers/Comics/messages'
@@ -88,18 +87,7 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
               dataSet={[
                 ..._range(0, IMAGE_NUM).map(num => ({
                   label: `${formatMessage(comicMessages.episodeImage)}${num + 1}`,
-                  content: (
-                    <Field name={`images[${num}]`}>
-                      {({ input: { value, onChange } }) => (
-                        <DropZone
-                          classnames={classes.photo}
-                          name={`images${num}`}
-                          preview={value && <img src={toDataUri(value)} alt={`images${num}`} />}
-                          onDropAccepted={files => onChange(files[0])}
-                        />
-                      )}
-                    </Field>
-                  )
+                  content: <Field name={`images[${num}]`} className={classes.photo} component={DropZoneAdapter} />
                 }))
               ]}
             />

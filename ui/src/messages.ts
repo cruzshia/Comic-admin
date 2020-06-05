@@ -322,5 +322,9 @@ export default defineMessages({
   subscriptionName: {
     id: PREFIX + 'subscription_name',
     defaultMessage: 'Subscription Name'
+  },
+  authorNameId: {
+    id: PREFIX + 'author_name_id',
+    defaultMessage: 'Author Name Id'
   }
 })

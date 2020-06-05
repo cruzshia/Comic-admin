@@ -9,7 +9,6 @@ import usePaging from '@src/hooks/usePaging'
 import ListTable from '@src/components/table/ListTable'
 import HeadBlock from './HeadBlock'
 import SearchBlock from './SearchBlock'
-import commonMessages from '@src/messages'
 import messages from '../messages'
 import QuestionnaireContext, { ActionContext } from '../context/QuestionnaireContext'
 
@@ -54,8 +53,8 @@ export default function QuestionnaireList() {
     () => [
       { id: 'id', label: formatMessage(messages.questionId) },
       { id: 'name', label: formatMessage(messages.name) },
-      { id: 'deliverStart', label: formatMessage(commonMessages.deliveryStartDateTime) },
-      { id: 'deliverEnd', label: formatMessage(commonMessages.deliveryEndStartTime) },
+      { id: 'answerStartTime', label: formatMessage(messages.answerStartTime) },
+      { id: 'answerEndTime', label: formatMessage(messages.answerEndTime) },
       { id: 'answerReward', label: formatMessage(messages.answerReward) },
       { id: 'spacer', label: '' }
     ],

@@ -120,9 +120,9 @@ context('Campaign Detail', () => {
       .next()
       .should('have.text', 'キャンペーン対象')
       .next()
-      .should('have.text', '配信開始日時')
+      .should('have.text', '開始日時')
       .next()
-      .should('have.text', '配信終了日時')
+      .should('have.text', '終了日時')
       .next()
       .should('be.empty')
 

@@ -82,8 +82,8 @@ export default function ContentCampaignDetail() {
         title={formatMessage(commonMessages.deliveryDuration)}
         onEdit={handleRedirect(ScrollAnchor.Delivery)}
         dataSet={[
-          toDataSet(formatMessage(commonMessages.deliveryStartDateTime), currentContentCampaign.deliverStart),
-          toDataSet(formatMessage(commonMessages.deliveryEndDateTime), currentContentCampaign.deliverEnd)
+          toDataSet(formatMessage(commonMessages.startDateTime), currentContentCampaign.startDateTime),
+          toDataSet(formatMessage(commonMessages.endDateTime), currentContentCampaign.endDateTime)
         ]}
         marginBottom
       />
