@@ -33,6 +33,7 @@ defmodule RaiseServer.Depot.Content do
     field :delivery_item_url,          :string
     field :launch_external_browser,	   :boolean
     field :excluded_in_todays_ranking, :boolean
+    field :is_pr_content,              :boolean
     field :ads_in_viewer_setting,      :map
 
     field :goods_service_in_viewer_setting, :string
