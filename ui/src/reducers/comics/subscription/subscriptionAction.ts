@@ -1,4 +1,4 @@
-import Subscription, { SubscriptionProduct } from '@src/models/comics/subscription'
+import Subscription from '@src/models/comics/subscription'
 
 export enum SubscriptionActionType {
   GET_LIST = '@ComicsSubscription/GET_LIST',
@@ -16,11 +16,7 @@ export enum SubscriptionActionType {
 
   UPDATE = '@ComicsSubscription/UPDATE',
   UPDATE_SUCCESS = '@ComicsSubscription/UPDATE_SUCCESS',
-  UPDATE_ERROR = '@ComicsSubscription/UPDATE_ERROR',
-
-  GET_PRODUCT_LIST = '@ComicsSubscription/GET_PRODUCT_LIST',
-  GET_PRODUCT_LIST_SUCCESS = '@ComicsSubscription/GET_PRODUCT_LIST_SUCCESS',
-  GET_PRODUCT_LIST_ERROR = '@ComicsSubscription/GET_PRODUCT_LIST_ERROR'
+  UPDATE_ERROR = '@ComicsSubscription/UPDATE_ERROR'
 }
 
 export const getSubscriptionListAction = () => ({
@@ -64,19 +60,4 @@ export const updateSubscriptionSuccessAction = (subscription: Subscription) => (
 
 export const resetSubscriptionAction = () => ({
   type: SubscriptionActionType.RESET_SUBSCRIPTION
-})
-
-export const getSubscriptionProductListAction = (subscriptionId: string) => ({
-  type: SubscriptionActionType.GET_PRODUCT_LIST,
-  payload: subscriptionId
-})
-
-export interface ProductListParams {
-  total: number
-  products: SubscriptionProduct[]
-}
-
-export const getSubscriptionProductListSuccessAction = (payload: ProductListParams) => ({
-  type: SubscriptionActionType.GET_PRODUCT_LIST_SUCCESS,
-  payload
 })

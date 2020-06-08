@@ -14,18 +14,18 @@ import {
   getSubscriptionAction,
   createSubscriptionAction,
   updateSubscriptionAction,
-  resetSubscriptionAction,
-  getSubscriptionProductListAction
+  resetSubscriptionAction
 } from '@src/reducers/comics/subscription/subscriptionAction'
+import { getSubscriptionProductListAction } from '@src/reducers/comics/subscription/subscriptionProductAction'
+import SubscriptionProduct from './SubscriptionProduct/SubscriptionProduct'
 
 export default function Subscription() {
-  const {
-    subscriptionList,
-    subscriptionTotal,
-    currentSubscription,
-    subscriptionProductList,
-    subscriptionProductTotal
-  } = useSelector((state: StoreState) => state.subscription)
+  const { subscriptionList, subscriptionTotal, currentSubscription } = useSelector(
+    (state: StoreState) => state.subscription
+  )
+  const { subscriptionProductList, subscriptionProductTotal } = useSelector(
+    (state: StoreState) => state.subscriptionProduct
+  )
   const dispatch = useDispatch()
   const handleGetSubscriptionList = useCallback(() => dispatch(getSubscriptionListAction()), [dispatch])
   const handleGetSubscription = useCallback((id: string) => dispatch(getSubscriptionAction(id)), [dispatch])
@@ -65,6 +65,7 @@ export default function Subscription() {
           <Route exact path={routePath.comics.subscriptionEdit} component={SubscriptionEdit} />
           <Route exact path={routePath.comics.subscriptionDetail} component={SubscriptionDetail} />
           <Route exact path={routePath.comics.subscription} component={SubscriptionList} />
+          <Route path={routePath.comics.subscriptionProduct} component={SubscriptionProduct} />
         </Switch>
       </SubscriptionContext.Provider>
     </ActionContext.Provider>

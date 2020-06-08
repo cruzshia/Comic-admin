@@ -48,6 +48,7 @@ export const routePath = {
     subscriptionDetail: `${RouteSection.Comics}/subscription/detail/:id`,
     subscriptionEdit: `${RouteSection.Comics}/subscription/edit/:id`,
     subscriptionCreation: `${RouteSection.Comics}/subscription/creation`,
+    subscriptionProduct: `${RouteSection.Comics}/subscription/:subscriptionId/product`,
     subscriptionProductCreation: `${RouteSection.Comics}/subscription/:subscriptionId/product/creation`,
     subscriptionProductEdit: `${RouteSection.Comics}/subscription/:subscriptionId/product/edit/:id`,
     subscriptionProductDetail: `${RouteSection.Comics}/subscription/:subscriptionId/product/detail/:id`

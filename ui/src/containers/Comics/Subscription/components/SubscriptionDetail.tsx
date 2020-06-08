@@ -109,6 +109,11 @@ export default function SubscriptionDetail() {
         dataList={subscriptionProductList}
         pagination={pagination}
         onPageChange={handlePageChange}
+        onRowClick={rowId =>
+          history.push(
+            routePath.comics.subscriptionProductDetail.replace(':subscriptionId', id!).replace(':id', rowId!)
+          )
+        }
       />
     </>
   )

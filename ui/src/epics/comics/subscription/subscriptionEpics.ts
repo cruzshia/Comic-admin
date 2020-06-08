@@ -7,8 +7,7 @@ import {
   getSubscriptionListSuccessAction,
   getSubscriptionSuccessAction,
   createSubscriptionSuccessAction,
-  updateSubscriptionSuccessAction,
-  getSubscriptionProductListSuccessAction
+  updateSubscriptionSuccessAction
 } from '@src/reducers/comics/subscription/subscriptionAction'
 import * as subscriptionServices from './subscriptionServices'
 import { emptyErrorReturn } from '../../utils'
@@ -73,25 +72,4 @@ export const updateSubscriptionEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export const getSubscriptionProductListEpic = (action$: ActionsObservable<AnyAction>) =>
-  action$.pipe(
-    ofType(SubscriptionActionType.GET_PRODUCT_LIST),
-    switchMap(action =>
-      subscriptionServices.getSubscriptionProductListAjax(action.payload).pipe(
-        map(res => getSubscriptionProductListSuccessAction(res.response)),
-        tap(() => successSubject.next({ type: SubscriptionActionType.GET_PRODUCT_LIST_SUCCESS })),
-        catchError(() => {
-          errorSubject.next({ type: SubscriptionActionType.GET_PRODUCT_LIST_ERROR })
-          return emptyErrorReturn()
-        })
-      )
-    )
-  )
-
-export default [
-  getSubscriptionListEpic,
-  getSubscriptionEpic,
-  createSubscriptionEpic,
-  updateSubscriptionEpic,
-  getSubscriptionProductListEpic
-]
+export default [getSubscriptionListEpic, getSubscriptionEpic, createSubscriptionEpic, updateSubscriptionEpic]

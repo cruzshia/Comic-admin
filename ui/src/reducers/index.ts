@@ -15,6 +15,10 @@ import subscriptionReducer, {
   SubscriptionState,
   SubscriptionPreloadState
 } from './comics/subscription/subscriptionReducer'
+import subscriptionProductReducer, {
+  SubscriptionProductState,
+  SubscriptionProductPreloadState
+} from './comics/subscription/subscriptionProductReducer'
 import profileReducer, { ProfileState, ProfilePreloadState } from './user/profileReducer'
 import commentReducer, { CommentState, CommentPreloadState } from './user/comment/commentReducer'
 import ngWordReducer, { NGWordState, ngWordPreLoadState } from './user/NGWord/ngWordReducer'
@@ -77,6 +81,7 @@ export interface StoreState {
   content: ContentState
   author: AuthorState
   subscription: SubscriptionState
+  subscriptionProduct: SubscriptionProductState
   campaign: CampaignState
   worksCampaign: WorksCampaignState
   contentsCampaign: ContentsCampaignState
@@ -108,6 +113,7 @@ export const storePreloadState: StoreState = {
   content: ContentPreloadState,
   author: AuthorPreloadState,
   subscription: SubscriptionPreloadState,
+  subscriptionProduct: SubscriptionProductPreloadState,
   campaign: CampaignPreloadState,
   worksCampaign: WorksCampaignPreloadState,
   contentsCampaign: ContentsCampaignPreloadState,
@@ -139,6 +145,7 @@ export default combineReducers<StoreState>({
   content: contentReducer,
   author: authorReducer,
   subscription: subscriptionReducer,
+  subscriptionProduct: subscriptionProductReducer,
   campaign: campaignReducer,
   worksCampaign: worksCampaignReducer,
   contentsCampaign: contentsCampaignReducer,

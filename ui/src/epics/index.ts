@@ -4,6 +4,7 @@ import workEpics from './comics/work/workEpics'
 import contentEpics from './comics/content/contentEpics'
 import authorEpics from './comics/author/authorEpics'
 import subscriptionEpics from './comics/subscription/subscriptionEpics'
+import subscriptionProductEpics from './comics/subscription/subscriptionProductEpics'
 import campaignEpics from './comics/campaign/campaignEpics'
 import worksCampaignEpics from './comics/campaign/worksCampaignEpics'
 import contentsCampaignEpics from './comics/campaign/contentsCampaignEpics'
@@ -32,6 +33,7 @@ export default combineEpics(
   ...contentEpics,
   ...authorEpics,
   ...subscriptionEpics,
+  ...subscriptionProductEpics,
   ...campaignEpics,
   ...worksCampaignEpics,
   ...contentsCampaignEpics,

@@ -323,6 +323,18 @@ export default defineMessages({
     id: PREFIX + 'subscription_name',
     defaultMessage: 'Subscription Name'
   },
+  enterFee: {
+    id: PREFIX + 'enter_fee',
+    defaultMessage: 'Enter Fee'
+  },
+  enterId: {
+    id: PREFIX + 'enter_id',
+    defaultMessage: 'Enter Id'
+  },
+  selectStatus: {
+    id: PREFIX + 'select_status',
+    defaultMessage: 'Select Status'
+  },
   authorNameId: {
     id: PREFIX + 'author_name_id',
     defaultMessage: 'Author Name Id'
