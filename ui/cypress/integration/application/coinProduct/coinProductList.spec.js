@@ -93,10 +93,8 @@ context('Coin Product List', () => {
       .should('contain', 'アプリID')
       .next()
       .should('contain', '購入コイン')
-      .and('be.sortableHeadCell')
       .next()
       .should('contain', '購入お得コイン')
-      .and('be.sortableHeadCell')
       .next()
       .should('contain', 'ステータス')
 

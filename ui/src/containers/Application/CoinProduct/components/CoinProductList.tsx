@@ -66,8 +66,8 @@ export default function CoinProductList() {
       { id: 'releaseStartTime', label: formatMessage(commonMessages.publicStartTime), onSort: handleSort },
       { id: 'productId', label: formatMessage(messages.productId) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
-      { id: 'paidCoin', label: formatMessage(userMessages.paidCoins), onSort: handleSort },
-      { id: 'givenCoin', label: formatMessage(userMessages.paidBonusCoins), onSort: handleSort },
+      { id: 'paidCoin', label: formatMessage(userMessages.paidCoins) },
+      { id: 'givenCoin', label: formatMessage(userMessages.paidBonusCoins) },
       { id: 'status', label: formatMessage(applicationMessages.status) }
     ],
     [formatMessage, handleSort]
