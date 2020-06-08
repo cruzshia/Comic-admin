@@ -56,7 +56,7 @@ export default function HistorySubscriptionDetail({
           toDataSet(formatMessage(commonMessages.createDateTime), currentSubscription.createdAt),
           toDataSet(formatMessage(userMessages.userId), currentSubscription.userId),
           toDataSet(formatMessage(commonMessages.subscriptionId), currentSubscription.subscriptionId),
-          toDataSet(formatMessage(userMessages.subscription), currentSubscription.subscriptionName),
+          toDataSet(formatMessage(commonMessages.subscriptionName), currentSubscription.subscriptionName),
           toDataSet(formatMessage(commonMessages.appId), currentSubscription.applicationId),
           toDataSet(formatMessage(messages.price), currentSubscription.price),
           toDataSet(formatMessage(messages.currency), currentSubscription.currency),
