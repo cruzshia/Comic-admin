@@ -11,12 +11,12 @@ defmodule RaiseServer.Controller.Console.V1.Works.Detail do
   plug RaiseServer.Plug.VerifyConsoleApiToken, :verify, []
 
   defun get(%Conn{request: %Request{path_matches: %{id: id}}} = conn) :: Conn.t do
-    Api.validate_params(conn, id, &Croma.Result.wrap_if_valid(&1, Helper.Id), fn(work_id) ->
+    Api.validate_params(conn, id, &Croma.Result.wrap_if_valid(&1, Helper.Id), fn(conn1, work_id) ->
       case Helper.get_work(work_id) do
         nil ->
-          RaiseServer.Helper.ErrorJson.json_by_error(conn, RaiseServer.Error.ResourceNotFound.new())
+          RaiseServer.Helper.ErrorJson.json_by_error(conn1, RaiseServer.Error.ResourceNotFound.new())
         work ->
-          Conn.json(conn, 200, to_response(work))
+          Conn.json(conn1, 200, to_response(work))
       end
     end)
   end

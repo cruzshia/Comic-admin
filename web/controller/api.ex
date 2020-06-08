@@ -14,9 +14,9 @@ defmodule RaiseServer.Controller.Api do
     end
   end
 
-  defun validate_params(conn :: v[Conn.t], v :: any, validator :: module | fun, f :: (any -> any)) :: any do
+  defun validate_params(conn :: v[Conn.t], v :: any, validator :: module | fun, f :: (Conn.t, any -> Conn.t)) :: Conn.t do
     case validate_impl(validator, v) do
-      {:ok, validated} -> f.(validated)
+      {:ok, validated} -> f.(conn, validated)
       {:error, _}      -> ErrorJson.json_by_error(conn, RaiseServer.Error.BadRequest.new())
     end
   end

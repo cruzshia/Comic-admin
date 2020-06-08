@@ -25,5 +25,23 @@ defmodule RaiseServer.Controller.App.V1.Free.OneShotTest do
       res = Req.get(@path, header)
       assert_error(res, RaiseServer.Error.ResourceNotFound.new())
     end
+
+    test "returns BadRequest when limit/offset is not valid", ctx do
+      %{header: header} = ctx
+      res1 = Req.get(@path <> "?limit=0", header)
+      assert_error(res1, RaiseServer.Error.BadRequest.new())
+
+      res2 = Req.get(@path <> "?offset=-1", header)
+      assert_error(res2, RaiseServer.Error.BadRequest.new())
+
+      res3 = Req.get(@path <> "?limit=101", header)
+      assert_error(res3, RaiseServer.Error.BadRequest.new())
+
+      res4 = Req.get(@path <> "?limit=a", header)
+      assert_error(res4, RaiseServer.Error.BadRequest.new())
+
+      res5 = Req.get(@path <> "?offset=a", header)
+      assert_error(res5, RaiseServer.Error.BadRequest.new())
+    end
   end
 end
