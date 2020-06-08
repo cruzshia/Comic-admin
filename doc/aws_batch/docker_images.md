@@ -112,6 +112,8 @@ TBD: The way to run a container may change in RA-4243.
 ### Run `docker run`
 
 ```shell
-$ docker run -it -e RAISE_SERVER_CONFIG_JSON="$(< gear_docker_config.json)" raise-gear-local ./script/docker/run_sample.sh arg1 arg2
-2020-05-24T13:16:12.634+00:00 [info] context=20200524-131612.535_dummy-job-id-1_0.74.0 Application successfully started with ["arg1", "arg2"]
+$ docker run -it -e RAISE_SERVER_CONFIG_JSON="$(< gear_docker_config.json)" raise-gear-local ./script/docker/run_on_local.sh raise_server.batch.sample 1 'Hello world!'
+2020-06-05T01:12:01.225+00:00 [info] context=20200605-011201.107_dummy-job-id-1_0.74.0 Log Stream ID (job-definition-name/default/dummy-ecs-task-id) will be written to 1-th record
+2020-06-05T01:12:01.263+00:00 [info] context=20200605-011201.107_dummy-job-id-1_0.74.0 Application is running with ["1", "Hello world!"]
+2020-06-05T01:12:01.263+00:00 [info] context=20200605-011201.107_dummy-job-id-1_0.74.0 Job been completed successfully
 ```
