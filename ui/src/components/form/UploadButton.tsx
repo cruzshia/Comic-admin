@@ -29,8 +29,9 @@ export default function UploadButton({ text, name, theme, accept, validate }: Pr
   const inputRef = useRef<HTMLInputElement>(null)
   const {
     input: { value, onChange },
-    meta: { error }
+    meta: { error, touched }
   } = useField(name)
+
   const handleChange = useCallback(
     ({ currentTarget }: React.ChangeEvent<HTMLInputElement>) => {
       onChange(currentTarget.files ? currentTarget.files[0] : '')
@@ -59,7 +60,7 @@ export default function UploadButton({ text, name, theme, accept, validate }: Pr
         />
         {value?.name}
       </Grid>
-      {error && <FailedMsg msg={error} />}
+      {touched && error && <FailedMsg msg={error} />}
     </>
   )
 }

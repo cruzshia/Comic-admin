@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Form, Field } from 'react-final-form'
 import { useIntl } from 'react-intl'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
+import { validDateTime, required } from '@src/utils/validation'
 import TextInputAdapter from '../finalForm/TextInputAdapter'
 import UploadButton from './UploadButton'
 import commonMessages from '@src/messages'
@@ -16,10 +17,21 @@ interface Props {
 
 export default function CsvImportForm({ onSubmit, formRef, fileName, timeName }: Props) {
   const { formatMessage } = useIntl()
+  const fileKey = fileName || 'file'
+  const timeKey = timeName || 'schedule'
+
+  const validation = useCallback(
+    (values: any) => ({
+      [fileKey]: required(values[fileKey]),
+      [timeKey]: required(values[timeKey]) || validDateTime(values[timeKey])
+    }),
+    [timeKey, fileKey]
+  )
 
   return (
     <Form
       onSubmit={onSubmit}
+      validate={validation}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit} ref={formRef}>
           <DataTable
@@ -27,11 +39,11 @@ export default function CsvImportForm({ onSubmit, formRef, fileName, timeName }:
             dataSet={[
               toDataSet(
                 formatMessage(commonMessages.csvFile),
-                <UploadButton text={formatMessage(commonMessages.selectFile)} name={fileName || 'file'} accept='.csv' />
+                <UploadButton text={formatMessage(commonMessages.selectFile)} name={fileKey} accept='.csv' />
               ),
               toDataSet(
                 formatMessage(commonMessages.schedule),
-                <Field name={timeName || 'schedule'} placeholder={DATE_TIME_PLACEHOLDER} component={TextInputAdapter} />
+                <Field name={timeKey} placeholder={DATE_TIME_PLACEHOLDER} component={TextInputAdapter} />
               )
             ]}
           />

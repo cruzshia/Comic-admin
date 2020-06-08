@@ -2,6 +2,7 @@ import { AnyAction } from 'redux'
 import WorkDetail, { WorkKeys, WorkType } from '@src/models/comics/work'
 import { AdSettingKeys, AdPosition } from '@src/models/comics/advertisement'
 import { uploadImageAction } from '@src/reducers/comics/work/workActions'
+import { batchConvertDate } from '@src/utils/functions'
 import { _uuid } from '@src/utils/functions'
 
 export const toEditableModel = (work: WorkDetail) => {
@@ -12,20 +13,21 @@ export const toEditableModel = (work: WorkDetail) => {
   return work
 }
 
-export const toRequestWork = ({ ...work }: WorkDetail) => {
-  if (work[WorkKeys.WorkType] !== WorkType.Episode) {
+export const toRequestWork = (work: WorkDetail): WorkDetail => {
+  const convertedWork = batchConvertDate(work, [WorkKeys.PublishBeginAt, WorkKeys.PublishEndAt]) as WorkDetail
+  if (convertedWork[WorkKeys.WorkType] !== WorkType.Episode) {
     ;[
       WorkKeys.EpisodeWorkType,
       WorkKeys.UpdateFrequency,
       WorkKeys.FreePeriodicalDay,
       WorkKeys.AdSetting,
       WorkKeys.MagazineName
-    ].forEach(key => delete work[key])
-    return work
+    ].forEach(key => delete convertedWork[key])
+    return convertedWork
   }
 
-  work[WorkKeys.ReturnAdRevenue] = false
-  return work
+  convertedWork[WorkKeys.ReturnAdRevenue] = false
+  return convertedWork
 }
 
 export const genImgUploadActions = (work: WorkDetail, payload: WorkDetail): AnyAction[] => {

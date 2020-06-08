@@ -10,6 +10,16 @@ export const objToQueryStr = (params: object) =>
 export const toDataUri = (src: string | object) => (typeof src === 'string' ? src : URL.createObjectURL(src))
 export const toISO8601 = (data: string) => new Date(data).toISOString()
 
+export function batchConvertDate(values: { [key: string]: any }, keys: string[]) {
+  const convertedParams = { ...values }
+  keys.forEach(dateKey => {
+    if (!!convertedParams[dateKey]) {
+      convertedParams[dateKey] = toISO8601(convertedParams[dateKey])
+    }
+  })
+  return convertedParams
+}
+
 export interface FileWithMeta extends File {
   width?: number
   height?: number
