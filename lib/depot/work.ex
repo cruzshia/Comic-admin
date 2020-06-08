@@ -37,14 +37,13 @@ defmodule RaiseServer.Depot.Work do
     field      :is_main_work_of_subscription, :boolean
     field      :magazine_banner_ads_setting,  :map
 
-    has_many :work_app,         Depot.WorkApp
-    has_many :apps, through: [:work_app, :app]
+    has_one  :work_campaign,    Depot.WorkCampaign
     has_one  :work_assessment,  Depot.WorkAssessment
+    has_many :work_apps,        Depot.WorkApp
+    has_many :apps, through:    [:work_apps, :app]
     has_many :contents,         Depot.Content
     has_many :work_authors,     Depot.WorkAuthor
     has_many :authors, through: [:work_authors, :author]
-
-    has_one :work_campaign, Depot.WorkCampaign
 
     timestamps()
   end

@@ -12,14 +12,14 @@ defmodule RaiseServer.Depot do
   """
   defun get_works(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: [Work.t] do
     Work
-    |> filter_by_app_id(:work_app, app_id)
+    |> filter_by_app_id(:work_apps, app_id)
     |> EctoQueryMaker.apply(WorkQuery, filters, opts)
     |> Repo.all()
   end
 
   defun count_works(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: integer do
     Work
-    |> filter_by_app_id(:work_app, app_id)
+    |> filter_by_app_id(:work_apps, app_id)
     |> EctoQueryMaker.apply(WorkQuery, filters, opts)
     |> select(count())
     |> Repo.one()
@@ -27,14 +27,14 @@ defmodule RaiseServer.Depot do
 
   defun get_contents(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: [Content.t] do
     Content
-    |> filter_by_app_id(:content_app, app_id)
+    |> filter_by_app_id(:content_apps, app_id)
     |> EctoQueryMaker.apply(ContentQuery, filters, opts)
     |> Repo.all()
   end
 
   defun get_work_campaigns(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: [WorkCampaign.t] do
     WorkCampaign
-    |> filter_by_app_id(:work_campaign_app, app_id)
+    |> filter_by_app_id(:work_campaign_apps, app_id)
     |> EctoQueryMaker.apply(WorkCampaignQuery, filters, opts)
     |> Repo.all()
   end
@@ -44,7 +44,7 @@ defmodule RaiseServer.Depot do
   """
   defun get_work(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: Work.t | nil do
     Work
-    |> filter_by_app_id(:work_app, app_id)
+    |> filter_by_app_id(:work_apps, app_id)
     |> EctoQueryMaker.apply(WorkQuery, filters, opts)
     |> limit(1)
     |> Repo.one()

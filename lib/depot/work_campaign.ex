@@ -24,7 +24,7 @@ defmodule RaiseServer.Depot.WorkCampaign do
     field      :free_range,                :string
     field      :free_range_display_string, :string
 
-    has_one :work_campaign_app, Depot.WorkCampaignApp
+    has_many :work_campaign_apps, Depot.WorkCampaignApp
 
     timestamps()
   end

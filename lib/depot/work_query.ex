@@ -32,7 +32,7 @@ defmodule RaiseServer.Depot.WorkQuery do
   def apply_option({:join_latest_content_order_by_publish_begin_at, app_id}, query) do
     join_query =
       Content
-      |> Depot.filter_by_app_id(:content_app, app_id)
+      |> Depot.filter_by_app_id(:content_apps, app_id)
       |> order_by(desc: :publish_begin_at)
       |> select([:work_id, :publish_begin_at])
       |> distinct([:work_id])
@@ -51,7 +51,7 @@ defmodule RaiseServer.Depot.WorkQuery do
     from(
       w in query,
       inner_join: wc in assoc(w, :work_campaign),
-      inner_join: wcp in assoc(wc, :work_campaign_app),
+      inner_join: wcp in assoc(wc, :work_campaign_apps),
       on: w.id == wc.work_id and wcp.app_id == ^app_id and wcp.work_campaign_id == wc.id and wc.begin_at <= ^now and wc.end_at > ^now,
       preload: [:work_campaign]
     )
@@ -76,7 +76,7 @@ defmodule RaiseServer.Depot.WorkQuery do
   @impl true
   def apply_preload({:newest_content, {app_id, now}}) do
     query = from(c in Content,
-        join: cp in assoc(c, :content_app),
+        join: cp in assoc(c, :content_apps),
         on: cp.app_id == ^app_id
       )
       |> where([c], c.publish_begin_at <= ^now and c.publish_end_at > ^now)
