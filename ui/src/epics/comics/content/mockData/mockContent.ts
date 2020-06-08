@@ -1,5 +1,5 @@
 import { AdPosition, AdSettingKeys, AdType } from '@src/models/comics/advertisement'
-import { _range } from '@src/utils/functions'
+import { _range, _uuid } from '@src/utils/functions'
 import mockManga from './manga.png'
 import mockListImage from './mockListImg.png'
 import mockCover from './cover.png'
@@ -66,6 +66,7 @@ export const mockContent = {
     contents: [
       [
         {
+          id: _uuid(),
           condition: '単品購入者（定期購読）',
           image: mockGreyImg,
           url: 'https://shonenjumpplus.com/episode/10834108156758729535'
@@ -73,6 +74,7 @@ export const mockContent = {
       ],
       [
         {
+          id: _uuid(),
           condition: '全員',
           image: mockGreyImg,
           url: 'https://shonenjumpplus.com/episode/10834108156758729535'
@@ -80,11 +82,13 @@ export const mockContent = {
       ],
       [
         {
+          id: _uuid(),
           condition: '未購入者',
           image: mockGreyImg,
           url: 'https://shonenjumpplus.com/episode/10834108156758729535'
         },
         {
+          id: _uuid(),
           condition: '定期購読者',
           image: mockGreyImg,
           url: 'https://shonenjumpplus.com/episode/10834108156758729535'

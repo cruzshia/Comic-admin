@@ -3,8 +3,10 @@ import { Grid, makeStyles } from '@material-ui/core'
 import { backgroundColorLightGray, disableColorDark, textColor } from '@src/common/styles'
 import menuIcon from '@src/assets/common/menu.svg'
 import { ReactComponent as CloseIcon } from '@src/assets/common/close.svg'
+import clsx from 'clsx'
 
 interface Prop {
+  classnames?: string
   onDelete?: () => void
 }
 
@@ -38,11 +40,11 @@ const useStyle = makeStyles({
   }
 })
 
-export default function InputBlock({ onDelete, children }: PropsWithChildren<Prop>) {
+export default function InputBlock({ classnames, onDelete, children }: PropsWithChildren<Prop>) {
   const classes = useStyle()
 
   return (
-    <div className={classes.root} data-testid='input-block'>
+    <div className={clsx(classes.root, classnames)} data-testid='input-block'>
       <Grid container>
         <img className={classes.menu} src={menuIcon} alt='menu' />
         <CloseIcon className={classes.delete} onClick={onDelete} data-testid='del-ico' />

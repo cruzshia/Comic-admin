@@ -1,10 +1,14 @@
 import { AnyAction } from 'redux'
 import WorkDetail, { WorkKeys, WorkType } from '@src/models/comics/work'
+import { AdSettingKeys, AdPosition } from '@src/models/comics/advertisement'
 import { uploadImageAction } from '@src/reducers/comics/work/workActions'
+import { _uuid } from '@src/utils/functions'
 
 export const toEditableModel = (work: WorkDetail) => {
   work[WorkKeys.AuthorIds] = work[WorkKeys.Authors].map(author => author.id)
   work[WorkKeys.AppId] = work[WorkKeys.App].id
+  work[WorkKeys.AdSetting]?.[AdPosition.Front]?.forEach(ad => (ad[AdSettingKeys.ID] = _uuid()))
+  work[WorkKeys.AdSetting]?.[AdPosition.Back]?.forEach(ad => (ad[AdSettingKeys.ID] = _uuid()))
   return work
 }
 

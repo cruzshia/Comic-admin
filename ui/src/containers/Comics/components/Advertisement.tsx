@@ -19,7 +19,6 @@ import commonMessages from '@src/messages'
 import messages from '../messages'
 
 interface Props {
-  type: AdType
   name: string
   onDelete?: () => void
 }
@@ -55,7 +54,7 @@ export function validateAd(adSetting: AdSetting) {
   }
 }
 
-export default function Advertisement({ type, name, onDelete }: Props) {
+export default function Advertisement({ name, onDelete }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const [previewImage, setPreviewImage] = useState<string | undefined>()
@@ -80,7 +79,7 @@ export default function Advertisement({ type, name, onDelete }: Props) {
   }, [setPreviewImage, image])
 
   return (
-    <InputBlock onDelete={onDelete} key={name + adType}>
+    <InputBlock onDelete={onDelete}>
       <Grid className={classes.rowContainer} container direction='row'>
         <InputRow title={formatMessage(messages.adCategory)} classnames={!isOriginal ? classes.lastRow : ''}>
           <Field name={`${name}.${AdSettingKeys.Type}`} component={SelectAdapter} options={AD_OPTIONS} />

@@ -1,4 +1,5 @@
 import Content from '@src/models/comics/content'
+import { _uuid } from '@src/utils/functions'
 import { ContentActionType } from './contentActions'
 import { defaultAdTypes } from '../constant'
 import { ActionType } from '../../types'
@@ -16,7 +17,19 @@ const initState: ContentState = {
 
 export const emptyContent: Content = {
   authors: [''],
-  advertisement: defaultAdTypes
+  advertisement: defaultAdTypes,
+  magazineBanner: {
+    deviceCategory: 'デバイス共通',
+    contents: [
+      [
+        {
+          id: _uuid()
+        }
+      ],
+      [{ id: _uuid() }],
+      [{ id: _uuid() }]
+    ]
+  }
 }
 
 export const ContentPreloadState = initState

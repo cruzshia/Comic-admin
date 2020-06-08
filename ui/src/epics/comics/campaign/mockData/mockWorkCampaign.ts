@@ -1,4 +1,5 @@
 import { AdPosition, AdSettingKeys, AdType } from '@src/models/comics/advertisement'
+import { _uuid } from '@src/utils/functions'
 import mockCover1 from './mockCover1.png'
 import mockCover2 from './mockCover2.png'
 import mockCover3 from './mockCover3.png'
@@ -28,6 +29,7 @@ export const mockCampaign = {
     device: 'ios',
     [AdPosition.Front]: [
       {
+        [AdSettingKeys.ID]: _uuid(),
         [AdSettingKeys.Type]: AdType.Original,
         [AdSettingKeys.ImageUrl]: mockManga,
         [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
@@ -37,12 +39,15 @@ export const mockCampaign = {
     ],
     [AdPosition.Back]: [
       {
+        [AdSettingKeys.ID]: _uuid(),
         [AdSettingKeys.Type]: AdType.Fan
       },
       {
+        [AdSettingKeys.ID]: _uuid(),
         [AdSettingKeys.Type]: AdType.Map
       },
       {
+        [AdSettingKeys.ID]: _uuid(),
         [AdSettingKeys.Type]: AdType.Original,
         [AdSettingKeys.ImageUrl]: mockManga,
         [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',

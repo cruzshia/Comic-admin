@@ -10,6 +10,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as ArrowIcon } from '@src/assets/common/arrow_forward.svg'
 import { ReactComponent as AddIcon } from '@src/assets/common/add_circle.svg'
 import AdsModel, { AdPosition, AdSettingKeys } from '@src/models/comics/advertisement'
+import { _uuid } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import comicMessages from '../messages'
 import Advertisement from './Advertisement'
@@ -59,7 +60,10 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
   }
 
   const createDelete = (type: AdPosition, idx: number) => () => ads[type].remove(idx)
-  const handleAdd = () => fieldsBack.push({} as any)
+  const handleAdd = () =>
+    fieldsBack.push({
+      [AdSettingKeys.ID]: _uuid()
+    } as any)
 
   const genDroppableBlock = (type: AdPosition) => {
     const fields = ads[type]
@@ -75,16 +79,12 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
                     <Draggable draggableId={name} index={index}>
                       {provided => (
                         <div
-                          key={value[index][AdSettingKeys.Type]}
+                          key={value[index][AdSettingKeys.ID]}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <Advertisement
-                            type={value[index][AdSettingKeys.Type]}
-                            name={name}
-                            onDelete={createDelete(type, index)}
-                          />
+                          <Advertisement name={name} onDelete={createDelete(type, index)} />
                         </div>
                       )}
                     </Draggable>

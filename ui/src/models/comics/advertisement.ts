@@ -1,4 +1,5 @@
 export enum AdSettingKeys {
+  ID = 'id',
   AdDevice = 'device',
   Type = 'type',
   ImageUrl = 'image_url',
@@ -19,6 +20,7 @@ export enum AdType {
   Map = 'map'
 }
 export interface Advertisement {
+  [AdSettingKeys.ID]?: string
   [AdSettingKeys.Type]: AdType
   [AdSettingKeys.ImageUrl]?: string
   [AdSettingKeys.Button]?: string

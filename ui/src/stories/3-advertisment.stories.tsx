@@ -5,5 +5,5 @@ import Advertisement from '@src/containers/Comics/components/Advertisement'
 import { AdType } from '@src/models/comics/advertisement'
 
 storiesOf('Comic Advertisement', module).add('Advertisement', () => (
-  <Form initialValues={{}} onSubmit={() => {}} render={() => <Advertisement type={AdType.Original} name='' />} />
+  <Form initialValues={{}} onSubmit={() => {}} render={() => <Advertisement name='' />} />
 ))

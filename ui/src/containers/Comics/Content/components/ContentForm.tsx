@@ -21,6 +21,7 @@ import AdSettingForm from '../../components/AdSettingForm'
 import comicMessages from '../../messages'
 import messages from '../messages'
 import AuthorEditForm from '../../components/AuthorEditForm'
+import MagazineForm from './MagazineForm'
 import { MAGAZINE_BANNER_NUM } from '../constants'
 
 interface Props {
@@ -150,10 +151,10 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
                     isShort
                   />
                 ),
-                ..._range(1, MAGAZINE_BANNER_NUM + 1).map(num =>
+                ..._range(0, MAGAZINE_BANNER_NUM).map(num =>
                   toDataSet(
-                    `${formatMessage(messages.magazineBannerSetting)}${num}`,
-                    <div style={{ height: '294px' }} />
+                    `${formatMessage(messages.magazineBannerSetting)}${num + 1}`,
+                    <MagazineForm name={`magazineBanner.contents[${num}]`} />
                   )
                 )
               ]}
