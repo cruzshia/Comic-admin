@@ -44,6 +44,24 @@ defmodule RaiseServer.SectionBuilder.FreePeriodicalTest do
           publish_begin_at: seven_day_ago
         }
       )
+      work4 = DepotFactory.insert(
+        :work,
+        %{
+          free_periodical_day_of_the_week: "月",
+          title: "い",
+          title_kana: "イ",
+          publish_begin_at: seven_day_ago
+        }
+      )
+      work5 = DepotFactory.insert(
+        :work,
+        %{
+          free_periodical_day_of_the_week: "月",
+          title: "あ",
+          title_kana: "ア",
+          publish_begin_at: seven_day_ago
+        }
+      )
 
       content1 = DepotFactory.insert(
         :content,
@@ -65,6 +83,8 @@ defmodule RaiseServer.SectionBuilder.FreePeriodicalTest do
       DepotFactory.insert(:work_app, %{work_id: work1.id, app_id: app.id})
       DepotFactory.insert(:work_app, %{work_id: work2.id, app_id: app.id})
       DepotFactory.insert(:work_app, %{work_id: work3.id, app_id: app.id})
+      DepotFactory.insert(:work_app, %{work_id: work4.id, app_id: app.id})
+      DepotFactory.insert(:work_app, %{work_id: work5.id, app_id: app.id})
 
       DepotFactory.insert(:work_author, %{work_id: work1.id, author_id: author1.id})
       DepotFactory.insert(:work_author, %{work_id: work2.id, author_id: author2.id})
@@ -76,6 +96,8 @@ defmodule RaiseServer.SectionBuilder.FreePeriodicalTest do
       work1_id = "ew#{work1.id}"
       work2_id = "ew#{work2.id}"
       work3_id = "ew#{work3.id}"
+      work4_id = "ew#{work4.id}"
+      work5_id = "ew#{work5.id}"
 
       work1_title = work1.title
       work2_title = work2.title
@@ -129,7 +151,9 @@ defmodule RaiseServer.SectionBuilder.FreePeriodicalTest do
             width: _,
             height: _
           }
-        }
+        },
+        %{"id" => ^work5_id, "update_at" => nil},
+        %{"id" => ^work4_id, "update_at" => nil},
       ] = works
     end
   end

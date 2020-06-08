@@ -71,10 +71,15 @@ defmodule RaiseServer.SectionBuilder.FreePeriodical do
   defp is_recommended(%{id: _id}, _recommended_id), do: false
 
   defp work_sorter({updated_at1, title1}, {updated_at2, title2}) do
-    cond do
-      DateTime.compare(updated_at2, updated_at1) == :gt -> false
-      title2 <= title1 -> false
-      true -> true
+    case {compare_updated_at(updated_at1, updated_at2), title1 >= title2} do
+      {:lt, _}    -> false
+      {:eq, true} -> false
+      _           -> true
     end
   end
+
+  defp compare_updated_at(nil, nil), do: :eq
+  defp compare_updated_at(nil, %DateTime{}), do: :lt
+  defp compare_updated_at(%DateTime{}, nil), do: :gt
+  defp compare_updated_at(updated_at1, updated_at2), do: DateTime.compare(updated_at1, updated_at2)
 end
