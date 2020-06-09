@@ -1,19 +1,46 @@
 import { AnyAction } from 'redux'
 import WorkDetail, { WorkKeys, WorkType } from '@src/models/comics/work'
 import { AdSettingKeys, AdPosition } from '@src/models/comics/advertisement'
+import { ImageKey } from '@src/models/image'
 import { uploadImageAction } from '@src/reducers/comics/work/workActions'
-import { batchConvertDate } from '@src/utils/functions'
+import { batchConvertDate, batchConvertISO8601 } from '@src/utils/functions'
 import { _uuid } from '@src/utils/functions'
 
-export const toEditableModel = (work: WorkDetail) => {
+export const toEditableModel = ({ ...work }: WorkDetail): WorkDetail => {
   work[WorkKeys.AuthorIds] = work[WorkKeys.Authors].map(author => author.id)
-  work[WorkKeys.AppId] = work[WorkKeys.App].id
-  work[WorkKeys.AdSetting]?.[AdPosition.Front]?.forEach(ad => (ad[AdSettingKeys.ID] = _uuid()))
-  work[WorkKeys.AdSetting]?.[AdPosition.Back]?.forEach(ad => (ad[AdSettingKeys.ID] = _uuid()))
+  work[WorkKeys.AppId] = work[WorkKeys.App]?.[0].id
+  work[WorkKeys.SubscriptionId] = work[WorkKeys.Subscription]?.id
+  work[WorkKeys.AdSetting]?.forEach(adSetting => {
+    adSetting[AdPosition.Front]?.forEach(ad => (ad[AdSettingKeys.ID] = _uuid()))
+    adSetting[AdPosition.Back]?.forEach(ad => (ad[AdSettingKeys.ID] = _uuid()))
+  })
+
+  work = batchConvertISO8601<WorkDetail>(work, [
+    WorkKeys.CreateAt,
+    WorkKeys.UpdateAt,
+    WorkKeys.PublishBeginAt,
+    WorkKeys.PublishEndAt
+  ])
+
+  work[WorkKeys.AdSetting]?.forEach((adSetting, settingIdx) => {
+    adSetting[AdPosition.Front]?.map((ads, adIndex) => {
+      work[WorkKeys.AdSetting]![settingIdx][AdPosition.Front]![adIndex] = batchConvertISO8601(ads, [
+        AdSettingKeys.BeginAt,
+        AdSettingKeys.EndAt
+      ])
+    })
+    adSetting[AdPosition.Back]?.map((ads, adIndex) => {
+      work[WorkKeys.AdSetting]![settingIdx][AdPosition.Front]![adIndex] = batchConvertISO8601(ads, [
+        AdSettingKeys.BeginAt,
+        AdSettingKeys.EndAt
+      ])
+    })
+  })
+
   return work
 }
 
-export const toRequestWork = (work: WorkDetail): WorkDetail => {
+export function toRequestWork({ [WorkKeys.CreateAt]: _, [WorkKeys.UpdateAt]: __, ...work }: WorkDetail) {
   const convertedWork = batchConvertDate(work, [WorkKeys.PublishBeginAt, WorkKeys.PublishEndAt]) as WorkDetail
   if (convertedWork[WorkKeys.WorkType] !== WorkType.Episode) {
     ;[
@@ -26,26 +53,40 @@ export const toRequestWork = (work: WorkDetail): WorkDetail => {
     return convertedWork
   }
 
+  convertedWork[WorkKeys.AdSetting]?.forEach((adSetting, settingIdx) => {
+    adSetting[AdPosition.Front]?.map((ads, adIndex) => {
+      convertedWork[WorkKeys.AdSetting]![settingIdx][AdPosition.Front]![adIndex] = batchConvertDate(ads, [
+        AdSettingKeys.BeginAt,
+        AdSettingKeys.EndAt
+      ])
+    })
+    adSetting[AdPosition.Back]?.map((ads, adIndex) => {
+      convertedWork[WorkKeys.AdSetting]![settingIdx][AdPosition.Front]![adIndex] = batchConvertDate(ads, [
+        AdSettingKeys.BeginAt,
+        AdSettingKeys.EndAt
+      ])
+    })
+  })
+
   convertedWork[WorkKeys.ReturnAdRevenue] = false
   return convertedWork
 }
 
-export const genImgUploadActions = (work: WorkDetail, payload: WorkDetail): AnyAction[] => {
-  const images = payload[WorkKeys.Images] || {}
+export const imgUploadActions = (work: WorkDetail, payload: WorkDetail): AnyAction[] => {
   const uploadActions: any[] = []
-  Object.keys(images).forEach(imgKey => {
-    const image = payload[WorkKeys.Images]?.[imgKey as keyof typeof payload[WorkKeys.Images]] as any
-    if (work[WorkKeys.S3Uploads] && image instanceof File) {
-      const key = imgKey.replace('_url', '')
+  const imageData = payload[WorkKeys.Images]
+  Object.values(ImageKey).forEach(key => {
+    if (work[WorkKeys.S3Uploads] && imageData?.[key].url instanceof File) {
       uploadActions.push(
         uploadImageAction({
-          id: work.id,
+          workId: work.id,
           imageKey: key,
-          image,
+          image: imageData![key],
           s3Info: work[WorkKeys.S3Uploads]![key as keyof typeof work[WorkKeys.S3Uploads]]
         })
       )
     }
   })
+
   return uploadActions
 }

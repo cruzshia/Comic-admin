@@ -94,7 +94,7 @@ export default function SubscriptionDetail() {
         dataSet={[
           toDataSet(formatMessage(commonMessages.id), currentSubscription.id),
           toDataSet(formatMessage(commonMessages.subscriptionName), currentSubscription.name),
-          toDataSet(formatMessage(messages.subscriptionImage), <img src={currentSubscription.image} alt='' />),
+          toDataSet(formatMessage(messages.subscriptionImage), <img src={currentSubscription.image?.url} alt='' />),
           toDataSet(formatMessage(commonMessages.publicStartTime), currentSubscription.publicStartTime),
           toDataSet(formatMessage(commonMessages.publicEndTime), currentSubscription.publicEndTime),
           toDataSet(formatMessage(commonMessages.createDateTime), currentSubscription.createAt),

@@ -30,7 +30,7 @@ export const createSubscriptionAjax = (
   return from([
     {
       status: 200,
-      response: mockSubscriptionDetail
+      response: mockSubscriptionDetail(subscription.id)
     }
   ])
 }
@@ -42,7 +42,7 @@ export const updateSubscriptionAjax = (
   return from([
     {
       status: 200,
-      response: mockSubscriptionDetail
+      response: mockSubscriptionDetail(subscription.id)
     }
   ])
 }

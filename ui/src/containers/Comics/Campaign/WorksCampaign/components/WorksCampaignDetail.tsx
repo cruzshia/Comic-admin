@@ -98,11 +98,11 @@ export default function WorksCampaignDetail() {
         tableClass={classes.table}
         onEdit={handleEditEpisode}
         dataSet={[
-          ..._range(0, IMAGE_NUM).map(i => {
-            const img = campaign.images[i]
+          ..._range(1, IMAGE_NUM + 1).map(i => {
+            const img = campaign.images[`image${i}`]
             return toDataSet(
               `${formatMessage(comicMessages.episodeImage)}${i + 1}`,
-              img ? <img key={`image-${i}`} src={img} alt={img} /> : ''
+              img ? <img key={`image-${i}`} src={img.url} alt={img.url} /> : ''
             )
           })
         ]}

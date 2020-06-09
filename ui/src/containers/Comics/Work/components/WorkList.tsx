@@ -80,7 +80,7 @@ export default function WorkList() {
 
   const workDataList = workList.map(({ images, ...item }) => ({
     ...item,
-    [WorkKeys.Images]: images ? <img src={images.image1_url} alt='work-img' /> : '',
+    [WorkKeys.Images]: images ? <img src={images?.image1.url as string} alt='work-img' /> : '',
     [WorkKeys.WorkType]: formatMessage(messages[item[WorkKeys.WorkType]]),
     [WorkKeys.EpisodeWorkType]: item[WorkKeys.EpisodeWorkType]
       ? formatMessage(messages[item[WorkKeys.EpisodeWorkType]!])

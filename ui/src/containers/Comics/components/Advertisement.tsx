@@ -14,7 +14,7 @@ import {
   AdPosition,
   Advertisement as AdModel
 } from '@src/models/comics/advertisement'
-import { required, validDateTime, INVALID_FORMAT } from '@src/utils/validation'
+import { required, validDateTime, isValidDuration } from '@src/utils/validation'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
@@ -38,10 +38,12 @@ function validateAdTime(ads?: AdModel[]) {
   return ads?.map(setting => {
     const isOriginal = setting[AdSettingKeys.Type] === AdType.Original
     const [begin, end] = [setting[AdSettingKeys.BeginAt], setting[AdSettingKeys.EndAt]]
+
     return {
       type: required(setting[AdSettingKeys.Type]),
-      [AdSettingKeys.BeginAt]: !isOriginal || (begin && validDateTime(begin!)) ? undefined : INVALID_FORMAT,
-      [AdSettingKeys.EndAt]: !isOriginal || (end && validDateTime(end!)) ? undefined : INVALID_FORMAT
+      [AdSettingKeys.BeginAt]: (isOriginal && begin && validDateTime(begin!)) || undefined,
+      [AdSettingKeys.EndAt]:
+        (isOriginal && end && (validDateTime(end!) || (begin && isValidDuration(begin, end)))) || undefined
     }
   })
 }

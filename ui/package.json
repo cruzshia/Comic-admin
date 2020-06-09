@@ -18,6 +18,7 @@
     "@types/redux-logger": "^3.0.7",
     "babel-plugin-react-remove-properties": "^0.3.0",
     "clsx": "^1.1.0",
+    "dayjs": "^1.8.28",
     "final-form": "^4.19.1",
     "final-form-arrays": "^3.0.2",
     "react": "^16.13.0",
@@ -112,5 +113,5 @@
     "prettier": "^1.19.1",
     "redux-logger": "^3.0.6"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "https://raise-server.solomondev.access-company.com"
 }

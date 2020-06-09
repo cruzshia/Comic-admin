@@ -1,5 +1,6 @@
 import { AdSetting } from './advertisement'
 import S3Info from '../s3Info'
+import Image, { ImageInfo } from '../image'
 
 export enum WorkSearchKeys {
   WorkKey = 'work_keyword',
@@ -24,7 +25,7 @@ export type SearchParam = {
 
 export enum WorkKeys {
   ID = 'id',
-  App = 'app',
+  App = 'apps',
   AppId = 'app_id',
   Title = 'title',
   TitleKana = 'title_kana',
@@ -32,9 +33,10 @@ export enum WorkKeys {
   Authors = 'authors',
   AuthorIds = 'author_ids',
   Subscription = 'subscription',
+  SubscriptionId = 'subscription_id',
   WorkType = 'work_type',
   CreateAt = 'inserted_at',
-  UpdateAt = 'update_at',
+  UpdateAt = 'updated_at',
   PublishBeginAt = 'publish_begin_at',
   PublishEndAt = 'publish_end_at',
   EpisodeWorkType = 'episode_work_type',
@@ -79,28 +81,18 @@ export interface Work {
   [WorkKeys.CreateAt]: string
   [WorkKeys.EpisodeWorkType]?: EpisodeWorkType
   [WorkKeys.UpdateFrequency]?: string
-  [WorkKeys.Images]?: {
-    image1_url: string
-    image2_url: string
-    image3_url: string
-    image4_url: string
-  }
-}
-
-export interface WorkImageMeta {
-  path: string
-  width: number
-  height: number
+  [WorkKeys.Images]?: Image<ImageInfo>
 }
 
 export interface WorkDetail extends Work {
   [WorkKeys.TitleKana]?: string
   [WorkKeys.Description]: string
-  [WorkKeys.App]: App
+  [WorkKeys.App]: App[]
   [WorkKeys.AppId]: number
   [WorkKeys.Authors]: Author[]
   [WorkKeys.AuthorIds]?: string[]
   [WorkKeys.Subscription]?: Subscription
+  [WorkKeys.SubscriptionId]?: string
   [WorkKeys.UpdateAt]: string
   [WorkKeys.PublishBeginAt]: string
   [WorkKeys.PublishEndAt]: string
@@ -108,15 +100,8 @@ export interface WorkDetail extends Work {
   [WorkKeys.MagazineName]?: string
   [WorkKeys.ReturnAdRevenue]?: boolean
   [WorkKeys.FreePeriodicalDay]?: string
-  [WorkKeys.AdSetting]?: AdSetting
+  [WorkKeys.AdSetting]?: AdSetting[]
   [WorkKeys.S3Uploads]?: Image<S3Info>
-}
-
-export interface Image<T> {
-  image1: T
-  image2: T
-  image3: T
-  image4: T
 }
 
 export interface App {

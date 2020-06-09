@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 import { FieldRenderProps } from 'react-final-form'
 import { makeStyles } from '@material-ui/core'
 import DropZone from '@src/components/DropZone'
+import { ImageInfo } from '@src/models/image'
 import { toDataUri, getImgMeta } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import { fontWeightBold } from '@src/common/styles'
@@ -44,7 +45,7 @@ export default function DropZoneAdapter({
   meta,
   maxWidth,
   disableHover
-}: FieldRenderProps<string>) {
+}: FieldRenderProps<ImageInfo>) {
   const classes = useStyle(maxWidth)
   const { formatMessage } = useIntl()
 
@@ -59,7 +60,7 @@ export default function DropZoneAdapter({
               className={!!disableHover ? '' : classes.hoverBg}
               data-hover={formatMessage(commonMessages.changeImage)}
             >
-              <img src={toDataUri(value)} alt={name} />
+              <img src={toDataUri(value.url)} alt={name} />
             </div>
           )
         }

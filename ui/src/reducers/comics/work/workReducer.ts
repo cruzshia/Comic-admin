@@ -22,7 +22,7 @@ const initState: WorkState = {
 export const emptyWork = {
   [WorkKeys.ReturnAdRevenue]: false,
   [WorkKeys.AuthorIds]: [''],
-  [WorkKeys.AdSetting]: defaultAdTypes
+  [WorkKeys.AdSetting]: [defaultAdTypes]
 }
 
 export const WorkPreloadState = initState
@@ -43,6 +43,7 @@ const handler: Record<string, (state: WorkState, action: ActionType<any>) => Wor
   [WorkActionType.UPDATE_SUCCESS]: updateCurrentWorkHandler,
   [WorkActionType.GET_WORK_SUCCESS]: updateCurrentWorkHandler,
   [WorkActionType.CREATE_SUCCESS]: updateCurrentWorkHandler,
+  [WorkActionType.RESET_WORK]: updateCurrentWorkHandler,
   [WorkActionType.GET_CSV_LOG_LIST_SUCCESS]: (
     state: WorkState = initState,
     action: ActionType<ImportLog[]>

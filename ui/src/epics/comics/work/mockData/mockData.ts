@@ -22,10 +22,26 @@ export const mockData = (mockDatum => {
 
 export const mockListData: Work[] = _range(0, 4).map(i => ({
   [WorkKeys.Images]: {
-    image1_url: mockImg,
-    image2_url: mockImg,
-    image3_url: mockImg,
-    image4_url: mockImg
+    image1: {
+      url: mockImg,
+      width: 100,
+      height: 100
+    },
+    image2: {
+      url: mockImg,
+      width: 100,
+      height: 100
+    },
+    image3: {
+      url: mockImg,
+      width: 100,
+      height: 100
+    },
+    image4: {
+      url: mockImg,
+      width: 100,
+      height: 100
+    }
   },
   [WorkKeys.ID]: `WORK_ROOKIE00001475${i}`,
   [WorkKeys.Title]: 'クラスメイトの田中さんはすごく怖い',

@@ -107,5 +107,13 @@ export default defineMessages({
   contentCampaign: {
     id: PREFIX + 'content_campaign',
     defaultMessage: 'Content Campaign'
+  },
+  return: {
+    id: PREFIX + 'return',
+    defaultMessage: 'With Return'
+  },
+  notReturn: {
+    id: PREFIX + 'not_return',
+    defaultMessage: 'Not Return'
   }
 })

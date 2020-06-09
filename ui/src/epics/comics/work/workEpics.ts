@@ -14,8 +14,9 @@ import {
   notifyImgUploadedAction
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
-import { toEditableModel, genImgUploadActions, toRequestWork } from './transform'
-import { emptyErrorReturn, extractFormErrors, ErrorResponse } from '../../utils'
+import { toEditableModel, imgUploadActions, toRequestWork } from './transform'
+import { emptyErrorReturn, ErrorResponse, toMockData } from '../../utils'
+import { mockWork } from './mockData/mockWork'
 
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -39,9 +40,9 @@ export const getWorkEpic = (action$: ActionsObservable<AnyAction>) =>
       workServices.getWorkAjax(action.payload).pipe(
         map(res => getWorkSuccessAction(toEditableModel(res.response))),
         tap(() => successSubject.next({ type: WorkActionType.GET_WORK_SUCCESS })),
-        catchError(() => {
+        catchError(error => {
           errorSubject.next({ type: WorkActionType.GET_WORK_ERROR })
-          return emptyErrorReturn()
+          return toMockData(error, of(getWorkSuccessAction(toEditableModel(mockWork)))) || emptyErrorReturn()
         })
       )
     )
@@ -54,10 +55,10 @@ export const createWorkEpic = (action$: ActionsObservable<AnyAction>) =>
         mergeMap(res => {
           const resDetail = toEditableModel(res.response)
           successSubject.next({ type: WorkActionType.CREATE_SUCCESS })
-          return of(createWorkSuccessAction(resDetail), ...genImgUploadActions(resDetail, action.payload as WorkDetail))
+          return of(createWorkSuccessAction(resDetail), ...imgUploadActions(resDetail, action.payload as WorkDetail))
         }),
         catchError((error: ErrorResponse) => {
-          errorSubject.next({ type: WorkActionType.CREATE_ERROR, error: extractFormErrors(error).response })
+          errorSubject.next({ type: WorkActionType.CREATE_ERROR, error: error.response })
           return emptyErrorReturn()
         })
       )
@@ -72,10 +73,10 @@ export const updateWorkEpic = (action$: ActionsObservable<AnyAction>) =>
         mergeMap(res => {
           const resDetail = toEditableModel(res.response)
           successSubject.next({ type: WorkActionType.UPDATE_SUCCESS })
-          return of(updateWorkSuccessAction(resDetail), ...genImgUploadActions(resDetail, action.payload as WorkDetail))
+          return of(updateWorkSuccessAction(resDetail), ...imgUploadActions(resDetail, action.payload as WorkDetail))
         }),
         catchError((error: ErrorResponse) => {
-          errorSubject.next({ type: WorkActionType.UPDATE_ERROR, error: extractFormErrors(error).response })
+          errorSubject.next({ type: WorkActionType.UPDATE_ERROR, error: error.response })
           return emptyErrorReturn()
         })
       )
@@ -119,7 +120,7 @@ export const uploadImageEpic = (action$: ActionsObservable<AnyAction>) =>
       workServices.uploadImageAjax(action.payload).pipe(
         map(() =>
           notifyImgUploadedAction({
-            id: action.payload.id,
+            workId: action.payload.workId,
             imageMeta: {
               [action.payload.imageKey]: {
                 path: action.payload.s3Info.path,

@@ -1,9 +1,8 @@
 import { ajax } from 'rxjs/ajax'
 
 let hostUrl = '/api/console'
-let commonHeaders: { [key: string]: any } = {
-  'Content-Type': 'application/json'
-}
+let commonHeaders: { [key: string]: any } = {}
+
 const TOKEN_KEY = 'x-raise-api-token'
 
 const urlWithHost = (url: string) => hostUrl + url
@@ -24,6 +23,8 @@ export const setAuthHeader = (token: string) => (commonHeaders[TOKEN_KEY] = toke
 export const removeAuthHeader = () => {
   delete commonHeaders[TOKEN_KEY]
 }
+
+export const JSON_CONTENT = { 'Content-Type': 'application/json' }
 
 const defaultToken = localStorage.getItem(TOKEN_KEY)
 defaultToken && setAuthHeader(defaultToken)

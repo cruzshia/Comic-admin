@@ -9,7 +9,8 @@ export const INVALID_FORMAT = '形式に誤りがあります'
 export const INVALID_DURATION = '期間の指定が正しくありません。'
 export const tooLongError = (length: number) => `${length}文字以内で入力してください`
 
-export const required = (value: any) => (!value || !/.+/.test(value) ? '項目が入力されていません' : undefined)
+export const required = (value: any) =>
+  typeof value !== 'boolean' && (!value || !/.+/.test(value)) ? '項目が入力されていません' : undefined
 
 export const submitForm = (formRef: React.RefObject<HTMLFormElement>) =>
   formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))

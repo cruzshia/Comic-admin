@@ -1,4 +1,5 @@
 import { Observable, of } from 'rxjs'
+import { AnyAction } from 'redux'
 import { AjaxError } from 'rxjs/ajax'
 import { ignoreElements } from 'rxjs/operators'
 
@@ -11,26 +12,24 @@ export type Response<T> = Observable<{
 
 export enum ErrorKey {
   Type = 'type',
-  FieldError = 'field_errors'
+  Message = 'message',
+  UserMessages = 'user_messages'
 }
 export interface ErrorResponse extends AjaxError {
   response: {
     [ErrorKey.Type]: string
-    [ErrorKey.FieldError]: {
-      [key: string]: {
-        type: string
-        message: string
-      }
-    }
+    [ErrorKey.UserMessages]: string[]
+    [ErrorKey.Message]: string
   }
 }
 
-export const extractFormErrors = (error: AjaxError) => ({
-  ...error,
-  response: {
-    field_errors: Object.keys(error.response[ErrorKey.FieldError]).reduce((acc: { [key: string]: string }, current) => {
-      acc[current] = error.response[ErrorKey.FieldError][current].message
-      return acc
-    }, {})
-  }
-})
+enum ErrorCode {
+  BadRequest = 'BadRequest',
+  Forbidden = 'Forbidden',
+  ServerError = 'InternalServerError',
+  ServiceUnavailable = 'ServiceUnavailable'
+}
+
+export function toMockData(error: ErrorResponse, mockData: any): Observable<AnyAction> {
+  return error.response.type === ErrorCode.BadRequest && error.response.message === '' ? mockData : undefined
+}

@@ -4,9 +4,6 @@ import mockCover1 from './mockCover1.png'
 import mockCover2 from './mockCover2.png'
 import mockCover3 from './mockCover3.png'
 import mockCover4 from './mockCover4.png'
-import mockCover5 from './mockCover5.png'
-import mockCover6 from './mockCover6.png'
-import mockCover7 from './mockCover7.png'
 import mockManga from './manga.png'
 
 export const mockCampaign = {
@@ -24,7 +21,28 @@ export const mockCampaign = {
     'サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト',
   createAt: '2019-12-25 00:00',
   updateAt: '2019-12-25 00:00',
-  images: [mockCover1, mockCover2, mockCover3, mockCover4, mockCover5, mockCover6, mockCover7],
+  images: {
+    image1: {
+      url: mockCover1,
+      width: 100,
+      height: 200
+    },
+    image2: {
+      url: mockCover2,
+      width: 100,
+      height: 200
+    },
+    image3: {
+      url: mockCover3,
+      width: 100,
+      height: 200
+    },
+    image4: {
+      url: mockCover4,
+      width: 100,
+      height: 200
+    }
+  },
   advertisement: {
     device: 'ios',
     [AdPosition.Front]: [

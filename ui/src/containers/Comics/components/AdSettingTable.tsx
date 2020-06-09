@@ -41,7 +41,10 @@ export default function AdSettingTable({ data, onEdit, hideSubtitle }: Prop) {
                 },
                 toDataSet(formatMessage(commonMessages.link), data[AdSettingKeys.ActionUrl]),
                 toDataSet(formatMessage(commonMessages.buttonName), data[AdSettingKeys.Button]),
-                toDataSet(formatMessage(commonMessages.deliveryDuration), data[AdSettingKeys.BeginAt])
+                toDataSet(
+                  formatMessage(commonMessages.deliveryDuration),
+                  `${data[AdSettingKeys.BeginAt]} ~ ${data[AdSettingKeys.EndAt]}`
+                )
               ]}
               innerTable
             />

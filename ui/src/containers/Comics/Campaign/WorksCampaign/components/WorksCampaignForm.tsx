@@ -85,9 +85,9 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
               title={formatMessage(comicMessages.episodeInfo)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
               dataSet={[
-                ..._range(0, IMAGE_NUM).map(num => ({
+                ..._range(1, IMAGE_NUM + 1).map(num => ({
                   label: `${formatMessage(comicMessages.episodeImage)}${num + 1}`,
-                  content: <Field name={`images[${num}]`} className={classes.photo} component={DropZoneAdapter} />
+                  content: <Field name={`images[image${num}]`} className={classes.photo} component={DropZoneAdapter} />
                 }))
               ]}
             />

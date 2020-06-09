@@ -94,8 +94,11 @@ export default function ContentDetail() {
           toDataSet(formatMessage(messages.sort), currentContent.sort),
           toDataSet(formatMessage(messages.limitedTimeFree), currentContent.limitedTimeFree),
           toDataSet(formatMessage(comicMessages.episodeNumber), currentContent.episodeNumber),
-          toDataSet(formatMessage(messages.thumbnailImage), <img src={currentContent.thumbnail} alt='thumbnail' />),
-          toDataSet(formatMessage(messages.openAdImage), <img src={currentContent.adImage} alt='ad' />),
+          toDataSet(
+            formatMessage(messages.thumbnailImage),
+            <img src={currentContent.thumbnail?.url} alt='thumbnail' />
+          ),
+          toDataSet(formatMessage(messages.openAdImage), <img src={currentContent.adImage?.url} alt='ad' />),
           toDataSet(formatMessage(messages.requestId), currentContent.requestId),
           toDataSet(formatMessage(comicMessages.requestName), currentContent.requestName),
           toDataSet(formatMessage(commonMessages.createDateTime), currentContent.createAt),

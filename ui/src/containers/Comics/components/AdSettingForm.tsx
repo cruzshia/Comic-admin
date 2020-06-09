@@ -124,7 +124,7 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
           <DragDropContext onDragEnd={handleDragEnd}>
             {genDroppableBlock(AdPosition.Front)}
             <ContentLabel />
-            {fieldsBack.value.length > 0 && Arrow}
+            {!!fieldsBack.length && Arrow}
             {genDroppableBlock(AdPosition.Back)}
             <Button
               classnames={classes.button}

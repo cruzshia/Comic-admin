@@ -1,13 +1,13 @@
-import React, { useRef, useCallback, useMemo, useContext } from 'react'
+import React, { useRef, useCallback, useMemo, useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
-import { Subscription } from 'rxjs'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { submitForm } from '@src/utils/validation'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
+import GlobalDialog from '@src/components/GlobalDialog'
 import { WorkActionType } from '@src/reducers/comics/work/workActions'
 import { ErrorKey } from '@src/epics/utils'
-import { successSubject, errorSubject } from '@src/utils/responseSubject'
+import { errorSubject } from '@src/utils/responseSubject'
 import WorkForm from './WorkForm'
 import { BREADCRUMBS } from '../utils'
 import { ActionContext } from '../context/WorkContext'
@@ -19,29 +19,16 @@ export default function WorkCreation() {
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
 
-  const handleSubmitCreate = useCallback(
-    data => {
-      const subs: Subscription[] = []
-      const unsubscribeAll = () => subs.forEach(sub => sub.unsubscribe())
-      const resPromise = new Promise(resolve => {
-        subs.push(
-          successSubject.subscribe([WorkActionType.CREATE_SUCCESS], () => {
-            unsubscribeAll()
-            resolve()
-          })
-        )
-        subs.push(
-          errorSubject.subscribe([WorkActionType.CREATE_ERROR], ({ error }) => {
-            unsubscribeAll()
-            resolve(error?.[ErrorKey.FieldError])
-          })
-        )
+  useEffect(() => {
+    const errorSub = errorSubject.subscribe([WorkActionType.CREATE_ERROR], ({ error }) => {
+      GlobalDialog.open({
+        content: error?.[ErrorKey.UserMessages].join(',')
       })
-      onCreateWork(data)
-      return resPromise
-    },
-    [onCreateWork]
-  )
+    })
+    return () => errorSub.unsubscribe()
+  }, [])
+
+  const handleSubmitCreate = useCallback(data => onCreateWork(data), [onCreateWork])
 
   const handleClickSubmit = useCallback(() => submitForm(formRef), [formRef])
   const titleText = formatMessage(messages.createWork)

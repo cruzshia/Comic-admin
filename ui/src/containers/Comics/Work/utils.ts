@@ -63,7 +63,6 @@ export function validateWork(values: Partial<Work>) {
     ...(isEpisodeType
       ? {
           [WorkKeys.EpisodeWorkType]: required(values[WorkKeys.EpisodeWorkType]),
-
           [WorkKeys.UpdateFrequency]: composeValidators(
             required,
             isValidLength(CHARACTER_LIMIT)
@@ -79,7 +78,7 @@ export function validateWork(values: Partial<Work>) {
             isValidLength(CHARACTER_LIMIT)
           )(values[WorkKeys.FreePeriodicalDay]!),
 
-          [WorkKeys.AdSetting]: validateAd(values[WorkKeys.AdSetting]!)
+          [WorkKeys.AdSetting]: values[WorkKeys.AdSetting]?.map(setting => validateAd(setting))
         }
       : {})
   }

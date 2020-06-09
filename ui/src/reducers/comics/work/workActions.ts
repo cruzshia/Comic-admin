@@ -1,7 +1,7 @@
-import WorkDetail, { Work, WorkImageMeta } from '@src/models/comics/work'
+import WorkDetail, { Work } from '@src/models/comics/work'
+import Image, { ImageInfo } from '@src/models/image'
 import S3Info from '@src/models/s3Info'
 import ImportLog from '@src/models/importLog'
-import { FileWithMeta } from '@src/utils/functions'
 
 export enum WorkActionType {
   GET_LIST = '@ComicsWork/GET_LIST',
@@ -100,9 +100,9 @@ export const importWorksAction = (payload: any) => ({
 })
 
 export interface UploadImagePayload {
-  id: string
+  workId: string
   imageKey: string
-  image: FileWithMeta
+  image: ImageInfo
   s3Info: S3Info
 }
 export const uploadImageAction = (payload: UploadImagePayload) => ({
@@ -110,13 +110,9 @@ export const uploadImageAction = (payload: UploadImagePayload) => ({
   payload
 })
 
-export interface NotifyImageUpload {
-  image1: WorkImageMeta
-  image2: WorkImageMeta
-  image3: WorkImageMeta
-  image4: WorkImageMeta
-}
-export const notifyImgUploadedAction = (payload: { id: string; imageMeta: Partial<NotifyImageUpload> }) => ({
+export type NotifyImageUpload = Image<ImageInfo>
+
+export const notifyImgUploadedAction = (payload: { workId: string; imageMeta: Partial<NotifyImageUpload> }) => ({
   type: WorkActionType.NOTIFY_IMG_UPLOADED,
   payload
 })

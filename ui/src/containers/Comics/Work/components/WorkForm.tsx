@@ -66,11 +66,11 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
   const returnOptions = useMemo(
     () => [
       {
-        label: formatMessage(commonMessages.have),
+        label: formatMessage(comicsMessages.return),
         value: true
       },
       {
-        label: formatMessage(commonMessages.no),
+        label: formatMessage(comicsMessages.notReturn),
         value: false
       }
     ],
@@ -83,10 +83,10 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
       <Form
         onSubmit={onSubmit}
         mutators={{ ...arrayMutators }}
-        subscription={{ pristine: true }}
+        subscription={{ pristine: true, values: true }}
         validate={validateWork}
         initialValues={workData || { ...emptyWork }}
-        render={({ handleSubmit }) => (
+        render={({ handleSubmit, values }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
@@ -112,7 +112,14 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 toDataSet(formatMessage(commonMessages.author), <AuthorEditForm authorKey={WorkKeys.AuthorIds} />),
                 toDataSet(
                   formatMessage(commonMessages.appId),
-                  <Field name={WorkKeys.App} component={SelectAdapter} options={[]} />
+                  <Field
+                    name={WorkKeys.AppId}
+                    component={SelectAdapter}
+                    options={[
+                      { label: 'app', value: 1 },
+                      { label: 'app_api', value: 31 }
+                    ]}
+                  />
                 ),
                 {
                   label: formatMessage(messages.category),
@@ -130,7 +137,11 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 },
                 toDataSet(
                   formatMessage(commonMessages.subscriptionId),
-                  <Field name={WorkKeys.Subscription} component={SelectAdapter} options={[]} />
+                  <Field
+                    name={WorkKeys.SubscriptionId}
+                    component={SelectAdapter}
+                    options={[{ label: 'subs', value: '2' }]}
+                  />
                 )
               ]}
             />
@@ -178,7 +189,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   toDataSet(
                     `${formatMessage(comicsMessages.episodeImage)}${index}`,
                     <Field
-                      name={`${WorkKeys.Images}.image${index}_url`}
+                      name={`${WorkKeys.Images}.image${index}`}
                       className={classes.photo}
                       component={DropZoneAdapter}
                     />
@@ -186,7 +197,13 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                 )
               ]}
             />
-            <AdSettingForm adSettingRef={adSettingRef} adKey={WorkKeys.AdSetting} />
+            {values?.[WorkKeys.AdSetting]?.map((_, index) => (
+              <AdSettingForm
+                key={`adSetting-${index}`}
+                adSettingRef={!index ? adSettingRef : undefined}
+                adKey={`${WorkKeys.AdSetting}[${index}]`}
+              />
+            ))}
           </form>
         )}
       />

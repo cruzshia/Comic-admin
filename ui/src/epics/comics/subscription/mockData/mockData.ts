@@ -12,7 +12,11 @@ export const mockSubscriptionList = _range(0, 3).map(num => ({
 export const mockSubscriptionDetail = (subscriptionId: string) => ({
   id: subscriptionId,
   name: '週刊少年ジャンプ定期購読	',
-  image: mockImg,
+  image: {
+    url: mockImg,
+    width: 100,
+    height: 100
+  },
   createAt: '2019-12-25 00:00',
   updateAt: '2019-12-25 00:00',
   publicStartTime: '2019-12-25 00:00',

@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo, useEffect } from 'react'
+import React, { useContext, useCallback, useMemo, useEffect, Fragment } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
@@ -11,6 +11,7 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import { _range } from '@src/utils/functions'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { WorkKeys } from '@src/models/comics/work'
+import { ImageKey } from '@src/models/image'
 import workContext, { ActionContext } from '../context/WorkContext'
 import { ScrollAnchor, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
 import commonMessages from '@src/messages'
@@ -105,15 +106,16 @@ export default function WorkDetail() {
           toDataSet(
             formatMessage(commonMessages.author),
             <>
-              {currentWork[WorkKeys.Authors].map(author => (
-                <div key={author.id} className={classes.blueText}>
-                  {author.name}
-                </div>
+              {currentWork[WorkKeys.Authors].map((author, idx) => (
+                <Fragment key={author.id}>
+                  <span className={classes.blueText}>{author.name}</span>
+                  {idx !== currentWork[WorkKeys.Authors].length - 1 && ' / '}
+                </Fragment>
               ))}
             </>
           ),
           toDataSet(formatMessage(commonMessages.appId), String(currentWork[WorkKeys.AppId])),
-          toDataSet(formatMessage(messages.category), currentWork[WorkKeys.WorkType]),
+          toDataSet(formatMessage(messages.category), formatMessage(messages[currentWork[WorkKeys.WorkType]])),
           toDataSet(
             formatMessage(messages.reduction),
             formatMessage(commonMessages[currentWork[WorkKeys.ReturnAdRevenue] ? 'have' : 'no'])
@@ -142,7 +144,7 @@ export default function WorkDetail() {
           toDataSet(formatMessage(messages.freePeriodicalDay), currentWork[WorkKeys.FreePeriodicalDay]),
           toDataSet(formatMessage(messages.rensai), currentWork[WorkKeys.MagazineName]),
           ..._range(0, IMAGE_NUM).map(i => {
-            const img = currentWork[WorkKeys.Images]?.[`image${i + 1}_url` as keyof typeof currentWork[WorkKeys.Images]]
+            const img = currentWork[WorkKeys.Images]?.[`image${i + 1}` as ImageKey]?.url as string
             return toDataSet(
               `${formatMessage(comicMessages.episodeImage)}${i + 1}`,
               img ? <img key={`image-${i}`} className={classes.image} src={img} alt={img} /> : ''
@@ -150,7 +152,9 @@ export default function WorkDetail() {
           })
         ]}
       />
-      <AdSettingTable onEdit={handleEditAd} data={currentWork[WorkKeys.AdSetting]} />
+      {currentWork[WorkKeys.AdSetting]?.map((adSetting, idx) => (
+        <AdSettingTable key={`adSetting-${idx}`} onEdit={handleEditAd} data={adSetting} />
+      ))}
     </>
   )
 }

@@ -20,8 +20,16 @@ export const mockContent = {
   sort: 9999,
   limitedTimeFree: 'サンプルテキスト',
   episodeNumber: 100,
-  thumbnail: mockCover,
-  adImage: mockCover,
+  thumbnail: {
+    url: mockCover,
+    width: 100,
+    height: 100
+  },
+  adImage: {
+    url: mockCover,
+    width: 200,
+    height: 200
+  },
   requestId: 'WORK_SHUNKAN10000006',
   requestName: 'こち亀',
   createAt: '2019-12-25 00:00',

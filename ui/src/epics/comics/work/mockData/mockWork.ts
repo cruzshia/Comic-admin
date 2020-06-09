@@ -18,7 +18,7 @@ export const mockWork: WorkDetail = {
     { id: '2', name: 'pon yu uen' }
   ],
   [WorkKeys.WorkType]: WorkType.Comic,
-  [WorkKeys.App]: { id: 1, name: 'アプリ' },
+  [WorkKeys.App]: [{ id: 1, name: 'アプリ' }],
   [WorkKeys.AppId]: 1,
   [WorkKeys.UpdateFrequency]: '毎週月月金曜日に更新',
   [WorkKeys.ReturnAdRevenue]: true,
@@ -29,10 +29,26 @@ export const mockWork: WorkDetail = {
   [WorkKeys.UpdateAt]: '2019-12-25 00:00',
   [WorkKeys.EpisodeWorkType]: EpisodeWorkType.Original,
   [WorkKeys.Images]: {
-    image1_url: mockCover1,
-    image2_url: mockCover2,
-    image3_url: mockCover3,
-    image4_url: mockCover4
+    image1: {
+      url: mockCover1,
+      width: 100,
+      height: 100
+    },
+    image2: {
+      url: mockCover2,
+      width: 100,
+      height: 100
+    },
+    image3: {
+      url: mockCover3,
+      width: 100,
+      height: 100
+    },
+    image4: {
+      url: mockCover4,
+      width: 100,
+      height: 100
+    }
   },
   [WorkKeys.PublishBeginAt]: '2019-12-25 00:00',
   [WorkKeys.PublishEndAt]: '2019-12-25 00:00',
@@ -54,37 +70,39 @@ export const mockWork: WorkDetail = {
       path: 'http://work/image/4'
     }
   },
-  [WorkKeys.AdSetting]: {
-    device: 'ios',
-    [AdPosition.Front]: [
-      {
-        [AdSettingKeys.ID]: _uuid(),
-        [AdSettingKeys.Type]: AdType.Original,
-        [AdSettingKeys.ImageUrl]: mockManga,
-        [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
-        [AdSettingKeys.Button]: 'サンプルテキスト',
-        [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
-        [AdSettingKeys.EndAt]: '2020-02-20 19:00'
-      }
-    ],
-    [AdPosition.Back]: [
-      {
-        [AdSettingKeys.ID]: _uuid(),
-        [AdSettingKeys.Type]: AdType.Fan
-      },
-      {
-        [AdSettingKeys.ID]: _uuid(),
-        [AdSettingKeys.Type]: AdType.Map
-      },
-      {
-        [AdSettingKeys.ID]: _uuid(),
-        [AdSettingKeys.Type]: AdType.Original,
-        [AdSettingKeys.ImageUrl]: mockManga,
-        [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
-        [AdSettingKeys.Button]: 'サンプルテキスト',
-        [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
-        [AdSettingKeys.EndAt]: '2020-02-20 19:00'
-      }
-    ]
-  }
+  [WorkKeys.AdSetting]: [
+    {
+      device: 'ios',
+      [AdPosition.Front]: [
+        {
+          [AdSettingKeys.ID]: _uuid(),
+          [AdSettingKeys.Type]: AdType.Original,
+          [AdSettingKeys.ImageUrl]: mockManga,
+          [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
+          [AdSettingKeys.Button]: 'サンプルテキスト',
+          [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
+          [AdSettingKeys.EndAt]: '2020-02-20 19:00'
+        }
+      ],
+      [AdPosition.Back]: [
+        {
+          [AdSettingKeys.ID]: _uuid(),
+          [AdSettingKeys.Type]: AdType.Fan
+        },
+        {
+          [AdSettingKeys.ID]: _uuid(),
+          [AdSettingKeys.Type]: AdType.Map
+        },
+        {
+          [AdSettingKeys.ID]: _uuid(),
+          [AdSettingKeys.Type]: AdType.Original,
+          [AdSettingKeys.ImageUrl]: mockManga,
+          [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
+          [AdSettingKeys.Button]: 'サンプルテキスト',
+          [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
+          [AdSettingKeys.EndAt]: '2020-02-20 19:00'
+        }
+      ]
+    }
+  ]
 }

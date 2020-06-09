@@ -25,13 +25,7 @@ export const getWorkListAjax = (params?: Object): Response<ListParams> => {
 }
 
 export const getWorkAjax = (workId: string): Response<WorkDetail> => {
-  authAjax.get(`${WORK_API_PATH}/${workId}`)
-  return from([
-    {
-      status: 200,
-      response: mockWork
-    }
-  ])
+  return authAjax.get(`${WORK_API_PATH}/${workId}`)
 }
 
 export const createWorkAjax = (work: WorkDetail): Response<WorkDetail> => {
@@ -45,7 +39,7 @@ export const createWorkAjax = (work: WorkDetail): Response<WorkDetail> => {
 }
 
 export const updateWorkAjax = (work: WorkDetail): Response<WorkDetail> => {
-  authAjax.put(`${WORK_API_PATH}/${work.id}`)
+  authAjax.put(`${WORK_API_PATH}/${work.id}`, work)
   return from([
     {
       status: 200,
@@ -81,8 +75,8 @@ export const uploadImageAjax = (payload: UploadImagePayload): Response<any> => {
 }
 
 export const notifyImageUploadedAjax = (payload: {
-  id: string
+  workId: string
   imageMeta: Partial<NotifyImageUpload>
 }): Response<any> => {
-  return authAjax.post(`${WORK_API_PATH}/${payload.id}/upload_finished`, payload.imageMeta)
+  return authAjax.post(`${WORK_API_PATH}/${payload.workId}/upload_finished`, payload.imageMeta)
 }
