@@ -27,7 +27,7 @@ const handler: Record<
   string,
   (state: SubscriptionProductState, action: ActionType<any>) => SubscriptionProductState
 > = {
-  [SubscriptionProductActionType.GET_PRODUCT_LIST_SUCCESS]: (
+  [SubscriptionProductActionType.GET_LIST_SUCCESS]: (
     state: SubscriptionProductState = initState,
     action: ActionType<ProductListParams>
   ): SubscriptionProductState => {
@@ -37,7 +37,10 @@ const handler: Record<
       subscriptionProductTotal: action.payload.total
     }
   },
-  [SubscriptionProductActionType.CREATE_PRODUCT_SUCCESS]: updateCurrentSubscriptionProductHandler
+  [SubscriptionProductActionType.CREATE_SUCCESS]: updateCurrentSubscriptionProductHandler,
+  [SubscriptionProductActionType.GET_PRODUCT_SUCCESS]: updateCurrentSubscriptionProductHandler,
+  [SubscriptionProductActionType.RESET_PRODUCT]: updateCurrentSubscriptionProductHandler,
+  [SubscriptionProductActionType.UPDATE_SUCCESS]: updateCurrentSubscriptionProductHandler
 }
 
 export default function subscriptionProductReducer(

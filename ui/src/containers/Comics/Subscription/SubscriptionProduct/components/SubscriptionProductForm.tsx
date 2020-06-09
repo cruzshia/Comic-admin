@@ -12,14 +12,16 @@ import messages from '../messages'
 interface Props {
   onSubmit: (data: SubscriptionProduct) => void
   formRef: React.RefObject<HTMLFormElement>
+  currentSubscriptionProduct?: SubscriptionProduct
 }
 
-export default function SubscriptionProductForm({ onSubmit, formRef }: Props) {
+export default function SubscriptionProductForm({ onSubmit, formRef, currentSubscriptionProduct }: Props) {
   const { formatMessage } = useIntl()
 
   return (
     <Form
       onSubmit={onSubmit}
+      initialValues={currentSubscriptionProduct}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit} ref={formRef}>
           <DataTable
