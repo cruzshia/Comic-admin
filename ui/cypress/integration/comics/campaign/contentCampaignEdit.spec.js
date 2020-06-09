@@ -47,14 +47,21 @@ context('Content Campaign Edit', () => {
       'have.text',
       `${this.tabs.comic}>${this.tabs.campaign.list}>キャンペーン詳細>${pageTitle}`
     )
+
     cy.findAllByTestId(this.testIds.breadcrumbLink)
       .should('have.length', 2)
-      .and($obj => {
-        expect($obj.eq(0)).have.attr('href', '#/comics/campaign')
-        expect($obj.eq(1))
-          .have.attr('href')
-          .and.match(new RegExp(`#/comics/campaign/detail/[\\w|\-]+`))
-      })
+      .first()
+      .click()
+      .url()
+      .should('include', '#/comics/campaign')
+    cy.go('back')
+
+    cy.findAllByTestId(this.testIds.breadcrumbLink)
+      .eq(1)
+      .click()
+      .url()
+      .should('match', new RegExp(`#/comics/campaign/detail/[\\w|\-]+`))
+    cy.go('back')
   })
 
   it('Shows correct content header button', function() {
