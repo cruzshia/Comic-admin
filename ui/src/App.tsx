@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Redirect, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -11,7 +11,6 @@ import ScrollTop from './components/scroll/ScrollTop'
 import AuthRoute from './components/AuthRoute'
 import GlobalDialog from './components/GlobalDialog'
 import Layout from './containers/Layout'
-import Home from './containers/Home'
 import Login from './containers/Login'
 import Comics from './containers/Comics'
 import Application from './containers/Application'
@@ -36,12 +35,11 @@ const App: React.FC = () => {
                 <GlobalStyle />
                 <GlobalDialog />
                 <Switch>
-                  <AuthRoute exact path={routePath.root} component={Home} />
                   <AuthRoute exact path={routePath.login} guestOnly component={Login} />
                   <AuthRoute path={routePath.comics.base} component={Comics} />
                   <AuthRoute path={routePath.application.base} component={Application} />
                   <AuthRoute path={routePath.user.base} component={User} />
-                  <Route render={() => 'page not found..'} />
+                  <Redirect to={routePath.comics.work} />
                 </Switch>
               </Layout>
             </div>

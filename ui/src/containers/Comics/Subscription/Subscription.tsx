@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { routePath } from '@src/common/appConfig'
 import SubscriptionCreation from './components/SubscriptionCreation'
@@ -66,6 +66,7 @@ export default function Subscription() {
           <Route exact path={routePath.comics.subscriptionDetail} component={SubscriptionDetail} />
           <Route exact path={routePath.comics.subscription} component={SubscriptionList} />
           <Route path={routePath.comics.subscriptionProduct} component={SubscriptionProduct} />
+          <Redirect to={routePath.comics.subscription} />
         </Switch>
       </SubscriptionContext.Provider>
     </ActionContext.Provider>

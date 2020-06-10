@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { routePath } from '@src/common/appConfig'
 import WorkList from './components/WorkList'
@@ -60,6 +60,7 @@ export default function Work() {
           <Route exact path={routePath.comics.workImportLogs} component={WorkImportLogs} />
           <Route exact path={routePath.comics.workImportCsv} component={WorkImportCsv} />
           <Route exact path={routePath.comics.work} component={WorkList} />
+          <Redirect to={routePath.comics.work} />
         </Switch>
       </WorkContext.Provider>
     </ActionContext.Provider>

@@ -1,6 +1,8 @@
 import { ajax } from 'rxjs/ajax'
 
-let hostUrl = '/api/console'
+const { REACT_APP_API_HOST = '' } = process.env
+const API_SUB_PATH = '/api/console'
+let hostUrl = REACT_APP_API_HOST + API_SUB_PATH
 let commonHeaders: { [key: string]: any } = {}
 
 const TOKEN_KEY = 'x-raise-api-token'
@@ -17,7 +19,7 @@ const authAjax = {
     ajax.patch(urlWithHost(url), body, { ...commonHeaders, ...headers })
 }
 
-export const setHostUrl = (url: string) => (hostUrl = url + '/api/console')
+export const setHostUrl = (url: string) => (hostUrl = url + API_SUB_PATH)
 export const setAuthHeader = (token: string) => (commonHeaders[TOKEN_KEY] = token)
 
 export const removeAuthHeader = () => {
