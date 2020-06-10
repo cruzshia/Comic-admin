@@ -31,5 +31,7 @@ enum ErrorCode {
 }
 
 export function toMockData(error: ErrorResponse, mockData: any): Observable<AnyAction> {
-  return error.response.type === ErrorCode.BadRequest && error.response.message === '' ? mockData : undefined
+  return !error.response || (error.response?.type === ErrorCode.BadRequest && error.response.message === '')
+    ? mockData
+    : undefined
 }

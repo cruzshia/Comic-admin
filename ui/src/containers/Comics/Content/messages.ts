@@ -87,6 +87,10 @@ export default defineMessages({
     id: PREFIX + 'magazine_banner_setting',
     defaultMessage: 'Magazine Banner Setting'
   },
+  magazineAddCondition: {
+    id: PREFIX + 'magazine_add_condition',
+    defaultMessage: 'Add Magazine Condition'
+  },
   displayCondition: {
     id: PREFIX + 'display_condition',
     defaultMessage: 'Display Condition'

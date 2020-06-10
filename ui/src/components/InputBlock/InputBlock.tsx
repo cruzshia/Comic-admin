@@ -8,6 +8,7 @@ import clsx from 'clsx'
 interface Prop {
   classnames?: string
   onDelete?: () => void
+  hideDnd?: boolean
 }
 
 const useStyle = makeStyles({
@@ -40,13 +41,13 @@ const useStyle = makeStyles({
   }
 })
 
-export default function InputBlock({ classnames, onDelete, children }: PropsWithChildren<Prop>) {
+export default function InputBlock({ classnames, onDelete, hideDnd, children }: PropsWithChildren<Prop>) {
   const classes = useStyle()
 
   return (
     <div className={clsx(classes.root, classnames)} data-testid='input-block'>
       <Grid container>
-        <img className={classes.menu} src={menuIcon} alt='menu' />
+        {!hideDnd && <img className={classes.menu} src={menuIcon} alt='menu' />}
         <CloseIcon className={classes.delete} onClick={onDelete} data-testid='del-ico' />
         {children}
       </Grid>

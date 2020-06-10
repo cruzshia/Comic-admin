@@ -22,6 +22,8 @@ const useStyle = makeStyles({
     maxWidth: 655
   },
   margin: {
+    maxWidth: 857,
+    paddingLeft: '30px',
     marginBottom: '20px'
   },
   button: {
@@ -51,7 +53,7 @@ export default function MagazineForm({ name }: Props) {
   return (
     <>
       {fields.map((name, index) => (
-        <InputBlock key={fields.value[index].id} classnames={classes.margin} onDelete={handleDelete(index)}>
+        <InputBlock key={fields.value[index].id} classnames={classes.margin} onDelete={handleDelete(index)} hideDnd>
           <Grid className={classes.rowContainer} container direction='row'>
             <InputRow title={formatMessage(messages.displayCondition)}>
               <Field name={`${name}.condition`} component={SelectAdapter} options={[]} />
@@ -75,7 +77,7 @@ export default function MagazineForm({ name }: Props) {
         classnames={classes.button}
         theme={Theme.DARK_BORDER}
         icon={AddIcon}
-        buttonText={formatMessage(comicMessages.addAds)}
+        buttonText={formatMessage(messages.magazineAddCondition)}
         onClick={handleAdd}
       />
     </>
