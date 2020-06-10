@@ -1,4 +1,4 @@
-import Author from '@src/models/comics/author'
+import AuthorDetail, { ListParam } from '@src/models/comics/author'
 
 export enum AuthorActionType {
   GET_LIST = '@ComicsAuthor/GET_LIST',
@@ -19,11 +19,12 @@ export enum AuthorActionType {
   UPDATE_ERROR = '@ComicsAuthor/UPDATE_ERROR'
 }
 
-export const getAuthorListAction = () => ({
-  type: AuthorActionType.GET_LIST
+export const getAuthorListAction = (payload?: ListParam) => ({
+  type: AuthorActionType.GET_LIST,
+  payload
 })
 
-export const getAuthorListSuccessAction = (payload: Author[]) => ({
+export const getAuthorListSuccessAction = (payload: { authors: AuthorDetail[]; total: number }) => ({
   type: AuthorActionType.GET_LIST_SUCCESS,
   payload
 })
@@ -33,7 +34,7 @@ export const getAuthorAction = (authorId: string) => ({
   payload: authorId
 })
 
-export const getAuthorSuccessAction = (author: Author) => ({
+export const getAuthorSuccessAction = (author: AuthorDetail) => ({
   type: AuthorActionType.GET_AUTHOR_SUCCESS,
   payload: author
 })
@@ -42,22 +43,22 @@ export const resetAuthorAction = () => ({
   type: AuthorActionType.RESET_AUTHOR
 })
 
-export const createAuthorAction = (author: Author) => ({
+export const createAuthorAction = (author: AuthorDetail) => ({
   type: AuthorActionType.CREATE,
   payload: author
 })
 
-export const createAuthorSuccessAction = (author: Author) => ({
+export const createAuthorSuccessAction = (author: AuthorDetail) => ({
   type: AuthorActionType.CREATE_SUCCESS,
   payload: author
 })
 
-export const updateAuthorAction = (author: Author) => ({
+export const updateAuthorAction = (author: AuthorDetail) => ({
   type: AuthorActionType.UPDATE,
   payload: author
 })
 
-export const updateAuthorSuccessAction = (author: Author) => ({
+export const updateAuthorSuccessAction = (author: AuthorDetail) => ({
   type: AuthorActionType.UPDATE_SUCCESS,
   payload: author
 })

@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext, useEffect } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
@@ -8,6 +8,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import commonMessages from '@src/messages'
 import usePaging from '@src/hooks/usePaging'
+import { AuthorKey, ListParam } from '@src/models/comics/author'
 import AuthorContext, { ActionContext } from '../context/AuthorContext'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS } from '../utils'
@@ -31,11 +32,12 @@ export default function AuthorList() {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const history = useHistory()
-  const { pagination, handlePageChange } = usePaging({ total: authorTotal })
+  const { pagination, handlePageChange, query } = usePaging({ total: authorTotal })
+  const [searchParam, setSearchParam] = useState<Partial<ListParam>>({})
 
   useEffect(() => {
-    onGetAuthorList()
-  }, [onGetAuthorList])
+    onGetAuthorList({ ...searchParam, ...query })
+  }, [onGetAuthorList, query, searchParam])
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
@@ -52,13 +54,15 @@ export default function AuthorList() {
     ],
     [formatMessage, history]
   )
-  const handleSearch = useCallback(() => {}, [])
+  const handleSearch = useCallback(({ nameId: keyword }) => {
+    setSearchParam({ keyword })
+  }, [])
 
   const theadList = useMemo(
     () => [
-      { id: 'createAt', label: formatMessage(commonMessages.createDateTime) },
-      { id: 'id', label: formatMessage(commonMessages.id) },
-      { id: 'name', label: formatMessage(commonMessages.authorName) },
+      { id: AuthorKey.CreateAt, label: formatMessage(commonMessages.createDateTime) },
+      { id: AuthorKey.Id, label: formatMessage(commonMessages.id) },
+      { id: AuthorKey.Name, label: formatMessage(commonMessages.authorName) },
       { id: 'spacer', label: '' }
     ],
     [formatMessage]

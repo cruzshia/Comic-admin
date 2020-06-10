@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import Author from '@src/models/comics/author'
+import Author, { ListParam } from '@src/models/comics/author'
 
 interface AuthorContext {
   authorList: any[]
@@ -13,7 +13,7 @@ export default createContext<AuthorContext>({
 })
 
 interface ActionContext {
-  onGetAuthorList: () => void
+  onGetAuthorList: (param?: ListParam) => void
   onGetAuthor: (authorId: string) => void
   onResetAuthor: () => void
   onCreateAuthor: (author: Author) => void

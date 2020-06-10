@@ -6,6 +6,7 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
+import { AuthorKey } from '@src/models/comics/author'
 import commonMessages from '@src/messages'
 import { routePath } from '@src/common/appConfig'
 import { BREADCRUMBS } from '../utils'
@@ -54,11 +55,11 @@ export default function AuthorDetail() {
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
-          toDataSet(formatMessage(commonMessages.id), currentAuthor.id),
-          toDataSet(formatMessage(commonMessages.authorName), currentAuthor.name),
-          toDataSet(formatMessage(commonMessages.authorNameKana), currentAuthor.nameKana),
-          toDataSet(formatMessage(commonMessages.createDateTime), currentAuthor.createAt),
-          toDataSet(formatMessage(commonMessages.updateDateTime), currentAuthor.updateAt)
+          toDataSet(formatMessage(commonMessages.id), currentAuthor[AuthorKey.Id]),
+          toDataSet(formatMessage(commonMessages.authorName), currentAuthor[AuthorKey.Name]),
+          toDataSet(formatMessage(commonMessages.authorNameKana), currentAuthor[AuthorKey.NameKana]),
+          toDataSet(formatMessage(commonMessages.createDateTime), currentAuthor[AuthorKey.CreateAt]),
+          toDataSet(formatMessage(commonMessages.updateDateTime), currentAuthor[AuthorKey.UpdateAt])
         ]}
       />
     </>

@@ -10,14 +10,15 @@ import {
   updateAuthorSuccessAction
 } from '@src/reducers/comics/author/authorActions'
 import * as authorServices from './authorServices'
+import { toDisplayableList } from './transform'
 import { emptyErrorReturn } from '../../utils'
 
 export const getAuthorListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(AuthorActionType.GET_LIST),
-    switchMap(() =>
-      authorServices.getAuthorListAjax().pipe(
-        map(res => getAuthorListSuccessAction(res.response)),
+    switchMap(action =>
+      authorServices.getAuthorListAjax(action.payload).pipe(
+        map(res => getAuthorListSuccessAction(toDisplayableList(res.response))),
         tap(() => successSubject.next({ type: AuthorActionType.GET_LIST_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: AuthorActionType.GET_LIST_ERROR })

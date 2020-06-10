@@ -21,7 +21,7 @@ export default function Author() {
   const dispatch = useDispatch()
   const { authorList, authorTotal, currentAuthor } = useSelector((state: StoreState) => state.author)
 
-  const handleGetAuthorList = useCallback(() => dispatch(getAuthorListAction()), [dispatch])
+  const handleGetAuthorList = useCallback(param => dispatch(getAuthorListAction(param)), [dispatch])
   const handleResetAuthor = useCallback(() => dispatch(resetAuthorAction()), [dispatch])
   const handleGetAuthor = useCallback((authorId: string) => dispatch(getAuthorAction(authorId)), [dispatch])
   const handleCreateAuthor = useCallback((author: AuthorModel) => dispatch(createAuthorAction(author)), [dispatch])
