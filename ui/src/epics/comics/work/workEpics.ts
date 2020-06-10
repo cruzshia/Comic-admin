@@ -14,20 +14,20 @@ import {
   notifyImgUploadedAction
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
-import { toEditableModel, imgUploadActions, toRequestWork } from './transform'
+import { toEditableModel, imgUploadActions, toRequestWork, formatListTime } from './transform'
 import { emptyErrorReturn, ErrorResponse, toMockData } from '../../utils'
-import { mockWork } from './mockData/mockWork'
+import mockListData from './mockData/mockWorkList'
 
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(WorkActionType.GET_LIST),
     switchMap(action =>
       workServices.getWorkListAjax(action.payload).pipe(
-        map(res => getWorkListSuccessAction(res.response)),
+        map(res => getWorkListSuccessAction(formatListTime(res.response))),
         tap(() => successSubject.next({ type: WorkActionType.GET_LIST_SUCCESS })),
-        catchError(() => {
+        catchError(error => {
           errorSubject.next({ type: WorkActionType.GET_LIST_ERROR })
-          return emptyErrorReturn()
+          return toMockData(error, of(getWorkListSuccessAction(formatListTime(mockListData)))) || emptyErrorReturn()
         })
       )
     )
@@ -40,9 +40,9 @@ export const getWorkEpic = (action$: ActionsObservable<AnyAction>) =>
       workServices.getWorkAjax(action.payload).pipe(
         map(res => getWorkSuccessAction(toEditableModel(res.response))),
         tap(() => successSubject.next({ type: WorkActionType.GET_WORK_SUCCESS })),
-        catchError(error => {
+        catchError(() => {
           errorSubject.next({ type: WorkActionType.GET_WORK_ERROR })
-          return toMockData(error, of(getWorkSuccessAction(toEditableModel(mockWork)))) || emptyErrorReturn()
+          return emptyErrorReturn()
         })
       )
     )

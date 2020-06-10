@@ -37,7 +37,7 @@ const handler: Record<string, (state: WorkState, action: ActionType<any>) => Wor
     return {
       ...state,
       workList: action.payload.works,
-      workTotal: action.payload.total
+      workTotal: action.payload.total_count
     }
   },
   [WorkActionType.UPDATE_SUCCESS]: updateCurrentWorkHandler,

@@ -10,7 +10,6 @@ import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import { WorkKeys, WorkSearchKeys } from '@src/models/comics/work'
-import Paging from '@src/models/paging'
 import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
 import SearchBlock from './SearchBlock'
@@ -38,7 +37,7 @@ export default function WorkList() {
   const { onGetWorkList } = useContext(ActionContext)
   const { workList, workTotal } = useContext(WorkContext)
   const { page, pagination, handlePageChange, query } = usePaging({ total: workTotal })
-  const [search, setSearch] = useState<Partial<SearchParam & Paging>>({})
+  const [search, setSearch] = useState<Partial<SearchParam>>({})
 
   useEffect(() => {
     onGetWorkList({ ...query, ...convertDateFormat(search) })

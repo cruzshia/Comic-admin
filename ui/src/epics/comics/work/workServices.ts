@@ -5,23 +5,13 @@ import { ListParams, UploadImagePayload, NotifyImageUpload } from '@src/reducers
 import ImportLog from '@src/models/importLog'
 import { objToQueryStr } from '@src/utils/functions'
 import { Response } from '../../utils'
-import { mockListData } from './mockData/mockData'
 import { mockWork } from './mockData/mockWork'
 import { mockLogList } from './mockData/mockImportLogs'
 
 const WORK_API_PATH = '/v1/works'
 
 export const getWorkListAjax = (params?: Object): Response<ListParams> => {
-  authAjax.get(WORK_API_PATH + (params ? '?' + objToQueryStr(params) : ''))
-  return from([
-    {
-      status: 200,
-      response: {
-        total: mockListData.length,
-        works: mockListData
-      }
-    }
-  ])
+  return authAjax.get(WORK_API_PATH + (params ? '?' + objToQueryStr(params) : ''))
 }
 
 export const getWorkAjax = (workId: string): Response<WorkDetail> => {

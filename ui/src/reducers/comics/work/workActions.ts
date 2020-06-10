@@ -43,7 +43,7 @@ export const getWorkListAction = (searchParams?: Object) => ({
 })
 
 export interface ListParams {
-  total: number
+  total_count: number
   works: Work[]
 }
 export const getWorkListSuccessAction = (payload: ListParams) => ({
