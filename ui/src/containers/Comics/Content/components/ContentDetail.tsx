@@ -9,6 +9,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import { routePath, ANCHOR_QUERY } from '@src/common/appConfig'
 import { hyperlinkColor, borderColorLight } from '@src/common/styles'
+import { WorkType } from '@src/models/comics/work'
 import { _range } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import AdSettingTable from '../../components/AdSettingTable'
@@ -70,6 +71,9 @@ export default function ContentDetail() {
   )
 
   if (!currentContent.id) return null
+  const isEpisode = currentContent.category === WorkType.Episode
+  const isMagazine = currentContent.category === WorkType.Magazine
+
   return (
     <>
       <StickyHeader title={titleText} button={buttonList} />
@@ -112,54 +116,64 @@ export default function ContentDetail() {
         dataSet={[
           toDataSet(formatMessage(commonMessages.deliveryStartDateTime), currentContent.deliverStart),
           toDataSet(formatMessage(commonMessages.deliveryEndDateTime), currentContent.deliverEnd),
-          toDataSet(formatMessage(messages.paidCoinStartTime), currentContent.paidCoinDeliverStart),
-          toDataSet(formatMessage(messages.paidCoinEndTime), currentContent.paidCoinDeliverEnd)
+          ...(isEpisode
+            ? [
+                toDataSet(formatMessage(messages.paidCoinStartTime), currentContent.paidCoinDeliverStart),
+                toDataSet(formatMessage(messages.paidCoinEndTime), currentContent.paidCoinDeliverEnd)
+              ]
+            : [])
         ]}
         marginBottom
       />
-      <DataTable
-        onEdit={handleRedirect(ContentAnchor.FreePPV)}
-        title={formatMessage(messages.freePPVDuration)}
-        dataSet={[
-          toDataSet(formatMessage(messages.freePPVStart, { num: 1 }), currentContent.freePPVStart1),
-          toDataSet(formatMessage(messages.freePPVEnd, { num: 1 }), currentContent.freePPVEnd1),
-          toDataSet(formatMessage(messages.freePPVStart, { num: 2 }), currentContent.freePPVStart2),
-          toDataSet(formatMessage(messages.freePPVEnd, { num: 2 }), currentContent.freePPVEnd2)
-        ]}
-        marginBottom
-      />
-      <AdSettingTable data={currentContent.advertisement} onEdit={handleRedirect(ContentAnchor.AdSetting)} />
-      <DataTable
-        onEdit={handleRedirect(ContentAnchor.Magazine)}
-        title={formatMessage(messages.magazineBannerSetting)}
-        dataSet={[
-          {
-            label: '',
-            content: currentContent.magazineBanner.deviceCategory,
-            isSubTitle: true
-          },
-          ..._range(0, MAGAZINE_BANNER_NUM).map(num =>
-            toDataSet(
-              `${formatMessage(messages.magazineBannerSetting)}${num + 1}`,
-              currentContent.magazineBanner.contents[num].map((setting: any, idx: number) => (
-                <DataTable
-                  key={`mag${num}-setting${idx}`}
-                  tableClass={idx > 0 ? classes.overlapTable : ''}
-                  dataSet={[
-                    toDataSet(formatMessage(messages.displayCondition), setting.condition),
-                    toDataSet(
-                      formatMessage(commonMessages.photo),
-                      setting.image ? <img src={setting.image} alt={`setting${idx}`} /> : ''
-                    ),
-                    toDataSet(formatMessage(messages.transitionUrl), setting.url)
-                  ]}
-                  innerTable
-                />
-              ))
+      {isEpisode && (
+        <>
+          <DataTable
+            onEdit={handleRedirect(ContentAnchor.FreePPV)}
+            title={formatMessage(messages.freePPVDuration)}
+            dataSet={[
+              toDataSet(formatMessage(messages.freePPVStart, { num: 1 }), currentContent.freePPVStart1),
+              toDataSet(formatMessage(messages.freePPVEnd, { num: 1 }), currentContent.freePPVEnd1),
+              toDataSet(formatMessage(messages.freePPVStart, { num: 2 }), currentContent.freePPVStart2),
+              toDataSet(formatMessage(messages.freePPVEnd, { num: 2 }), currentContent.freePPVEnd2)
+            ]}
+            marginBottom
+          />
+          <AdSettingTable data={currentContent.advertisement} onEdit={handleRedirect(ContentAnchor.AdSetting)} />
+        </>
+      )}
+      {isMagazine && (
+        <DataTable
+          onEdit={handleRedirect(ContentAnchor.Magazine)}
+          title={formatMessage(messages.magazineBannerSetting)}
+          dataSet={[
+            {
+              label: '',
+              content: currentContent.magazineBanner.deviceCategory,
+              isSubTitle: true
+            },
+            ..._range(0, MAGAZINE_BANNER_NUM).map(num =>
+              toDataSet(
+                `${formatMessage(messages.magazineBannerSetting)}${num + 1}`,
+                currentContent.magazineBanner.contents[num].map((setting: any, idx: number) => (
+                  <DataTable
+                    key={`mag${num}-setting${idx}`}
+                    tableClass={idx > 0 ? classes.overlapTable : ''}
+                    dataSet={[
+                      toDataSet(formatMessage(messages.displayCondition), setting.condition),
+                      toDataSet(
+                        formatMessage(commonMessages.photo),
+                        setting.image ? <img src={setting.image} alt={`setting${idx}`} /> : ''
+                      ),
+                      toDataSet(formatMessage(messages.transitionUrl), setting.url)
+                    ]}
+                    innerTable
+                  />
+                ))
+              )
             )
-          )
-        ]}
-      />
+          ]}
+        />
+      )}
     </>
   )
 }

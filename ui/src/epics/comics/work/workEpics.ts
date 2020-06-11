@@ -24,7 +24,6 @@ export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
     switchMap(action =>
       workServices.getWorkListAjax(action.payload).pipe(
         map(res => getWorkListSuccessAction(formatListTime(res.response))),
-        tap(() => successSubject.next({ type: WorkActionType.GET_LIST_SUCCESS })),
         catchError(error => {
           errorSubject.next({ type: WorkActionType.GET_LIST_ERROR })
           return toMockData(error, of(getWorkListSuccessAction(formatListTime(mockListData)))) || emptyErrorReturn()

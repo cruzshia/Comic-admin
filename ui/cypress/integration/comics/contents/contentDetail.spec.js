@@ -169,6 +169,7 @@ context('Content Detail Page ', () => {
             expect($item.find(LABEL_SELECTOR)).have.text('配信終了日時')
             expect($item.find(`${CONTENT_SELECTOR}`)).be.not.empty
           })
+        /*
           .next()
           .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('有償コインのみ開始日時')
@@ -179,8 +180,10 @@ context('Content Detail Page ', () => {
             expect($item.find(LABEL_SELECTOR)).have.text('有償コインのみ終了日時')
             expect($item.find(`${CONTENT_SELECTOR}`)).be.not.empty
           })
+          */
       })
 
+    /*
     cy.get('@dataTable')
       .eq(2)
       .within(function() {
@@ -282,5 +285,6 @@ context('Content Detail Page ', () => {
             cy.wrap($item).within(magazineAssertion)
           })
       })
+      */
   })
 })

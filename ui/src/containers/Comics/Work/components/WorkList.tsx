@@ -9,6 +9,7 @@ import { ReactComponent as IconDownload } from '@src/assets/common/download.svg'
 import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
+import greyImg from '@src/assets/greyImg.png'
 import { WorkKeys, WorkSearchKeys } from '@src/models/comics/work'
 import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
@@ -79,7 +80,7 @@ export default function WorkList() {
 
   const workDataList = workList.map(({ images, ...item }) => ({
     ...item,
-    [WorkKeys.Images]: images ? <img src={images?.image1.url as string} alt='work-img' /> : '',
+    [WorkKeys.Images]: images ? <img src={(images?.image1?.url as string) || greyImg} alt='work-img' /> : '',
     [WorkKeys.WorkType]: formatMessage(messages[item[WorkKeys.WorkType]]),
     [WorkKeys.EpisodeWorkType]: item[WorkKeys.EpisodeWorkType]
       ? formatMessage(messages[item[WorkKeys.EpisodeWorkType]!])

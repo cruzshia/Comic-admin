@@ -13,7 +13,7 @@ import { WorkKeys, WorkType, EpisodeWorkType } from '@src/models/comics/work'
 import AuthorEditForm from '../../components/AuthorEditForm'
 import AdSettingForm from '../../components/AdSettingForm'
 import { validateWork } from '../utils'
-import { useComicsRef, daysOfWeekOptions, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
+import { useComicsRef, workTypes, daysOfWeekOptions, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
 import commonMessages from '@src/messages'
 import comicsMessages from '../../messages'
 import messages from '../messages'
@@ -47,9 +47,9 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
 
   const workTypeOptions = useMemo(
     () =>
-      Object.values(WorkType).map(type => ({
-        label: formatMessage(messages[type]),
-        value: type
+      workTypes.map(({ label, value }) => ({
+        label: formatMessage(label),
+        value
       })),
     [formatMessage]
   )

@@ -169,6 +169,7 @@ context('Content Edit page', () => {
               $item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)
             ).to.be.exist.and.have.timePlaceholder()
           })
+        /*
           .next()
           .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('有償コインのみ開始日時')
@@ -183,8 +184,10 @@ context('Content Edit page', () => {
               $item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)
             ).to.be.exist.and.have.timePlaceholder()
           })
+          */
       })
 
+    /*
     cy.get('@dataTable')
       .eq(2)
       .within(function() {
@@ -259,5 +262,6 @@ context('Content Edit page', () => {
             expect($item.find(LABEL_SELECTOR)).have.text('雑誌バナー設定3')
           })
       })
+      */
   })
 })

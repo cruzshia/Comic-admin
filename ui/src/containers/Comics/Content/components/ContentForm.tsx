@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
@@ -8,14 +8,17 @@ import {
   TextAreaAdapter,
   DropZoneAdapter,
   SearchInputAdapter,
-  CheckboxInputAdapter
+  CheckboxInputAdapter,
+  Condition
 } from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import Content from '@src/models/comics/content'
 import { emptyContent } from '@src/reducers/comics/content/contentReducer'
 import { _range } from '@src/utils/functions'
+import { WorkType } from '@src/models/comics/work'
 import StartEndGroupForm from './StartEndGroupForm'
+import { workTypes } from '../../utils'
 import commonMessages from '@src/messages'
 import AdSettingForm from '../../components/AdSettingForm'
 import comicMessages from '../../messages'
@@ -50,15 +53,24 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
     [ContentAnchor.Magazine]: magazineRef
   }
 
+  const workTypeOptions = useMemo(
+    () =>
+      workTypes.map(({ label, value }) => ({
+        label: formatMessage(label),
+        value
+      })),
+    [formatMessage]
+  )
+
   return (
     <>
       <ScrollTo anchorRef={allAnchors} />
       <Form
         onSubmit={onFormSubmit}
         mutators={{ ...arrayMutators }}
-        subscription={{ pristine: true }}
+        subscription={{ pristine: true, values: true }}
         initialValues={content || emptyContent}
-        render={({ handleSubmit, form }) => (
+        render={({ handleSubmit, values }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
@@ -71,7 +83,7 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
                 toDataSet(formatMessage(messages.titleKana), <Field name='titleKana' component={TextInputAdapter} />),
                 toDataSet(
                   formatMessage(messages.category),
-                  <Field name='category' component={SelectAdapter} options={[]} isShort />
+                  <Field name='category' component={SelectAdapter} options={workTypeOptions} isShort />
                 ),
                 toDataSet(
                   formatMessage(commonMessages.introduction),
@@ -120,45 +132,49 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
               endLabel1={formatMessage(commonMessages.deliveryEndDateTime)}
               endName1='deliverEnd'
               startLabel2={formatMessage(messages.paidCoinStartTime)}
-              startName2='paidCoinDeliverStart'
+              startName2={values.category === WorkType.Episode ? 'paidCoinDeliverStart' : undefined}
               endLabel2={formatMessage(messages.paidCoinEndTime)}
               endName2='paidCoinDeliverEnd'
             />
-            <StartEndGroupForm
-              innerRef={freePPVRef}
-              title={formatMessage(messages.freePPVDuration)}
-              startLabel1={formatMessage(messages.freePPVStart, { num: 1 })}
-              startName1='freePPVStart1'
-              endLabel1={formatMessage(messages.freePPVEnd, { num: 1 })}
-              endName1='freePPVEnd1'
-              startLabel2={formatMessage(messages.freePPVStart, { num: 2 })}
-              startName2='freePPVStart2'
-              endLabel2={formatMessage(messages.freePPVEnd, { num: 2 })}
-              endName2='freePPVEnd2'
-            />
-            <AdSettingForm marginBottom />
-            <DataTable
-              innerRef={magazineRef}
-              title={formatMessage(messages.magazineBannerSetting)}
-              dataSet={[
-                toDataSet(
-                  formatMessage(comicMessages.deviceCategory),
-                  <Field
-                    name='advertisement.deviceCategory'
-                    component={SelectAdapter}
-                    placeholder={formatMessage(commonMessages.common)}
-                    options={[]}
-                    isShort
-                  />
-                ),
-                ..._range(0, MAGAZINE_BANNER_NUM).map(num =>
+            <Condition when='category' is={WorkType.Episode}>
+              <StartEndGroupForm
+                innerRef={freePPVRef}
+                title={formatMessage(messages.freePPVDuration)}
+                startLabel1={formatMessage(messages.freePPVStart, { num: 1 })}
+                startName1='freePPVStart1'
+                endLabel1={formatMessage(messages.freePPVEnd, { num: 1 })}
+                endName1='freePPVEnd1'
+                startLabel2={formatMessage(messages.freePPVStart, { num: 2 })}
+                startName2='freePPVStart2'
+                endLabel2={formatMessage(messages.freePPVEnd, { num: 2 })}
+                endName2='freePPVEnd2'
+              />
+              <AdSettingForm marginBottom />
+            </Condition>
+            <Condition when='category' is={WorkType.Magazine}>
+              <DataTable
+                innerRef={magazineRef}
+                title={formatMessage(messages.magazineBannerSetting)}
+                dataSet={[
                   toDataSet(
-                    `${formatMessage(messages.magazineBannerSetting)}${num + 1}`,
-                    <MagazineForm name={`magazineBanner.contents[${num}]`} />
+                    formatMessage(comicMessages.deviceCategory),
+                    <Field
+                      name='advertisement.deviceCategory'
+                      component={SelectAdapter}
+                      placeholder={formatMessage(commonMessages.common)}
+                      options={[]}
+                      isShort
+                    />
+                  ),
+                  ..._range(0, MAGAZINE_BANNER_NUM).map(num =>
+                    toDataSet(
+                      `${formatMessage(messages.magazineBannerSetting)}${num + 1}`,
+                      <MagazineForm name={`magazineBanner.contents[${num}]`} />
+                    )
                   )
-                )
-              ]}
-            />
+                ]}
+              />
+            </Condition>
           </form>
         )}
       ></Form>

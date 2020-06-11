@@ -10,11 +10,11 @@ interface Prop {
   startLabel1: string
   startName1: string
   startLabel2: string
-  startName2: string
+  startName2?: string
   endLabel1: string
   endName1: string
   endLabel2: string
-  endName2: string
+  endName2?: string
 }
 
 export default function StartEndGroupForm({
@@ -42,11 +42,18 @@ export default function StartEndGroupForm({
           endLabel1,
           <Field name={endName1} component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
         ),
-        toDataSet(
-          startLabel2,
-          <Field name={startName2} component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
-        ),
-        toDataSet(endLabel2, <Field name={endName2} component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />)
+        ...(startName2 && endName2
+          ? [
+              toDataSet(
+                startLabel2,
+                <Field name={startName2} component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+              ),
+              toDataSet(
+                endLabel2,
+                <Field name={endName2} component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+              )
+            ]
+          : [])
       ]}
       marginBottom
     />

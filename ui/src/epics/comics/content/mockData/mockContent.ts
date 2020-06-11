@@ -9,7 +9,7 @@ export const mockContent = {
   id: 'WORK_SHUNKAN10000006',
   title: 'ドラゴンクエスト ダイの大冒険',
   titleKana: 'ドラゴンクエストダイノダイボウケン',
-  category: '連載',
+  category: 'episode',
   description:
     '【２０２０年 秋アニメ化決定！】モンスターに育てられた、勇者に憧れる少年・ダイ。師や仲間とともに、世界を救う冒険が今始まる——！',
   authors: ['稲田浩司'],
