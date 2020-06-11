@@ -1,8 +1,8 @@
 import { createContext } from 'react'
-import { CoinProduct } from '@src/models/application/coinProduct'
+import { CoinProduct, CoinProductDetail } from '@src/models/application/coinProduct'
 
 interface CoinProductContext {
-  productList: any[]
+  productList: CoinProductDetail[]
   currentProduct?: any
   productTotal: number
 }
@@ -12,7 +12,7 @@ export default createContext<CoinProductContext>({
   productTotal: 0
 })
 interface CoinProductActionContext {
-  onGetCoinProductList: () => void
+  onGetCoinProductList: (params?: Object) => void
   onGetCoinProduct: (_: string) => void
   onCreateCoinProduct: (_: CoinProduct) => void
   onUpdateCoinProduct: (_: CoinProduct) => void

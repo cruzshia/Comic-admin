@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl'
+import { CoinProductStatusType } from '@src/models/application/coinProduct'
 
 const PREFIX = 'application.coin_product.'
 export default defineMessages({
@@ -37,5 +38,13 @@ export default defineMessages({
   givenCoin: {
     id: PREFIX + 'given_coin',
     defaultMessage: 'Given Coin'
+  },
+  [CoinProductStatusType.Active]: {
+    id: PREFIX + 'status_active',
+    defaultMessage: 'Active Status'
+  },
+  [CoinProductStatusType.Inactive]: {
+    id: PREFIX + 'status_inactive',
+    defaultMessage: 'Inactive Status'
   }
 })

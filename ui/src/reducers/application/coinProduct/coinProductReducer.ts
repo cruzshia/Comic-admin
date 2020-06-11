@@ -1,9 +1,9 @@
-import { CoinProduct } from '@src/models/application/coinProduct'
-import { CoinProductActionType } from './coinProductActions'
+import { CoinProduct, CoinProductDetail } from '@src/models/application/coinProduct'
+import { CoinProductActionType, ListParams } from './coinProductActions'
 import { ActionType } from '../../types'
 
 export interface CoinProductState {
-  productList: CoinProduct[]
+  productList: CoinProductDetail[]
   productTotal: number
   currentProduct?: CoinProduct
 }
@@ -26,13 +26,13 @@ const updateCurrentProductHandler = (state: CoinProductState, action: ActionType
 
 const handler: Record<string, (state: CoinProductState, action: ActionType<any>) => CoinProductState> = {
   [CoinProductActionType.GET_LIST_SUCCESS]: (
-    state: CoinProductState,
-    action: ActionType<CoinProduct[]>
+    state: CoinProductState = initState,
+    action: ActionType<ListParams>
   ): CoinProductState => {
     return {
       ...state,
-      productList: action.payload,
-      productTotal: action.payload.length
+      productList: action.payload.coin_products,
+      productTotal: action.payload.total_count
     }
   },
   [CoinProductActionType.RESET_CURRENT]: (state: CoinProductState): CoinProductState => {

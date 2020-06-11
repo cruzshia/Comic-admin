@@ -1,3 +1,4 @@
+import { CoinProductKeys, CoinProductStatusType } from '@src/models/application/coinProduct'
 import { _range } from '@src/utils/functions'
 
 export const mockCoinProductDetail = {
@@ -13,11 +14,14 @@ export const mockCoinProductDetail = {
 }
 
 export const mockCoinProductList = _range(0, 7).map(num => ({
-  createdAt: `2020-04-02 14:0${num}`,
-  releaseStartTime: `2020-04-02 14:0${num}`,
-  productId: `WORK_SHUNKAN1000000${num}`,
-  applicationId: 'WORK_SHUNKAN10000006',
-  paidCoin: 100 + num,
-  givenCoin: 100 - num,
-  status: 'アクティブ'
+  [CoinProductKeys.Id]: `WORK_SHUNKAN10000006${num}`,
+  [CoinProductKeys.ProductIdToken]: `WORK_SHUNKAN10000006${num}`,
+  [CoinProductKeys.AppId]: `WORK_SHUNKAN10000006${num}`,
+  [CoinProductKeys.PayCoin]: 100 + num,
+  [CoinProductKeys.PayBonusCoin]: 100 - num,
+  [CoinProductKeys.Status]: CoinProductStatusType.Active,
+  [CoinProductKeys.PublishBeginAt]: `2020-04-02 14:0${num}:00Z`,
+  [CoinProductKeys.PublishEndAt]: `2020-04-02 14:0${num}:00Z`,
+  [CoinProductKeys.InsertedAt]: `2020-04-02 14:0${num}:00Z`,
+  [CoinProductKeys.UpdatedAt]: `2020-04-02 14:00${num}:00Z`
 }))

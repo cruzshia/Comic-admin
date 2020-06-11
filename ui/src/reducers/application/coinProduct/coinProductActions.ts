@@ -1,4 +1,4 @@
-import { CoinProduct } from '@src/models/application/coinProduct'
+import { CoinProduct, CoinProductDetail } from '@src/models/application/coinProduct'
 
 export enum CoinProductActionType {
   GET_LIST = '@AppCoinProduct/GET_LIST',
@@ -24,7 +24,12 @@ export const getCoinProductListAction = () => ({
   type: CoinProductActionType.GET_LIST
 })
 
-export const getCoinProductListSuccessAction = (payload: CoinProduct[]) => ({
+export interface ListParams {
+  coin_products: CoinProductDetail[]
+  total_count: number
+}
+
+export const getCoinProductListSuccessAction = (payload: ListParams) => ({
   type: CoinProductActionType.GET_LIST_SUCCESS,
   payload
 })

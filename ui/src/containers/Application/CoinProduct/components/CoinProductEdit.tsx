@@ -10,7 +10,7 @@ import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { submitForm } from '@src/utils/validation'
 import CoinProductForm from './CoinProductForm'
 import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 

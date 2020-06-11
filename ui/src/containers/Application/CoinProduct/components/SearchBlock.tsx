@@ -4,37 +4,54 @@ import { useIntl } from 'react-intl'
 import SearchFilter from '@src/components/SearchFilter'
 import commonMessages from '@src/messages'
 import { SelectAdapter, TextInputAdapter, SearchInputAdapter } from '@src/components/finalForm'
+import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
+import { CoinProductStatusType, CoinProductSearchKeys, SearchParam } from '@src/models/application/coinProduct'
 import messages from '../messages'
 import applicationMessages from '../../messages'
-import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
-
+import { searchParamsValidator } from '../utils'
 interface Props {
-  onSubmit: (data: any) => void
+  onSubmit: (data: Partial<SearchParam>) => void
   formRef?: React.RefObject<HTMLFormElement>
 }
 
 export default function SearchBlock({ onSubmit, formRef }: Props) {
   const { formatMessage } = useIntl()
+
+  const typeOptions = useMemo(
+    () =>
+      Object.values(CoinProductStatusType).map(type => ({
+        label: formatMessage(messages[type]),
+        value: type
+      })),
+    [formatMessage]
+  )
+
   const conditions = useMemo(
     () => ({
       left: [
         {
           label: formatMessage(messages.productId),
-          input: <Field name='productId' component={SearchInputAdapter} />
+          input: <Field name={CoinProductSearchKeys.ProductIdToken} component={SearchInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.publicStartTime),
-          input: <Field name='deliveryStartTime' component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+          input: (
+            <Field
+              name={CoinProductSearchKeys.PublishBeginAt}
+              component={TextInputAdapter}
+              placeholder={DATE_TIME_PLACEHOLDER}
+            />
+          )
         }
       ],
       right: [
         {
           label: formatMessage(applicationMessages.status),
-          input: <Field name='status' component={SelectAdapter} options={[]} isShort />
+          input: <Field name={CoinProductSearchKeys.Status} component={SelectAdapter} options={typeOptions} isShort />
         }
       ]
     }),
-    [formatMessage]
+    [formatMessage, typeOptions]
   )
-  return <SearchFilter onSubmit={onSubmit} formRef={formRef} conditions={conditions} />
+  return <SearchFilter onSubmit={onSubmit} formRef={formRef} conditions={conditions} validate={searchParamsValidator} />
 }

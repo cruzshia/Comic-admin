@@ -47,6 +47,8 @@
   "application.coin_product.list": " Coin Product List",
   "application.coin_product.paid_coin": "Paid Coin",
   "application.coin_product.product_id": "Product ID",
+  "application.coin_product.status_active": "Active Status",
+  "application.coin_product.status_inactive": "Inactive Status",
   "application.display_setting": "Application Display Setting",
   "application.display_setting.batch": "Batch",
   "application.display_setting.create": "Create application setting",

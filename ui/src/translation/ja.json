@@ -47,6 +47,8 @@
   "application.coin_product.list": "コインプロダクト一覧",
   "application.coin_product.paid_coin": "有償コイン",
   "application.coin_product.product_id": "プロダクトID",
+  "application.coin_product.status_active": "有効",
+  "application.coin_product.status_inactive": "無効",
   "application.display_setting": "アプリ画面設定管理",
   "application.display_setting.batch": "一括",
   "application.display_setting.create": "アプリ画面を登録",

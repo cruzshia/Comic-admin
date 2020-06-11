@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext, useEffect } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
@@ -9,13 +9,15 @@ import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import usePaging from '@src/hooks/usePaging'
 import useSort from '@src/hooks/useSort'
-import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
-import { BREADCRUMBS } from '../constants'
+import { CoinProductKeys, SearchParam } from '@src/models/application/coinProduct'
 import commonMessages from '@src/messages'
 import userMessages from '@src/containers/User/List/messages'
+import Paging from '@src/models/paging'
+import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
+import { BREADCRUMBS } from '../utils'
+import SearchBlock from './SearchBlock'
 import messages from '../messages'
 import applicationMessages from '../../messages'
-import SearchBlock from './SearchBlock'
 
 const useStyle = makeStyles({
   table: {
@@ -36,15 +38,17 @@ export default function CoinProductList() {
   const { formatMessage } = useIntl()
   const classes = useStyle()
   const { sortBy, handleSort } = useSort('createdAt')
-  const { pagination, handlePageChange } = usePaging({ total: productTotal })
+  const { pagination, handlePageChange, query } = usePaging({ total: productTotal })
+  const [search, setSearch] = useState<Partial<SearchParam & Paging>>({})
 
   useEffect(() => {
-    onGetCoinProductList()
-  }, [onGetCoinProductList])
+    onGetCoinProductList({ ...query, ...search, sortBy: sortBy.key, orderBy: sortBy.order })
+  }, [onGetCoinProductList, query, search, sortBy])
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
   ])
+
   const buttonList = useMemo(
     () => [
       <Button
@@ -58,26 +62,36 @@ export default function CoinProductList() {
     ],
     [formatMessage, history]
   )
-  const handleSearch = useCallback(data => console.log(data), [])
+
+  const handleSearch = useCallback(
+    (searchParams: Partial<SearchParam>) => {
+      handlePageChange(null, 1)
+      setSearch(searchParams)
+    },
+    [setSearch, handlePageChange]
+  )
 
   const theadList = useMemo(
     () => [
-      { id: 'createdAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
-      { id: 'releaseStartTime', label: formatMessage(commonMessages.publicStartTime), onSort: handleSort },
-      { id: 'productId', label: formatMessage(messages.productId) },
-      { id: 'applicationId', label: formatMessage(commonMessages.appId) },
-      { id: 'paidCoin', label: formatMessage(userMessages.paidCoins) },
-      { id: 'givenCoin', label: formatMessage(userMessages.paidBonusCoins) },
-      { id: 'status', label: formatMessage(applicationMessages.status) }
+      { id: CoinProductKeys.InsertedAt, label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
+      {
+        id: CoinProductKeys.PublishBeginAt,
+        label: formatMessage(commonMessages.publicStartTime),
+        onSort: handleSort
+      },
+      { id: CoinProductKeys.Id, label: formatMessage(messages.productId) },
+      { id: CoinProductKeys.AppId, label: formatMessage(commonMessages.appId) },
+      { id: CoinProductKeys.PayCoin, label: formatMessage(userMessages.paidCoins) },
+      { id: CoinProductKeys.PayBonusCoin, label: formatMessage(userMessages.paidBonusCoins) },
+      { id: CoinProductKeys.Status, label: formatMessage(applicationMessages.status) }
     ],
     [formatMessage, handleSort]
   )
 
-  const dataList = productList.sort((a: any, b: any) =>
-    typeof a[sortBy.key] === 'string'
-      ? a[sortBy.key].localeCompare(b[sortBy.key]) * sortBy.multiplier
-      : (a[sortBy.key] - b[sortBy.key]) * sortBy.multiplier
-  )
+  const dataList = productList.map(({ status, ...data }) => ({
+    ...data,
+    [CoinProductKeys.Status]: formatMessage(messages[status])
+  }))
 
   return (
     <>
@@ -87,7 +101,6 @@ export default function CoinProductList() {
         tableClass={classes.table}
         theadList={theadList}
         dataList={dataList}
-        rowIdKey='productId'
         pagination={pagination}
         onPageChange={handlePageChange}
         sortBy={sortBy.key}

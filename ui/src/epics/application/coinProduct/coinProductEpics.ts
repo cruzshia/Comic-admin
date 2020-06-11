@@ -11,13 +11,14 @@ import {
 } from '@src/reducers/application/coinProduct/coinProductActions'
 import * as coinProductServices from './coinProductServices'
 import { emptyErrorReturn } from '@src/epics/utils'
+import { toListModel } from './transform'
 
 export const getCoinProductListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(CoinProductActionType.GET_LIST),
     switchMap(() =>
       coinProductServices.getCoinProductListAjax().pipe(
-        map(res => getCoinProductListSuccessAction(res.response)),
+        map(res => getCoinProductListSuccessAction(toListModel(res.response))),
         tap(() => successSubject.next({ type: CoinProductActionType.GET_LIST_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: CoinProductActionType.GET_LIST_ERROR })
