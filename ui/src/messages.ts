@@ -131,10 +131,6 @@ export default defineMessages({
     id: PREFIX + 'not_approved',
     defaultMessage: 'Not Approved'
   },
-  deviceCategory: {
-    id: PREFIX + 'device_category',
-    defaultMessage: 'Device Category'
-  },
   common: {
     id: PREFIX + 'common',
     defaultMessage: 'Common'
@@ -150,10 +146,6 @@ export default defineMessages({
   buttonName: {
     id: PREFIX + 'button_name',
     defaultMessage: 'Button Name'
-  },
-  deviceCommon: {
-    id: PREFIX + 'device_common',
-    defaultMessage: 'Device Common'
   },
   original: {
     id: PREFIX + 'original',
@@ -338,5 +330,13 @@ export default defineMessages({
   authorNameId: {
     id: PREFIX + 'author_name_id',
     defaultMessage: 'Author Name Id'
+  },
+  android: {
+    id: PREFIX + 'android',
+    defaultMessage: 'Android'
+  },
+  ios: {
+    id: PREFIX + 'ios',
+    defaultMessage: 'iOS'
   }
 })

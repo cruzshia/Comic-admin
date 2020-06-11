@@ -11,6 +11,7 @@ import { ReactComponent as ArrowIcon } from '@src/assets/common/arrow_forward.sv
 import { ReactComponent as AddIcon } from '@src/assets/common/add_circle.svg'
 import AdsModel, { AdPosition, AdSettingKeys } from '@src/models/comics/advertisement'
 import { _uuid } from '@src/utils/functions'
+import { deviceTypes } from '../utils'
 import commonMessages from '@src/messages'
 import comicMessages from '../messages'
 import Advertisement from './Advertisement'
@@ -103,15 +104,15 @@ export default function AdSettingForm({ adKey = DEFAULT_ADS_KEY, adSettingRef, m
   const tableTitle = formatMessage(commonMessages.advertisementSetting)
   const dataSet = [
     {
-      label: formatMessage(commonMessages.deviceCategory),
+      label: formatMessage(comicMessages.deviceCategory),
       content: (
         <Field
           name={`${adKey}.${AdSettingKeys.AdDevice}`}
           component={SelectAdapter}
-          options={[
-            { label: 1, value: 1 },
-            { label: 'iOS', value: 'ios' }
-          ]}
+          options={deviceTypes.map(device => ({
+            label: formatMessage(commonMessages[device as keyof typeof commonMessages]),
+            value: device
+          }))}
           isShort
           placeholder={formatMessage(commonMessages.common)}
         />

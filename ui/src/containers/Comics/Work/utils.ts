@@ -59,7 +59,8 @@ export function validateWork(values: Partial<Work>) {
     [WorkKeys.PublishBeginAt]: validDateTime(values[WorkKeys.PublishBeginAt] || ''),
     [WorkKeys.PublishEndAt]: validDateTime(values[WorkKeys.PublishEndAt] || ''),
     [WorkKeys.ReturnAdRevenue]: required(values[WorkKeys.ReturnAdRevenue]),
-
+    [WorkKeys.SubscriptionId]:
+      values[WorkKeys.WorkType] === WorkType.Magazine ? required(values[WorkKeys.SubscriptionId]) : undefined,
     ...(isEpisodeType
       ? {
           [WorkKeys.EpisodeWorkType]: required(values[WorkKeys.EpisodeWorkType]),

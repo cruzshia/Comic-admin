@@ -115,5 +115,21 @@ export default defineMessages({
   notReturn: {
     id: PREFIX + 'not_return',
     defaultMessage: 'Not Return'
+  },
+  deviceCategory: {
+    id: PREFIX + 'device_category',
+    defaultMessage: 'Device Category'
+  },
+  commonAdSetting: {
+    id: PREFIX + 'ad_setting_common',
+    defaultMessage: 'Device Common'
+  },
+  iosAdSetting: {
+    id: PREFIX + 'ad_setting_ios',
+    defaultMessage: 'iOS Ad Setting'
+  },
+  androidAdSetting: {
+    id: PREFIX + 'ad_setting_android',
+    defaultMessage: 'Android Ad Setting'
   }
 })

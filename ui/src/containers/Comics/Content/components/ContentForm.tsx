@@ -142,7 +142,7 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
               title={formatMessage(messages.magazineBannerSetting)}
               dataSet={[
                 toDataSet(
-                  formatMessage(commonMessages.deviceCategory),
+                  formatMessage(comicMessages.deviceCategory),
                   <Field
                     name='advertisement.deviceCategory'
                     component={SelectAdapter}

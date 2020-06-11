@@ -17,9 +17,15 @@ export const toEditableModel = ({ ...work }: WorkDetail): WorkDetail => {
   work[WorkKeys.AuthorIds] = work[WorkKeys.Authors].map(author => author.id)
   work[WorkKeys.AppId] = work[WorkKeys.App]?.[0].id
   work[WorkKeys.SubscriptionId] = work[WorkKeys.Subscription]?.id
-  work[WorkKeys.AdSetting]?.forEach(adSetting => {
-    adSetting[AdPosition.Front]?.forEach(ad => (ad[AdSettingKeys.ID] = _uuid()))
-    adSetting[AdPosition.Back]?.forEach(ad => (ad[AdSettingKeys.ID] = _uuid()))
+  work[WorkKeys.AdSetting]?.forEach((adSetting, settingIdx) => {
+    adSetting[AdPosition.Front]?.forEach((ad, adIndex) => {
+      ad[AdSettingKeys.ID] = _uuid()
+      adSetting[AdPosition.Front]![adIndex] = batchConvertISO8601(ad, [AdSettingKeys.BeginAt, AdSettingKeys.EndAt])
+    })
+    adSetting[AdPosition.Back]?.forEach((ad, adIndex) => {
+      ad[AdSettingKeys.ID] = _uuid()
+      adSetting[AdPosition.Back]![adIndex] = batchConvertISO8601(ad, [AdSettingKeys.BeginAt, AdSettingKeys.EndAt])
+    })
   })
 
   work = batchConvertISO8601<WorkDetail>(work, [
@@ -28,21 +34,6 @@ export const toEditableModel = ({ ...work }: WorkDetail): WorkDetail => {
     WorkKeys.PublishBeginAt,
     WorkKeys.PublishEndAt
   ])
-
-  work[WorkKeys.AdSetting]?.forEach((adSetting, settingIdx) => {
-    adSetting[AdPosition.Front]?.map((ads, adIndex) => {
-      work[WorkKeys.AdSetting]![settingIdx][AdPosition.Front]![adIndex] = batchConvertISO8601(ads, [
-        AdSettingKeys.BeginAt,
-        AdSettingKeys.EndAt
-      ])
-    })
-    adSetting[AdPosition.Back]?.map((ads, adIndex) => {
-      work[WorkKeys.AdSetting]![settingIdx][AdPosition.Front]![adIndex] = batchConvertISO8601(ads, [
-        AdSettingKeys.BeginAt,
-        AdSettingKeys.EndAt
-      ])
-    })
-  })
 
   return work
 }

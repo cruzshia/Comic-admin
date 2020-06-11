@@ -17,7 +17,7 @@ export const mockWork: WorkDetail = {
     { id: '1', name: 'イナダコウジ' },
     { id: '2', name: 'pon yu uen' }
   ],
-  [WorkKeys.WorkType]: WorkType.Comic,
+  [WorkKeys.WorkType]: WorkType.Episode,
   [WorkKeys.App]: [{ id: 1, name: 'アプリ' }],
   [WorkKeys.AppId]: 1,
   [WorkKeys.UpdateFrequency]: '毎週月月金曜日に更新',
@@ -101,6 +101,30 @@ export const mockWork: WorkDetail = {
           [AdSettingKeys.Button]: 'サンプルテキスト',
           [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
           [AdSettingKeys.EndAt]: '2020-02-20 19:00'
+        }
+      ]
+    },
+    {
+      device: 'android',
+      [AdPosition.Front]: [
+        {
+          [AdSettingKeys.ID]: _uuid(),
+          [AdSettingKeys.Type]: AdType.Original,
+          [AdSettingKeys.ImageUrl]: mockManga,
+          [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
+          [AdSettingKeys.Button]: 'サンプルテキスト',
+          [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
+          [AdSettingKeys.EndAt]: '2020-02-20 19:00'
+        }
+      ],
+      [AdPosition.Back]: [
+        {
+          [AdSettingKeys.ID]: _uuid(),
+          [AdSettingKeys.Type]: AdType.Fan
+        },
+        {
+          [AdSettingKeys.ID]: _uuid(),
+          [AdSettingKeys.Type]: AdType.Map
         }
       ]
     }

@@ -10,7 +10,7 @@ import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { _range } from '@src/utils/functions'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
-import { WorkKeys } from '@src/models/comics/work'
+import { WorkKeys, WorkType } from '@src/models/comics/work'
 import { ImageKey } from '@src/models/image'
 import workContext, { ActionContext } from '../context/WorkContext'
 import { ScrollAnchor, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
@@ -90,6 +90,9 @@ export default function WorkDetail() {
 
   if (!currentWork) return null
 
+  const isEpisode = currentWork[WorkKeys.WorkType] === WorkType.Episode
+  const isMagazine = currentWork[WorkKeys.WorkType] === WorkType.Magazine
+
   return (
     <>
       <StickyHeader title={titleText} button={EditButton} />
@@ -116,11 +119,17 @@ export default function WorkDetail() {
           ),
           toDataSet(formatMessage(commonMessages.appId), String(currentWork[WorkKeys.AppId])),
           toDataSet(formatMessage(messages.category), formatMessage(messages[currentWork[WorkKeys.WorkType]])),
-          toDataSet(
-            formatMessage(messages.reduction),
-            formatMessage(commonMessages[currentWork[WorkKeys.ReturnAdRevenue] ? 'have' : 'no'])
-          ),
-          toDataSet(formatMessage(commonMessages.subscriptionId), currentWork[WorkKeys.Subscription]?.id),
+          ...(isEpisode
+            ? [
+                toDataSet(
+                  formatMessage(messages.reduction),
+                  formatMessage(comicMessages[currentWork[WorkKeys.ReturnAdRevenue] ? 'return' : 'notReturn'])
+                )
+              ]
+            : []),
+          ...(isMagazine
+            ? [toDataSet(formatMessage(commonMessages.subscriptionId), currentWork[WorkKeys.Subscription]?.id)]
+            : []),
           toDataSet(formatMessage(commonMessages.createDateTime), currentWork[WorkKeys.CreateAt]),
           toDataSet(formatMessage(commonMessages.updateDateTime), currentWork[WorkKeys.UpdateAt])
         ]}
@@ -134,27 +143,31 @@ export default function WorkDetail() {
           toDataSet(formatMessage(commonMessages.deliveryEndDateTime), currentWork[WorkKeys.PublishEndAt])
         ]}
       />
-      <DataTable
-        title={formatMessage(commonMessages.episodeInfo)}
-        tableClass={classes.table}
-        onEdit={handleEditEpisode}
-        dataSet={[
-          toDataSet(formatMessage(messages.episodeCategory), currentWork[WorkKeys.EpisodeWorkType]),
-          toDataSet(formatMessage(messages.updateFrequency), currentWork[WorkKeys.UpdateFrequency]),
-          toDataSet(formatMessage(messages.freePeriodicalDay), currentWork[WorkKeys.FreePeriodicalDay]),
-          toDataSet(formatMessage(messages.rensai), currentWork[WorkKeys.MagazineName]),
-          ..._range(0, IMAGE_NUM).map(i => {
-            const img = currentWork[WorkKeys.Images]?.[`image${i + 1}` as ImageKey]?.url as string
-            return toDataSet(
-              `${formatMessage(comicMessages.episodeImage)}${i + 1}`,
-              img ? <img key={`image-${i}`} className={classes.image} src={img} alt={img} /> : ''
-            )
-          })
-        ]}
-      />
-      {currentWork[WorkKeys.AdSetting]?.map((adSetting, idx) => (
-        <AdSettingTable key={`adSetting-${idx}`} onEdit={handleEditAd} data={adSetting} />
-      ))}
+      {isEpisode && (
+        <>
+          <DataTable
+            title={formatMessage(commonMessages.episodeInfo)}
+            tableClass={classes.table}
+            onEdit={handleEditEpisode}
+            dataSet={[
+              toDataSet(formatMessage(messages.episodeCategory), currentWork[WorkKeys.EpisodeWorkType]),
+              toDataSet(formatMessage(messages.updateFrequency), currentWork[WorkKeys.UpdateFrequency]),
+              toDataSet(formatMessage(messages.freePeriodicalDay), currentWork[WorkKeys.FreePeriodicalDay]),
+              toDataSet(formatMessage(messages.rensai), currentWork[WorkKeys.MagazineName]),
+              ..._range(0, IMAGE_NUM).map(i => {
+                const img = currentWork[WorkKeys.Images]?.[`image${i + 1}` as ImageKey]?.url as string
+                return toDataSet(
+                  `${formatMessage(comicMessages.episodeImage)}${i + 1}`,
+                  img ? <img key={`image-${i}`} className={classes.image} src={img} alt={img} /> : ''
+                )
+              })
+            ]}
+          />
+          {currentWork[WorkKeys.AdSetting]?.map((adSetting, idx) => (
+            <AdSettingTable key={`adSetting-${idx}`} onEdit={handleEditAd} data={adSetting} hideTitle={!!idx} />
+          ))}
+        </>
+      )}
     </>
   )
 }

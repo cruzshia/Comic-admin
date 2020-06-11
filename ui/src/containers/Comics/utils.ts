@@ -32,3 +32,4 @@ export const useComicsRef = () => {
 }
 
 export const daysOfWeekOptions = ['日', '月', '水', '火', '木', '金', '土'].map(day => ({ label: day, value: day }))
+export const deviceTypes = ['common', 'android', 'ios']

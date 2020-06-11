@@ -67,10 +67,6 @@ export default defineMessages({
     id: PREFIX + 'device_type',
     defaultMessage: 'Device Type'
   },
-  deviceCommon: {
-    id: PREFIX + 'device_common',
-    defaultMessage: 'Device Common'
-  },
   deviceDifferent: {
     id: PREFIX + 'device_different',
     defaultMessage: 'Device Different'
