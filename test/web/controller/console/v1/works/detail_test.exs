@@ -4,6 +4,7 @@ defmodule RaiseServer.Controller.Console.V1.Works.DetailTest do
   alias RaiseServer.{AppsFactory, DepotFactory}
 
   @path "/api/console/v1/works/"
+  @dummy_cdn_host RaiseServer.get_env("cdn_host")
 
   describe "get/1" do
     setup do
@@ -24,11 +25,11 @@ defmodule RaiseServer.Controller.Console.V1.Works.DetailTest do
       work = DepotFactory.insert(:work, %{subscription_id: subscription.id, free_periodical_day_of_the_week: "月|水"})
       work_id = "ew#{work.id}"
 
-      DepotFactory.insert(:work_app, %{work_id: work.id, app_id: app1.id})
-      DepotFactory.insert(:work_app, %{work_id: work.id, app_id: app2.id})
+      DepotFactory.insert(:work_app, %{work: work, app: app1})
+      DepotFactory.insert(:work_app, %{work: work, app: app2})
 
-      DepotFactory.insert(:work_author, %{work_id: work.id, author_id: author1.id})
-      DepotFactory.insert(:work_author, %{work_id: work.id, author_id: author2.id})
+      DepotFactory.insert(:work_author, %{work: work, author: author1})
+      DepotFactory.insert(:work_author, %{work: work, author: author2})
 
       [ads_in_viewer_setting | _] = work.ads_in_viewer_setting
       front_ads =
@@ -45,11 +46,11 @@ defmodule RaiseServer.Controller.Console.V1.Works.DetailTest do
           |> Enum.reject(fn {_, v} -> is_nil(v)end)
           |> Map.new()
         end)
-      formated_images =
+      formatted_images =
         work.images
         |> Map.from_struct()
         |> Enum.map(fn {k, v} ->
-             {k, %{url: "https://" <> "" <> "/" <> v.path, width: v.width, height: v.height}}
+            {k, %{url: "https://" <> @dummy_cdn_host <> "/" <> v.path, width: v.width, height: v.height}}
            end)
         |> Map.new()
       expect = %{
@@ -61,7 +62,8 @@ defmodule RaiseServer.Controller.Console.V1.Works.DetailTest do
         updated_at:                      work.updated_at,
         episode_work_type:               "one_shot",
         update_frequency:                work.update_frequency,
-        images:                          formated_images,
+        magazine_name:                   work.magazine_name,
+        images:                          formatted_images,
         apps: [
           %{id: app1.id, name: app1.name},
           %{id: app2.id, name: app2.name},
@@ -102,7 +104,6 @@ defmodule RaiseServer.Controller.Console.V1.Works.DetailTest do
         "ea111",
         "ea",
         "ewaaa",
-        "",
       ], fn work_id ->
         res = Req.get(@path <> work_id, header)
         assert_error(res, RaiseServer.Error.BadRequest.new())

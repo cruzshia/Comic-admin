@@ -50,6 +50,12 @@ defmodule RaiseServer.Depot do
     |> Repo.one()
   end
 
+  defun filter_by_app_id(query :: Ecto.Queryable.t, assoc_app :: v[atom], app_id :: v[integer]) :: Ecto.Queryable.t do
+    query
+    |> join(:inner, [r], ra in assoc(r, ^assoc_app))
+    |> where([_, ra], ra.app_id == ^app_id)
+  end
+
   @doc """
   get a Work record from db without app_id.
 
@@ -65,6 +71,31 @@ defmodule RaiseServer.Depot do
     |> Repo.one()
   end
 
+  @doc """
+  get a Works record from db without app_id.
+
+  It is used to display the work list from the console screen.
+  Do not use for apps.
+  """
+  defun get_works_for_console(filters :: v[list], opts  :: v[list] \\ []) :: [Work.t] do
+    Work
+    |> EctoQueryMaker.apply(WorkQuery, filters, opts)
+    |> Repo.all()
+  end
+
+  @doc """
+  get number of Works record from db without app_id.
+
+  It is used to display the work list from the console screen.
+  Do not use for apps.
+  """
+  defun count_works_for_console(filters :: v[list], opts  :: v[list] \\ []) :: integer do
+    Work
+    |> EctoQueryMaker.apply(WorkQuery, filters, opts)
+    |> select(count())
+    |> Repo.one()
+  end
+
   defp join_apps(module) do
     module
     |> join(:left, [w], wa in assoc(w, :apps))
@@ -75,11 +106,5 @@ defmodule RaiseServer.Depot do
     module
     |> join(:left, [w], wa in assoc(w, :authors))
     |> preload([..., wa], [authors: wa])
-  end
-
-  defun filter_by_app_id(query :: Ecto.Queryable.t, assoc_app :: v[atom], app_id :: v[integer]) :: Ecto.Queryable.t do
-    query
-    |> join(:inner, [r], ra in assoc(r, ^assoc_app))
-    |> where([_, ra], ra.app_id == ^app_id)
   end
 end

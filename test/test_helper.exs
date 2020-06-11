@@ -8,6 +8,7 @@ if Config.test_mode() == :whitebox do
 
   %{
     "api_token_key" => "server_secret_key",
+    "cdn_host" => "**************.com",
   }
   |> Map.put("db", white_box_secret["db"])
   |> Antikythera.Test.GearConfigHelper.set_config()

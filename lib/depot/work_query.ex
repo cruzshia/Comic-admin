@@ -14,6 +14,28 @@ defmodule RaiseServer.Depot.WorkQuery do
     where(query, [w], like(field(w, ^attr), ^like))
   end
 
+  def apply_filter({:app_id, app_id}, query) do
+    query
+    |> join(:inner, [w], wa in assoc(w, :work_apps))
+    |> where([_, wa], wa.app_id == ^app_id)
+  end
+
+  def apply_filter({:publish_begin_at_from, from}, query) do
+    where(query, [w], w.publish_begin_at >= ^from)
+  end
+
+  def apply_filter({:publish_begin_at_to, to}, query) do
+    where(query, [w], w.publish_begin_at <= ^to)
+  end
+
+  def apply_filter({:publish_end_at_from, from}, query) do
+    where(query, [w], w.publish_end_at >= ^from)
+  end
+
+  def apply_filter({:publish_end_at_to, to}, query) do
+    where(query, [w], w.publish_end_at <= ^to)
+  end
+
   def apply_filter(_, query), do: query
 
   @impl true

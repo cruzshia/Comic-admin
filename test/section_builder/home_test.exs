@@ -6,7 +6,7 @@ defmodule RaiseServer.SectionBuilder.HomeTest do
   alias RaiseServer.SectionBuilder
   alias SectionBuilder.Home
 
-  @dummy_cdn_host ""
+  @dummy_cdn_host RaiseServer.get_env("cdn_host")
 
   describe "process/3" do
     setup do

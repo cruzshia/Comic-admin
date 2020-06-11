@@ -90,6 +90,7 @@ defmodule RaiseServer.DepotFactory do
       episode_work_type:               1,
       update_frequency:                "毎週月水金曜日",
       free_periodical_day_of_the_week: nil,
+      magazine_name:                   "magazine name",
       comic_appeal_work_id:            1,
       catchphrase:                     "買って",
       return_ad_revenue:               false,
@@ -100,7 +101,7 @@ defmodule RaiseServer.DepotFactory do
 
   def magazine_work_factory do
     work_factory()
-    |> struct!(%{work_type: :magazine, magazine_name: "some mag name"})
+    |> struct!(%{work_type: :magazine, magazine_name: nil})
   end
 
   def episode_work_factory do

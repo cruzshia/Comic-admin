@@ -7,6 +7,16 @@ defmodule RaiseServer.Controller.Console.V1.Works.Helper do
     use Croma.SubtypeOfString, pattern: ~R/\A(?<prefix>ew|cw|mw|bw)(?<id>\d+)\z/
   end
 
+  defun get_works(query :: v[list], opts :: v[list] \\ []) :: {integer, [Depot.Work.t]} do
+    # TODO: Specify the correct default order. RA-4717(https://r-project.atlassian.net/browse/RA-4717)
+    query_options = [
+      select:   [:id, :title, :work_type, :inserted_at, :episode_work_type, :update_frequency, :images],
+      order_by: [asc: :id],
+    ] ++ opts
+
+    {Depot.count_works_for_console(query), Depot.get_works_for_console(query, query_options)}
+  end
+
   defun get_work(work_id :: v[Id.t]) :: Depot.Work.t | nil do
     query_filters = [id: parse_resource_prefix(work_id)]
     Depot.get_work_for_console(query_filters)
@@ -43,7 +53,7 @@ defmodule RaiseServer.Controller.Console.V1.Works.Helper do
     |> Map.new()
   end
 
-  def format_image(image) do
+  defun format_image(image :: v[map]) :: map do
     RaiseServer.get_env("cdn_host")
     |> format_image(image)
   end
@@ -61,7 +71,7 @@ defmodule RaiseServer.Controller.Console.V1.Works.Helper do
   @doc """
   Generate download URLs from multiple file paths on S3
   """
-  def format_images(images) do
+  defun format_images(images :: v[map]) :: map do
     images
     |> Map.from_struct()
     |> Enum.map(fn {k, v} -> {k, format_image(v)} end)
