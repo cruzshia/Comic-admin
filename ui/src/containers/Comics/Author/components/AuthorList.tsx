@@ -54,9 +54,13 @@ export default function AuthorList() {
     ],
     [formatMessage, history]
   )
-  const handleSearch = useCallback(({ nameId: keyword }) => {
-    setSearchParam({ keyword })
-  }, [])
+  const handleSearch = useCallback(
+    ({ nameId: keyword }) => {
+      setSearchParam({ keyword })
+      handlePageChange(null, 1)
+    },
+    [handlePageChange]
+  )
 
   const theadList = useMemo(
     () => [

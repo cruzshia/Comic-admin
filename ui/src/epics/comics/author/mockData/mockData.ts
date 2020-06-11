@@ -1,7 +1,7 @@
 import { _range } from '@src/utils/functions'
 import { AuthorKey } from '@src/models/comics/author'
 
-export const mockAuthor = (authorId: string) => ({
+export const mockAuthor = (authorId: string = 'WORK_SHUNKAN100000060') => ({
   [AuthorKey.Id]: authorId,
   [AuthorKey.Name]: '秋本治',
   [AuthorKey.NameKana]: 'アキモトオサム',

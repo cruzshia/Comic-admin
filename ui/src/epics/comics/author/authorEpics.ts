@@ -10,7 +10,7 @@ import {
   updateAuthorSuccessAction
 } from '@src/reducers/comics/author/authorActions'
 import * as authorServices from './authorServices'
-import { toDisplayableList } from './transform'
+import { toDisplayableList, toDisplayableDetail } from './transform'
 import { emptyErrorReturn } from '../../utils'
 
 export const getAuthorListEpic = (action$: ActionsObservable<AnyAction>) =>
@@ -33,7 +33,7 @@ export const getAuthorEpic = (action$: ActionsObservable<AnyAction>) =>
     ofType(AuthorActionType.GET_AUTHOR),
     switchMap(action =>
       authorServices.getAuthorAjax(action.payload).pipe(
-        map(res => getAuthorSuccessAction(res.response)),
+        map(res => getAuthorSuccessAction(toDisplayableDetail(res.response))),
         tap(() => successSubject.next({ type: AuthorActionType.GET_AUTHOR_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: AuthorActionType.GET_AUTHOR_ERROR })
@@ -48,7 +48,7 @@ export const createAuthorEpic = (action$: ActionsObservable<AnyAction>) =>
     ofType(AuthorActionType.CREATE),
     exhaustMap(action =>
       authorServices.createAuthorAjax(action.payload).pipe(
-        map(res => createAuthorSuccessAction(res.response)),
+        map(res => createAuthorSuccessAction(toDisplayableDetail(res.response))),
         tap(() => successSubject.next({ type: AuthorActionType.CREATE_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: AuthorActionType.CREATE_ERROR })
@@ -63,7 +63,7 @@ export const updateAuthorEpic = (action$: ActionsObservable<AnyAction>) =>
     ofType(AuthorActionType.UPDATE),
     exhaustMap(action =>
       authorServices.updateAuthorAjax(action.payload).pipe(
-        map(res => updateAuthorSuccessAction(res.response)),
+        map(res => updateAuthorSuccessAction(toDisplayableDetail(res.response))),
         tap(() => successSubject.next({ type: AuthorActionType.UPDATE_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: AuthorActionType.UPDATE_ERROR })

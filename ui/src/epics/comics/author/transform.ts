@@ -8,3 +8,6 @@ export const toDisplayableList = ({
   authors: authors.map(author => batchConvertISO8601(author, [AuthorKey.CreateAt, AuthorKey.UpdateAt])),
   total
 })
+
+export const toDisplayableDetail = (author: AuthorDetail): AuthorDetail =>
+  batchConvertISO8601(author, [AuthorKey.CreateAt, AuthorKey.UpdateAt])

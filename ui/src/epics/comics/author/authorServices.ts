@@ -1,4 +1,4 @@
-import { from, Observable } from 'rxjs'
+import { from } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
 import AuthorDetail, { AuthorKey, ListParam, ListResponse } from '@src/models/comics/author'
 import { objToQueryStr } from '@src/utils/functions'
@@ -17,8 +17,8 @@ export const getAuthorListAjax = (param?: ListParam): Response<ListResponse> => 
   ])
 }
 
-export const getAuthorAjax = (authorId: string): Observable<{ status: number; response: AuthorDetail }> => {
-  authAjax.get('/author/' + authorId)
+export const getAuthorAjax = (authorId: string): Response<AuthorDetail> => {
+  authAjax.get(AUTHOR_API_PATH + `/${authorId}`)
   return from([
     {
       status: 200,
@@ -27,22 +27,22 @@ export const getAuthorAjax = (authorId: string): Observable<{ status: number; re
   ])
 }
 
-export const createAuthorAjax = (author: AuthorDetail): Observable<{ status: number; response: AuthorDetail }> => {
-  authAjax.post('/author', author)
+export const createAuthorAjax = (author: Partial<AuthorDetail>): Response<AuthorDetail> => {
+  authAjax.post(AUTHOR_API_PATH, author)
   return from([
     {
       status: 200,
-      response: mockAuthor(author[AuthorKey.Id])
+      response: mockAuthor()
     }
   ])
 }
 
-export const updateAuthorAjax = (author: AuthorDetail): Observable<{ status: number; response: AuthorDetail }> => {
-  authAjax.put('/author', author)
+export const updateAuthorAjax = ({ [AuthorKey.Id]: id, ...author }: Partial<AuthorDetail>): Response<AuthorDetail> => {
+  authAjax.put(AUTHOR_API_PATH + `/${id}`, author)
   return from([
     {
       status: 200,
-      response: mockAuthor(author.id)
+      response: mockAuthor(id)
     }
   ])
 }
