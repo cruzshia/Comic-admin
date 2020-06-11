@@ -57,10 +57,12 @@ RUN --mount=type=secret,uid=501,id=test_secret,dst=/home/batch/Raise_Server/gear
 ARG antikythera_compile_env
 ARG antikythera_runtime_env
 
+# set environment variables required for antikythera
 ENV MIX_ENV prod
 ENV ANTIKYTHERA_MIX_TASK_MODE true
 ENV ANTIKYTHERA_COMPILE_ENV $antikythera_compile_env
 ENV ANTIKYTHERA_RUNTIME_ENV $antikythera_runtime_env
+
 RUN source $HOME/.asdf/asdf.sh \
 # ensure to recompile antikythera-related libraries with specified environment variables
  && mix clean \

@@ -13,9 +13,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   git \
   openssh-client \
 # tools used when retrieving information
-  awscli \
   curl \
   jq \
+# required to install AWS CLI
+  python-pip \
 # dependencies for Ruby
 # see https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
   autoconf \
@@ -56,6 +57,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # dependencies for Antikythera
   libexpat-dev \
   inotify-tools
+
+# install AWS CLI
+RUN pip install awscli
 
 # generate locale for en_US.UTF-8
 RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen \
