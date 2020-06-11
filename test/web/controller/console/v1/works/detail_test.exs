@@ -4,7 +4,7 @@ defmodule RaiseServer.Controller.Console.V1.Works.DetailTest do
   alias RaiseServer.{AppsFactory, DepotFactory}
 
   @path "/api/console/v1/works/"
-  @dummy_cdn_host RaiseServer.get_env("cdn_host")
+  @dummy_cdn_host RaiseServer.get_env("cdn_host", "")
 
   describe "get/1" do
     setup do
