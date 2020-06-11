@@ -1,0 +1,8 @@
+[BUILD NUMBER]
+254
+
+[COMMITS]
+https://github.com/access-company/EPUB_chromium/commit/3b96d0a3f786fa2805e538ed1b7c3998e2e3392d
+https://github.com/access-company/EPUB_chromium_webkit/commit/21ef49d3e5b76a61ea478d904e18ec963c3845b0
+https://github.com/access-company/EPUB_chromium_skia/commit/942f2e22fd1e900ced90c08147067f5a0191c42e
+https://github.com/access-company/EPUB_chromium_icu/commit/09b3ba2cdb12f778c84799721943a4ffbb9e6abd

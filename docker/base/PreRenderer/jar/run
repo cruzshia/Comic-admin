@@ -1,0 +1,294 @@
+#!/bin/sh
+set -e
+
+JARDIR=`dirname "$0"`
+JARFILE="$JARDIR/epub-preprocess.jar"
+CATJSON="$JARDIR/lib/catjson/catjson.sh"
+PREVIEWBUILDER="$JARDIR/lib/preview/preview.jar"
+SQUISH="$JARDIR/lib/squish/squish.sh"
+
+ERROR=false
+NOZIP=false
+PREPAGINATED=false
+JPEG=false
+CJPEG=false
+QUALITY=90
+NOSIZEOPTIMIZE=false
+FILELIST=false
+IMAGECOPY=false
+IMAGECOPYDIR=""
+PACKJSON=false
+PREVIEW=false
+PREVIEWPACKAGE=""
+PREVIEWOUTPUTPATH=""
+NOORIGINALPACKAGE=false
+SELECTIONREGION=false
+
+if [ $# -lt 2 ]; then
+	ERROR=true
+fi
+
+if $ERROR; then
+	printf 'Usage:  %s [-nozip] [-margin-off] [-font-default] [-font-sans-serif] [-font-serif] [-first-page-no-nombre-title] [-force-first-page-recto] [-force-writing-mode] [-expand-page-height] [-jpeg] [-gray-scale] [-compression-factor <compression factor>] [-quality < quality value > ] [-no-size-optimize] [-bmp] [-pre-paginated] [-hvga] [-svga] [-uxga] [-wdvga] [-settings <json file path>] [-navigation-document] [-nombre] [-nombre-center] [-title] [-user-style-sheet <style sheet file path>] [-file-list] [-image-list] [-image-copy <image copy folder path>] [-selection-region] [-text-map] [-disable-rendering] [-pre-paginated-max-size <width> <height>] [-pack-json] [-ignores-broken-image] [-apply-recommended-style-sheet] [-preview-package <preview package file path> -preview-output-path <preview output path>] [-image-epub] [-pdf-epub] [-use-original-image] path/to/input-file /path/to/output-directory\n' "$0"
+	exit 1
+fi
+
+index=0
+for arg in "$@"; do
+	index=$((index+1))
+	if [ "${arg}" = "-nozip" ]; then
+		NOZIP=true
+	fi
+	if [ "${arg}" = "-pre-paginated" ]; then
+		PREPAGINATED=true
+	fi
+	if [ "${arg}" = "-jpeg" ]; then
+		JPEG=true
+	fi
+	if [ "${arg}" = "-quality" ]; then
+		CJPEG=true
+		dirindex=$((index+1))
+		eval QUALITY=\$\{$dirindex\}
+		unset dirindex
+	fi
+	if [ "${arg}" = "-no-size-optimize" ]; then
+		NOSIZEOPTIMIZE=true
+	fi
+	if [ "${arg}" = "-file-list" ]; then
+		FILELIST=true
+	fi
+	if [ "${arg}" = "-image-copy" ]; then
+		IMAGECOPY=true
+		dirindex=$((index+1))
+		eval IMAGECOPYDIR=\$\{$dirindex\}
+		unset dirindex
+	fi
+	if [ "${arg}" = "-pack-json" ]; then
+		PACKJSON=true
+	fi
+	if [ "${arg}" = "-preview-package" ]; then
+		PREVIEW=true
+		packageIndex=$((index+1))
+		eval PREVIEWPACKAGE=\$\{$packageIndex\}
+		unset packageIndex
+	fi
+	if [ "${arg}" = "-preview-output-path" ]; then
+		previewOutputPathIndex=$((index+1))
+		eval PREVIEWOUTPUTPATH=\$\{$previewOutputPathIndex\}
+		unset previewOutputPathIndex
+	fi
+	if [ "${arg}" = "-selection-region" -o "${arg}" = "-selection-region-debug" ]; then
+		SELECTIONREGION=true
+	fi
+done
+unset index
+
+eval OUTDIR=\"\$\{$#\}\"
+
+if [ ! -d "$OUTDIR" ]; then
+	printf '%s: No such output directory\n' "$OUTDIR"
+	exit 1
+fi
+
+NUM=`expr $# - 1`
+eval INPUT=\"\$\{$NUM\}\"
+
+if ! [ -f "$INPUT" ] && ! [ -d "$INPUT" ]; then
+	printf '%s: No such input file or directory\n' "$INPUT"
+	exit 1
+fi
+
+JAVAOPTS=""
+case `uname -s` in
+	Darwin)
+		JAVAOPTS="-d32"
+		LIBJSIG=""
+		;;
+	Linux)
+		if [ -z "$LIBJSIG" ]; then
+			LIBJSIG=`java -jar "$JARFILE" dummy -find-libjsig`
+		fi
+		;;
+esac
+
+PREFIX=`basename "$INPUT" | perl -pe 's/\.(epub|html?|xhtml)$//i'`
+
+if [ $IMAGECOPY ]; then
+	rm -rf "$IMAGECOPYDIR"/"$PREFIX"
+fi
+
+LD_PRELOAD="$LIBJSIG" \
+java $JAVAOPTS -Xss4m -Dfile.encoding=UTF-8 "-Djava.library.path=$JARDIR/lib" \
+     -jar "$JARFILE" dummy "$@"
+if [ $? -ne 0 ]; then
+	exit 1
+fi
+
+if $FILELIST; then
+  exit
+fi
+
+ZIPFILE="$PREFIX".zip
+
+if [ -z "$PREVIEWOUTPUTPATH" ]; then
+	PREVIEWOUTPUTPATH="${OUTDIR}/${PREFIX}-preview-directory"
+	NOORIGINALPACKAGE=true
+fi
+
+if $PREVIEW; then
+	java -Dfile.encoding=UTF-8 -jar "$PREVIEWBUILDER" "$PREVIEWPACKAGE" "$OUTDIR/$PREFIX" "$PREVIEWOUTPUTPATH"
+fi
+
+previewRootDirectory="$PREVIEWOUTPUTPATH"/"$PREFIX"
+
+if $SELECTIONREGION; then
+
+	# Setup files on access-full-region directory.
+	# - PDF/JPEG/BMP files : neither copy nor move
+	# - metadata JSON files : copy to access-full-region directory
+	# - SelectionRegion JSON files (for viewer) : neither copy nor move
+	# - SelectionRegion JSON files (full) : move to access-full-region directory
+
+	CURRENTDIR=`pwd`
+
+	cd "$OUTDIR"/"$PREFIX"
+	rm -rf access-full-region
+	mkdir access-full-region
+	find * -type d \( -name "access-metadata" -o -name "access-full-region" -o -name "access-textmap" -o -name "*.region" \) -prune -o -type f -name "*.json" -print | while read json_fullpath
+	do
+		json_dir=`dirname access-full-region/"$json_fullpath"`
+		mkdir -p "$json_dir"
+		cp "$json_fullpath" access-full-region/"$json_fullpath"
+	done
+	find * -type d -name "access-full-region" -prune -o -type f -name "*.fullregion.json" -print0 | xargs --no-run-if-empty -0 rm
+	cd "$CURRENTDIR"
+
+	if $PREVIEW; then
+		for package in `find "$previewRootDirectory" -maxdepth 1 -mindepth 1 -type d`;do
+			cd "$package"
+			rm -rf access-full-region
+			mkdir access-full-region
+			find * -type d \( -name "access-metadata" -o -name "access-full-region" -o -name "access-textmap" -o -name "*.region" \) -prune -o -type f -name "*.json" -print | while read json_fullpath
+			do
+				json_dir=`dirname access-full-region/"$json_fullpath"`
+				mkdir -p "$json_dir"
+				cp "$json_fullpath" access-full-region/"$json_fullpath"
+			done
+			find * -type d -name "access-full-region" -prune -o -type f -name "*.fullregion.json" -print0 | xargs --no-run-if-empty -0 rm
+			cd "$CURRENTDIR"
+		done
+	fi
+
+	unset CURRENTDIR
+fi
+
+if $PACKJSON; then
+	IFS_BACKUP="$IFS"
+	IFS='
+'
+	target_dir="$OUTDIR"/"$PREFIX"
+	bash $CATJSON "$target_dir"
+	for target in `find "$target_dir" -type d \( -name "access-metadata" -o -name "access-full-region" -o -name "*.region" \) -prune -o \( -type f -name "*.json" ! -name "*_pack.json" \) -print0 | xargs -0 ls`;do
+		rm -f "$target"
+	done
+
+	if $PREVIEW; then
+		for package in `find "$previewRootDirectory" -maxdepth 1 -mindepth 1 -type d`;do
+			bash "$CATJSON" $package
+			for target in `find "$package" -type d \( -name "access-metadata" -o -name "access-full-region" -o -name "*.region" \) -prune -o \( -type f -name "*.json" ! -name "*_pack.json" \) -print0  | xargs -0 ls`;do
+				rm -f "$target"
+			done
+		done
+	fi
+
+	IFS="$IFS_BACKUP"
+fi
+
+if $IMAGECOPY; then
+	if [ -d "$IMAGECOPYDIR"/"$PREFIX" ]; then
+		CURRENTDIR=`pwd`
+		cd "$IMAGECOPYDIR"
+		cd "$PREFIX"
+
+		if ! $NOZIP; then
+			ls -F | grep '.*' | xargs zip -rmq9 "$ZIPFILE"
+		fi
+
+		cd "$CURRENTDIR"
+		unset CURRENTDIR
+	fi
+fi
+
+CURRENTDIR="`pwd`"
+cd "$OUTDIR"
+cd "$PREFIX"
+
+if ! $NOSIZEOPTIMIZE; then
+	if $JPEG; then
+		if $CJPEG; then
+			if [ -x "`which cjpeg`" ]; then
+				find . -type f -name "*.jpeg" | while read -r pathname
+				do
+					djpeg -outfile tmp.bmp "${pathname}"
+					cjpeg -optimize -quality "$QUALITY" -outfile "${pathname}" tmp.bmp
+					rm tmp.bmp
+				done
+			else
+				printf 'Error: cjpeg is not installed. Please install mozjpeg encoder.'
+				if $PREVIEW && $NOORIGINALPACKAGE; then
+					rm -rf "$PREVIEWOUTPUTPATH"
+				fi
+				exit 1
+			fi
+		else
+			if [ -x "`which jpegtran`" ]; then
+				find . -type f -name "*.jpeg" | while read -r pathname
+				do
+					jpegtran -optimize -outfile "${pathname}" "${pathname}"
+				done
+			fi
+		fi
+	elif $CJPEG; then
+		printf 'Warning: -quality without -jpeg is useless.\n'
+	fi
+fi
+
+cd "$CURRENTDIR"
+
+ZIPOPTION=""
+SQUISHED_ZIPFILE=""
+if ! $NOZIP; then
+	ZIPOPTION="-zip"
+	SQUISHED_ZIPFILE="$ZIPFILE"
+fi
+
+PREPAGINATEDOPTION=""
+if $PREPAGINATED; then
+	PREPAGINATEDOPTION="-pre-paginated"
+fi
+
+sh "$SQUISH" $PREPAGINATEDOPTION $ZIPOPTION $SQUISHED_ZIPFILE "$OUTDIR"/"$PREFIX"
+previewPackageDirectory=""
+if $PREVIEW; then
+	IFS_BACKUP="$IFS"
+	IFS='
+'
+	for package in `find "$previewRootDirectory" -maxdepth 1 -mindepth 1 -type d`;do
+		sh "$SQUISH" $PREPAGINATEDOPTION $ZIPOPTION $SQUISHED_ZIPFILE "$package"
+		previewPackageDirectory="$package"
+	done
+	IFS="$IFS_BACKUP"
+fi
+
+if $PREVIEW && $NOORIGINALPACKAGE; then
+	previewSize=`find "$previewRootDirectory" -maxdepth 1 -type d |wc -l`
+	if [ $previewSize -ne 2 ]; then # current and target directories are counted
+		printf 'Error: Too many preview IDs to output a preview package.\n'
+		rm -rf "$PREVIEWOUTPUTPATH"
+		exit 1
+	fi
+
+	rm -rf "$OUTDIR"/"$PREFIX"
+	mv "$previewPackageDirectory" "$OUTDIR"/"$PREFIX"
+	rm -rf "$PREVIEWOUTPUTPATH"
+fi

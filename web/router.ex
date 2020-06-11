@@ -6,6 +6,16 @@ defmodule RaiseServer.Router do
   get "/static/*path",         Page, :show_static
   get "/:file",                Page, :show_file
 
-  get "/api/app/v1/home", App.V1.Home.Show, :show
-  post "/api/app/v1/first_launch", App.V1.FirstLaunch.Create, :create
+  get "/api/app/v1/home", App.V1.Home, :get
+
+  get "/api/app/v1/free/periodical", App.V1.Free.Periodical, :get
+  get "/api/app/v1/free/only_now",   App.V1.Free.OnlyNow,    :get
+  get "/api/app/v1/free/one_shot",   App.V1.Free.OneShot,    :get
+
+  get "/api/app/v1/search/top", App.V1.Search.Top, :get
+
+  post "/api/app/v1/first_launch", App.V1.FirstLaunch, :post
+
+  get "/api/console/v1/works",     Console.V1.Works.List,   :get
+  get "/api/console/v1/works/:id", Console.V1.Works.Detail, :get
 end

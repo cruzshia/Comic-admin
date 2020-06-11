@@ -18,25 +18,32 @@ defmodule RaiseServer.Depot.Work do
     field :search_text,         :string
     field :ngramed_search_text, :string
     embeds_one :images,         Depot.Images
+    field :last_content_published_at, :utc_datetime, virtual: true
 
-    field :episode_work_type,               :integer
+    field :episode_work_type,               RaiseServer.EpisodeTypeEnum
     field :update_frequency,                :string
     field :free_periodical_day_of_the_week, :string
     field :comic_appeal_work_id,            :integer
     field :catchphrase,                     :string
-    field :ads_in_viewer_setting,           :map
+    field :return_ad_revenue,               :boolean
     field :show_list_from_1st,              :boolean
     field :page_alignment_direction,        :integer
+    embeds_many :ads_in_viewer_setting,     Depot.AdsInViewerSettings
 
     field :magazine_name, :string
 
-    field :is_color,                     :boolean
-    belongs_to :subscription,            Depot.Subscription
-    field :is_main_work_of_subscription, :boolean
-    field :magazine_banner_ads_setting,  :map
+    field      :is_color,                     :boolean
+    belongs_to :subscription,                 Depot.Subscription
+    field      :is_main_work_of_subscription, :boolean
+    field      :magazine_banner_ads_setting,  :map
 
-    has_one :work_app, Depot.WorkApp
-    has_many :contents, Depot.Content
+    has_one  :work_campaign,    Depot.WorkCampaign
+    has_one  :work_assessment,  Depot.WorkAssessment
+    has_many :work_apps,        Depot.WorkApp
+    has_many :apps, through:    [:work_apps, :app]
+    has_many :contents,         Depot.Content
+    has_many :work_authors,     Depot.WorkAuthor
+    has_many :authors, through: [:work_authors, :author]
 
     timestamps()
   end

@@ -14,8 +14,9 @@ defmodule RaiseServer.Apps.App do
     field :app_id_token,         :string
     field :name,                 :string
     field :common_key,           :binary
-    field :apns_cert,            :string
-    field :apns_key,             :string
+    field :apns_team_id_token,   :string
+    field :apns_key_id_token,    :string
+    field :apns_auth_key,        :string
     field :fcm_api_key,          :string
     field :android_public_key,   :string
     field :itunes_shared_secret, :string
@@ -32,8 +33,9 @@ defmodule RaiseServer.Apps.App do
         :app_id_token,
         :name,
         :common_key,
-        :apns_cert,
-        :apns_key,
+        :apns_team_id_token,
+        :apns_key_id_token,
+        :apns_auth_key,
         :fcm_api_key,
         :android_public_key,
         :itunes_shared_secret,

@@ -5,18 +5,17 @@ defmodule RaiseServer.Curation.WorkTag do
   #import Ecto.Changeset
 
   #alias Ecto.{Changeset, Schema}
-  alias RaiseServer.Curation
+  alias RaiseServer.{Curation, Depot}
 
   @type t :: %__MODULE__{}
 
   @timestamps_opts [type: :utc_datetime]
 
   schema "work_tags" do
-    belongs_to :tag, Curation.Tag
-    field :work_id, :integer
-
-    field :tag_group, RaiseServer.TagGroupEnum
-    field :sort_code, :string
+    belongs_to :tag,    Curation.Tag
+    belongs_to :work,   Depot.Work
+    field :tag_group,   :string
+    field :sort_code,   :integer
 
     timestamps()
   end

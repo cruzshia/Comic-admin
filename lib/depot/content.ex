@@ -33,6 +33,7 @@ defmodule RaiseServer.Depot.Content do
     field :delivery_item_url,          :string
     field :launch_external_browser,	   :boolean
     field :excluded_in_todays_ranking, :boolean
+    field :is_pr_content,              :boolean
     field :ads_in_viewer_setting,      :map
 
     field :goods_service_in_viewer_setting, :string
@@ -44,7 +45,8 @@ defmodule RaiseServer.Depot.Content do
 
     field :magazine_banner_ads_setting, :map
 
-    has_one :content_app, Depot.ContentApp
+    has_one  :content_assessment, Depot.ContentAssessment
+    has_many :content_apps,       Depot.ContentApp
 
     timestamps()
   end

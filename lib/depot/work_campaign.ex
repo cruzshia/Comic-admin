@@ -15,6 +15,7 @@ defmodule RaiseServer.Depot.WorkCampaign do
   schema "work_campaigns" do
     belongs_to :campaign,                  Depot.Campaign
     belongs_to :work,                      Depot.Work
+    field      :name,                      :string
     field      :begin_at,                  :utc_datetime
     field      :end_at,                    :utc_datetime
     field      :priority,                  :integer, default: 0
@@ -23,7 +24,7 @@ defmodule RaiseServer.Depot.WorkCampaign do
     field      :free_range,                :string
     field      :free_range_display_string, :string
 
-    has_one :work_campaign_app, Depot.WorkCampaignApp
+    has_many :work_campaign_apps, Depot.WorkCampaignApp
 
     timestamps()
   end

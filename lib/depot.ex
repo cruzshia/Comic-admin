@@ -4,105 +4,107 @@ defmodule RaiseServer.Depot do
   import Ecto.Query
 
   alias AntikytheraAcs.Ecto.PostgresRepo, as: Repo
-  alias RaiseServer.Depot
-  alias Depot.{WorkCampaign, Work, Content}
+  alias RaiseServer.{Depot, EctoQueryMaker}
+  alias Depot.{WorkCampaign, Work, Content, WorkQuery, ContentQuery, WorkCampaignQuery}
 
   @doc """
   get Work records from db
   """
-  defun get_works(app_id :: v[integer], ids :: v[[integer]], opts \\ []) :: [Work.t] do
-    select_by = Keyword.get(opts, :select, :all)
-    time = Keyword.get(opts, :time, nil)
-
+  defun get_works(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: [Work.t] do
     Work
-    |> filter_by_app_id(:work_app, app_id)
-    |> where([w], w.id in ^ids)
-    |> filter_by_publish_time(time)
-    |> apply_select(select_by)
+    |> filter_by_app_id(:work_apps, app_id)
+    |> EctoQueryMaker.apply(WorkQuery, filters, opts)
     |> Repo.all()
   end
 
-  defun get_contents(app_id :: v[integer], content_ids :: v[[integer]], opts :: v[list] \\ []) :: [Content.t] do
-    select_by = Keyword.get(opts, :select, :all)
-    time = Keyword.get(opts, :time, nil)
+  defun count_works(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: integer do
+    Work
+    |> filter_by_app_id(:work_apps, app_id)
+    |> EctoQueryMaker.apply(WorkQuery, filters, opts)
+    |> select(count())
+    |> Repo.one()
+  end
 
+  defun get_contents(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: [Content.t] do
     Content
-    |> filter_by_app_id(:content_app, app_id)
-    |> where([c], c.id in ^content_ids)
-    |> filter_by_publish_time(time)
-    |> apply_select(select_by)
+    |> filter_by_app_id(:content_apps, app_id)
+    |> EctoQueryMaker.apply(ContentQuery, filters, opts)
     |> Repo.all()
   end
 
-  defun get_work_campaigns(app_id :: v[integer], now, opts :: v[list] \\ []) :: [WorkCampaign.t] do
-    limit = Keyword.get(opts, :limit, nil)
-    select_by = Keyword.get(opts, :select, :all)
-    order_by = Keyword.get(opts, :order_by, [])
-    preloads = Keyword.get(opts, :preload, []) |> Enum.map(&works_preload/1)
-
+  defun get_work_campaigns(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: [WorkCampaign.t] do
     WorkCampaign
-    |> filter_by_app_id(:work_campaign_app, app_id)
-    |> where([wc], wc.begin_at < ^now and ^now < wc.end_at)
-    |> apply_select(select_by)
-    |> order_by(^order_by)
-    |> limit(^limit)
-    |> preload(^preloads)
+    |> filter_by_app_id(:work_campaign_apps, app_id)
+    |> EctoQueryMaker.apply(WorkCampaignQuery, filters, opts)
     |> Repo.all()
   end
 
   @doc """
-  get a Work record form db
+  get a Work record from db
   """
-  defun get_work(app_id, conditions :: Keyword.t, opts \\ []) :: Work.t do
-    where_query = Enum.reduce(conditions, dynamic(true), &work_where_query/2)
-
-    preloads =
-      Keyword.get(opts, :preload, [])
-      |> Enum.map(&works_preload/1)
-
+  defun get_work(app_id :: v[integer], filters :: v[list], opts :: v[list] \\ []) :: Work.t | nil do
     Work
-    |> filter_by_app_id(:work_app, app_id)
-    |> where(^where_query)
-    |> preload(^preloads)
+    |> filter_by_app_id(:work_apps, app_id)
+    |> EctoQueryMaker.apply(WorkQuery, filters, opts)
+    |> limit(1)
     |> Repo.one()
   end
 
-  defp works_preload(:newest_content) do
-    query = Content
-    |> order_by(desc: :publish_begin_at)
-    |> limit(1)
-
-    {:contents, query}
-  end
-
-  defp works_preload(preload), do: preload
-
-  defp work_where_query({:subscription_id, sub_id}, dynamic) do
-    dynamic([w], ^dynamic and w.subscription_id == ^sub_id)
-  end
-
-  defp work_where_query({:is_main_work_of_subscription, _}, dynamic) do
-    dynamic([w], ^dynamic and w.is_main_work_of_subscription == true)
-  end
-
-  defp work_where_query({:time, time}, dynamic) do
-    dynamic([w], ^dynamic and w.publish_begin_at < ^time and ^time < w.publish_end_at)
-  end
-
-  defp apply_select(query, :all), do: query
-
-  defp apply_select(query, select_by), do: select(query, [q], map(q, ^select_by))
-
-  defp filter_by_app_id(module, assoc_app, app_id) do
-    module
+  defun filter_by_app_id(query :: Ecto.Queryable.t, assoc_app :: v[atom], app_id :: v[integer]) :: Ecto.Queryable.t do
+    query
     |> join(:inner, [r], ra in assoc(r, ^assoc_app))
     |> where([_, ra], ra.app_id == ^app_id)
   end
 
-  defp filter_by_publish_time(query, nil), do: query
+  @doc """
+  get a Work record from db without app_id.
 
-  defp filter_by_publish_time(query, time) do
-    query
-    |> where([q], q.publish_begin_at < ^time and ^time < q.publish_end_at)
+  It is used to display the work details from the console screen.
+  Do not use for apps.
+  """
+  defun get_work_for_console(filters :: v[list], opts :: v[list] \\ []) :: Work.t | nil do
+    Work
+    |> join_apps()
+    |> join_authors()
+    |> preload([:subscription])
+    |> EctoQueryMaker.apply(WorkQuery, filters, opts)
+    |> Repo.one()
+  end
+
+  @doc """
+  get a Works record from db without app_id.
+
+  It is used to display the work list from the console screen.
+  Do not use for apps.
+  """
+  defun get_works_for_console(filters :: v[list], opts  :: v[list] \\ []) :: [Work.t] do
+    Work
+    |> EctoQueryMaker.apply(WorkQuery, filters, opts)
+    |> Repo.all()
+  end
+
+  @doc """
+  get number of Works record from db without app_id.
+
+  It is used to display the work list from the console screen.
+  Do not use for apps.
+  """
+  defun count_works_for_console(filters :: v[list], opts  :: v[list] \\ []) :: integer do
+    Work
+    |> EctoQueryMaker.apply(WorkQuery, filters, opts)
+    |> select(count())
+    |> Repo.one()
+  end
+
+  defp join_apps(module) do
+    module
+    |> join(:left, [w], wa in assoc(w, :apps))
+    |> preload([..., wa], [apps: wa])
+  end
+
+  defp join_authors(module) do
+    module
+    |> join(:left, [w], wa in assoc(w, :authors))
+    |> preload([..., wa], [authors: wa])
   end
 end

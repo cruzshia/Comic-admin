@@ -1,0 +1,351 @@
+#!/bin/bash
+set -e
+
+JARDIR=`dirname $0`
+JARFILE="$JARDIR/epub-preprocess.jar"
+PREVIEWBUILDER="$JARDIR/lib/preview/preview.jar"
+SQUISH="$JARDIR/lib/squish/squish_nfbr_brws.sh"
+
+ERROR=false
+NOZIP=false
+PREPAGINATED=false
+JPEG=false
+NOSIZEOPTIMIZE=false
+PREVIEW=false
+PREVIEWPACKAGE=""
+PREVIEWOUTPUTPATH=""
+NOORIGINALPACKAGE=false
+SELECTIONREGION=false
+
+# for pinb
+WITHMOBILE=false
+WITHSCRAMBLE=false
+SCRAMBLEONLY=false
+OBFUSCATE=true
+QUALITY=97
+USESETTINGS=false
+MOBILEDIR_NAME=mobile
+RICH_NAVIGATION=false
+
+if [ $# -lt 2 ]; then
+	ERROR=true
+fi
+
+if $ERROR; then
+	printf 'Usage:  %s [-nozip] [-margin-off] [-font-default] [-font-sans-serif] [-font-serif] [-first-page-no-nombre-title] [-force-first-page-recto] [-force-writing-mode] [-expand-page-height] [-jpeg] [-gray-scale] [-compression-factor <compression factor>] [-no-size-optimize] [-bmp] [-pre-paginated] [-hvga] [-svga] [-uxga] [-wdvga] [-settings <json file path>] [-navigation-document] [-nombre] [-nombre-center] [-title] [-user-style-sheet <style sheet file path>] [-preview-package <preview package file path> -preview-output-path <preview output path>] [-image-epub] [-selection-region] [-text-map] [-with-mobile] [-with-scramble] [-scramble-only] [-json-pack-only] path/to/input-file /path/to/output-directory\n' "$0"
+	exit 1
+fi
+
+APPLYED_PARAM_COMPRESSION_FACTOR=false
+DETECTED_PARAM_SETTINGS=false
+DETECTED_PARAM_COMPRESSION_FACTOR=false
+index=0
+for arg in $*; do
+	index=$((index+1))
+	if $DETECTED_PARAM_COMPRESSION_FACTOR; then
+		DETECTED_PARAM_COMPRESSION_FACTOR=false
+		APPLYED_PARAM_COMPRESSION_FACTOR=true
+		QUALITY=`echo ${arg} | sed -e 's/\([01]\)\.\([0-9]\+\)/\1\2/g'`
+	fi
+	# for compression factor
+	if $DETECTED_PARAM_SETTINGS; then
+		DETECTED_PARAM_SETTINGS=false
+		if ! $APPLYED_PARAM_COMPRESSION_FACTOR; then
+			QUALITY=`cat ${arg} | grep jpegCompressionFactor | sed -e 's/.*\([01]\)\.\([0-9]\+\).*/\1\2/g'`
+		fi
+		SETTINGSNAME=${arg}
+	fi
+	if [ "${arg}" = "-nozip" ]; then
+		NOZIP=true
+	fi
+	if [ "${arg}" = "-pre-paginated" ]; then
+		PREPAGINATED=true
+	fi
+	if [ "${arg}" = "-jpeg" ]; then
+		JPEG=true
+	fi
+	if [ "${arg}" = "-no-size-optimize" ]; then
+		NOSIZEOPTIMIZE=true
+	fi
+	if [ "${arg}" = "-with-mobile" ]; then
+		WITHMOBILE=true
+		WITHSCRAMBLE=true
+	fi
+	if [ "${arg}" = "-with-scramble" ]; then
+		WITHSCRAMBLE=true
+	fi
+	if [ "${arg}" = "-scramble-only" ]; then
+		SCRAMBLEONLY=true
+		WITHSCRAMBLE=true
+		OBFUSCATE=false
+	fi
+	if [ "${arg}" = "-json-pack-only" ]; then
+		WITHMOBILE=false
+		SCRAMBLEONLY=false
+		WITHSCRAMBLE=false
+		OBFUSCATE=false
+	fi
+	if [ "${arg}" = "-compression-factor" ]; then
+		DETECTED_PARAM_COMPRESSION_FACTOR=true
+	fi
+	if [ "${arg}" = "-settings" ]; then
+		DETECTED_PARAM_SETTINGS=true
+		USESETTINGS=true
+	fi
+	if [ "${arg}" = "-rich-navigation" ]; then
+		RICH_NAVIGATION=true
+	fi
+	if [ "${arg}" = "-preview-package" ]; then
+		PREVIEW=true
+		packageIndex=$((index+1))
+		eval PREVIEWPACKAGE=\$\{$packageIndex\}
+		unset packageIndex
+	fi
+	if [ "${arg}" = "-preview-output-path" ]; then
+		previewOutputPathIndex=$((index+1))
+		eval PREVIEWOUTPUTPATH=\$\{$previewOutputPathIndex\}
+		unset previewOutputPathIndex
+	fi
+	if [ "${arg}" = "-selection-region" ]; then
+		SELECTIONREGION=true
+	fi
+done
+unset index
+
+eval OUTDIR=\$\{$#\}
+
+if [ ! -d "$OUTDIR" ]; then
+	printf '%s: No such output directory\n' "$OUTDIR"
+	exit 1
+fi
+
+NUM=`expr $# - 1`
+eval INPUT=\$\{$NUM\}
+
+if ! [ -f "$INPUT" ] && ! [ -d "$INPUT" ]; then
+	printf '%s: No such input file or directory\n' "$INPUT"
+	exit 1
+fi
+
+JAVAOPTS=""
+case `uname -s` in
+	Darwin)
+		JAVAOPTS="-d32"
+		LIBJSIG=""
+		;;
+	Linux)
+		if [ -z "$LIBJSIG" ]; then
+			LIBJSIG=`java -jar "$JARFILE" dummy -find-libjsig`
+		fi
+		;;
+esac
+
+PREFIX=`basename "$INPUT" | perl -pe 's/\.(epub|html?|xhtml)$//i'`
+
+# change output dir to temporary
+TMPDIR=$OUTDIR/$$
+mkdir -p $TMPDIR
+JAVAARG="${@%$OUTDIR}"
+JAVAARG="$JAVAARG $TMPDIR"
+# update args
+JAVAARG=`echo $JAVAARG | sed -e 's/-with-mobile\|-with-scramble\|-scramble-only\|-json-pack-only//g'`
+if $WITHMOBILE || $WITHSCRAMBLE; then
+	JAVAARG=`echo $JAVAARG | sed -e 's/-jpeg/-bmp/g'`
+fi
+# update settings
+if $USESETTINGS && ( $WITHMOBILE || $WITHSCRAMBLE ); then
+	SETTINGSTMP="$TMPDIR/prerenederer_settings.json"
+	cat "$SETTINGSNAME" | sed -e 's/"format".*:.*"JPEG"/"format": "BMP"/g' > $SETTINGSTMP
+	SETTINGSNAME_ESCAPED=`echo $SETTINGSNAME | sed 's/\//\\\\\//g' | sed 's/\./\\\./g'`
+	SETTINGSTMP_ESCAPED=`echo $SETTINGSTMP | sed 's/\//\\\\\//g' | sed 's/\./\\\./g'`
+	JAVAARG=`echo $JAVAARG | sed -e "s/-settings $SETTINGSNAME_ESCAPED /-settings $SETTINGSTMP_ESCAPED /g"`
+fi
+
+LD_PRELOAD="$LIBJSIG" \
+java $JAVAOPTS -Xss4m -Dfile.encoding=UTF-8 "-Djava.library.path=$JARDIR/lib" \
+	 -jar "$JARFILE" dummy $JAVAARG
+if [ $? -ne 0 ]; then
+	exit 1
+fi
+
+if [ ! -d $TMPDIR/$PREFIX ]; then
+	rm -r $TMPDIR
+	exit 1;
+fi
+
+ZIPFILE="$PREFIX".zip
+
+if [ -z "$PREVIEWOUTPUTPATH" ]; then
+	PREVIEWOUTPUTPATH="${OUTDIR}/${PREFIX}-preview-directory"
+	NOORIGINALPACKAGE=true
+fi
+
+PREVIEW_TMPDIR="$PREVIEWOUTPUTPATH"/"$$"
+
+if $PREVIEW; then
+	# TODO: WORKAROUND: Preview builder can't treat -bmp case
+	if $WITHMOBILE || $WITHSCRAMBLE; then
+		for renameFile in `find $TMPDIR/$PREFIX -name '*.bmp' -type f`; do
+			mv $renameFile ${renameFile%.bmp}.jpeg
+		done
+	fi
+
+	java -Dfile.encoding=UTF-8 -jar "$PREVIEWBUILDER" "$PREVIEWPACKAGE" "$TMPDIR/$PREFIX" "$PREVIEW_TMPDIR"
+
+	# TODO: WORKAROUND: Preview builder can't treat -bmp case
+	if $WITHMOBILE || $WITHSCRAMBLE; then
+		for renameFile in `find $TMPDIR/$PREFIX -name '*.jpeg' -type f`; do
+			mv $renameFile ${renameFile%.jpeg}.bmp
+		done
+		for renameFile in `find $PREVIEW_TMPDIR -name '*.jpeg' -type f`; do
+			mv $renameFile ${renameFile%.jpeg}.bmp
+		done
+	fi
+fi
+
+previewRootDirectory="$PREVIEWOUTPUTPATH"/"$PREFIX"
+tmpPreviewRootDirectory="$PREVIEW_TMPDIR"/"$PREFIX"
+
+if $SELECTIONREGION; then
+	CURRENTDIR=`pwd`
+
+	cd "$TMPDIR"/"$PREFIX"
+	rm -rf access-full-region
+	mkdir access-full-region
+	find * -type d \( -name "access-metadata" -o -name "access-full-region" -o -name "access-textmap" -o -name "*.region" \) -prune -o -type f -name "*.json" -print | while read json_fullpath
+	do
+		json_dir=`dirname access-full-region/"$json_fullpath"`
+		mkdir -p "$json_dir"
+		cp "$json_fullpath" access-full-region/"$json_fullpath"
+	done
+	find * -type d -name "access-full-region" -prune -o -type f -name "*.fullregion.json" -print0 | xargs --no-run-if-empty -0 rm
+	cd "$CURRENTDIR"
+
+	## TODO: This code doesn't work well because preview builder didn't copy selection region at 2017/11/22
+	# if $PREVIEW; then
+	# 	for package in `find "$tmpPreviewRootDirectory" -maxdepth 1 -mindepth 1 -type d`;do
+	# 		cd "$package"
+	# 		rm -rf access-full-region
+	# 		mkdir access-full-region
+	# 		find * -type d \( -name "access-metadata" -o -name "access-full-region" -o -name "access-textmap" -o -name "*.region" \) -prune -o -type f -name "*.json" -print | while read json_fullpath
+	# 		do
+	# 			json_dir=`dirname access-full-region/"$json_fullpath"`
+	# 			mkdir -p "$json_dir"
+	# 			cp "$json_fullpath" access-full-region/"$json_fullpath"
+	# 		done
+	# 		find * -type d -name "access-full-region" -prune -o -type f -name "*.fullregion.json" -print0 | xargs --no-run-if-empty -0 rm
+	# 		cd "$CURRENTDIR"
+	# 	done
+	# fi
+
+	unset CURRENTDIR
+fi
+
+# remove temporary setting json
+if [ -a "$SETTINGSTMP" ]; then
+	rm $SETTINGSTMP;
+fi
+
+if ! $NOSIZEOPTIMIZE; then
+	if $JPEG; then
+		if [ -x "`which jpegtran`" ]; then
+			find "$TMPDIR" -type f -name "*.jpeg" | while read -r pathname
+			do
+				jpegtran -optimize -outfile "${pathname}" "${pathname}"
+			done
+
+			if $PREVIEW; then
+				find "$tmpPreviewRootDirectory" -type f -name "*.jpeg" | while read -r pathname
+				do
+					jpegtran -optimize -outfile "${pathname}" "${pathname}"
+				done
+			fi
+		fi
+	fi
+fi
+
+MAKECONTENTARG=""
+# doesn't need pre-paginated flag here. Because before output dir style such as not pre-paginated.
+#if $PREPAGINATED; then
+#	MAKECONTENTARG=-pre-paginated
+#fi
+if $WITHMOBILE; then
+	MAKECONTENTARG="$MAKECONTENTARG -with-mobile"
+fi
+if $WITHSCRAMBLE; then
+	MAKECONTENTARG="$MAKECONTENTARG -with-scramble"
+fi
+if $SCRAMBLEONLY; then
+	MAKECONTENTARG="$MAKECONTENTARG -scramble-only"
+fi
+if ! $OBFUSCATE && ! $WITHMOBILE && ! $WITHSCRAMBLE && ! $SCRAMBLEONLY; then
+	MAKECONTENTARG="$MAKECONTENTARG -json-pack-only"
+fi
+if $RICH_NAVIGATION; then
+	MAKECONTENTARG="$MAKECONTENTARG -rich-navigation"
+fi
+if $RICH_NAVIGATION && $PREPAGINATED; then
+	MAKECONTENTARG="$MAKECONTENTARG -rich-navigation-path-is-pre-paginated-mode"
+fi
+MAKECONTENTARG="$MAKECONTENTARG -quality $QUALITY"
+MAKECONTENTARG="$MAKECONTENTARG -scramble-dirname $MOBILEDIR_NAME"
+echo bash "$JARDIR/lib/make_content.sh" "$TMPDIR/$PREFIX" "$OUTDIR/$PREFIX" $MAKECONTENTARG
+bash "$JARDIR/lib/make_content.sh" "$TMPDIR/$PREFIX" "$OUTDIR/$PREFIX" $MAKECONTENTARG
+
+if $PREVIEW; then
+	MAKECONTENTARG=${MAKECONTENTARG/-rich-navigation-path-is-pre-paginated-mode/} # Don't use -pre-paginated and -rich-navigation-path-is-pre-paginated-mode
+	MAKECONTENTARG=${MAKECONTENTARG/-rich-navigation/} # TODO: WORKAROUND: Preview builder can't copy rich navigation metadata JSON
+	MAKECONTENTARG="$MAKECONTENTARG  -pre-paginated"
+
+	for package in `find "$tmpPreviewRootDirectory" -maxdepth 3 -mindepth 3 -type d`; do
+		PACKAGE_OUTDIR=`echo $package | sed -e "s|^$tmpPreviewRootDirectory|$previewRootDirectory|g"`
+		rm -rf $PACKAGE_OUTDIR
+		mkdir -p $PACKAGE_OUTDIR
+		echo bash "$JARDIR/lib/make_content.sh" "$package" "$PACKAGE_OUTDIR" $MAKECONTENTARG
+		bash "$JARDIR/lib/make_content.sh" "$package" "$PACKAGE_OUTDIR" $MAKECONTENTARG
+	done
+fi
+
+rm -r $TMPDIR
+
+ZIPOPTION=""
+SQUISHED_ZIPFILE=""
+if ! $NOZIP; then
+	ZIPOPTION="-zip"
+	SQUISHED_ZIPFILE="$ZIPFILE"
+fi
+
+PREPAGINATEDOPTION=""
+if $PREPAGINATED; then
+	PREPAGINATEDOPTION="-pre-paginated"
+fi
+
+sh "$SQUISH" $PREPAGINATEDOPTION $ZIPOPTION $SQUISHED_ZIPFILE $MOBILEDIR_NAME "$OUTDIR"/"$PREFIX"
+previewPackageDirectory=""
+if $PREVIEW; then
+	IFS_BACKUP="$IFS"
+	IFS='
+'
+	for package in `find "$previewRootDirectory" -maxdepth 1 -mindepth 1 -type d`;do
+		sh "$SQUISH" $PREPAGINATEDOPTION $ZIPOPTION $SQUISHED_ZIPFILE $MOBILEDIR_NAME "$package"
+		previewPackageDirectory="$package"
+	done
+	IFS="$IFS_BACKUP"
+fi
+
+if $PREVIEW && $NOORIGINALPACKAGE; then
+	previewSize=`find "$previewRootDirectory" -maxdepth 1 -type d |wc -l`
+	if [ $previewSize -ne 2 ]; then # current and target directories are counted
+		printf 'Error: Too many preview IDs to output a preview package.\n'
+		rm -rf "$PREVIEWOUTPUTPATH"
+		exit 1
+	fi
+
+	rm -rf "$OUTDIR"/"$PREFIX"
+	mv "$previewPackageDirectory" "$OUTDIR"/"$PREFIX"
+	rm -rf "$PREVIEWOUTPUTPATH"
+fi
+
+if $PREVIEW; then
+	rm -rf $PREVIEW_TMPDIR
+fi

@@ -5,7 +5,7 @@ defmodule RaiseServer.Crypto do
   @iv_length_byte 16
   @salt_length_byte 8
 
-  defunp derive_key_and_iv(key :: binary, salt :: binary) :: {binary, binary} do
+  defunp derive_key_and_iv(key :: v[binary], salt :: v[binary]) :: {binary, binary} do
     {d, _} = Enum.reduce_while(1..100, {"", ""}, fn (_, {d, di}) ->
       if byte_size(d) >= @key_length_byte + @iv_length_byte do
         {:halt, {d, di}}

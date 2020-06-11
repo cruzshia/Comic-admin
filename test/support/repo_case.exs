@@ -4,7 +4,7 @@ defmodule RaiseServer.RepoCase do
   use ExUnit.CaseTemplate
 
   alias AntikytheraAcs.Ecto.PostgresRepo, as: Repo
-  alias RaiseServer.{Apps, Depot, Account}
+  alias RaiseServer.{Account, Apps, Curation, Depot}
 
   setup do
     RaiseServer.Ecto.prepare_repo()
@@ -13,12 +13,18 @@ defmodule RaiseServer.RepoCase do
     Repo.delete_all(Depot.WorkApp)
     Repo.delete_all(Depot.WorkCampaignApp)
     Repo.delete_all(Depot.WorkCampaign)
-    Repo.delete_all(Depot.Campaign)
-    Repo.delete_all(Depot.Content)
-    Repo.delete_all(Depot.Work)
-    Repo.delete_all(Depot.Subscription)
+    Repo.delete_all(Depot.ContentAssessment)
+    Repo.delete_all(Depot.WorkAuthor)
     Repo.delete_all(Apps.AppScreenSetting)
     Repo.delete_all(Apps.App)
+    Repo.delete_all(Depot.Author)
+    Repo.delete_all(Depot.Campaign)
+    Repo.delete_all(Depot.Content)
+    Repo.delete_all(Depot.WorkAssessment)
+    Repo.delete_all(Curation.WorkTag)
+    Repo.delete_all(Depot.Work)
+    Repo.delete_all(Depot.Subscription)
+    Repo.delete_all(Curation.Tag)
     Repo.delete_all(Account.Device)
     Repo.delete_all(Account.User)
     :ok
@@ -27,7 +33,7 @@ defmodule RaiseServer.RepoCase do
   using do
     quote do
       use RaiseServer.CommonCase
-      import RaiseServer.ScreenSettingUtils
+      alias AntikytheraAcs.Ecto.PostgresRepo, as: Repo
 
       defp mock_verify_app_api_token() do
         # TODO: Mock RaiseServer.Plug.VerifyAppApiToken

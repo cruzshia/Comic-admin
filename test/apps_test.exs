@@ -28,11 +28,9 @@ defmodule RaiseServer.AppsTest do
       }] }
       |> :jsx.encode
 
-      app = AppsFactory.insert(:app)
-      # TODO update screen integer to screen enum
-      AppsFactory.insert(:app_screen_setting, %{app_id: app.id, screen: 0, setting: "//fakecomment \n" <> json_str})
+      screen_setting = AppsFactory.insert(:app_screen_setting, %{setting: "//fakecomment \n" <> json_str, screen: :home})
 
-      assert %{ "sections" => [ %{ "type" => "banners"} ]} = Apps.get_page_setting(app.id, :home)
+      assert %{ "sections" => [ %{ "type" => "banners"} ]} = Apps.get_page_setting(screen_setting.app_id, :home)
     end
   end
 end
