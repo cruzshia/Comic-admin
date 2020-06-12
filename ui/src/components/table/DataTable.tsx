@@ -58,12 +58,12 @@ const useStyle = makeStyles({
 
 export interface DataSet {
   label: string
-  content: string | JSX.Element
+  content: any
   isSubTitle?: boolean
   classes?: string
 }
 
-export const toDataSet = (label: string, content?: string | JSX.Element, isSubTitle?: boolean) => ({
+export const toDataSet = (label: string, content?: any, isSubTitle?: boolean) => ({
   label,
   content: content || '',
   isSubTitle

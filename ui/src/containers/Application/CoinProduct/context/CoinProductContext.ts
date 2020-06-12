@@ -1,9 +1,9 @@
 import { createContext } from 'react'
-import { CoinProduct, CoinProductDetail } from '@src/models/application/coinProduct'
+import { CoinProduct } from '@src/models/application/coinProduct'
 
 interface CoinProductContext {
-  productList: CoinProductDetail[]
-  currentProduct?: any
+  productList: CoinProduct[]
+  currentProduct?: CoinProduct
   productTotal: number
 }
 

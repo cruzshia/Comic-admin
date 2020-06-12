@@ -1,11 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useRef, useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
+import { CoinProductKeys, CoinProductStatusType } from '@src/models/application/coinProduct'
 import { TextInputAdapter, SelectAdapter } from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import StartEndForm from '@src/components/form/StartEndForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
-import { emptyCoinProduct } from '@src/reducers/application/coinProduct/coinProductReducer'
 import commonMessages from '@src/messages'
 import userMessages from '@src/containers/User/List/messages'
 import applicationMessages from '../../messages'
@@ -28,12 +28,21 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
     [ScrollAnchor.Release]: releaseRef
   }
 
+  const typeOptions = useMemo(
+    () =>
+      Object.values(CoinProductStatusType).map(type => ({
+        label: formatMessage(messages[type]),
+        value: type
+      })),
+    [formatMessage]
+  )
+
   return (
     <>
       <ScrollTo anchorRef={anchorRefs} />
       <Form
         onSubmit={onSubmit}
-        initialValues={currentProduct || emptyCoinProduct}
+        initialValues={currentProduct}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
@@ -42,12 +51,12 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
                 toDataSet(formatMessage(messages.productId), currentProduct ? currentProduct.productId : ''),
                 toDataSet(
                   formatMessage(applicationMessages.applicationId),
-                  <Field name='applicationId' component={SelectAdapter} options={[]} />
+                  <Field name={CoinProductKeys.AppId} component={SelectAdapter} options={[]} />
                 ),
                 toDataSet(
                   formatMessage(userMessages.paidCoins),
                   <Field
-                    name='paidCoin'
+                    name={CoinProductKeys.PayCoin}
                     component={TextInputAdapter}
                     placeholder={formatMessage(applicationMessages.inputCoinNum)}
                     short
@@ -56,7 +65,7 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
                 toDataSet(
                   formatMessage(userMessages.paidBonusCoins),
                   <Field
-                    name='givenCoin'
+                    name={CoinProductKeys.PayBonusCoin}
                     component={TextInputAdapter}
                     placeholder={formatMessage(applicationMessages.inputCoinNum)}
                     short
@@ -64,7 +73,7 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
                 ),
                 toDataSet(
                   formatMessage(applicationMessages.status),
-                  <Field name='status' component={SelectAdapter} options={[]} isShort />
+                  <Field name={CoinProductKeys.Status} component={SelectAdapter} options={typeOptions} isShort />
                 )
               ]}
               marginBottom
@@ -73,9 +82,9 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
               innerRef={releaseRef}
               title={formatMessage(commonMessages.releaseDuration)}
               startLabel={formatMessage(commonMessages.publicStartTime)}
-              startName='releaseStartTime'
+              startName={CoinProductKeys.PublishBeginAt}
               endLabel={formatMessage(commonMessages.publicEndTime)}
-              endName='releaseEndTime'
+              endName={CoinProductKeys.PublishEndAt}
             />
           </form>
         )}

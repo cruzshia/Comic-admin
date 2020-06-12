@@ -9,7 +9,8 @@ import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import usePaging from '@src/hooks/usePaging'
 import useSort from '@src/hooks/useSort'
-import { CoinProductKeys, SearchParam } from '@src/models/application/coinProduct'
+import { CoinProductKeys, SearchParam, CoinProduct } from '@src/models/application/coinProduct'
+import { toDateTime } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import userMessages from '@src/containers/User/List/messages'
 import Paging from '@src/models/paging'
@@ -73,25 +74,30 @@ export default function CoinProductList() {
 
   const theadList = useMemo(
     () => [
-      { id: CoinProductKeys.InsertedAt, label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
+      {
+        id: CoinProductKeys.InsertedAt,
+        label: formatMessage(commonMessages.createDateTime),
+        onSort: handleSort,
+        formatter: toDateTime
+      },
       {
         id: CoinProductKeys.PublishBeginAt,
         label: formatMessage(commonMessages.publicStartTime),
-        onSort: handleSort
+        onSort: handleSort,
+        formatter: toDateTime
       },
       { id: CoinProductKeys.Id, label: formatMessage(messages.productId) },
       { id: CoinProductKeys.AppId, label: formatMessage(commonMessages.appId) },
       { id: CoinProductKeys.PayCoin, label: formatMessage(userMessages.paidCoins) },
       { id: CoinProductKeys.PayBonusCoin, label: formatMessage(userMessages.paidBonusCoins) },
-      { id: CoinProductKeys.Status, label: formatMessage(applicationMessages.status) }
+      {
+        id: CoinProductKeys.Status,
+        label: formatMessage(applicationMessages.status),
+        formatter: (status: CoinProduct[CoinProductKeys.Status]) => formatMessage(messages[status])
+      }
     ],
     [formatMessage, handleSort]
   )
-
-  const dataList = productList.map(({ status, ...data }) => ({
-    ...data,
-    [CoinProductKeys.Status]: formatMessage(messages[status])
-  }))
 
   return (
     <>
@@ -100,7 +106,7 @@ export default function CoinProductList() {
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
-        dataList={dataList}
+        dataList={productList}
         pagination={pagination}
         onPageChange={handlePageChange}
         sortBy={sortBy.key}

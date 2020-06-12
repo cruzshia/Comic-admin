@@ -26,7 +26,7 @@ export enum CoinProductStatusType {
   Inactive = 'inactive'
 }
 
-export interface CoinProductDetail {
+export interface CoinProduct {
   [CoinProductKeys.Id]: string
   [CoinProductKeys.ProductIdToken]: string
   [CoinProductKeys.AppId]: string
@@ -38,5 +38,3 @@ export interface CoinProductDetail {
   [CoinProductKeys.InsertedAt]: string
   [CoinProductKeys.UpdatedAt]: string
 }
-
-export type CoinProduct = any

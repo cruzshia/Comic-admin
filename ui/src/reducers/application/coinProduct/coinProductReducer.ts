@@ -1,9 +1,9 @@
-import { CoinProduct, CoinProductDetail } from '@src/models/application/coinProduct'
+import { CoinProduct } from '@src/models/application/coinProduct'
 import { CoinProductActionType, ListParams } from './coinProductActions'
 import { ActionType } from '../../types'
 
 export interface CoinProductState {
-  productList: CoinProductDetail[]
+  productList: CoinProduct[]
   productTotal: number
   currentProduct?: CoinProduct
 }
@@ -13,11 +13,9 @@ const initState: CoinProductState = {
   productTotal: 0
 }
 
-export const emptyCoinProduct: CoinProduct = {}
-
 export const CoinProductPreloadState = initState
 
-const updateCurrentProductHandler = (state: CoinProductState, action: ActionType<CoinProduct[]>): CoinProductState => {
+const updateCurrentProductHandler = (state: CoinProductState, action: ActionType<CoinProduct>): CoinProductState => {
   return {
     ...state,
     currentProduct: action.payload

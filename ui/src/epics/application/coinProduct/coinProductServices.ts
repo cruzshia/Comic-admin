@@ -22,7 +22,7 @@ export const getCoinProductListAjax = (params?: Object): Response<ListParams> =>
 }
 
 export const getCoinProductAjax = (id: string): Observable<{ status: number; response: CoinProduct }> => {
-  authAjax.get(`/application/coin_product/${id}`)
+  authAjax.get(`${COIN_PRODUCT_API_PATH}/${id}`)
   return from([
     {
       status: 200,

@@ -14,12 +14,13 @@ import commonMessages from '@src/messages'
 import userMessages from '@src/containers/User/List/messages'
 import applicationMessages from '../../messages'
 import messages from '../messages'
+import { CoinProductKeys } from '@src/models/application/coinProduct'
 
 export default function CoinProductDetail() {
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id } = useParams()
-  const { currentProduct = {} } = useContext(CoinProductContext)
+  const { currentProduct } = useContext(CoinProductContext)
   const { onGetCoinProduct, onResetCoinProduct } = useContext(ActionContext)
 
   useEffect(() => {
@@ -60,22 +61,23 @@ export default function CoinProductDetail() {
     [history, id]
   )
 
-  if (!currentProduct.productId) return null
-
-  return (
+  return !currentProduct ? null : (
     <>
       <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
-          toDataSet(formatMessage(messages.productId), currentProduct.productId),
-          toDataSet(formatMessage(applicationMessages.applicationId), currentProduct.applicationId),
-          toDataSet(formatMessage(userMessages.paidCoins), currentProduct.paidCoin),
-          toDataSet(formatMessage(userMessages.paidBonusCoins), currentProduct.givenCoin),
-          toDataSet(formatMessage(applicationMessages.status), currentProduct.status),
-          toDataSet(formatMessage(commonMessages.createDateTime), currentProduct.createdAt),
-          toDataSet(formatMessage(commonMessages.updateDateTime), currentProduct.updatedAt)
+          toDataSet(formatMessage(messages.productId), currentProduct[CoinProductKeys.Id]),
+          toDataSet(formatMessage(applicationMessages.applicationId), currentProduct[CoinProductKeys.AppId]),
+          toDataSet(formatMessage(userMessages.paidCoins), currentProduct[CoinProductKeys.PayCoin]),
+          toDataSet(formatMessage(userMessages.paidBonusCoins), currentProduct[CoinProductKeys.PayBonusCoin]),
+          toDataSet(
+            formatMessage(applicationMessages.status),
+            formatMessage(messages[currentProduct[CoinProductKeys.Status]])
+          ),
+          toDataSet(formatMessage(commonMessages.createDateTime), currentProduct[CoinProductKeys.InsertedAt]),
+          toDataSet(formatMessage(commonMessages.updateDateTime), currentProduct[CoinProductKeys.UpdatedAt])
         ]}
         marginBottom
         onEdit={handleRedirect()}
@@ -83,8 +85,8 @@ export default function CoinProductDetail() {
       <DataTable
         title={formatMessage(commonMessages.releaseDuration)}
         dataSet={[
-          toDataSet(formatMessage(commonMessages.publicStartTime), currentProduct.releaseStartTime),
-          toDataSet(formatMessage(commonMessages.publicEndTime), currentProduct.releaseEndTime)
+          toDataSet(formatMessage(commonMessages.publicStartTime), currentProduct[CoinProductKeys.PublishBeginAt]),
+          toDataSet(formatMessage(commonMessages.publicEndTime), currentProduct[CoinProductKeys.PublishEndAt])
         ]}
         onEdit={handleRedirect(ScrollAnchor.Release)}
       />

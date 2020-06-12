@@ -2,15 +2,16 @@ import { CoinProductKeys, CoinProductStatusType } from '@src/models/application/
 import { _range } from '@src/utils/functions'
 
 export const mockCoinProductDetail = {
-  productId: 'WORK_SHUNKAN10000006',
-  applicationId: 'WORK_SHUNKAN10000006',
-  paidCoin: 'サンプルテキスト',
-  givenCoin: 'サンプルテキスト',
-  status: 'アクティブ',
-  createdAt: '2020-04-02 14:00',
-  updatedAt: '2020-04-02 14:00',
-  releaseStartTime: '2020-04-02 14:00',
-  releaseEndTime: '2020-04-02 14:00'
+  [CoinProductKeys.Id]: 'WORK_SHUNKAN10000006',
+  [CoinProductKeys.ProductIdToken]: 'WORK_SHUNKAN10000006',
+  [CoinProductKeys.AppId]: 'WORK_SHUNKAN10000006',
+  [CoinProductKeys.PayCoin]: 5,
+  [CoinProductKeys.PayBonusCoin]: 10,
+  [CoinProductKeys.Status]: CoinProductStatusType.Active,
+  [CoinProductKeys.PublishBeginAt]: '2020-04-02 14:00:00Z',
+  [CoinProductKeys.PublishEndAt]: '2020-04-02 14:00:00Z',
+  [CoinProductKeys.InsertedAt]: '2020-04-02 14:00:00Z',
+  [CoinProductKeys.UpdatedAt]: '2020-04-02 14:00:00Z'
 }
 
 export const mockCoinProductList = _range(0, 7).map(num => ({
@@ -23,5 +24,5 @@ export const mockCoinProductList = _range(0, 7).map(num => ({
   [CoinProductKeys.PublishBeginAt]: `2020-04-02 14:0${num}:00Z`,
   [CoinProductKeys.PublishEndAt]: `2020-04-02 14:0${num}:00Z`,
   [CoinProductKeys.InsertedAt]: `2020-04-02 14:0${num}:00Z`,
-  [CoinProductKeys.UpdatedAt]: `2020-04-02 14:00${num}:00Z`
+  [CoinProductKeys.UpdatedAt]: `2020-04-02 14:0${num}:00Z`
 }))
