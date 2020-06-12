@@ -19,7 +19,7 @@ import CoinDeliveryEventContext, { ActionContext } from './context/CoinDeliveryE
 export default function CoinDeliveryEvent() {
   const dispatch = useDispatch()
   const { eventList, eventTotal, currentEvent } = useSelector((store: StoreState) => store.coinDeliveryEvent)
-  const handleGetList = useCallback(() => dispatch(getCoinDeliveryEventListAction()), [dispatch])
+  const handleGetList = useCallback((params?: object) => dispatch(getCoinDeliveryEventListAction(params)), [dispatch])
   const handleCreate = useCallback(data => dispatch(createCoinDeliveryEventAction(data)), [dispatch])
   const handleGet = useCallback(id => dispatch(getCoinDeliveryEventAction(id)), [dispatch])
   const handleUpdate = useCallback(data => dispatch(updateCoinDeliveryEventAction(data)), [dispatch])

@@ -4,31 +4,48 @@ import { useIntl } from 'react-intl'
 import SearchFilter from '@src/components/SearchFilter'
 import commonMessages from '@src/messages'
 import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
+import TimeSpanInput from '@src/components/form/TimeSpanInput'
+import { CoinDeliveryEventKeys, EventType } from '@src/models/application/coinDeliveryEvent'
 import messages from '../messages'
-import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 
 interface Props {
-  onSubmit: (data: any) => void
+  onSubmit: (data: object) => void
 }
 
 export default function SearchBlock({ onSubmit }: Props) {
   const { formatMessage } = useIntl()
+
   const conditions = useMemo(
     () => ({
       left: [
         {
           label: formatMessage(messages.eventName),
-          input: <Field name='eventName' component={TextInputAdapter} />
+          input: <Field name={CoinDeliveryEventKeys.Name} component={TextInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.publicStartTime),
-          input: <Field name='deliveryStartTime' component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+          input: (
+            <TimeSpanInput
+              nameStart={CoinDeliveryEventKeys.PublishBeginAtFrom}
+              nameEnd={CoinDeliveryEventKeys.PublishBeginAtTo}
+            />
+          )
         }
       ],
       right: [
         {
           label: formatMessage(messages.eventType),
-          input: <Field name='eventType' component={SelectAdapter} options={[]} isShort />
+          input: (
+            <Field
+              name={CoinDeliveryEventKeys.EventType}
+              component={SelectAdapter}
+              options={Object.values(EventType).map(type => ({
+                label: formatMessage(messages[type]),
+                value: type
+              }))}
+              isShort
+            />
+          )
         }
       ]
     }),

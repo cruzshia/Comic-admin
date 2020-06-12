@@ -13,7 +13,7 @@ export default createContext<CoinDeliveryEventContext>({
 })
 
 interface CoinDeliveryEventActionContext {
-  onGetCoinDeliveryEventList: () => void
+  onGetCoinDeliveryEventList: (params?: object) => void
   onGetCoinDeliveryEvent: (_: string) => void
   onCreateCoinDeliveryEvent: (_: CoinDeliveryEvent) => void
   onUpdateCoinDeliveryEvent: (_: CoinDeliveryEvent) => void

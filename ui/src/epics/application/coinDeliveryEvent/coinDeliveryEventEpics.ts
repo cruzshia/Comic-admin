@@ -1,5 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
+import { of } from 'rxjs'
 import { map, switchMap, exhaustMap, catchError, tap } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
@@ -10,18 +11,19 @@ import {
   updateCoinDeliveryEventSuccessAction
 } from '@src/reducers/application/coinDeliveryEvent/coinDeliveryEventActions'
 import * as coinDeliveryEventServices from './coinDeliveryEventServices'
-import { emptyErrorReturn } from '@src/epics/utils'
+import { emptyErrorReturn, toMockData } from '@src/epics/utils'
+import { mockEventList } from './mockData/mockCoinDeliveryEvent'
 
 export const getCoinDeliveryEventListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(CoinDeliveryEventActionType.GET_LIST),
-    switchMap(() =>
-      coinDeliveryEventServices.getCoinDeliveryEventListAjax().pipe(
+    switchMap(action =>
+      coinDeliveryEventServices.getCoinDeliveryEventListAjax(action.payload).pipe(
         map(res => getCoinDeliveryEventListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: CoinDeliveryEventActionType.GET_LIST_SUCCESS })),
-        catchError(() => {
+        catchError(error => {
           errorSubject.next({ type: CoinDeliveryEventActionType.GET_LIST_ERROR })
-          return emptyErrorReturn()
+          return toMockData(error, of(getCoinDeliveryEventListSuccessAction(mockEventList))) || emptyErrorReturn()
         })
       )
     )

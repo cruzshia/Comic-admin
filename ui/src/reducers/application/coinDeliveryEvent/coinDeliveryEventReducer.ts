@@ -1,4 +1,4 @@
-import { CoinDeliveryEvent } from '@src/models/application/coinDeliveryEvent'
+import CoinDeliveryEvent from '@src/models/application/coinDeliveryEvent'
 import { CoinDeliveryEventActionType } from './coinDeliveryEventActions'
 import { ActionType } from '../../types'
 

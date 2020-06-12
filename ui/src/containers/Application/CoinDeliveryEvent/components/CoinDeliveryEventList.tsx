@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext, useEffect } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/core'
@@ -9,6 +9,8 @@ import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import useSort from '@src/hooks/useSort'
 import usePaging from '@src/hooks/usePaging'
+import { CoinDeliveryEventKeys, EventType } from '@src/models/application/coinDeliveryEvent'
+import { toDateTime } from '@src/utils/functions'
 import CoinEventContext, { ActionContext } from '../context/CoinDeliveryEventContext'
 import { BREADCRUMBS } from '../constants'
 import commonMessages from '@src/messages'
@@ -35,12 +37,13 @@ export default function CoinDeliveryEventList() {
   const { onGetCoinDeliveryEventList } = useContext(ActionContext)
   const history = useHistory()
   const { formatMessage } = useIntl()
-  const { sortBy, handleSort } = useSort('releaseStartAt')
-  const { pagination, handlePageChange } = usePaging({ total: eventTotal })
+  const [searchParams, setSearchParams] = useState<object>({})
+  const { sortBy, handleSort } = useSort(CoinDeliveryEventKeys.PublishBeginAt)
+  const { pagination, handlePageChange, query } = usePaging({ total: eventTotal })
 
   useEffect(() => {
-    onGetCoinDeliveryEventList()
-  }, [onGetCoinDeliveryEventList])
+    onGetCoinDeliveryEventList({ ...searchParams, ...query, sortBy: sortBy.key, order: sortBy.order })
+  }, [onGetCoinDeliveryEventList, sortBy, query, searchParams])
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
@@ -58,19 +61,31 @@ export default function CoinDeliveryEventList() {
   )
   const theadList = useMemo(
     () => [
-      { id: 'eventId', label: formatMessage(messages.eventId) },
-      { id: 'eventName', label: formatMessage(messages.eventName) },
-      { id: 'eventType', label: formatMessage(messages.eventType) },
-      { id: 'releaseStartAt', label: formatMessage(commonMessages.publicStartTime), onSort: handleSort },
-      { id: 'releaseEndAt', label: formatMessage(commonMessages.publicEndTime), onSort: handleSort },
+      { id: CoinDeliveryEventKeys.ID, label: formatMessage(messages.eventId) },
+      { id: CoinDeliveryEventKeys.Name, label: formatMessage(messages.eventName) },
+      {
+        id: CoinDeliveryEventKeys.EventType,
+        label: formatMessage(messages.eventType),
+
+        formatter: (data: EventType) => formatMessage(messages[data])
+      },
+      {
+        id: CoinDeliveryEventKeys.PublishBeginAt,
+        label: formatMessage(commonMessages.publicStartTime),
+        onSort: handleSort,
+        formatter: toDateTime
+      },
+      {
+        id: CoinDeliveryEventKeys.PublishEndAt,
+        label: formatMessage(commonMessages.publicEndTime),
+        onSort: handleSort,
+        formatter: toDateTime
+      },
       { id: 'spacer', label: '' }
     ],
     [formatMessage, handleSort]
   )
-  const handleSearch = useCallback(data => console.log(data), [])
-  const dataList = eventList.sort(
-    (a: any, b: any) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier
-  )
+  const handleSearch = useCallback(data => setSearchParams(data), [setSearchParams])
 
   return (
     <>
@@ -79,8 +94,7 @@ export default function CoinDeliveryEventList() {
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
-        dataList={dataList}
-        rowIdKey='eventId'
+        dataList={eventList}
         pagination={pagination}
         onPageChange={handlePageChange}
         sortBy={sortBy.key}

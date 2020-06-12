@@ -1,3 +1,4 @@
+import { CoinDeliveryEventKeys, EventType } from '@src/models/application/coinDeliveryEvent'
 import { _range } from '@src/utils/functions'
 export const mockEventTotal = 7
 
@@ -13,11 +14,11 @@ export const mockEventDetail = {
   releaseEndAt: '2020-04-02 14:00'
 }
 
-const type = ['1日1回', '1回限り']
 export const mockEventList = _range(0, mockEventTotal).map(num => ({
-  eventId: `SHJP01_LGB20200${num}`,
-  eventName: '2020年新年ログインボーナス',
-  eventType: type[num % 2],
-  releaseStartAt: `2020-04-02 14:0${num}`,
-  releaseEndAt: `2020-04-02 14:0${mockEventTotal - num}`
+  [CoinDeliveryEventKeys.ID]: `SHJP01_LGB20200${num}`,
+  [CoinDeliveryEventKeys.CustomEventIdToken]: '',
+  [CoinDeliveryEventKeys.Name]: '2020年新年ログインボーナス',
+  [CoinDeliveryEventKeys.EventType]: num % 2 === 0 ? EventType.Daily : EventType.OneTime,
+  [CoinDeliveryEventKeys.PublishBeginAt]: `2020-04-02 14:0${num}`,
+  [CoinDeliveryEventKeys.PublishEndAt]: `2020-04-02 14:0${mockEventTotal - num}`
 }))

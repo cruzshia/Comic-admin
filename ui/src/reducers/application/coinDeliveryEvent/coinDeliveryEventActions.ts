@@ -1,4 +1,4 @@
-import { CoinDeliveryEvent } from '@src/models/application/coinDeliveryEvent'
+import CoinDeliveryEvent from '@src/models/application/coinDeliveryEvent'
 
 export enum CoinDeliveryEventActionType {
   GET_LIST = '@AppCoinDeliveryEvent/GET_LIST',
@@ -20,8 +20,9 @@ export enum CoinDeliveryEventActionType {
   RESET_CURRENT = '@AppCoinDeliveryEvent/RESET_CURRENT'
 }
 
-export const getCoinDeliveryEventListAction = () => ({
-  type: CoinDeliveryEventActionType.GET_LIST
+export const getCoinDeliveryEventListAction = (params?: object) => ({
+  type: CoinDeliveryEventActionType.GET_LIST,
+  payload: params
 })
 
 export const getCoinDeliveryEventListSuccessAction = (payload: CoinDeliveryEvent[]) => ({

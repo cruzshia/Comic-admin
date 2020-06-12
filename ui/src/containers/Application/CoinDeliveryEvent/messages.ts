@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl'
+import { EventType } from '@src/models/application/coinDeliveryEvent'
 
 const PREFIX = 'application.coin_delivery_event.'
 export default defineMessages({
@@ -77,5 +78,13 @@ export default defineMessages({
   eventEndAt: {
     id: PREFIX + 'end_at',
     defaultMessage: 'Event End Time'
+  },
+  [EventType.OneTime]: {
+    id: PREFIX + 'one_time',
+    defaultMessage: 'One Time'
+  },
+  [EventType.Daily]: {
+    id: PREFIX + 'daily',
+    defaultMessage: 'Daily'
   }
 })
