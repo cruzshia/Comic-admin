@@ -1,5 +1,5 @@
 import CoinDeliveryEvent from '@src/models/application/coinDeliveryEvent'
-import { CoinDeliveryEventActionType } from './coinDeliveryEventActions'
+import { CoinDeliveryEventActionType, ListParams } from './coinDeliveryEventActions'
 import { ActionType } from '../../types'
 
 export interface CoinDeliveryEventState {
@@ -30,12 +30,12 @@ const updateCurrentEventHandler = (
 const handler: Record<string, (state: CoinDeliveryEventState, action: ActionType<any>) => CoinDeliveryEventState> = {
   [CoinDeliveryEventActionType.GET_LIST_SUCCESS]: (
     state: CoinDeliveryEventState,
-    action: ActionType<CoinDeliveryEvent[]>
+    action: ActionType<ListParams>
   ): CoinDeliveryEventState => {
     return {
       ...state,
-      eventList: action.payload,
-      eventTotal: action.payload.length
+      eventList: action.payload.coin_grant_events,
+      eventTotal: action.payload.total_count
     }
   },
   [CoinDeliveryEventActionType.RESET_CURRENT]: updateCurrentEventHandler,

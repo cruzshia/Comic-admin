@@ -2,7 +2,7 @@ import { AnyAction } from 'redux'
 import WorkDetail, { WorkKeys, WorkType } from '@src/models/comics/work'
 import { AdSettingKeys, AdPosition } from '@src/models/comics/advertisement'
 import { ImageKey } from '@src/models/image'
-import { uploadImageAction } from '@src/reducers/comics/work/workActions'
+import { uploadImageAction } from '@src/reducers/image/imageActions'
 import { batchConvertDate, batchConvertISO8601 } from '@src/utils/functions'
 import { _uuid } from '@src/utils/functions'
 
@@ -70,7 +70,7 @@ export const imgUploadActions = (work: WorkDetail, payload: WorkDetail): AnyActi
     if (work[WorkKeys.S3Uploads] && imageData?.[key].url instanceof File) {
       uploadActions.push(
         uploadImageAction({
-          workId: work.id,
+          notifyPath: `/v1/works/${work.id}`,
           imageKey: key,
           image: imageData![key],
           s3Info: work[WorkKeys.S3Uploads]![key as keyof typeof work[WorkKeys.S3Uploads]]

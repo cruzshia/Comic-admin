@@ -85,7 +85,13 @@ export default function CoinDeliveryEventList() {
     ],
     [formatMessage, handleSort]
   )
-  const handleSearch = useCallback(data => setSearchParams(data), [setSearchParams])
+  const handleSearch = useCallback(
+    data => {
+      handlePageChange(null, 1)
+      setSearchParams(data)
+    },
+    [setSearchParams, handlePageChange]
+  )
 
   return (
     <>

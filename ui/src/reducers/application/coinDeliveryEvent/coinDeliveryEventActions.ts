@@ -25,7 +25,11 @@ export const getCoinDeliveryEventListAction = (params?: object) => ({
   payload: params
 })
 
-export const getCoinDeliveryEventListSuccessAction = (payload: CoinDeliveryEvent[]) => ({
+export interface ListParams {
+  coin_grant_events: CoinDeliveryEvent[]
+  total_count: number
+}
+export const getCoinDeliveryEventListSuccessAction = (payload: ListParams) => ({
   type: CoinDeliveryEventActionType.GET_LIST_SUCCESS,
   payload
 })

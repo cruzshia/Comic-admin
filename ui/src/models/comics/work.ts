@@ -1,4 +1,5 @@
 import { AdSetting } from './advertisement'
+import App from './app'
 import S3Info from '../s3Info'
 import Image, { ImageInfo } from '../image'
 
@@ -104,10 +105,6 @@ export interface WorkDetail extends Work {
   [WorkKeys.S3Uploads]?: Image<S3Info>
 }
 
-export interface App {
-  id: number
-  name: string
-}
 export interface Author {
   id: string
   name: string

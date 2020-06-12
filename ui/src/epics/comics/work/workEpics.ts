@@ -10,8 +10,7 @@ import {
   getWorkSuccessAction,
   createWorkSuccessAction,
   updateWorkSuccessAction,
-  getCsvLogListSuccessAction,
-  notifyImgUploadedAction
+  getCsvLogListSuccessAction
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
 import { toEditableModel, imgUploadActions, toRequestWork } from './transform'
@@ -111,53 +110,4 @@ export const importWorksEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export const uploadImageEpic = (action$: ActionsObservable<AnyAction>) =>
-  action$.pipe(
-    ofType(WorkActionType.IMAGE_UPLOAD),
-    exhaustMap(action =>
-      workServices.uploadImageAjax(action.payload).pipe(
-        map(() =>
-          notifyImgUploadedAction({
-            workId: action.payload.workId,
-            imageMeta: {
-              [action.payload.imageKey]: {
-                path: action.payload.s3Info.path,
-                width: action.payload.image.width,
-                height: action.payload.image.height
-              }
-            }
-          })
-        ),
-        tap(() => successSubject.next({ type: WorkActionType.IMAGE_UPLOAD_SUCCESS })),
-        catchError(() => {
-          errorSubject.next({ type: WorkActionType.IMAGE_UPLOAD_ERROR })
-          return emptyErrorReturn()
-        })
-      )
-    )
-  )
-
-export const notifyImgUploadedEpic = (action$: ActionsObservable<AnyAction>) =>
-  action$.pipe(
-    ofType(WorkActionType.NOTIFY_IMG_UPLOADED),
-    exhaustMap(action =>
-      workServices.notifyImageUploadedAjax(action.payload).pipe(
-        ignoreElements(),
-        catchError(() => {
-          errorSubject.next({ type: WorkActionType.NOTIFY_IMG_UPLOADED_FAILED })
-          return emptyErrorReturn()
-        })
-      )
-    )
-  )
-
-export default [
-  getWorkListEpic,
-  getWorkEpic,
-  createWorkEpic,
-  updateWorkEpic,
-  getCsvLogListEpic,
-  importWorksEpic,
-  uploadImageEpic,
-  notifyImgUploadedEpic
-]
+export default [getWorkListEpic, getWorkEpic, createWorkEpic, updateWorkEpic, getCsvLogListEpic, importWorksEpic]

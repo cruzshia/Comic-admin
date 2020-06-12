@@ -11,6 +11,7 @@ import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import { _range } from '@src/utils/functions'
 import { IMAGE_NUM, ScrollAnchor } from '@src/containers/Comics/utils'
 import AdSettingTable from '@src/containers/Comics/components/AdSettingTable'
+import { WorksCampaignKeys } from '@src/models/comics/worksCampaign'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import comicMessages from '@src/containers/Comics/messages'
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
 export default function WorksCampaignDetail() {
   const { formatMessage } = useIntl()
   const classes = useStyles()
-  const { currentCampaign: campaign = {} } = useContext(WorksCampaignContext)
+  const { currentCampaign: campaign } = useContext(WorksCampaignContext)
   const { onGetWorksCampaign, onResetWorksCampaign } = useContext(ActionContext)
   const history = useHistory()
   const { id, campaignId } = useParams()
@@ -72,7 +73,7 @@ export default function WorksCampaignDetail() {
     [formatMessage, handleEdit]
   )
 
-  return campaign.campaignId ? (
+  return campaign ? (
     <>
       <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
@@ -81,16 +82,16 @@ export default function WorksCampaignDetail() {
         tableClass={classes.table}
         onEdit={handleEdit}
         dataSet={[
-          toDataSet(formatMessage(messages.name), campaign.campaignName),
-          toDataSet(formatMessage(comicMessages.workId), campaign.workId),
-          toDataSet(formatMessage(comicMessages.workName), campaign.workName),
-          toDataSet(formatMessage(commonMessages.appId), campaign.appId),
-          toDataSet(formatMessage(comicMessages.priority), campaign.priority),
-          toDataSet(formatMessage(commonMessages.introduction), campaign.description),
-          toDataSet(formatMessage(messages.freeRange), campaign.freeRange),
-          toDataSet(formatMessage(messages.freeRangeDisplayString), campaign.freeRangeDisplayString),
-          toDataSet(formatMessage(commonMessages.createDateTime), campaign.createAt),
-          toDataSet(formatMessage(commonMessages.updateDateTime), campaign.updateAt)
+          toDataSet(formatMessage(messages.name), campaign[WorksCampaignKeys.Name]),
+          toDataSet(formatMessage(comicMessages.workId), campaign[WorksCampaignKeys.WorkId]),
+          toDataSet(formatMessage(comicMessages.workName), campaign[WorksCampaignKeys.WorkName]),
+          toDataSet(formatMessage(commonMessages.appId), campaign[WorksCampaignKeys.Apps]),
+          toDataSet(formatMessage(comicMessages.priority), campaign[WorksCampaignKeys.Priority]),
+          toDataSet(formatMessage(commonMessages.introduction), campaign[WorksCampaignKeys.Priority]),
+          toDataSet(formatMessage(messages.freeRange), campaign[WorksCampaignKeys.FreeRange]),
+          toDataSet(formatMessage(messages.freeRangeDisplayString), campaign[WorksCampaignKeys.FreeRangeDisplay]),
+          toDataSet(formatMessage(commonMessages.createDateTime), campaign[WorksCampaignKeys.InsertedAt]),
+          toDataSet(formatMessage(commonMessages.updateDateTime), campaign[WorksCampaignKeys.UpdatedAt])
         ]}
       />
       <DataTable
@@ -99,7 +100,7 @@ export default function WorksCampaignDetail() {
         onEdit={handleEditEpisode}
         dataSet={[
           ..._range(1, IMAGE_NUM + 1).map(i => {
-            const img = campaign.images[`image${i}`]
+            const img = campaign[WorksCampaignKeys.Images]?.[`image${i}`]
             return toDataSet(
               `${formatMessage(comicMessages.episodeImage)}${i + 1}`,
               img ? <img key={`image-${i}`} src={img.url} alt={img.url} /> : ''
@@ -112,11 +113,11 @@ export default function WorksCampaignDetail() {
         tableClass={classes.table}
         onEdit={handleEditDelivery}
         dataSet={[
-          toDataSet(formatMessage(commonMessages.startDateTime), campaign.startDateTime),
-          toDataSet(formatMessage(commonMessages.endDateTime), campaign.endDateTime)
+          toDataSet(formatMessage(commonMessages.startDateTime), campaign[WorksCampaignKeys.BeginAt]),
+          toDataSet(formatMessage(commonMessages.endDateTime), campaign[WorksCampaignKeys.EndAt])
         ]}
       />
-      <AdSettingTable data={campaign.advertisement} onEdit={handleEditAdSetting} />
+      <AdSettingTable data={campaign[WorksCampaignKeys.AdSetting]} onEdit={handleEditAdSetting} />
     </>
   ) : null
 }

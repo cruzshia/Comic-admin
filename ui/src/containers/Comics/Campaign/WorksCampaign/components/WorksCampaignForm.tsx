@@ -14,6 +14,7 @@ import comicMessages from '@src/containers/Comics/messages'
 import AdSettingForm from '@src/containers/Comics/components/AdSettingForm'
 import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '@src/containers/Comics/utils'
 import { emptyWorksCampaign } from '@src/reducers/comics/campaign/worksCampaignReducer'
+import { WorksCampaignKeys } from '@src/models/comics/worksCampaign'
 import clsx from 'clsx'
 import formMessages from '@src/components/form/messages'
 import messages from '../messages'
@@ -56,27 +57,37 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
               title={formatMessage(commonMessages.basicInfo)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
               dataSet={[
-                toDataSet(formatMessage(messages.name), <Field name='campaignName' component={TextInputAdapter} />),
+                toDataSet(
+                  formatMessage(messages.name),
+                  <Field name={WorksCampaignKeys.Name} component={TextInputAdapter} />
+                ),
                 toDataSet(
                   formatMessage(comicMessages.workIdBrackets),
-                  <Field name='workId' component={TextInputAdapter} placeholder={formatMessage(formMessages.search)} />
+                  <Field
+                    name={WorksCampaignKeys.WorkId}
+                    component={TextInputAdapter}
+                    placeholder={formatMessage(formMessages.search)}
+                  />
                 ),
                 toDataSet(
                   formatMessage(commonMessages.appId),
-                  <Field name='appId' component={SelectAdapter} options={[]} />
+                  <Field name={WorksCampaignKeys.Apps} component={SelectAdapter} options={[]} />
                 ),
                 toDataSet(
                   formatMessage(comicMessages.priority),
-                  <Field name='priority' component={TextInputAdapter} />
+                  <Field name={WorksCampaignKeys.Priority} component={TextInputAdapter} />
                 ),
                 toDataSet(
                   formatMessage(commonMessages.introduction),
-                  <Field name='description' component={TextAreaAdapter} />
+                  <Field name={WorksCampaignKeys.Description} component={TextAreaAdapter} />
                 ),
-                toDataSet(formatMessage(messages.freeRange), <Field name='freeRange' component={TextInputAdapter} />),
+                toDataSet(
+                  formatMessage(messages.freeRange),
+                  <Field name={WorksCampaignKeys.FreeRange} component={TextInputAdapter} />
+                ),
                 toDataSet(
                   formatMessage(messages.freeRangeDisplayString),
-                  <Field name='freeRangeDisplayString' component={TextInputAdapter} />
+                  <Field name={WorksCampaignKeys.FreeRangeDisplay} component={TextInputAdapter} />
                 )
               ]}
             />
@@ -87,7 +98,13 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
               dataSet={[
                 ..._range(1, IMAGE_NUM + 1).map(num => ({
                   label: `${formatMessage(comicMessages.episodeImage)}${num + 1}`,
-                  content: <Field name={`images[image${num}]`} className={classes.photo} component={DropZoneAdapter} />
+                  content: (
+                    <Field
+                      name={`${WorksCampaignKeys.Images}[image${num}]`}
+                      className={classes.photo}
+                      component={DropZoneAdapter}
+                    />
+                  )
                 }))
               ]}
             />
@@ -96,11 +113,11 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
               classnames={classes.tableMargin}
               title={formatMessage(commonMessages.deliveryDuration)}
               startLabel={formatMessage(commonMessages.startDateTime)}
-              startName='startDateTime'
+              startName={WorksCampaignKeys.BeginAt}
               endLabel={formatMessage(commonMessages.endDateTime)}
-              endName='endDateTime'
+              endName={WorksCampaignKeys.EndAt}
             />
-            <AdSettingForm adSettingRef={adSettingRef} />
+            <AdSettingForm adKey={WorksCampaignKeys.AdSetting} adSettingRef={adSettingRef} />
           </form>
         )}
       />

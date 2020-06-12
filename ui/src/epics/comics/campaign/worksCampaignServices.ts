@@ -1,14 +1,8 @@
-import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
 import WorksCampaign from '@src/models/comics/worksCampaign'
-import { mockCampaign } from './mockData/mockWorkCampaign'
+import { Response } from '../../utils'
 
-export const getWorksCampaignAjax = (campaignId: string): Observable<{ status: number; response: WorksCampaign }> => {
-  authAjax.get('/campaign/work/' + campaignId)
-  return from([
-    {
-      status: 200,
-      response: mockCampaign
-    }
-  ])
+const API_PATH = '/v1/work_campaign'
+export const getWorksCampaignAjax = (campaignId: string): Response<WorksCampaign> => {
+  return authAjax.get(API_PATH + campaignId)
 }

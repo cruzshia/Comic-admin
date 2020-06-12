@@ -1,4 +1,5 @@
 import { AdPosition, AdSettingKeys, AdType } from '@src/models/comics/advertisement'
+import { WorksCampaignKeys } from '@src/models/comics/worksCampaign'
 import { _uuid } from '@src/utils/functions'
 import mockCover1 from './mockCover1.png'
 import mockCover2 from './mockCover2.png'
@@ -7,21 +8,21 @@ import mockCover4 from './mockCover4.png'
 import mockManga from './manga.png'
 
 export const mockCampaign = {
-  campaignName: 'GW作品キャンペーン',
-  campaignId: 'WORK_SHUNKAN10000006',
-  workId: 'WORK_SHUNKAN10000006',
-  workName: 'サンプルテキスト',
-  appId: 'サンプルテキスト',
-  priority: 'サンプルテキスト',
-  freeRange: '1-30',
-  freeRangeDisplayString: '1~30話無料',
-  startDateTime: '2019-12-25 00:00',
-  endDateTime: '2019-12-25 00:00',
-  description:
+  [WorksCampaignKeys.Name]: 'GW作品キャンペーン',
+  [WorksCampaignKeys.ID]: 'WORK_SHUNKAN10000006',
+  [WorksCampaignKeys.WorkId]: 'WORK_SHUNKAN10000006',
+  [WorksCampaignKeys.WorkName]: '作品キャンペ',
+  [WorksCampaignKeys.Apps]: 'サンプルテキスト',
+  [WorksCampaignKeys.Priority]: 'サンプルテキスト',
+  [WorksCampaignKeys.FreeRange]: '1-30',
+  [WorksCampaignKeys.FreeRangeDisplay]: '1~30話無料',
+  [WorksCampaignKeys.BeginAt]: '2019-12-25 00:00',
+  [WorksCampaignKeys.EndAt]: '2019-12-25 00:00',
+  [WorksCampaignKeys.Description]:
     'サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト サンプルテキストサンプルテキスト',
-  createAt: '2019-12-25 00:00',
-  updateAt: '2019-12-25 00:00',
-  images: {
+  [WorksCampaignKeys.InsertedAt]: '2019-12-25 00:00',
+  [WorksCampaignKeys.UpdatedAt]: '2019-12-25 00:00',
+  [WorksCampaignKeys.Images]: {
     image1: {
       url: mockCover1,
       width: 100,
@@ -43,7 +44,7 @@ export const mockCampaign = {
       height: 200
     }
   },
-  advertisement: {
+  [WorksCampaignKeys.AdSetting]: {
     device: 'ios',
     [AdPosition.Front]: [
       {
@@ -52,7 +53,8 @@ export const mockCampaign = {
         [AdSettingKeys.ImageUrl]: mockManga,
         [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
         [AdSettingKeys.Button]: 'サンプルテキスト',
-        [AdSettingKeys.BeginAt]: '2020-02-20 19:00　〜　2020-02-20 19:00'
+        [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
+        [AdSettingKeys.EndAt]: '2020-02-20 19:00'
       }
     ],
     [AdPosition.Back]: [
@@ -70,7 +72,8 @@ export const mockCampaign = {
         [AdSettingKeys.ImageUrl]: mockManga,
         [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
         [AdSettingKeys.Button]: 'サンプルテキスト',
-        [AdSettingKeys.BeginAt]: '2020-02-20 19:00　〜　2020-02-20 19:00'
+        [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
+        [AdSettingKeys.EndAt]: '2020-02-20 19:00'
       }
     ]
   }

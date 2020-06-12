@@ -1,13 +1,13 @@
 import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
 import CoinDeliveryEvent from '@src/models/application/coinDeliveryEvent'
+import { ListParams } from '@src/reducers/application/coinDeliveryEvent/coinDeliveryEventActions'
 import { objToQueryStr } from '@src/utils/functions'
+import { Response } from '../../utils'
 import { mockEventDetail } from './mockData/mockCoinDeliveryEvent'
 
 const API_PATH = '/v1/coin_grant_events'
-export const getCoinDeliveryEventListAjax = (
-  params?: object
-): Observable<{ status: number; response: CoinDeliveryEvent[] }> => {
+export const getCoinDeliveryEventListAjax = (params?: object): Response<ListParams> => {
   return authAjax.get(API_PATH + (params ? '?' + objToQueryStr(params) : ''))
 }
 

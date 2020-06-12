@@ -23,7 +23,17 @@ export const getCoinDeliveryEventListEpic = (action$: ActionsObservable<AnyActio
         tap(() => successSubject.next({ type: CoinDeliveryEventActionType.GET_LIST_SUCCESS })),
         catchError(error => {
           errorSubject.next({ type: CoinDeliveryEventActionType.GET_LIST_ERROR })
-          return toMockData(error, of(getCoinDeliveryEventListSuccessAction(mockEventList))) || emptyErrorReturn()
+          return (
+            toMockData(
+              error,
+              of(
+                getCoinDeliveryEventListSuccessAction({
+                  coin_grant_events: mockEventList,
+                  total_count: mockEventList.length
+                })
+              )
+            ) || emptyErrorReturn()
+          )
         })
       )
     )
