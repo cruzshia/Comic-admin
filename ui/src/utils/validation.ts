@@ -20,6 +20,8 @@ export const checkError = (meta: FieldMetaState<any>) => {
   return error && meta.touched ? error : undefined
 }
 
+export const validPositiveInteger = (number: any) => (/^\d+$/i.test(number) ? undefined : INVALID_FORMAT)
+
 export const validDateTime = (dateTime: string) =>
   /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/i.test(dateTime) ? undefined : INVALID_FORMAT
 

@@ -1,4 +1,4 @@
-import { CoinProduct } from '@src/models/application/coinProduct'
+import { CoinProduct, CoinProductRequestBody } from '@src/models/application/coinProduct'
 
 export enum CoinProductActionType {
   GET_LIST = '@AppCoinProduct/GET_LIST',
@@ -34,9 +34,9 @@ export const getCoinProductListSuccessAction = (payload: ListParams) => ({
   payload
 })
 
-export const getCoinProductAction = (CoinProductId: string) => ({
+export const getCoinProductAction = (coinProductId: string) => ({
   type: CoinProductActionType.GET,
-  payload: CoinProductId
+  payload: coinProductId
 })
 
 export const getCoinProductSuccessAction = (payload: CoinProduct) => ({
@@ -44,9 +44,9 @@ export const getCoinProductSuccessAction = (payload: CoinProduct) => ({
   payload
 })
 
-export const createCoinProductAction = (coinProduct: CoinProduct) => ({
+export const createCoinProductAction = (payload: CoinProductRequestBody) => ({
   type: CoinProductActionType.CREATE,
-  payload: coinProduct
+  payload
 })
 
 export const createCoinProductSuccessAction = (coinProduct: CoinProduct) => ({
@@ -54,9 +54,9 @@ export const createCoinProductSuccessAction = (coinProduct: CoinProduct) => ({
   payload: coinProduct
 })
 
-export const updateCoinProductAction = (coinProduct: CoinProduct) => ({
+export const updateCoinProductAction = (payload: CoinProduct) => ({
   type: CoinProductActionType.UPDATE,
-  payload: coinProduct
+  payload
 })
 
 export const updateCoinProductSuccessAction = (coinProduct: CoinProduct) => ({

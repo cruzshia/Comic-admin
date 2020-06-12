@@ -9,9 +9,9 @@ import {
   getCoinProductSuccessAction,
   updateCoinProductSuccessAction
 } from '@src/reducers/application/coinProduct/coinProductActions'
-import * as coinProductServices from './coinProductServices'
 import { emptyErrorReturn } from '@src/epics/utils'
-import { toCoinProductModel } from './transform'
+import * as coinProductServices from './coinProductServices'
+import { toCoinProductModel, toRequestCoinProduct } from './transform'
 
 export const getCoinProductListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -47,7 +47,7 @@ export const createCoinProductEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(CoinProductActionType.CREATE),
     exhaustMap(action =>
-      coinProductServices.createCoinProductAjax(action.payload).pipe(
+      coinProductServices.createCoinProductAjax(toRequestCoinProduct(action.payload)).pipe(
         map(res => createCoinProductSuccessAction(res.response)),
         tap(() => successSubject.next({ type: CoinProductActionType.CREATE_SUCCESS })),
         catchError(() => {
@@ -62,7 +62,7 @@ export const updateCoinProductEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(CoinProductActionType.UPDATE),
     exhaustMap(action =>
-      coinProductServices.updateCoinProductAjax(action.payload).pipe(
+      coinProductServices.updateCoinProductAjax(toRequestCoinProduct(action.payload)).pipe(
         map(res => updateCoinProductSuccessAction(res.response)),
         tap(() => successSubject.next({ type: CoinProductActionType.UPDATE_SUCCESS })),
         catchError(() => {

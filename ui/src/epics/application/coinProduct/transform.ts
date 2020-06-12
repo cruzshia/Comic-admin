@@ -1,5 +1,5 @@
 import { CoinProduct, CoinProductKeys } from '@src/models/application/coinProduct'
-import { batchConvertISO8601 } from '@src/utils/functions'
+import { batchConvertISO8601, batchConvertDate } from '@src/utils/functions'
 
 export const toCoinProductModel = (coinProduct: CoinProduct): CoinProduct => {
   coinProduct = batchConvertISO8601<CoinProduct>(coinProduct, [
@@ -10,4 +10,13 @@ export const toCoinProductModel = (coinProduct: CoinProduct): CoinProduct => {
   ])
 
   return coinProduct
+}
+
+export const toRequestCoinProduct = (coinProduct: CoinProduct): CoinProduct => {
+  const convertedCoinProduct = batchConvertDate<CoinProduct>(coinProduct, [
+    CoinProductKeys.PublishBeginAt,
+    CoinProductKeys.PublishEndAt
+  ])
+
+  return convertedCoinProduct
 }

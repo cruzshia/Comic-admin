@@ -26,15 +26,18 @@ export enum CoinProductStatusType {
   Inactive = 'inactive'
 }
 
-export interface CoinProduct {
-  [CoinProductKeys.Id]: string
-  [CoinProductKeys.ProductIdToken]: string
+export interface CoinProductRequestBody {
   [CoinProductKeys.AppId]: string
   [CoinProductKeys.PayCoin]: number
   [CoinProductKeys.PayBonusCoin]: number
   [CoinProductKeys.Status]: CoinProductStatusType
   [CoinProductKeys.PublishBeginAt]: string
   [CoinProductKeys.PublishEndAt]: string
+}
+
+export interface CoinProduct extends CoinProductRequestBody {
+  [CoinProductKeys.Id]: string
+  [CoinProductKeys.ProductIdToken]: string
   [CoinProductKeys.InsertedAt]: string
   [CoinProductKeys.UpdatedAt]: string
 }

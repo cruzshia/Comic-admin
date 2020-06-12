@@ -8,10 +8,10 @@ import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { submitForm } from '@src/utils/validation'
+import commonMessages from '@src/messages'
 import CoinProductForm from './CoinProductForm'
 import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
 import { BREADCRUMBS } from '../utils'
-import commonMessages from '@src/messages'
 import messages from '../messages'
 
 export default function CoinProductEdit() {
@@ -29,7 +29,7 @@ export default function CoinProductEdit() {
 
   useEffect(() => {
     const subscription = successSubject.subscribe([CoinProductActionType.UPDATE_SUCCESS], () =>
-      history.push(routePath.application.coinProductDetail + id)
+      history.push(routePath.application.coinProductDetail.replace(':id', id!))
     )
     return () => subscription.unsubscribe()
   }, [history, id])

@@ -1,6 +1,6 @@
-import { from, Observable } from 'rxjs'
+import { from } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
-import { CoinProduct } from '@src/models/application/coinProduct'
+import { CoinProduct, CoinProductRequestBody, CoinProductKeys } from '@src/models/application/coinProduct'
 import { mockCoinProductList, mockCoinProductDetail } from './mockData/mockCoinProduct'
 import { objToQueryStr } from '@src/utils/functions'
 import { ListParams } from '@src/reducers/application/coinProduct/coinProductActions'
@@ -21,7 +21,7 @@ export const getCoinProductListAjax = (params?: Object): Response<ListParams> =>
   ])
 }
 
-export const getCoinProductAjax = (id: string): Observable<{ status: number; response: CoinProduct }> => {
+export const getCoinProductAjax = (id: string): Response<CoinProduct> => {
   authAjax.get(`${COIN_PRODUCT_API_PATH}/${id}`)
   return from([
     {
@@ -31,8 +31,8 @@ export const getCoinProductAjax = (id: string): Observable<{ status: number; res
   ])
 }
 
-export const createCoinProductAjax = (data: CoinProduct): Observable<{ status: number; response: CoinProduct }> => {
-  authAjax.post('/application/coin_product', data)
+export const createCoinProductAjax = (data: CoinProductRequestBody): Response<CoinProduct> => {
+  authAjax.post(COIN_PRODUCT_API_PATH, data)
   return from([
     {
       status: 200,
@@ -41,8 +41,8 @@ export const createCoinProductAjax = (data: CoinProduct): Observable<{ status: n
   ])
 }
 
-export const updateCoinProductAjax = (data: CoinProduct): Observable<{ status: number; response: CoinProduct }> => {
-  authAjax.put('/application/coin_product', data)
+export const updateCoinProductAjax = (data: CoinProduct): Response<CoinProduct> => {
+  authAjax.put(`${COIN_PRODUCT_API_PATH}/${data[CoinProductKeys.Id]}`, data)
   return from([
     {
       status: 200,

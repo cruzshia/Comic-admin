@@ -1,7 +1,12 @@
 import React, { useRef, useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
-import { CoinProductKeys, CoinProductStatusType } from '@src/models/application/coinProduct'
+import {
+  CoinProductKeys,
+  CoinProductStatusType,
+  CoinProductRequestBody,
+  CoinProduct
+} from '@src/models/application/coinProduct'
 import { TextInputAdapter, SelectAdapter } from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import StartEndForm from '@src/components/form/StartEndForm'
@@ -10,10 +15,11 @@ import commonMessages from '@src/messages'
 import userMessages from '@src/containers/User/List/messages'
 import applicationMessages from '../../messages'
 import messages from '../messages'
+import { validateCoinProduct } from '../utils'
 
 interface Props {
-  currentProduct?: any
-  onSubmit: (data: any) => void
+  currentProduct?: CoinProduct
+  onSubmit: (data: CoinProductRequestBody) => void
   formRef?: React.RefObject<HTMLFormElement>
 }
 
@@ -43,20 +49,29 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
       <Form
         onSubmit={onSubmit}
         initialValues={currentProduct}
+        validate={validateCoinProduct}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
               dataSet={[
-                toDataSet(formatMessage(messages.productId), currentProduct ? currentProduct.productId : ''),
+                toDataSet(formatMessage(messages.productId), currentProduct ? currentProduct[CoinProductKeys.Id] : ''),
                 toDataSet(
                   formatMessage(applicationMessages.applicationId),
-                  <Field name={CoinProductKeys.AppId} component={SelectAdapter} options={[]} />
+                  <Field
+                    name={CoinProductKeys.AppId}
+                    component={SelectAdapter}
+                    options={[
+                      { label: 'app', value: 1 },
+                      { label: 'app_api', value: 31 }
+                    ]}
+                  />
                 ),
                 toDataSet(
                   formatMessage(userMessages.paidCoins),
                   <Field
                     name={CoinProductKeys.PayCoin}
+                    type='number'
                     component={TextInputAdapter}
                     placeholder={formatMessage(applicationMessages.inputCoinNum)}
                     short
@@ -66,6 +81,7 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
                   formatMessage(userMessages.paidBonusCoins),
                   <Field
                     name={CoinProductKeys.PayBonusCoin}
+                    type='number'
                     component={TextInputAdapter}
                     placeholder={formatMessage(applicationMessages.inputCoinNum)}
                     short
