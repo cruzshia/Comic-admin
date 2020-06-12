@@ -68,7 +68,7 @@ storiesOf('Table components', module)
           <ListTableRow
             items={mockDatum}
             onClick={action('list-table-row-click')}
-            headerKeys={Object.keys(mockDatum)}
+            headers={Object.keys(mockDatum).map(key => ({ id: key }))}
           />
         </thead>
       </table>

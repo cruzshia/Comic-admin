@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import Logger from '@src/utils/logger'
 
 export const _range = (start: number, end: number) => {
   const stepper = start > end ? -1 : 1
@@ -53,5 +54,44 @@ export function _uuid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     const r = (d + Math.random() * 16) % 16 | 0
     return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16)
+  })
+}
+
+const OBSERVER_ID = 'intersection-script'
+function checkSupport() {
+  if (!('IntersectionObserver' in window) && !document.getElementById(OBSERVER_ID)) {
+    return new Promise(resolve => {
+      const tag = document.createElement('script')
+      // reference: https://cdn.polyfill.io/v3/url-builder/
+      tag.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver'
+      tag.id = OBSERVER_ID
+      tag.onload = () => resolve()
+      document.getElementsByTagName('head')[0].appendChild(tag)
+    })
+  }
+}
+
+export const lazyLoadImage = async ({ imageClass, fallbackImg }: { imageClass: string; fallbackImg?: string }) => {
+  await checkSupport()
+  const LOADED_KEY = 'loaded'
+  const imageObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !(entry.target as HTMLElement).dataset[LOADED_KEY]) {
+        const lazyImage = entry.target as HTMLImageElement
+        const orgSrc = lazyImage.src
+        const src = lazyImage.dataset.src
+        if (!src) {
+          Logger.warn('data-src property no found on: ', lazyImage.outerHTML)
+          return
+        }
+        Logger.log('lazy load image: ', src)
+        lazyImage.src = src!
+        lazyImage.dataset[LOADED_KEY] = 'true'
+        lazyImage.onerror = () => (lazyImage.src = orgSrc || fallbackImg || '')
+      }
+    })
+  })
+  document.querySelectorAll(`.${imageClass}`)?.forEach(v => {
+    imageObserver.observe(v)
   })
 }

@@ -15,7 +15,7 @@ export default function usePaging({ perPage, total }: { perPage?: number; total:
       offset: pagination.start - 1,
       limit: pagination.perPage
     }),
-    [pagination]
+    [pagination.start, pagination.perPage]
   )
 
   return {

@@ -2,16 +2,9 @@ import { AnyAction } from 'redux'
 import WorkDetail, { WorkKeys, WorkType } from '@src/models/comics/work'
 import { AdSettingKeys, AdPosition } from '@src/models/comics/advertisement'
 import { ImageKey } from '@src/models/image'
-import { uploadImageAction, ListParams } from '@src/reducers/comics/work/workActions'
-import { batchConvertDate, batchConvertISO8601, toDateTime } from '@src/utils/functions'
+import { uploadImageAction } from '@src/reducers/comics/work/workActions'
+import { batchConvertDate, batchConvertISO8601 } from '@src/utils/functions'
 import { _uuid } from '@src/utils/functions'
-
-export const formatListTime = (data: ListParams) => {
-  data?.works?.forEach(work => {
-    work[WorkKeys.CreateAt] = toDateTime(work[WorkKeys.CreateAt])
-  })
-  return data || []
-}
 
 export const toEditableModel = ({ ...work }: WorkDetail): WorkDetail => {
   work[WorkKeys.AuthorIds] = work[WorkKeys.Authors].map(author => author.id)

@@ -28,7 +28,7 @@ export const removeAuthHeader = () => {
 
 export const JSON_CONTENT = { 'Content-Type': 'application/json' }
 
-const defaultToken = localStorage.getItem(TOKEN_KEY)
+const defaultToken = localStorage.getItem(TOKEN_KEY) || 'vearth-token'
 defaultToken && setAuthHeader(defaultToken)
 
 export default authAjax

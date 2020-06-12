@@ -10,9 +10,10 @@ import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import greyImg from '@src/assets/greyImg.png'
-import { WorkKeys, WorkSearchKeys } from '@src/models/comics/work'
+import { WorkDetail, WorkKeys, WorkSearchKeys } from '@src/models/comics/work'
 import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
+import { lazyLoadImage, toDateTime } from '@src/utils/functions'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS, convertDateFormat } from '../utils'
 import comicMessages from '../../messages'
@@ -43,6 +44,10 @@ export default function WorkList() {
   useEffect(() => {
     onGetWorkList({ ...query, ...convertDateFormat(search) })
   }, [page, onGetWorkList, query, search])
+
+  useEffect(() => {
+    workList?.length && lazyLoadImage({ imageClass: 'lazy-img' })
+  }, [workList])
 
   const breadcrumbList: Breadcrumb[] = useMemo(
     () => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })),
@@ -78,15 +83,6 @@ export default function WorkList() {
     [setSearch, handlePageChange]
   )
 
-  const workDataList = workList.map(({ images, ...item }) => ({
-    ...item,
-    [WorkKeys.Images]: images ? <img src={(images?.image1?.url as string) || greyImg} alt='work-img' /> : '',
-    [WorkKeys.WorkType]: formatMessage(messages[item[WorkKeys.WorkType]]),
-    [WorkKeys.EpisodeWorkType]: item[WorkKeys.EpisodeWorkType]
-      ? formatMessage(messages[item[WorkKeys.EpisodeWorkType]!])
-      : ''
-  }))
-
   const tableButtonList = useMemo(
     () => [
       <Button
@@ -100,15 +96,30 @@ export default function WorkList() {
   )
   const theadList = useMemo(
     () => [
-      { id: WorkKeys.Images, label: formatMessage(commonMessages.photo) },
+      {
+        id: WorkKeys.Images,
+        label: formatMessage(commonMessages.photo),
+        formatter: (images: WorkDetail[WorkKeys.Images]) => (
+          <img src={greyImg} data-src={images?.image1?.url as string} className='lazy-img' alt='work-img' />
+        )
+      },
       { id: WorkKeys.ID, label: formatMessage(comicMessages.workId) },
       { id: WorkKeys.Title, label: formatMessage(comicMessages.workName) },
       {
         id: WorkKeys.CreateAt,
-        label: formatMessage(commonMessages.createDateTime)
+        label: formatMessage(commonMessages.createDateTime),
+        formatter: toDateTime
       },
-      { id: WorkKeys.WorkType, label: formatMessage(messages.category) },
-      { id: WorkKeys.EpisodeWorkType, label: formatMessage(messages.episodeCategory) },
+      {
+        id: WorkKeys.WorkType,
+        label: formatMessage(messages.category),
+        formatter: (data: WorkDetail[WorkKeys.WorkType]) => formatMessage(messages[data])
+      },
+      {
+        id: WorkKeys.EpisodeWorkType,
+        label: formatMessage(messages.episodeCategory),
+        formatter: (data: WorkDetail[WorkKeys.EpisodeWorkType]) => (data ? formatMessage(messages[data]) : '')
+      },
       { id: WorkKeys.UpdateFrequency, label: formatMessage(messages.updateFrequency) },
       { id: 'spacer', label: '' }
     ],
@@ -123,7 +134,7 @@ export default function WorkList() {
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
-        dataList={workDataList}
+        dataList={workList}
         pagination={pagination}
         onPageChange={handlePageChange}
         buttonList={tableButtonList}

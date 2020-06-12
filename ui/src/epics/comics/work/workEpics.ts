@@ -14,19 +14,18 @@ import {
   notifyImgUploadedAction
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
-import { toEditableModel, imgUploadActions, toRequestWork, formatListTime } from './transform'
-import { emptyErrorReturn, ErrorResponse, toMockData } from '../../utils'
-import mockListData from './mockData/mockWorkList'
+import { toEditableModel, imgUploadActions, toRequestWork } from './transform'
+import { emptyErrorReturn, ErrorResponse } from '../../utils'
 
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(WorkActionType.GET_LIST),
     switchMap(action =>
       workServices.getWorkListAjax(action.payload).pipe(
-        map(res => getWorkListSuccessAction(formatListTime(res.response))),
-        catchError(error => {
+        map(res => getWorkListSuccessAction(res.response)),
+        catchError(() => {
           errorSubject.next({ type: WorkActionType.GET_LIST_ERROR })
-          return toMockData(error, of(getWorkListSuccessAction(formatListTime(mockListData)))) || emptyErrorReturn()
+          return emptyErrorReturn()
         })
       )
     )

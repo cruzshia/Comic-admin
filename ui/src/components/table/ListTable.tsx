@@ -39,6 +39,7 @@ export interface Thead {
   onSort?: (id: any, order: SortOrder, e?: React.MouseEvent<unknown>) => void
   padding?: Padding
   classes?: string
+  formatter?: (data: any) => any
 }
 
 interface Pagination {
@@ -166,7 +167,6 @@ export default function ListTable({
     []
   )
   const handleRowClick = useCallback((id: string) => () => onRowClick!(id), [onRowClick])
-  const headerKeys = useMemo(() => theadList.map(thead => thead.id), [theadList])
 
   return (
     <div className={classnames} data-testid='list-table'>
@@ -224,7 +224,7 @@ export default function ListTable({
             {dataList.map(rowData => (
               <ListTableRow
                 classnames={rowData.classnames}
-                headerKeys={headerKeys}
+                headers={theadList}
                 items={rowData}
                 key={rowData[rowIdKey]}
                 onClick={onRowClick && handleRowClick(rowData[rowIdKey])}
