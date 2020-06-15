@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useContext, useEffect } from 'react'
+import React, { useMemo, useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { makeStyles, FormHelperText } from '@material-ui/core'
@@ -13,9 +13,15 @@ import { usePaging, useCheckbox } from '@src/hooks'
 import commonMessages from '@src/messages'
 import { successSubject } from '@src/utils/responseSubject'
 import { PushNotificationActionType } from '@src/reducers/application/pushNotification/pushNotificationActions'
+import { toDateTime } from '@src/utils/functions'
+import PushNotification, {
+  PushNotificationKeys,
+  PushNotificationStatus,
+  SearchParam
+} from '@src/models/application/pushNotification'
 import Capsule from '../../components/Capsule'
 import applicationMessages from '../../messages'
-import { Status } from '../../constants'
+import { Status, capsuleStatusMap } from '../../constants'
 import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 import SearchBlock from './SearchBlock'
@@ -55,20 +61,18 @@ export default function PushNotificationList() {
   const classes = useStyles()
   const { notificationList, notificationTotal } = useContext(PushNotificationContext)
   const { onGetPushNotificationList, onDeletePushNotification } = useContext(ActionContext)
-  const { pagination, handlePageChange } = usePaging({ total: notificationTotal })
+  const { pagination, handlePageChange, query } = usePaging({ total: notificationTotal })
   const { onCheckAll, handleCheck, checkedList, isChecked, isCheckAll, onResetCheck } = useCheckbox()
+  const [param, setParam] = useState<Partial<SearchParam>>({})
 
   useEffect(() => {
-    onGetPushNotificationList()
-  }, [onGetPushNotificationList])
-
-  useEffect(() => {
+    onGetPushNotificationList({ ...param, ...query })
     const subscription = successSubject.subscribe([PushNotificationActionType.DELETE_SUCCESS], () => {
       onResetCheck()
-      onGetPushNotificationList()
+      onGetPushNotificationList({ ...param, ...query })
     })
     return () => subscription.unsubscribe()
-  }, [onGetPushNotificationList, onResetCheck])
+  }, [onGetPushNotificationList, onResetCheck, query, param])
 
   const breadcrumbList = useMemo(() => BREADCRUMBS.map(({ title }) => ({ title: formatMessage(title) })), [
     formatMessage
@@ -86,7 +90,13 @@ export default function PushNotificationList() {
     ],
     [formatMessage, history]
   )
-  const handleSearch = useCallback(data => console.log(data), [])
+  const handleSearch = useCallback(
+    data => {
+      handlePageChange(null, 1)
+      setParam(data)
+    },
+    [setParam, handlePageChange]
+  )
 
   const handleDelete = useCallback(() => onDeletePushNotification(checkedList), [checkedList, onDeletePushNotification])
 
@@ -97,15 +107,14 @@ export default function PushNotificationList() {
 
   const listTableData = useMemo(
     () =>
-      notificationList.map(({ status, detail, ...rest }) => ({
-        ...rest,
-        classnames: detail ? '' : `${Status[status as keyof typeof Status]}Row`,
-        checkbox: <StyledCheckBox value={rest.id} checked={isChecked(rest.id)} onCheck={handleCheck} />,
-        status: <Capsule status={status} />,
-        timesPushed: status === 'reserved' ? '' : rest.timesPushed,
-        detail: detail && <FormHelperText className='error'>{detail}</FormHelperText>
+      notificationList.map(notif => ({
+        ...notif,
+        classnames:
+          notif[PushNotificationKeys.Message] === ''
+            ? `${Status[capsuleStatusMap[notif[PushNotificationKeys.Status] as PushNotificationStatus]]}Row`
+            : ''
       })),
-    [notificationList, handleCheck, isChecked]
+    [notificationList]
   )
 
   const handleCheckAll = useCallback(() => {
@@ -117,19 +126,34 @@ export default function PushNotificationList() {
       {
         id: 'checkbox',
         label: <StyledCheckBox value='' checked={isCheckAll} onCheck={handleCheckAll} />,
-        padding: Padding.Checkbox
+        padding: Padding.Checkbox,
+        formatter: ({ [PushNotificationKeys.Id]: id }: PushNotification) => (
+          <StyledCheckBox value={id} checked={isChecked(id)} onCheck={handleCheck} />
+        )
       },
-      { id: 'status', label: formatMessage(applicationMessages.status) },
-      { id: 'message', label: formatMessage(commonMessages.message) },
-      { id: 'applicationId', label: formatMessage(applicationMessages.applicationId) },
-      { id: 'timesPushed', label: formatMessage(messages.pushedTimes) },
       {
-        id: 'scheduledStartTime',
-        label: formatMessage(commonMessages.deliveryDateTime)
+        id: PushNotificationKeys.Status,
+        label: formatMessage(applicationMessages.status),
+        formatter: ({ [PushNotificationKeys.Status]: status }: PushNotification) => (
+          <Capsule status={capsuleStatusMap[status]} />
+        )
       },
-      { id: 'detail', label: formatMessage(commonMessages.detail) }
+      { id: PushNotificationKeys.NotificationMessage, label: formatMessage(commonMessages.message) },
+      { id: PushNotificationKeys.AppId, label: formatMessage(applicationMessages.applicationId) },
+      { id: PushNotificationKeys.SendCount, label: formatMessage(messages.pushedTimes) },
+      {
+        id: PushNotificationKeys.DeliveryDateTime,
+        label: formatMessage(commonMessages.deliveryDateTime),
+        formatter: (items: PushNotification) => toDateTime(items[PushNotificationKeys.DeliveryDateTime])
+      },
+      {
+        id: PushNotificationKeys.Message,
+        label: formatMessage(commonMessages.detail),
+        formatter: ({ [PushNotificationKeys.Message]: msg }: PushNotification) =>
+          msg && <FormHelperText className='error'>{msg}</FormHelperText>
+      }
     ],
-    [formatMessage, handleCheckAll, isCheckAll]
+    [formatMessage, handleCheckAll, isCheckAll, handleCheck, isChecked]
   )
 
   return (

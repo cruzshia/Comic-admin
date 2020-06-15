@@ -10,7 +10,7 @@ import {
   getPushNotificationAction,
   updatePushNotificationAction
 } from '@src/reducers/application/pushNotification/pushNotificationActions'
-import { PushNotification as PushNotificationModel } from '@src/models/application/pushNotification'
+import PushNotificationModel, { SearchParam } from '@src/models/application/pushNotification'
 import PushNotificationList from './components/PushNotificationList'
 import PushNotificationEdit from './components/PushNotificationEdit'
 import PushNotificationDetail from './components/PushNotificationDetail'
@@ -22,14 +22,15 @@ export default function PushNotification() {
   const { notificationList, notificationTotal, currentNotification } = useSelector(
     (store: StoreState) => store.pushNotification
   )
-  const handleGetList = useCallback(() => dispatch(getPushNotificationListAction()), [dispatch])
+  const handleGetList = useCallback((param?: SearchParam) => dispatch(getPushNotificationListAction(param)), [dispatch])
   const handleDelete = useCallback((list: string[]) => dispatch(deletePushNotificationAction(list)), [dispatch])
-  const handleCreate = useCallback((data: PushNotificationModel) => dispatch(createPushNotificationAction(data)), [
-    dispatch
-  ])
+  const handleCreate = useCallback(
+    (data: Partial<PushNotificationModel>) => dispatch(createPushNotificationAction(data)),
+    [dispatch]
+  )
   const handleGetNotification = useCallback((id: string) => dispatch(getPushNotificationAction(id)), [dispatch])
   const handleUpdateNotification = useCallback(
-    (data: PushNotificationModel) => dispatch(updatePushNotificationAction(data)),
+    (data: Partial<PushNotificationModel>) => dispatch(updatePushNotificationAction(data)),
     [dispatch]
   )
 

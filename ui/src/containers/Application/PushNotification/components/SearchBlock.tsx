@@ -5,6 +5,7 @@ import SearchFilter from '@src/components/SearchFilter'
 import commonMessages from '@src/messages'
 import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
 import { TimeSpanInput } from '@src/components/form'
+import { SearchKeys } from '@src/models/application/pushNotification'
 import applicationMessages from '../../messages'
 
 interface Props {
@@ -19,17 +20,17 @@ export default function SearchBlock({ onSubmit, formRef }: Props) {
       left: [
         {
           label: formatMessage(commonMessages.message),
-          input: <Field name='message' component={TextInputAdapter} />
+          input: <Field name={SearchKeys.NotificationMessage} component={TextInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.deliveryDateTime),
-          input: <TimeSpanInput name='deliveryTime' />
+          input: <TimeSpanInput nameStart={SearchKeys.DeliveryStartDateTime} nameEnd={SearchKeys.DeliveryEndDateTime} />
         }
       ],
       right: [
         {
           label: formatMessage(applicationMessages.applicationId),
-          input: <Field name='appId' component={SelectAdapter} options={[]} />
+          input: <Field name={SearchKeys.AppId} component={SelectAdapter} options={[]} />
         }
       ]
     }),

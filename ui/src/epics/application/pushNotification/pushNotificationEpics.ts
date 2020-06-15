@@ -15,8 +15,8 @@ import { emptyErrorReturn } from '@src/epics/utils'
 export const getPushNotificationListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(PushNotificationActionType.GET_LIST),
-    switchMap(() =>
-      pushNotificationServices.getPushNotificationListAjax().pipe(
+    switchMap(action =>
+      pushNotificationServices.getPushNotificationListAjax(action.payload).pipe(
         map(res => getPushNotificationListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: PushNotificationActionType.GET_LIST_SUCCESS })),
         catchError(() => {

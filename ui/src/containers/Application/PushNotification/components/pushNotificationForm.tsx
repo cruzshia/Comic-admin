@@ -5,14 +5,14 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import TextFieldAdapter from '@src/components/finalForm/TextInputAdapter'
 import { TextAreaAdapter, SelectAdapter } from '@src/components/finalForm'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
-import { PushNotification } from '@src/models/application/pushNotification'
+import PushNotification, { PushNotificationKeys } from '@src/models/application/pushNotification'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import IconPreview from './IconPreview'
 
 interface Props {
-  currentNotification?: PushNotification
-  onSubmit?: (data: PushNotification) => void
+  currentNotification?: Partial<PushNotification>
+  onSubmit?: (data: Partial<PushNotification>) => void
   formRef?: React.RefObject<HTMLFormElement> | null
 }
 
@@ -42,7 +42,7 @@ export default function PushNotificationForm({ currentNotification, onSubmit, fo
         <form onSubmit={handleSubmit} ref={formRef}>
           <DataTable
             dataSet={[
-              toDataSet(tableTitles.id, currentNotification?.id || ''),
+              toDataSet(tableTitles.id, currentNotification ? currentNotification[PushNotificationKeys.Id] : ''),
               toDataSet(tableTitles.title, <Field name='title' component={TextFieldAdapter} />),
               toDataSet(tableTitles.message, <Field name='message' component={TextAreaAdapter} />),
               toDataSet(tableTitles.application, <Field name='application' component={SelectAdapter} options={[]} />),

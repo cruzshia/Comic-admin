@@ -9,7 +9,7 @@ import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import useSort from '@src/hooks/useSort'
 import usePaging from '@src/hooks/usePaging'
-import { CoinDeliveryEventKeys, EventType } from '@src/models/application/coinDeliveryEvent'
+import CoinDelivery, { CoinDeliveryEventKeys, EventType } from '@src/models/application/coinDeliveryEvent'
 import { toDateTime } from '@src/utils/functions'
 import CoinEventContext, { ActionContext } from '../context/CoinDeliveryEventContext'
 import { BREADCRUMBS } from '../constants'
@@ -67,19 +67,20 @@ export default function CoinDeliveryEventList() {
         id: CoinDeliveryEventKeys.EventType,
         label: formatMessage(messages.eventType),
 
-        formatter: (data: EventType) => formatMessage(messages[data])
+        formatter: (coinDelivery: CoinDelivery) =>
+          formatMessage(messages[coinDelivery[CoinDeliveryEventKeys.EventType] as EventType])
       },
       {
         id: CoinDeliveryEventKeys.PublishBeginAt,
         label: formatMessage(commonMessages.publicStartTime),
         onSort: handleSort,
-        formatter: toDateTime
+        formatter: (coinDelivery: CoinDelivery) => toDateTime(coinDelivery[CoinDeliveryEventKeys.PublishBeginAt])
       },
       {
         id: CoinDeliveryEventKeys.PublishEndAt,
         label: formatMessage(commonMessages.publicEndTime),
         onSort: handleSort,
-        formatter: toDateTime
+        formatter: (coinDelivery: CoinDelivery) => toDateTime(coinDelivery[CoinDeliveryEventKeys.PublishEndAt])
       },
       { id: 'spacer', label: '' }
     ],

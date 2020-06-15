@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { PushNotification } from '@src/models/application/pushNotification'
+import PushNotification, { SearchParam } from '@src/models/application/pushNotification'
 
 interface PushNotificationContext {
   notificationList: any[]
@@ -13,11 +13,11 @@ export default createContext<PushNotificationContext>({
 })
 
 interface PushNotificationActionContext {
-  onGetPushNotificationList: () => void
+  onGetPushNotificationList: (_?: Partial<SearchParam>) => void
   onDeletePushNotification: (_: string[]) => void
-  onCreatePushNotification: (_: Omit<PushNotification, 'id'>) => void
+  onCreatePushNotification: (_: Partial<PushNotification>) => void
   onGetPushNotification: (_: string) => void
-  onUpdatePushNotification: (_: PushNotification) => void
+  onUpdatePushNotification: (_: Partial<PushNotification>) => void
 }
 
 export const ActionContext = createContext<PushNotificationActionContext>({

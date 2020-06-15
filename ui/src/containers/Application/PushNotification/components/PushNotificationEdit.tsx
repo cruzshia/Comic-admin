@@ -5,7 +5,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import commonMessages from '@src/messages'
-import { PushNotification } from '@src/models/application/pushNotification'
+import PushNotification from '@src/models/application/pushNotification'
 import { submitForm } from '@src/utils/validation'
 import PushNotificationForm from './pushNotificationForm'
 import PushNotificationContext, { ActionContext } from '../context/PushNotificationContext'
@@ -43,7 +43,7 @@ export default function PushNotificationEdit() {
     [formatMessage]
   )
 
-  const handleSubmit = useCallback((data: PushNotification) => onUpdatePushNotification(data), [
+  const handleSubmit = useCallback((data: Partial<PushNotification>) => onUpdatePushNotification(data), [
     onUpdatePushNotification
   ])
   return (

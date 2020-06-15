@@ -1,4 +1,4 @@
-import { PushNotification } from '@src/models/application/pushNotification'
+import PushNotification, { ListResponse, SearchParam } from '@src/models/application/pushNotification'
 
 export enum PushNotificationActionType {
   GET_LIST = '@AppPushNotification/GET_LIST',
@@ -24,11 +24,12 @@ export enum PushNotificationActionType {
   RESET_CURRENT = '@AppPushNotification/RESET_CURRENT'
 }
 
-export const getPushNotificationListAction = () => ({
-  type: PushNotificationActionType.GET_LIST
+export const getPushNotificationListAction = (payload?: SearchParam) => ({
+  type: PushNotificationActionType.GET_LIST,
+  payload
 })
 
-export const getPushNotificationListSuccessAction = (payload: PushNotification[]) => ({
+export const getPushNotificationListSuccessAction = (payload: ListResponse) => ({
   type: PushNotificationActionType.GET_LIST_SUCCESS,
   payload
 })
@@ -43,7 +44,7 @@ export const getPushNotificationSuccessAction = (payload: PushNotification) => (
   payload
 })
 
-export const createPushNotificationAction = (pushNotification: PushNotification) => ({
+export const createPushNotificationAction = (pushNotification: Partial<PushNotification>) => ({
   type: PushNotificationActionType.CREATE,
   payload: pushNotification
 })
@@ -53,7 +54,7 @@ export const createPushNotificationSuccessAction = (pushNotification: PushNotifi
   payload: pushNotification
 })
 
-export const updatePushNotificationAction = (pushNotification: PushNotification) => ({
+export const updatePushNotificationAction = (pushNotification: Partial<PushNotification>) => ({
   type: PushNotificationActionType.UPDATE,
   payload: pushNotification
 })

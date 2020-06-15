@@ -1,21 +1,23 @@
 import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
-import { PushNotification } from '@src/models/application/pushNotification'
+import PushNotification, { ListResponse, SearchParam } from '@src/models/application/pushNotification'
+import { objToQueryStr } from '@src/utils/functions'
+import { Response } from '../../utils'
 import { mockNotificationList, mockNotification } from './mockData/mockNotification'
 
-export const getPushNotificationListAjax = (): Observable<{ status: number; response: PushNotification[] }> => {
-  authAjax.get('/application/push_notification/list')
+const PUSH_NOTIF_API_PATH = '/v1/push_notification'
+
+export const getPushNotificationListAjax = (param?: SearchParam): Response<ListResponse> => {
+  authAjax.get(PUSH_NOTIF_API_PATH + (param ? '?' + objToQueryStr(param) : ''))
   return from([
     {
       status: 200,
-      response: mockNotificationList
+      response: { total_count: mockNotificationList.length, push_notifications: mockNotificationList }
     }
   ])
 }
 
-export const getPushNotificationAjax = (
-  notificationId: string
-): Observable<{ status: number; response: PushNotification }> => {
+export const getPushNotificationAjax = (notificationId: string): Response<PushNotification> => {
   authAjax.get('/application/push_notification' + notificationId)
   return from([
     {
@@ -34,9 +36,7 @@ export const deletePushNotificationAjax = (list: string[]): Observable<{ status:
   ])
 }
 
-export const createPushNotificationAjax = (
-  pushNotification: PushNotification
-): Observable<{ status: number; response: PushNotification }> => {
+export const createPushNotificationAjax = (pushNotification: PushNotification): Response<PushNotification> => {
   authAjax.post('/application/push_notification/', pushNotification)
   return from([
     {
@@ -46,9 +46,7 @@ export const createPushNotificationAjax = (
   ])
 }
 
-export const updatePushNotificationAjax = (
-  pushNotification: PushNotification
-): Observable<{ status: number; response: PushNotification }> => {
+export const updatePushNotificationAjax = (pushNotification: PushNotification): Response<PushNotification> => {
   authAjax.put('/application/push_notification', pushNotification)
   return from([
     {

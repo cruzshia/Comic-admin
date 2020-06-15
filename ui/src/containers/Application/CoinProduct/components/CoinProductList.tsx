@@ -78,13 +78,13 @@ export default function CoinProductList() {
         id: CoinProductKeys.InsertedAt,
         label: formatMessage(commonMessages.createDateTime),
         onSort: handleSort,
-        formatter: toDateTime
+        formatter: (coinProduct: CoinProduct) => toDateTime(coinProduct[CoinProductKeys.InsertedAt])
       },
       {
         id: CoinProductKeys.PublishBeginAt,
         label: formatMessage(commonMessages.publicStartTime),
         onSort: handleSort,
-        formatter: toDateTime
+        formatter: (coinProduct: CoinProduct) => toDateTime(coinProduct[CoinProductKeys.InsertedAt])
       },
       { id: CoinProductKeys.Id, label: formatMessage(messages.productId) },
       { id: CoinProductKeys.AppId, label: formatMessage(commonMessages.appId) },
@@ -93,7 +93,7 @@ export default function CoinProductList() {
       {
         id: CoinProductKeys.Status,
         label: formatMessage(applicationMessages.status),
-        formatter: (status: CoinProduct[CoinProductKeys.Status]) => formatMessage(messages[status])
+        formatter: (coinProduct: CoinProduct) => formatMessage(messages[coinProduct[CoinProductKeys.Status]])
       }
     ],
     [formatMessage, handleSort]

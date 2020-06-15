@@ -99,8 +99,13 @@ export default function WorkList() {
       {
         id: WorkKeys.Images,
         label: formatMessage(commonMessages.photo),
-        formatter: (images: WorkDetail[WorkKeys.Images]) => (
-          <img src={greyImg} data-src={images?.image1?.url as string} className='lazy-img' alt='work-img' />
+        formatter: (work: WorkDetail) => (
+          <img
+            src={greyImg}
+            data-src={work[WorkKeys.Images]?.image1?.url as string}
+            className='lazy-img'
+            alt='work-img'
+          />
         )
       },
       { id: WorkKeys.ID, label: formatMessage(comicMessages.workId) },
@@ -108,17 +113,17 @@ export default function WorkList() {
       {
         id: WorkKeys.CreateAt,
         label: formatMessage(commonMessages.createDateTime),
-        formatter: toDateTime
+        formatter: (work: WorkDetail) => toDateTime(work[WorkKeys.CreateAt])
       },
       {
         id: WorkKeys.WorkType,
         label: formatMessage(messages.category),
-        formatter: (data: WorkDetail[WorkKeys.WorkType]) => formatMessage(messages[data])
+        formatter: (work: WorkDetail) => formatMessage(messages[work[WorkKeys.WorkType]])
       },
       {
         id: WorkKeys.EpisodeWorkType,
         label: formatMessage(messages.episodeCategory),
-        formatter: (data: WorkDetail[WorkKeys.EpisodeWorkType]) => (data ? formatMessage(messages[data]) : '')
+        formatter: ({ [WorkKeys.EpisodeWorkType]: data }) => (data ? formatMessage(messages[data]) : '')
       },
       { id: WorkKeys.UpdateFrequency, label: formatMessage(messages.updateFrequency) },
       { id: 'spacer', label: '' }

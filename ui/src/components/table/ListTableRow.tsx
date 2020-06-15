@@ -41,7 +41,7 @@ export default function ListTableRow({ items, onClick, classnames, headers }: Pr
     <TableRow hover className={clsx(classes.root, classnames)} data-testid='list-table-row' onClick={onClick}>
       {headers.map(({ id, formatter }) => (
         <TableCell data-testid='list-table-row-cell' key={id}>
-          {formatter ? formatter(items[id]) : items[id]}
+          {formatter ? formatter(items) : items[id]}
         </TableCell>
       ))}
     </TableRow>

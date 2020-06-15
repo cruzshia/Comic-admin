@@ -1,4 +1,4 @@
-import { PushNotification } from '@src/models/application/pushNotification'
+import PushNotification, { ListResponse } from '@src/models/application/pushNotification'
 import { PushNotificationActionType } from './pushNotificationActions'
 import { ActionType } from '../../types'
 
@@ -13,7 +13,7 @@ const initState: PushNotificationState = {
   notificationTotal: 0
 }
 
-export const emptyPushNotification: PushNotification = {}
+export const emptyPushNotification: Partial<PushNotification> = {}
 
 export const PushNotificationPreloadState = initState
 
@@ -30,12 +30,12 @@ const updateCurrentNotificationHandler = (
 const handler: Record<string, (state: PushNotificationState, action: ActionType<any>) => PushNotificationState> = {
   [PushNotificationActionType.GET_LIST_SUCCESS]: (
     state: PushNotificationState,
-    action: ActionType<PushNotification[]>
+    action: ActionType<ListResponse>
   ): PushNotificationState => {
     return {
       ...state,
-      notificationList: action.payload,
-      notificationTotal: action.payload.length
+      notificationList: action.payload.push_notifications,
+      notificationTotal: action.payload.total_count
     }
   },
   [PushNotificationActionType.RESET_CURRENT]: updateCurrentNotificationHandler,
