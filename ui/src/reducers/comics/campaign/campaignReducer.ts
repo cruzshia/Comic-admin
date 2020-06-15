@@ -6,15 +6,15 @@ export interface CampaignState {
   campaignList: Campaign[]
   currentCampaign?: Campaign
   campaignTotal: number
-  subCampaignList: SubCampaign[]
-  subCampaignTotal: number
+  associatedCampaignList: SubCampaign[]
+  associatedCampaignTotal: number
 }
 
 const initState: CampaignState = {
   campaignList: [],
   campaignTotal: 0,
-  subCampaignList: [],
-  subCampaignTotal: 0
+  associatedCampaignList: [],
+  associatedCampaignTotal: 0
 }
 
 export const CampaignPreloadState = initState
@@ -44,8 +44,8 @@ const handler: Record<string, (state: CampaignState, action: ActionType<any>) =>
   ): CampaignState => {
     return {
       ...state,
-      subCampaignList: action.payload,
-      subCampaignTotal: action.payload.length
+      associatedCampaignList: action.payload,
+      associatedCampaignTotal: action.payload.length
     }
   }
 }

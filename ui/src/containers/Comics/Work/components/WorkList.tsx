@@ -10,7 +10,7 @@ import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import greyImg from '@src/assets/greyImg.png'
-import { WorkDetail, WorkKeys, WorkSearchKeys } from '@src/models/comics/work'
+import { WorkDetail, WorkKeys, WorkSearchKeys, WorkType, EpisodeWorkType } from '@src/models/comics/work'
 import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
 import { lazyLoadImage, toDateTime } from '@src/utils/functions'
@@ -99,13 +99,8 @@ export default function WorkList() {
       {
         id: WorkKeys.Images,
         label: formatMessage(commonMessages.photo),
-        formatter: (work: WorkDetail) => (
-          <img
-            src={greyImg}
-            data-src={work[WorkKeys.Images]?.image1?.url as string}
-            className='lazy-img'
-            alt='work-img'
-          />
+        formatter: (images: WorkDetail[WorkKeys.Images]) => (
+          <img src={greyImg} data-src={images?.image1?.url as string} className='lazy-img' alt='work-img' />
         )
       },
       { id: WorkKeys.ID, label: formatMessage(comicMessages.workId) },
@@ -113,17 +108,17 @@ export default function WorkList() {
       {
         id: WorkKeys.CreateAt,
         label: formatMessage(commonMessages.createDateTime),
-        formatter: (work: WorkDetail) => toDateTime(work[WorkKeys.CreateAt])
+        formatter: toDateTime
       },
       {
         id: WorkKeys.WorkType,
         label: formatMessage(messages.category),
-        formatter: (work: WorkDetail) => formatMessage(messages[work[WorkKeys.WorkType]])
+        formatter: (type: WorkType) => formatMessage(messages[type])
       },
       {
         id: WorkKeys.EpisodeWorkType,
         label: formatMessage(messages.episodeCategory),
-        formatter: ({ [WorkKeys.EpisodeWorkType]: data }) => (data ? formatMessage(messages[data]) : '')
+        formatter: (type: EpisodeWorkType) => (type ? formatMessage(messages[type]) : '')
       },
       { id: WorkKeys.UpdateFrequency, label: formatMessage(messages.updateFrequency) },
       { id: 'spacer', label: '' }

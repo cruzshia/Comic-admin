@@ -39,7 +39,7 @@ export interface Thead {
   onSort?: (id: any, order: SortOrder, e?: React.MouseEvent<unknown>) => void
   padding?: Padding
   classes?: string
-  formatter?: (data: any) => any
+  formatter?: (value: any, object: any) => any
 }
 
 interface Pagination {

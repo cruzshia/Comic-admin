@@ -21,7 +21,7 @@ import ContentsCampaign from './ContentsCampaign/ContentsCampaign'
 
 export default function Campaign() {
   const dispatch = useDispatch()
-  const { campaignList, campaignTotal, subCampaignList, subCampaignTotal, currentCampaign } = useSelector(
+  const { campaignList, campaignTotal, associatedCampaignList, associatedCampaignTotal, currentCampaign } = useSelector(
     (state: StoreState) => state.campaign
   )
   const handleGetCampaignList = useCallback(() => dispatch(getCampaignListAction()), [dispatch])
@@ -49,8 +49,8 @@ export default function Campaign() {
           campaignList,
           campaignTotal,
           currentCampaign,
-          subCampaignList,
-          subCampaignTotal
+          associatedCampaignList,
+          associatedCampaignTotal
         }}
       >
         <Switch>

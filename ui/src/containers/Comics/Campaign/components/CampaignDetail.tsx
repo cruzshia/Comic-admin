@@ -23,11 +23,11 @@ const ROUTE = {
 }
 
 export default function CampaignDetail() {
-  const { currentCampaign = {}, subCampaignList, subCampaignTotal } = useContext(CampaignContext)
+  const { currentCampaign = {}, associatedCampaignList, associatedCampaignTotal } = useContext(CampaignContext)
   const { onGetSubCampaignList, onGetCampaign } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
-  const { pagination, handlePageChange } = usePaging({ total: subCampaignTotal })
+  const { pagination, handlePageChange } = usePaging({ total: associatedCampaignTotal })
   const { id } = useParams()
 
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function CampaignDetail() {
     [formatMessage, history, id]
   )
 
-  const dataList = subCampaignList.map(data => ({
+  const dataList = associatedCampaignList.map(data => ({
     ...data,
     category: formatMessage(comicMessages[`${data.type}Campaign` as keyof typeof comicMessages])
   }))
@@ -98,11 +98,11 @@ export default function CampaignDetail() {
   const handleRowClick = useCallback(
     (rowId: string) =>
       history.push(
-        ROUTE[subCampaignList.find(campaign => campaign.id === rowId).type as keyof typeof ROUTE]
+        ROUTE[associatedCampaignList.find(campaign => campaign.id === rowId).type as keyof typeof ROUTE]
           .replace(':campaignId', id!)
           .replace(':id', rowId!)
       ),
-    [history, id, subCampaignList]
+    [history, id, associatedCampaignList]
   )
 
   return (

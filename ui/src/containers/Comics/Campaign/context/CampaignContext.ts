@@ -5,15 +5,15 @@ interface CampaignContext {
   campaignList: Campaign[]
   currentCampaign?: Campaign
   campaignTotal: number
-  subCampaignList: SubCampaign[]
-  subCampaignTotal: number
+  associatedCampaignList: SubCampaign[]
+  associatedCampaignTotal: number
 }
 
 export default createContext<CampaignContext>({
   campaignList: [],
   campaignTotal: 0,
-  subCampaignList: [],
-  subCampaignTotal: 0
+  associatedCampaignList: [],
+  associatedCampaignTotal: 0
 })
 
 interface ActionContext {

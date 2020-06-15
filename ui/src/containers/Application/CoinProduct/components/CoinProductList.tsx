@@ -9,7 +9,7 @@ import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import usePaging from '@src/hooks/usePaging'
 import useSort from '@src/hooks/useSort'
-import { CoinProductKeys, SearchParam, CoinProduct } from '@src/models/application/coinProduct'
+import { CoinProductKeys, SearchParam, CoinProductStatusType } from '@src/models/application/coinProduct'
 import { toDateTime } from '@src/utils/functions'
 import commonMessages from '@src/messages'
 import userMessages from '@src/containers/User/List/messages'
@@ -78,13 +78,13 @@ export default function CoinProductList() {
         id: CoinProductKeys.InsertedAt,
         label: formatMessage(commonMessages.createDateTime),
         onSort: handleSort,
-        formatter: (coinProduct: CoinProduct) => toDateTime(coinProduct[CoinProductKeys.InsertedAt])
+        formatter: toDateTime
       },
       {
         id: CoinProductKeys.PublishBeginAt,
         label: formatMessage(commonMessages.publicStartTime),
         onSort: handleSort,
-        formatter: (coinProduct: CoinProduct) => toDateTime(coinProduct[CoinProductKeys.InsertedAt])
+        formatter: toDateTime
       },
       { id: CoinProductKeys.Id, label: formatMessage(messages.productId) },
       { id: CoinProductKeys.AppId, label: formatMessage(commonMessages.appId) },
@@ -93,7 +93,7 @@ export default function CoinProductList() {
       {
         id: CoinProductKeys.Status,
         label: formatMessage(applicationMessages.status),
-        formatter: (coinProduct: CoinProduct) => formatMessage(messages[coinProduct[CoinProductKeys.Status]])
+        formatter: (value: CoinProductStatusType) => formatMessage(messages[value])
       }
     ],
     [formatMessage, handleSort]

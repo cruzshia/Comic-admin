@@ -127,16 +127,14 @@ export default function PushNotificationList() {
         id: 'checkbox',
         label: <StyledCheckBox value='' checked={isCheckAll} onCheck={handleCheckAll} />,
         padding: Padding.Checkbox,
-        formatter: ({ [PushNotificationKeys.Id]: id }: PushNotification) => (
+        formatter: (_: any, { [PushNotificationKeys.Id]: id }: PushNotification) => (
           <StyledCheckBox value={id} checked={isChecked(id)} onCheck={handleCheck} />
         )
       },
       {
         id: PushNotificationKeys.Status,
         label: formatMessage(applicationMessages.status),
-        formatter: ({ [PushNotificationKeys.Status]: status }: PushNotification) => (
-          <Capsule status={capsuleStatusMap[status]} />
-        )
+        formatter: (status: PushNotificationStatus) => <Capsule status={capsuleStatusMap[status]} />
       },
       { id: PushNotificationKeys.NotificationMessage, label: formatMessage(commonMessages.message) },
       { id: PushNotificationKeys.AppId, label: formatMessage(applicationMessages.applicationId) },
@@ -144,13 +142,12 @@ export default function PushNotificationList() {
       {
         id: PushNotificationKeys.DeliveryDateTime,
         label: formatMessage(commonMessages.deliveryDateTime),
-        formatter: (items: PushNotification) => toDateTime(items[PushNotificationKeys.DeliveryDateTime])
+        formatter: toDateTime
       },
       {
         id: PushNotificationKeys.Message,
         label: formatMessage(commonMessages.detail),
-        formatter: ({ [PushNotificationKeys.Message]: msg }: PushNotification) =>
-          msg && <FormHelperText className='error'>{msg}</FormHelperText>
+        formatter: (msg: string) => msg && <FormHelperText className='error'>{msg}</FormHelperText>
       }
     ],
     [formatMessage, handleCheckAll, isCheckAll, handleCheck, isChecked]
