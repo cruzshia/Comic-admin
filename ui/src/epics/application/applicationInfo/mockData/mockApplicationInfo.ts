@@ -1,4 +1,5 @@
 import { _range } from '@src/utils/functions'
+import { ApplicationInfoKeys } from '@src/models/application/applicationInfo'
 
 export const mockInfoTotal = 7
 
@@ -36,6 +37,7 @@ export const mockInfoDetail = {
 }
 
 export const mockInfoList = _range(0, 2).map(num => ({
-  applicationId: `SHJP01I${num}`,
-  applicationName: '少年ジャンプ+ for iOS	'
+  [ApplicationInfoKeys.Id]: `SHJP01I${num}`,
+  [ApplicationInfoKeys.AppIdToken]: `SHJP01I${num}`,
+  [ApplicationInfoKeys.Name]: '少年ジャンプ+ for iOS	'
 }))

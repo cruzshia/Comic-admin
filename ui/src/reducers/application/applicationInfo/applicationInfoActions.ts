@@ -1,4 +1,4 @@
-import { ApplicationInfo } from '@src/models/application/applicationInfo'
+import InfoModel, { ApplicationInfo } from '@src/models/application/applicationInfo'
 
 export enum ApplicationInfoActionType {
   GET_LIST = '@ApplicationInfo/GET_LIST',
@@ -34,27 +34,27 @@ export const getApplicationInfoAction = (ApplicationInfoId: string) => ({
   payload: ApplicationInfoId
 })
 
-export const getApplicationInfoSuccessAction = (payload: ApplicationInfo) => ({
+export const getApplicationInfoSuccessAction = (payload: InfoModel) => ({
   type: ApplicationInfoActionType.GET_SUCCESS,
   payload
 })
 
-export const createApplicationInfoAction = (applicationInfo: ApplicationInfo) => ({
+export const createApplicationInfoAction = (applicationInfo: InfoModel) => ({
   type: ApplicationInfoActionType.CREATE,
   payload: applicationInfo
 })
 
-export const createApplicationInfoSuccessAction = (applicationInfo: ApplicationInfo) => ({
+export const createApplicationInfoSuccessAction = (applicationInfo: InfoModel) => ({
   type: ApplicationInfoActionType.CREATE_SUCCESS,
   payload: applicationInfo
 })
 
-export const updateApplicationInfoAction = (applicationInfo: ApplicationInfo) => ({
+export const updateApplicationInfoAction = (applicationInfo: InfoModel) => ({
   type: ApplicationInfoActionType.UPDATE,
   payload: applicationInfo
 })
 
-export const updateApplicationInfoSuccessAction = (applicationInfo: ApplicationInfo) => ({
+export const updateApplicationInfoSuccessAction = (applicationInfo: InfoModel) => ({
   type: ApplicationInfoActionType.UPDATE_SUCCESS,
   payload: applicationInfo
 })
