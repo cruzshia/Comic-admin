@@ -30,7 +30,7 @@ export default function AdSettingTable({ data, onEdit, hideTitle }: Prop) {
   const genAdvertisementData = (data: Advertisement) => {
     const type = data[AdSettingKeys.Type]
     return {
-      label: formatMessage(comicMessages[type]),
+      label: formatMessage(comicMessages[type!]),
       content:
         type === AdType.Original ? (
           <DataTable

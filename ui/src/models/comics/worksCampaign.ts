@@ -1,10 +1,11 @@
 import App from './app'
 import Image, { ImageInfo } from '../image'
 import S3Info from '../s3Info'
-import Advertisement from './advertisement'
+import { AdSetting } from './advertisement'
 
 export enum WorksCampaignKeys {
   ID = 'id',
+  CampaignID = 'campaign_id',
   Name = 'name',
   WorkId = 'work_id',
   WorkName = 'work_name',
@@ -26,8 +27,10 @@ export enum WorksCampaignKeys {
 export interface WorksCampaign {
   [WorksCampaignKeys.ID]: number
   [WorksCampaignKeys.Name]: string
+  [WorksCampaignKeys.WorkName]?: string
   [WorksCampaignKeys.WorkId]: string
   [WorksCampaignKeys.Apps]: App[]
+  [WorksCampaignKeys.AppIds]?: number[]
   [WorksCampaignKeys.InsertedAt]: string
   [WorksCampaignKeys.UpdatedAt]: string
   [WorksCampaignKeys.BeginAt]: string
@@ -37,10 +40,15 @@ export interface WorksCampaign {
   [WorksCampaignKeys.Description]: string
   [WorksCampaignKeys.FreeRange]?: string
   [WorksCampaignKeys.FreeRangeDisplay]?: string
-  [WorksCampaignKeys.AdSetting]?: Advertisement[]
+  [WorksCampaignKeys.AdSetting]?: AdSetting[]
   [WorksCampaignKeys.S3Uploads]?: S3Info[]
 }
 
-type WC = any
-
-export default WC
+export interface WorkCampaignCreate
+  extends Omit<
+    WorksCampaign,
+    WorksCampaignKeys.Apps | WorksCampaignKeys.InsertedAt | WorksCampaignKeys.UpdatedAt | WorksCampaignKeys.WorkName
+  > {
+  [WorksCampaignKeys.AppIds]: number[]
+  [WorksCampaignKeys.CampaignID]: number
+}

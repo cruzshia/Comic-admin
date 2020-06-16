@@ -9,7 +9,7 @@ import {
   resetWorksCampaignAction
 } from '@src/reducers/comics/campaign/worksCampaignActions'
 import { routePath } from '@src/common/appConfig'
-import worksCampaign from '@src/models/comics/worksCampaign'
+import { WorkCampaignCreate } from '@src/models/comics/worksCampaign'
 import WorksCampaignEdit from './components/WorksCampaignEdit'
 import WorksCampaignDetail from './components/WorksCampaignDetail'
 import WorksCampaignCreation from './components/WorksCampaignCreation'
@@ -22,11 +22,11 @@ export default function WorksCampaign() {
     dispatch
   ])
   const handleCreateWorksCampaign = useCallback(
-    (campaign: worksCampaign) => dispatch(createWorksCampaignAction(campaign)),
+    (campaign: WorkCampaignCreate) => dispatch(createWorksCampaignAction(campaign)),
     [dispatch]
   )
   const handleUpdateWorksCampaign = useCallback(
-    (campaign: worksCampaign) => dispatch(updateWorksCampaignAction(campaign)),
+    (campaign: WorkCampaignCreate) => dispatch(updateWorksCampaignAction(campaign)),
     [dispatch]
   )
   const handleResetWorksCampaign = useCallback(() => dispatch(resetWorksCampaignAction()), [dispatch])

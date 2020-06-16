@@ -4,25 +4,27 @@ import { Form, Field } from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
 import { makeStyles } from '@material-ui/core'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
-import { TextInputAdapter, TextAreaAdapter, SelectAdapter, DropZoneAdapter } from '@src/components/finalForm'
+import { TextInputAdapter, TextAreaAdapter, DropZoneAdapter } from '@src/components/finalForm'
 import StartEndForm from '@src/components/form/StartEndForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { _range } from '@src/utils/functions'
-import worksCampaign from '@src/models/comics/worksCampaign'
 import commonMessages from '@src/messages'
 import comicMessages from '@src/containers/Comics/messages'
 import AdSettingForm from '@src/containers/Comics/components/AdSettingForm'
 import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '@src/containers/Comics/utils'
 import { emptyWorksCampaign } from '@src/reducers/comics/campaign/worksCampaignReducer'
-import { WorksCampaignKeys } from '@src/models/comics/worksCampaign'
+import { WorksCampaign, WorkCampaignCreate, WorksCampaignKeys } from '@src/models/comics/worksCampaign'
+import AppCheckboxes from '@src/containers/Comics/components/AppCheckboxes'
+import { validateWorkCampaign } from '../utils'
 import clsx from 'clsx'
 import formMessages from '@src/components/form/messages'
 import messages from '../messages'
 
 interface Props {
-  onSubmit: (data: any) => void
+  onSubmit: (data: Partial<WorkCampaignCreate>) => void
   formRef?: React.RefObject<HTMLFormElement> | null
-  worksCampaign?: worksCampaign
+  worksCampaign?: WorksCampaign
+  campaignId: string
 }
 
 const useStyle = makeStyles({
@@ -39,7 +41,18 @@ const useStyle = makeStyles({
   }
 })
 
-export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: Props) {
+const mockAppList = [
+  {
+    id: 123,
+    name: 'App1'
+  },
+  {
+    id: 456,
+    name: 'App2'
+  }
+]
+
+export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign, campaignId }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const { allAnchorRefs, deliveryRef, adSettingRef, episodeInfoRef } = useComicsRef()
@@ -49,10 +62,13 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
       <ScrollTo anchorRef={allAnchorRefs} withStickHeader />
       <Form
         onSubmit={onSubmit}
+        validate={validateWorkCampaign}
         mutators={{ ...arrayMutators }}
+        subscription={{ pristine: true, values: true }}
         initialValues={worksCampaign || emptyWorksCampaign}
-        render={({ handleSubmit }) => (
+        render={({ handleSubmit, values }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
+            <Field name={WorksCampaignKeys.CampaignID} component='input' type='hidden' defaultValue={campaignId} />
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
               tableClass={clsx(classes.tableClass, classes.tableMargin)}
@@ -71,11 +87,11 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
                 ),
                 toDataSet(
                   formatMessage(commonMessages.appId),
-                  <Field name={WorksCampaignKeys.Apps} component={SelectAdapter} options={[]} />
+                  <AppCheckboxes name={WorksCampaignKeys.AppIds} options={mockAppList} />
                 ),
                 toDataSet(
                   formatMessage(comicMessages.priority),
-                  <Field name={WorksCampaignKeys.Priority} component={TextInputAdapter} />
+                  <Field name={WorksCampaignKeys.Priority} component={TextInputAdapter} type='number' />
                 ),
                 toDataSet(
                   formatMessage(commonMessages.introduction),
@@ -117,7 +133,13 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign }: 
               endLabel={formatMessage(commonMessages.endDateTime)}
               endName={WorksCampaignKeys.EndAt}
             />
-            <AdSettingForm adKey={WorksCampaignKeys.AdSetting} adSettingRef={adSettingRef} />
+            {values?.[WorksCampaignKeys.AdSetting]?.map((_, index) => (
+              <AdSettingForm
+                key={`adSetting-${index}`}
+                adSettingRef={!index ? adSettingRef : undefined}
+                adKey={`${WorksCampaignKeys.AdSetting}[${index}]`}
+              />
+            ))}
           </form>
         )}
       />

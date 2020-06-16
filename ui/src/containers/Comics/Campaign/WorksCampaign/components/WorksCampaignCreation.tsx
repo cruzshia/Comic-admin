@@ -1,14 +1,15 @@
-import React, { useMemo, useRef, useContext } from 'react'
+import React, { useMemo, useRef, useContext, useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import { submitForm } from '@src/utils/validation'
+import { WorkCampaignCreate } from '@src/models/comics/worksCampaign'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import { ActionContext } from '../context/worksCampaignContext'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import WorksCampaignForm from './WorksCampaignForm'
 
 export default function WorksCampaignCreation() {
@@ -37,11 +38,18 @@ export default function WorksCampaignCreation() {
     [formatMessage]
   )
 
+  const handleSubmit = useCallback(
+    (data: Partial<WorkCampaignCreate>) => {
+      onCreateWorksCampaign(data as WorkCampaignCreate)
+    },
+    [onCreateWorksCampaign]
+  )
+
   return (
     <>
       <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
-      <WorksCampaignForm formRef={formRef} onSubmit={onCreateWorksCampaign} />
+      <WorksCampaignForm formRef={formRef} campaignId={campaignId!} onSubmit={handleSubmit} />
     </>
   )
 }

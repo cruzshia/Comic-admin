@@ -23,7 +23,17 @@ interface Props extends InputProps {
   className?: string
 }
 
-export default function TextInput({ name, onChange, onBlur, error, placeholder, value, short, className }: Props) {
+export default function TextInput({
+  name,
+  onChange,
+  onBlur,
+  error,
+  placeholder,
+  value,
+  short,
+  className,
+  type
+}: Props) {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   return (
@@ -37,6 +47,7 @@ export default function TextInput({ name, onChange, onBlur, error, placeholder, 
         onChange={onChange}
         onBlur={onBlur}
         value={value}
+        type={type}
       />
       {error && (
         <FormHelperText className='error' data-testid='error'>

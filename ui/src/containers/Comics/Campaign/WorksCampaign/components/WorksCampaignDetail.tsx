@@ -12,11 +12,12 @@ import { _range } from '@src/utils/functions'
 import { IMAGE_NUM, ScrollAnchor } from '@src/containers/Comics/utils'
 import AdSettingTable from '@src/containers/Comics/components/AdSettingTable'
 import { WorksCampaignKeys } from '@src/models/comics/worksCampaign'
+import { ImageKey } from '@src/models/image'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import comicMessages from '@src/containers/Comics/messages'
 import WorksCampaignContext, { ActionContext } from '../context/worksCampaignContext'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 
 const useStyles = makeStyles({
   table: {
@@ -85,7 +86,7 @@ export default function WorksCampaignDetail() {
           toDataSet(formatMessage(messages.name), campaign[WorksCampaignKeys.Name]),
           toDataSet(formatMessage(comicMessages.workId), campaign[WorksCampaignKeys.WorkId]),
           toDataSet(formatMessage(comicMessages.workName), campaign[WorksCampaignKeys.WorkName]),
-          toDataSet(formatMessage(commonMessages.appId), campaign[WorksCampaignKeys.Apps]),
+          toDataSet(formatMessage(commonMessages.appId), campaign[WorksCampaignKeys.Apps]?.[0]?.name),
           toDataSet(formatMessage(comicMessages.priority), campaign[WorksCampaignKeys.Priority]),
           toDataSet(formatMessage(commonMessages.introduction), campaign[WorksCampaignKeys.Priority]),
           toDataSet(formatMessage(messages.freeRange), campaign[WorksCampaignKeys.FreeRange]),
@@ -100,10 +101,11 @@ export default function WorksCampaignDetail() {
         onEdit={handleEditEpisode}
         dataSet={[
           ..._range(1, IMAGE_NUM + 1).map(i => {
-            const img = campaign[WorksCampaignKeys.Images]?.[`image${i}`]
+            const img = campaign[WorksCampaignKeys.Images]?.[`image${i}` as ImageKey]
+            const url = img?.url as string
             return toDataSet(
               `${formatMessage(comicMessages.episodeImage)}${i + 1}`,
-              img ? <img key={`image-${i}`} src={img.url} alt={img.url} /> : ''
+              img ? <img key={`image-${i}`} src={url} alt={url} /> : ''
             )
           })
         ]}
@@ -117,7 +119,9 @@ export default function WorksCampaignDetail() {
           toDataSet(formatMessage(commonMessages.endDateTime), campaign[WorksCampaignKeys.EndAt])
         ]}
       />
-      <AdSettingTable data={campaign[WorksCampaignKeys.AdSetting]} onEdit={handleEditAdSetting} />
+      {campaign[WorksCampaignKeys.AdSetting]?.map((adSetting, idx) => (
+        <AdSettingTable key={`adSetting-${idx}`} onEdit={handleEditAdSetting} data={adSetting} hideTitle={!!idx} />
+      ))}
     </>
   ) : null
 }

@@ -1,4 +1,5 @@
-import WorksCampaign from '@src/models/comics/worksCampaign'
+import { WorksCampaign, WorkCampaignCreate } from '@src/models/comics/worksCampaign'
+import { WorksCampaignKeys } from '@src/models/comics/worksCampaign'
 import { WorksCampaignActionType } from './worksCampaignActions'
 import { defaultAdTypes } from '../constant'
 import { ActionType } from '../../types'
@@ -7,8 +8,8 @@ export interface WorksCampaignState {
   currentCampaign?: WorksCampaign
 }
 
-export const emptyWorksCampaign: WorksCampaign = {
-  advertisement: defaultAdTypes
+export const emptyWorksCampaign: Partial<WorkCampaignCreate> = {
+  [WorksCampaignKeys.AdSetting]: [defaultAdTypes]
 }
 
 const initState: WorksCampaignState = {}

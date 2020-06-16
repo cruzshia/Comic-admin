@@ -1,4 +1,4 @@
-import WorksCampaign from '@src/models/comics/worksCampaign'
+import { WorksCampaign, WorkCampaignCreate } from '@src/models/comics/worksCampaign'
 
 export enum WorksCampaignActionType {
   GET_CAMPAIGN = '@ComicsWorksCampaign/GET_CAMPAIGN',
@@ -25,7 +25,7 @@ export const getWorksCampaignSuccessAction = (campaign: WorksCampaign) => ({
   payload: campaign
 })
 
-export const createWorksCampaignAction = (campaign: WorksCampaign) => ({
+export const createWorksCampaignAction = (campaign: WorkCampaignCreate) => ({
   type: WorksCampaignActionType.CREATE,
   payload: campaign
 })
@@ -35,7 +35,7 @@ export const createWorksCampaignSuccessAction = (campaign: WorksCampaign) => ({
   payload: campaign
 })
 
-export const updateWorksCampaignAction = (campaign: WorksCampaign) => ({
+export const updateWorksCampaignAction = (campaign: WorkCampaignCreate) => ({
   type: WorksCampaignActionType.UPDATE,
   payload: campaign
 })

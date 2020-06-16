@@ -4,8 +4,9 @@ import dayjs from 'dayjs'
 export const composeValidators = (...validators: ((data: any) => any)[]) => (value: any) =>
   validators.reduce((error, validator) => error || validator(value), undefined)
 
-export const CHARACTER_LIMIT = 200
+export const CHARACTER_LIMIT = 255
 export const TEXT_LIMIT = 4000
+export const DESCRIPTION_LIMIT = 1000
 export const INVALID_FORMAT = '形式に誤りがあります'
 export const INVALID_DURATION = '期間の指定が正しくありません。'
 export const SHOULD_GREATER_THAN_NOW = 'Time should greater than now'

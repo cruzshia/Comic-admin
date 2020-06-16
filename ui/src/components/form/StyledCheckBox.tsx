@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import { InputProps } from './inputProps'
 
 interface Props extends InputProps {
+  id?: string
   onCheck?: (_: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void
 }
 
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
   }
 })
 
-export default function StyledCheckBox({ value, checked, onCheck, onChange, error }: Props) {
+export default function StyledCheckBox({ id, value, checked, onCheck, onChange, error }: Props) {
   const classes = useStyles()
 
   const handleStopBubble = useCallback((e: React.MouseEvent) => e.stopPropagation(), [])
@@ -23,6 +24,7 @@ export default function StyledCheckBox({ value, checked, onCheck, onChange, erro
     <>
       <Checkbox
         data-testid='styled-checkbox'
+        id={id}
         className={clsx(classes.root, { error: !!error })}
         icon={<CheckboxIco />}
         color='primary'

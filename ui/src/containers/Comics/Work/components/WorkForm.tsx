@@ -9,7 +9,7 @@ import { DropZoneAdapter, SelectAdapter, TextInputAdapter, TextAreaAdapter, Cond
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import { _range } from '@src/utils/functions'
 import { emptyWork } from '@src/reducers/comics/work/workReducer'
-import { WorkKeys, WorkType, EpisodeWorkType } from '@src/models/comics/work'
+import WorkDetail, { WorkKeys, WorkType, EpisodeWorkType } from '@src/models/comics/work'
 import AuthorEditForm from '../../components/AuthorEditForm'
 import AdSettingForm from '../../components/AdSettingForm'
 import { validateWork } from '../utils'
@@ -20,8 +20,8 @@ import messages from '../messages'
 import clsx from 'clsx'
 
 interface Props {
-  workData?: any
-  onSubmit: (data: any) => void
+  workData?: WorkDetail
+  onSubmit: (data: Partial<WorkDetail>) => void
   formRef?: React.RefObject<HTMLFormElement>
   withStickHeader?: boolean
 }

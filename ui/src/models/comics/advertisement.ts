@@ -21,7 +21,7 @@ export enum AdType {
 }
 export interface Advertisement {
   [AdSettingKeys.ID]?: string
-  [AdSettingKeys.Type]: AdType
+  [AdSettingKeys.Type]?: AdType
   [AdSettingKeys.ImageUrl]?: string
   [AdSettingKeys.Button]?: string
   [AdSettingKeys.ActionUrl]?: string

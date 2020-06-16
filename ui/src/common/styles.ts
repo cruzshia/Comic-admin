@@ -53,6 +53,14 @@ export const GlobalStyle = withStyles({
       '&:visited': {
         color: hyperlinkColor
       }
+    },
+    input: {
+      '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+        '-webkit-appearance': 'none'
+      },
+      '&::-webkit-inner-spin-button': {
+        '-moz-appearance': 'textfield'
+      }
     }
   }
 })(() => null)
