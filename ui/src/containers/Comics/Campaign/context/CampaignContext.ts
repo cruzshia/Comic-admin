@@ -1,11 +1,12 @@
 import { createContext } from 'react'
-import Campaign, { SubCampaign } from '@src/models/comics/campaign'
+import { AssociatedCampaign, Campaign } from '@src/models/comics/campaign'
+import Paging from '@src/models/paging'
 
 interface CampaignContext {
   campaignList: Campaign[]
   currentCampaign?: Campaign
   campaignTotal: number
-  associatedCampaignList: SubCampaign[]
+  associatedCampaignList: AssociatedCampaign[]
   associatedCampaignTotal: number
 }
 
@@ -17,16 +18,16 @@ export default createContext<CampaignContext>({
 })
 
 interface ActionContext {
-  onGetCampaignList: () => void
-  onGetSubCampaignList: () => void
+  onGetCampaignList: (params?: Object) => void
+  onGetAssociatedCampaignList: (campaignId: number, query: Paging) => void
   onGetCampaign: (campaignId: string) => void
-  onCreateCampaign: (campaignId: Campaign) => void
-  onUpdateCampaign: (campaignId: Campaign) => void
+  onCreateCampaign: (campaign: Campaign) => void
+  onUpdateCampaign: (campaign: Campaign) => void
 }
 
 export const ActionContext = createContext<ActionContext>({
   onGetCampaignList: () => {},
-  onGetSubCampaignList: () => {},
+  onGetAssociatedCampaignList: () => {},
   onGetCampaign: () => {},
   onCreateCampaign: () => {},
   onUpdateCampaign: () => {}

@@ -4,6 +4,7 @@ import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
 import { SearchInputAdapter } from '@src/components/finalForm'
 import TimeSpanInput from '@src/components/form/TimeSpanInput'
+import { CampaignSearchKeys } from '@src/models/comics/campaign'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
@@ -14,17 +15,17 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
       left: [
         {
           label: formatMessage(messages.name),
-          input: <Field name='campaignId' component={SearchInputAdapter} />
+          input: <Field name={CampaignSearchKeys.Name} component={SearchInputAdapter} />
         }
       ],
       right: [
         {
           label: formatMessage(commonMessages.startDateTime),
-          input: <TimeSpanInput name='campaignStart' />
+          input: <TimeSpanInput nameStart={CampaignSearchKeys.BeginAtFrom} nameEnd={CampaignSearchKeys.BeginAtTo} />
         },
         {
           label: formatMessage(commonMessages.endDateTime),
-          input: <TimeSpanInput name='campaignEnd' />
+          input: <TimeSpanInput nameStart={CampaignSearchKeys.EndAtFrom} nameEnd={CampaignSearchKeys.EndAtTo} />
         }
       ]
     }),

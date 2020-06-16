@@ -9,13 +9,13 @@ import CampaignCreation from './components/CampaignCreation'
 import CampaignContext, { ActionContext } from './context/CampaignContext'
 import {
   getCampaignListAction,
-  getSubCampaignListAction,
+  getAssociatedCampaignListAction,
   getCampaignAction,
   createCampaignAction,
   updateCampaignAction
 } from '@src/reducers/comics/campaign/campaignActions'
 import { StoreState } from '@src/reducers'
-import CampaignModel from '@src/models/comics/campaign'
+import { Campaign as CampaignModel } from '@src/models/comics/campaign'
 import WorksCampaign from './WorksCampaign/WorksCampaign'
 import ContentsCampaign from './ContentsCampaign/ContentsCampaign'
 
@@ -24,8 +24,11 @@ export default function Campaign() {
   const { campaignList, campaignTotal, associatedCampaignList, associatedCampaignTotal, currentCampaign } = useSelector(
     (state: StoreState) => state.campaign
   )
-  const handleGetCampaignList = useCallback(() => dispatch(getCampaignListAction()), [dispatch])
-  const handleGetSubCampaignList = useCallback(() => dispatch(getSubCampaignListAction()), [dispatch])
+  const handleGetCampaignList = useCallback((params?: Object) => dispatch(getCampaignListAction(params)), [dispatch])
+  const handleGetAssociatedCampaignList = useCallback(
+    (campaignId, query) => dispatch(getAssociatedCampaignListAction(campaignId, query)),
+    [dispatch]
+  )
   const handleGetCampaign = useCallback((campaignId: string) => dispatch(getCampaignAction(campaignId)), [dispatch])
   const handleCreateCampaign = useCallback((campaign: CampaignModel) => dispatch(createCampaignAction(campaign)), [
     dispatch
@@ -38,7 +41,7 @@ export default function Campaign() {
     <ActionContext.Provider
       value={{
         onGetCampaignList: handleGetCampaignList,
-        onGetSubCampaignList: handleGetSubCampaignList,
+        onGetAssociatedCampaignList: handleGetAssociatedCampaignList,
         onGetCampaign: handleGetCampaign,
         onUpdateCampaign: handleUpdateCampaign,
         onCreateCampaign: handleCreateCampaign

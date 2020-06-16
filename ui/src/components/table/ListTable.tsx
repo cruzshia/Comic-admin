@@ -50,7 +50,7 @@ interface Pagination {
 
 interface RowData {
   [key: string]: any
-  id?: string
+  id?: string | number
   classnames?: string
 }
 
@@ -63,7 +63,7 @@ export interface Props {
   buttonList?: JSX.Element[]
   pagination: Pagination
   onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void
-  onRowClick?: (id: string) => void
+  onRowClick?: (id: string, data: { [key: string]: any }) => void
   sortOrder?: SortOrder
   sortBy?: string
   noMarginTop?: boolean
@@ -166,7 +166,9 @@ export default function ListTable({
       sortFunction(id, sortOrder, e),
     []
   )
-  const handleRowClick = useCallback((id: string) => () => onRowClick!(id), [onRowClick])
+  const handleRowClick = useCallback((id: string, data: { [key: string]: any }) => () => onRowClick!(id, data), [
+    onRowClick
+  ])
 
   return (
     <div className={classnames} data-testid='list-table'>
@@ -227,7 +229,7 @@ export default function ListTable({
                 headers={theadList}
                 items={rowData}
                 key={rowData[rowIdKey]}
-                onClick={onRowClick && handleRowClick(rowData[rowIdKey])}
+                onClick={onRowClick && handleRowClick(rowData[rowIdKey], rowData)}
               />
             ))}
           </TableBody>

@@ -1,4 +1,5 @@
-import Campaign, { SubCampaign } from '@src/models/comics/campaign'
+import { AssociatedCampaign, Campaign } from '@src/models/comics/campaign'
+import Paging from '@src/models/paging'
 
 export enum CampaignActionType {
   GET_LIST = '@ComicsCampaign/GET_LIST',
@@ -23,20 +24,30 @@ export enum CampaignActionType {
   UPDATE_ERROR = '@ComicsCampaign/UPDATE_ERROR'
 }
 
-export const getCampaignListAction = () => ({
-  type: CampaignActionType.GET_LIST
+export const getCampaignListAction = (params?: Object) => ({
+  type: CampaignActionType.GET_LIST,
+  payload: params
 })
 
-export const getCampaignListSuccessAction = (payload: Campaign[]) => ({
+export interface CampaignListParams {
+  total_count: number
+  campaigns: Campaign[]
+}
+export const getCampaignListSuccessAction = (payload: CampaignListParams) => ({
   type: CampaignActionType.GET_LIST_SUCCESS,
   payload
 })
 
-export const getSubCampaignListAction = () => ({
-  type: CampaignActionType.GET_SUB_LIST
+export const getAssociatedCampaignListAction = (campaignId: number, query: Paging) => ({
+  type: CampaignActionType.GET_SUB_LIST,
+  payload: { campaignId, query }
 })
 
-export const getSubCampaignListSuccessAction = (payload: SubCampaign[]) => ({
+export interface CampaignSubListParams {
+  total_count: number
+  associated_campaigns: AssociatedCampaign[]
+}
+export const getAssociatedCampaignListSuccessAction = (payload: CampaignSubListParams) => ({
   type: CampaignActionType.GET_SUB_LIST_SUCCESS,
   payload
 })

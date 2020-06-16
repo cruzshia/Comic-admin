@@ -9,6 +9,8 @@ import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { ReactComponent as penIcon } from '@src/assets/common/pen.svg'
 import { routePath } from '@src/common/appConfig'
 import { usePaging } from '@src/hooks'
+import { toDateTime } from '@src/utils/functions'
+import { CampaignKeys, CampaignType, AssociatedCampaignKeys, AssociatedCampaign } from '@src/models/comics/campaign'
 import CampaignContext, { ActionContext } from '../context/CampaignContext'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
@@ -18,22 +20,22 @@ import contentCampaignMessages from '../ContentsCampaign/messages'
 import messages from '../messages'
 
 const ROUTE = {
-  works: routePath.comics.worksCampaignDetail,
-  content: routePath.comics.contentsCampaignDetail
+  [CampaignType.WorkCampaign]: routePath.comics.worksCampaignDetail,
+  [CampaignType.ContentCampaign]: routePath.comics.contentsCampaignDetail
 }
 
 export default function CampaignDetail() {
-  const { currentCampaign = {}, associatedCampaignList, associatedCampaignTotal } = useContext(CampaignContext)
-  const { onGetSubCampaignList, onGetCampaign } = useContext(ActionContext)
+  const { currentCampaign, associatedCampaignList, associatedCampaignTotal } = useContext(CampaignContext)
+  const { onGetAssociatedCampaignList, onGetCampaign } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
-  const { pagination, handlePageChange } = usePaging({ total: associatedCampaignTotal })
+  const { pagination, handlePageChange, query } = usePaging({ total: associatedCampaignTotal })
   const { id } = useParams()
 
   useEffect(() => {
-    onGetSubCampaignList()
+    onGetAssociatedCampaignList(Number(id!), query)
     onGetCampaign(id!)
-  }, [onGetSubCampaignList, onGetCampaign, id])
+  }, [onGetAssociatedCampaignList, onGetCampaign, id, query])
 
   const titleText = formatMessage(messages.detail)
   const breadcrumbList = useMemo(
@@ -62,11 +64,15 @@ export default function CampaignDetail() {
 
   const theadList = useMemo(
     () => [
-      { id: 'category', label: formatMessage(messages.category) },
-      { id: 'name', label: formatMessage(messages.name) },
-      { id: 'target', label: formatMessage(messages.target) },
-      { id: 'startAt', label: formatMessage(commonMessages.startDateTime) },
-      { id: 'endAt', label: formatMessage(commonMessages.endDateTime) },
+      {
+        id: AssociatedCampaignKeys.CampaignType,
+        label: formatMessage(messages.category),
+        formatter: (data: AssociatedCampaign[AssociatedCampaignKeys.CampaignType]) => formatMessage(messages[data])
+      },
+      { id: AssociatedCampaignKeys.Name, label: formatMessage(messages.name) },
+      { id: AssociatedCampaignKeys.CampaignTarget, label: formatMessage(messages.target) },
+      { id: AssociatedCampaignKeys.BeginAt, label: formatMessage(commonMessages.startDateTime), formatter: toDateTime },
+      { id: AssociatedCampaignKeys.EndAt, label: formatMessage(commonMessages.endDateTime), formatter: toDateTime },
       { id: 'spacer', label: '' }
     ],
     [formatMessage]
@@ -90,20 +96,17 @@ export default function CampaignDetail() {
     [formatMessage, history, id]
   )
 
-  const dataList = associatedCampaignList.map(data => ({
-    ...data,
-    category: formatMessage(comicMessages[`${data.type}Campaign` as keyof typeof comicMessages])
-  }))
-
   const handleRowClick = useCallback(
-    (rowId: string) =>
+    (rowId: string, data: { [key: string]: any }) =>
       history.push(
-        ROUTE[associatedCampaignList.find(campaign => campaign.id === rowId).type as keyof typeof ROUTE]
+        ROUTE[data[AssociatedCampaignKeys.CampaignType] as keyof typeof ROUTE]
           .replace(':campaignId', id!)
           .replace(':id', rowId!)
       ),
-    [history, id, associatedCampaignList]
+    [history, id]
   )
+
+  if (!currentCampaign) return null
 
   return (
     <>
@@ -113,25 +116,25 @@ export default function CampaignDetail() {
         onEdit={handleRedirectEdit}
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
-          toDataSet(formatMessage(comicMessages.campaignId), currentCampaign.campaignId),
-          toDataSet(formatMessage(messages.name), currentCampaign.name),
-          toDataSet(formatMessage(messages.adminComment), currentCampaign.comment),
+          toDataSet(formatMessage(comicMessages.campaignId), currentCampaign[CampaignKeys.ID]),
+          toDataSet(formatMessage(messages.name), currentCampaign[CampaignKeys.Name]),
+          toDataSet(formatMessage(messages.adminComment), currentCampaign[CampaignKeys.Note]),
           toDataSet(
             `${formatMessage(commonMessages.startDateTime)}（${formatMessage(messages.adminUsage)}）`,
-            currentCampaign.startAt
+            currentCampaign[CampaignKeys.BeginAt]
           ),
           toDataSet(
             `${formatMessage(commonMessages.endDateTime)}（${formatMessage(messages.adminUsage)}）`,
-            currentCampaign.endAt
+            currentCampaign[CampaignKeys.EndAt]
           ),
-          toDataSet(formatMessage(commonMessages.createDateTime), currentCampaign.createAt),
-          toDataSet(formatMessage(commonMessages.updateDateTime), currentCampaign.updateAt)
+          toDataSet(formatMessage(commonMessages.createDateTime), currentCampaign[CampaignKeys.InsertedAt]),
+          toDataSet(formatMessage(commonMessages.updateDateTime), currentCampaign[CampaignKeys.UpdateAt])
         ]}
       />
       <ListTable
         theadList={theadList}
         buttonList={listButtonList}
-        dataList={dataList}
+        dataList={associatedCampaignList}
         pagination={pagination}
         onPageChange={handlePageChange}
         onRowClick={handleRowClick}

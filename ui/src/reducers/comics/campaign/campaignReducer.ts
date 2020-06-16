@@ -1,12 +1,12 @@
-import Campaign, { SubCampaign } from '@src/models/comics/campaign'
-import { CampaignActionType } from './campaignActions'
+import { AssociatedCampaign, Campaign } from '@src/models/comics/campaign'
+import { CampaignActionType, CampaignListParams, CampaignSubListParams } from './campaignActions'
 import { ActionType } from '../../types'
 
 export interface CampaignState {
   campaignList: Campaign[]
   currentCampaign?: Campaign
   campaignTotal: number
-  associatedCampaignList: SubCampaign[]
+  associatedCampaignList: AssociatedCampaign[]
   associatedCampaignTotal: number
 }
 
@@ -27,12 +27,12 @@ const updateCurrentCampaignHandler = (state: CampaignState, action: ActionType<a
 const handler: Record<string, (state: CampaignState, action: ActionType<any>) => CampaignState> = {
   [CampaignActionType.GET_LIST_SUCCESS]: (
     state: CampaignState = initState,
-    action: ActionType<Campaign[]>
+    action: ActionType<CampaignListParams>
   ): CampaignState => {
     return {
       ...state,
-      campaignList: action.payload,
-      campaignTotal: action.payload.length
+      campaignList: action.payload.campaigns,
+      campaignTotal: action.payload.total_count
     }
   },
   [CampaignActionType.UPDATE_SUCCESS]: updateCurrentCampaignHandler,
@@ -40,12 +40,12 @@ const handler: Record<string, (state: CampaignState, action: ActionType<any>) =>
   [CampaignActionType.CREATE_SUCCESS]: updateCurrentCampaignHandler,
   [CampaignActionType.GET_SUB_LIST_SUCCESS]: (
     state: CampaignState = initState,
-    action: ActionType<Campaign[]>
+    action: ActionType<CampaignSubListParams>
   ): CampaignState => {
     return {
       ...state,
-      associatedCampaignList: action.payload,
-      associatedCampaignTotal: action.payload.length
+      associatedCampaignList: action.payload.associated_campaigns,
+      associatedCampaignTotal: action.payload.total_count
     }
   }
 }

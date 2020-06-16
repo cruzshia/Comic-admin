@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 import { Form, Field } from 'react-final-form'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { TextInputAdapter, TextAreaAdapter } from '@src/components/finalForm'
-import Campaign from '@src/models/comics/campaign'
+import { CampaignKeys, Campaign } from '@src/models/comics/campaign'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import commonMessages from '@src/messages'
 import comicMessages from '../../messages'
@@ -27,16 +27,22 @@ export default function CampaignForm({ onSubmit, formRef, campaign }: Props) {
             <DataTable
               title={formatMessage(commonMessages.basicInfo)}
               dataSet={[
-                toDataSet(formatMessage(comicMessages.campaignId), campaign?.campaignId),
-                toDataSet(formatMessage(messages.name), <Field name='name' component={TextInputAdapter} />),
-                toDataSet(formatMessage(messages.adminComment), <Field name='comment' component={TextAreaAdapter} />),
+                toDataSet(formatMessage(comicMessages.campaignId), campaign ? campaign[CampaignKeys.ID] : ''),
+                toDataSet(
+                  formatMessage(messages.name),
+                  <Field name={CampaignKeys.Name} component={TextInputAdapter} />
+                ),
+                toDataSet(
+                  formatMessage(messages.adminComment),
+                  <Field name={CampaignKeys.Note} component={TextAreaAdapter} />
+                ),
                 toDataSet(
                   `${formatMessage(commonMessages.startDateTime)}（${formatMessage(messages.adminUsage)}）`,
-                  <Field name='startAt' component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+                  <Field name={CampaignKeys.BeginAt} component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
                 ),
                 toDataSet(
                   `${formatMessage(commonMessages.endDateTime)}（${formatMessage(messages.adminUsage)}）`,
-                  <Field name='endAt' component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+                  <Field name={CampaignKeys.EndAt} component={TextInputAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
                 )
               ]}
             />

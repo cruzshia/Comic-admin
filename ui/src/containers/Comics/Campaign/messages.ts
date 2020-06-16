@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl'
+import { CampaignType } from '@src/models/comics/campaign'
 
 const PREFIX = 'comics.campaign.'
 
@@ -46,5 +47,13 @@ export default defineMessages({
   category: {
     id: PREFIX + 'category',
     defaultMessage: 'Campaign Category'
+  },
+  [CampaignType.ContentCampaign]: {
+    id: PREFIX + 'content_campaign',
+    defaultMessage: 'Content Campaign'
+  },
+  [CampaignType.WorkCampaign]: {
+    id: PREFIX + 'work_campaign',
+    defaultMessage: 'Work Campaign'
   }
 })
