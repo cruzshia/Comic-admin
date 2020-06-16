@@ -1,4 +1,4 @@
-import AuthorDetail, { ListParam } from '@src/models/comics/author'
+import AuthorDetail, { ListParam, ListResponse } from '@src/models/comics/author'
 
 export enum AuthorActionType {
   GET_LIST = '@ComicsAuthor/GET_LIST',
@@ -24,7 +24,7 @@ export const getAuthorListAction = (payload?: ListParam) => ({
   payload
 })
 
-export const getAuthorListSuccessAction = (payload: { authors: AuthorDetail[]; total: number }) => ({
+export const getAuthorListSuccessAction = (payload: ListResponse) => ({
   type: AuthorActionType.GET_LIST_SUCCESS,
   payload
 })

@@ -1,6 +1,6 @@
 import Author from '@src/models/comics/author'
 import { AuthorActionType } from './authorActions'
-import AuthorDetail from '@src/models/comics/author'
+import { ListResponse } from '@src/models/comics/author'
 import { ActionType } from '../../types'
 
 export interface AuthorState {
@@ -24,12 +24,12 @@ const updateCurrentAuthorHandler = (state: AuthorState, action: ActionType<any>)
 const handler: Record<string, (state: AuthorState, action: ActionType<any>) => AuthorState> = {
   [AuthorActionType.GET_LIST_SUCCESS]: (
     state: AuthorState = initState,
-    action: ActionType<{ authors: AuthorDetail[]; total: number }>
+    action: ActionType<ListResponse>
   ): AuthorState => {
     return {
       ...state,
       authorList: action.payload.authors,
-      authorTotal: action.payload.total
+      authorTotal: action.payload.total_count
     }
   },
   [AuthorActionType.RESET_AUTHOR]: (state: AuthorState = initState): AuthorState => ({

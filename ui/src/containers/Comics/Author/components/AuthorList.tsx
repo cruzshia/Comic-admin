@@ -6,14 +6,15 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import ListTable from '@src/components/table/ListTable'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
-import commonMessages from '@src/messages'
+import { routePath } from '@src/common/appConfig'
 import usePaging from '@src/hooks/usePaging'
 import { AuthorKey, ListParam } from '@src/models/comics/author'
+import { toDateTime } from '@src/utils/functions'
 import AuthorContext, { ActionContext } from '../context/AuthorContext'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS } from '../utils'
+import commonMessages from '@src/messages'
 import messages from '../messages'
-import { routePath } from '@src/common/appConfig'
 
 const useStyle = makeStyles({
   table: {
@@ -64,7 +65,11 @@ export default function AuthorList() {
 
   const theadList = useMemo(
     () => [
-      { id: AuthorKey.CreateAt, label: formatMessage(commonMessages.createDateTime) },
+      {
+        id: AuthorKey.CreateAt,
+        label: formatMessage(commonMessages.createDateTime),
+        formatter: toDateTime
+      },
       { id: AuthorKey.Id, label: formatMessage(commonMessages.id) },
       { id: AuthorKey.Name, label: formatMessage(commonMessages.authorName) },
       { id: 'spacer', label: '' }
