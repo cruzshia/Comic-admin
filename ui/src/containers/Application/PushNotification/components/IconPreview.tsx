@@ -5,6 +5,7 @@ import { makeStyles, Grid } from '@material-ui/core'
 import { borderColor } from '@src/common/styles'
 import TextFieldAdapter from '@src/components/finalForm/TextInputAdapter'
 import Button from '@src/components/Button/Button'
+import { PushNotificationKeys } from '@src/models/application/pushNotification'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 
@@ -28,7 +29,7 @@ export default function IconPreview() {
   const { formatMessage } = useIntl()
   const classes = useStyles()
   const [url, setUrl] = useState<string>('')
-  const value = useField('bigIconUrl').input.value
+  const value = useField(PushNotificationKeys.LargeIconUrl).input.value
 
   const handleClick = useCallback(() => {
     setUrl(value)
@@ -37,7 +38,11 @@ export default function IconPreview() {
   return (
     <div>
       <Grid container>
-        <Field name='bigIconUrl' component={TextFieldAdapter} placeholder={formatMessage(messages.inputUrl)} />
+        <Field
+          name={PushNotificationKeys.LargeIconUrl}
+          component={TextFieldAdapter}
+          placeholder={formatMessage(messages.inputUrl)}
+        />
         <Button classnames={classes.button} buttonText={formatMessage(commonMessages.preview)} onClick={handleClick} />
       </Grid>
       {url ? <img className={classes.img} alt='iconPreview' src={url} /> : <div className={classes.iconPreview} />}

@@ -9,6 +9,7 @@ import PushNotification, { PushNotificationKeys } from '@src/models/application/
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import IconPreview from './IconPreview'
+import { validateNotification } from '../utils'
 
 interface Props {
   currentNotification?: Partial<PushNotification>
@@ -38,17 +39,32 @@ export default function PushNotificationForm({ currentNotification, onSubmit, fo
     <Form
       onSubmit={onSubmit!}
       initialValues={{ ...currentNotification }}
+      validate={validateNotification}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit} ref={formRef}>
           <DataTable
             dataSet={[
               toDataSet(tableTitles.id, currentNotification ? currentNotification[PushNotificationKeys.Id] : ''),
-              toDataSet(tableTitles.title, <Field name='title' component={TextFieldAdapter} />),
-              toDataSet(tableTitles.message, <Field name='message' component={TextAreaAdapter} />),
-              toDataSet(tableTitles.application, <Field name='application' component={SelectAdapter} options={[]} />),
+              toDataSet(tableTitles.title, <Field name={PushNotificationKeys.Title} component={TextFieldAdapter} />),
+              toDataSet(
+                tableTitles.message,
+                <Field name={PushNotificationKeys.NotificationMessage} component={TextAreaAdapter} />
+              ),
+              toDataSet(
+                tableTitles.application,
+                <Field
+                  name={PushNotificationKeys.AppId}
+                  component={SelectAdapter}
+                  options={[{ label: 'test', value: 'test' }]}
+                />
+              ),
               toDataSet(
                 tableTitles.deepLinkUrl,
-                <Field name='deepLinkUrl' component={TextFieldAdapter} placeholder={formatMessage(messages.inputUrl)} />
+                <Field
+                  name={PushNotificationKeys.DeepLinkUrl}
+                  component={TextFieldAdapter}
+                  placeholder={formatMessage(messages.inputUrl)}
+                />
               ),
               toDataSet(tableTitles.bigIconUrl, <IconPreview />)
             ]}
@@ -59,7 +75,11 @@ export default function PushNotificationForm({ currentNotification, onSubmit, fo
             dataSet={[
               toDataSet(
                 tableTitles.deliveryDateTime,
-                <Field name='schedule' component={TextFieldAdapter} placeholder={DATE_TIME_PLACEHOLDER} />
+                <Field
+                  name={PushNotificationKeys.DeliveryDateTime}
+                  component={TextFieldAdapter}
+                  placeholder={DATE_TIME_PLACEHOLDER}
+                />
               )
             ]}
             title={tableTitles.schedule}

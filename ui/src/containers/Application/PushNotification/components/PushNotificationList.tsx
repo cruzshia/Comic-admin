@@ -22,7 +22,7 @@ import PushNotification, {
 import Capsule from '../../components/Capsule'
 import applicationMessages from '../../messages'
 import { Status, capsuleStatusMap } from '../../constants'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import messages from '../messages'
 import SearchBlock from './SearchBlock'
 import PushNotificationContext, { ActionContext } from '../context/PushNotificationContext'

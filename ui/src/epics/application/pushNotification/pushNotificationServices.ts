@@ -17,18 +17,18 @@ export const getPushNotificationListAjax = (param?: SearchParam): Response<ListR
   ])
 }
 
-export const getPushNotificationAjax = (notificationId: string): Response<PushNotification> => {
-  authAjax.get('/application/push_notification' + notificationId)
+export const getPushNotificationAjax = (notificationId: number): Response<PushNotification> => {
+  authAjax.get(PUSH_NOTIF_API_PATH + '/' + notificationId)
   return from([
     {
       status: 200,
-      response: mockNotification
+      response: mockNotification(notificationId)
     }
   ])
 }
 
 export const deletePushNotificationAjax = (list: string[]): Observable<{ status: number }> => {
-  authAjax.delete('/application/push_notification/list/delete', { list })
+  authAjax.delete(PUSH_NOTIF_API_PATH + 'delete', { list })
   return from([
     {
       status: 200
@@ -36,22 +36,28 @@ export const deletePushNotificationAjax = (list: string[]): Observable<{ status:
   ])
 }
 
-export const createPushNotificationAjax = (pushNotification: PushNotification): Response<PushNotification> => {
-  authAjax.post('/application/push_notification/', pushNotification)
+export const createPushNotificationAjax = ({
+  id,
+  ...pushNotification
+}: Partial<PushNotification>): Response<PushNotification> => {
+  authAjax.post(PUSH_NOTIF_API_PATH, pushNotification)
   return from([
     {
       status: 200,
-      response: mockNotification
+      response: mockNotification()
     }
   ])
 }
 
-export const updatePushNotificationAjax = (pushNotification: PushNotification): Response<PushNotification> => {
-  authAjax.put('/application/push_notification', pushNotification)
+export const updatePushNotificationAjax = ({
+  id,
+  ...pushNotification
+}: Partial<PushNotification>): Response<PushNotification> => {
+  authAjax.put(PUSH_NOTIF_API_PATH + '/' + String(id), pushNotification)
   return from([
     {
       status: 200,
-      response: mockNotification
+      response: mockNotification(id)
     }
   ])
 }

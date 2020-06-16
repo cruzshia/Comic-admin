@@ -1,4 +1,5 @@
 import { FieldMetaState } from 'react-final-form'
+import dayjs from 'dayjs'
 
 export const composeValidators = (...validators: ((data: any) => any)[]) => (value: any) =>
   validators.reduce((error, validator) => error || validator(value), undefined)
@@ -7,6 +8,7 @@ export const CHARACTER_LIMIT = 200
 export const TEXT_LIMIT = 4000
 export const INVALID_FORMAT = '形式に誤りがあります'
 export const INVALID_DURATION = '期間の指定が正しくありません。'
+export const SHOULD_GREATER_THAN_NOW = 'Time should greater than now'
 export const tooLongError = (length: number) => `${length}文字以内で入力してください`
 
 export const required = (value: any) =>
@@ -29,3 +31,6 @@ export const isValidDuration = (start: string, end: string) =>
   new Date(end).getTime() >= new Date(start).getTime() ? undefined : INVALID_DURATION
 export const isValidLength = (length: number) => (data: string | number) =>
   new RegExp(`^.{1,${length}}$`, 'ig').test(String(data)) ? undefined : tooLongError(length)
+
+export const isGreaterThanNow = (dateTime: string) =>
+  dayjs(dateTime, 'YYYY-MM-DD HH:mm').isAfter(dayjs()) ? undefined : SHOULD_GREATER_THAN_NOW

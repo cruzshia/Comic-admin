@@ -4,8 +4,8 @@ import PushNotification, {
   PushNotificationStatus
 } from '@src/models/application/pushNotification'
 
-export const mockNotification: PushNotification = {
-  [PushNotificationKeys.Id]: 1,
+export const mockNotification = (id = 1): PushNotification => ({
+  [PushNotificationKeys.Id]: id,
   [PushNotificationKeys.Status]: PushNotificationStatus.Success,
   [PushNotificationKeys.Title]: 'タイトル',
   [PushNotificationKeys.NotificationMessage]: '2020年新年ログインボーナスログインボー',
@@ -15,10 +15,10 @@ export const mockNotification: PushNotification = {
   [PushNotificationKeys.DeliveryDateTime]: '2020-04-02T14:00:00Z',
   [PushNotificationKeys.SendCount]: 1000,
   [PushNotificationKeys.Message]: ''
-}
+})
 
 export const mockNotificationList: PushNotification[] = _range(1, 7).map(idx => ({
-  ...mockNotification,
+  ...mockNotification(),
   [PushNotificationKeys.Status]: idx < 4 ? PushNotificationStatus.Wait : PushNotificationStatus.Failure,
   [PushNotificationKeys.Id]: idx,
   [PushNotificationKeys.DeliveryDateTime]: `2020-04-02T14:0${idx}:00Z`,

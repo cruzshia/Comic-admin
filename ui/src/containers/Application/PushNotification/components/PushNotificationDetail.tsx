@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
+import { PushNotificationKeys } from '@src/models/application/pushNotification'
 import PushNotificationContext, { ActionContext } from '../context/PushNotificationContext'
 import commonMessages from '@src/messages'
 import messages from '../messages'
@@ -20,12 +21,15 @@ export default function PushNotificationDetail() {
     <>
       <DataTable
         dataSet={[
-          toDataSet(formatMessage(commonMessages.id), currentNotification.id),
-          toDataSet(formatMessage(commonMessages.title), currentNotification.title),
-          toDataSet(formatMessage(commonMessages.message), currentNotification.message),
-          toDataSet(formatMessage(commonMessages.application), currentNotification.applicationId),
-          toDataSet(formatMessage(messages.deepLinkUrl), currentNotification.deepLinkUrl),
-          toDataSet(formatMessage(messages.bigIconUrl), currentNotification.bigIconUrl)
+          toDataSet(formatMessage(commonMessages.id), currentNotification[PushNotificationKeys.Id]),
+          toDataSet(formatMessage(commonMessages.title), currentNotification[PushNotificationKeys.Title]),
+          toDataSet(
+            formatMessage(commonMessages.message),
+            currentNotification[PushNotificationKeys.NotificationMessage]
+          ),
+          toDataSet(formatMessage(commonMessages.application), currentNotification[PushNotificationKeys.AppId]),
+          toDataSet(formatMessage(messages.deepLinkUrl), currentNotification[PushNotificationKeys.DeepLinkUrl]),
+          toDataSet(formatMessage(messages.bigIconUrl), currentNotification[PushNotificationKeys.LargeIconUrl])
         ]}
         title={formatMessage(commonMessages.basicInfo)}
         marginBottom

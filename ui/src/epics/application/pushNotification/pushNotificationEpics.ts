@@ -11,6 +11,7 @@ import {
 } from '@src/reducers/application/pushNotification/pushNotificationActions'
 import * as pushNotificationServices from './pushNotificationServices'
 import { emptyErrorReturn } from '@src/epics/utils'
+import { toRequestNotification, toEditableNotification } from './transform'
 
 export const getPushNotificationListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -32,7 +33,7 @@ export const getPushNotificationEpic = (action$: ActionsObservable<AnyAction>) =
     ofType(PushNotificationActionType.GET_NOTIFICATION),
     switchMap(action =>
       pushNotificationServices.getPushNotificationAjax(action.payload).pipe(
-        map(res => getPushNotificationSuccessAction(res.response)),
+        map(res => getPushNotificationSuccessAction(toEditableNotification(res.response))),
         tap(() => successSubject.next({ type: PushNotificationActionType.GET_NOTIFICATION_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: PushNotificationActionType.GET_NOTIFICATION_ERROR })
@@ -61,7 +62,7 @@ export const createPushNotificationEpic = (action$: ActionsObservable<AnyAction>
   action$.pipe(
     ofType(PushNotificationActionType.CREATE),
     exhaustMap(action =>
-      pushNotificationServices.createPushNotificationAjax(action.payload).pipe(
+      pushNotificationServices.createPushNotificationAjax(toRequestNotification(action.payload)).pipe(
         map(res => createPushNotificationSuccessAction(res.response)),
         tap(() => successSubject.next({ type: PushNotificationActionType.CREATE_SUCCESS })),
         catchError(() => {
@@ -76,7 +77,7 @@ export const updatePushNotificationEpic = (action$: ActionsObservable<AnyAction>
   action$.pipe(
     ofType(PushNotificationActionType.UPDATE),
     exhaustMap(action =>
-      pushNotificationServices.updatePushNotificationAjax(action.payload).pipe(
+      pushNotificationServices.updatePushNotificationAjax(toRequestNotification(action.payload)).pipe(
         map(res => updatePushNotificationSuccessAction(res.response)),
         tap(() => successSubject.next({ type: PushNotificationActionType.UPDATE_SUCCESS })),
         catchError(() => {
