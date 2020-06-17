@@ -10,12 +10,12 @@ import configureStore from './store/configureStore'
 import ScrollTop from './components/scroll/ScrollTop'
 import AuthRoute from './components/AuthRoute'
 import GlobalDialog from './components/GlobalDialog'
+import GlobalSpinner from './components/GlobalSpinner'
 import Layout from './containers/Layout'
 import Login from './containers/Login'
 import Comics from './containers/Comics'
 import Application from './containers/Application'
 import User from './containers/User'
-
 import ja from './translation/ja.json'
 
 const store = configureStore()
@@ -34,6 +34,7 @@ const App: React.FC = () => {
                 <CssBaseline />
                 <GlobalStyle />
                 <GlobalDialog />
+                <GlobalSpinner />
                 <Switch>
                   <AuthRoute exact path={routePath.login} guestOnly component={Login} />
                   <AuthRoute path={routePath.comics.base} component={Comics} />

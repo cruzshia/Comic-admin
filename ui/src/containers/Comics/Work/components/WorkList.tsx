@@ -10,12 +10,13 @@ import ListTable from '@src/components/table/ListTable'
 import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import greyImg from '@src/assets/greyImg.png'
+import { WorkActionType } from '@src/reducers/comics/work/workActions'
 import { WorkDetail, WorkKeys, WorkSearchKeys, WorkType, EpisodeWorkType } from '@src/models/comics/work'
-import usePaging from '@src/hooks/usePaging'
-import commonMessages from '@src/messages'
+import { usePaging, useLoading } from '@src/hooks'
 import { lazyLoadImage, toDateTime } from '@src/utils/functions'
 import SearchBlock from './SearchBlock'
 import { BREADCRUMBS, convertDateFormat } from '../utils'
+import commonMessages from '@src/messages'
 import comicMessages from '../../messages'
 import messages from '../messages'
 import WorkContext, { ActionContext } from '../context/WorkContext'
@@ -41,9 +42,17 @@ export default function WorkList() {
   const { page, pagination, handlePageChange, query } = usePaging({ total: workTotal })
   const [search, setSearch] = useState<Partial<SearchParam>>({})
 
+  const { openSpinner } = useLoading({
+    endActions: {
+      success: [WorkActionType.GET_LIST_SUCCESS],
+      error: [WorkActionType.GET_LIST_ERROR]
+    }
+  })
+
   useEffect(() => {
+    openSpinner()
     onGetWorkList({ ...query, ...convertDateFormat(search) })
-  }, [page, onGetWorkList, query, search])
+  }, [page, onGetWorkList, query, search, openSpinner])
 
   useEffect(() => {
     workList?.length && lazyLoadImage({ imageClass: 'lazy-img' })

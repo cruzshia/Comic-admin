@@ -22,6 +22,7 @@ export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
     switchMap(action =>
       workServices.getWorkListAjax(action.payload).pipe(
         map(res => getWorkListSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: WorkActionType.GET_LIST_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: WorkActionType.GET_LIST_ERROR })
           return emptyErrorReturn()
