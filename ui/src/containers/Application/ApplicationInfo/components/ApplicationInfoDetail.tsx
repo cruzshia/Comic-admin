@@ -7,10 +7,11 @@ import Button, { Theme } from '@src/components/Button/Button'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import { routePath } from '@src/common/appConfig'
 import DataTable, { toDataSet, toPreWrapDataSet } from '@src/components/table/DataTable'
+import { ApplicationInfoKeys } from '@src/models/application/applicationInfo'
+import ApplicationInfoContext, { ActionContext } from '../context/ApplicationInfoContext'
+import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import applicationMessages from '../../messages'
-import ApplicationInfoContext, { ActionContext } from '../context/ApplicationInfoContext'
-import { BREADCRUMBS } from '../constants'
 import messages from '../messages'
 
 export default function ApplicationInfoDetail() {
@@ -54,7 +55,7 @@ export default function ApplicationInfoDetail() {
     ],
     [formatMessage, handleEdit]
   )
-  if (!currentInfo.applicationId) return null
+  if (!currentInfo[ApplicationInfoKeys.AppIdToken]) return null
   return (
     <>
       <ContentHeader breadcrumbList={breadcrumbList} titleText={title} buttonList={buttonList} />
@@ -62,18 +63,21 @@ export default function ApplicationInfoDetail() {
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
-          toDataSet(formatMessage(applicationMessages.applicationId), currentInfo.applicationId),
-          toDataSet(formatMessage(messages.applicationName), currentInfo.applicationName),
-          toDataSet(formatMessage(messages.commonKey), currentInfo.commonKey),
-          toDataSet(formatMessage(messages.apnsAuthKey), currentInfo.apnAuthKey),
-          toDataSet(formatMessage(messages.apnsTeamId), currentInfo.apnsTeamId),
-          toDataSet(formatMessage(messages.apnsKeyId), currentInfo.apnsKeyId),
-          toDataSet(formatMessage(messages.fcnmApiKey), currentInfo.fcnmApiKey),
-          toDataSet(formatMessage(messages.androidPublicKey), currentInfo.androidPublicKey),
-          toDataSet(formatMessage(messages.iTunesPublicKey), currentInfo.iTunesPublicKey),
-          toPreWrapDataSet(formatMessage(messages.supplementSetting), currentInfo.supplementSetting),
-          toDataSet(formatMessage(commonMessages.createDateTime), currentInfo.createdAt),
-          toDataSet(formatMessage(commonMessages.updateDateTime), currentInfo.updatedAt)
+          toDataSet(formatMessage(applicationMessages.applicationId), currentInfo[ApplicationInfoKeys.AppIdToken]),
+          toDataSet(formatMessage(messages.applicationName), currentInfo[ApplicationInfoKeys.Name]),
+          toDataSet(formatMessage(messages.commonKey), currentInfo[ApplicationInfoKeys.CommonKey]),
+          toDataSet(formatMessage(messages.apnsAuthKey), currentInfo[ApplicationInfoKeys.ApnsAuthKey]),
+          toDataSet(formatMessage(messages.apnsTeamId), currentInfo[ApplicationInfoKeys.ApnsTeamIdToken]),
+          toDataSet(formatMessage(messages.apnsKeyId), currentInfo[ApplicationInfoKeys.ApnsKeyIdToken]),
+          toDataSet(formatMessage(messages.fcnmApiKey), currentInfo[ApplicationInfoKeys.FcmApiKey]),
+          toDataSet(formatMessage(messages.androidPublicKey), currentInfo[ApplicationInfoKeys.AndroidPublicKey]),
+          toDataSet(formatMessage(messages.iTunesPublicKey), currentInfo[ApplicationInfoKeys.ItunesSharedSecret]),
+          toPreWrapDataSet(
+            formatMessage(messages.supplementSetting),
+            currentInfo[ApplicationInfoKeys.AdditionalSetting]
+          ),
+          toDataSet(formatMessage(commonMessages.createDateTime), currentInfo[ApplicationInfoKeys.CreateAt]),
+          toDataSet(formatMessage(commonMessages.updateDateTime), currentInfo[ApplicationInfoKeys.UpdatedAt])
         ]}
       />
     </>

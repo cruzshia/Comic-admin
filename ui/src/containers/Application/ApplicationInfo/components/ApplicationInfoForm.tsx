@@ -5,9 +5,11 @@ import commonMessages from '@src/messages'
 import { TextAreaAdapter, TextInputAdapter } from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import { emptyApplicationInfo } from '@src/reducers/application/applicationInfo/applicationInfoReducer'
+import { ApplicationInfoKeys } from '@src/models/application/applicationInfo'
+import { validateAppInfo } from '../utils'
+import UploadButton from '@src/components/form/UploadButton'
 import applicationMessages from '../../messages'
 import messages from '../messages'
-import UploadButton from '@src/components/form/UploadButton'
 
 interface Props {
   onSubmit: (data: any) => void
@@ -22,6 +24,7 @@ export default function ApplicationInfoForm({ onSubmit, currentInfo, formRef }: 
     <Form
       onSubmit={onSubmit}
       initialValues={currentInfo || emptyApplicationInfo}
+      validate={validateAppInfo}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit} ref={formRef}>
           <DataTable
@@ -29,30 +32,43 @@ export default function ApplicationInfoForm({ onSubmit, currentInfo, formRef }: 
               toDataSet(formatMessage(applicationMessages.applicationId), currentInfo ? currentInfo.applicationId : ''),
               toDataSet(
                 formatMessage(messages.applicationName),
-                <Field name='applciationName' component={TextInputAdapter} />
+                <Field name={ApplicationInfoKeys.Name} component={TextInputAdapter} />
               ),
               toDataSet(
                 formatMessage(messages.commonKey),
-                <UploadButton text={formatMessage(commonMessages.selectFile)} name='commonKey' />
+                <UploadButton text={formatMessage(commonMessages.selectFile)} name={ApplicationInfoKeys.CommonKey} />
               ),
               toDataSet(
                 formatMessage(messages.apnsAuthKey),
-                <UploadButton text={formatMessage(commonMessages.selectFile)} name='apnsAuthKey' />
+                <UploadButton
+                  accept='.p8'
+                  text={formatMessage(commonMessages.selectFile)}
+                  name={ApplicationInfoKeys.ApnsAuthKey}
+                />
               ),
-              toDataSet(formatMessage(messages.apnsTeamId), <Field name='apnsTeamId' component={TextInputAdapter} />),
-              toDataSet(formatMessage(messages.apnsKeyId), <Field name='apnsKeyId' component={TextInputAdapter} />),
-              toDataSet(formatMessage(messages.fcnmApiKey), <Field name='fcnmApiKey' component={TextInputAdapter} />),
+              toDataSet(
+                formatMessage(messages.apnsTeamId),
+                <Field name={ApplicationInfoKeys.ApnsTeamIdToken} component={TextInputAdapter} />
+              ),
+              toDataSet(
+                formatMessage(messages.apnsKeyId),
+                <Field name={ApplicationInfoKeys.ApnsKeyIdToken} component={TextInputAdapter} />
+              ),
+              toDataSet(
+                formatMessage(messages.fcnmApiKey),
+                <Field name={ApplicationInfoKeys.FcmApiKey} component={TextInputAdapter} />
+              ),
               toDataSet(
                 formatMessage(messages.androidPublicKey),
-                <Field name='androidPublicKey' component={TextInputAdapter} />
+                <Field name={ApplicationInfoKeys.AndroidPublicKey} component={TextInputAdapter} />
               ),
               toDataSet(
                 formatMessage(messages.iTunesPublicKey),
-                <Field name='iTunesPublicKey' component={TextInputAdapter} />
+                <Field name={ApplicationInfoKeys.ItunesSharedSecret} component={TextInputAdapter} />
               ),
               toDataSet(
                 formatMessage(messages.supplementSetting),
-                <Field name='supplementSetting' component={TextAreaAdapter} rows={18} />
+                <Field name={ApplicationInfoKeys.AdditionalSetting} component={TextAreaAdapter} rows={18} />
               )
             ]}
             title={formatMessage(commonMessages.basicInfo)}

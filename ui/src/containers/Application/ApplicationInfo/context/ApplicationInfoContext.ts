@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { ApplicationInfo } from '@src/models/application/applicationInfo'
+import ApplicationInfo from '@src/models/application/applicationInfo'
 
 interface ApplicationInfoContext {
   infoList: any[]

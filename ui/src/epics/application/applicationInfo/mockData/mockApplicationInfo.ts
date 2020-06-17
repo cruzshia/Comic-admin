@@ -1,19 +1,20 @@
 import { _range } from '@src/utils/functions'
-import { ApplicationInfoKeys } from '@src/models/application/applicationInfo'
+import ApplicationInfo, { ApplicationInfoKeys, AppInfoList } from '@src/models/application/applicationInfo'
 
 export const mockInfoTotal = 7
 
-export const mockInfoDetail = {
-  applicationId: 'SHJP01I',
-  applicationName: '少年ジャンプ+ for iOS',
-  commonKey: '8f0943d888fddd4098fae24c090707a3',
-  apnAuthKey: '8f0943d888fddd4098...',
-  apnsTeamId: '8f0943d888fddd4098fae24c090707a3',
-  apnsKeyId: '8f0943d888fddd4098fae24c090707a3',
-  fcnmApiKey: '8f0943d888fddd4098fae24c090707a3',
-  androidPublicKey: '8f0943d888fddd4098fae24c090707a3',
-  iTunesPublicKey: '8f0943d888fddd4098fae24c090707a3',
-  supplementSetting: `{
+export const mockInfoDetail: ApplicationInfo = {
+  [ApplicationInfoKeys.Id]: 123,
+  [ApplicationInfoKeys.AppIdToken]: 'SHJP01I',
+  [ApplicationInfoKeys.Name]: '少年ジャンプ+ for iOS',
+  [ApplicationInfoKeys.CommonKey]: '8f0943d888fddd4098fae24c090707a3',
+  [ApplicationInfoKeys.ApnsAuthKey]: '8f0943d888fddd4098...',
+  [ApplicationInfoKeys.ApnsTeamIdToken]: '8f0943d888fddd4098fae24c090707a3',
+  [ApplicationInfoKeys.ApnsKeyIdToken]: '8f0943d888fddd4098fae24c090707a3',
+  [ApplicationInfoKeys.FcmApiKey]: '8f0943d888fddd4098fae24c090707a3',
+  [ApplicationInfoKeys.AndroidPublicKey]: '8f0943d888fddd4098fae24c090707a3',
+  [ApplicationInfoKeys.ItunesSharedSecret]: '8f0943d888fddd4098fae24c090707a3',
+  [ApplicationInfoKeys.AdditionalSetting]: `{
     "account_popup_frequency" : 3,
     "store_review_popup_frequency" : 10,
     "ranking_category_for_man" : "男性",
@@ -32,12 +33,11 @@ export const mockInfoDetail = {
       }
     ]
   }`,
-  createdAt: '2019-12-25 00:00 ',
-  updatedAt: '2019-12-25 00:00'
+  [ApplicationInfoKeys.CreateAt]: '2019-12-25 00:00 ',
+  [ApplicationInfoKeys.UpdatedAt]: '2019-12-25 00:00'
 }
 
-export const mockInfoList = _range(0, 2).map(num => ({
-  [ApplicationInfoKeys.Id]: `SHJP01I${num}`,
+export const mockInfoList: AppInfoList = _range(0, 2).map(num => ({
   [ApplicationInfoKeys.AppIdToken]: `SHJP01I${num}`,
   [ApplicationInfoKeys.Name]: '少年ジャンプ+ for iOS	'
 }))

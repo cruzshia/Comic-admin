@@ -10,6 +10,7 @@ export const DESCRIPTION_LIMIT = 1000
 export const INVALID_FORMAT = '形式に誤りがあります'
 export const INVALID_DURATION = '期間の指定が正しくありません。'
 export const SHOULD_GREATER_THAN_NOW = 'Time should greater than now'
+export const INVALID_JSON = 'Invalid JSON'
 export const tooLongError = (length: number) => `${length}文字以内で入力してください`
 
 export const required = (value: any) =>
@@ -35,3 +36,16 @@ export const isValidLength = (length: number) => (data: string | number) =>
 
 export const isGreaterThanNow = (dateTime: string) =>
   dayjs(dateTime, 'YYYY-MM-DD HH:mm').isAfter(dayjs()) ? undefined : SHOULD_GREATER_THAN_NOW
+
+export const isRequiredValidLength: (v: any) => string | undefined = composeValidators(
+  required,
+  isValidLength(CHARACTER_LIMIT)
+)
+export const isValidJSON = (text: string) => {
+  try {
+    JSON.parse(text)
+    return undefined
+  } catch (e) {
+    return INVALID_JSON
+  }
+}

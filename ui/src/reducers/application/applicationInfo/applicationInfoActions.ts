@@ -1,4 +1,4 @@
-import InfoModel, { ApplicationInfo } from '@src/models/application/applicationInfo'
+import ApplicationInfo from '@src/models/application/applicationInfo'
 
 export enum ApplicationInfoActionType {
   GET_LIST = '@ApplicationInfo/GET_LIST',
@@ -24,7 +24,7 @@ export const getApplicationInfoListAction = () => ({
   type: ApplicationInfoActionType.GET_LIST
 })
 
-export const getApplicationInfoListSuccessAction = (payload: ApplicationInfo[]) => ({
+export const getApplicationInfoListSuccessAction = (payload: Partial<ApplicationInfo>[]) => ({
   type: ApplicationInfoActionType.GET_LIST_SUCCESS,
   payload
 })
@@ -34,27 +34,27 @@ export const getApplicationInfoAction = (ApplicationInfoId: string) => ({
   payload: ApplicationInfoId
 })
 
-export const getApplicationInfoSuccessAction = (payload: InfoModel) => ({
+export const getApplicationInfoSuccessAction = (payload: ApplicationInfo) => ({
   type: ApplicationInfoActionType.GET_SUCCESS,
   payload
 })
 
-export const createApplicationInfoAction = (applicationInfo: InfoModel) => ({
+export const createApplicationInfoAction = (applicationInfo: ApplicationInfo) => ({
   type: ApplicationInfoActionType.CREATE,
   payload: applicationInfo
 })
 
-export const createApplicationInfoSuccessAction = (applicationInfo: InfoModel) => ({
+export const createApplicationInfoSuccessAction = (applicationInfo: ApplicationInfo) => ({
   type: ApplicationInfoActionType.CREATE_SUCCESS,
   payload: applicationInfo
 })
 
-export const updateApplicationInfoAction = (applicationInfo: InfoModel) => ({
+export const updateApplicationInfoAction = (applicationInfo: ApplicationInfo) => ({
   type: ApplicationInfoActionType.UPDATE,
   payload: applicationInfo
 })
 
-export const updateApplicationInfoSuccessAction = (applicationInfo: InfoModel) => ({
+export const updateApplicationInfoSuccessAction = (applicationInfo: ApplicationInfo) => ({
   type: ApplicationInfoActionType.UPDATE_SUCCESS,
   payload: applicationInfo
 })

@@ -1,13 +1,11 @@
 import { from } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
-import InfoModel, { ApplicationInfo } from '@src/models/application/applicationInfo'
-import { Response } from '../../utils'
+import ApplicationInfo, { AppInfoList } from '@src/models/application/applicationInfo'
 import { mockInfoList, mockInfoDetail } from './mockData/mockApplicationInfo'
+import { Response } from '../../utils'
 
-const API_PATH = '/v1/app'
-
-export const getApplicationInfoListAjax = (): Response<ApplicationInfo[]> => {
-  authAjax.get(API_PATH)
+export const getApplicationInfoListAjax = (): Response<AppInfoList> => {
+  authAjax.get('/application/application_info')
   return from([
     {
       status: 200,
@@ -16,7 +14,7 @@ export const getApplicationInfoListAjax = (): Response<ApplicationInfo[]> => {
   ])
 }
 
-export const getApplicationInfoAjax = (id: string): Response<InfoModel> => {
+export const getApplicationInfoAjax = (id: string): Response<ApplicationInfo> => {
   authAjax.get(`/application/application_info/${id}`)
   return from([
     {
@@ -26,7 +24,7 @@ export const getApplicationInfoAjax = (id: string): Response<InfoModel> => {
   ])
 }
 
-export const createApplicationInfoAjax = (data: ApplicationInfo): Response<InfoModel> => {
+export const createApplicationInfoAjax = (data: ApplicationInfo): Response<ApplicationInfo> => {
   authAjax.post('/application/application_info', data)
   return from([
     {
@@ -36,7 +34,7 @@ export const createApplicationInfoAjax = (data: ApplicationInfo): Response<InfoM
   ])
 }
 
-export const updateApplicationInfoAjax = (data: ApplicationInfo): Response<InfoModel> => {
+export const updateApplicationInfoAjax = (data: ApplicationInfo): Response<ApplicationInfo> => {
   authAjax.put('/application/application_info', data)
   return from([
     {

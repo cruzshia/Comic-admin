@@ -1,4 +1,4 @@
-import InfoModel, { ApplicationInfo } from '@src/models/application/applicationInfo'
+import ApplicationInfo from '@src/models/application/applicationInfo'
 import { ApplicationInfoActionType } from './applicationInfoActions'
 import { ActionType } from '../../types'
 
@@ -13,7 +13,7 @@ const initState: ApplicationInfoState = {
   infoTotal: 0
 }
 
-export const emptyApplicationInfo: InfoModel = {}
+export const emptyApplicationInfo: Partial<ApplicationInfo> = {}
 
 export const ApplicationInfoPreloadState = initState
 
