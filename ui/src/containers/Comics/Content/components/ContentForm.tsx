@@ -17,15 +17,15 @@ import Content from '@src/models/comics/content'
 import { emptyContent } from '@src/reducers/comics/content/contentReducer'
 import { _range } from '@src/utils/functions'
 import { WorkType } from '@src/models/comics/work'
+import commonMessages from '@src/messages'
 import StartEndGroupForm from './StartEndGroupForm'
 import { workTypes } from '../../utils'
-import commonMessages from '@src/messages'
 import AdSettingForm from '../../components/AdSettingForm'
 import comicMessages from '../../messages'
 import messages from '../messages'
 import AuthorEditForm from '../../components/AuthorEditForm'
 import MagazineForm from './MagazineForm'
-import { MAGAZINE_BANNER_NUM } from '../constants'
+import { MAGAZINE_BANNER_NUM, validateContent } from '../utils'
 
 interface Props {
   content?: Content
@@ -70,6 +70,7 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
         mutators={{ ...arrayMutators }}
         subscription={{ pristine: true, values: true }}
         initialValues={content || emptyContent}
+        validate={validateContent}
         render={({ handleSubmit, values }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable

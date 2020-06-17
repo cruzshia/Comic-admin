@@ -6,7 +6,7 @@ import { submitForm } from '@src/utils/validation'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import ContentForm from './ContentForm'
 import commonMessages from '@src/messages'
-import { CONTENT_BREADCRUMBS } from '../constants'
+import { CONTENT_BREADCRUMBS } from '../utils'
 import messages from '../messages'
 import { ActionContext } from '../context/ContentContext'
 

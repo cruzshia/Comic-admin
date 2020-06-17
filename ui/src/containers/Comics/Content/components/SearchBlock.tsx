@@ -5,8 +5,8 @@ import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFil
 import TimeSpanInput from '@src/components/form/TimeSpanInput'
 import { SearchInputAdapter, SelectAdapter } from '@src/components/finalForm'
 import commonMessages from '@src/messages'
-import comicMessages from '../../messages'
 import messages from '../messages'
+import { searchParamsValidator } from '../utils'
 
 export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => void }) {
   const { formatMessage } = useIntl()
@@ -37,10 +37,6 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
           input: <Field name='category' component={SelectAdapter} options={[]} isShort />
         },
         {
-          label: formatMessage(comicMessages.adUnit),
-          input: <Field name='adUnit' component={SelectAdapter} options={[]} isShort />
-        },
-        {
           label: formatMessage(commonMessages.deliveryStartDateTime),
           input: <TimeSpanInput name='deliverStart' />
         },
@@ -52,5 +48,5 @@ export default function SearchBlock({ onSubmit }: { onSubmit: (data: any) => voi
     }),
     [formatMessage]
   )
-  return <SearchFilter conditions={conditions} onSubmit={onSubmit} disableExpand />
+  return <SearchFilter conditions={conditions} onSubmit={onSubmit} validate={searchParamsValidator} disableExpand />
 }

@@ -7,6 +7,7 @@ export const composeValidators = (...validators: ((data: any) => any)[]) => (val
 export const CHARACTER_LIMIT = 255
 export const TEXT_LIMIT = 4000
 export const DESCRIPTION_LIMIT = 1000
+export const URL_LIMIT = 1000
 export const INVALID_FORMAT = '形式に誤りがあります'
 export const INVALID_DURATION = '期間の指定が正しくありません。'
 export const SHOULD_GREATER_THAN_NOW = 'Time should greater than now'
@@ -24,6 +25,9 @@ export const checkError = (meta: FieldMetaState<any>) => {
   return error && meta.touched ? error : undefined
 }
 
+export const validKana = (value: string) =>
+  /^([\u30a0-\u30ff\uff66-\uff9f\u3000\s]){1,255}$/u.test(value) ? undefined : INVALID_FORMAT
+
 export const validPositiveInteger = (number: any) => (/^\d+$/i.test(number) ? undefined : INVALID_FORMAT)
 
 export const validDateTime = (dateTime: string) =>
@@ -31,6 +35,7 @@ export const validDateTime = (dateTime: string) =>
 
 export const isValidDuration = (start: string, end: string) =>
   new Date(end).getTime() >= new Date(start).getTime() ? undefined : INVALID_DURATION
+
 export const isValidLength = (length: number) => (data: string | number) =>
   new RegExp(`^.{1,${length}}$`, 'ig').test(String(data)) ? undefined : tooLongError(length)
 

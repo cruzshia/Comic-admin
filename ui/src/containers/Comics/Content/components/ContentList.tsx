@@ -14,7 +14,7 @@ import usePaging from '@src/hooks/usePaging'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import comicMessages from '../../messages'
-import { CONTENT_BREADCRUMBS } from '../constants'
+import { CONTENT_BREADCRUMBS } from '../utils'
 import ContentContext, { ActionContext } from '../context/ContentContext'
 import SearchBlock from './SearchBlock'
 
