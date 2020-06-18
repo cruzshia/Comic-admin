@@ -13,10 +13,22 @@ import {
   TEXT_LIMIT
 } from '@src/utils/validation'
 import { batchConvertDate } from '@src/utils/functions'
+import comicsMessages from '../messages'
 
 export const BREADCRUMBS = [
   { title: commonMessages.comicsManagement },
   { title: messages.list, route: routePath.comics.work }
+]
+
+export const returnOptions = [
+  {
+    label: comicsMessages.return,
+    value: true
+  },
+  {
+    label: comicsMessages.notReturn,
+    value: false
+  }
 ]
 
 export function convertDateFormat(params: Partial<SearchParam> = {}) {

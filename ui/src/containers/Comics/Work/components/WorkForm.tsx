@@ -12,8 +12,9 @@ import { emptyWork } from '@src/reducers/comics/work/workReducer'
 import WorkDetail, { WorkKeys, WorkType, EpisodeWorkType } from '@src/models/comics/work'
 import AuthorEditForm from '../../components/AuthorEditForm'
 import AdSettingForm from '../../components/AdSettingForm'
-import { validateWork } from '../utils'
-import { useComicsRef, workTypes, daysOfWeekOptions, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
+import AppCheckboxes from '../../components/AppCheckboxes'
+import { validateWork, returnOptions } from '../utils'
+import { useComicsRef, workTypes, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
 import commonMessages from '@src/messages'
 import comicsMessages from '../../messages'
 import messages from '../messages'
@@ -63,17 +64,12 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
     [formatMessage]
   )
 
-  const returnOptions = useMemo(
-    () => [
-      {
-        label: formatMessage(comicsMessages.return),
-        value: true
-      },
-      {
-        label: formatMessage(comicsMessages.notReturn),
-        value: false
-      }
-    ],
+  const reductions = useMemo(
+    () =>
+      returnOptions.map(({ label, value }) => ({
+        label: formatMessage(label),
+        value
+      })),
     [formatMessage]
   )
 
@@ -114,12 +110,21 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                   toDataSet(formatMessage(commonMessages.author), <AuthorEditForm authorKey={WorkKeys.AuthorIds} />),
                   toDataSet(
                     formatMessage(commonMessages.appId),
-                    <Field
+                    <AppCheckboxes
                       name={WorkKeys.AppId}
-                      component={SelectAdapter}
                       options={[
-                        { label: 'app', value: 1 },
-                        { label: 'app_api', value: 31 }
+                        {
+                          id: 1,
+                          name: 'SHJP01I'
+                        },
+                        {
+                          id: 2,
+                          name: 'SHJP01A'
+                        },
+                        {
+                          id: 3,
+                          name: 'BROWSER_RENSAI'
+                        }
                       ]}
                     />
                   ),
@@ -139,7 +144,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                             <Field
                               name={WorkKeys.ReturnAdRevenue}
                               component={SelectAdapter}
-                              options={returnOptions}
+                              options={reductions}
                               isShort
                             />
                           )
@@ -187,20 +192,15 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                       ),
                       toDataSet(
                         formatMessage(messages.episodeFrequency),
-                        <Field name={WorkKeys.UpdateFrequency} component={SelectAdapter} options={[]} isShort />
+                        <Field name={WorkKeys.UpdateFrequency} component={TextInputAdapter} />
                       ),
                       toDataSet(
                         formatMessage(messages.freePeriodicalDay),
-                        <Field
-                          name={WorkKeys.FreePeriodicalDay}
-                          component={SelectAdapter}
-                          options={daysOfWeekOptions}
-                          isShort
-                        />
+                        <Field name={WorkKeys.FreePeriodicalDay} component={TextInputAdapter} />
                       ),
                       toDataSet(
                         formatMessage(messages.rensai),
-                        <Field name={WorkKeys.MagazineName} component={SelectAdapter} options={[]} isShort />
+                        <Field name={WorkKeys.MagazineName} component={TextInputAdapter} />
                       ),
                       ..._range(1, IMAGE_NUM + 1).map(index =>
                         toDataSet(

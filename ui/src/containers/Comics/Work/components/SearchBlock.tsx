@@ -4,11 +4,9 @@ import { Field } from 'react-final-form'
 import SearchFilter, { Conditions } from '@src/components/SearchFilter/SearchFilter'
 import { TimeSpanInput } from '@src/components/form'
 import { WorkSearchKeys, WorkType } from '@src/models/comics/work'
-import { SearchInputAdapter, SelectAdapter } from '@src/components/finalForm'
-import { searchParamsValidator } from '../utils'
-import { daysOfWeekOptions } from '../../utils'
+import { SearchInputAdapter, SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
+import { searchParamsValidator, returnOptions } from '../utils'
 import commonMessages from '@src/messages'
-import comicMessages from '../../messages'
 import messages from '../messages'
 
 export default function SearchBlock({
@@ -23,6 +21,15 @@ export default function SearchBlock({
       Object.values(WorkType).map(type => ({
         label: formatMessage(messages[type]),
         value: type
+      })),
+    [formatMessage]
+  )
+
+  const reductions = useMemo(
+    () =>
+      returnOptions.map(({ label, value }) => ({
+        label: formatMessage(label),
+        value
       })),
     [formatMessage]
   )
@@ -64,30 +71,23 @@ export default function SearchBlock({
         },
         {
           label: formatMessage(messages.episodeFrequency),
-          input: <Field name={WorkSearchKeys.UpdateFrequency} component={SelectAdapter} options={[]} isShort />
+          input: <Field name={WorkSearchKeys.UpdateFrequency} component={TextInputAdapter} />
         },
         {
           label: formatMessage(messages.freePeriodicalDay),
-          input: (
-            <Field
-              name={WorkSearchKeys.FreePeriodicalDay}
-              component={SelectAdapter}
-              options={daysOfWeekOptions}
-              isShort
-            />
-          )
+          input: <Field name={WorkSearchKeys.FreePeriodicalDay} component={TextInputAdapter} short />
         },
         {
           label: formatMessage(commonMessages.subscriptionId),
           input: <Field name={WorkSearchKeys.SubscriptionId} component={SelectAdapter} options={[]} />
         },
         {
-          label: formatMessage(comicMessages.adUnit),
-          input: <Field name={WorkSearchKeys.AdSetting} component={SelectAdapter} options={[]} isShort />
+          label: formatMessage(messages.reduction),
+          input: <Field name={WorkSearchKeys.AdSetting} component={SelectAdapter} options={reductions} isShort />
         }
       ]
     }),
-    [formatMessage, typeOptions]
+    [formatMessage, typeOptions, reductions]
   )
   return <SearchFilter validate={searchParamsValidator} conditions={conditions} onSubmit={onSubmit} />
 }
