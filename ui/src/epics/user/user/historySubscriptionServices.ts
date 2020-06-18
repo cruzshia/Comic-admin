@@ -24,3 +24,12 @@ export const getHistorySubscriptionAjax = (
     }
   ])
 }
+
+export const deleteHistorySubscriptionAjax = (id: string): Observable<{ status: number }> => {
+  authAjax.delete('/user/history/subscription' + id)
+  return from([
+    {
+      status: 200
+    }
+  ])
+}

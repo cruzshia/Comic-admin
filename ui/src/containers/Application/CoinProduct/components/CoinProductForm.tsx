@@ -12,7 +12,6 @@ import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import StartEndForm from '@src/components/form/StartEndForm'
 import ScrollTo from '@src/components/scroll/ScrollTo'
 import commonMessages from '@src/messages'
-import userMessages from '@src/containers/User/List/messages'
 import applicationMessages from '../../messages'
 import messages from '../messages'
 import { validateCoinProduct } from '../utils'
@@ -68,7 +67,7 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
                   />
                 ),
                 toDataSet(
-                  formatMessage(userMessages.paidCoins),
+                  formatMessage(messages.paidCoin),
                   <Field
                     name={CoinProductKeys.PayCoin}
                     type='number'
@@ -78,7 +77,7 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
                   />
                 ),
                 toDataSet(
-                  formatMessage(userMessages.paidBonusCoins),
+                  formatMessage(messages.givenCoin),
                   <Field
                     name={CoinProductKeys.PayBonusCoin}
                     type='number'

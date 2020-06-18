@@ -22,3 +22,12 @@ export const getHistoryMagazineAjax = (id: string): Observable<{ status: number;
     }
   ])
 }
+
+export const deleteHistoryMagazineAjax = (id: string): Observable<{ status: number }> => {
+  authAjax.delete('/user/history/magazine' + id)
+  return from([
+    {
+      status: 200
+    }
+  ])
+}

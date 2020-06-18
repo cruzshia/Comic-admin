@@ -1,10 +1,12 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useCallback } from 'react'
 import { useIntl } from 'react-intl'
 import { useParams } from 'react-router-dom'
 import { routePath } from '@src/common/appConfig'
 import ContentHeader from '@src/components/ContentHeader'
 import HistorySubscription from '@src/models/user/historySubscription'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
+import Button from '@src/components/Button/Button'
+import { ReactComponent as DeleteIcon } from '@src/assets/common/delete.svg'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import userMessages from '@src/containers/User/messages'
@@ -13,12 +15,14 @@ import messages from '../messages'
 interface Props {
   currentSubscription?: HistorySubscription
   onGetSubscription: (id: string) => void
+  onDeleteSubscription: (id: string) => void
   onResetSubscription: () => void
 }
 
 export default function HistorySubscriptionDetail({
   currentSubscription = {},
   onGetSubscription,
+  onDeleteSubscription,
   onResetSubscription
 }: Props) {
   const { formatMessage } = useIntl()
@@ -28,6 +32,10 @@ export default function HistorySubscriptionDetail({
     onGetSubscription(id!)
     return () => onResetSubscription()
   }, [onResetSubscription, onGetSubscription, id])
+
+  const handleDelete = useCallback(() => {
+    onDeleteSubscription(id!)
+  }, [onDeleteSubscription, id])
 
   const breadcrumbList = useMemo(
     () =>
@@ -47,9 +55,19 @@ export default function HistorySubscriptionDetail({
       ]),
     [formatMessage, userId]
   )
+
+  const deleteButton = useMemo(
+    () => [<Button buttonText={formatMessage(commonMessages.delete)} icon={DeleteIcon} onClick={handleDelete} />],
+    [formatMessage, handleDelete]
+  )
+
   return (
     <>
-      <ContentHeader breadcrumbList={breadcrumbList} titleText={formatMessage(messages.subscription)} />
+      <ContentHeader
+        breadcrumbList={breadcrumbList}
+        titleText={formatMessage(messages.subscription)}
+        buttonList={deleteButton}
+      />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[

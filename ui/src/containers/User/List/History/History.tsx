@@ -11,12 +11,14 @@ import {
 import {
   getHistorySubscriptionListAction,
   getHistorySubscriptionAction,
+  deleteHistorySubscriptionAction,
   resetHistorySubscriptionAction
 } from '@src/reducers/user/user/historySubscriptionActions'
 import {
   getHistoryMagazineListAction,
   getHistoryMagazineAction,
-  resetHistoryMagazineAction
+  resetHistoryMagazineAction,
+  deleteHistoryMagazineAction
 } from '@src/reducers/user/user/historyMagazineActions'
 import {
   getHistoryBonusCoinAction,
@@ -62,8 +64,12 @@ export default function History() {
     dispatch
   ])
   const handleResetHistorySubscription = useCallback(() => dispatch(resetHistorySubscriptionAction()), [dispatch])
+  const handleDeleteHistorySubscription = useCallback((id: string) => dispatch(deleteHistorySubscriptionAction(id)), [
+    dispatch
+  ])
   const handleGetHistoryMagazineList = useCallback(() => dispatch(getHistoryMagazineListAction()), [dispatch])
   const handleGetHistoryMagazine = useCallback((id: string) => dispatch(getHistoryMagazineAction(id)), [dispatch])
+  const handleDeleteHistoryMagazine = useCallback((id: string) => dispatch(deleteHistoryMagazineAction(id)), [dispatch])
   const handleResetHistoryMagazine = useCallback(() => dispatch(resetHistoryMagazineAction()), [dispatch])
   const handleGetHistoryBonusCoinList = useCallback(() => dispatch(getHistoryBonusCoinListAction()), [dispatch])
   const handleGetHistoryBonusCoin = useCallback((id: string) => dispatch(getHistoryBonusCoinAction(id)), [dispatch])
@@ -113,6 +119,7 @@ export default function History() {
         render={() => (
           <HistorySubscriptionDetail
             onGetSubscription={handleGetHistorySubscription}
+            onDeleteSubscription={handleDeleteHistorySubscription}
             onResetSubscription={handleResetHistorySubscription}
             currentSubscription={currentHistorySubscription}
           />
@@ -136,6 +143,7 @@ export default function History() {
           <HistoryMagazineDetail
             currentHistory={currentHistoryMagazine}
             onGetHistoryMagazine={handleGetHistoryMagazine}
+            onDeleteSubscription={handleDeleteHistoryMagazine}
             onResetHistoryMagazine={handleResetHistoryMagazine}
           />
         )}

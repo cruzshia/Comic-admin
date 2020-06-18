@@ -29,7 +29,10 @@ export default function ApplicationInfoForm({ onSubmit, currentInfo, formRef }: 
         <form onSubmit={handleSubmit} ref={formRef}>
           <DataTable
             dataSet={[
-              toDataSet(formatMessage(applicationMessages.applicationId), currentInfo ? currentInfo.applicationId : ''),
+              toDataSet(
+                formatMessage(applicationMessages.applicationId),
+                currentInfo ? currentInfo[ApplicationInfoKeys.Id] : ''
+              ),
               toDataSet(
                 formatMessage(messages.applicationName),
                 <Field name={ApplicationInfoKeys.Name} component={TextInputAdapter} />

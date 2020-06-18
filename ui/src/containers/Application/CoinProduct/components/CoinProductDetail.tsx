@@ -11,7 +11,6 @@ import { ScrollAnchor } from './CoinProductForm'
 import CoinProductContext, { ActionContext } from '../context/CoinProductContext'
 import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
-import userMessages from '@src/containers/User/List/messages'
 import applicationMessages from '../../messages'
 import messages from '../messages'
 import { CoinProductKeys } from '@src/models/application/coinProduct'
@@ -70,8 +69,8 @@ export default function CoinProductDetail() {
         dataSet={[
           toDataSet(formatMessage(messages.productId), currentProduct[CoinProductKeys.Id]),
           toDataSet(formatMessage(applicationMessages.applicationId), currentProduct[CoinProductKeys.AppId]),
-          toDataSet(formatMessage(userMessages.paidCoins), currentProduct[CoinProductKeys.PayCoin]),
-          toDataSet(formatMessage(userMessages.paidBonusCoins), currentProduct[CoinProductKeys.PayBonusCoin]),
+          toDataSet(formatMessage(messages.paidCoin), currentProduct[CoinProductKeys.PayCoin]),
+          toDataSet(formatMessage(messages.givenCoin), currentProduct[CoinProductKeys.PayBonusCoin]),
           toDataSet(
             formatMessage(applicationMessages.status),
             formatMessage(messages[currentProduct[CoinProductKeys.Status]])

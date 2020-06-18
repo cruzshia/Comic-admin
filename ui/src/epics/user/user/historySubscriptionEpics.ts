@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { map, switchMap, catchError, tap } from 'rxjs/operators'
+import { map, switchMap, catchError, tap, exhaustMap, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   HistorySubscriptionActionType,
@@ -40,4 +40,19 @@ export const getHistorySubscriptionEpic = (action$: ActionsObservable<AnyAction>
     )
   )
 
-export default [getHistorySubscriptionListEpic, getHistorySubscriptionEpic]
+export const deleteHistorySubscriptionEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(HistorySubscriptionActionType.DELETE_HISTORY_SUBSCRIPTION),
+    exhaustMap(action =>
+      historySubscriptionServices.deleteHistorySubscriptionAjax(action.payload).pipe(
+        tap(() => successSubject.next({ type: HistorySubscriptionActionType.DELETE_HISTORY_SUBSCRIPTION_SUCCESS })),
+        ignoreElements(),
+        catchError(() => {
+          errorSubject.next({ type: HistorySubscriptionActionType.DELETE_HISTORY_SUBSCRIPTION_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export default [getHistorySubscriptionListEpic, getHistorySubscriptionEpic, deleteHistorySubscriptionEpic]

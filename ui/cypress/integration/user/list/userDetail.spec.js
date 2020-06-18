@@ -162,13 +162,13 @@ context('User List Detail', () => {
           .should('have.lengthOf', 6)
           .first()
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('購入コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('購入コイン数')
             expect($item.find(CONTENT_SELECTOR).text()).to.not.empty
           })
         cy.get('@iOSRow')
           .eq(1)
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('購入お得コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('購入お得コイン数')
             expect($item.find(CONTENT_SELECTOR).text()).to.not.empty
           })
         cy.get('@iOSRow')
@@ -179,18 +179,18 @@ context('User List Detail', () => {
         cy.get('@iOSRow')
           .eq(3)
           .within(function() {
-            coinContentAssertion.call(this, 'ボーナスコイン')
+            coinContentAssertion.call(this, 'ボーナスコイン数')
           })
         cy.get('@iOSRow')
           .eq(4)
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('広告コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('広告コイン数')
             expect($item.find(CONTENT_SELECTOR).text()).to.not.empty
           })
         cy.get('@iOSRow')
           .eq(5)
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('動画広告コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('動画広告コイン数')
             expect($item.find(CONTENT_SELECTOR).text()).to.not.empty
           })
       })
@@ -204,13 +204,13 @@ context('User List Detail', () => {
           .should('have.lengthOf', 6)
           .first()
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('購入コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('購入コイン数')
             expect($item.find(CONTENT_SELECTOR).text()).to.not.empty
           })
         cy.get('@AndroidRow')
           .eq(1)
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('購入お得コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('購入お得コイン数')
             expect($item.find(CONTENT_SELECTOR).text()).to.not.empty
           })
         cy.get('@AndroidRow')
@@ -221,12 +221,12 @@ context('User List Detail', () => {
         cy.get('@AndroidRow')
           .eq(3)
           .within(function() {
-            coinContentAssertion.call(this, 'ボーナスコイン')
+            coinContentAssertion.call(this, 'ボーナスコイン数')
           })
         cy.get('@AndroidRow')
           .eq(4)
           .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('広告コイン')
+            expect($item.find(LABEL_SELECTOR)).have.text('広告コイン数')
             expect($item.find(CONTENT_SELECTOR).text()).to.not.empty
           })
         cy.get('@AndroidRow')

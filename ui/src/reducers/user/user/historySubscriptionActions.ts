@@ -8,6 +8,11 @@ export enum HistorySubscriptionActionType {
   GET_HISTORY_SUBSCRIPTION = '@HistorySubscription/GET_SUBSCRIPTION',
   GET_HISTORY_SUBSCRIPTION_SUCCESS = '@HistorySubscription/GET_SUBSCRIPTION_SUCCESS',
   GET_HISTORY_SUBSCRIPTION_ERROR = '@HistorySubscription/GET_SUBSCRIPTION_ERROR',
+
+  DELETE_HISTORY_SUBSCRIPTION = '@HistorySubscription/DELETE_HISTORY_SUBSCRIPTION',
+  DELETE_HISTORY_SUBSCRIPTION_SUCCESS = '@HistorySubscription/DELETE_HISTORY_SUBSCRIPTION_SUCCESS',
+  DELETE_HISTORY_SUBSCRIPTION_ERROR = '@HistorySubscription/DELETE_HISTORY_SUBSCRIPTION_ERROR',
+
   RESET_HISTORY_SUBSCRIPTION = '@HistorySubscription/RESET_HISTORY_SUBSCRIPTION'
 }
 
@@ -32,4 +37,9 @@ export const getHistorySubscriptionSuccessAction = (history: HistorySubscription
 
 export const resetHistorySubscriptionAction = () => ({
   type: HistorySubscriptionActionType.RESET_HISTORY_SUBSCRIPTION
+})
+
+export const deleteHistorySubscriptionAction = (id: string) => ({
+  type: HistorySubscriptionActionType.DELETE_HISTORY_SUBSCRIPTION,
+  payload: id
 })

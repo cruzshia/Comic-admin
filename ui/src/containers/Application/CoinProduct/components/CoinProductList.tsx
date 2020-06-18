@@ -38,7 +38,7 @@ export default function CoinProductList() {
   const history = useHistory()
   const { formatMessage } = useIntl()
   const classes = useStyle()
-  const { sortBy, handleSort } = useSort('createdAt')
+  const { sortBy, handleSort } = useSort(CoinProductKeys.InsertedAt)
   const { pagination, handlePageChange, query } = usePaging({ total: productTotal })
   const [search, setSearch] = useState<Partial<SearchParam & Paging>>({})
 

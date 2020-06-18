@@ -1,6 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
-import { map, switchMap, catchError, tap } from 'rxjs/operators'
+import { map, switchMap, catchError, tap, exhaustMap, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   HistoryMagazineActionType,
@@ -40,4 +40,19 @@ export const getHistoryMagazineEpic = (action$: ActionsObservable<AnyAction>) =>
     )
   )
 
-export default [getHistoryMagazineListEpic, getHistoryMagazineEpic]
+export const deleteHistoryMagazineEpic = (action$: ActionsObservable<AnyAction>) =>
+  action$.pipe(
+    ofType(HistoryMagazineActionType.DELETE_HISTORY_MAGAZINE),
+    exhaustMap(action =>
+      historyMagazineServices.deleteHistoryMagazineAjax(action.payload).pipe(
+        tap(() => successSubject.next({ type: HistoryMagazineActionType.DELETE_HISTORY_MAGAZINE_SUCCESS })),
+        ignoreElements(),
+        catchError(() => {
+          errorSubject.next({ type: HistoryMagazineActionType.DELETE_HISTORY_MAGAZINE_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export default [getHistoryMagazineListEpic, getHistoryMagazineEpic, deleteHistoryMagazineEpic]
