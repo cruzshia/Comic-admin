@@ -81,7 +81,7 @@ export const lazyLoadImage = async ({ imageClass, fallbackImg }: { imageClass: s
         const orgSrc = lazyImage.src
         const src = lazyImage.dataset.src
         if (!src) {
-          Logger.warn('data-src property no found on: ', lazyImage.outerHTML)
+          lazyImage.dataset[LOADED_KEY] = 'true'
           return
         }
         Logger.log('lazy load image: ', src)

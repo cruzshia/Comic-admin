@@ -214,13 +214,17 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                       )
                     ]}
                   />
-                  {values?.[WorkKeys.AdSetting]?.map((_, index) => (
-                    <AdSettingForm
-                      key={`adSetting-${index}`}
-                      adSettingRef={!index ? adSettingRef : undefined}
-                      adKey={`${WorkKeys.AdSetting}[${index}]`}
-                    />
-                  ))}
+                  <Field name={WorkKeys.AdSetting} subscription={{ pristine: true, value: true }}>
+                    {({ input: { value } }) =>
+                      value?.map((_: any, index: number) => (
+                        <AdSettingForm
+                          key={`adSetting-${index}`}
+                          adSettingRef={!index ? adSettingRef : undefined}
+                          adKey={`${WorkKeys.AdSetting}[${index}]`}
+                        />
+                      ))
+                    }
+                  </Field>
                 </>
               </Condition>
             </form>

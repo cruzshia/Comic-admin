@@ -26,7 +26,7 @@ import questionnaireEpics from './user/questionnaire/questionnaireEpics'
 import inquiryEpics from './user/inquiry/inquiryEpics'
 import giftCoinsEpics from './user/giftCoins/giftCoinsEpics'
 import giftComicsEpics from './user/giftComics/giftComicsEpics'
-import imageEpics from './imageEpics'
+import imageEpics from './image/imageEpics'
 
 export default combineEpics(
   ...profileEpics,

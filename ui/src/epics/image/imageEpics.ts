@@ -9,7 +9,7 @@ import {
 } from '@src/reducers/image/imageActions'
 import { ActionType } from '@src/reducers/types'
 import * as imageServices from './imageServices'
-import { emptyErrorReturn } from './utils'
+import { emptyErrorReturn } from '../utils'
 
 export const uploadImageEpic = (action$: ActionsObservable<ActionType<UploadImagePayload>>) =>
   action$.pipe(

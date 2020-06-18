@@ -6,7 +6,8 @@ import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
   WorksCampaignActionType,
   getWorksCampaignSuccessAction,
-  createWorksCampaignSuccessAction
+  createWorksCampaignSuccessAction,
+  updateWorksCampaignSuccessAction
 } from '@src/reducers/comics/campaign/worksCampaignActions'
 import { WorkCampaignCreate } from '@src/models/comics/worksCampaign'
 import { ActionType } from '@src/reducers/types'
@@ -48,4 +49,19 @@ export const createWorksCampaignEpic = (action$: ActionsObservable<ActionType<Wo
     )
   )
 
-export default [getWorksCampaignEpic, createWorksCampaignEpic]
+export const updateWorksCampaignEpic = (action$: ActionsObservable<ActionType<WorkCampaignCreate>>) =>
+  action$.pipe(
+    ofType(WorksCampaignActionType.UPDATE),
+    switchMap(action =>
+      worksCampaignServices.updateWorksCampaignAjax(action.payload).pipe(
+        map(res => updateWorksCampaignSuccessAction(res.response)),
+        tap(() => successSubject.next({ type: WorksCampaignActionType.UPDATE_SUCCESS })),
+        catchError(() => {
+          errorSubject.next({ type: WorksCampaignActionType.UPDATE_ERROR })
+          return emptyErrorReturn()
+        })
+      )
+    )
+  )
+
+export default [getWorksCampaignEpic, createWorksCampaignEpic, updateWorksCampaignEpic]

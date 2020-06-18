@@ -1,6 +1,6 @@
 import authAjax from '@src/utils/ajaxUtil'
 import { UploadImagePayload, NotifyImageUpload } from '@src/reducers/image/imageActions'
-import { Response } from './utils'
+import { Response } from '../utils'
 
 export const uploadImageAjax = (payload: UploadImagePayload): Response<any> => {
   return authAjax.put(payload.s3Info.url, payload.image, {

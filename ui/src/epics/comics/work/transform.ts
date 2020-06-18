@@ -1,8 +1,6 @@
-import { AnyAction } from 'redux'
 import WorkDetail, { WorkKeys, WorkType } from '@src/models/comics/work'
 import { AdSettingKeys, AdPosition } from '@src/models/comics/advertisement'
 import { ImageKey } from '@src/models/image'
-import { uploadImageAction } from '@src/reducers/image/imageActions'
 import { batchConvertDate, batchConvertISO8601 } from '@src/utils/functions'
 import { _uuid } from '@src/utils/functions'
 
@@ -44,6 +42,14 @@ export function toRequestWork({ [WorkKeys.CreateAt]: _, [WorkKeys.UpdateAt]: __,
     return convertedWork
   }
 
+  const images = convertedWork[WorkKeys.Images]
+  const imageName = Object.values(ImageKey).reduce((acc: Partial<WorkDetail[WorkKeys.Filename]>, current: ImageKey) => {
+    const image = images?.[current]?.url
+    acc![current] = current + (image instanceof File ? image.type.replace('image/', '.') : '.png')
+    return acc
+  }, {}) as WorkDetail[WorkKeys.Filename]
+  convertedWork[WorkKeys.Filename] = images ? imageName : undefined
+
   convertedWork[WorkKeys.AdSetting]?.forEach((adSetting, settingIdx) => {
     adSetting[AdPosition.Front]?.map((ads, adIndex) => {
       convertedWork[WorkKeys.AdSetting]![settingIdx][AdPosition.Front]![adIndex] = batchConvertDate(ads, [
@@ -61,23 +67,4 @@ export function toRequestWork({ [WorkKeys.CreateAt]: _, [WorkKeys.UpdateAt]: __,
 
   convertedWork[WorkKeys.ReturnAdRevenue] = false
   return convertedWork
-}
-
-export const imgUploadActions = (work: WorkDetail, payload: WorkDetail): AnyAction[] => {
-  const uploadActions: any[] = []
-  const imageData = payload[WorkKeys.Images]
-  Object.values(ImageKey).forEach(key => {
-    if (work[WorkKeys.S3Uploads] && imageData?.[key].url instanceof File) {
-      uploadActions.push(
-        uploadImageAction({
-          notifyPath: `/v1/works/${work.id}`,
-          imageKey: key,
-          image: imageData![key],
-          s3Info: work[WorkKeys.S3Uploads]![key as keyof typeof work[WorkKeys.S3Uploads]]
-        })
-      )
-    }
-  })
-
-  return uploadActions
 }

@@ -52,22 +52,18 @@ export const mockWork: WorkDetail = {
   },
   [WorkKeys.PublishBeginAt]: '2019-12-25 00:00',
   [WorkKeys.PublishEndAt]: '2019-12-25 00:00',
-  [WorkKeys.S3Uploads]: {
+  [WorkKeys.ImageUploadUrls]: {
     image1: {
-      url: 'http://image.upload.com/1',
-      path: 'http://work/image/1'
+      url: 'http://image.upload.com/1'
     },
     image2: {
-      url: 'http://image.upload.com/2',
-      path: 'http://work/image/2'
+      url: 'http://image.upload.com/2'
     },
     image3: {
-      url: 'http://image.upload.com/3',
-      path: 'http://work/image/3'
+      url: 'http://image.upload.com/3'
     },
     image4: {
-      url: 'http://image.upload.com/4',
-      path: 'http://work/image/4'
+      url: 'http://image.upload.com/4'
     }
   },
   [WorkKeys.AdSetting]: [

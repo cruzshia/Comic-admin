@@ -48,7 +48,7 @@ export enum WorkKeys {
   Filename = 'file_name',
   ReturnAdRevenue = 'return_ad_revenue',
   AdSetting = 'ads_in_viewer_setting',
-  S3Uploads = 's3_uploads'
+  ImageUploadUrls = 'image_upload_urls'
 }
 
 export enum WorkType {
@@ -102,7 +102,7 @@ export interface WorkDetail extends Work {
   [WorkKeys.ReturnAdRevenue]?: boolean
   [WorkKeys.FreePeriodicalDay]?: string
   [WorkKeys.AdSetting]?: AdSetting[]
-  [WorkKeys.S3Uploads]?: Image<S3Info>
+  [WorkKeys.ImageUploadUrls]?: Image<S3Info>
 }
 
 export interface Author {

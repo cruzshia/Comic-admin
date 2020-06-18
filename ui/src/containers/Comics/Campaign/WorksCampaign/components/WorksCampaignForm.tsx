@@ -64,7 +64,7 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign, ca
         onSubmit={onSubmit}
         validate={validateWorkCampaign}
         mutators={{ ...arrayMutators }}
-        subscription={{ pristine: true, values: true }}
+        subscription={{ pristine: true }}
         initialValues={worksCampaign || emptyWorksCampaign}
         render={({ handleSubmit, values }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
@@ -133,13 +133,17 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign, ca
               endLabel={formatMessage(commonMessages.endDateTime)}
               endName={WorksCampaignKeys.EndAt}
             />
-            {values?.[WorksCampaignKeys.AdSetting]?.map((_, index) => (
-              <AdSettingForm
-                key={`adSetting-${index}`}
-                adSettingRef={!index ? adSettingRef : undefined}
-                adKey={`${WorksCampaignKeys.AdSetting}[${index}]`}
-              />
-            ))}
+            <Field name={WorksCampaignKeys.AdSetting}>
+              {({ input: { value } }) =>
+                value?.map((_: any, index: number) => (
+                  <AdSettingForm
+                    key={`adSetting-${index}`}
+                    adSettingRef={!index ? adSettingRef : undefined}
+                    adKey={`${WorksCampaignKeys.AdSetting}[${index}]`}
+                  />
+                ))
+              }
+            </Field>
           </form>
         )}
       />

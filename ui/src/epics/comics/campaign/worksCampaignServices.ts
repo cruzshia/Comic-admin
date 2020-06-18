@@ -8,5 +8,9 @@ export const getWorksCampaignAjax = (campaignId: string): Response<WorksCampaign
 }
 
 export const createWorksCampaignAjax = (campaign: WorkCampaignCreate): Response<WorksCampaign> => {
-  return authAjax.post(API_PATH, campaign, { ...JSON_CONTENT })
+  return authAjax.post(API_PATH + 's', campaign, { ...JSON_CONTENT })
+}
+
+export const updateWorksCampaignAjax = (campaign: WorkCampaignCreate): Response<WorksCampaign> => {
+  return authAjax.put(API_PATH + '/' + campaign.id, campaign, { ...JSON_CONTENT })
 }

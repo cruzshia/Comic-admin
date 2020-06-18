@@ -3,7 +3,8 @@ import { AnyAction } from 'redux'
 import { of } from 'rxjs'
 import { map, switchMap, exhaustMap, mergeMap, catchError, tap, ignoreElements } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
-import WorkDetail from '@src/models/comics/work'
+import { WorkKeys } from '@src/models/comics/work'
+import { ImageKey } from '@src/models/image'
 import {
   WorkActionType,
   getWorkListSuccessAction,
@@ -13,7 +14,8 @@ import {
   getCsvLogListSuccessAction
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
-import { toEditableModel, imgUploadActions, toRequestWork } from './transform'
+import { genImageUploadActions } from '../../image/utils'
+import { toEditableModel, toRequestWork } from './transform'
 import { emptyErrorReturn, ErrorResponse } from '../../utils'
 
 export const getWorkListEpic = (action$: ActionsObservable<AnyAction>) =>
@@ -53,7 +55,16 @@ export const createWorkEpic = (action$: ActionsObservable<AnyAction>) =>
         mergeMap(res => {
           const resDetail = toEditableModel(res.response)
           successSubject.next({ type: WorkActionType.CREATE_SUCCESS })
-          return of(createWorkSuccessAction(resDetail), ...imgUploadActions(resDetail, action.payload as WorkDetail))
+          return of(
+            createWorkSuccessAction(resDetail),
+            ...genImageUploadActions({
+              imageData: action.payload[WorkKeys.Images],
+              imageKey: ImageKey,
+              uploadUrls: resDetail[WorkKeys.ImageUploadUrls],
+              notifyPath: `/v1/works/${resDetail.id}`,
+              path: `/public/works/${resDetail.id}`
+            })
+          )
         }),
         catchError((error: ErrorResponse) => {
           errorSubject.next({ type: WorkActionType.CREATE_ERROR, error: error.response })
@@ -71,7 +82,16 @@ export const updateWorkEpic = (action$: ActionsObservable<AnyAction>) =>
         mergeMap(res => {
           const resDetail = toEditableModel(res.response)
           successSubject.next({ type: WorkActionType.UPDATE_SUCCESS })
-          return of(updateWorkSuccessAction(resDetail), ...imgUploadActions(resDetail, action.payload as WorkDetail))
+          return of(
+            updateWorkSuccessAction(resDetail),
+            ...genImageUploadActions({
+              imageData: action.payload[WorkKeys.Images],
+              imageKey: ImageKey,
+              uploadUrls: resDetail[WorkKeys.ImageUploadUrls],
+              notifyPath: `/v1/works/${resDetail.id}`,
+              path: `/public/works/${resDetail.id}`
+            })
+          )
         }),
         catchError((error: ErrorResponse) => {
           errorSubject.next({ type: WorkActionType.UPDATE_ERROR, error: error.response })
