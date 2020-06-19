@@ -41,12 +41,16 @@ context('Work Detail', () => {
   })
 
   it('Shows correct page title and breadcrumb', function() {
-    cy.findByTestId(this.testIds.breadcrumbs).should('contain', `${this.headerTabs.comic}>作品一覧>作品詳細`)
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', '作品を編集')
+    cy.findByTestId(this.testIds.breadcrumbs).should('have.text', `${this.headerTabs.comic}>作品一覧>作品詳細`)
     cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/comics/work')
-  })
 
-  it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '作品を編集')
+    cy.findByTestId(this.testIds.breadcrumbLink)
+      .should('have.attr', 'href', '#/comics/work')
+      .click()
+      .then(function() {
+        cy.findByTestId(this.testIds.contentHeaderTitle).should('have.text', '作品一覧')
+      })
   })
 
   it('Renders correct detail form', function() {
@@ -97,11 +101,6 @@ context('Work Detail', () => {
           .next()
           .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('還元の有無')
-            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
-          })
-          .next()
-          .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('定期購読ID')
             expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
           })
       })
@@ -170,6 +169,7 @@ context('Work Detail', () => {
           })
       })
 
+    /* TODO: test with api response
     cy.get('@dataTable')
       .eq(3)
       .within(function() {
@@ -187,9 +187,9 @@ context('Work Detail', () => {
             expect($item.eq(3)).to.be.adTable()
           })
       })
+      */
 
     cy.findAllByTestId(this.testIds.dataTable.button)
-      .should('have.lengthOf', 4)
       .first()
       .click()
       .url()
@@ -210,11 +210,13 @@ context('Work Detail', () => {
       .should('contain', `/#/comics/work/edit/${this.workId}?to=episodeInfo`)
       .go(-1)
 
+    /* TODO: test with api response
     cy.findAllByTestId(this.testIds.dataTable.button)
       .eq(3)
       .click()
       .url()
       .should('contain', `/#/comics/work/edit/${this.workId}?to=adSetting`)
       .go(-1)
+      */
   })
 })

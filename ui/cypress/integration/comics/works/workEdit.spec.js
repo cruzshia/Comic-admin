@@ -46,16 +46,20 @@ context('Work Edit', () => {
 
   it('Shows correct page title and breadcrumb', function() {
     const pageTitle = '作品編集'
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
     cy.findByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
     cy.findByTestId(this.testIds.breadcrumbs).should(
       'contain',
       `${this.headerTabs.comic}>${this.headerTabs.work.list}>${pageTitle}`
     )
     cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/comics/work')
-  })
 
-  it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
+    cy.findByTestId(this.testIds.breadcrumbLink)
+      .should('have.attr', 'href', '#/comics/work')
+      .click()
+      .then(function() {
+        cy.findByTestId(this.testIds.contentHeaderTitle).should('have.text', '作品一覧')
+      })
   })
 
   it('Renders correct edit form', function() {
@@ -98,7 +102,7 @@ context('Work Edit', () => {
           .next()
           .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('アプリID')
-            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.checkbox}]`)).to.be.exist
           })
           .next()
           .should(function($item) {
@@ -108,11 +112,6 @@ context('Work Edit', () => {
           .next()
           .should(function($item) {
             expect($item.find(LABEL_SELECTOR)).have.text('還元の有無')
-            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
-          })
-          .next()
-          .should(function($item) {
-            expect($item.find(LABEL_SELECTOR)).have.text('定期購読ID')
             expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.select}]`)).to.be.exist
           })
       })
@@ -138,6 +137,7 @@ context('Work Edit', () => {
           })
       })
 
+    /* TODO test by api response
     cy.get('@dataTable')
       .eq(2)
       .within(function() {
@@ -233,5 +233,6 @@ context('Work Edit', () => {
               .should('have.attr', 'src', this.imgURL)
           })
       })
+      */
   })
 })
