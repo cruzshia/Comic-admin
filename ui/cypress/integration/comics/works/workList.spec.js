@@ -1,11 +1,21 @@
 /// <reference types="cypress" />
 
+import dayjs from 'dayjs'
+
 context('WorkList', () => {
   const targetRoute = '/#/comics/work'
-  beforeEach(() => {
-    cy.visit(targetRoute)
+  beforeEach(function() {
     cy.fixture('headerTabs.json').as('headerTabs')
     cy.fixture('testIds.json').as('testIds')
+    cy.fixture('works.json').as('workMsg')
+
+    cy.server()
+    cy.capture({
+      method: 'GET',
+      url: '/v1/works'
+    }).as('getWorkList')
+
+    cy.visit(targetRoute)
   })
 
   it('Click tab route correctly', function() {
@@ -147,43 +157,58 @@ context('WorkList', () => {
           })
       })
 
-    cy.viewport(1180, 660).then(() => {
-      cy.get('@filterLeft').then($domLeft => {
-        cy.get('@filterRight').then($domRight => {
-          expect($domRight.offset().top).greaterThan($domLeft.offset().top)
-          expect($domRight.offset().left).equals($domLeft.offset().left)
-        })
-      })
-    })
-
-    cy.viewport(1181, 660).then(() => {
-      cy.wait(500)
-      cy.get('@filterLeft').then($domLeft => {
-        cy.get('@filterRight').then($domRight => {
-          expect($domRight.offset().top).equals($domLeft.offset().top)
-          expect($domRight.offset().left).greaterThan($domLeft.offset().left)
-        })
-      })
-    })
-  })
-
-  it('Renders correct search button', function() {
     cy.findByTestId(this.testIds.searchFilter.buttons)
       .children('button')
       .should('be.rightSearchBtn')
+
+    cy.findAllByTestId(this.testIds.searchFilter.itemLabel)
+      .contains('作品種別')
+      .siblings()
+      .findByRole('button')
+      .trigger('mousedown', { bubbles: true, cancelable: false, button: 0 })
+      .then(function() {
+        const targetType = this.workMsg['type_comic']
+        cy.findAllByTestId('select-option')
+          .contains(targetType)
+          .click()
+
+        cy.capture({
+          method: 'GET',
+          url: '/v1/works'
+        }).as('searchWork')
+
+        cy.findByTestId(this.testIds.searchFilter.buttons)
+          .contains('検索')
+          .click()
+
+        cy.wait('@searchWork').then(function(r) {
+          cy.findByTestId(this.testIds.listTable.id)
+            .findAllByTestId(this.testIds.listTable.tableRow)
+            .each(function($row) {
+              cy.wrap($row)
+                .findAllByTestId(this.testIds.listTable.tableRowCell)
+                .contains(targetType)
+                .should('be.exist')
+            })
+        })
+      })
   })
 
   it('Renders correct list table', function() {
-    const tableColNum = 8
-
     cy.findByTestId(this.testIds.listTable.id)
       .as('listTable')
       .should('be.exist')
 
+    cy.findByTestId(this.testIds.listTable.button)
+      .children('button')
+      .should('have.text', 'CSV出力')
+
+    cy.findByTestId(this.testIds.listTable.pageInfo).should('be.exist')
+    cy.findByTestId(this.testIds.pager).should('be.exist')
+
     cy.get('@listTable')
       .findByTestId(this.testIds.listTable.tableHead)
       .children('th')
-      .should('have.lengthOf', tableColNum)
       .first()
       .should('have.text', '画像')
       .next()
@@ -200,20 +225,32 @@ context('WorkList', () => {
       .next()
       .should('have.text', '更新頻度')
 
+    cy.wait('@getWorkList')
+      .its('response')
+      .its('body')
+      .as('workList')
+
+    function assertWorkData($row, work) {
+      cy.wrap($row)
+        .findAllByTestId(this.testIds.listTable.tableRowCell)
+        .eq(1)
+        .should('have.text', work.id)
+        .next()
+        .should('have.text', work.title)
+        .next()
+        .should('have.text', Cypress.moment(work.inserted_at).format(Cypress.env('timeFormat')))
+        .next()
+        .should('have.text', this.workMsg[`type_${work.work_type}`])
+        .next()
+        .should('have.text', this.workMsg[`episode_${work.episode_work_type}`])
+        .next()
+        .should('have.text', work.update_frequency)
+    }
+
     cy.get('@listTable')
       .findAllByTestId(this.testIds.listTable.tableRow)
-      .findAllByTestId(this.testIds.listTable.tableRowCell)
-      .should('have.lengthOf', tableColNum)
-  })
-
-  it('Renders correct list table button and pagination information', function() {
-    cy.findByTestId(this.testIds.listTable.button)
-      .children('button')
-      .should('contain', 'CSV出力')
-    cy.findByTestId(this.testIds.listTable.pageInfo).should('be.exist')
-  })
-
-  it('Renders pagination', function() {
-    cy.findByTestId(this.testIds.pager).should('be.exist')
+      .each(function($row, index) {
+        assertWorkData.call(this, $row, this.workList.works[index])
+      })
   })
 })

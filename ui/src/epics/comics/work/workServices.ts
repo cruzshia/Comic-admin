@@ -29,7 +29,7 @@ export const createWorkAjax = (work: WorkDetail): Response<WorkDetail> => {
 }
 
 export const updateWorkAjax = (work: WorkDetail): Response<WorkDetail> => {
-  authAjax.put(`${WORK_API_PATH}/${work.id}`, work)
+  // return authAjax.put(`${WORK_API_PATH}/${work.id}`, work, JSON_CONTENT)
   return from([
     {
       status: 200,

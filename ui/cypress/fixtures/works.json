@@ -1,0 +1,16 @@
+{
+  "type_bonus": "購入特典",
+  "type_comic": "コミック",
+  "type_episode": "話",
+  "type_magazine": "雑誌",
+  "type_novel": "ノベル",
+  "episode_campaign": "キャンペーン",
+  "episode_category": "話作品種別",
+  "episode_frequency": "更新頻度",
+  "episode_look_inside": "試し読み",
+  "episode_one_shot": "読切",
+  "episode_original": "オリジナル連載",
+  "episode_other": "その他",
+  "episode_reprint": "復刻連載",
+  "episode_rookie": "ルーキー連載"
+}

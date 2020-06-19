@@ -174,7 +174,7 @@ export default function ListTable({
     <div className={classnames} data-testid='list-table'>
       <Grid container justify='space-between' alignItems='center' className={classes.pagination}>
         <div data-testid='list-table-pagination'>
-          {formatMessage(messages.pagination, { total: 1000, start, end: start + PAGE_LIMIT - 1 })}
+          {formatMessage(messages.pagination, { total, start, end: start + PAGE_LIMIT - 1 })}
         </div>
         <div data-testid='list-table-button'>
           {buttonList?.map((button, index) => (

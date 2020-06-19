@@ -24,3 +24,10 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import '@testing-library/cypress/add-commands'
+
+Cypress.Commands.add('capture', ({ url, headers, ...params }) => {
+  return cy.route({
+    url: Cypress.config().baseUrl + '/api/console' + url + '*',
+    ...params
+  })
+})
