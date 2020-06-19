@@ -6,6 +6,7 @@ import { TextInputAdapter, TextAreaAdapter } from '@src/components/finalForm'
 import { CampaignKeys, Campaign } from '@src/models/comics/campaign'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import commonMessages from '@src/messages'
+import { validateCampaign } from '../utils'
 import comicMessages from '../../messages'
 import messages from '../messages'
 
@@ -22,6 +23,7 @@ export default function CampaignForm({ onSubmit, formRef, campaign }: Props) {
       <Form
         onSubmit={onSubmit}
         initialValues={campaign}
+        validate={validateCampaign}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <DataTable

@@ -19,7 +19,7 @@ export const getCampaignAjax = (campaignId: string): Response<Campaign> =>
 export const getAssociatedCampaignListAjax = (campaignId: string, query: Paging): Response<CampaignSubListParams> =>
   authAjax.get(`${CAMPAIGN_API_PATH}/${campaignId}/associated_campaigns${query ? '?' + objToQueryStr(query) : ''}`)
 
-export const createCampaignAjax = (campaign: Campaign): Response<Campaign> => {
+export const createCampaignAjax = (campaign: Partial<Campaign>): Response<Campaign> => {
   authAjax.post('/campaign/', campaign)
   return from([
     {

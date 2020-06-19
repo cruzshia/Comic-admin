@@ -66,7 +66,7 @@ export const resetCampaignAction = () => ({
   type: CampaignActionType.RESET_WORK
 })
 
-export const createCampaignAction = (work: Campaign) => ({
+export const createCampaignAction = (work: Partial<Campaign>) => ({
   type: CampaignActionType.CREATE,
   payload: work
 })
