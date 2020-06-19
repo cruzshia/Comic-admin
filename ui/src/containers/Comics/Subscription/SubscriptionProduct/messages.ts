@@ -1,8 +1,12 @@
 import { defineMessages } from 'react-intl'
 
-const PREFIX = 'comics.subscription.product.'
+const PREFIX = 'comics.subscription.product_'
 
 export default defineMessages({
+  product: {
+    id: 'comics.subscription.product',
+    defaultMessage: 'Subscription Product'
+  },
   creation: {
     id: PREFIX + 'creation',
     defaultMessage: 'Subscription Product Creation'

@@ -20,7 +20,7 @@ export default function SubscriptionProductDetail() {
   const { subscriptionId, id } = useParams()
   const { formatMessage } = useIntl()
   const history = useHistory()
-  const titleText = formatMessage(messages.detail)
+  const titleText = formatMessage(messages.product)
 
   useEffect(() => {
     onGetSubscriptionProduct(id!)
@@ -44,8 +44,8 @@ export default function SubscriptionProductDetail() {
       BREADCRUMBS.map(({ title, route }) => ({
         title: formatMessage(title),
         route: route?.replace(':id', subscriptionId!)
-      })).concat([{ title: titleText, route: undefined }]),
-    [formatMessage, titleText, subscriptionId]
+      })).concat([{ title: formatMessage(messages.detail), route: undefined }]),
+    [formatMessage, subscriptionId]
   )
 
   const buttonList = useMemo(
@@ -61,7 +61,6 @@ export default function SubscriptionProductDetail() {
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
-        onEdit={handleEdit}
         dataSet={[
           toDataSet(formatMessage(commonMessages.application), currentSubscriptionProduct.app),
           toDataSet(formatMessage(subscriptionMessages.productId), currentSubscriptionProduct.productId),

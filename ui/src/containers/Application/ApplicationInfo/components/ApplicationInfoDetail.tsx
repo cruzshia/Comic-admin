@@ -67,8 +67,6 @@ export default function ApplicationInfoDetail() {
           toDataSet(formatMessage(messages.applicationName), currentInfo[ApplicationInfoKeys.Name]),
           toDataSet(formatMessage(messages.commonKey), currentInfo[ApplicationInfoKeys.CommonKey]),
           toDataSet(formatMessage(messages.apnsAuthKey), currentInfo[ApplicationInfoKeys.ApnsAuthKey]),
-          toDataSet(formatMessage(messages.apnsTeamId), currentInfo[ApplicationInfoKeys.ApnsTeamIdToken]),
-          toDataSet(formatMessage(messages.apnsKeyId), currentInfo[ApplicationInfoKeys.ApnsKeyIdToken]),
           toDataSet(formatMessage(messages.fcnmApiKey), currentInfo[ApplicationInfoKeys.FcmApiKey]),
           toDataSet(formatMessage(messages.androidPublicKey), currentInfo[ApplicationInfoKeys.AndroidPublicKey]),
           toDataSet(formatMessage(messages.iTunesPublicKey), currentInfo[ApplicationInfoKeys.ItunesSharedSecret]),

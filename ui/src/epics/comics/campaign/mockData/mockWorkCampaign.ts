@@ -15,7 +15,7 @@ export const mockCampaign: WorksCampaign = {
   [WorksCampaignKeys.Apps]: [
     {
       id: 123,
-      name: 'app'
+      name: 'SHJP01I'
     }
   ],
   [WorksCampaignKeys.Priority]: 2,

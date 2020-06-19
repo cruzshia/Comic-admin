@@ -90,7 +90,6 @@ export default function SubscriptionDetail() {
       />
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
-        onEdit={handleEdit}
         dataSet={[
           toDataSet(formatMessage(commonMessages.id), currentSubscription.id),
           toDataSet(formatMessage(commonMessages.subscriptionName), currentSubscription.name),

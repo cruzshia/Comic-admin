@@ -44,11 +44,15 @@ const useStyle = makeStyles({
 const mockAppList = [
   {
     id: 123,
-    name: 'App1'
+    name: 'SHJP01I'
   },
   {
     id: 456,
-    name: 'App2'
+    name: 'SHJP01A'
+  },
+  {
+    id: 6666,
+    name: 'BROWSER_RENSAI'
   }
 ]
 
