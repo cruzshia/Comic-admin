@@ -277,6 +277,7 @@
   "common.delivery_end_start_time": "配信終了開始日",
   "common.delivery_start_date_time": "配信開始日時",
   "common.detail": "詳細",
+  "common.device_type": "デバイス別",
   "common.drag.upload.photo": "ドラッグ&ドロップで画像を登録する",
   "common.email_address": "メールアドレス",
   "common.end_date_time": "終了日時",

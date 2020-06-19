@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl'
+import { SettingType, DeviceType } from '@src/models/comics/advertisement'
 
 const PREFIX = 'common.'
 
@@ -131,9 +132,13 @@ export default defineMessages({
     id: PREFIX + 'not_approved',
     defaultMessage: 'Not Approved'
   },
-  common: {
+  [SettingType.Common]: {
     id: PREFIX + 'common',
     defaultMessage: 'Common'
+  },
+  [SettingType.DeviceType]: {
+    id: PREFIX + 'device_type',
+    defaultMessage: 'Device Type'
   },
   advertisementSetting: {
     id: PREFIX + 'advertisement_setting',
@@ -331,11 +336,11 @@ export default defineMessages({
     id: PREFIX + 'author_name_id',
     defaultMessage: 'Author Name Id'
   },
-  android: {
+  [DeviceType.Android]: {
     id: PREFIX + 'android',
     defaultMessage: 'Android'
   },
-  ios: {
+  [DeviceType.IOS]: {
     id: PREFIX + 'ios',
     defaultMessage: 'iOS'
   }

@@ -1,23 +1,19 @@
 import WorkDetail, { WorkKeys, WorkType } from '@src/models/comics/work'
-import { AdSettingKeys, AdPosition } from '@src/models/comics/advertisement'
+import { SettingType } from '@src/models/comics/advertisement'
 import { ImageKey } from '@src/models/image'
 import { batchConvertDate, batchConvertISO8601 } from '@src/utils/functions'
-import { _uuid } from '@src/utils/functions'
+import { covertEditableAds, covertTpRequestAds } from '../adUtils'
 
 export const toEditableModel = ({ ...work }: WorkDetail): WorkDetail => {
   work[WorkKeys.AuthorIds] = work[WorkKeys.Authors].map(author => author.id)
   work[WorkKeys.AppId] = work[WorkKeys.App]?.[0].id
   work[WorkKeys.SubscriptionId] = work[WorkKeys.Subscription]?.id
-  work[WorkKeys.AdSetting]?.forEach((adSetting, settingIdx) => {
-    adSetting[AdPosition.Front]?.forEach((ad, adIndex) => {
-      ad[AdSettingKeys.ID] = _uuid()
-      adSetting[AdPosition.Front]![adIndex] = batchConvertISO8601(ad, [AdSettingKeys.BeginAt, AdSettingKeys.EndAt])
-    })
-    adSetting[AdPosition.Back]?.forEach((ad, adIndex) => {
-      ad[AdSettingKeys.ID] = _uuid()
-      adSetting[AdPosition.Back]![adIndex] = batchConvertISO8601(ad, [AdSettingKeys.BeginAt, AdSettingKeys.EndAt])
-    })
-  })
+
+  const { adSettingArray, adsEditObj, settingType } = covertEditableAds(work[WorkKeys.AdSetting] || [])
+  work[WorkKeys.AdSettingEdit] = adsEditObj
+  work[WorkKeys.AdSetting] = adSettingArray
+  work[WorkKeys.SettingType] = settingType
+  work[WorkKeys.ReturnAdRevenue] = work[WorkKeys.ReturnAdRevenue] || false
 
   work = batchConvertISO8601<WorkDetail>(work, [
     WorkKeys.CreateAt,
@@ -50,21 +46,13 @@ export function toRequestWork({ [WorkKeys.CreateAt]: _, [WorkKeys.UpdateAt]: __,
   }, {}) as WorkDetail[WorkKeys.Filename]
   convertedWork[WorkKeys.Filename] = images ? imageName : undefined
 
-  convertedWork[WorkKeys.AdSetting]?.forEach((adSetting, settingIdx) => {
-    adSetting[AdPosition.Front]?.map((ads, adIndex) => {
-      convertedWork[WorkKeys.AdSetting]![settingIdx][AdPosition.Front]![adIndex] = batchConvertDate(ads, [
-        AdSettingKeys.BeginAt,
-        AdSettingKeys.EndAt
-      ])
-    })
-    adSetting[AdPosition.Back]?.map((ads, adIndex) => {
-      convertedWork[WorkKeys.AdSetting]![settingIdx][AdPosition.Front]![adIndex] = batchConvertDate(ads, [
-        AdSettingKeys.BeginAt,
-        AdSettingKeys.EndAt
-      ])
-    })
-  })
+  // convert ad setting edit data to request data
+  convertedWork[WorkKeys.AdSetting] = covertTpRequestAds(
+    convertedWork[WorkKeys.SettingType] || SettingType.Common,
+    convertedWork[WorkKeys.AdSettingEdit]!
+  )
+  delete convertedWork[WorkKeys.AdSettingEdit]
+  delete convertedWork[WorkKeys.SettingType]
 
-  convertedWork[WorkKeys.ReturnAdRevenue] = false
   return convertedWork
 }

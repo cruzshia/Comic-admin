@@ -1,5 +1,5 @@
 import WorkDetail, { WorkKeys, WorkType, EpisodeWorkType } from '@src/models/comics/work'
-import { AdPosition, AdSettingKeys, AdType } from '@src/models/comics/advertisement'
+import { AdPosition, AdSettingKeys, AdType, DeviceType } from '@src/models/comics/advertisement'
 import { _uuid } from '@src/utils/functions'
 import mockCover1 from './mockCover1.png'
 import mockCover2 from './mockCover2.png'
@@ -68,7 +68,7 @@ export const mockWork: WorkDetail = {
   },
   [WorkKeys.AdSetting]: [
     {
-      device: 'ios',
+      device: DeviceType.IOS,
       [AdPosition.Front]: [
         {
           [AdSettingKeys.ID]: _uuid(),
@@ -101,7 +101,7 @@ export const mockWork: WorkDetail = {
       ]
     },
     {
-      device: 'android',
+      device: DeviceType.Android,
       [AdPosition.Front]: [
         {
           [AdSettingKeys.ID]: _uuid(),

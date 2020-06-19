@@ -1,7 +1,8 @@
 import WorkDetail, { Work, WorkKeys } from '@src/models/comics/work'
+import { SettingType } from '@src/models/comics/advertisement'
 import ImportLog from '@src/models/importLog'
 import { WorkActionType, ListParams } from './workActions'
-import { defaultAdTypes } from '../constant'
+import { defaultAdTypes, defaultAdSettingEdit } from '../constant'
 import { ActionType } from '../../types'
 
 export interface WorkState {
@@ -22,7 +23,9 @@ const initState: WorkState = {
 export const emptyWork = {
   [WorkKeys.ReturnAdRevenue]: false,
   [WorkKeys.AuthorIds]: [''],
-  [WorkKeys.AdSetting]: [defaultAdTypes]
+  [WorkKeys.AdSetting]: [defaultAdTypes],
+  [WorkKeys.SettingType]: SettingType.Common,
+  [WorkKeys.AdSettingEdit]: defaultAdSettingEdit as WorkDetail[WorkKeys.AdSettingEdit]
 }
 
 export const WorkPreloadState = initState

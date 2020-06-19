@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { WorkType } from '@src/models/comics/work'
+import { SettingType } from '@src/models/comics/advertisement'
 import workMessages from './Work/messages'
 
 export const IMAGE_NUM = 4
@@ -33,7 +34,8 @@ export const useComicsRef = () => {
   }
 }
 
-export const deviceTypes = ['common', 'android', 'ios']
+export const daysOfWeekOptions = ['日', '月', '水', '火', '木', '金', '土'].map(day => ({ label: day, value: day }))
+export const deviceTypes = Object.values(SettingType)
 export const workTypes = Object.values(WorkType).map(type => ({
   label: workMessages[type],
   value: type

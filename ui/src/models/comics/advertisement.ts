@@ -19,6 +19,17 @@ export enum AdType {
   Fan = 'fan',
   Map = 'map'
 }
+
+export enum SettingType {
+  Common = 'common',
+  DeviceType = 'deviceType'
+}
+
+export enum DeviceType {
+  Common = 'common',
+  IOS = 'ios',
+  Android = 'android'
+}
 export interface Advertisement {
   [AdSettingKeys.ID]?: string
   [AdSettingKeys.Type]?: AdType
@@ -30,9 +41,15 @@ export interface Advertisement {
 }
 
 export interface AdSetting {
-  [AdSettingKeys.AdDevice]: string
+  [AdSettingKeys.AdDevice]: DeviceType
   [AdPosition.Front]?: Advertisement[]
   [AdPosition.Back]?: Advertisement[]
+}
+
+export interface AdSettingEdit {
+  [DeviceType.Common]?: AdSetting
+  [DeviceType.IOS]?: AdSetting
+  [DeviceType.Android]?: AdSetting
 }
 
 export default Advertisement

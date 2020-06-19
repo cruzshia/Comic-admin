@@ -1,11 +1,10 @@
 import { from } from 'rxjs'
-import authAjax from '@src/utils/ajaxUtil'
+import authAjax, { JSON_CONTENT } from '@src/utils/ajaxUtil'
 import WorkDetail from '@src/models/comics/work'
 import { ListParams } from '@src/reducers/comics/work/workActions'
 import ImportLog from '@src/models/importLog'
 import { objToQueryStr } from '@src/utils/functions'
 import { Response } from '../../utils'
-import { mockWork } from './mockData/mockWork'
 import { mockLogList } from './mockData/mockImportLogs'
 
 const WORK_API_PATH = '/v1/works'
@@ -19,23 +18,11 @@ export const getWorkAjax = (workId: string): Response<WorkDetail> => {
 }
 
 export const createWorkAjax = (work: WorkDetail): Response<WorkDetail> => {
-  authAjax.post(WORK_API_PATH, work)
-  return from([
-    {
-      status: 200,
-      response: mockWork
-    }
-  ])
+  return authAjax.post(WORK_API_PATH, work, JSON_CONTENT)
 }
 
 export const updateWorkAjax = (work: WorkDetail): Response<WorkDetail> => {
-  // return authAjax.put(`${WORK_API_PATH}/${work.id}`, work, JSON_CONTENT)
-  return from([
-    {
-      status: 200,
-      response: mockWork
-    }
-  ])
+  return authAjax.put(`${WORK_API_PATH}/${work.id}`, work, JSON_CONTENT)
 }
 
 export const getCsvLogListAjax = (): Response<ImportLog[]> => {

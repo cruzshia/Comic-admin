@@ -1,4 +1,4 @@
-import { AdSetting } from './advertisement'
+import { AdSetting, SettingType, AdSettingEdit } from './advertisement'
 import App from './app'
 import S3Info from '../s3Info'
 import Image, { ImageInfo } from '../image'
@@ -48,7 +48,11 @@ export enum WorkKeys {
   Filename = 'file_name',
   ReturnAdRevenue = 'return_ad_revenue',
   AdSetting = 'ads_in_viewer_setting',
-  ImageUploadUrls = 'image_upload_urls'
+  ImageUploadUrls = 'image_upload_urls',
+
+  // for setting usage only
+  SettingType = 'setting_type',
+  AdSettingEdit = 'ad_setting_edit'
 }
 
 export enum WorkType {
@@ -103,6 +107,10 @@ export interface WorkDetail extends Work {
   [WorkKeys.FreePeriodicalDay]?: string
   [WorkKeys.AdSetting]?: AdSetting[]
   [WorkKeys.ImageUploadUrls]?: Image<S3Info>
+
+  // for form usage only
+  [WorkKeys.SettingType]?: SettingType
+  [WorkKeys.AdSettingEdit]?: AdSettingEdit
 }
 
 export interface Author {

@@ -1,4 +1,4 @@
-import { AdType, AdPosition, AdSettingKeys } from '@src/models/comics/advertisement'
+import { AdType, AdPosition, AdSettingKeys, DeviceType, AdSetting } from '@src/models/comics/advertisement'
 import { _uuid } from '@src/utils/functions'
 
 export const defaultFrontAds = [{ [AdSettingKeys.ID]: _uuid(), [AdSettingKeys.Type]: AdType.Original }]
@@ -13,7 +13,19 @@ export const defaultBackAds = [
 ]
 
 export const defaultAdTypes = {
-  device: '',
+  device: DeviceType.Common,
   [AdPosition.Front]: defaultFrontAds,
   [AdPosition.Back]: defaultBackAds
 }
+
+export const defaultAdSettingEdit = Object.values(DeviceType).reduce(
+  (acc: { [key: string]: AdSetting }, type: DeviceType) => {
+    acc[type] = {
+      [AdSettingKeys.AdDevice]: type,
+      [AdPosition.Front]: defaultFrontAds,
+      [AdPosition.Back]: defaultBackAds
+    }
+    return acc
+  },
+  {}
+)

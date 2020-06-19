@@ -10,8 +10,9 @@ import ScrollTo from '@src/components/scroll/ScrollTo'
 import { _range } from '@src/utils/functions'
 import { emptyWork } from '@src/reducers/comics/work/workReducer'
 import WorkDetail, { WorkKeys, WorkType, EpisodeWorkType } from '@src/models/comics/work'
+import { SettingType, DeviceType } from '@src/models/comics/advertisement'
 import AuthorEditForm from '../../components/AuthorEditForm'
-import AdSettingForm from '../../components/AdSettingForm'
+import AdSettingBlock from '../../components/AdSettingBlock'
 import AppCheckboxes from '../../components/AppCheckboxes'
 import { validateWork, returnOptions } from '../utils'
 import { useComicsRef, workTypes, IMAGE_NUM, IMAGE_MAX_WIDTH } from '../../utils'
@@ -45,6 +46,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const { allAnchorRefs, deliveryRef, adSettingRef, episodeInfoRef } = useComicsRef()
+  const adSettingTitle = formatMessage(commonMessages.advertisementSetting)
 
   const workTypeOptions = useMemo(
     () =>
@@ -84,6 +86,7 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
         initialValues={workData || { ...emptyWork }}
         render={({ handleSubmit, values }) => {
           const workType = values[WorkKeys.WorkType]
+          const isAdCommon = values[WorkKeys.SettingType] === SettingType.Common
           return (
             <form onSubmit={handleSubmit} ref={formRef}>
               <DataTable
@@ -214,17 +217,42 @@ export default function WorkForm({ workData, onSubmit, formRef }: Props) {
                       )
                     ]}
                   />
-                  <Field name={WorkKeys.AdSetting} subscription={{ pristine: true, value: true }}>
-                    {({ input: { value } }) =>
-                      value?.map((_: any, index: number) => (
-                        <AdSettingForm
-                          key={`adSetting-${index}`}
-                          adSettingRef={!index ? adSettingRef : undefined}
-                          adKey={`${WorkKeys.AdSetting}[${index}]`}
+                  <DataTable
+                    title={formatMessage(commonMessages.advertisementSetting)}
+                    dataSet={[
+                      toDataSet(
+                        formatMessage(comicsMessages.deviceCategory),
+                        <Field
+                          name={WorkKeys.SettingType}
+                          component={SelectAdapter}
+                          options={Object.values(SettingType).map(device => ({
+                            label: formatMessage(commonMessages[device as keyof typeof commonMessages]),
+                            value: device
+                          }))}
+                          isShort
+                          placeholder={formatMessage(commonMessages.common)}
                         />
-                      ))
-                    }
-                  </Field>
+                      ),
+                      ...(isAdCommon
+                        ? [
+                            toDataSet(
+                              adSettingTitle,
+                              <AdSettingBlock adKey={`${WorkKeys.AdSettingEdit}.${DeviceType.Common}`} />
+                            )
+                          ]
+                        : [
+                            toDataSet(
+                              formatMessage(commonMessages.ios) + adSettingTitle,
+                              <AdSettingBlock adKey={`${WorkKeys.AdSettingEdit}.${DeviceType.IOS}`} />
+                            ),
+                            toDataSet(
+                              formatMessage(commonMessages.android) + adSettingTitle,
+                              <AdSettingBlock adKey={`${WorkKeys.AdSettingEdit}.${DeviceType.Android}`} />
+                            )
+                          ])
+                    ]}
+                    innerRef={adSettingRef}
+                  />
                 </>
               </Condition>
             </form>

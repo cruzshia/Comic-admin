@@ -1,4 +1,4 @@
-import { AdPosition, AdSettingKeys, AdType } from '@src/models/comics/advertisement'
+import { AdPosition, AdSettingKeys, AdType, DeviceType } from '@src/models/comics/advertisement'
 import { WorksCampaign, WorksCampaignKeys } from '@src/models/comics/worksCampaign'
 import { _uuid } from '@src/utils/functions'
 import mockCover1 from './mockCover1.png'
@@ -51,7 +51,7 @@ export const mockCampaign: WorksCampaign = {
   },
   [WorksCampaignKeys.AdSetting]: [
     {
-      device: 'ios',
+      device: DeviceType.IOS,
       [AdPosition.Front]: [
         {
           [AdSettingKeys.ID]: _uuid(),

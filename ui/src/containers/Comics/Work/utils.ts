@@ -2,6 +2,7 @@ import messages from './messages'
 import commonMessages from '@src/messages'
 import { routePath } from '@src/common/appConfig'
 import Work, { WorkSearchKeys, SearchParam, WorkKeys, WorkType } from '@src/models/comics/work'
+import { SettingType, DeviceType } from '@src/models/comics/advertisement'
 import { validateAd } from '../components/Advertisement'
 import {
   validDateTime,
@@ -61,6 +62,8 @@ export function searchParamsValidator(values: Partial<SearchParam>) {
 
 export function validateWork(values: Partial<Work>) {
   const isEpisodeType = values[WorkKeys.WorkType] === WorkType.Episode
+  const isAdCommon = values[WorkKeys.SettingType] === SettingType.Common
+  const adSettingData = values[WorkKeys.AdSettingEdit]!
 
   return {
     [WorkKeys.WorkType]: required(values[WorkKeys.WorkType]),
@@ -91,7 +94,18 @@ export function validateWork(values: Partial<Work>) {
             isValidLength(CHARACTER_LIMIT)
           )(values[WorkKeys.FreePeriodicalDay]!),
 
-          [WorkKeys.AdSetting]: values[WorkKeys.AdSetting]?.map(setting => validateAd(setting))
+          [WorkKeys.AdSettingEdit]: {
+            [DeviceType.Common]:
+              isAdCommon && adSettingData[DeviceType.Common]
+                ? validateAd(adSettingData[DeviceType.Common]!)
+                : undefined,
+            [DeviceType.IOS]:
+              !isAdCommon && adSettingData[DeviceType.IOS] ? validateAd(adSettingData[DeviceType.IOS]!) : undefined,
+            [DeviceType.Android]:
+              !isAdCommon && adSettingData[DeviceType.Android]
+                ? validateAd(adSettingData[DeviceType.Android]!)
+                : undefined
+          }
         }
       : {})
   }
