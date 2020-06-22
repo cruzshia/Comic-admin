@@ -21,7 +21,14 @@ export enum ContentKeys {
   PublishBeginAt = 'publish_begin_at',
   PublishEndAt = 'publish_end_at',
   PayCoinBeginAt = 'pay_coin_only_begin_at',
-  PayCoinEndAt = 'pay_coin_only_end_at'
+  PayCoinEndAt = 'pay_coin_only_end_at',
+  AdSetting = 'ads_in_viewer_setting',
+  MagazineBanner = 'magazine_banner_ads_setting',
+  TagGroups = 'tagGroups',
+  Tags = 'tags',
+
+  AdSettingEdit = 'ad_setting_edit',
+  SettingType = 'setting_type'
 }
 
 type Content = any

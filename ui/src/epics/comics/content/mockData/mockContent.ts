@@ -1,3 +1,4 @@
+import { ContentKeys } from '@src/models/comics/content'
 import { AdPosition, AdSettingKeys, AdType } from '@src/models/comics/advertisement'
 import { _range, _uuid } from '@src/utils/functions'
 import mockManga from './manga.png'
@@ -45,33 +46,37 @@ export const mockContent = {
   freePPVEnd1: '2019-12-25 00:00',
   freePPVStart2: '2019-12-25 00:00',
   freePPVEnd2: '2019-12-25 00:00',
-  advertisement: {
-    device: 'ios',
-    [AdPosition.Front]: [
-      {
-        [AdSettingKeys.Type]: AdType.Original,
-        [AdSettingKeys.ImageUrl]: mockManga,
-        [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
-        [AdSettingKeys.Button]: 'サンプルテキスト',
-        [AdSettingKeys.BeginAt]: '2020-02-20 19:00　〜　2020-02-20 19:00'
-      }
-    ],
-    [AdPosition.Back]: [
-      {
-        [AdSettingKeys.Type]: AdType.Fan
-      },
-      {
-        [AdSettingKeys.Type]: AdType.Map
-      },
-      {
-        [AdSettingKeys.Type]: AdType.Original,
-        [AdSettingKeys.ImageUrl]: mockManga,
-        [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
-        [AdSettingKeys.Button]: 'サンプルテキスト',
-        [AdSettingKeys.BeginAt]: '2020-02-20 19:00　〜　2020-02-20 19:00'
-      }
-    ]
-  },
+  [ContentKeys.AdSetting]: [
+    {
+      [AdSettingKeys.AdDevice]: 'ios',
+      [AdPosition.Front]: [
+        {
+          [AdSettingKeys.Type]: AdType.Original,
+          [AdSettingKeys.ImageUrl]: mockManga,
+          [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
+          [AdSettingKeys.Button]: 'サンプルテキスト',
+          [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
+          [AdSettingKeys.EndAt]: '2020-02-20 19:00'
+        }
+      ],
+      [AdPosition.Back]: [
+        {
+          [AdSettingKeys.Type]: AdType.Fan
+        },
+        {
+          [AdSettingKeys.Type]: AdType.Map
+        },
+        {
+          [AdSettingKeys.Type]: AdType.Original,
+          [AdSettingKeys.ImageUrl]: mockManga,
+          [AdSettingKeys.ActionUrl]: 'https://shonenjumpplus.com/episode/10834108156758729535',
+          [AdSettingKeys.Button]: 'サンプルテキスト',
+          [AdSettingKeys.BeginAt]: '2020-02-20 19:00',
+          [AdSettingKeys.EndAt]: '2020-02-20 19:00'
+        }
+      ]
+    }
+  ],
   magazineBanner: {
     deviceCategory: 'デバイス共通',
     contents: [

@@ -39,7 +39,7 @@ export const covertEditableAds = ([...adSettingArray]: AdSetting[]): {
   }
 }
 
-export const covertTpRequestAds = (settingType: SettingType, adsEditData: AdSettingEdit): AdSetting[] => {
+export const covertToRequestAds = (settingType: SettingType, adsEditData: AdSettingEdit): AdSetting[] => {
   const adsData = []
   if (settingType === SettingType.Common) {
     adsEditData?.[DeviceType.Common] && adsData.push(adsEditData[DeviceType.Common]!)

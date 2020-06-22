@@ -95,3 +95,5 @@ export const lazyLoadImage = async ({ imageClass, fallbackImg }: { imageClass: s
     imageObserver.observe(v)
   })
 }
+
+export const filterEmpty = (dataArr: any[]) => dataArr.filter(data => !!data)

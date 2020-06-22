@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import ContentHeader from '@src/components/ContentHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
+import { submitForm } from '@src/utils/validation'
 import ContentForm from './ContentForm'
 import commonMessages from '@src/messages'
 import ContentContext, { ActionContext } from '../context/ContentContext'
@@ -35,9 +36,7 @@ export default function ContentEdit() {
       <Button
         theme={Theme.DARK}
         buttonText={formatMessage(commonMessages.create)}
-        onClick={() => {
-          formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
-        }}
+        onClick={() => submitForm(formRef)}
       />
     ],
     [formatMessage]

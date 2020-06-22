@@ -11,6 +11,7 @@ import {
 } from '@src/reducers/comics/content/contentActions'
 import * as contentServices from './contentServices'
 import { emptyErrorReturn } from '../../utils'
+import { toEditableModel, toRequestContent } from './transform'
 
 export const getContentListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -32,7 +33,7 @@ export const getContentEpic = (action$: ActionsObservable<AnyAction>) =>
     ofType(ContentActionType.GET_CONTENT),
     switchMap(action =>
       contentServices.getContentAjax(action.payload).pipe(
-        map(res => getContentSuccessAction(res.response)),
+        map(res => getContentSuccessAction(toEditableModel(res.response))),
         tap(() => successSubject.next({ type: ContentActionType.GET_CONTENT_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: ContentActionType.GET_CONTENT_ERROR })
@@ -46,8 +47,8 @@ export const createContentEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(ContentActionType.CREATE),
     exhaustMap(action =>
-      contentServices.createContentAjax(action.payload).pipe(
-        map(res => createContentSuccessAction(res.response)),
+      contentServices.createContentAjax(toRequestContent(action.payload)).pipe(
+        map(res => createContentSuccessAction(toEditableModel(res.response))),
         tap(() => successSubject.next({ type: ContentActionType.CREATE_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: ContentActionType.CREATE_ERROR })
@@ -61,8 +62,8 @@ export const updateContentEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
     ofType(ContentActionType.UPDATE),
     exhaustMap(action =>
-      contentServices.updateContentAjax(action.payload).pipe(
-        map(res => updateContentSuccessAction(res.response)),
+      contentServices.updateContentAjax(toRequestContent(action.payload)).pipe(
+        map(res => updateContentSuccessAction(toEditableModel(res.response))),
         tap(() => successSubject.next({ type: ContentActionType.UPDATE_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: ContentActionType.UPDATE_ERROR })

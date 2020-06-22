@@ -1,7 +1,8 @@
-import Content from '@src/models/comics/content'
+import Content, { ContentKeys } from '@src/models/comics/content'
+import { SettingType } from '@src/models/comics/advertisement'
 import { _uuid } from '@src/utils/functions'
 import { ContentActionType } from './contentActions'
-import { defaultAdTypes } from '../constant'
+import { defaultAdSettingEdit } from '../constant'
 import { ActionType } from '../../types'
 
 export interface ContentState {
@@ -16,11 +17,12 @@ const initState: ContentState = {
 }
 
 export const emptyContent: Content = {
-  authors: [''],
-  tagGroups: [''],
-  tags: [''],
-  advertisement: defaultAdTypes,
-  magazineBanner: {
+  [ContentKeys.Authors]: [''],
+  [ContentKeys.SettingType]: SettingType.Common,
+  [ContentKeys.AdSettingEdit]: defaultAdSettingEdit,
+  [ContentKeys.TagGroups]: [''],
+  [ContentKeys.Tags]: [''],
+  [ContentKeys.MagazineBanner]: {
     deviceCategory: 'デバイス共通',
     contents: [
       [

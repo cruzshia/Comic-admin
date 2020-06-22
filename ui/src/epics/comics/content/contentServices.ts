@@ -1,5 +1,5 @@
 import { from, Observable } from 'rxjs'
-import authAjax from '@src/utils/ajaxUtil'
+import authAjax, { JSON_CONTENT } from '@src/utils/ajaxUtil'
 import Content from '@src/models/comics/content'
 import { mockContentList, mockContent } from './mockData/mockContent'
 
@@ -34,11 +34,5 @@ export const createContentAjax = (content: Content): Observable<{ status: number
 }
 
 export const updateContentAjax = (content: Content): Observable<{ status: number; response: Content }> => {
-  authAjax.put('/content', content)
-  return from([
-    {
-      status: 200,
-      response: mockContent
-    }
-  ])
+  return authAjax.put('/content', content, JSON_CONTENT)
 }

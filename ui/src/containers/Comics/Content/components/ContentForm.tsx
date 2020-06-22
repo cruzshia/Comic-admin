@@ -12,15 +12,16 @@ import {
 } from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import ScrollTo from '@src/components/scroll/ScrollTo'
-import Content from '@src/models/comics/content'
+import Content, { ContentKeys } from '@src/models/comics/content'
 import { emptyContent } from '@src/reducers/comics/content/contentReducer'
 import { _range } from '@src/utils/functions'
 import { WorkType } from '@src/models/comics/work'
+import { SettingType, DeviceType } from '@src/models/comics/advertisement'
 import AppCheckboxes from '@src/containers/Comics/components/AppCheckboxes'
 import commonMessages from '@src/messages'
 import StartEndGroupForm from './StartEndGroupForm'
 import { workTypes } from '../../utils'
-import AdSettingForm from '../../components/AdSettingForm'
+import AdSettingBlock from '../../components/AdSettingBlock'
 import comicMessages from '../../messages'
 import messages from '../messages'
 import AuthorEditForm from '../../components/AuthorEditForm'
@@ -71,6 +72,7 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
     [ContentAnchor.Magazine]: magazineRef
   }
 
+  const adSettingTitle = formatMessage(commonMessages.advertisementSetting)
   const workTypeOptions = useMemo(
     () =>
       workTypes.map(({ label, value }) => ({
@@ -214,7 +216,42 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
                 endLabel2={formatMessage(messages.freePPVEnd, { num: 2 })}
                 endName2='freePPVEnd2'
               />
-              <AdSettingForm marginBottom />
+              <DataTable
+                title={formatMessage(commonMessages.advertisementSetting)}
+                dataSet={[
+                  toDataSet(
+                    formatMessage(comicMessages.deviceCategory),
+                    <Field
+                      name={ContentKeys.SettingType}
+                      component={SelectAdapter}
+                      options={Object.values(SettingType).map(device => ({
+                        label: formatMessage(commonMessages[device as keyof typeof commonMessages]),
+                        value: device
+                      }))}
+                      isShort
+                      placeholder={formatMessage(commonMessages.common)}
+                    />
+                  ),
+                  ...(values[ContentKeys.SettingType] === SettingType.Common
+                    ? [
+                        toDataSet(
+                          adSettingTitle,
+                          <AdSettingBlock adKey={`${ContentKeys.AdSettingEdit}.${DeviceType.Common}`} />
+                        )
+                      ]
+                    : [
+                        toDataSet(
+                          formatMessage(commonMessages.ios) + adSettingTitle,
+                          <AdSettingBlock adKey={`${ContentKeys.AdSettingEdit}.${DeviceType.IOS}`} />
+                        ),
+                        toDataSet(
+                          formatMessage(commonMessages.android) + adSettingTitle,
+                          <AdSettingBlock adKey={`${ContentKeys.AdSettingEdit}.${DeviceType.Android}`} />
+                        )
+                      ])
+                ]}
+                innerRef={adSettingRef}
+              />
             </Condition>
             <Condition when='category' is={WorkType.Magazine}>
               <DataTable

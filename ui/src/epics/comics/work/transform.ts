@@ -1,8 +1,8 @@
 import WorkDetail, { WorkKeys, WorkType } from '@src/models/comics/work'
 import { SettingType } from '@src/models/comics/advertisement'
 import { ImageKey } from '@src/models/image'
-import { batchConvertDate, batchConvertISO8601 } from '@src/utils/functions'
-import { covertEditableAds, covertTpRequestAds } from '../adUtils'
+import { batchConvertDate, batchConvertISO8601, filterEmpty } from '@src/utils/functions'
+import { covertEditableAds, covertToRequestAds } from '../adUtils'
 
 export const toEditableModel = ({ ...work }: WorkDetail): WorkDetail => {
   work[WorkKeys.AuthorIds] = work[WorkKeys.Authors].map(author => author.id)
@@ -45,9 +45,10 @@ export function toRequestWork({ [WorkKeys.CreateAt]: _, [WorkKeys.UpdateAt]: __,
     return acc
   }, {}) as WorkDetail[WorkKeys.Filename]
   convertedWork[WorkKeys.Filename] = images ? imageName : undefined
+  convertedWork[WorkKeys.AuthorIds] = filterEmpty(convertedWork[WorkKeys.AuthorIds] || [])
 
   // convert ad setting edit data to request data
-  convertedWork[WorkKeys.AdSetting] = covertTpRequestAds(
+  convertedWork[WorkKeys.AdSetting] = covertToRequestAds(
     convertedWork[WorkKeys.SettingType] || SettingType.Common,
     convertedWork[WorkKeys.AdSettingEdit]!
   )
