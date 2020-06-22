@@ -27,9 +27,9 @@ export const checkError = (meta: FieldMetaState<any>) => {
 }
 
 export const validKana = (value: string) =>
-  /^([\u30a0-\u30ff\uff66-\uff9f\u3000\s]){1,255}$/u.test(value) ? undefined : INVALID_FORMAT
+  /^([\u30a0-\u30ff\uff66-\uff9f\u3000\s])$/u.test(value) ? undefined : INVALID_FORMAT
 
-export const validPositiveInteger = (number: any) => (/^\d+$/i.test(number) ? undefined : INVALID_FORMAT)
+export const validNaturalNumber = (number: any) => (/^\d+$/i.test(number) ? undefined : INVALID_FORMAT)
 
 export const validDateTime = (dateTime: string) => {
   if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/i.test(dateTime)) {

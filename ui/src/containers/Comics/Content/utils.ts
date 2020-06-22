@@ -7,9 +7,9 @@ import {
   CHARACTER_LIMIT,
   required,
   validKana,
-  validPositiveInteger,
   DESCRIPTION_LIMIT,
-  URL_LIMIT
+  URL_LIMIT,
+  validNaturalNumber
 } from '@src/utils/validation'
 import { ContentKeys } from '@src/models/comics/content'
 import { WorkType } from '@src/models/comics/work'
@@ -68,15 +68,17 @@ export function validateContent(values: any) {
 
   return {
     title: composeValidators(required, isValidLength(CHARACTER_LIMIT))(title),
-    titleKana: composeValidators(required, validKana)(titleKana),
+    titleKana: composeValidators(required, isValidLength(CHARACTER_LIMIT), validKana)(titleKana),
     category: required(category),
     description: isValidLength(DESCRIPTION_LIMIT)(description),
-    price: validPositiveInteger(price),
+    price: validNaturalNumber(price),
     openingAdUrl: isValidLength(URL_LIMIT)(openingAdUrl),
-    sort: validPositiveInteger(sort) && sort > 0,
-    episodeNumber: validPositiveInteger(episodeNumber),
-    deliverStartStart: validDateTime(deliverStart),
-    deliverStartEnd: validDateTime(deliverEnd) || (deliverStart && isValidDuration(deliverStart, deliverEnd)),
+    sort: composeValidators(required, validNaturalNumber)(sort),
+    episodeNumber: validNaturalNumber(episodeNumber),
+    deliverStart: composeValidators(required, validDateTime)(deliverStart),
+    deliverEnd:
+      composeValidators(required, validDateTime)(deliverEnd) ||
+      (deliverStart && isValidDuration(deliverStart, deliverEnd)),
     paidCoinDeliverStart: paidCoinDeliverEnd && validDateTime(paidCoinDeliverStart),
     paidCoinDeliverEnd: paidCoinDeliverStart && isValidDuration(paidCoinDeliverStart, paidCoinDeliverEnd),
     freePPVStart1: freePPVEnd1 && validDateTime(freePPVStart1),
