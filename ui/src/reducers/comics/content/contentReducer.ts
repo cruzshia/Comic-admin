@@ -17,6 +17,8 @@ const initState: ContentState = {
 
 export const emptyContent: Content = {
   authors: [''],
+  tagGroups: [''],
+  tags: [''],
   advertisement: defaultAdTypes,
   magazineBanner: {
     deviceCategory: 'デバイス共通',

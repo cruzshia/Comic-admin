@@ -35,6 +35,10 @@ export default defineMessages({
     id: PREFIX + 'category',
     defaultMessage: 'Content Category'
   },
+  subtitle: {
+    id: PREFIX + 'subtitle',
+    defaultMessage: 'Subtitle'
+  },
   titleKana: {
     id: PREFIX + 'title_kana',
     defaultMessage: 'Content title(Kana)'
@@ -42,14 +46,6 @@ export default defineMessages({
   sort: {
     id: PREFIX + 'sort',
     defaultMessage: 'Sort'
-  },
-  openAdUrl: {
-    id: PREFIX + 'open_ad_url',
-    defaultMessage: 'Opening Ads URL'
-  },
-  openAdImage: {
-    id: PREFIX + 'open_ad_image',
-    defaultMessage: 'Opening Ad Image'
   },
   thumbnailImage: {
     id: PREFIX + 'thumbnail_image',
@@ -62,6 +58,10 @@ export default defineMessages({
   limitedTimeFree: {
     id: PREFIX + 'limited_time_free',
     defaultMessage: 'Limited Time Free'
+  },
+  isLimitedTimeFree: {
+    id: PREFIX + 'is_limited_time_free',
+    defaultMessage: 'Is Limited Time Free'
   },
   paidCoinStartTime: {
     id: PREFIX + 'paid_coin_start_time',
@@ -107,6 +107,10 @@ export default defineMessages({
     id: PREFIX + 'request_content_id',
     defaultMessage: 'Request Content (ID)'
   },
+  requestSubscriptionId: {
+    id: PREFIX + 'request_subscription_id',
+    defaultMessage: 'Request Subscription ID'
+  },
   csvImportLog: {
     id: PREFIX + 'csv_import_log',
     defaultMessage: 'Content CSV Import Logs'
@@ -114,5 +118,57 @@ export default defineMessages({
   csvImport: {
     id: PREFIX + 'csv_import',
     defaultMessage: 'Content CSV Import'
+  },
+  tagGroup: {
+    id: PREFIX + 'tag_group',
+    defaultMessage: 'Tag Group'
+  },
+  addTagGroup: {
+    id: PREFIX + 'tag_group_add',
+    defaultMessage: 'Add Tag Group'
+  },
+  tag: {
+    id: PREFIX + 'tag',
+    defaultMessage: 'Tag'
+  },
+  addTag: {
+    id: PREFIX + 'tag_add',
+    defaultMessage: 'Add Tag'
+  },
+  deliveryUrl: {
+    id: PREFIX + 'delivery_url',
+    defaultMessage: 'Delivery data URL'
+  },
+  allowComment: {
+    id: PREFIX + 'allow_comment',
+    defaultMessage: 'Allow Comment'
+  },
+  beAllowedComment: {
+    id: PREFIX + 'be_allowed_comment',
+    defaultMessage: 'Be Allowed to Comment'
+  },
+  allowStartWithExtraServer: {
+    id: PREFIX + 'allow_start_with_extra_server',
+    defaultMessage: 'Allow start with extra server'
+  },
+  beAllowStartWithExtraServer: {
+    id: PREFIX + 'be_allowed_start_with_extra_server',
+    defaultMessage: 'Be allowed to start with extra server'
+  },
+  notDisplayTodayRanking: {
+    id: PREFIX + 'not_display_today_ranking',
+    defaultMessage: 'Do Not Display Today Ranking'
+  },
+  notDisplay: {
+    id: PREFIX + 'not_display',
+    defaultMessage: 'Do Not Display'
+  },
+  allowPrContent: {
+    id: PREFIX + 'allow_pr_content',
+    defaultMessage: 'Allow PR Content'
+  },
+  beAllowPrContent: {
+    id: PREFIX + 'be_allowed_pr_content',
+    defaultMessage: 'Allow PR Content'
   }
 })

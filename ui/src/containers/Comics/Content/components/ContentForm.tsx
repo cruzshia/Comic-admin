@@ -8,7 +8,6 @@ import {
   TextAreaAdapter,
   DropZoneAdapter,
   SearchInputAdapter,
-  CheckboxInputAdapter,
   Condition
 } from '@src/components/finalForm'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
@@ -17,6 +16,7 @@ import Content from '@src/models/comics/content'
 import { emptyContent } from '@src/reducers/comics/content/contentReducer'
 import { _range } from '@src/utils/functions'
 import { WorkType } from '@src/models/comics/work'
+import AppCheckboxes from '@src/containers/Comics/components/AppCheckboxes'
 import commonMessages from '@src/messages'
 import StartEndGroupForm from './StartEndGroupForm'
 import { workTypes } from '../../utils'
@@ -26,6 +26,9 @@ import messages from '../messages'
 import AuthorEditForm from '../../components/AuthorEditForm'
 import MagazineForm from './MagazineForm'
 import { MAGAZINE_BANNER_NUM, validateContent } from '../utils'
+import LabelCheckbox from '../../components/LabelCheckbox'
+import TagGroupEditForm from './TagGroupEditForm'
+import TagEditForm from './TagEditForm'
 
 interface Props {
   content?: Content
@@ -39,6 +42,21 @@ export enum ContentAnchor {
   AdSetting = 'adSetting',
   Magazine = 'magazine'
 }
+
+const mockAppList = [
+  {
+    id: 1,
+    name: 'SHJP01I'
+  },
+  {
+    id: 2,
+    name: 'SHJP01A'
+  },
+  {
+    id: 3,
+    name: 'BROWSER_RENSAI'
+  }
+]
 
 export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
   const { formatMessage } = useIntl()
@@ -87,40 +105,86 @@ export default function ContentForm({ content, onFormSubmit, formRef }: Props) {
                   <Field name='category' component={SelectAdapter} options={workTypeOptions} isShort />
                 ),
                 toDataSet(
+                  formatMessage(messages.subtitle),
+                  <Field name='subtitle' component={TextInputAdapter} isShort />
+                ),
+                toDataSet(
                   formatMessage(commonMessages.introduction),
-                  <Field name='description' component={TextAreaAdapter} options={[]} isShort />
+                  <Field name='description' component={TextAreaAdapter} isShort />
                 ),
                 toDataSet(formatMessage(commonMessages.author), <AuthorEditForm />),
-                toDataSet(
-                  formatMessage(commonMessages.appId),
-                  <Field name='appId' component={SelectAdapter} options={[]} />
-                ),
+                toDataSet(formatMessage(commonMessages.appId), <AppCheckboxes name='appId' options={mockAppList} />),
                 toDataSet(formatMessage(comicMessages.workId), <Field name='workId' component={TextAreaAdapter} />),
                 toDataSet(
                   formatMessage(comicMessages.contentPrice),
                   <Field name='price' component={TextInputAdapter} short />
                 ),
-                toDataSet(
-                  formatMessage(messages.openAdUrl),
-                  <Field name='openingAdUrl' component={TextInputAdapter} />
-                ),
                 toDataSet(formatMessage(messages.sort), <Field name='sort' component={TextInputAdapter} short />),
                 toDataSet(
                   formatMessage(messages.limitedTimeFree),
-                  <Field name='limitedTimeFree' type='checkbox' component={CheckboxInputAdapter} />
+                  <LabelCheckbox
+                    name='limitedTimeFree'
+                    value='limitedTimeFree'
+                    label={formatMessage(messages.isLimitedTimeFree)}
+                  />
                 ),
                 toDataSet(
                   formatMessage(comicMessages.episodeNumber),
                   <Field name='episodeNumber' component={TextInputAdapter} short />
                 ),
                 toDataSet(
+                  formatMessage(comicMessages.volumeNumber),
+                  <Field name='volumeNumber' component={TextInputAdapter} short />
+                ),
+                toDataSet(
                   formatMessage(messages.thumbnailImage),
                   <Field name='thumbnail' component={DropZoneAdapter} />
                 ),
-                toDataSet(formatMessage(messages.openAdImage), <Field name='adImage' component={DropZoneAdapter} />),
                 toDataSet(
                   formatMessage(messages.requestContentId),
                   <Field name='requestId' component={SearchInputAdapter} />
+                ),
+                toDataSet(
+                  formatMessage(messages.requestSubscriptionId),
+                  <Field name='requestSubscriptionId' component={SearchInputAdapter} />
+                ),
+                toDataSet(formatMessage(messages.tagGroup), <TagGroupEditForm options={[]} />),
+                toDataSet(formatMessage(messages.tag), <TagEditForm />),
+                toDataSet(
+                  formatMessage(messages.deliveryUrl),
+                  <Field name='deliveryUrl' component={TextInputAdapter} />
+                ),
+                toDataSet(
+                  formatMessage(messages.allowComment),
+                  <LabelCheckbox
+                    name='allowComment'
+                    value='allowComment'
+                    label={formatMessage(messages.beAllowedComment)}
+                  />
+                ),
+                toDataSet(
+                  formatMessage(messages.allowStartWithExtraServer),
+                  <LabelCheckbox
+                    name='allowStartWithExtraServer'
+                    value='allowStartWithExtraServer'
+                    label={formatMessage(messages.beAllowStartWithExtraServer)}
+                  />
+                ),
+                toDataSet(
+                  formatMessage(messages.notDisplayTodayRanking),
+                  <LabelCheckbox
+                    name='notDisplayTodayRanking'
+                    value='notDisplayTodayRanking'
+                    label={formatMessage(messages.notDisplay)}
+                  />
+                ),
+                toDataSet(
+                  formatMessage(messages.allowPrContent),
+                  <LabelCheckbox
+                    name='allowPrContent'
+                    value='allowPrContent'
+                    label={formatMessage(messages.beAllowPrContent)}
+                  />
                 )
               ]}
               marginBottom

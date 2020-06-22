@@ -86,6 +86,7 @@ export default function ContentDetail() {
           toDataSet(formatMessage(commonMessages.contentName), currentContent.title),
           toDataSet(formatMessage(messages.titleKana), currentContent.titleKana),
           toDataSet(formatMessage(messages.category), currentContent.category),
+          toDataSet(formatMessage(messages.subtitle), currentContent.subtitle),
           toDataSet(formatMessage(commonMessages.introduction), currentContent.description),
           toDataSet(
             formatMessage(commonMessages.author),
@@ -94,17 +95,23 @@ export default function ContentDetail() {
           toDataSet(formatMessage(commonMessages.appId), currentContent.appId),
           toDataSet(formatMessage(comicMessages.workId), currentContent.workId),
           toDataSet(formatMessage(comicMessages.contentPrice), currentContent.price),
-          toDataSet(formatMessage(messages.openAdUrl), currentContent.openingAdUrl),
           toDataSet(formatMessage(messages.sort), currentContent.sort),
           toDataSet(formatMessage(messages.limitedTimeFree), currentContent.limitedTimeFree),
           toDataSet(formatMessage(comicMessages.episodeNumber), currentContent.episodeNumber),
+          toDataSet(formatMessage(comicMessages.volumeNumber), currentContent.volumeNumber),
           toDataSet(
             formatMessage(messages.thumbnailImage),
             <img src={currentContent.thumbnail?.url} alt='thumbnail' />
           ),
-          toDataSet(formatMessage(messages.openAdImage), <img src={currentContent.adImage?.url} alt='ad' />),
           toDataSet(formatMessage(messages.requestId), currentContent.requestId),
-          toDataSet(formatMessage(comicMessages.requestName), currentContent.requestName),
+          toDataSet(formatMessage(messages.requestSubscriptionId), currentContent.requestSubscriptionId),
+          toDataSet(formatMessage(messages.tagGroup), currentContent.tagGroups),
+          toDataSet(formatMessage(messages.tag), currentContent.tags),
+          toDataSet(formatMessage(messages.deliveryUrl), currentContent.deliveryUrl),
+          toDataSet(formatMessage(messages.allowComment), currentContent.allowComment),
+          toDataSet(formatMessage(messages.allowStartWithExtraServer), currentContent.allowStartWithExtraServer),
+          toDataSet(formatMessage(messages.notDisplayTodayRanking), currentContent.notDisplayTodayRanking),
+          toDataSet(formatMessage(messages.allowPrContent), currentContent.allowPrContent),
           toDataSet(formatMessage(commonMessages.createDateTime), currentContent.createAt),
           toDataSet(formatMessage(commonMessages.updateDateTime), currentContent.updateAt)
         ]}

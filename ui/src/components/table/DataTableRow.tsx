@@ -16,6 +16,7 @@ const useStyles = makeStyles({
   title: {
     display: 'flex',
     alignItems: 'center',
+    whiteSpace: 'pre',
     maxWidth: LABEL_WIDTH,
     borderRight: `1px solid ${borderColorLight}`,
     fontSize: 12,
