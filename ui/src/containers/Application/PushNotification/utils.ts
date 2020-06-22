@@ -5,9 +5,14 @@ import {
   isValidLength,
   CHARACTER_LIMIT,
   validDateTime,
-  isGreaterThanNow
+  isGreaterThanNow,
+  isValidDuration
 } from '@src/utils/validation'
-import PushNotification, { PushNotificationKeys } from '@src/models/application/pushNotification'
+import PushNotification, {
+  PushNotificationKeys,
+  SearchParam,
+  SearchKeys
+} from '@src/models/application/pushNotification'
 import commonMessages from '@src/messages'
 import messages from './messages'
 
@@ -30,5 +35,16 @@ export function validateNotification(values: Partial<PushNotification>) {
       validDateTime,
       isGreaterThanNow
     )(values[PushNotificationKeys.DeliveryDateTime])
+  }
+}
+
+export function searchParamsValidator({
+  [SearchKeys.DeliveryStartDateTime]: startDate,
+  [SearchKeys.DeliveryEndDateTime]: endDate
+}: Partial<SearchParam>) {
+  return {
+    [SearchKeys.DeliveryStartDateTime]: startDate && validDateTime(startDate),
+    [SearchKeys.DeliveryEndDateTime]:
+      (endDate && validDateTime(endDate)) || (startDate && endDate && isValidDuration(startDate, endDate))
   }
 }

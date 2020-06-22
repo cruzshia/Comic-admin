@@ -6,6 +6,7 @@ import commonMessages from '@src/messages'
 import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
 import { TimeSpanInput } from '@src/components/form'
 import { SearchKeys } from '@src/models/application/pushNotification'
+import { searchParamsValidator } from '../utils'
 import applicationMessages from '../../messages'
 
 interface Props {
@@ -36,5 +37,6 @@ export default function SearchBlock({ onSubmit, formRef }: Props) {
     }),
     [formatMessage]
   )
-  return <SearchFilter onSubmit={onSubmit} formRef={formRef} conditions={conditions} />
+
+  return <SearchFilter onSubmit={onSubmit} formRef={formRef} conditions={conditions} validate={searchParamsValidator} />
 }
