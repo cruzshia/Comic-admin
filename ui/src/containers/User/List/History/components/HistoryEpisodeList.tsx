@@ -8,7 +8,7 @@ import ListTable from '@src/components/table/ListTable'
 import Button from '@src/components/Button/Button'
 import { ReactComponent as DownloadIcon } from '@src/assets/common/download.svg'
 import HistoryEpisode from '@src/models/user/historyEpisode'
-import { useSort, usePaging } from '@src/hooks'
+import { usePaging } from '@src/hooks'
 import { BREADCRUMBS } from '../utils'
 import userMessages from '@src/containers/User/messages'
 import messages from '../messages'
@@ -42,7 +42,6 @@ export default function HistoryEpisodeList({ historyTotal, historyList, onGetHis
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { userId } = useParams()
-  const { sortBy, handleSort } = useSort('createdAt')
   const { pagination, handlePageChange } = usePaging({ total: historyTotal })
 
   useEffect(() => {
@@ -71,21 +70,18 @@ export default function HistoryEpisodeList({ historyTotal, historyList, onGetHis
 
   const theadList = useMemo(
     () => [
-      { id: 'createdAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
+      { id: 'createdAt', label: formatMessage(commonMessages.createDateTime) },
       { id: 'contents', label: formatMessage(commonMessages.contents) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
       { id: 'coinChangeTotal', label: formatMessage(messages.coinChangeTotal) },
-      { id: 'coinChangeDetail', label: formatMessage(messages.coinChangeDetail) }
+      {
+        id: 'coinChangeDetail',
+        label: formatMessage(messages.coinChangeDetail),
+        formatter: (data: string) => <Box whiteSpace='pre-wrap'>{data}</Box>
+      }
     ],
-    [formatMessage, handleSort]
+    [formatMessage]
   )
-
-  const dataList = historyList
-    .map(({ coinChangeDetail, ...data }) => ({
-      ...data,
-      coinChangeDetail: <Box whiteSpace='pre-wrap'>{coinChangeDetail}</Box>
-    }))
-    .sort((a: any, b: any) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier)
 
   return (
     <>
@@ -93,12 +89,10 @@ export default function HistoryEpisodeList({ historyTotal, historyList, onGetHis
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
-        dataList={dataList}
+        dataList={historyList}
         buttonList={buttonList}
         pagination={pagination}
         onPageChange={handlePageChange}
-        sortBy={sortBy.key}
-        sortOrder={sortBy.order}
         onRowClick={useCallback(
           (id: string) =>
             history.push(routePath.user.historyEpisodeDetail.replace(':id', id).replace(':userId', userId!)),
