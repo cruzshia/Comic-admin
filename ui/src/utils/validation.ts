@@ -8,6 +8,7 @@ export const CHARACTER_LIMIT = 255
 export const TEXT_LIMIT = 4000
 export const DESCRIPTION_LIMIT = 1000
 export const URL_LIMIT = 1000
+export const INPUT_REQUIRED = '項目が入力されていません'
 export const INVALID_FORMAT = '形式に誤りがあります'
 export const INVALID_DURATION = '期間の指定が正しくありません。'
 export const SHOULD_GREATER_THAN_NOW = 'Time should greater than now'
@@ -15,7 +16,7 @@ export const INVALID_JSON = 'Invalid JSON'
 export const tooLongError = (length: number) => `${length}文字以内で入力してください`
 
 export const required = (value: any) =>
-  typeof value !== 'boolean' && (!value || !/.+/.test(value)) ? '項目が入力されていません' : undefined
+  typeof value !== 'boolean' && (!value || !/.+/.test(value)) ? INPUT_REQUIRED : undefined
 
 export const submitForm = (formRef: React.RefObject<HTMLFormElement>) =>
   formRef.current?.dispatchEvent(new Event('submit', { cancelable: true }))
@@ -30,8 +31,12 @@ export const validKana = (value: string) =>
 
 export const validPositiveInteger = (number: any) => (/^\d+$/i.test(number) ? undefined : INVALID_FORMAT)
 
-export const validDateTime = (dateTime: string) =>
-  /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/i.test(dateTime) ? undefined : INVALID_FORMAT
+export const validDateTime = (dateTime: string) => {
+  if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/i.test(dateTime)) {
+    return undefined
+  }
+  return !dateTime ? INPUT_REQUIRED : INVALID_FORMAT
+}
 
 export const isValidDuration = (start: string, end: string) =>
   new Date(end).getTime() >= new Date(start).getTime() ? undefined : INVALID_DURATION

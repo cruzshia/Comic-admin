@@ -11,7 +11,7 @@ import {
   isValidLength,
   composeValidators,
   CHARACTER_LIMIT,
-  TEXT_LIMIT
+  DESCRIPTION_LIMIT
 } from '@src/utils/validation'
 import { batchConvertDate } from '@src/utils/functions'
 import comicsMessages from '../messages'
@@ -69,7 +69,10 @@ export function validateWork(values: Partial<Work>) {
     [WorkKeys.WorkType]: required(values[WorkKeys.WorkType]),
     [WorkKeys.Title]: composeValidators(required, isValidLength(CHARACTER_LIMIT))(values[WorkKeys.Title]),
     [WorkKeys.TitleKana]: composeValidators(required, isValidLength(CHARACTER_LIMIT))(values[WorkKeys.TitleKana]!),
-    [WorkKeys.Description]: composeValidators(required, isValidLength(TEXT_LIMIT))(values[WorkKeys.Description]!),
+    [WorkKeys.Description]: composeValidators(
+      required,
+      isValidLength(DESCRIPTION_LIMIT)
+    )(values[WorkKeys.Description]!),
     [WorkKeys.AppId]: required(values[WorkKeys.AppId]),
     [WorkKeys.PublishBeginAt]: validDateTime(values[WorkKeys.PublishBeginAt] || ''),
     [WorkKeys.PublishEndAt]: validDateTime(values[WorkKeys.PublishEndAt] || ''),
