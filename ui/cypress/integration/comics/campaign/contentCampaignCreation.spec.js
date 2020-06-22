@@ -62,7 +62,81 @@ context('Content Campaign Creation', () => {
     cy.go('back')
   })
 
-  it('Shows correct content header button', function() {
-    cy.findByTestId(this.testIds.contentHeaderButtons).should('contain', '登録')
+  it('Renders correct creation table', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findByTestId(this.testIds.contentHeaderButtons).should('have.text', '登録')
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .as('dataTable')
+      .first()
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('コンテンツキャンペーン名')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('コンテンツ（ID）')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.search}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('アプリID')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.checkbox}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('優先度')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('コイン価格')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('完読ボーナス')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.exist
+          })
+      })
+
+    cy.get('@dataTable')
+      .eq(1)
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '配信期間')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('配信開始日時')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.timePlaceholder()
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('配信終了日時')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).to.be.timePlaceholder()
+          })
+      })
+
+    cy.get('@dataTable')
+      .eq(2)
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', 'キャンペーン適用時間帯')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('開始時刻')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).be.exist
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('終了時刻')
+            expect($item.find(`${CONTENT_SELECTOR} [data-testid=${this.testIds.inputs.text}]`)).be.exist
+          })
+      })
   })
 })
