@@ -6,6 +6,7 @@ import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import DataTable, { toDataSet } from '@src/components/table/DataTable'
 import ListTable from '@src/components/table/ListTable'
+import { SubscriptionKeys } from '@src/models/comics/subscription'
 import usePaging from '@src/hooks/usePaging'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import commonMessages from '@src/messages'
@@ -16,9 +17,7 @@ import { BREADCRUMBS } from '../utils'
 
 export default function SubscriptionDetail() {
   const { onGetSubscription, onResetSubscription, onGetSubscriptionProductList } = useContext(ActionContext)
-  const { currentSubscription = {}, subscriptionProductList, subscriptionProductTotal } = useContext(
-    SubscriptionContext
-  )
+  const { currentSubscription, subscriptionProductList, subscriptionProductTotal } = useContext(SubscriptionContext)
   const { pagination, handlePageChange } = usePaging({ total: subscriptionProductTotal })
   const { formatMessage } = useIntl()
   const history = useHistory()
@@ -91,13 +90,19 @@ export default function SubscriptionDetail() {
       <DataTable
         title={formatMessage(commonMessages.basicInfo)}
         dataSet={[
-          toDataSet(formatMessage(commonMessages.id), currentSubscription.id),
-          toDataSet(formatMessage(commonMessages.subscriptionName), currentSubscription.name),
-          toDataSet(formatMessage(messages.subscriptionImage), <img src={currentSubscription.image?.url} alt='' />),
-          toDataSet(formatMessage(commonMessages.publicStartTime), currentSubscription.publicStartTime),
-          toDataSet(formatMessage(commonMessages.publicEndTime), currentSubscription.publicEndTime),
-          toDataSet(formatMessage(commonMessages.createDateTime), currentSubscription.createAt),
-          toDataSet(formatMessage(commonMessages.updateDateTime), currentSubscription.updateAt)
+          toDataSet(formatMessage(commonMessages.id), currentSubscription?.[SubscriptionKeys.ID]),
+          toDataSet(formatMessage(commonMessages.subscriptionName), currentSubscription?.[SubscriptionKeys.Name]),
+          toDataSet(
+            formatMessage(messages.subscriptionImage),
+            <img src={currentSubscription?.[SubscriptionKeys.Image]?.url as string} alt='' />
+          ),
+          toDataSet(
+            formatMessage(commonMessages.publicStartTime),
+            currentSubscription?.[SubscriptionKeys.PublishBegin]
+          ),
+          toDataSet(formatMessage(commonMessages.publicEndTime), currentSubscription?.[SubscriptionKeys.PublishEnd]),
+          toDataSet(formatMessage(commonMessages.createDateTime), currentSubscription?.[SubscriptionKeys.InsertedAt]),
+          toDataSet(formatMessage(commonMessages.updateDateTime), currentSubscription?.[SubscriptionKeys.UpdatedAt])
         ]}
         marginBottom
       />

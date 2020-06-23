@@ -7,7 +7,7 @@ import { DropZoneAdapter } from '@src/components/finalForm'
 import { DATE_TIME_PLACEHOLDER } from '@src/common/constants'
 import { validateSubscription } from '../utils'
 import commonMessages from '@src/messages'
-import Subscription from '@src/models/comics/subscription'
+import Subscription, { SubscriptionKeys } from '@src/models/comics/subscription'
 import messages from '../messages'
 
 enum DeviceType {
@@ -37,16 +37,27 @@ export default function SubscriptionForm({ onSubmit, currentSubscription, formRe
               toDataSet(formatMessage(commonMessages.id), currentSubscription ? currentSubscription.id : ''),
               toDataSet(
                 formatMessage(commonMessages.subscriptionName),
-                <Field name='name' component={TextFieldAdapter} />
+                <Field name={SubscriptionKeys.Name} component={TextFieldAdapter} />
               ),
-              toDataSet(formatMessage(messages.subscriptionImage), <Field name='image' component={DropZoneAdapter} />),
+              toDataSet(
+                formatMessage(messages.subscriptionImage),
+                <Field name={SubscriptionKeys.Image} component={DropZoneAdapter} />
+              ),
               toDataSet(
                 formatMessage(commonMessages.publicStartTime),
-                <Field name='publicStartTime' placeholder={DATE_TIME_PLACEHOLDER} component={TextFieldAdapter} />
+                <Field
+                  name={SubscriptionKeys.PublishBegin}
+                  placeholder={DATE_TIME_PLACEHOLDER}
+                  component={TextFieldAdapter}
+                />
               ),
               toDataSet(
                 formatMessage(commonMessages.publicEndTime),
-                <Field name='publicEndTime' placeholder={DATE_TIME_PLACEHOLDER} component={TextFieldAdapter} />
+                <Field
+                  name={SubscriptionKeys.PublishEnd}
+                  placeholder={DATE_TIME_PLACEHOLDER}
+                  component={TextFieldAdapter}
+                />
               )
             ]}
             marginBottom

@@ -1,5 +1,5 @@
 import { routePath } from '@src/common/appConfig'
-import Subscription from '@src/models/comics/subscription'
+import Subscription, { SubscriptionKeys } from '@src/models/comics/subscription'
 import { validDateTime, required } from '@src/utils/validation'
 import messages from './messages'
 import commonMessages from '@src/messages'
@@ -11,8 +11,9 @@ export const BREADCRUMBS = [
 
 export const validateSubscription = (values: Subscription) => {
   return {
-    name: required(values.name),
-    publicStartTime: validDateTime(values.publicStartTime),
-    publicEndTime: validDateTime(values.publicEndTime)
+    [SubscriptionKeys.Name]: required(values[SubscriptionKeys.Name]),
+    [SubscriptionKeys.Image]: required(values[SubscriptionKeys.Image]),
+    [SubscriptionKeys.PublishBegin]: validDateTime(values[SubscriptionKeys.PublishBegin]),
+    [SubscriptionKeys.PublishEnd]: validDateTime(values[SubscriptionKeys.PublishEnd])
   }
 }

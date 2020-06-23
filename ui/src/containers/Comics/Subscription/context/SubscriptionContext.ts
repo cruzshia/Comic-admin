@@ -4,7 +4,7 @@ import Subscription, { SubscriptionProduct } from '@src/models/comics/subscripti
 interface Context {
   subscriptionList: Subscription[]
   subscriptionTotal: number
-  currentSubscription?: any
+  currentSubscription?: Subscription
   subscriptionProductList: SubscriptionProduct[]
   subscriptionProductTotal: number
 }
@@ -12,7 +12,6 @@ interface Context {
 export default createContext<Context>({
   subscriptionList: [],
   subscriptionTotal: 0,
-  currentSubscription: {},
   subscriptionProductList: [],
   subscriptionProductTotal: 0
 })

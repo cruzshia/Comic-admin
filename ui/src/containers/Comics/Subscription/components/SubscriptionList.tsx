@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core'
 import ListTable from '@src/components/table/ListTable'
 import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader/ContentHeader'
+import { SubscriptionKeys } from '@src/models/comics/subscription'
 import { ReactComponent as IconEdit } from '@src/assets/form/button_edit.svg'
 import { usePaging } from '@src/hooks'
 import { routePath } from '@src/common/appConfig'
@@ -39,11 +40,11 @@ export default function SubscriptionList() {
 
   const theadList = useMemo(
     () => [
-      { id: 'createAt', label: formatMessage(commonMessages.createDateTime) },
-      { id: 'id', label: formatMessage(commonMessages.id) },
-      { id: 'name', label: formatMessage(commonMessages.subscriptionName) },
-      { id: 'publicStart', label: formatMessage(commonMessages.publicStartTime) },
-      { id: 'publicEnd', label: formatMessage(commonMessages.publicEndTime) },
+      { id: SubscriptionKeys.InsertedAt, label: formatMessage(commonMessages.createDateTime) },
+      { id: SubscriptionKeys.ID, label: formatMessage(commonMessages.id) },
+      { id: SubscriptionKeys.Name, label: formatMessage(commonMessages.subscriptionName) },
+      { id: SubscriptionKeys.PublishBegin, label: formatMessage(commonMessages.publicStartTime) },
+      { id: SubscriptionKeys.PublishEnd, label: formatMessage(commonMessages.publicEndTime) },
       { id: 'spacer', label: '' }
     ],
     [formatMessage]
