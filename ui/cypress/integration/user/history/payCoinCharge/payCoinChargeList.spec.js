@@ -43,7 +43,7 @@ context('Pay coin charge list', () => {
       })
   })
 
-  it('Renders correct breadcrumbs , pageTitle ', function() {
+  it('Renders correct breadcrumbs , page title ', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
       .should(
         'have.text',
@@ -56,5 +56,26 @@ context('Pay coin charge list', () => {
         expect($links.eq(1)).have.attr('href', `#/user/list/detail/${this.userId}`)
       })
     cy.findAllByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
+  })
+
+  it('Renders correct list table', function() {
+    cy.findByTestId(this.testIds.listTable.id).as('listTable')
+
+    cy.findByTestId(this.testIds.listTable.pageInfo).should('be.exist')
+    cy.findByTestId(this.testIds.pager).should('be.exist')
+
+    cy.get('@listTable')
+      .findByTestId(this.testIds.listTable.tableHead)
+      .children('th')
+      .first()
+      .should('have.text', '作成日時')
+      .next()
+      .should('have.text', '履歴種別')
+      .next()
+      .should('have.text', 'アプリID')
+      .next()
+      .should('have.text', 'コインの増減数')
+      .next()
+      .should('have.text', 'コイン種別毎の増減数')
   })
 })

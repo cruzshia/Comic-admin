@@ -40,13 +40,13 @@ context('Subscription detail', () => {
           .should('match', new RegExp(`user/list/history/${this.userId}/subscription/\\w+`))
           .as('targetRoute')
       })
-  })
-  it('Renders selected style in sidebar', function() {
+
     cy.findAllByTestId(this.testIds.sidebarTab)
       .contains(this.headerTabs.userList.list)
       .parent()
       .should('be.sideTabSelected')
   })
+
   it('Renders correct breadcrumbs , pageTitle ', function() {
     cy.findAllByTestId(this.testIds.breadcrumbs)
       .should(
@@ -61,5 +61,57 @@ context('Subscription detail', () => {
         expect($links.eq(2)).have.attr('href', `#/user/list/history/${this.userId}/subscription`)
       })
     cy.findAllByTestId(this.testIds.contentHeaderTitle).should('contain', pageTitle)
+  })
+
+  it('Renders correct data table', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .as('dataTable')
+      .first()
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('作成日時')
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('ユーザーID')
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('定期購読ID')
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('定期購読名')
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('アプリID')
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('価格')
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('通貨')
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('定期購読開始日時')
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('定期購読更新日時')
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('定期購読有効期限')
+          })
+      })
   })
 })

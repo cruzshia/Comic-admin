@@ -65,7 +65,7 @@ export interface DataSet {
 
 export const toDataSet = (label: string, content?: any, isSubTitle?: boolean) => ({
   label,
-  content: content || '',
+  content: content === undefined ? '' : content,
   isSubTitle
 })
 

@@ -5,7 +5,7 @@ import { makeStyles, Box } from '@material-ui/core'
 import ContentHeader from '@src/components/ContentHeader'
 import { routePath } from '@src/common/appConfig'
 import ListTable from '@src/components/table/ListTable'
-import { useSort, usePaging } from '@src/hooks'
+import { usePaging } from '@src/hooks'
 import HistoryPayCoin from '@src/models/user/historyPayCoin'
 import { BREADCRUMBS } from '../utils'
 import userMessages from '@src/containers/User/messages'
@@ -40,7 +40,6 @@ export default function HistoryPayCoinList({ historyTotal, historyList, onGetHis
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { userId } = useParams()
-  const { sortBy, handleSort } = useSort('createdAt')
   const { pagination, handlePageChange } = usePaging({ total: historyTotal })
 
   useEffect(() => {
@@ -64,21 +63,18 @@ export default function HistoryPayCoinList({ historyTotal, historyList, onGetHis
 
   const theadList = useMemo(
     () => [
-      { id: 'createdAt', label: formatMessage(commonMessages.createDateTime), onSort: handleSort },
+      { id: 'createdAt', label: formatMessage(commonMessages.createDateTime) },
       { id: 'logType', label: formatMessage(messages.logType) },
       { id: 'applicationId', label: formatMessage(commonMessages.appId) },
       { id: 'coinChangeTotal', label: formatMessage(messages.coinChangeTotal) },
-      { id: 'coinChangeDetail', label: formatMessage(messages.coinChangeDetail) }
+      {
+        id: 'coinChangeDetail',
+        label: formatMessage(messages.coinChangeDetail),
+        formatter: (data: string) => <Box whiteSpace='pre-wrap'>{data}</Box>
+      }
     ],
-    [formatMessage, handleSort]
+    [formatMessage]
   )
-
-  const dataList = historyList
-    .map(({ coinChangeDetail, ...data }) => ({
-      ...data,
-      coinChangeDetail: <Box whiteSpace='pre-wrap'>{coinChangeDetail}</Box>
-    }))
-    .sort((a: any, b: any) => (Date.parse(a[sortBy.key]) - Date.parse(b[sortBy.key])) * sortBy.multiplier)
 
   return (
     <>
@@ -86,11 +82,9 @@ export default function HistoryPayCoinList({ historyTotal, historyList, onGetHis
       <ListTable
         tableClass={classes.table}
         theadList={theadList}
-        dataList={dataList}
+        dataList={historyList}
         pagination={pagination}
         onPageChange={handlePageChange}
-        sortBy={sortBy.key}
-        sortOrder={sortBy.order}
         onRowClick={useCallback(
           (id: string) =>
             history.push(routePath.user.historyPayCoinDetail.replace(':id', id).replace(':userId', userId!)),
