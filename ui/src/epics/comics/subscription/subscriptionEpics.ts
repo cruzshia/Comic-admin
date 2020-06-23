@@ -1,5 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
+import { of } from 'rxjs'
 import { map, switchMap, catchError, tap, exhaustMap } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
@@ -10,7 +11,8 @@ import {
   updateSubscriptionSuccessAction
 } from '@src/reducers/comics/subscription/subscriptionAction'
 import * as subscriptionServices from './subscriptionServices'
-import { emptyErrorReturn } from '../../utils'
+import { mockSubscriptionList, mockSubscriptionDetail } from './mockData/mockData'
+import { emptyErrorReturn, toMockData } from '../../utils'
 
 export const getSubscriptionListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -19,9 +21,9 @@ export const getSubscriptionListEpic = (action$: ActionsObservable<AnyAction>) =
       subscriptionServices.getSubscriptionListAjax().pipe(
         map(res => getSubscriptionListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: SubscriptionActionType.GET_LIST_SUCCESS })),
-        catchError(() => {
+        catchError(error => {
           errorSubject.next({ type: SubscriptionActionType.GET_LIST_ERROR })
-          return emptyErrorReturn()
+          return toMockData(error, of(getSubscriptionListSuccessAction(mockSubscriptionList))) || emptyErrorReturn()
         })
       )
     )
@@ -34,9 +36,12 @@ export const getSubscriptionEpic = (action$: ActionsObservable<AnyAction>) =>
       subscriptionServices.getSubscriptionAjax(action.payload).pipe(
         map(res => getSubscriptionSuccessAction(res.response)),
         tap(() => successSubject.next({ type: SubscriptionActionType.GET_SUBSCRIPTION_SUCCESS })),
-        catchError(() => {
+        catchError(error => {
           errorSubject.next({ type: SubscriptionActionType.GET_SUBSCRIPTION_ERROR })
-          return emptyErrorReturn()
+          return (
+            toMockData(error, of(getSubscriptionSuccessAction(mockSubscriptionDetail(action.payload)))) ||
+            emptyErrorReturn()
+          )
         })
       )
     )

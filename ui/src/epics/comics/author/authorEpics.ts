@@ -1,5 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
+import { of } from 'rxjs'
 import { map, switchMap, catchError, tap, exhaustMap } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
@@ -11,7 +12,8 @@ import {
 } from '@src/reducers/comics/author/authorActions'
 import * as authorServices from './authorServices'
 import { toDisplayableDetail } from './transform'
-import { emptyErrorReturn } from '../../utils'
+import { emptyErrorReturn, toMockData } from '../../utils'
+import { mockAuthorList, mockAuthor } from './mockData/mockData'
 
 export const getAuthorListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
@@ -20,9 +22,14 @@ export const getAuthorListEpic = (action$: ActionsObservable<AnyAction>) =>
       authorServices.getAuthorListAjax(action.payload).pipe(
         map(res => getAuthorListSuccessAction(res.response)),
         tap(() => successSubject.next({ type: AuthorActionType.GET_LIST_SUCCESS })),
-        catchError(() => {
+        catchError(error => {
           errorSubject.next({ type: AuthorActionType.GET_LIST_ERROR })
-          return emptyErrorReturn()
+          return (
+            toMockData(
+              error,
+              of(getAuthorListSuccessAction({ authors: mockAuthorList, total_count: mockAuthorList.length }))
+            ) || emptyErrorReturn()
+          )
         })
       )
     )
@@ -35,9 +42,12 @@ export const getAuthorEpic = (action$: ActionsObservable<AnyAction>) =>
       authorServices.getAuthorAjax(action.payload).pipe(
         map(res => getAuthorSuccessAction(toDisplayableDetail(res.response))),
         tap(() => successSubject.next({ type: AuthorActionType.GET_AUTHOR_SUCCESS })),
-        catchError(() => {
+        catchError(error => {
           errorSubject.next({ type: AuthorActionType.GET_AUTHOR_ERROR })
-          return emptyErrorReturn()
+          return (
+            toMockData(error, of(getAuthorSuccessAction(toDisplayableDetail(mockAuthor(action.payload))))) ||
+            emptyErrorReturn()
+          )
         })
       )
     )

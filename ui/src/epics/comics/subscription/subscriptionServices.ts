@@ -1,27 +1,14 @@
 import { from, Observable } from 'rxjs'
 import authAjax from '@src/utils/ajaxUtil'
 import Subscription from '@src/models/comics/subscription'
-import { mockSubscriptionList, mockSubscriptionDetail } from './mockData/mockData'
+import { Response } from '../../utils'
+import { mockSubscriptionDetail } from './mockData/mockData'
 
-export const getSubscriptionListAjax = (): Observable<{ status: number; response: Subscription[] }> => {
-  authAjax.get('/subscription/list')
-  return from([
-    {
-      status: 200,
-      response: mockSubscriptionList
-    }
-  ])
-}
+const API_PATH = '/v1/subscriptions'
+export const getSubscriptionListAjax = (): Response<Subscription[]> => authAjax.get(API_PATH)
 
-export const getSubscriptionAjax = (subscriptionId: string): Observable<{ status: number; response: Subscription }> => {
+export const getSubscriptionAjax = (subscriptionId: string): Response<Subscription> =>
   authAjax.get('/subscription/' + subscriptionId)
-  return from([
-    {
-      status: 200,
-      response: mockSubscriptionDetail(subscriptionId)
-    }
-  ])
-}
 
 export const createSubscriptionAjax = (
   subscription: Subscription

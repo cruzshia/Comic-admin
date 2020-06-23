@@ -3,28 +3,16 @@ import authAjax from '@src/utils/ajaxUtil'
 import AuthorDetail, { AuthorKey, ListParam, ListResponse } from '@src/models/comics/author'
 import { objToQueryStr } from '@src/utils/functions'
 import { Response } from '../../utils'
-import { mockAuthorList, mockAuthor } from './mockData/mockData'
+import { mockAuthor } from './mockData/mockData'
 
 const AUTHOR_API_PATH = '/v1/authors'
 
 export const getAuthorListAjax = (param?: ListParam): Response<ListResponse> => {
-  authAjax.get(AUTHOR_API_PATH + (param ? '?' + objToQueryStr(param) : ''))
-  return from([
-    {
-      status: 200,
-      response: { authors: mockAuthorList, total_count: mockAuthorList.length }
-    }
-  ])
+  return authAjax.get(AUTHOR_API_PATH + (param ? '?' + objToQueryStr(param) : ''))
 }
 
 export const getAuthorAjax = (authorId: string): Response<AuthorDetail> => {
-  authAjax.get(AUTHOR_API_PATH + `/${authorId}`)
-  return from([
-    {
-      status: 200,
-      response: mockAuthor(authorId)
-    }
-  ])
+  return authAjax.get(AUTHOR_API_PATH + `/${authorId}`)
 }
 
 export const createAuthorAjax = (author: Partial<AuthorDetail>): Response<AuthorDetail> => {
