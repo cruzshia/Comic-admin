@@ -1,5 +1,5 @@
 import { defineMessages } from 'react-intl'
-import { EventType } from '@src/models/application/coinDeliveryEvent'
+import { EventType, CoinEventRewardType, CoinEventRewardRestriction } from '@src/models/application/coinDeliveryEvent'
 
 const PREFIX = 'application.coin_delivery_event.'
 export default defineMessages({
@@ -86,5 +86,21 @@ export default defineMessages({
   [EventType.Daily]: {
     id: PREFIX + 'daily',
     defaultMessage: 'Daily'
+  },
+  [CoinEventRewardType.BonusCoin]: {
+    id: PREFIX + 'reward_bonus_coin',
+    defaultMessage: 'Bonus Coin'
+  },
+  [CoinEventRewardType.PayGiftCoin]: {
+    id: PREFIX + 'reward_pay_gift_coin',
+    defaultMessage: 'Pay Gift Coin'
+  },
+  [CoinEventRewardRestriction.NoneRestriction]: {
+    id: PREFIX + 'reward_none_restriction',
+    defaultMessage: 'None Restriction'
+  },
+  [CoinEventRewardRestriction.OneTime]: {
+    id: PREFIX + 'reward_one_time',
+    defaultMessage: 'One Time'
   }
 })

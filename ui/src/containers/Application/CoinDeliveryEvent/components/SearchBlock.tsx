@@ -5,8 +5,9 @@ import SearchFilter from '@src/components/SearchFilter'
 import commonMessages from '@src/messages'
 import { SelectAdapter, TextInputAdapter } from '@src/components/finalForm'
 import TimeSpanInput from '@src/components/form/TimeSpanInput'
-import { CoinDeliveryEventKeys, EventType } from '@src/models/application/coinDeliveryEvent'
+import { CoinEventKeys, EventType } from '@src/models/application/coinDeliveryEvent'
 import messages from '../messages'
+import { searchParamsValidator } from '../utils'
 
 interface Props {
   onSubmit: (data: object) => void
@@ -20,16 +21,11 @@ export default function SearchBlock({ onSubmit }: Props) {
       left: [
         {
           label: formatMessage(messages.eventName),
-          input: <Field name={CoinDeliveryEventKeys.Name} component={TextInputAdapter} />
+          input: <Field name={CoinEventKeys.Name} component={TextInputAdapter} />
         },
         {
           label: formatMessage(commonMessages.publicStartTime),
-          input: (
-            <TimeSpanInput
-              nameStart={CoinDeliveryEventKeys.PublishBeginAtFrom}
-              nameEnd={CoinDeliveryEventKeys.PublishBeginAtTo}
-            />
-          )
+          input: <TimeSpanInput nameStart={CoinEventKeys.PublishBeginAtFrom} nameEnd={CoinEventKeys.PublishBeginAtTo} />
         }
       ],
       right: [
@@ -37,7 +33,7 @@ export default function SearchBlock({ onSubmit }: Props) {
           label: formatMessage(messages.eventType),
           input: (
             <Field
-              name={CoinDeliveryEventKeys.EventType}
+              name={CoinEventKeys.EventType}
               component={SelectAdapter}
               options={Object.values(EventType).map(type => ({
                 label: formatMessage(messages[type]),
@@ -51,5 +47,5 @@ export default function SearchBlock({ onSubmit }: Props) {
     }),
     [formatMessage]
   )
-  return <SearchFilter onSubmit={onSubmit} conditions={conditions} />
+  return <SearchFilter onSubmit={onSubmit} validate={searchParamsValidator} conditions={conditions} />
 }

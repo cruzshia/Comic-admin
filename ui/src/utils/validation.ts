@@ -29,7 +29,13 @@ export const checkError = (meta: FieldMetaState<any>) => {
 export const validKana = (value: string) =>
   /^([\u30a0-\u30ff\uff66-\uff9f\u3000\s])$/u.test(value) ? undefined : INVALID_FORMAT
 
+export const validNumberAndCharacter = (value: any) => (/^[a-zA-Z0-9 ]+$/i.test(value) ? undefined : INVALID_FORMAT)
+
+// validNaturalNumber is valid for non-negative integers , 0 and positive integers.
 export const validNaturalNumber = (number: any) => (/^\d+$/i.test(number) ? undefined : INVALID_FORMAT)
+
+// validPositiveInteger is valid for positive integers.
+export const validPositiveInteger = (number: any) => (/^\+?[1-9][0-9]*$/i.test(number) ? undefined : INVALID_FORMAT)
 
 export const validDateTime = (dateTime: string) => {
   if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/i.test(dateTime)) {

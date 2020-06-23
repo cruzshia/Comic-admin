@@ -1,9 +1,9 @@
 import { createContext } from 'react'
-import { CoinDeliveryEvent } from '@src/models/application/coinDeliveryEvent'
+import { CoinDeliveryEvent, CoinEventDetail } from '@src/models/application/coinDeliveryEvent'
 
 interface CoinDeliveryEventContext {
   eventList: any[]
-  currentEvent?: any
+  currentEvent?: CoinEventDetail
   eventTotal: number
 }
 

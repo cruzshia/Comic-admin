@@ -5,7 +5,7 @@ import Button, { Theme } from '@src/components/Button/Button'
 import ContentHeader from '@src/components/ContentHeader'
 import { submitForm } from '@src/utils/validation'
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import CoinDeliveryEventForm from './CoinDeliveryEventForm'
 import CoinEventContext, { ActionContext } from '../context/CoinDeliveryEventContext'
 import commonMessages from '@src/messages'
@@ -14,7 +14,7 @@ import messages from '../messages'
 export default function CoinDeliveryEventEdit() {
   const { formatMessage } = useIntl()
   const { id } = useParams()
-  const { currentEvent = {} } = useContext(CoinEventContext)
+  const { currentEvent } = useContext(CoinEventContext)
   const { onUpdateCoinDeliveryEvent, onGetCoinDeliveryEvent, onResetCoinDeliveryEvent } = useContext(ActionContext)
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -46,9 +46,7 @@ export default function CoinDeliveryEventEdit() {
     [formatMessage, formRef]
   )
 
-  if (!currentEvent.id) return null
-
-  return (
+  return !currentEvent ? null : (
     <>
       <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />

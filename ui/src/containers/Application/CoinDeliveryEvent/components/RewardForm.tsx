@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { useIntl } from 'react-intl'
 import { Mutators } from 'final-form-arrays'
 import { Field, useField } from 'react-final-form'
@@ -7,8 +7,13 @@ import { makeStyles } from '@material-ui/core'
 import Button, { Theme } from '@src/components/Button/Button'
 import { ReactComponent as IconAdd } from '@src/assets/form/add_circle.svg'
 import { TextInputAdapter, SelectAdapter } from '@src/components/finalForm'
+import {
+  CoinEventRewardKeys,
+  CoinEventRewardType,
+  CoinEventRewardRestriction
+} from '@src/models/application/coinDeliveryEvent'
 import { backgroundColorLightGray } from '@src/common/styles'
-import { REWARD_NUM } from '../constants'
+import { REWARD_NUM } from '../utils'
 import applicationMessages from '../../messages'
 import messages from '../messages'
 
@@ -30,6 +35,7 @@ const useStyle = makeStyles({
   tbody: {
     '& td': {
       width: '25%',
+      verticalAlign: 'top',
       padding: `${PADDING} 12px ${PADDING} 5px`,
       backgroundColor: backgroundColorLightGray,
       '&:first-child': {
@@ -54,6 +60,22 @@ export default function RewardForm({ mutators, name }: { mutators: Mutators; nam
   const fieldName = name || REWARD_FIELD
   const handleAdd = useCallback(() => mutators.push(fieldName, {}), [mutators, fieldName])
   const value = useField(fieldName).input.value
+  const typeOptions = useMemo(
+    () =>
+      Object.values(CoinEventRewardType).map(type => ({
+        label: formatMessage(messages[type]),
+        value: type
+      })),
+    [formatMessage]
+  )
+  const restrictionOptions = useMemo(
+    () =>
+      Object.values(CoinEventRewardRestriction).map(option => ({
+        label: formatMessage(messages[option]),
+        value: option
+      })),
+    [formatMessage]
+  )
 
   useEffect(() => {
     const addNum = Array.isArray(value) ? REWARD_NUM - value.length : REWARD_NUM
@@ -80,25 +102,35 @@ export default function RewardForm({ mutators, name }: { mutators: Mutators; nam
                 <tr key={name} data-testid='reward-content-row'>
                   <td data-testid='reward-content-cell'>
                     <Field
-                      name={`${name}.resultCode`}
+                      name={`${name}.${CoinEventRewardKeys.ResultCode}`}
                       component={TextInputAdapter}
                       placeholder={formatMessage(applicationMessages.inputCode)}
                       short
                     />
                   </td>
                   <td data-testid='reward-content-cell'>
-                    <Field name={`${name}.coinReward`} component={SelectAdapter} options={[]} isShort />
+                    <Field
+                      name={`${name}.${CoinEventRewardKeys.Type}`}
+                      component={SelectAdapter}
+                      options={typeOptions}
+                      isShort
+                    />
                   </td>
                   <td data-testid='reward-content-cell'>
                     <Field
-                      name={`${name}.coinRewardNum`}
+                      name={`${name}.${CoinEventRewardKeys.Amount}`}
                       component={TextInputAdapter}
                       placeholder={formatMessage(applicationMessages.inputCoinNum)}
                       short
                     />
                   </td>
                   <td data-testid='reward-content-cell'>
-                    <Field name={`${name}.rewardLimitation`} component={SelectAdapter} options={[]} isShort />
+                    <Field
+                      name={`${name}.${CoinEventRewardKeys.Restriction}`}
+                      component={SelectAdapter}
+                      options={restrictionOptions}
+                      isShort
+                    />
                   </td>
                 </tr>
               ))

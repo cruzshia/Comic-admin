@@ -9,10 +9,10 @@ import ListTable from '@src/components/table/ListTable'
 import { ReactComponent as EditIcon } from '@src/assets/common/pen.svg'
 import useSort from '@src/hooks/useSort'
 import usePaging from '@src/hooks/usePaging'
-import { CoinDeliveryEventKeys, EventType } from '@src/models/application/coinDeliveryEvent'
+import { CoinEventKeys, EventType } from '@src/models/application/coinDeliveryEvent'
 import { toDateTime } from '@src/utils/functions'
 import CoinEventContext, { ActionContext } from '../context/CoinDeliveryEventContext'
-import { BREADCRUMBS } from '../constants'
+import { BREADCRUMBS } from '../utils'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import SearchBlock from './SearchBlock'
@@ -38,7 +38,7 @@ export default function CoinDeliveryEventList() {
   const history = useHistory()
   const { formatMessage } = useIntl()
   const [searchParams, setSearchParams] = useState<object>({})
-  const { sortBy, handleSort } = useSort(CoinDeliveryEventKeys.PublishBeginAt)
+  const { sortBy, handleSort } = useSort(CoinEventKeys.PublishBeginAt)
   const { pagination, handlePageChange, query } = usePaging({ total: eventTotal })
 
   useEffect(() => {
@@ -61,21 +61,21 @@ export default function CoinDeliveryEventList() {
   )
   const theadList = useMemo(
     () => [
-      { id: CoinDeliveryEventKeys.ID, label: formatMessage(messages.eventId) },
-      { id: CoinDeliveryEventKeys.Name, label: formatMessage(messages.eventName) },
+      { id: CoinEventKeys.ID, label: formatMessage(messages.eventId) },
+      { id: CoinEventKeys.Name, label: formatMessage(messages.eventName) },
       {
-        id: CoinDeliveryEventKeys.EventType,
+        id: CoinEventKeys.EventType,
         label: formatMessage(messages.eventType),
         formatter: (value: EventType) => formatMessage(messages[value])
       },
       {
-        id: CoinDeliveryEventKeys.PublishBeginAt,
+        id: CoinEventKeys.PublishBeginAt,
         label: formatMessage(commonMessages.publicStartTime),
         onSort: handleSort,
         formatter: toDateTime
       },
       {
-        id: CoinDeliveryEventKeys.PublishEndAt,
+        id: CoinEventKeys.PublishEndAt,
         label: formatMessage(commonMessages.publicEndTime),
         onSort: handleSort,
         formatter: toDateTime
