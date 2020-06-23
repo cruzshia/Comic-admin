@@ -11,7 +11,7 @@ export const mockCampaign: WorksCampaign = {
   [WorksCampaignKeys.Name]: 'GW作品キャンペーン',
   [WorksCampaignKeys.ID]: 123,
   [WorksCampaignKeys.WorkName]: 'GW作品キャンペーン',
-  [WorksCampaignKeys.WorkId]: 'WORK_SHUNKAN10000006',
+  [WorksCampaignKeys.WorkId]: 'ew1',
   [WorksCampaignKeys.Apps]: [
     {
       id: 123,

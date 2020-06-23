@@ -136,7 +136,7 @@ export default function SearchFilter({
       <Form
         onSubmit={onSubmit}
         validate={formValidation}
-        render={({ handleSubmit, form: { reset }, error }) => (
+        render={({ handleSubmit, form: { reset }, error, valid }) => (
           <form onSubmit={handleSubmit} ref={formRef}>
             <Grid container direction='column' className={classes.root}>
               <Paper variant='outlined'>
@@ -173,7 +173,7 @@ export default function SearchFilter({
                 theme={ButtonTheme.DARK}
                 buttonText={formatMessage(messages.search)}
                 type='submit'
-                disabled={!!error}
+                disabled={!!error || !valid}
               />
               {!disableReset && (
                 <Button

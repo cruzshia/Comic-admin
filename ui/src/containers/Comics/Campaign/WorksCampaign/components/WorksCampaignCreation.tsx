@@ -5,17 +5,19 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import { submitForm } from '@src/utils/validation'
+import { WorkKeys } from '@src/models/comics/work'
 import { WorkCampaignCreate } from '@src/models/comics/worksCampaign'
 import commonMessages from '@src/messages'
 import messages from '../messages'
-import { ActionContext } from '../context/worksCampaignContext'
+import WorksCampaignContext, { ActionContext } from '../context/worksCampaignContext'
 import { BREADCRUMBS } from '../utils'
 import WorksCampaignForm from './WorksCampaignForm'
 
 export default function WorksCampaignCreation() {
   const { formatMessage } = useIntl()
   const formRef = useRef<HTMLFormElement>(null)
-  const { onCreateWorksCampaign } = useContext(ActionContext)
+  const { currentWork } = useContext(WorksCampaignContext)
+  const { onCreateWorksCampaign, onGetWork } = useContext(ActionContext)
   const { campaignId } = useParams()
   const titleText = formatMessage(messages.creation)
   const breadcrumbList: Breadcrumb[] = useMemo(
@@ -38,6 +40,13 @@ export default function WorksCampaignCreation() {
     [formatMessage]
   )
 
+  const handleWorkBlur = useCallback(
+    (e: React.MouseEvent<HTMLInputElement>) => {
+      onGetWork(e.currentTarget.value)
+    },
+    [onGetWork]
+  )
+
   const handleSubmit = useCallback(
     (data: Partial<WorkCampaignCreate>) => {
       onCreateWorksCampaign(data as WorkCampaignCreate)
@@ -49,7 +58,13 @@ export default function WorksCampaignCreation() {
     <>
       <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
-      <WorksCampaignForm formRef={formRef} campaignId={campaignId!} onSubmit={handleSubmit} />
+      <WorksCampaignForm
+        formRef={formRef}
+        campaignId={campaignId!}
+        workType={currentWork?.[WorkKeys.WorkType]}
+        onWorkBlur={handleWorkBlur}
+        onSubmit={handleSubmit}
+      />
     </>
   )
 }

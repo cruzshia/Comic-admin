@@ -5,7 +5,8 @@ import ContentHeader, { Breadcrumb } from '@src/components/ContentHeader/Content
 import StickyHeader from '@src/components/StickyBar/StickyHeader'
 import Button, { Theme } from '@src/components/Button/Button'
 import { submitForm } from '@src/utils/validation'
-import { WorkCampaignCreate } from '@src/models/comics/worksCampaign'
+import { WorksCampaignKeys, WorkCampaignCreate } from '@src/models/comics/worksCampaign'
+import { WorkKeys } from '@src/models/comics/work'
 import commonMessages from '@src/messages'
 import messages from '../messages'
 import WorksCampaignContext, { ActionContext } from '../context/worksCampaignContext'
@@ -16,13 +17,27 @@ export default function WorksCampaignEdit() {
   const { formatMessage } = useIntl()
   const { id, campaignId } = useParams()
   const formRef = useRef<HTMLFormElement>(null)
-  const { currentCampaign } = useContext(WorksCampaignContext)
-  const { onGetWorksCampaign, onUpdateWorksCampaign, onResetWorksCampaign } = useContext(ActionContext)
+  const { currentCampaign, currentWork } = useContext(WorksCampaignContext)
+  const { onGetWorksCampaign, onUpdateWorksCampaign, onResetWorksCampaign, onGetWork, onRestWork } = useContext(
+    ActionContext
+  )
+  const workId = currentCampaign?.[WorksCampaignKeys.WorkId]
+  const handleWorkBlur = useCallback(
+    (e: React.MouseEvent<HTMLInputElement>) => {
+      onGetWork(e.currentTarget.value)
+    },
+    [onGetWork]
+  )
 
   useEffect(() => {
     onGetWorksCampaign(id!)
     return () => onResetWorksCampaign()
   }, [id, onGetWorksCampaign, onResetWorksCampaign])
+
+  useEffect(() => {
+    workId && onGetWork(workId)
+    return () => onRestWork()
+  }, [onGetWork, onRestWork, workId])
 
   const titleText = formatMessage(messages.edit)
   const breadcrumbList: Breadcrumb[] = useMemo(
@@ -60,7 +75,9 @@ export default function WorksCampaignEdit() {
         formRef={formRef}
         campaignId={campaignId!}
         onSubmit={handleSubmit}
+        onWorkBlur={handleWorkBlur}
         worksCampaign={currentCampaign}
+        workType={currentWork?.[WorkKeys.WorkType]}
       />
     </>
   )

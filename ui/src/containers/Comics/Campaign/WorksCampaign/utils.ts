@@ -19,7 +19,7 @@ export const BREADCRUMBS = [
   { title: campaignMessages.detail, route: routePath.comics.campaignDetail }
 ]
 
-export function validateWorkCampaign(values: Partial<WorkCampaignCreate>) {
+export function validateWorkCampaign(values: Partial<WorkCampaignCreate> & { isEpisodeWork?: boolean }) {
   const isEdit = !!values.id
 
   return {

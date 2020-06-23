@@ -56,10 +56,11 @@ const useStyle = makeStyles({
 
 interface Props {
   total: number
+  page: number
   onChange: (e: React.ChangeEvent<unknown>, page: number) => void
 }
 
-export default function Pagination({ total, onChange }: Props) {
+export default function Pagination({ total, page, onChange }: Props) {
   const classes = useStyle()
   return (
     <MPagination
@@ -70,6 +71,7 @@ export default function Pagination({ total, onChange }: Props) {
       shape='rounded'
       boundaryCount={3}
       onChange={onChange}
+      page={page}
       renderItem={(item: any) => (
         <PaginationItem
           {...item}

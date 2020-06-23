@@ -11,7 +11,8 @@ import {
   getWorkSuccessAction,
   createWorkSuccessAction,
   updateWorkSuccessAction,
-  getCsvLogListSuccessAction
+  getCsvLogListSuccessAction,
+  resetWorkAction
 } from '@src/reducers/comics/work/workActions'
 import * as workServices from './workServices'
 import { genImageUploadActions } from '../../image/utils'
@@ -42,7 +43,7 @@ export const getWorkEpic = (action$: ActionsObservable<AnyAction>) =>
         tap(() => successSubject.next({ type: WorkActionType.GET_WORK_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: WorkActionType.GET_WORK_ERROR })
-          return emptyErrorReturn()
+          return of(resetWorkAction())
         })
       )
     )

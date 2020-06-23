@@ -45,6 +45,7 @@ export interface Thead {
 interface Pagination {
   total: number
   start: number
+  page: number
   perPage?: number
 }
 
@@ -148,7 +149,7 @@ export default function ListTable({
   tableClass,
   tbodyClass,
   buttonList,
-  pagination: { start, total, perPage },
+  pagination: { start, total, perPage, page },
   onPageChange,
   onRowClick,
   sortOrder = SortOrder.Desc,
@@ -235,7 +236,7 @@ export default function ListTable({
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination total={Math.ceil(total / pageItemNum)} onChange={onPageChange} />
+      <Pagination total={Math.ceil(total / pageItemNum)} page={page} onChange={onPageChange} />
     </div>
   )
 }

@@ -8,6 +8,7 @@ import {
   updateWorksCampaignAction,
   resetWorksCampaignAction
 } from '@src/reducers/comics/campaign/worksCampaignActions'
+import { getWorkAction, resetWorkAction } from '@src/reducers/comics/work/workActions'
 import { routePath } from '@src/common/appConfig'
 import { WorkCampaignCreate } from '@src/models/comics/worksCampaign'
 import WorksCampaignEdit from './components/WorksCampaignEdit'
@@ -18,6 +19,7 @@ import WorksCampaignContext, { ActionContext } from './context/worksCampaignCont
 export default function WorksCampaign() {
   const dispatch = useDispatch()
   const { currentCampaign } = useSelector((state: StoreState) => state.worksCampaign)
+  const { currentWork } = useSelector((state: StoreState) => state.work)
   const handleGetWorksCampaign = useCallback((campaignId: string) => dispatch(getWorksCampaignAction(campaignId)), [
     dispatch
   ])
@@ -30,6 +32,8 @@ export default function WorksCampaign() {
     [dispatch]
   )
   const handleResetWorksCampaign = useCallback(() => dispatch(resetWorksCampaignAction()), [dispatch])
+  const handleGetWork = useCallback((workId: string) => dispatch(getWorkAction(workId)), [dispatch])
+  const handleResetWork = useCallback(() => dispatch(resetWorkAction()), [dispatch])
 
   return (
     <ActionContext.Provider
@@ -37,10 +41,12 @@ export default function WorksCampaign() {
         onGetWorksCampaign: handleGetWorksCampaign,
         onCreateWorksCampaign: handleCreateWorksCampaign,
         onUpdateWorksCampaign: handleUpdateWorksCampaign,
-        onResetWorksCampaign: handleResetWorksCampaign
+        onResetWorksCampaign: handleResetWorksCampaign,
+        onGetWork: handleGetWork,
+        onRestWork: handleResetWork
       }}
     >
-      <WorksCampaignContext.Provider value={{ currentCampaign }}>
+      <WorksCampaignContext.Provider value={{ currentCampaign, currentWork }}>
         <Switch>
           <Route exact path={routePath.comics.worksCampaignEdit} component={WorksCampaignEdit} />
           <Route exact path={routePath.comics.worksCampaignDetail} component={WorksCampaignDetail} />

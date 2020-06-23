@@ -104,6 +104,7 @@ storiesOf('Table components', module)
         buttonList={[<Button onClick={action('button-click')} buttonText={'CSV登録'} icon={IconSave} />]}
         pagination={{
           total: 1000,
+          page: 1,
           start: 1
         }}
         onPageChange={() => {}}

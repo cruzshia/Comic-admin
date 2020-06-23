@@ -14,6 +14,7 @@ import AdSettingForm from '@src/containers/Comics/components/AdSettingForm'
 import { useComicsRef, IMAGE_NUM, IMAGE_MAX_WIDTH } from '@src/containers/Comics/utils'
 import { emptyWorksCampaign } from '@src/reducers/comics/campaign/worksCampaignReducer'
 import { WorksCampaign, WorkCampaignCreate, WorksCampaignKeys } from '@src/models/comics/worksCampaign'
+import { WorkType } from '@src/models/comics/work'
 import AppCheckboxes from '@src/containers/Comics/components/AppCheckboxes'
 import { validateWorkCampaign } from '../utils'
 import clsx from 'clsx'
@@ -22,9 +23,11 @@ import messages from '../messages'
 
 interface Props {
   onSubmit: (data: Partial<WorkCampaignCreate>) => void
+  onWorkBlur?: (e: React.MouseEvent<HTMLInputElement>) => void
   formRef?: React.RefObject<HTMLFormElement> | null
   worksCampaign?: WorksCampaign
   campaignId: string
+  workType?: WorkType
 }
 
 const useStyle = makeStyles({
@@ -56,17 +59,31 @@ const mockAppList = [
   }
 ]
 
-export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign, campaignId }: Props) {
+export default function WorksCampaignForm({
+  onSubmit,
+  formRef,
+  worksCampaign,
+  campaignId,
+  workType,
+  onWorkBlur
+}: Props) {
   const classes = useStyle()
   const { formatMessage } = useIntl()
   const { allAnchorRefs, deliveryRef, adSettingRef, episodeInfoRef } = useComicsRef()
+  const isEpisodeWork = workType === WorkType.Episode
+
+  const handleValidate = (values: Partial<WorkCampaignCreate>) =>
+    validateWorkCampaign({
+      ...values,
+      isEpisodeWork
+    })
 
   return (
     <>
       <ScrollTo anchorRef={allAnchorRefs} withStickHeader />
       <Form
         onSubmit={onSubmit}
-        validate={validateWorkCampaign}
+        validate={handleValidate}
         mutators={{ ...arrayMutators }}
         subscription={{ pristine: true }}
         initialValues={worksCampaign || emptyWorksCampaign}
@@ -87,6 +104,7 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign, ca
                     name={WorksCampaignKeys.WorkId}
                     component={TextInputAdapter}
                     placeholder={formatMessage(formMessages.search)}
+                    onBlur={onWorkBlur}
                   />
                 ),
                 toDataSet(
@@ -111,23 +129,25 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign, ca
                 )
               ]}
             />
-            <DataTable
-              innerRef={episodeInfoRef}
-              title={formatMessage(comicMessages.episodeInfo)}
-              tableClass={clsx(classes.tableClass, classes.tableMargin)}
-              dataSet={[
-                ..._range(1, IMAGE_NUM + 1).map(num => ({
-                  label: `${formatMessage(comicMessages.episodeImage)}${num + 1}`,
-                  content: (
-                    <Field
-                      name={`${WorksCampaignKeys.Images}[image${num}]`}
-                      className={classes.photo}
-                      component={DropZoneAdapter}
-                    />
-                  )
-                }))
-              ]}
-            />
+            {isEpisodeWork && (
+              <DataTable
+                innerRef={episodeInfoRef}
+                title={formatMessage(comicMessages.episodeInfo)}
+                tableClass={clsx(classes.tableClass, classes.tableMargin)}
+                dataSet={[
+                  ..._range(1, IMAGE_NUM + 1).map(num => ({
+                    label: `${formatMessage(comicMessages.episodeImage)}${num + 1}`,
+                    content: (
+                      <Field
+                        name={`${WorksCampaignKeys.Images}[image${num}]`}
+                        className={classes.photo}
+                        component={DropZoneAdapter}
+                      />
+                    )
+                  }))
+                ]}
+              />
+            )}
             <StartEndForm
               innerRef={deliveryRef}
               classnames={classes.tableMargin}
@@ -137,17 +157,19 @@ export default function WorksCampaignForm({ onSubmit, formRef, worksCampaign, ca
               endLabel={formatMessage(commonMessages.endDateTime)}
               endName={WorksCampaignKeys.EndAt}
             />
-            <Field name={WorksCampaignKeys.AdSetting}>
-              {({ input: { value } }) =>
-                value?.map((_: any, index: number) => (
-                  <AdSettingForm
-                    key={`adSetting-${index}`}
-                    adSettingRef={!index ? adSettingRef : undefined}
-                    adKey={`${WorksCampaignKeys.AdSetting}[${index}]`}
-                  />
-                ))
-              }
-            </Field>
+            {isEpisodeWork && (
+              <Field name={WorksCampaignKeys.AdSetting}>
+                {({ input: { value } }) =>
+                  value?.map((_: any, index: number) => (
+                    <AdSettingForm
+                      key={`adSetting-${index}`}
+                      adSettingRef={!index ? adSettingRef : undefined}
+                      adKey={`${WorksCampaignKeys.AdSetting}[${index}]`}
+                    />
+                  ))
+                }
+              </Field>
+            )}
           </form>
         )}
       />
