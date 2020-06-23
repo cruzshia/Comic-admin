@@ -18,7 +18,7 @@ export const getNotificationAjax = (id: string): Observable<{ status: number; re
   return from([
     {
       status: 200,
-      response: mockNotification
+      response: mockNotification(id)
     }
   ])
 }

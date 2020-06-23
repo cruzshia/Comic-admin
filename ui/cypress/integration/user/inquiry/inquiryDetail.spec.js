@@ -49,4 +49,57 @@ context('Inquiry Detail', () => {
     )
     cy.findByTestId(this.testIds.breadcrumbLink).should('have.attr', 'href', '#/user/inquiry')
   })
+
+  it('Render correct Info', function() {
+    const LABEL_SELECTOR = `[data-testid=${this.testIds.dataTable.label}]`
+    const CONTENT_SELECTOR = `[data-testid=${this.testIds.dataTable.content}]`
+
+    cy.findAllByTestId(this.testIds.dataTable.container)
+      .as('dataTable')
+      .first()
+      .within(function() {
+        cy.findByTestId(this.testIds.dataTable.title).should('have.text', '基本情報')
+        cy.findAllByTestId(this.testIds.dataTable.row)
+          .first()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('ID')
+            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('お問い合わせ種別')
+            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('メッセージ')
+            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('名前')
+            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('ユーザーID')
+            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('アプリID')
+            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('アプリバージョン')
+            expect($item.find(CONTENT_SELECTOR)).to.be.not.empty
+          })
+          .next()
+          .should(function($item) {
+            expect($item.find(LABEL_SELECTOR)).have.text('お問い合わせ日時')
+            expect($item.find(CONTENT_SELECTOR)).have.dateTimeFormat()
+          })
+      })
+  })
 })

@@ -9,8 +9,8 @@ export const mockNotificationList = _range(0, 7).map(idx => ({
   releaseEndDate: '2019/12/25 00:00'
 }))
 
-export const mockNotification = {
-  id: 'WORK_SHUNKAN10000006',
+export const mockNotification = (id = 'WORK_SHUNKAN10000006') => ({
+  id,
   application: '少年ジャンプ+ for iOS',
   createDateTime: '2019-12-25 00:00',
   updateDateTime: '2019-12-25 00:00',
@@ -28,4 +28,4 @@ export const mockNotification = {
 本文
 </body>
 </html>`
-}
+})
