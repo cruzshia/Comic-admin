@@ -70,7 +70,6 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
                   formatMessage(messages.paidCoin),
                   <Field
                     name={CoinProductKeys.PayCoin}
-                    type='number'
                     component={TextInputAdapter}
                     placeholder={formatMessage(applicationMessages.inputCoinNum)}
                     short
@@ -80,7 +79,6 @@ export default function CoinProductForm({ currentProduct, onSubmit, formRef }: P
                   formatMessage(messages.givenCoin),
                   <Field
                     name={CoinProductKeys.PayBonusCoin}
-                    type='number'
                     component={TextInputAdapter}
                     placeholder={formatMessage(applicationMessages.inputCoinNum)}
                     short
