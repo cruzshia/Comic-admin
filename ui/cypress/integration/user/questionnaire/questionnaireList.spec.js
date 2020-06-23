@@ -100,7 +100,7 @@ context('Questionnaire List', () => {
       .next()
       .should('have.text', '回答期間終了日時')
       .next()
-      .should('have.text', '回答後に付与されるコインの枚数')
+      .should('have.text', '回答後付与されるコイン枚数')
 
     cy.get('@listTable')
       .findAllByTestId(this.testIds.listTable.tableRow)
