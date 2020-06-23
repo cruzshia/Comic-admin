@@ -1,5 +1,6 @@
 import { ActionsObservable, ofType } from 'redux-observable'
 import { AnyAction } from 'redux'
+import { of } from 'rxjs'
 import { map, exhaustMap, switchMap, catchError, tap } from 'rxjs/operators'
 import { successSubject, errorSubject } from '@src/utils/responseSubject'
 import {
@@ -7,7 +8,8 @@ import {
   getContentListSuccessAction,
   getContentSuccessAction,
   createContentSuccessAction,
-  updateContentSuccessAction
+  updateContentSuccessAction,
+  resetContentAction
 } from '@src/reducers/comics/content/contentActions'
 import * as contentServices from './contentServices'
 import { emptyErrorReturn } from '../../utils'
@@ -37,7 +39,7 @@ export const getContentEpic = (action$: ActionsObservable<AnyAction>) =>
         tap(() => successSubject.next({ type: ContentActionType.GET_CONTENT_SUCCESS })),
         catchError(() => {
           errorSubject.next({ type: ContentActionType.GET_CONTENT_ERROR })
-          return emptyErrorReturn()
+          return of(resetContentAction())
         })
       )
     )

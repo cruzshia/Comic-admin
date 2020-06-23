@@ -7,6 +7,7 @@ import {
   getContentsCampaignAction,
   resetContentsCampaignAction
 } from '@src/reducers/comics/campaign/contentsCampaignActions'
+import { getContentAction, resetContentAction } from '@src/reducers/comics/content/contentActions'
 import ContentsCampaignCreation from './components/ContentsCampaignCreation'
 import ContentsCampaignDetail from './components/ContentsCampaignDetail'
 import ContentsCampaignEdit from './components/ContentsCampaignEdit'
@@ -15,17 +16,26 @@ import ContentsCampaignContext, { ActionContext } from './context/ContentsCampai
 export default function ContentsCampaign() {
   const dispatch = useDispatch()
   const { currentCampaign } = useSelector((state: StoreState) => state.contentsCampaign)
+  const { currentContent } = useSelector((state: StoreState) => state.content)
 
   const handleGetCampaign = useCallback((id: string) => dispatch(getContentsCampaignAction(id)), [dispatch])
   const handleResetCampaign = useCallback(() => dispatch(resetContentsCampaignAction()), [dispatch])
+  const handleGetContent = useCallback((contentId: string) => dispatch(getContentAction(contentId)), [dispatch])
+  const handleResetContent = useCallback(() => dispatch(resetContentAction()), [dispatch])
 
   return (
     <ActionContext.Provider
-      value={{ onGetContentCampaign: handleGetCampaign, onResetContentCampaign: handleResetCampaign }}
+      value={{
+        onGetContentCampaign: handleGetCampaign,
+        onResetContentCampaign: handleResetCampaign,
+        onGetContent: handleGetContent,
+        onResetContent: handleResetContent
+      }}
     >
       <ContentsCampaignContext.Provider
         value={{
-          currentContentCampaign: currentCampaign
+          currentContentCampaign: currentCampaign,
+          currentContent
         }}
       >
         <Switch>

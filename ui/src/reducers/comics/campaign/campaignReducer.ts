@@ -38,7 +38,7 @@ const handler: Record<string, (state: CampaignState, action: ActionType<any>) =>
   [CampaignActionType.UPDATE_SUCCESS]: updateCurrentCampaignHandler,
   [CampaignActionType.GET_CAMPAIGN_SUCCESS]: updateCurrentCampaignHandler,
   [CampaignActionType.CREATE_SUCCESS]: updateCurrentCampaignHandler,
-  [CampaignActionType.GET_SUB_LIST_SUCCESS]: (
+  [CampaignActionType.GET_ASSOCIATED_LIST_SUCCESS]: (
     state: CampaignState = initState,
     action: ActionType<CampaignSubListParams>
   ): CampaignState => {

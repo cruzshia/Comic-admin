@@ -12,15 +12,28 @@ import messages from '../messages'
 
 export default function ContentsCampaignEdit() {
   const { formatMessage } = useIntl()
-  const { currentContentCampaign = {} } = useContext(ContentsCampaignContext)
-  const { onGetContentCampaign, onResetContentCampaign } = useContext(ActionContext)
+  const { currentContentCampaign = {}, currentContent } = useContext(ContentsCampaignContext)
+  const { onGetContentCampaign, onResetContentCampaign, onGetContent, onResetContent } = useContext(ActionContext)
   const formRef = useRef<HTMLFormElement>(null)
   const { id, campaignId } = useParams()
+  const contentId = currentContentCampaign?.contentId
 
   useEffect(() => {
     onGetContentCampaign(id!)
     return () => onResetContentCampaign()
   }, [onResetContentCampaign, onGetContentCampaign, id])
+
+  useEffect(() => {
+    contentId && onGetContent(contentId)
+    return () => onResetContent()
+  }, [onGetContent, onResetContent, contentId])
+
+  const handleContentBlur = useCallback(
+    (e: React.MouseEvent<HTMLInputElement>) => {
+      onGetContent(e.currentTarget.value)
+    },
+    [onGetContent]
+  )
 
   const titleText = formatMessage(messages.edit)
   const breadcrumbList = useMemo(
@@ -47,7 +60,13 @@ export default function ContentsCampaignEdit() {
     <>
       <StickyHeader title={titleText} button={buttonList} />
       <ContentHeader breadcrumbList={breadcrumbList} titleText={titleText} buttonList={buttonList} />
-      <ContentsCampaignForm onSubmit={handleSubmit} formRef={formRef} contentCampaign={currentContentCampaign} />
+      <ContentsCampaignForm
+        onSubmit={handleSubmit}
+        formRef={formRef}
+        contentCampaign={currentContentCampaign}
+        contentType={currentContent?.category}
+        onContentBlur={handleContentBlur}
+      />
     </>
   )
 }

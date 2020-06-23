@@ -15,16 +15,23 @@ import comicMessages from '@src/containers/Comics/messages'
 import messages from '../messages'
 
 export default function ContentCampaignDetail() {
-  const { currentContentCampaign = {} } = useContext(ContentsCampaignContext)
-  const { onGetContentCampaign, onResetContentCampaign } = useContext(ActionContext)
+  const { currentContentCampaign = {}, currentContent } = useContext(ContentsCampaignContext)
+  const { onGetContentCampaign, onResetContentCampaign, onGetContent, onResetContent } = useContext(ActionContext)
   const { formatMessage } = useIntl()
   const history = useHistory()
   const { id, campaignId } = useParams()
+  const contentId = currentContentCampaign?.contentId
+  const isEpisode = currentContent?.category === 'episode'
 
   useEffect(() => {
     onGetContentCampaign(id!)
     return () => onResetContentCampaign()
   }, [onResetContentCampaign, onGetContentCampaign, id])
+
+  useEffect(() => {
+    contentId && onGetContent(contentId)
+    return () => onResetContent()
+  }, [onGetContent, onResetContent, contentId])
 
   const titleText = formatMessage(messages.detail)
   const breadcrumbList = useMemo(
@@ -72,7 +79,9 @@ export default function ContentCampaignDetail() {
           toDataSet(formatMessage(commonMessages.appId), currentContentCampaign.appId),
           toDataSet(formatMessage(comicMessages.priority), currentContentCampaign.priority),
           toDataSet(formatMessage(comicMessages.contentPrice), currentContentCampaign.contentPrice),
-          toDataSet(formatMessage(messages.completeBonus), currentContentCampaign.completeBonus),
+          ...(isEpisode
+            ? [toDataSet(formatMessage(messages.completeBonus), currentContentCampaign.completeBonus)]
+            : []),
           toDataSet(formatMessage(commonMessages.createDateTime), currentContentCampaign.createAt),
           toDataSet(formatMessage(commonMessages.updateDateTime), currentContentCampaign.updateAt)
         ]}

@@ -14,6 +14,8 @@ import messages from '../messages'
 
 interface Props {
   contentCampaign?: any
+  contentType?: any
+  onContentBlur?: (e: React.MouseEvent<HTMLInputElement>) => void
   onSubmit: (data: {}) => void
   formRef?: React.RefObject<HTMLFormElement> | null
 }
@@ -32,7 +34,7 @@ const mockAppList = [
     name: 'BROWSER_RENSAI'
   }
 ]
-export default function ContentsCampaignForm({ contentCampaign, onSubmit, formRef }: Props) {
+export default function ContentsCampaignForm({ contentCampaign, onSubmit, formRef, onContentBlur }: Props) {
   const { formatMessage } = useIntl()
   const { allAnchorRefs, deliveryRef, campaignTimeRef } = useComicsRef()
 
@@ -51,7 +53,10 @@ export default function ContentsCampaignForm({ contentCampaign, onSubmit, formRe
                   formatMessage(messages.contentCampaignName),
                   <Field name='campaignName' component={TextInputAdapter} />
                 ),
-                toDataSet(formatMessage(messages.contentId), <Field name='contentId' component={SearchInputAdapter} />),
+                toDataSet(
+                  formatMessage(messages.contentId),
+                  <Field name='contentId' component={SearchInputAdapter} onBlur={onContentBlur} />
+                ),
                 toDataSet(formatMessage(commonMessages.appId), <AppCheckboxes name='appIds' options={mockAppList} />),
                 toDataSet(
                   formatMessage(comicMessages.priority),

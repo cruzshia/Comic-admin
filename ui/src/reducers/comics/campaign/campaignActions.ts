@@ -6,9 +6,9 @@ export enum CampaignActionType {
   GET_LIST_SUCCESS = '@ComicsCampaign/GET_LIST_SUCCESS',
   GET_LIST_ERROR = '@ComicsCampaign/GET_LIST_ERROR',
 
-  GET_SUB_LIST = '@ComicsCampaign/GET_SUB_LIST',
-  GET_SUB_LIST_SUCCESS = '@ComicsCampaign/GET_SUB_LIST_SUCCESS',
-  GET_SUB_LIST_ERROR = '@ComicsCampaign/GET_SUB_LIST_ERROR',
+  GET_ASSOCIATED_LIST = '@ComicsCampaign/GET_ASSOCIATED_LIST',
+  GET_ASSOCIATED_LIST_SUCCESS = '@ComicsCampaign/GET_ASSOCIATED_LIST_SUCCESS',
+  GET_ASSOCIATED_LIST_ERROR = '@ComicsCampaign/GET_ASSOCIATED_LIST_ERROR',
 
   GET_CAMPAIGN = '@ComicsCampaign/GET_CAMPAIGN',
   GET_CAMPAIGN_SUCCESS = '@ComicsCampaign/GET_CAMPAIGN_SUCCESS',
@@ -39,7 +39,7 @@ export const getCampaignListSuccessAction = (payload: CampaignListParams) => ({
 })
 
 export const getAssociatedCampaignListAction = (campaignId: number, query: Paging) => ({
-  type: CampaignActionType.GET_SUB_LIST,
+  type: CampaignActionType.GET_ASSOCIATED_LIST,
   payload: { campaignId, query }
 })
 
@@ -48,7 +48,7 @@ export interface CampaignSubListParams {
   associated_campaigns: AssociatedCampaign[]
 }
 export const getAssociatedCampaignListSuccessAction = (payload: CampaignSubListParams) => ({
-  type: CampaignActionType.GET_SUB_LIST_SUCCESS,
+  type: CampaignActionType.GET_ASSOCIATED_LIST_SUCCESS,
   payload
 })
 

@@ -34,11 +34,11 @@ export const getCampaignListEpic = (action$: ActionsObservable<AnyAction>) =>
 
 export const getAssociatedCampaignListEpic = (action$: ActionsObservable<AnyAction>) =>
   action$.pipe(
-    ofType(CampaignActionType.GET_SUB_LIST),
+    ofType(CampaignActionType.GET_ASSOCIATED_LIST),
     switchMap(action =>
       campaignServices.getAssociatedCampaignListAjax(action.payload.campaignId, action.payload.query).pipe(
         map(res => getAssociatedCampaignListSuccessAction(res.response)),
-        tap(() => successSubject.next({ type: CampaignActionType.GET_SUB_LIST_SUCCESS })),
+        tap(() => successSubject.next({ type: CampaignActionType.GET_ASSOCIATED_LIST_SUCCESS })),
         catchError(() => {
           return of(getAssociatedCampaignListSuccessAction(mockSubListResponse))
           // errorSubject.next({ type: CampaignActionType.GET_SUB_LIST_ERROR })
